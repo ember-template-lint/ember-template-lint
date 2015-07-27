@@ -15,6 +15,7 @@ module.exports = {
   _monkeyPatch_EmberDeprecate: function(htmlbarsCompilerPreprocessor) {
     var addonContext = this;
     var originalToTree = htmlbarsCompilerPreprocessor.toTree;
+    var logToNodeConsole = this.project.config(process.env.EMBER_ENV).logTemplateLintToConsole;
 
     htmlbarsCompilerPreprocessor.toTree = function() {
       var htmlbarsCompiler = originalToTree.apply(this, arguments);
@@ -29,7 +30,9 @@ module.exports = {
           });
         }
 
-        return originalDeprecate.apply(this, arguments);
+        if (logToNodeConsole) {
+          return originalDeprecate.apply(this, arguments);
+        }
       };
 
       return htmlbarsCompiler;
