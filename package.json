@@ -1,9 +1,8 @@
 {
   "name": "ember-cli-template-lint",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
-    "doc": "doc",
     "test": "tests"
   },
   "scripts": {
@@ -14,12 +13,12 @@
   "homepage": "https://github.com/rwjblue/ember-cli-template-lint",
   "repository": {
     "type": "git",
-    "url": "git@github.com:rwjblue/ember-cli-template-lint.git"
+    "url": "git+ssh://git@github.com/rwjblue/ember-cli-template-lint.git"
   },
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Robert Jackson <me@rwjblue.com>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
@@ -53,5 +52,9 @@
   "ember-addon": {
     "configPath": "tests/dummy/config",
     "after": "ember-cli-htmlbars"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/rwjblue/ember-cli-template-lint/issues"
+  },
+  "main": "index.js"
 }
