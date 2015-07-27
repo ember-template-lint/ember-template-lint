@@ -1,24 +1,26 @@
-# Ember-cli-template-lint
+# ember-cli-template-lint
 
-This README outlines the details of collaborating on this Ember addon.
+This addon allows you to move template compilation deprecations into browser deprecations. This is useful if you would like to use the `ember-cli-deprecation-workflow` addon or just to throw errors on template compilation deprecations (via `EmberENV.RAISE_ON_DEPRECATE` flag).
 
-## Installation
+## Contributing
+
+### Installation
 
 * `git clone` this repository
 * `npm install`
 * `bower install`
 
-## Running
+### Running
 
 * `ember server`
 * Visit your app at http://localhost:4200.
 
-## Running Tests
+### Running Tests
 
 * `ember test`
 * `ember test --server`
 
-## Building
+### Building
 
 * `ember build`
 
