@@ -22,7 +22,15 @@ module.exports = {
       var originalDeprecate = htmlbarsCompiler.options.templateCompiler._Ember.deprecate;
 
       htmlbarsCompiler.options.templateCompiler._Ember.deprecate = function(message, test, options) {
-        if (!test) {
+        var noDeprecation;
+
+        if (typeof test === "function") {
+          noDeprecation = test();
+        } else {
+          noDeprecation = test;
+        }
+
+        if (!noDeprecation) {
           addonContext._deprecations.push({
             message: JSON.stringify(message),
             test: !!test,
