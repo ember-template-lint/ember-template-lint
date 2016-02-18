@@ -53,6 +53,14 @@ module.exports = {
 
       this._monkeyPatch_EmberDeprecate(htmlbarsCompilerPreprocessor);
     }
+
+    var plugins = require('./ext/plugins');
+    for (var name in plugins) {
+      registry.add('htmlbars-ast-plugin', {
+        name: name,
+        plugin: plugins[name]
+      });
+    }
   },
 
   init: function() {
