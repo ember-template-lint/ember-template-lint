@@ -14,14 +14,14 @@ module.exports = {
 
   _monkeyPatch_EmberDeprecate: function(htmlbarsCompilerPreprocessor) {
     var addonContext = this;
-    var originalToTree = htmlbarsCompilerPreprocessor.toTree;
+    var originalHtmlbarsOptions = htmlbarsCompilerPreprocessor._addon.htmlbarsOptions;
     var logToNodeConsole = this.project.config(process.env.EMBER_ENV).logTemplateLintToConsole;
 
-    htmlbarsCompilerPreprocessor.toTree = function() {
-      var htmlbarsCompiler = originalToTree.apply(this, arguments);
-      var originalDeprecate = htmlbarsCompiler.options.templateCompiler._Ember.deprecate;
+    htmlbarsCompilerPreprocessor._addon.htmlbarsOptions = function() {
+      var options = originalHtmlbarsOptions.apply(this, arguments);
+      var originalDeprecate = options.templateCompiler._Ember.deprecate;
 
-      htmlbarsCompiler.options.templateCompiler._Ember.deprecate = function(message, test, options) {
+      options.templateCompiler._Ember.deprecate = function(message, test, options) {
         var noDeprecation;
 
         if (typeof test === "function") {
@@ -43,7 +43,7 @@ module.exports = {
         }
       };
 
-      return htmlbarsCompiler;
+      return options;
     };
   },
 
