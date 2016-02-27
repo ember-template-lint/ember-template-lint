@@ -32,8 +32,7 @@ module.exports = function(addonContext) {
     if(correctedEndColumn !== startColumn) {
       var location = calculateLocationDisplay(this.options.moduleName, node.loc);
       var warning  = `Incorrect '${node.path.original}' block indention at beginning at ${location}`
-      addonContext.ui.writeWarnLine(warning);
-      throw new Error(warning);
+      addonContext.logLintingError('block-indentation', this.options.moduleName, warning);
     }
   }
 

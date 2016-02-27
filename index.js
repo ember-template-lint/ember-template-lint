@@ -63,6 +63,10 @@ module.exports = {
     }
   },
 
+  logLintingError: function(pluginName, moduleName, message) {
+    this.ui.writeLine(message);
+  },
+
   init: function() {
     this._deprecations = [];
   },

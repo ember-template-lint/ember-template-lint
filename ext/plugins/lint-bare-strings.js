@@ -22,8 +22,7 @@ module.exports = function(addonContext) {
   LogStaticStrings.prototype.processStaticString = function(node) {
     var locationDisplay = calculateLocationDisplay(this.options.moduleName, node.loc);
     var warning = `Non-translated string used ${locationDisplay} \`${node.chars}\``;
-    addonContext.ui.writeWarnLine(warning);
-    throw new Error(warning);
+    addonContext.logLintingError("bare-strings", this.options.moduleName, warning);
   }
 
   LogStaticStrings.prototype.detectStaticString = function(node) {

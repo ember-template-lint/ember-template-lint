@@ -8,10 +8,8 @@ describe('Ember template compiler', function() {
   var messages;
   beforeEach(function() {
     addonContext = {
-      ui: {
-        writeWarnLine: function(message) {
-          messages.push(message)
-        }
+      logLintingError: function(pluginName, moduleName, message) {
+        messages.push(message)
       }
     }
 
@@ -38,23 +36,11 @@ describe('Ember template compiler', function() {
     assert.equal(instanceCount, 1, 'registered plugins are instantiated');
   });
 
-  it('can run a single template + rule', function() {
-    templateCompiler.registerPlugin('ast', plugins['bare-strings'](addonContext));
-    assert.throws(function() {
-      templateCompiler.precompile('\n howdy', {
-        moduleName: 'layout.hbs'
-      });
-    }, /Non-translated string used.*layout\.hbs/m);
-  });
-
   it('prints to the console', function() {
     templateCompiler.registerPlugin('ast', plugins['bare-strings'](addonContext));
-
-    try {
-      templateCompiler.precompile('\n howdy', {
-        moduleName: 'layout.hbs'
-      });
-    } catch(e) {}
+    templateCompiler.precompile('\n howdy', {
+      moduleName: 'layout.hbs'
+    });
     assert.deepEqual(messages, ["Non-translated string used (\'layout.hbs\') `\n howdy`"]);
   });
 });
