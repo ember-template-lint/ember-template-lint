@@ -1,6 +1,8 @@
 /* jshint node: true */
 'use strict';
 
+var chalk = require('chalk');
+
 module.exports = {
   name: 'ember-cli-template-lint',
 
@@ -64,7 +66,7 @@ module.exports = {
   },
 
   logLintingError: function(pluginName, moduleName, message) {
-    this.ui.writeLine(message);
+    this.ui.writeLine(message.yellow);
   },
 
   init: function() {
