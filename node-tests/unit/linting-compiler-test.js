@@ -3,9 +3,20 @@ var buildTemplateCompiler = require('../helpers/template-compiler');
 var plugins = require('../../ext/plugins');
 
 describe('Ember template compiler', function() {
-
+  var addonContext;
   var templateCompiler;
+  var messages;
   beforeEach(function() {
+    addonContext = {
+      ui: {
+        writeWarnLine: function(message) {
+          messages.push(message)
+        }
+      }
+    }
+
+    messages = [];
+
     templateCompiler = buildTemplateCompiler();
   });
 
@@ -28,7 +39,7 @@ describe('Ember template compiler', function() {
   });
 
   it('can run a single template + rule', function() {
-    templateCompiler.registerPlugin('ast', plugins['bare-strings']);
+    templateCompiler.registerPlugin('ast', plugins['bare-strings'](addonContext));
     assert.throws(function() {
       templateCompiler.precompile('\n howdy', {
         moduleName: 'layout.hbs'
@@ -36,4 +47,15 @@ describe('Ember template compiler', function() {
     }, /Non-translated string used.*layout\.hbs/m);
   });
 
+  it('prints to the console', function() {
+    templateCompiler.registerPlugin('ast', plugins['bare-strings'](addonContext));
+
+    try {
+      templateCompiler.precompile('\n howdy', {
+        moduleName: 'layout.hbs'
+      });
+    } catch(e) {}
+    assert.deepEqual(messages, ["Non-translated string used (\'layout.hbs\') `\n howdy`"]);
+  });
 });
+
