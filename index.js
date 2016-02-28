@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var existsSync = require('exists-sync');
 var chalk = require('chalk');
 
 module.exports = {
@@ -69,9 +70,8 @@ module.exports = {
     var defaultConfig  = this.project.root + '/.template-lintrc';
     var overrideConfig = process.env['TEMPLATE_LINTRC'];
     var config = overrideConfig || defaultConfig
-
-    if(existSync(config)) {
-      return require(config)
+    if(existsSync(config)) {
+      return require(config);
     } else {
       return {};
     }
