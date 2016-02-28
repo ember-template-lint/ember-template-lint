@@ -65,6 +65,18 @@ module.exports = {
     }
   },
 
+  loadConfig: function() {
+    var defaultConfig  = this.project.root + '/.template-lintrc';
+    var overrideConfig = process.env['TEMPLATE_LINTRC'];
+    var config = overrideConfig || defaultConfig
+
+    if(existSync(config)) {
+      return require(config)
+    } else {
+      return {};
+    }
+  },
+
   logLintingError: function(pluginName, moduleName, message) {
     this.ui.writeLine(message.yellow);
   },

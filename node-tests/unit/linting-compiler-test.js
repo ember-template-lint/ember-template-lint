@@ -6,14 +6,20 @@ describe('Ember template compiler', function() {
   var addonContext;
   var templateCompiler;
   var messages;
+  var config;
+
   beforeEach(function() {
+    messages = [];
+    config   = {};
+
     addonContext = {
       logLintingError: function(pluginName, moduleName, message) {
         messages.push(message)
+      },
+      loadConfig: function() {
+        return config;
       }
     }
-
-    messages = [];
 
     templateCompiler = buildTemplateCompiler();
   });
@@ -42,6 +48,17 @@ describe('Ember template compiler', function() {
       moduleName: 'layout.hbs'
     });
     assert.deepEqual(messages, ["Non-translated string used (\'layout.hbs\') `\n howdy`"]);
+  });
+
+  it('prints to the console', function() {
+    config['bare-strings'] = false;
+
+    templateCompiler.registerPlugin('ast', plugins['bare-strings'](addonContext));
+    templateCompiler.precompile('\n howdy', {
+      moduleName: 'layout.hbs'
+    });
+
+    assert.deepEqual(messages, []);
   });
 });
 

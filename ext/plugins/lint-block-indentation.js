@@ -1,12 +1,17 @@
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 
 module.exports = function(addonContext) {
+  var config = addonContext.loadConfig()['block-indentation'];
+
   function BlockIndentation(options) {
     this.options = options;
     this.syntax = null; // set by HTMLBars
   }
 
   BlockIndentation.prototype.transform = function(ast) {
+    if (config === false) {
+      return ast;
+    }
     var pluginContext = this;
     var b = this.syntax.builders;
     var walker = new this.syntax.Walker();
@@ -31,7 +36,7 @@ module.exports = function(addonContext) {
     var correctedEndColumn = endColumn - node.path.original.length - 5;
     if(correctedEndColumn !== startColumn) {
       var location = calculateLocationDisplay(this.options.moduleName, node.loc);
-      var warning  = `Incorrect '${node.path.original}' block indention at beginning at ${location}`
+      var warning  = 'Incorrect `' + node.path.original + '` block indention at beginning at ' + location;
       addonContext.logLintingError('block-indentation', this.options.moduleName, warning);
     }
   }

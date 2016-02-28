@@ -6,15 +6,21 @@ describe('Block indentation plugin', function() {
   var addonContext;
   var templateCompiler;
   var messages;
+  var config;
 
   beforeEach(function() {
+    messages = [];
+    config   = {};
+
     addonContext = {
       logLintingError: function(pluginName, moduleName, message) {
         messages.push(message)
+      },
+      loadConfig: function() {
+        return config;
       }
     }
 
-    messages = [];
 
     templateCompiler = buildTemplateCompiler();
   });
@@ -25,7 +31,7 @@ describe('Block indentation plugin', function() {
       moduleName: 'layout.hbs'
     });
 
-    assert.deepEqual(messages, ["Incorrect 'each' block indention at beginning at ('layout.hbs'@ L2:C2)"]);
+    assert.deepEqual(messages, ["Incorrect `each` block indention at beginning at ('layout.hbs'@ L2:C2)"]);
   });
 
   it('passes when given correct indentation', function() {
@@ -33,5 +39,17 @@ describe('Block indentation plugin', function() {
     templateCompiler.precompile('\n  {{#each cats as |dog|}}\n  {{/each}}', {
       moduleName: 'layout.hbs'
     });
+
+    assert.deepEqual(messages, []);
+  });
+
+  it('passes when given correct indentation', function() {
+    config['block-indentation'] = false;
+    templateCompiler.registerPlugin('ast', plugins['block-indentation'](addonContext));
+    templateCompiler.precompile('\n  {{#each cats as |dog|}}\n    {{/each}}', {
+      moduleName: 'layout.hbs'
+    });
+
+    assert.deepEqual(messages, []);
   });
 });
