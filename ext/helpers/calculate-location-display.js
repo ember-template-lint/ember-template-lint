@@ -6,7 +6,7 @@ module.exports = function calculateLocationDisplay(moduleName, _loc) {
   var line = start.line;
   var moduleInfo = '';
   if (moduleName) {
-    moduleInfo +=  "'"+moduleName+"'";
+    moduleInfo +=  "'" + moduleName + "'";
   }
 
   if (line !== undefined && column !== undefined) {
@@ -14,11 +14,11 @@ module.exports = function calculateLocationDisplay(moduleName, _loc) {
       // only prepend @ if the moduleName was present
       moduleInfo += '@ ';
     }
-    moduleInfo += `L${line}:C${column}`;
+    moduleInfo += 'L' + line + ':C' + column;
   }
 
   if (moduleInfo) {
-    moduleInfo = `(${moduleInfo})`;
+    moduleInfo = '(' + moduleInfo + ')';
   }
 
   return moduleInfo;
