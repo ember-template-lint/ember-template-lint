@@ -1,3 +1,13 @@
+// Forces block syntax to have appropriate indentation
+//
+// passes:
+// {{#each foo as |bar|}}
+// {{/each}}
+//
+// breaks:
+// {{#each foo as |bar|}}
+//  {{/each}}
+
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 
 module.exports = function(addonContext) {

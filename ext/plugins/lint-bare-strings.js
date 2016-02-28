@@ -1,3 +1,11 @@
+// Disallows the use of bare strings in a template
+//
+// passes:
+// <div>{{evaluatesToAString}}</div>
+//
+// breaks:
+// <div>A bare string</div>
+
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 
 module.exports = function(addonContext) {
