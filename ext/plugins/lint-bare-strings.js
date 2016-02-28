@@ -2,6 +2,7 @@
 //
 // passes:
 // <div>{{evaluatesToAString}}</div>
+// <div>{{'A string'}}</div>
 //
 // breaks:
 // <div>A bare string</div>
