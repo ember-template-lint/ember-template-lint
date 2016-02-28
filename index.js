@@ -78,7 +78,7 @@ module.exports = {
   },
 
   logLintingError: function(pluginName, moduleName, message) {
-    this.ui.writeLine(message.yellow);
+    this.ui.writeLine(chalk.yellow(message));
   },
 
   init: function() {
