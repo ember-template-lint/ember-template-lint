@@ -9,7 +9,7 @@ ember install ember-cli-template-lint
 ```
 
 Once installed, ember-cli-template-lint will add one test for each template
-in an 
+in an
 application's codebase, and assert that all style rules are fulfilled. For example, given
 the rule `bare-strings` is enabled, this template would be in violation:
 
@@ -42,12 +42,24 @@ module.exports = function(env) {
 }
 ```
 
+Plugins are included by default. You can turn off plugins by toggling them in a
+`.template-lintrc` file at the base of your project:
+
+```javascript
+module.exports = {
+  'bare-strings': false
+}
+```
+
+## Plugins
+Checkout the `ext/plugins/index.js` for a list of all linting plugins.
+
 ## Contributing
 
 A few ideas for where to take this in the future:
 
 * The list of rules should be configurable
-* This addon should use a test printer shared with jshint, eslint and jscs addons 
+* This addon should use a test printer shared with jshint, eslint and jscs addons
 * A command-line version of the linter should be provided so IDEs and editors
   can provide feedback to devs during development
 
