@@ -42,7 +42,7 @@ module.exports = function(env) {
 }
 ```
 
-Plugins are included by default. You can turn off plugins by toggling them in a
+Rules are enabled by default. You can turn off specific rules by toggling them in a
 `.template-lintrc` file at the base of your project:
 
 ```javascript
@@ -51,8 +51,19 @@ module.exports = {
 }
 ```
 
-## Plugins
-Checkout the `ext/plugins/index.js` for a list of all linting plugins.
+It is also possible to disable specific rules (or all rules) in a template itself:
+
+```hbs
+{{! disable all rules for this template }}
+<!-- template-lint disable=true -->
+
+{{! disable specific rules for this template }}
+<!-- template-lint bare-strings=false -->
+```
+
+## Rules
+
+Checkout the `ext/plugins/index.js` for a list of all rules.
 
 ## Contributing
 
