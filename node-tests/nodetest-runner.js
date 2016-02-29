@@ -1,5 +1,7 @@
 'use strict';
 
+/*eslint no-console: 0 */
+
 var glob = require('glob');
 var Mocha = require('mocha');
 var Promise = require('ember-cli/lib/ext/promise');

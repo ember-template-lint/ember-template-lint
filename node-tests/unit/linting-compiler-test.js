@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert');
 var buildTemplateCompiler = require('../helpers/template-compiler');
 var plugins = require('../../ext/plugins');
@@ -38,7 +40,7 @@ describe('Ember template compiler', function() {
       return ast;
     };
     templateCompiler.registerPlugin('ast', NoopPlugin);
-    var template = templateCompiler.precompile('<div></div>');
+    templateCompiler.precompile('<div></div>');
     assert.equal(instanceCount, 1, 'registered plugins are instantiated');
   });
 
@@ -61,4 +63,3 @@ describe('Ember template compiler', function() {
     assert.deepEqual(messages, []);
   });
 });
-

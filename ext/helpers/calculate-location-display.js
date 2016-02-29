@@ -1,3 +1,5 @@
+'use strict';
+
 // copied from emberjs/ember.js packages/ember-template-compiler/lib/system/calculate-location-display.js
 module.exports = function calculateLocationDisplay(moduleName, _loc) {
   var loc = _loc || {};

@@ -1,3 +1,5 @@
+'use strict';
+
 // Disallows the use of bare strings in a template
 //
 // passes:

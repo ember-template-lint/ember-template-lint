@@ -1,3 +1,5 @@
+'use strict';
+
 // Forces block syntax to have appropriate indentation
 //
 // passes:
