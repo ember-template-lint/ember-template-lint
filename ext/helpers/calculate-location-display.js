@@ -24,4 +24,4 @@ module.exports = function calculateLocationDisplay(moduleName, _loc) {
   }
 
   return moduleInfo;
-}
+};

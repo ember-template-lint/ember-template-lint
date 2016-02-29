@@ -3,7 +3,10 @@
 module.exports = {
   root: true,
   extends: 'eslint:recommended',
+
   rules: {
+    semi: [2, 'always'],
+
     'no-unused-expressions': [2, {
       allowShortCircuit: true,
       allowTernary: true
