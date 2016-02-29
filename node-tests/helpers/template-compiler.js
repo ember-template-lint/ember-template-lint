@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var templateCompilerPath = path.join(__dirname, '../../bower_components/ember/ember-template-compiler.js');
 

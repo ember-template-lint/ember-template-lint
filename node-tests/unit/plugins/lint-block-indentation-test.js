@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert');
 var buildTemplateCompiler = require('../../helpers/template-compiler');
 var plugins = require('../../../ext/plugins');

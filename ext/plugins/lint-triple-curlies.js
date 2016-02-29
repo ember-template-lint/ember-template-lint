@@ -1,3 +1,5 @@
+'use strict';
+
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
 

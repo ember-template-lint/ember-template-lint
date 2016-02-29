@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(addonContext, name) {
   function BasePlugin(options) {
     this.options = options;
@@ -15,7 +17,7 @@ module.exports = function(addonContext, name) {
 
     walker.visit(ast, function(node) {
       if (pluginContext.detect(node)) {
-        return pluginContext.process(node);
+        pluginContext.process(node);
       }
     });
 
