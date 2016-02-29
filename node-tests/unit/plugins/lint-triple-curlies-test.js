@@ -5,6 +5,8 @@ var buildTemplateCompiler = require('../../helpers/template-compiler');
 var plugins = require('../../../ext/plugins');
 
 describe('triple curlies', function() {
+  var GOOD = '{{foo}}';
+  var BAD = '\n {{{foo}}}';
   var addonContext;
   var templateCompiler;
   var messages;
@@ -29,7 +31,7 @@ describe('triple curlies', function() {
 
   it('logs a message in the console when given triple curlies', function() {
     templateCompiler.registerPlugin('ast', plugins['triple-curlies'](addonContext));
-    templateCompiler.precompile('\n {{{foo}}}', {
+    templateCompiler.precompile(BAD, {
       moduleName: 'layout.hbs'
     });
 
@@ -38,7 +40,7 @@ describe('triple curlies', function() {
 
   it('passes when given {{foo}}', function() {
     templateCompiler.registerPlugin('ast', plugins['triple-curlies'](addonContext));
-    templateCompiler.precompile('{{foo}}', {
+    templateCompiler.precompile(GOOD, {
       moduleName: 'layout.hbs'
     });
 
@@ -48,7 +50,7 @@ describe('triple curlies', function() {
   it('passes with `{{{foo}}}` when rule is disabled', function() {
     config['triple-curlies'] = false;
     templateCompiler.registerPlugin('ast', plugins['triple-curlies'](addonContext));
-    templateCompiler.precompile('\n {{{foo}}}', {
+    templateCompiler.precompile(BAD, {
       moduleName: 'layout.hbs'
     });
 
