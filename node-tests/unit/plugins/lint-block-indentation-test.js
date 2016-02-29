@@ -16,12 +16,12 @@ describe('Block indentation plugin', function() {
 
     addonContext = {
       logLintingError: function(pluginName, moduleName, message) {
-        messages.push(message)
+        messages.push(message);
       },
       loadConfig: function() {
         return config;
       }
-    }
+    };
 
 
     templateCompiler = buildTemplateCompiler();

@@ -17,4 +17,4 @@ module.exports = function() {
   delete global.EmberENV;
 
   return compiler;
-}
+};
