@@ -5,6 +5,8 @@ var buildTemplateCompiler = require('../../helpers/template-compiler');
 var plugins = require('../../../ext/plugins');
 
 describe('Block indentation plugin', function() {
+  var BAD = '\n  {{#each cats as |dog|}}  {{/each}}';
+  var GOOD = '\n  {{#each cats as |dog|}}\n  {{/each}}';
   var addonContext;
   var templateCompiler;
   var messages;
@@ -29,7 +31,7 @@ describe('Block indentation plugin', function() {
 
   it('logs a message in the console when given incorrect indentation', function() {
     templateCompiler.registerPlugin('ast', plugins['block-indentation'](addonContext));
-    templateCompiler.precompile('\n  {{#each cats as |dog|}}  {{/each}}', {
+    templateCompiler.precompile(BAD, {
       moduleName: 'layout.hbs'
     });
 
@@ -38,17 +40,17 @@ describe('Block indentation plugin', function() {
 
   it('passes when given correct indentation', function() {
     templateCompiler.registerPlugin('ast', plugins['block-indentation'](addonContext));
-    templateCompiler.precompile('\n  {{#each cats as |dog|}}\n  {{/each}}', {
+    templateCompiler.precompile(GOOD, {
       moduleName: 'layout.hbs'
     });
 
     assert.deepEqual(messages, []);
   });
 
-  it('passes when given correct indentation', function() {
+  it('rule can be disabled', function() {
     config['block-indentation'] = false;
     templateCompiler.registerPlugin('ast', plugins['block-indentation'](addonContext));
-    templateCompiler.precompile('\n  {{#each cats as |dog|}}\n    {{/each}}', {
+    templateCompiler.precompile(BAD, {
       moduleName: 'layout.hbs'
     });
 
