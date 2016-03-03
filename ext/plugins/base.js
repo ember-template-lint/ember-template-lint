@@ -8,20 +8,70 @@ module.exports = function(addonContext, name) {
   }
 
   BasePlugin.prototype.transform = function(ast) {
-    if (this.config === false) {
-      return ast;
-    }
-
     var pluginContext = this;
     var walker = new this.syntax.Walker();
 
     walker.visit(ast, function(node) {
-      if (pluginContext.detect(node)) {
+      pluginContext._processConfigStatement(node);
+
+      if (pluginContext.isDisabled()) {
+        // do nothing
+      } else if (pluginContext.detect(node)) {
         pluginContext.process(node);
       }
     });
 
     return ast;
+  };
+
+  BasePlugin.prototype._processConfigStatement = function(node) {
+    var bodyEntry;
+
+    if (node.type === 'Program') {
+      for (var i = 0; i < node.body.length; i++) {
+        bodyEntry = node.body[i];
+
+        // process `<!-- template-lint foo=bar -->` comments
+        if (bodyEntry.type === 'CommentStatement' && bodyEntry.value.indexOf('template-lint') === 1) {
+          this._processConfigNode(bodyEntry);
+          // remove the entry
+          node.body.splice(i, 1);
+        }
+      }
+    }
+  };
+
+  BasePlugin.prototype._processConfigNode = function(node) {
+    var hashParts = node.value
+          .trim()
+          .slice(14)
+          .split(/\s+/);
+
+    var hash = hashParts.reduce(function(memo, part) {
+      var parts = part.split('=');
+
+      memo[parts[0]] = parts[1];
+
+      return memo;
+    }, {});
+
+    for (var key in hash) {
+      var value = hash[key];
+
+      // handle <!-- template-lint disabled=true -->
+      if (key === 'disable' && value === 'true') {
+        this.config = false;
+      }
+
+      // handle <!-- template-lint block-indentation=false -->
+      if (key === name && value === 'false') {
+        this.config = false;
+      }
+    }
+  };
+
+  BasePlugin.prototype.isDisabled = function() {
+    return this.config === false;
   };
 
   BasePlugin.prototype.log = function(message) {

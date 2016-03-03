@@ -5,6 +5,8 @@ var buildTemplateCompiler = require('../../helpers/template-compiler');
 var plugins = require('../../../ext/plugins');
 
 describe('triple curlies', function() {
+  var DISABLE_ALL = '<!-- template-lint disable=true -->';
+  var DISABLE_ONE = '<!-- template-lint triple-curlies=false -->';
   var GOOD = '{{foo}}';
   var BAD = '\n {{{foo}}}';
   var addonContext;
@@ -51,6 +53,24 @@ describe('triple curlies', function() {
     config['triple-curlies'] = false;
     templateCompiler.registerPlugin('ast', plugins['triple-curlies'](addonContext));
     templateCompiler.precompile(BAD, {
+      moduleName: 'layout.hbs'
+    });
+
+    assert.deepEqual(messages, []);
+  });
+
+  it('rule can be disabled via inline comment - single rule', function() {
+    templateCompiler.registerPlugin('ast', plugins['triple-curlies'](addonContext));
+    templateCompiler.precompile(DISABLE_ONE + '\n' + BAD, {
+      moduleName: 'layout.hbs'
+    });
+
+    assert.deepEqual(messages, []);
+  });
+
+  it('rule can be disabled via inline comment - all rules', function() {
+    templateCompiler.registerPlugin('ast', plugins['triple-curlies'](addonContext));
+    templateCompiler.precompile(DISABLE_ALL + '\n' + BAD, {
       moduleName: 'layout.hbs'
     });
 
