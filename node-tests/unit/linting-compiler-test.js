@@ -1,18 +1,26 @@
 'use strict';
 
 var assert = require('assert');
-var buildTemplateCompiler = require('../helpers/template-compiler');
+var _compile = require('htmlbars').compile;
 
 describe('Ember template compiler', function() {
-  var templateCompiler;
+  var astPlugins;
+
+  function compile(template) {
+    return _compile(template, {
+      plugins: {
+        ast: astPlugins
+      }
+    });
+  }
 
   beforeEach(function() {
-    templateCompiler = buildTemplateCompiler();
+    astPlugins = [];
   });
 
   it('sanity: compiles templates', function() {
-    var template = templateCompiler.precompile('<div></div>');
-    assert.ok(template, 'template is created from precompile');
+    var template = compile('<div></div>');
+    assert.ok(template, 'template is created');
   });
 
   it('sanity: loads plugins on the template compiler', function() {
@@ -23,8 +31,9 @@ describe('Ember template compiler', function() {
     NoopPlugin.prototype.transform = function(ast) {
       return ast;
     };
-    templateCompiler.registerPlugin('ast', NoopPlugin);
-    templateCompiler.precompile('<div></div>');
+    astPlugins.push(NoopPlugin);
+    compile('<div></div>');
+
     assert.equal(instanceCount, 1, 'registered plugins are instantiated');
   });
 });

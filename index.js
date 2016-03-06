@@ -1,34 +1,31 @@
 /* jshint node: true */
+/*eslint-env node*/
 'use strict';
 
-var existsSync = require('exists-sync');
-var chalk = require('chalk');
+var TemplateLinter = require('./broccoli-template-linter');
 
 module.exports = {
   name: 'ember-cli-template-lint',
 
-  setupPreprocessorRegistry: function(type, registry) {
-    var plugins = require('./ext/plugins');
-    for (var name in plugins) {
-      registry.add('htmlbars-ast-plugin', {
-        name: name,
-        plugin: plugins[name](this)
+  lintTree: function(type, tree) {
+    if (type === 'templates') {
+      var ui = this.ui;
+      var mockConsole = {
+        log: function(data) {
+          ui.writeLine(data);
+        },
+
+        error: function(data) {
+          ui.writeLine(data, 'ERROR');
+        }
+      };
+
+      return new TemplateLinter(tree, {
+        annotation: 'TemplateLinter',
+        templatercPath: this.project.root + '/.template-lintrc',
+        generateTestFile: this.project.generateTestFile,
+        _console: mockConsole
       });
     }
-  },
-
-  loadConfig: function() {
-    var defaultConfig  = this.project.root + '/.template-lintrc';
-    var overrideConfig = process.env['TEMPLATE_LINTRC'];
-    var config = overrideConfig || defaultConfig;
-    if(existsSync(config)) {
-      return require(config);
-    } else {
-      return {};
-    }
-  },
-
-  logLintingError: function(pluginName, moduleName, message) {
-    this.ui.writeLine(chalk.yellow(message));
   }
 };

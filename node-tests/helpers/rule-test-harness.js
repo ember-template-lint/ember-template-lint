@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var buildTemplateCompiler = require('./template-compiler');
+var _compile = require('htmlbars').compile;
 var plugins = require('../../ext/plugins');
 
 module.exports = function(options) {
@@ -10,7 +10,18 @@ module.exports = function(options) {
     var DISABLE_ALL = '<!-- template-lint disable=true -->';
     var DISABLE_ONE = '<!-- template-lint ' + options.name + '=false -->';
 
-    var addonContext, templateCompiler,  messages, config;
+    var addonContext,  messages, config;
+
+    function compile(template) {
+      _compile(template, {
+        moduleName: 'layout.hbs',
+        plugins: {
+          ast: [
+            plugins[options.name](addonContext)
+          ]
+        }
+      });
+    }
 
     beforeEach(function() {
       messages = [];
@@ -24,45 +35,30 @@ module.exports = function(options) {
           return config;
         }
       };
-
-
-      templateCompiler = buildTemplateCompiler();
     });
 
     options.bad.forEach(function(badItem) {
       it('logs a message in the console when given `' + badItem.template + '`', function() {
-        templateCompiler.registerPlugin('ast', plugins[options.name](addonContext));
-        templateCompiler.precompile(badItem.template, {
-          moduleName: 'layout.hbs'
-        });
+        compile(badItem.template);
 
         assert.deepEqual(messages, [badItem.message]);
       });
 
       it('passes with `' + badItem.template + '` when rule is disabled', function() {
         config[options.name] = false;
-        templateCompiler.registerPlugin('ast', plugins[options.name](addonContext));
-        templateCompiler.precompile(badItem.template, {
-          moduleName: 'layout.hbs'
-        });
+        compile(badItem.template);
 
         assert.deepEqual(messages, []);
       });
 
       it('passes with `' + badItem.template + '` when disabled via inline comment - single rule', function() {
-        templateCompiler.registerPlugin('ast', plugins[options.name](addonContext));
-        templateCompiler.precompile(DISABLE_ONE + '\n' + badItem.template, {
-          moduleName: 'layout.hbs'
-        });
+        compile(DISABLE_ONE + '\n' + badItem.template);
 
         assert.deepEqual(messages, []);
       });
 
       it('passes with `' + badItem.template + '` when disabled via inline comment - all rules', function() {
-        templateCompiler.registerPlugin('ast', plugins[options.name](addonContext));
-        templateCompiler.precompile(DISABLE_ALL + '\n' + badItem.template, {
-          moduleName: 'layout.hbs'
-        });
+        compile(DISABLE_ALL + '\n' + badItem.template);
 
         assert.deepEqual(messages, []);
       });
@@ -70,10 +66,7 @@ module.exports = function(options) {
 
     options.good.forEach(function(goodItem) {
       it('passes when given `' + goodItem + '`', function() {
-        templateCompiler.registerPlugin('ast', plugins[options.name](addonContext));
-        templateCompiler.precompile(goodItem, {
-          moduleName: 'layout.hbs'
-        });
+        compile(goodItem);
 
         assert.deepEqual(messages, []);
       });
