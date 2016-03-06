@@ -1,4 +1,5 @@
 /* jshint node: true */
+/*eslint-env node*/
 'use strict';
 
 var TemplateLinter = require('./broccoli-template-linter');

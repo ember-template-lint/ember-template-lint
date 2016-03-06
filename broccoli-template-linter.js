@@ -1,5 +1,6 @@
 'use strict';
 /* jshint node: true */
+/*eslint-env node*/
 
 var path = require('path');
 var Filter = require('broccoli-persistent-filter');
