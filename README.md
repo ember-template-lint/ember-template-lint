@@ -21,11 +21,6 @@ the rule `bare-strings` is enabled, this template would be in violation:
 Thus a the test `TemplateLint: app/components/my-thing/template.hbs` would
 fail with the assertion "A bare string was found (0:5)".
 
-This addon also allows you to move template compilation deprecations into browser
-deprecations. This is useful if you would like to use the
-`ember-cli-deprecation-workflow` addon or just to throw errors on template
-compilation deprecations (via `EmberENV.RAISE_ON_DEPRECATE` flag).
-
 Rules are enabled by default. You can turn off specific rules by toggling them in a
 `.template-lintrc` file at the base of your project:
 
