@@ -24,6 +24,8 @@ To install ember-cli-template-lint
 ember install ember-cli-template-lint
 ```
 
+__Ember CLI >= 2.4.2 is required for linting templates__
+
 ## Configuration
 
 ### Project Wide
