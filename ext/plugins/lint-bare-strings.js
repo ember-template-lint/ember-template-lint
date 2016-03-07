@@ -16,7 +16,7 @@ module.exports = function(addonContext) {
   var LogStaticStrings = buildPlugin(addonContext, 'bare-strings');
 
   LogStaticStrings.prototype.process = function(node) {
-    var locationDisplay = calculateLocationDisplay(this.options.moduleName, node.loc);
+    var locationDisplay = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
     var warning = 'Non-translated string used ' + locationDisplay + ' `' + node.chars + '`';
 
     this.log(warning);
