@@ -11,7 +11,7 @@ module.exports = function(addonContext) {
   };
 
   LogTripleCurlies.prototype.process = function(node) {
-    var location = calculateLocationDisplay(this.options.moduleName, node.loc);
+    var location = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
 
     this.log('Usage of triple curly brackets is unsafe `{{{' + node.path.original + '}}}` at ' + location);
   };

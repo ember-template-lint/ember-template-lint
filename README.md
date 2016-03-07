@@ -66,12 +66,17 @@ This rule forbids the following:
 
 Good indentation is crucial for long term maintenance of templates. For example, having blocks misaligned is a common cause of logic errors...
 
-This rule forbids the following:
+This rule forbids the following examples:
 
 ``` hbs
   {{#each foo as |bar}}
 
     {{/each}}
+```
+
+``` html
+<div>
+  <p>{{t 'Stuff here!'}}</p></div>
 ```
 
 #### triple-curlies
