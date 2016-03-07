@@ -2,16 +2,11 @@
 
 [![Build Status](https://travis-ci.org/rwjblue/ember-cli-template-lint.svg?branch=master)](https://travis-ci.org/rwjblue/ember-cli-template-lint)
 
-To install ember-cli-template-lint
+ember-cli-template-lint will lint your templates and add a test for each  asserting
+that all style rules have been satisfied.
 
-```
-ember install ember-cli-template-lint
-```
-
-Once installed, ember-cli-template-lint will add one test for each template
-in an
-application's codebase, and assert that all style rules are fulfilled. For example, given
-the rule `bare-strings` is enabled, this template would be in violation:
+For example, given the rule `bare-strings` is enabled, this template would be
+in violation:
 
 ```hbs
 {{! app/components/my-thing/template.hbs }}
@@ -21,14 +16,28 @@ the rule `bare-strings` is enabled, this template would be in violation:
 Thus a the test `TemplateLint: app/components/my-thing/template.hbs` would
 fail with the assertion "A bare string was found (0:5)".
 
+## Install
+
+To install ember-cli-template-lint
+
+```
+ember install ember-cli-template-lint
+```
+
+## Configuration
+
+### Project Wide
+
 Rules are enabled by default. You can turn off specific rules by toggling them in a
-`.template-lintrc` file at the base of your project:
+`.template-lintrc.js` file at the base of your project:
 
 ```javascript
 module.exports = {
   'bare-strings': false
 }
 ```
+
+### Per Template
 
 It is also possible to disable specific rules (or all rules) in a template itself:
 
@@ -42,7 +51,38 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 
 ## Rules
 
-Checkout the `ext/plugins/index.js` for a list of all rules.
+#### bare-strings
+
+In order to be able to internationalize your application, you will need to avoid using plain strings in your templates. Instead, you would need to use a template helper specializing in translation ([ember-i18n](https://github.com/jamesarosen/ember-i18n) and [ember-intl](https://github.com/yahoo/ember-intl) are great projects to use for this).
+
+This rule forbids the following:
+
+``` html
+<h2>Some string here!</h2>
+```
+
+
+#### block-indentation
+
+Good indentation is crucial for long term maintenance of templates. For example, having blocks misaligned is a common cause of logic errors...
+
+This rule forbids the following:
+
+``` hbs
+  {{#each foo as |bar}}
+
+    {{/each}}
+```
+
+#### triple-curlies
+
+Usage of triple curly braces to allow raw HTML to be injected into the DOM is large vector for exploits of your application (especially when the raw HTML is user controllable ). Instead of using `{{{foo}}}`, you should use appropriate helpers or computed properties that return a `SafeString` (via `Ember.String.htmlSafe` generally) and ensure that user supplied data is properly escaped.
+
+This rule forbids the following:
+
+``` hbs
+{{{foo}}}
+```
 
 ## Contributing
 
