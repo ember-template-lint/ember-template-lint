@@ -87,7 +87,7 @@ module.exports = function(addonContext) {
   BlockIndentation.prototype.processNestedElseBlock = function(node) {
     var elseBlockStatement = node.inverse.body[0];
 
-    elseBlockStatement._startOffset = 7;
+    elseBlockStatement._startOffset = 5 + elseBlockStatement.path.original.length;
   };
 
   return BlockIndentation;
