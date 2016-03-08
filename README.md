@@ -113,6 +113,7 @@ A few ideas for where to take this in the future:
 
 ### Running Tests
 
+* `npm run test-node`
 * `ember test`
 * `ember test --server`
 
