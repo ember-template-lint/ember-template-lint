@@ -10,12 +10,19 @@ generateRuleTests({
     '<div><p>Stuff</p></div>',
     '<div>\n  <p>Stuff Here</p>\n</div>',
     '{{#if isMorning}}' +
-    '  Good morning\n' +
-    '{{else if isAfternoon}}' +
-    '  Good afternoon\n' +
-    '{{else}}\n' +
-    '  Good night\n' +
-    '{{/if}}'
+      '  Good morning\n' +
+      '{{else if isAfternoon}}' +
+      '  Good afternoon\n' +
+      '{{else}}\n' +
+      '  Good night\n' +
+      '{{/if}}',
+    '{{#if isMorning}}\n' +
+      '  Good morning\n' +
+      '{{else foo-bar isAfternoon}}\n' +
+      '  Good afternoon\n' +
+      '{{else}}\n' +
+      '  Good night\n' +
+      '{{/if}}'
   ],
 
   bad: [
