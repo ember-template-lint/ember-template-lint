@@ -53,7 +53,12 @@ module.exports = function(addonContext) {
     var startColumn = node.loc.start.column;
     var endColumn   = node.loc.end.column;
 
-    var correctedEndColumn = endColumn - node.path.original.length - 5;
+    if (this.detectNestedElseBlock(node)) {
+      this.processNestedElseBlock(node);
+    }
+
+    var startOffset = node._startOffset || 0;
+    var correctedEndColumn = endColumn - node.path.original.length - 5 + startOffset;
     if(correctedEndColumn !== startColumn) {
       var startLocation = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
       var endLocation = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.end);
@@ -64,6 +69,25 @@ module.exports = function(addonContext) {
 
       this.log(warning);
     }
+  };
+
+  BlockIndentation.prototype.detectNestedElseBlock = function(node) {
+    var inverse = node.inverse;
+    var firstItem = inverse && inverse.body[0];
+
+    // handle `{{else if foo}}`
+    if (inverse && firstItem && firstItem.type === 'BlockStatement') {
+      return inverse.loc.start.line === firstItem.loc.start.line &&
+        inverse.loc.start.column === firstItem.loc.start.column;
+    }
+
+    return false;
+  };
+
+  BlockIndentation.prototype.processNestedElseBlock = function(node) {
+    var elseBlockStatement = node.inverse.body[0];
+
+    elseBlockStatement._startOffset = 7;
   };
 
   return BlockIndentation;
