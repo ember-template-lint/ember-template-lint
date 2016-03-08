@@ -8,7 +8,14 @@ generateRuleTests({
   good: [
     '\n  {{#each cats as |dog|}}\n  {{/each}}',
     '<div><p>Stuff</p></div>',
-    '<div>\n  <p>Stuff Here</p>\n</div>'
+    '<div>\n  <p>Stuff Here</p>\n</div>',
+    '{{#if isMorning}}' +
+    '  Good morning\n' +
+    '{{else if isAfternoon}}' +
+    '  Good afternoon\n' +
+    '{{else}}\n' +
+    '  Good night\n' +
+    '{{/if}}'
   ],
 
   bad: [
@@ -28,6 +35,16 @@ generateRuleTests({
       template: '<div>\n  <p>Stuff goes here</p></div>',
 
       message: "Incorrect indentation for `div` beginning at ('layout.hbs'@ L1:C0). Expected `</div>` ending at ('layout.hbs'@ L2:C30)to be at an indentation of 0 but was found at 24."
+    },
+    {
+      template: '{{#if isMorning}}\n' +
+        '{{else}}\n' +
+        '  {{#if something}}\n' +
+        '    Good night\n' +
+        '    {{/if}}\n' +
+        '{{/if}}',
+
+      message: "Incorrect indentation for `if` beginning at ('layout.hbs'@ L3:C2). Expected `{{/if}}` ending at ('layout.hbs'@ L5:C11)to be at an indentation of 2 but was found at 4."
     }
   ]
 });
