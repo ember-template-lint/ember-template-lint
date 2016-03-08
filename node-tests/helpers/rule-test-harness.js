@@ -38,7 +38,9 @@ module.exports = function(options) {
     });
 
     options.bad.forEach(function(badItem) {
-      it('logs a message in the console when given `' + badItem.template + '`', function() {
+      var testMethod = badItem.focus ? it.only : it;
+
+      testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
         compile(badItem.template);
 
         assert.deepEqual(messages, [badItem.message]);
