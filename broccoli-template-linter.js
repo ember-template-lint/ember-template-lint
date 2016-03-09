@@ -74,8 +74,6 @@ TemplateLinter.prototype.cacheKeyProcessString = function(string, relativePath) 
 
 TemplateLinter.prototype.logLintingError = function(pluginName, moduleName, message) {
   this._queuedMessages.push(message);
-
-  this._console.log(chalk.yellow(message));
 };
 
 TemplateLinter.prototype.buildASTPlugins = function() {
@@ -104,7 +102,7 @@ TemplateLinter.prototype.processString = function(contents, relativePath) {
   var errors = '\n' + this._queuedMessages.join('\n');
   var passed = this._queuedMessages.length === 0;
 
-  return this._generateTestFile(
+  var output = this._generateTestFile(
     'TemplateLint - ' + relativePath,
     [{
       name: 'should pass TemplateLint',
@@ -112,6 +110,21 @@ TemplateLinter.prototype.processString = function(contents, relativePath) {
       errorMessage: relativePath + ' should pass TemplateLint.' + jsStringEscape(errors)
     }]
   );
+
+  return {
+    messages: this._queuedMessages,
+    output: output
+  };
+};
+
+TemplateLinter.prototype.postProcess = function(results) {
+  var messages = results.messages;
+
+  for (var i = 0; i < messages.length; i++) {
+    this._console.log(chalk.yellow(messages[i]));
+  }
+
+  return results;
 };
 
 module.exports = TemplateLinter;

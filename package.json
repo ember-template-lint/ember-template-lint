@@ -57,7 +57,7 @@
   ],
   "dependencies": {
     "broccoli-kitchen-sink-helpers": "^0.2.7",
-    "broccoli-persistent-filter": "^1.1.8",
+    "broccoli-persistent-filter": "^1.2.0",
     "chalk": "^1.1.1",
     "ember-cli-babel": "^5.1.5",
     "exists-sync": "0.0.3",
