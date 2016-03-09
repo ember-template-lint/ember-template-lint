@@ -114,8 +114,10 @@ describe('broccoli-template-linter', function() {
       }
     })
       .then(function() {
-        assert.ok(mockConsole._logLines[0].indexOf('Here too!') > -1);
-        assert.ok(mockConsole._logLines[1].indexOf('Bare strings are bad') > -1);
+        var combinedLog = mockConsole._logLines.join('\n');
+
+        assert.ok(combinedLog.indexOf('Here too!') > -1);
+        assert.ok(combinedLog.indexOf('Bare strings are bad') > -1);
       });
   });
 
