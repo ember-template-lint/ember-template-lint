@@ -89,6 +89,20 @@ TemplateLinter.prototype.buildASTPlugins = function() {
   return this._astPlugins = astPlugins;
 };
 
+TemplateLinter.prototype.build = function () {
+  var self = this;
+  self._errors = [];
+
+  return Filter.prototype.build.apply(this, arguments)
+    .finally(function() {
+      if (self._errors.length > 0) {
+        var label = ' Template Linting Error' + (self._errors.length > 1 ? 's' : '');
+        self._console.log('\n' + self._errors.join('\n'));
+        self._console.log(chalk.yellow('===== ' + self._errors.length + label + '\n'));
+      }
+    });
+};
+
 TemplateLinter.prototype.processString = function(contents, relativePath) {
   this._queuedMessages = [];
 
@@ -121,7 +135,7 @@ TemplateLinter.prototype.postProcess = function(results) {
   var messages = results.messages;
 
   for (var i = 0; i < messages.length; i++) {
-    this._console.log(chalk.yellow(messages[i]));
+    this._errors.push(chalk.red(messages[i]));
   }
 
   return results;
