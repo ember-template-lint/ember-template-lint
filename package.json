@@ -60,7 +60,7 @@
     "ember-cli-babel": "^5.1.5",
     "exists-sync": "0.0.3",
     "hash-for-dep": "^1.0.2",
-    "htmlbars": "^0.14.15",
+    "htmlbars": "^0.14.16",
     "js-string-escape": "^1.0.0",
     "json-stable-stringify": "^1.0.1",
     "md5-hex": "^1.2.1"

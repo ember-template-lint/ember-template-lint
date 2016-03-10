@@ -22,7 +22,16 @@ generateRuleTests({
       '  Good afternoon\n' +
       '{{else}}\n' +
       '  Good night\n' +
-      '{{/if}}'
+      '{{/if}}',
+    '<div>\n' +
+      '  {{#if isMorning}}\n' +
+      '    Good morning\n' +
+      '  {{else if isAfternoon}}\n' +
+      '    Good afternoon\n' +
+      '  {{else}}\n' +
+      '    Good night\n' +
+      '  {{/if}}\n' +
+      '</div>'
   ],
 
   bad: [
