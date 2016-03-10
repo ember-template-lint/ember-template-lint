@@ -31,7 +31,8 @@ generateRuleTests({
       '  {{else}}\n' +
       '    Good night\n' +
       '  {{/if}}\n' +
-      '</div>'
+      '</div>',
+    '{{#link-to "foo.bar"}}Blah{{/link-to}}'
   ],
 
   bad: [
@@ -40,12 +41,6 @@ generateRuleTests({
       template: '\n  {{#each cats as |dog|}}\n        {{/each}}',
 
       message: "Incorrect indentation for `each` beginning at ('layout.hbs'@ L2:C2). Expected `{{/each}}` ending at ('layout.hbs'@ L3:C17)to be at an indentation of 2 but was found at 8."
-    },
-    {
-      // block statements must be multiline
-      template: '{{#each cats as |dog|}}{{/each}}',
-
-      message: "Incorrect indentation for `each` beginning at ('layout.hbs'@ L1:C0). Expected `{{/each}}` ending at ('layout.hbs'@ L1:C32)to be at an indentation of 0 but was found at 23."
     },
     {
       template: '<div>\n  <p>Stuff goes here</p></div>',
