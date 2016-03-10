@@ -12,6 +12,22 @@
 
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
+var VOID_TAGS = { area: true,
+                  base: true,
+                  br: true,
+                  col: true,
+                  command: true,
+                  embed: true,
+                  hr: true,
+                  img: true,
+                  input: true,
+                  keygen: true,
+                  link: true,
+                  meta: true,
+                  param: true,
+                  source: true,
+                  track: true,
+                  wbr: true };
 
 module.exports = function(addonContext) {
   var BlockIndentation = buildPlugin(addonContext, 'block-indentation');
@@ -23,6 +39,11 @@ module.exports = function(addonContext) {
   BlockIndentation.prototype.process = function(node) {
     // HTML elements that start and end on the same line are fine
     if (node.loc.start.line === node.loc.end.line) {
+      return;
+    }
+
+    // do not validate indentation on VOID_TAG's
+    if (VOID_TAGS[node.tag]) {
       return;
     }
 

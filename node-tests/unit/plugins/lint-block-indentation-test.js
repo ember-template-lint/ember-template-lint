@@ -32,7 +32,11 @@ generateRuleTests({
       '    Good night\n' +
       '  {{/if}}\n' +
       '</div>',
-    '{{#link-to "foo.bar"}}Blah{{/link-to}}'
+    '{{#link-to "foo.bar"}}Blah{{/link-to}}',
+    '<input \n' +
+      '  data-foo="blah"\n' +
+      '  data-bar="derp"\n' +
+      '  data-qux="blammo">'
   ],
 
   bad: [
