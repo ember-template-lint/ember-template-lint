@@ -29,6 +29,18 @@ var VOID_TAGS = { area: true,
                   track: true,
                   wbr: true };
 
+function childrenFor(node) {
+  if (node.type === 'Program') {
+    return node.body;
+  }
+  if (node.type === 'BlockStatement') {
+    return node.program.body;
+  }
+  if (node.type === 'ElementNode') {
+    return node.children;
+  }
+}
+
 module.exports = function(addonContext) {
   var BlockIndentation = buildPlugin(addonContext, 'block-indentation');
 
@@ -36,7 +48,13 @@ module.exports = function(addonContext) {
     return node.type === 'BlockStatement' || node.type === 'ElementNode';
   };
 
+  /*eslint no-unused-expressions: 0*/
   BlockIndentation.prototype.process = function(node) {
+    this.validateBlockEnd(node);
+    this.validateBlockChildren(node);
+  },
+
+  BlockIndentation.prototype.validateBlockEnd = function(node) {
     // HTML elements that start and end on the same line are fine
     if (node.loc.start.line === node.loc.end.line) {
       return;
@@ -68,6 +86,40 @@ module.exports = function(addonContext) {
             '. Expected `' + display + '` ending at ' + endLocation + 'to be at an indentation of ' + startColumn + ' but ' +
             'was found at ' + correctedEndColumn + '.';
       this.log(warning);
+    }
+  };
+
+  BlockIndentation.prototype.validateBlockChildren = function(node) {
+    var children = childrenFor(node);
+
+    if (!children || !children.length) {
+      return;
+    }
+
+    // HTML elements that start and end on the same line are fine
+    if (node.loc.start.line === node.loc.end.line) {
+      return;
+    }
+
+    var startColumn = node.loc.start.column;
+    var expectedStartColumn = startColumn + 2;
+
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (!child.loc) { continue; }
+
+      var childStartColumn = child.loc.start.column;
+      if (expectedStartColumn !== childStartColumn) {
+        var isElementNode = child.type === 'ElementNode';
+        var displayName = isElementNode ? child.tag : child.path.original;
+        var display = isElementNode ? '<' + displayName + '>' : '{{#' + displayName + '}}';
+        var startLocation = calculateLocationDisplay(this.options.moduleName, child.loc && child.loc.start);
+
+        var warning = 'Incorrect indentation for `' + display + '` beginning at ' + startLocation +
+            '. Expected `' + display + '` to be at an indentation of ' + expectedStartColumn + ' but ' +
+            'was found at ' + childStartColumn + '.';
+        this.log(warning);
+      }
     }
   };
 
