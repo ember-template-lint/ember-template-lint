@@ -5,6 +5,8 @@ var generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'block-indentation',
 
+  config: 2,
+
   good: [
     '\n  {{#each cats as |dog|}}\n  {{/each}}',
     '<div><p>Stuff</p></div>',

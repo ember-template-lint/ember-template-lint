@@ -26,6 +26,7 @@ module.exports = function(options) {
     beforeEach(function() {
       messages = [];
       config   = {};
+      config[options.name] = options.config;
 
       addonContext = {
         logLintingError: function(pluginName, moduleName, message) {

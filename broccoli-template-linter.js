@@ -49,7 +49,7 @@ TemplateLinter.prototype.loadConfig = function() {
     return this._templatercConfig;
   }
 
-  this._templatercConfig = getConfig(this.options.templatercPath);
+  this._templatercConfig = getConfig(this._console, this.options.templatercPath);
 
   return this._templatercConfig;
 };

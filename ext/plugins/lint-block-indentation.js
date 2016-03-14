@@ -103,7 +103,7 @@ module.exports = function(addonContext) {
         throw new Error(errorMessage);
       }
     case 'undefined':
-      return 2;
+      return false;
     default:
       throw new Error(errorMessage);
     }
