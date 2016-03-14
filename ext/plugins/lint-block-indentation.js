@@ -177,7 +177,18 @@ module.exports = function(addonContext) {
       if (expectedStartColumn !== childStartColumn) {
         var isElementNode = child.type === 'ElementNode';
         var displayName = isElementNode ? child.tag : child.path.original;
-        var display = isElementNode ? '<' + displayName + '>' : '{{#' + displayName + '}}';
+        var display;
+
+        if (isElementNode) {
+          display = '<' + displayName + '>';
+        } else if (child.type === 'BlockStatement'){
+          display = '{{#' + displayName + '}}';
+        } else if (child.type === 'MustacheStatement') {
+          display = '{{' + displayName + '}}';
+        } else {
+          display = displayName;
+        }
+
         var startLocation = calculateLocationDisplay(this.options.moduleName, child.loc && child.loc.start);
 
         var warning = 'Incorrect indentation for `' + display + '` beginning at ' + startLocation +

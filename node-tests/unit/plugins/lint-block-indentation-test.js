@@ -106,6 +106,20 @@ generateRuleTests({
         '</div>',
 
       message: "Incorrect indentation for `<p>` beginning at ('layout.hbs'@ L2:C2). Expected `<p>` to be at an indentation of 4 but was found at 2."
+    },
+    {
+      template: '<div>\n' +
+        '  <span></span>{{test}}\n' +
+        '</div>',
+
+      message: "Incorrect indentation for `{{test}}` beginning at ('layout.hbs'@ L2:C15). Expected `{{test}}` to be at an indentation of 2 but was found at 15."
+    },
+    {
+      template: '<div>\n' +
+        '  <span></span>{{#test-foo}}{{/test-foo}}\n' +
+        '</div>',
+
+      message: "Incorrect indentation for `{{#test-foo}}` beginning at ('layout.hbs'@ L2:C15). Expected `{{#test-foo}}` to be at an indentation of 2 but was found at 15."
     }
   ]
 });
