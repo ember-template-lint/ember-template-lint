@@ -1,14 +1,52 @@
 'use strict';
 
-// Forces block syntax to have appropriate indentation
-//
-// passes:
-// {{#each foo as |bar|}}
-// {{/each}}
-//
-// breaks:
-// {{#each foo as |bar|}}
-//  {{/each}}
+/*
+ Forces valid indentation for blocks and their children.
+
+ 1. Forces block begin and block end statements to be at the same indentation
+    level, when not on one line.
+
+ ```hbs
+ {{! good }}
+ {{#each foo as |bar|}}
+ {{/each}}
+
+ <div>
+   <p>{{t "greeting"}}</p>
+ </div>
+
+ {{! bad }}
+ {{#each foo as |bar|}}
+   {{/each}}
+
+ <div>
+  <p>{{t "greeting"}}</p>
+ </div>
+ ```
+
+ 2. Forces children of all blocks to start at a single indentation level deeper.
+    Configuration is available to specify various indentation levels.
+
+
+ ```
+ {{! good }}
+ <div>
+   <p>{{t "greeting"}}</p>
+ </div>
+
+ {{! bad }}
+ <div>
+  <p>{{t "greeting"}}</p>
+ </div>
+ ```
+
+ The following values are valid configuration:
+
+ * boolean -- `true` indicates a 2 space indent, `false` indicates that the rule is disabled.
+ * numeric -- the number of spaces to require for indentation
+ * "tab" -- To indicate tab style indentation (1 char)
+
+ */
 
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
