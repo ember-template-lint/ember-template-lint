@@ -63,6 +63,11 @@ This rule forbids the following:
 <h2>Some string here!</h2>
 ```
 
+The following values are valid configuration:
+
+  * boolean -- `true` for enabled / `false` for disabled
+  * array -- an array of whitelisted strings
+
 
 #### block-indentation
 
