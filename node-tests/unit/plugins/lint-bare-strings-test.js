@@ -6,7 +6,19 @@ generateRuleTests({
   name: 'bare-strings',
 
   good: [
-    '{{t "howdy"}}'
+    '{{t "howdy"}}',
+    {
+      config: [','],
+      template: '\n {{translate "greeting"}},'
+    },
+    {
+      config: ['foo'],
+      template: '\nfoo'
+    },
+    {
+      config: ['/', '"'],
+      template: '{{t "foo"}} / "{{name}}"'
+    }
   ],
 
   bad: [
