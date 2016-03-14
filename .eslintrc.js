@@ -15,7 +15,7 @@ module.exports = {
     'strict': [2, 'global'],
 
     'indent': [2, 2, {
-      'SwitchCase': 1,
+      'SwitchCase': 0,
       'VariableDeclarator': { 'var': 2, 'let': 2, 'const': 3 }
     }],
 
