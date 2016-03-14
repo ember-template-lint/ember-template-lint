@@ -4,8 +4,15 @@ module.exports = function(addonContext, name) {
   function BasePlugin(options) {
     this.options = options;
     this.syntax = null; // set by HTMLBars
-    this.config = addonContext.loadConfig()[name];
+
+    this.config = this.parseConfig(
+      addonContext.loadConfig()[name]
+    );
   }
+
+  BasePlugin.prototype.parseConfig = function(config) {
+    return config;
+  };
 
   BasePlugin.prototype.transform = function(ast) {
     var pluginContext = this;

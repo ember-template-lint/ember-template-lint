@@ -1,14 +1,52 @@
 'use strict';
 
-// Forces block syntax to have appropriate indentation
-//
-// passes:
-// {{#each foo as |bar|}}
-// {{/each}}
-//
-// breaks:
-// {{#each foo as |bar|}}
-//  {{/each}}
+/*
+ Forces valid indentation for blocks and their children.
+
+ 1. Forces block begin and block end statements to be at the same indentation
+    level, when not on one line.
+
+ ```hbs
+ {{! good }}
+ {{#each foo as |bar|}}
+ {{/each}}
+
+ <div>
+   <p>{{t "greeting"}}</p>
+ </div>
+
+ {{! bad }}
+ {{#each foo as |bar|}}
+   {{/each}}
+
+ <div>
+  <p>{{t "greeting"}}</p>
+ </div>
+ ```
+
+ 2. Forces children of all blocks to start at a single indentation level deeper.
+    Configuration is available to specify various indentation levels.
+
+
+ ```
+ {{! good }}
+ <div>
+   <p>{{t "greeting"}}</p>
+ </div>
+
+ {{! bad }}
+ <div>
+  <p>{{t "greeting"}}</p>
+ </div>
+ ```
+
+ The following values are valid configuration:
+
+ * boolean -- `true` indicates a 2 space indent, `false` indicates that the rule is disabled.
+ * numeric -- the number of spaces to require for indentation
+ * "tab" -- To indicate tab style indentation (1 char)
+
+ */
 
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
@@ -29,14 +67,59 @@ var VOID_TAGS = { area: true,
                   track: true,
                   wbr: true };
 
+function childrenFor(node) {
+  if (node.type === 'Program') {
+    return node.body;
+  }
+  if (node.type === 'BlockStatement') {
+    return node.program.body;
+  }
+  if (node.type === 'ElementNode') {
+    return node.children;
+  }
+}
+
 module.exports = function(addonContext) {
   var BlockIndentation = buildPlugin(addonContext, 'block-indentation');
+
+  BlockIndentation.prototype.parseConfig = function(config) {
+    var configType = typeof config;
+
+    var errorMessage = 'The block-indentation rule accepts one of the following values.\n ' +
+          '  * boolean - `true` to enable 2 space indentation\n' +
+          '  * numeric - the number of spaces to require\n' +
+          '  * `"tab" - usage of one character indentation (tab char)\n`' +
+          '\nYou specified `' + config + '`';
+
+    switch (configType) {
+    case 'number':
+      return config;
+    case 'boolean':
+      return config ? 2 : false;
+    case 'string':
+      if (config === 'tab') {
+        return 1;
+      } else {
+        throw new Error(errorMessage);
+      }
+    case 'undefined':
+      return 2;
+    default:
+      throw new Error(errorMessage);
+    }
+  };
 
   BlockIndentation.prototype.detect = function(node) {
     return node.type === 'BlockStatement' || node.type === 'ElementNode';
   };
 
+  /*eslint no-unused-expressions: 0*/
   BlockIndentation.prototype.process = function(node) {
+    this.validateBlockEnd(node);
+    this.validateBlockChildren(node);
+  },
+
+  BlockIndentation.prototype.validateBlockEnd = function(node) {
     // HTML elements that start and end on the same line are fine
     if (node.loc.start.line === node.loc.end.line) {
       return;
@@ -68,6 +151,40 @@ module.exports = function(addonContext) {
             '. Expected `' + display + '` ending at ' + endLocation + 'to be at an indentation of ' + startColumn + ' but ' +
             'was found at ' + correctedEndColumn + '.';
       this.log(warning);
+    }
+  };
+
+  BlockIndentation.prototype.validateBlockChildren = function(node) {
+    var children = childrenFor(node);
+
+    if (!children || !children.length) {
+      return;
+    }
+
+    // HTML elements that start and end on the same line are fine
+    if (node.loc.start.line === node.loc.end.line) {
+      return;
+    }
+
+    var startColumn = node.loc.start.column;
+    var expectedStartColumn = startColumn + this.config;
+
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (!child.loc) { continue; }
+
+      var childStartColumn = child.loc.start.column;
+      if (expectedStartColumn !== childStartColumn) {
+        var isElementNode = child.type === 'ElementNode';
+        var displayName = isElementNode ? child.tag : child.path.original;
+        var display = isElementNode ? '<' + displayName + '>' : '{{#' + displayName + '}}';
+        var startLocation = calculateLocationDisplay(this.options.moduleName, child.loc && child.loc.start);
+
+        var warning = 'Incorrect indentation for `' + display + '` beginning at ' + startLocation +
+            '. Expected `' + display + '` to be at an indentation of ' + expectedStartColumn + ' but ' +
+            'was found at ' + childStartColumn + '.';
+        this.log(warning);
+      }
     }
   };
 

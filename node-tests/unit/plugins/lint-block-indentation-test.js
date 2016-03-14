@@ -36,7 +36,33 @@ generateRuleTests({
     '<input \n' +
       '  data-foo="blah"\n' +
       '  data-bar="derp"\n' +
-      '  data-qux="blammo">'
+      '  data-qux="blammo">',
+
+    // child indentation examples
+    '<div>\n' +
+      '  <p>Hi!</p>\n' +
+      '</div>',
+    '<div><p>Hi!</p></div>',
+    '{{#if foo}}\n' +
+      '  <p>Hi!</p>\n' +
+      '{{/if}}',
+    '{{#if foo}}<p>Hi!</p>{{/if}}',
+    {
+      config: 4,
+
+      template: '' +
+        '<div>\n' +
+        '    <p>Hi!</p>\n' +
+        '</div>'
+    },
+    {
+      config: 'tab',
+
+      template: '' +
+        '<div>\n' +
+        '\t<p>Hi!</p>\n' +
+        '</div>'
+    }
   ],
 
   bad: [
@@ -52,6 +78,16 @@ generateRuleTests({
       message: "Incorrect indentation for `div` beginning at ('layout.hbs'@ L1:C0). Expected `</div>` ending at ('layout.hbs'@ L2:C30)to be at an indentation of 0 but was found at 24."
     },
     {
+      template: '<div>\n<p>Stuff goes here</p>\n</div>',
+
+      message: "Incorrect indentation for `<p>` beginning at ('layout.hbs'@ L2:C0). Expected `<p>` to be at an indentation of 2 but was found at 0."
+    },
+    {
+      template: '{{#if}}\n<p>Stuff goes here</p>\n{{/if}}',
+
+      message: "Incorrect indentation for `<p>` beginning at ('layout.hbs'@ L2:C0). Expected `<p>` to be at an indentation of 2 but was found at 0."
+    },
+    {
       template: '{{#if isMorning}}\n' +
         '{{else}}\n' +
         '  {{#if something}}\n' +
@@ -60,6 +96,16 @@ generateRuleTests({
         '{{/if}}',
 
       message: "Incorrect indentation for `if` beginning at ('layout.hbs'@ L3:C2). Expected `{{/if}}` ending at ('layout.hbs'@ L5:C11)to be at an indentation of 2 but was found at 4."
+    },
+    {
+      config: 4,
+
+      template: '' +
+        '<div>\n' +
+        '  <p>Hi!</p>\n' +
+        '</div>',
+
+      message: "Incorrect indentation for `<p>` beginning at ('layout.hbs'@ L2:C2). Expected `<p>` to be at an indentation of 4 but was found at 2."
     }
   ]
 });

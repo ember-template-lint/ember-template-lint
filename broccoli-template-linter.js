@@ -2,10 +2,9 @@
 /* jshint node: true */
 /*eslint-env node*/
 
-var path = require('path');
+var getConfig = require('./lib/get-config');
 var Filter = require('broccoli-persistent-filter');
 var md5Hex = require('md5-hex');
-var existsSync = require('exists-sync');
 var stringify = require('json-stable-stringify');
 var chalk = require('chalk');
 var compile = require('htmlbars').compile;
@@ -50,15 +49,7 @@ TemplateLinter.prototype.loadConfig = function() {
     return this._templatercConfig;
   }
 
-  var defaultConfigPath = this.options.templatercPath || path.join(process.cwd(), '.template-lintrc');
-  var overrideConfigPath = process.env['TEMPLATE_LINTRC'];
-  var configPath = overrideConfigPath || defaultConfigPath;
-
-  if(existsSync(configPath + '.js') || existsSync(configPath + '.json')) {
-    this._templatercConfig = require(configPath);
-  } else {
-    this._templatercConfig = {};
-  }
+  this._templatercConfig = getConfig(this.options.templatercPath);
 
   return this._templatercConfig;
 };
