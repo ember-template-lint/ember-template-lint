@@ -46,7 +46,15 @@ generateRuleTests({
     '{{#if foo}}\n' +
       '  <p>Hi!</p>\n' +
       '{{/if}}',
-    '{{#if foo}}<p>Hi!</p>{{/if}}'
+    '{{#if foo}}<p>Hi!</p>{{/if}}',
+    {
+      config: 4,
+
+      template: '' +
+        '<div>\n' +
+        '    <p>Hi!</p>\n' +
+        '</div>'
+    }
   ],
 
   bad: [

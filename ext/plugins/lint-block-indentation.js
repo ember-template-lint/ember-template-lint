@@ -44,6 +44,24 @@ function childrenFor(node) {
 module.exports = function(addonContext) {
   var BlockIndentation = buildPlugin(addonContext, 'block-indentation');
 
+  BlockIndentation.prototype.parseConfig = function(config) {
+    var configType = typeof config;
+
+    if (configType === 'number') {
+      return config;
+    } else if (configType === 'boolean') {
+      return config ? 2 : false;
+    } else if (configType !== 'undefined') {
+      throw new Error('The block-indentation rule accepts one of the following values.\n ' +
+                      '  * boolean - `true` to enable 2 space indentation\n' +
+                      '  * numeric - the number of spaces to require\n\n' +
+                      'You specified `' + config + '`');
+    } else {
+      // undefined is default value
+      return 2;
+    }
+  };
+
   BlockIndentation.prototype.detect = function(node) {
     return node.type === 'BlockStatement' || node.type === 'ElementNode';
   };
@@ -102,7 +120,7 @@ module.exports = function(addonContext) {
     }
 
     var startColumn = node.loc.start.column;
-    var expectedStartColumn = startColumn + 2;
+    var expectedStartColumn = startColumn + this.config;
 
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
