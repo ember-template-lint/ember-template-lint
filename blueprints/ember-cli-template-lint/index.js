@@ -1,15 +1,10 @@
 /*jshint node:true*/
 module.exports = {
-  description: ''
+  description: 'Generate default configuration for ember-cli-template-lint.',
 
-  // locals: function(options) {
-  //   // Return custom template variables here.
-  //   return {
-  //     foo: options.entity.options.foo
-  //   };
-  // }
-
-  // afterInstall: function(options) {
-  //   // Perform extra work here.
-  // }
+  normalizeEntityName: function() {
+    // this prevents an error when the entityName is
+    // not specified (since that doesn't actually matter
+    // to us
+  }
 };
