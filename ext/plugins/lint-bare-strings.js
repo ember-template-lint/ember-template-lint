@@ -42,8 +42,7 @@ module.exports = function(addonContext) {
         throw new Error(errorMessage);
       }
     case 'undefined':
-      // default value is enabled for now
-      return true;
+      return false;
     default:
       throw new Error(errorMessage);
     }

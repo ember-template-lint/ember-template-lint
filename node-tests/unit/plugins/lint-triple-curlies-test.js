@@ -5,6 +5,8 @@ var generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'triple-curlies',
 
+  config: true,
+
   good: [
     '{{foo}}'
   ],

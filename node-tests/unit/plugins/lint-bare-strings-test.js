@@ -5,6 +5,8 @@ var generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'bare-strings',
 
+  config: true,
+
   good: [
     '{{t "howdy"}}',
     {
