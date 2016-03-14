@@ -66,9 +66,19 @@ module.exports = function(options) {
       });
     });
 
-    options.good.forEach(function(goodItem) {
-      it('passes when given `' + goodItem + '`', function() {
-        compile(goodItem);
+    options.good.forEach(function(item) {
+      var template = typeof item === 'object' ? item.template : item;
+
+      it('passes when given `' + template + '`', function() {
+        if (typeof item === 'string') {
+          compile(item);
+        } else {
+          if (item.config) {
+            config[options.name] = item.config;
+          }
+
+          compile(template);
+        }
 
         assert.deepEqual(messages, []);
       });
