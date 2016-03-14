@@ -41,6 +41,10 @@ module.exports = function(options) {
       var testMethod = badItem.focus ? it.only : it;
 
       testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
+        if (badItem.config) {
+          config[options.name] = badItem.config;
+        }
+
         compile(badItem.template);
 
         assert.deepEqual(messages, [badItem.message]);

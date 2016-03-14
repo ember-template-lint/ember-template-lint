@@ -96,6 +96,16 @@ generateRuleTests({
         '{{/if}}',
 
       message: "Incorrect indentation for `if` beginning at ('layout.hbs'@ L3:C2). Expected `{{/if}}` ending at ('layout.hbs'@ L5:C11)to be at an indentation of 2 but was found at 4."
+    },
+    {
+      config: 4,
+
+      template: '' +
+        '<div>\n' +
+        '  <p>Hi!</p>\n' +
+        '</div>',
+
+      message: "Incorrect indentation for `<p>` beginning at ('layout.hbs'@ L2:C2). Expected `<p>` to be at an indentation of 4 but was found at 2."
     }
   ]
 });
