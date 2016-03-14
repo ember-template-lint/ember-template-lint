@@ -54,6 +54,14 @@ generateRuleTests({
         '<div>\n' +
         '    <p>Hi!</p>\n' +
         '</div>'
+    },
+    {
+      config: 'tab',
+
+      template: '' +
+        '<div>\n' +
+        '\t<p>Hi!</p>\n' +
+        '</div>'
     }
   ],
 

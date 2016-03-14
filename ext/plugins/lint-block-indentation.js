@@ -47,18 +47,27 @@ module.exports = function(addonContext) {
   BlockIndentation.prototype.parseConfig = function(config) {
     var configType = typeof config;
 
-    if (configType === 'number') {
+    var errorMessage = 'The block-indentation rule accepts one of the following values.\n ' +
+          '  * boolean - `true` to enable 2 space indentation\n' +
+          '  * numeric - the number of spaces to require\n' +
+          '  * `"tab" - usage of one character indentation (tab char)\n`' +
+          '\nYou specified `' + config + '`';
+
+    switch (configType) {
+    case 'number':
       return config;
-    } else if (configType === 'boolean') {
+    case 'boolean':
       return config ? 2 : false;
-    } else if (configType !== 'undefined') {
-      throw new Error('The block-indentation rule accepts one of the following values.\n ' +
-                      '  * boolean - `true` to enable 2 space indentation\n' +
-                      '  * numeric - the number of spaces to require\n\n' +
-                      'You specified `' + config + '`');
-    } else {
-      // undefined is default value
+    case 'string':
+      if (config === 'tab') {
+        return 1;
+      } else {
+        throw new Error(errorMessage);
+      }
+    case 'undefined':
       return 2;
+    default:
+      throw new Error(errorMessage);
     }
   };
 
