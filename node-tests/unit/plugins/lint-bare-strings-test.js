@@ -34,6 +34,6 @@ generateRuleTests({
 
   bad: [
     { template: '\n howdy', message: "Non-translated string used (\'layout.hbs\') `\n howdy`" },
-    { template: '1234', message: "Non-translated string used (\'layout.hbs\') `1234`" },
+    { template: '1234', message: "Non-translated string used (\'layout.hbs\') `1234`" }
   ]
 });
