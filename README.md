@@ -67,6 +67,9 @@ The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
   * array -- an array of whitelisted strings
+  
+By default, the following characters are whitelisted: 
+`(),.&+-=*/#%!?:[]{}`
 
 
 #### block-indentation
