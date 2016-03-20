@@ -30,13 +30,22 @@ __Ember CLI >= 2.4.2 is required for linting templates__
 
 ### Project Wide
 
-Rules are enabled by default. You can turn off specific rules by toggling them in a
+You can turn on specific rules by toggling them in a
 `.template-lintrc.js` file at the base of your project:
 
 ```javascript
 module.exports = {
   'bare-strings': false
 }
+```
+
+Some rules also allow setting additional configuration, for example if you would like to configure
+some "bare strings" that are allowed you might have:
+
+```javascript
+module.exports = {
+  'bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
+};
 ```
 
 ### Per Template
@@ -50,6 +59,8 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 {{! disable specific rules for this template }}
 <!-- template-lint bare-strings=false -->
 ```
+
+It is not currently possible to change rule configuration in the template.
 
 ## Rules
 
@@ -67,8 +78,8 @@ The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
   * array -- an array of whitelisted strings
-  
-By default, the following characters are whitelisted: 
+
+By default, the following characters are whitelisted:
 `(),.&+-=*/#%!?:[]{}`
 
 
