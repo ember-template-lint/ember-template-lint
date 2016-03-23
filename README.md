@@ -111,6 +111,23 @@ The following values are valid configuration:
   * "tab" -- To indicate tab style indentation (1 char)
 
 
+#### html-comments
+
+Html comments in your templates will get compiled and rendered into the DOM at runtime. Instead you can annotate your templates using Handlebars comments, which will be stripped out when the template is compiled and have no effect at runtime.
+
+This rule forbids the following:
+
+``` hbs
+<!-- comment goes here -->
+```
+
+but allows the following:
+
+```hbs
+{{!-- comment goes here --}}
+```
+
+
 #### triple-curlies
 
 Usage of triple curly braces to allow raw HTML to be injected into the DOM is large vector for exploits of your application (especially when the raw HTML is user controllable ). Instead of using `{{{foo}}}`, you should use appropriate helpers or computed properties that return a `SafeString` (via `Ember.String.htmlSafe` generally) and ensure that user supplied data is properly escaped.

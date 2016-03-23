@@ -4,5 +4,6 @@
 module.exports = {
   'bare-strings': ['(', ')', ',', '.', '&', '+', '-', '=', '*', '/', '#', '%', '!', '?', ':', '[', ']', '{', '}'],
   'block-indentation': 2,
+  'html-comments': true,
   'triple-curlies': true
 };
