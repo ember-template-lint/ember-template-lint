@@ -127,6 +127,14 @@ but allows the following:
 {{!-- comment goes here --}}
 ```
 
+Html comments containing linting instructions such as:
+
+```hbs
+<!-- template-lint bare-strings=false -->
+```
+
+are of course allowed (and since the linter strips them during processing, they will not get compiled and rendered into the DOM regardless of this rule).
+
 
 #### triple-curlies
 
