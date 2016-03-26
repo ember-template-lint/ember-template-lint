@@ -49,6 +49,20 @@ generateRuleTests({
       '  <p>Hi!</p>\n' +
       '{{/if}}',
     '{{#if foo}}<p>Hi!</p>{{/if}}',
+    '{{#if foo}}\n' +
+      '  {{foo}}-{{bar}}\n' +
+      '{{/if}}',
+    '{{#if foo}}\n' +
+      '  Foo-{{bar}}\n' +
+      '{{/if}}',
+    '{{#if foo}}\n' +
+      '  Foo:\n' +
+      '  {{bar}}\n' +
+      '{{/if}}',
+    '{{#if foo}}\n' +
+      '  {{foo}}:\n' +
+      '  {{bar}}\n' +
+      '{{/if}}',
     {
       config: 4,
 
@@ -111,17 +125,19 @@ generateRuleTests({
     },
     {
       template: '<div>\n' +
-        '  <span></span>{{test}}\n' +
+        '  {{foo}}\n' +
+        '{{bar}}\n' +
         '</div>',
 
-      message: "Incorrect indentation for `{{test}}` beginning at ('layout.hbs'@ L2:C15). Expected `{{test}}` to be at an indentation of 2 but was found at 15."
+      message: "Incorrect indentation for `{{bar}}` beginning at ('layout.hbs'@ L3:C0). Expected `{{bar}}` to be at an indentation of 2 but was found at 0."
     },
     {
       template: '<div>\n' +
-        '  <span></span>{{#test-foo}}{{/test-foo}}\n' +
+        '  Foo:\n' +
+        '{{bar}}\n' +
         '</div>',
 
-      message: "Incorrect indentation for `{{#test-foo}}` beginning at ('layout.hbs'@ L2:C15). Expected `{{#test-foo}}` to be at an indentation of 2 but was found at 15."
+      message: "Incorrect indentation for `{{bar}}` beginning at ('layout.hbs'@ L3:C0). Expected `{{bar}}` to be at an indentation of 2 but was found at 0."
     }
   ]
 });
