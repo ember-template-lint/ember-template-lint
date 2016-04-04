@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.3.1
+
+- Add `html-comments` rule which forbids the usage of HTML comments (other than `<!-- template-lint bare-strings=false -->` style control comments).
+
 ## v0.3.0
 
 - Change default configuration so that no plugins are enabled (warns when `.template-lintrc.js` is not found).
