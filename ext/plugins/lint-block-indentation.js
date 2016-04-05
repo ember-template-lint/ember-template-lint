@@ -148,7 +148,7 @@ module.exports = function(addonContext) {
       var endLocation = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.end);
 
       var warning = 'Incorrect indentation for `' + displayName + '` beginning at ' + startLocation +
-            '. Expected `' + display + '` ending at ' + endLocation + 'to be at an indentation of ' + startColumn + ' but ' +
+            '. Expected `' + display + '` ending at ' + endLocation + ' to be at an indentation of ' + startColumn + ' but ' +
             'was found at ' + correctedEndColumn + '.';
       this.log(warning);
     }
@@ -172,6 +172,43 @@ module.exports = function(addonContext) {
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
       if (!child.loc) { continue; }
+
+      // We might not actually be the first thing on the line. We might be
+      // preceded by another element or statement, or by some text. So walk
+      // backwards looking for something else on this line.
+      var hasLeadingContent = false;
+      for (var j = i - 1; j >= 0; j--) {
+        var sibling = children[j];
+        if (sibling.loc) {
+          // Found an element or statement. If it's on this line, then we
+          // have leading content, so set the flag and break. If it's not
+          // on this line, then we've scanned back to a previous line, so
+          // we can also break.
+          if (sibling.loc.end.line === child.loc.start.line) {
+            hasLeadingContent = true;
+          }
+          break;
+        } else {
+          var lines = sibling.chars.split(/[\r\n]/);
+          var lastLine = lines[lines.length - 1];
+          if (lastLine.trim()) {
+            // The last line in this text node has non-whitespace content, so
+            // set the flag.
+            hasLeadingContent = true;
+          }
+          if (lines.length > 1) {
+            // There are multiple lines meaning we've now scanned back to a
+            // previous line, so we can break.
+            break;
+          }
+        }
+      }
+
+      if (hasLeadingContent) {
+        // There's content before us on the same line, so we don't care about
+        // our column.
+        continue;
+      }
 
       var childStartColumn = child.loc.start.column;
       if (expectedStartColumn !== childStartColumn) {

@@ -49,6 +49,23 @@ generateRuleTests({
       '  <p>Hi!</p>\n' +
       '{{/if}}',
     '{{#if foo}}<p>Hi!</p>{{/if}}',
+    '<div>\n' +
+      '  <span>Foo</span>{{#some-thing}}<p>lorum ipsum</p>{{/some-thing}}\n' +
+      '</div>',
+    '{{#if foo}}\n' +
+      '  {{foo}}-{{bar}}\n' +
+      '{{/if}}',
+    '{{#if foo}}\n' +
+      '  Foo-{{bar}}\n' +
+      '{{/if}}',
+    '{{#if foo}}\n' +
+      '  Foo:\n' +
+      '  {{bar}}\n' +
+      '{{/if}}',
+    '{{#if foo}}\n' +
+      '  {{foo}}:\n' +
+      '  {{bar}}\n' +
+      '{{/if}}',
     {
       config: 4,
 
@@ -72,12 +89,12 @@ generateRuleTests({
       // start and end must be the same indentation
       template: '\n  {{#each cats as |dog|}}\n        {{/each}}',
 
-      message: "Incorrect indentation for `each` beginning at ('layout.hbs'@ L2:C2). Expected `{{/each}}` ending at ('layout.hbs'@ L3:C17)to be at an indentation of 2 but was found at 8."
+      message: "Incorrect indentation for `each` beginning at ('layout.hbs'@ L2:C2). Expected `{{/each}}` ending at ('layout.hbs'@ L3:C17) to be at an indentation of 2 but was found at 8."
     },
     {
       template: '<div>\n  <p>Stuff goes here</p></div>',
 
-      message: "Incorrect indentation for `div` beginning at ('layout.hbs'@ L1:C0). Expected `</div>` ending at ('layout.hbs'@ L2:C30)to be at an indentation of 0 but was found at 24."
+      message: "Incorrect indentation for `div` beginning at ('layout.hbs'@ L1:C0). Expected `</div>` ending at ('layout.hbs'@ L2:C30) to be at an indentation of 0 but was found at 24."
     },
     {
       template: '<div>\n<p>Stuff goes here</p>\n</div>',
@@ -97,7 +114,7 @@ generateRuleTests({
         '    {{/if}}\n' +
         '{{/if}}',
 
-      message: "Incorrect indentation for `if` beginning at ('layout.hbs'@ L3:C2). Expected `{{/if}}` ending at ('layout.hbs'@ L5:C11)to be at an indentation of 2 but was found at 4."
+      message: "Incorrect indentation for `if` beginning at ('layout.hbs'@ L3:C2). Expected `{{/if}}` ending at ('layout.hbs'@ L5:C11) to be at an indentation of 2 but was found at 4."
     },
     {
       config: 4,
@@ -111,17 +128,38 @@ generateRuleTests({
     },
     {
       template: '<div>\n' +
-        '  <span></span>{{test}}\n' +
+        '  {{foo}}\n' +
+        '{{bar}}\n' +
         '</div>',
 
-      message: "Incorrect indentation for `{{test}}` beginning at ('layout.hbs'@ L2:C15). Expected `{{test}}` to be at an indentation of 2 but was found at 15."
+      message: "Incorrect indentation for `{{bar}}` beginning at ('layout.hbs'@ L3:C0). Expected `{{bar}}` to be at an indentation of 2 but was found at 0."
     },
     {
       template: '<div>\n' +
-        '  <span></span>{{#test-foo}}{{/test-foo}}\n' +
+        '  Foo:\n' +
+        '{{bar}}\n' +
         '</div>',
 
-      message: "Incorrect indentation for `{{#test-foo}}` beginning at ('layout.hbs'@ L2:C15). Expected `{{#test-foo}}` to be at an indentation of 2 but was found at 15."
+      message: "Incorrect indentation for `{{bar}}` beginning at ('layout.hbs'@ L3:C0). Expected `{{bar}}` to be at an indentation of 2 but was found at 0."
+    },
+    {
+      // Start and end of multi-line block must be aligned, even when start
+      // has other content preceding it on its line
+      template: '<div>\n' +
+        '  <span>Foo</span>{{#some-thing}}\n' +
+        '  {{/some-thing}}\n' +
+        '</div>',
+      message: "Incorrect indentation for `some-thing` beginning at ('layout.hbs'@ L2:C18). Expected `{{/some-thing}}` ending at ('layout.hbs'@ L3:C17) to be at an indentation of 18 but was found at 2."
+    },
+    {
+      // Start and end of multi-line element must be aligned, even when start
+      // has other content preceding it on its line
+      template: '{{#if foo}}\n' +
+        '  {{foo}} <p>\n' +
+        '    Bar\n' +
+        '  </p>\n' +
+        '{{/if}}',
+      message: "Incorrect indentation for `p` beginning at ('layout.hbs'@ L2:C10). Expected `</p>` ending at ('layout.hbs'@ L4:C6) to be at an indentation of 10 but was found at 2."
     }
   ]
 });
