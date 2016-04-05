@@ -148,7 +148,7 @@ module.exports = function(addonContext) {
       var endLocation = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.end);
 
       var warning = 'Incorrect indentation for `' + displayName + '` beginning at ' + startLocation +
-            '. Expected `' + display + '` ending at ' + endLocation + 'to be at an indentation of ' + startColumn + ' but ' +
+            '. Expected `' + display + '` ending at ' + endLocation + ' to be at an indentation of ' + startColumn + ' but ' +
             'was found at ' + correctedEndColumn + '.';
       this.log(warning);
     }
