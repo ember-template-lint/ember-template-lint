@@ -10,7 +10,7 @@ module.exports = function(options) {
     var DISABLE_ALL = '<!-- template-lint disable=true -->';
     var DISABLE_ONE = '<!-- template-lint ' + options.name + '=false -->';
 
-    var addonContext,  messages, config;
+    var addonContext, messages, config;
 
     function compile(template) {
       _compile(template, {

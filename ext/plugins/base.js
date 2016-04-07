@@ -41,8 +41,6 @@ module.exports = function(addonContext, name) {
         // process `<!-- template-lint foo=bar -->` comments
         if (bodyEntry.type === 'CommentStatement' && bodyEntry.value.indexOf('template-lint') === 1) {
           this._processConfigNode(bodyEntry);
-          // remove the entry
-          node.body.splice(i, 1);
         }
       }
     }
