@@ -81,7 +81,9 @@ generateRuleTests({
         '<div>\n' +
         '\t<p>Hi!</p>\n' +
         '</div>'
-    }
+    },
+    '<!-- template-lint bare-strings=false -->',
+    '<!-- template-lint enabled=false -->'
   ],
 
   bad: [

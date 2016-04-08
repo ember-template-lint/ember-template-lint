@@ -8,7 +8,9 @@ generateRuleTests({
   config: true,
 
   good: [
-    '{{foo}}'
+    '{{foo}}',
+    '<!-- template-lint bare-strings=false -->',
+    '<!-- template-lint enabled=false -->'
   ],
 
   bad: [

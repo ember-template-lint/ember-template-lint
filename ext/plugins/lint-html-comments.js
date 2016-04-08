@@ -1,6 +1,7 @@
 'use strict';
 
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
+var AstNodeInfo = require('../helpers/ast-node-info');
 var buildPlugin = require('./base');
 
 module.exports = function(addonContext) {
@@ -24,7 +25,7 @@ module.exports = function(addonContext) {
   };
 
   LogHtmlComments.prototype.detect = function(node) {
-    return node.type === 'CommentStatement';
+    return AstNodeInfo.isNonConfigurationHtmlComment(node);
   };
 
   LogHtmlComments.prototype.process = function(node) {

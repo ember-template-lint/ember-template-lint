@@ -21,15 +21,11 @@ generateRuleTests({
       config: ['/', '"'],
       template: '{{t "foo"}} / "{{name}}"'
     },
-    {
-      template: '{{t "foo"}}'
-    },
-    {
-      template: '{{t "foo"}}, {{t "bar"}} ({{length}})'
-    },
-    {
-      template: '(),.&+-=*/#%!?:[]{}'
-    }
+    '{{t "foo"}}',
+    '{{t "foo"}}, {{t "bar"}} ({{length}})',
+    '(),.&+-=*/#%!?:[]{}',
+    '<!-- template-lint bare-strings=false -->',
+    '<!-- template-lint enabled=false -->'
   ],
 
   bad: [
