@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-template-lint",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Lint your handlebars templates.",
   "directories": {
     "doc": "doc",
@@ -44,12 +44,11 @@
     "ember-try": "^0.2.2",
     "eslint-plugin-node": "^1.0.0",
     "glob": "^7.0.0",
-    "loader.js": "^4.0.0",
+    "loader.js": "^4.0.1",
     "mocha": "^2.4.5",
     "mocha-eslint": "^2.0.1",
     "mocha-only-detector": "^0.1.0",
-    "rimraf": "^2.5.2",
-    "loader.js": "^4.0.1"
+    "rimraf": "^2.5.2"
   },
   "keywords": [
     "ember-addon"
@@ -57,14 +56,13 @@
   "dependencies": {
     "broccoli-persistent-filter": "^1.2.0",
     "chalk": "^1.1.1",
-    "ember-cli-babel": "^5.1.5",
+    "ember-cli-babel": "^5.1.6",
     "exists-sync": "0.0.3",
     "hash-for-dep": "^1.0.2",
     "htmlbars": "^0.14.16",
     "js-string-escape": "^1.0.0",
     "json-stable-stringify": "^1.0.1",
-    "md5-hex": "^1.2.1",
-    "ember-cli-babel": "^5.1.6"
+    "md5-hex": "^1.2.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
