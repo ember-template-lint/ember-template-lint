@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.3.3
+
+- Fix issue with per-template rule configuration.
+
 ## v0.3.2
 
 - Fix issue with `block-indentation` rule when a given block starts on the same line as a previous item. i.e.:
