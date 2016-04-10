@@ -27,5 +27,14 @@ module.exports = {
         _console: mockConsole
       });
     }
+  },
+
+  setupPreprocessorRegistry: function(type, registry) {
+    var RemoveConfigurationHtmlComments = require('./ext/plugins/internal/remove-configuration-html-comments');
+
+    registry.add('htmlbars-ast-plugin', {
+      name: 'remove-configuration-html-comments',
+      plugin: RemoveConfigurationHtmlComments()
+    });
   }
 };
