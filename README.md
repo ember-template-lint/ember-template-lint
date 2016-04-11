@@ -146,6 +146,42 @@ This rule forbids the following:
 {{{foo}}}
 ```
 
+
+#### nested-interactive
+
+Usage of nested `interactive content` can lead to UX problems, accessibility
+problems, bugs and in some cases to DOM errors. You should not put interactive
+content elements nested inside other interactive content elements. Instead using
+nested interactive content elements you should separate them and put them one
+after the other.
+
+This rule forbids the following:
+
+```hbs
+<button type="button">
+  Click here and <a href="/">go to home here</a>
+</button>
+```
+
+The following values are valid configuration:
+
+  * boolean -- `true` indicates all whitelist test will run, `false` indicates that the rule is disabled.
+  * array -- an array of whitelisted tests as the following
+
+Whitelist of option in the configuration (are tags name or element attributes):
+
+  * `button`
+  * `details`
+  * `embed`
+  * `iframe`
+  * `img`
+  * `input`
+  * `object`
+  * `select`
+  * `textarea`
+  * `tabindex`
+
+
 ## Contributing
 
 A few ideas for where to take this in the future:
