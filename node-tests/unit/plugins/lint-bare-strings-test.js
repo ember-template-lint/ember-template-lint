@@ -29,7 +29,7 @@ generateRuleTests({
   ],
 
   bad: [
-    { template: '\n howdy', message: "Non-translated string used (\'layout.hbs\') `\n howdy`" },
-    { template: '1234', message: "Non-translated string used (\'layout.hbs\') `1234`" }
+    { template: '\n howdy', message: "Non-translated string used (\'layout.hbs\'@ L1:C0) `\n howdy`" },
+    { template: '<div>\n  1234\n</div>', message: "Non-translated string used (\'layout.hbs\'@ L1:C5) `\n  1234\n`" }
   ]
 });
