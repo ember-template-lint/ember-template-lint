@@ -20,6 +20,13 @@
 
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
+var astInfo = require('../helpers/ast-node-info');
+
+var ATTRIBUTES = [
+  'alt',
+  'placeholder',
+  'title'
+];
 
 module.exports = function(addonContext) {
   var LogStaticStrings = buildPlugin(addonContext, 'bare-strings');
@@ -49,13 +56,26 @@ module.exports = function(addonContext) {
   };
 
   LogStaticStrings.prototype.process = function(node) {
-    var locationDisplay = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
-    var warning = 'Non-translated string used ' + locationDisplay + ' `' + node.chars + '`';
-
-    this.log(warning);
+    if (astInfo.isTextNode(node)) {
+      this._checkNodeAndLog(node, node.loc);
+    } else if (astInfo.isElementNode(node)){
+      var tagName = node.tag;
+      for (var i = 0; i < node.attributes.length; i++) {
+        this._getBareStringAttribute(tagName, node.attributes[i]);
+      }
+    }
   };
 
-  LogStaticStrings.prototype._checkStringAgainstWhitelist = function(string) {
+  LogStaticStrings.prototype._getBareStringAttribute = function(tag, attribute) {
+    var attributeType = attribute.name;
+    var attributeValueNode = attribute.value;
+
+    if (astInfo.isTextNode(attributeValueNode) && ATTRIBUTES.indexOf(attributeType) > -1) {
+      this._checkNodeAndLog(attributeValueNode, attribute.loc);
+    }
+  };
+
+  LogStaticStrings.prototype._getBareString = function(string) {
     var whitelist = Array.isArray(this.config) ? this.config : null;
 
     if (whitelist) {
@@ -68,13 +88,22 @@ module.exports = function(addonContext) {
       }
     }
 
-    return string.trim() !== '';
+    return string.trim() !== '' ? string : null;
+  };
+
+  LogStaticStrings.prototype._checkNodeAndLog = function(node, loc) {
+    var bareStringText = this._getBareString(node.chars);
+
+    if (bareStringText) {
+      var locationDisplay = calculateLocationDisplay(this.options.moduleName, loc && loc.start);
+      var warning = 'Non-translated string used ' + locationDisplay + ' `' + bareStringText + '`';
+
+      this.log(warning);
+    }
   };
 
   LogStaticStrings.prototype.detect = function(node) {
-    if (node.type !== 'TextNode') { return false;}
-
-    return this._checkStringAgainstWhitelist(node.chars);
+    return astInfo.isElementNode(node) || astInfo.isTextNode(node);
   };
 
   return LogStaticStrings;

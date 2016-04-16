@@ -34,6 +34,20 @@ generateRuleTests({
 
   bad: [
     { template: '\n howdy', message: "Non-translated string used (\'layout.hbs\'@ L1:C0) `\n howdy`" },
-    { template: '<div>\n  1234\n</div>', message: "Non-translated string used (\'layout.hbs\'@ L1:C5) `\n  1234\n`" }
+    { template: '<div>\n  1234\n</div>', message: "Non-translated string used (\'layout.hbs\'@ L1:C5) `\n  1234\n`" },
+
+    {
+      template: '<input placeholder="trolol">',
+      message: "Non-translated string used ('layout.hbs'@ L1:C8) `trolol`"
+    },
+
+    {
+      // multiple bare strings are all logged
+      template: '<div>Bady\n  <input placeholder="trolol">\n</div>',
+      messages: [
+        "Non-translated string used (\'layout.hbs\'@ L1:C5) `Bady\n  `",
+        "Non-translated string used ('layout.hbs'@ L2:C10) `trolol`"
+      ]
+    }
   ]
 });
