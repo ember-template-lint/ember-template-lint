@@ -215,10 +215,14 @@ module.exports = function(addonContext) {
       }
 
       var childStartColumn;
+      // sanitize text node starting column info
       if (isTextNode(child)) {
+        // TextNode's include leading newlines, but those newlines do
+        // not get used in calculating indentation
         var withoutLeadingNewLines = child.chars.replace(/^(\r\n|\n)*/, '');
         var firstNonWhitespace = withoutLeadingNewLines.search(/\S/);
 
+        // the TextNode is whitespace only, do nothing
         if (firstNonWhitespace === -1) { continue; }
 
         childStartColumn = firstNonWhitespace;
