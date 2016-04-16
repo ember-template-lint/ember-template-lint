@@ -22,11 +22,14 @@ var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
 var astInfo = require('../helpers/ast-node-info');
 
-var ATTRIBUTES = [
-  'alt',
-  'placeholder',
+var GLOBAL_ATTRIBUTES = [
   'title'
 ];
+
+var TAG_ATTRIBUTES = {
+  'input': [ 'placeholder' ],
+  'img': [ 'alt' ]
+};
 
 module.exports = function(addonContext) {
   var LogStaticStrings = buildPlugin(addonContext, 'bare-strings');
@@ -57,7 +60,7 @@ module.exports = function(addonContext) {
 
   LogStaticStrings.prototype.process = function(node) {
     if (astInfo.isTextNode(node)) {
-      this._checkNodeAndLog(node, node.loc);
+      this._checkNodeAndLog(node, '', node.loc);
     } else if (astInfo.isElementNode(node)){
       var tagName = node.tag;
       for (var i = 0; i < node.attributes.length; i++) {
@@ -69,9 +72,12 @@ module.exports = function(addonContext) {
   LogStaticStrings.prototype._getBareStringAttribute = function(tag, attribute) {
     var attributeType = attribute.name;
     var attributeValueNode = attribute.value;
+    var additionalDescription = 'in `' + attributeType + '` attribute ';
+    var isGlobalAttribute = GLOBAL_ATTRIBUTES.indexOf(attributeType) > -1;
+    var isElementAttribute = TAG_ATTRIBUTES[tag] && TAG_ATTRIBUTES[tag].indexOf(attributeType) > -1;
 
-    if (astInfo.isTextNode(attributeValueNode) && ATTRIBUTES.indexOf(attributeType) > -1) {
-      this._checkNodeAndLog(attributeValueNode, attribute.loc);
+    if (astInfo.isTextNode(attributeValueNode) && (isGlobalAttribute || isElementAttribute)) {
+      this._checkNodeAndLog(attributeValueNode, additionalDescription, attribute.loc);
     }
   };
 
@@ -91,12 +97,12 @@ module.exports = function(addonContext) {
     return string.trim() !== '' ? string : null;
   };
 
-  LogStaticStrings.prototype._checkNodeAndLog = function(node, loc) {
+  LogStaticStrings.prototype._checkNodeAndLog = function(node, additionalDescription, loc) {
     var bareStringText = this._getBareString(node.chars);
 
     if (bareStringText) {
       var locationDisplay = calculateLocationDisplay(this.options.moduleName, loc && loc.start);
-      var warning = 'Non-translated string used ' + locationDisplay + ' `' + bareStringText + '`';
+      var warning = 'Non-translated string used ' + additionalDescription + locationDisplay + ': `' + bareStringText + '`.';
 
       this.log(warning);
     }
