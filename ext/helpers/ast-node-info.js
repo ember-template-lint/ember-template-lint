@@ -10,4 +10,12 @@ AstNodeInfo.isNonConfigurationHtmlComment = function(node) {
   return node.type === 'CommentStatement' && node.value.trim().indexOf('template-lint ') !== 0;
 };
 
+AstNodeInfo.isTextNode = function(node) {
+  return node.type === 'TextNode';
+};
+
+AstNodeInfo.isElementNode = function(node) {
+  return node.type === 'ElementNode';
+};
+
 module.exports = AstNodeInfo;
