@@ -40,6 +40,7 @@ module.exports = function(options) {
 
     options.bad.forEach(function(badItem) {
       var testMethod = badItem.focus ? it.only : it;
+      var expectedMessages = badItem.messages || [badItem.message];
 
       testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
         if (badItem.config) {
@@ -48,7 +49,7 @@ module.exports = function(options) {
 
         compile(badItem.template);
 
-        assert.deepEqual(messages, [badItem.message]);
+        assert.deepEqual(messages, expectedMessages);
       });
 
       it('passes with `' + badItem.template + '` when rule is disabled', function() {
@@ -73,12 +74,13 @@ module.exports = function(options) {
 
     options.good.forEach(function(item) {
       var template = typeof item === 'object' ? item.template : item;
+      var testMethod = typeof item === 'object' && item.focus ? it.only : it;
 
-      it('passes when given `' + template + '`', function() {
+      testMethod('passes when given `' + template + '`', function() {
         if (typeof item === 'string') {
           compile(item);
         } else {
-          if (item.config) {
+          if (item.config !== undefined) {
             config[options.name] = item.config;
           }
 

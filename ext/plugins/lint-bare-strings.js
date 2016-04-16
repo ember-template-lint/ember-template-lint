@@ -16,10 +16,50 @@
 
    * boolean -- `true` for enabled / `false` for disabled
    * array -- an array of whitelisted strings
+   * object -- An object with the following keys:
+     * `whitelist` -- An array of whitelisted strings
+     * `globalAttributes` -- An array of attributes to check on every element.
+     * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name.
  */
 
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
+var astInfo = require('../helpers/ast-node-info');
+
+var GLOBAL_ATTRIBUTES = [
+  'title'
+];
+
+var TAG_ATTRIBUTES = {
+  'input': [ 'placeholder' ],
+  'img': [ 'alt' ]
+};
+
+var DEFAULT_CONFIG = {
+  whitelist: ['(', ')', ',', '.', '&', '+', '-', '=', '*', '/', '#', '%', '!', '?', ':', '[', ']', '{', '}'],
+  globalAttributes: GLOBAL_ATTRIBUTES,
+  elementAttributes: TAG_ATTRIBUTES
+};
+
+function isValidConfigObjectFormat(config) {
+  for (var key in config) {
+    var value = config[key];
+    var valueType = typeof value;
+    var valueIsArray = Array.isArray(value);
+
+    if (key === 'whitelist' && !valueIsArray) {
+      return false;
+    } else if (key === 'globalAttributes' && !valueIsArray) {
+      return false;
+    } else if (key === 'elementAttributes' && valueType === 'object') {
+      if (valueIsArray) { return false; }
+    } else if (!DEFAULT_CONFIG[key]){
+      return false;
+    }
+  }
+
+  return true;
+}
 
 module.exports = function(addonContext) {
   var LogStaticStrings = buildPlugin(addonContext, 'bare-strings');
@@ -30,14 +70,30 @@ module.exports = function(addonContext) {
     var errorMessage = 'The bare-strings rule accepts one of the following values.\n ' +
           '  * boolean - `true` to enable / `false` to disable\n' +
           '  * array -- an array of strings to whitelist\n' +
+          '  * object -- An object with the following keys:' +
+          '    * `whitelist` -- An array of whitelisted strings ' +
+          '    * `globalAttributes` -- An array of attributes to check on every element.' +
+          '    * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name. ' +
           '\nYou specified `' + JSON.stringify(config) + '`';
 
     switch (configType) {
     case 'boolean':
-      return config;
+      // if `true` use `DEFAULT_CONFIG`
+      return config ? DEFAULT_CONFIG : false;
     case 'object':
       if (Array.isArray(config)) {
-        return config;
+        return {
+          whitelist: config,
+          globalAttributes: GLOBAL_ATTRIBUTES,
+          elementAttributes: TAG_ATTRIBUTES
+        };
+      } else if (isValidConfigObjectFormat(config)) {
+        // default any missing keys to empty values
+        return {
+          whitelist: config.whitelist || [],
+          globalAttributes: config.globalAttributes || [],
+          elementAttributes: config.elementAttributes || {}
+        };
       } else {
         throw new Error(errorMessage);
       }
@@ -49,27 +105,58 @@ module.exports = function(addonContext) {
   };
 
   LogStaticStrings.prototype.process = function(node) {
-    var locationDisplay = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
-    var warning = 'Non-translated string used ' + locationDisplay + ' `' + node.chars + '`';
-
-    this.log(warning);
+    if (astInfo.isTextNode(node)) {
+      this._checkNodeAndLog(node, '', node.loc);
+    } else if (astInfo.isElementNode(node)){
+      var tagName = node.tag;
+      for (var i = 0; i < node.attributes.length; i++) {
+        this._getBareStringAttribute(tagName, node.attributes[i]);
+      }
+    }
   };
 
-  LogStaticStrings.prototype.detect = function(node) {
-    if (node.type !== 'TextNode') { return false;}
+  LogStaticStrings.prototype._getBareStringAttribute = function(tag, attribute) {
+    var attributeType = attribute.name;
+    var attributeValueNode = attribute.value;
+    var additionalDescription = 'in `' + attributeType + '` attribute ';
+    var isGlobalAttribute = this.config.globalAttributes.indexOf(attributeType) > -1;
+    var isElementAttribute = this.config.elementAttributes[tag] && this.config.elementAttributes[tag].indexOf(attributeType) > -1;
 
-    var string = node.chars;
-    var whitelist = Array.isArray(this.config) ? this.config : null;
+    if (astInfo.isTextNode(attributeValueNode) && (isGlobalAttribute || isElementAttribute)) {
+      this._checkNodeAndLog(attributeValueNode, additionalDescription, attribute.loc);
+    }
+  };
+
+  LogStaticStrings.prototype._getBareString = function(_string) {
+    var whitelist = this.config.whitelist;
+    var string = _string;
 
     if (whitelist) {
       for (var i = 0; i < whitelist.length; i++) {
         var entry = whitelist[i];
 
-        string = string.replace(entry, '');
+        while (string.indexOf(entry) > -1) {
+          string = string.replace(entry, '');
+        }
       }
     }
 
-    return string.trim() !== '';
+    return string.trim() !== '' ? _string : null;
+  };
+
+  LogStaticStrings.prototype._checkNodeAndLog = function(node, additionalDescription, loc) {
+    var bareStringText = this._getBareString(node.chars);
+
+    if (bareStringText) {
+      var locationDisplay = calculateLocationDisplay(this.options.moduleName, loc && loc.start);
+      var warning = 'Non-translated string used ' + additionalDescription + locationDisplay + ': `' + bareStringText + '`.';
+
+      this.log(warning);
+    }
+  };
+
+  LogStaticStrings.prototype.detect = function(node) {
+    return astInfo.isElementNode(node) || astInfo.isTextNode(node);
   };
 
   return LogStaticStrings;
