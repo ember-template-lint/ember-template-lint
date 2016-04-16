@@ -17,12 +17,12 @@ generateRuleTests({
   bad: [
     {
       template: '<!-- comment here -->',
-      message: 'Html comment detected `<!-- comment here -->` at (\'layout.hbs\'). ' +
+      message: 'Html comment detected `<!-- comment here -->` at (\'layout.hbs\'@ L1:C3). ' +
         'Use Handlebars comment instead `{{!-- comment here --}}`'
     },
     {
       template: '<!--comment here-->',
-      message: 'Html comment detected `<!--comment here-->` at (\'layout.hbs\'). ' +
+      message: 'Html comment detected `<!--comment here-->` at (\'layout.hbs\'@ L1:C3). ' +
         'Use Handlebars comment instead `{{!--comment here--}}`'
     }
   ]

@@ -158,7 +158,7 @@ generateRuleTests({
       // has other content preceding it on its line
       template: '{{#if foo}}\n' +
         '  {{foo}} <p>\n' +
-        '    Bar\n' +
+        '            Bar\n' +
         '  </p>\n' +
         '{{/if}}',
       message: "Incorrect indentation for `p` beginning at ('layout.hbs'@ L2:C10). Expected `</p>` ending at ('layout.hbs'@ L4:C6) to be at an indentation of 10 but was found at 2."

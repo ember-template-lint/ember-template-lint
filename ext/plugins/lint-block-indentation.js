@@ -79,6 +79,10 @@ function childrenFor(node) {
   }
 }
 
+function isTextNode(node) {
+  return node.type === 'TextNode';
+}
+
 module.exports = function(addonContext) {
   var BlockIndentation = buildPlugin(addonContext, 'block-indentation');
 
@@ -179,7 +183,7 @@ module.exports = function(addonContext) {
       var hasLeadingContent = false;
       for (var j = i - 1; j >= 0; j--) {
         var sibling = children[j];
-        if (sibling.loc) {
+        if (sibling.loc && !isTextNode(sibling)) {
           // Found an element or statement. If it's on this line, then we
           // have leading content, so set the flag and break. If it's not
           // on this line, then we've scanned back to a previous line, so
@@ -210,20 +214,32 @@ module.exports = function(addonContext) {
         continue;
       }
 
-      var childStartColumn = child.loc.start.column;
+      var childStartColumn;
+      if (isTextNode(child)) {
+        var withoutLeadingNewLines = child.chars.replace(/^(\r\n|\n)*/, '');
+        var firstNonWhitespace = withoutLeadingNewLines.search(/\S/);
+
+        if (firstNonWhitespace === -1) { continue; }
+
+        childStartColumn = firstNonWhitespace;
+      } else {
+        childStartColumn = child.loc.start.column;
+      }
+
       if (expectedStartColumn !== childStartColumn) {
         var isElementNode = child.type === 'ElementNode';
-        var displayName = isElementNode ? child.tag : child.path.original;
         var display;
 
         if (isElementNode) {
-          display = '<' + displayName + '>';
+          display = '<' + child.tag + '>';
         } else if (child.type === 'BlockStatement'){
-          display = '{{#' + displayName + '}}';
+          display = '{{#' + child.path.original + '}}';
         } else if (child.type === 'MustacheStatement') {
-          display = '{{' + displayName + '}}';
+          display = '{{' + child.path.original + '}}';
+        } else if (isTextNode(child)) {
+          display = child.chars;
         } else {
-          display = displayName;
+          display = child.path.original;
         }
 
         var startLocation = calculateLocationDisplay(this.options.moduleName, child.loc && child.loc.start);
@@ -231,6 +247,7 @@ module.exports = function(addonContext) {
         var warning = 'Incorrect indentation for `' + display + '` beginning at ' + startLocation +
             '. Expected `' + display + '` to be at an indentation of ' + expectedStartColumn + ' but ' +
             'was found at ' + childStartColumn + '.';
+
         this.log(warning);
       }
     }
