@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v0.3.4
+
+- Add support for TextNode/CommentNode location information. Now the `bare-strings` / `html-comments` rules include line and column info.
+- Add `nested-interactive` rule. Usage of nested interactive content can lead to UX problems, accessibility problems, bugs and in some
+  cases to DOM errors. You should not put interactive content elements nested inside other interactive content elements.
+
 ## v0.3.3
 
 - Fix issue with per-template rule configuration.
