@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = {
-  'bare-strings': ['(', ')', ',', '.', '&', '+', '-', '=', '*', '/', '#', '%', '!', '?', ':', '[', ']', '{', '}'],
+  'bare-strings': true,
   'block-indentation': 2,
   'html-comments': true,
   'nested-interactive': true,

@@ -5,15 +5,7 @@ var generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'bare-strings',
 
-  config: {
-    whitelist: ['(', ')', ',', '.', '&', '+', '-', '=', '*', '/', '#', '%', '!', '?', ':', '[', ']', '{', '}'],
-
-    globalAttributes: [ 'title' ],
-    elementAttributes: {
-      'input': ['placeholder'],
-      'img': ['alt']
-    }
-  },
+  config: true,
 
   good: [
     '{{t "howdy"}}',
