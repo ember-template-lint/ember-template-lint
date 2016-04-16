@@ -99,6 +99,7 @@ TemplateLinter.prototype.processString = function(contents, relativePath) {
 
   compile(contents, {
     moduleName: relativePath,
+    rawSource: contents,
     plugins: {
       ast: this.buildASTPlugins()
     }
