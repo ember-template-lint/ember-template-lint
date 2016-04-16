@@ -40,8 +40,8 @@ generateRuleTests({
     { template: '<div>\n  1234\n</div>', message: "Non-translated string used (\'layout.hbs\'@ L1:C5): `\n  1234\n`." },
 
     {
-      template: '<input placeholder="trolol">',
-      message: "Non-translated string used in `placeholder` attribute ('layout.hbs'@ L1:C8): `trolol`."
+      template: '<a title="hahaha trolol"></a>',
+      message: "Non-translated string used in `title` attribute ('layout.hbs'@ L1:C4): `hahaha trolol`."
     },
 
     {
