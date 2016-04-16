@@ -8,6 +8,7 @@ describe('Ember template compiler', function() {
 
   function compile(template) {
     return _compile(template, {
+      rawSource: template,
       plugins: {
         ast: astPlugins
       }
@@ -35,5 +36,20 @@ describe('Ember template compiler', function() {
     compile('<div></div>');
 
     assert.equal(instanceCount, 1, 'registered plugins are instantiated');
+  });
+
+  it('can access rawSource via options', function() {
+    var options;
+    var NoopPlugin = function(_options){
+      options = _options;
+    };
+    NoopPlugin.prototype.transform = function(ast) {
+      return ast;
+    };
+    astPlugins.push(NoopPlugin);
+    var expectedTemplate = '<div></div>';
+    compile(expectedTemplate);
+
+    assert.equal(expectedTemplate, options.rawSource, 'rawSource can be passed through compile options');
   });
 });

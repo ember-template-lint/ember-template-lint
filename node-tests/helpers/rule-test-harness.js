@@ -14,6 +14,7 @@ module.exports = function(options) {
 
     function compile(template) {
       _compile(template, {
+        rawSource: template,
         moduleName: 'layout.hbs',
         plugins: {
           ast: [

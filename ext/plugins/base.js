@@ -5,6 +5,9 @@ module.exports = function(addonContext, name) {
     this.options = options;
     this.syntax = null; // set by HTMLBars
 
+    // split into a source array (allow windows and posix line endings)
+    this.source = this.options.rawSource.split(/(?:\r\n?|\n)/g);
+
     this.config = this.parseConfig(
       addonContext.loadConfig()[name]
     );
@@ -89,6 +92,37 @@ module.exports = function(addonContext, name) {
 
   BasePlugin.prototype.process = function() {
     throw new Error('Must implemented #process');
+  };
+
+  // mostly copy/pasta from tildeio/htmlbars with a few tweaks:
+  // https://github.com/tildeio/htmlbars/blob/v0.4.17/packages/htmlbars-syntax/lib/parser.js#L59-L90
+  BasePlugin.prototype.sourceForNode = function(node) {
+    var firstLine = node.loc.start.line - 1;
+    var lastLine = node.loc.end.line - 1;
+    var currentLine = firstLine - 1;
+    var firstColumn = node.loc.start.column;
+    var lastColumn = node.loc.end.column;
+    var string = [];
+    var line;
+
+    while (currentLine < lastLine) {
+      currentLine++;
+      line = this.source[currentLine];
+
+      if (currentLine === firstLine) {
+        if (firstLine === lastLine) {
+          string.push(line.slice(firstColumn, lastColumn));
+        } else {
+          string.push(line.slice(firstColumn));
+        }
+      } else if (currentLine === lastLine) {
+        string.push(line.slice(0, lastColumn));
+      } else {
+        string.push(line);
+      }
+    }
+
+    return string.join('\n');
   };
 
   return BasePlugin;
