@@ -55,21 +55,26 @@ module.exports = function(addonContext) {
     this.log(warning);
   };
 
-  LogStaticStrings.prototype.detect = function(node) {
-    if (node.type !== 'TextNode') { return false;}
-
-    var string = node.chars;
+  LogStaticStrings.prototype._checkStringAgainstWhitelist = function(string) {
     var whitelist = Array.isArray(this.config) ? this.config : null;
 
     if (whitelist) {
       for (var i = 0; i < whitelist.length; i++) {
         var entry = whitelist[i];
 
-        string = string.replace(entry, '');
+        while (string.indexOf(entry) > -1) {
+          string = string.replace(entry, '');
+        }
       }
     }
 
     return string.trim() !== '';
+  };
+
+  LogStaticStrings.prototype.detect = function(node) {
+    if (node.type !== 'TextNode') { return false;}
+
+    return this._checkStringAgainstWhitelist(node.chars);
   };
 
   return LogStaticStrings;

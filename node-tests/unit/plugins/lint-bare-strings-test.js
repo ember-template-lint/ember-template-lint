@@ -18,6 +18,10 @@ generateRuleTests({
       template: '\nfoo'
     },
     {
+      config: ['tarzan!'],
+      template: 'tarzan!\t\n  tarzan!'
+    },
+    {
       config: ['/', '"'],
       template: '{{t "foo"}} / "{{name}}"'
     },
