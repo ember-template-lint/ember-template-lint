@@ -16,6 +16,10 @@
 
    * boolean -- `true` for enabled / `false` for disabled
    * array -- an array of whitelisted strings
+   * object -- An object with the following keys:
+     * `whitelist` -- An array of whitelisted strings
+     * `globalAttributes` -- An array of attributes to check on every element.
+     * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name.
  */
 
 var calculateLocationDisplay = require('../helpers/calculate-location-display');
@@ -31,6 +35,32 @@ var TAG_ATTRIBUTES = {
   'img': [ 'alt' ]
 };
 
+var DEFAULT_CONFIG = {
+  whitelist: ['(', ')', ',', '.', '&', '+', '-', '=', '*', '/', '#', '%', '!', '?', ':', '[', ']', '{', '}'],
+  globalAttributes: GLOBAL_ATTRIBUTES,
+  elementAttributes: TAG_ATTRIBUTES
+};
+
+function isValidConfigObjectFormat(config) {
+  for (var key in config) {
+    var value = config[key];
+    var valueType = typeof value;
+    var valueIsArray = Array.isArray(value);
+
+    if (key === 'whitelist' && !valueIsArray) {
+      return false;
+    } else if (key === 'globalAttributes' && !valueIsArray) {
+      return false;
+    } else if (key === 'elementAttributes' && valueType === 'object') {
+      if (valueIsArray) { return false; }
+    } else if (!DEFAULT_CONFIG[key]){
+      return false;
+    }
+  }
+
+  return true;
+}
+
 module.exports = function(addonContext) {
   var LogStaticStrings = buildPlugin(addonContext, 'bare-strings');
 
@@ -40,14 +70,30 @@ module.exports = function(addonContext) {
     var errorMessage = 'The bare-strings rule accepts one of the following values.\n ' +
           '  * boolean - `true` to enable / `false` to disable\n' +
           '  * array -- an array of strings to whitelist\n' +
+          '  * object -- An object with the following keys:' +
+          '    * `whitelist` -- An array of whitelisted strings ' +
+          '    * `globalAttributes` -- An array of attributes to check on every element.' +
+          '    * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name. ' +
           '\nYou specified `' + JSON.stringify(config) + '`';
 
     switch (configType) {
     case 'boolean':
-      return config;
+      // if `true` use `DEFAULT_CONFIG`
+      return config ? DEFAULT_CONFIG : false;
     case 'object':
       if (Array.isArray(config)) {
-        return config;
+        return {
+          whitelist: config,
+          globalAttributes: GLOBAL_ATTRIBUTES,
+          elementAttributes: TAG_ATTRIBUTES
+        };
+      } else if (isValidConfigObjectFormat(config)) {
+        // default any missing keys to empty values
+        return {
+          whitelist: config.whitelist || [],
+          globalAttributes: config.globalAttributes || [],
+          elementAttributes: config.elementAttributes || {}
+        };
       } else {
         throw new Error(errorMessage);
       }
@@ -73,8 +119,8 @@ module.exports = function(addonContext) {
     var attributeType = attribute.name;
     var attributeValueNode = attribute.value;
     var additionalDescription = 'in `' + attributeType + '` attribute ';
-    var isGlobalAttribute = GLOBAL_ATTRIBUTES.indexOf(attributeType) > -1;
-    var isElementAttribute = TAG_ATTRIBUTES[tag] && TAG_ATTRIBUTES[tag].indexOf(attributeType) > -1;
+    var isGlobalAttribute = this.config.globalAttributes.indexOf(attributeType) > -1;
+    var isElementAttribute = this.config.elementAttributes[tag] && this.config.elementAttributes[tag].indexOf(attributeType) > -1;
 
     if (astInfo.isTextNode(attributeValueNode) && (isGlobalAttribute || isElementAttribute)) {
       this._checkNodeAndLog(attributeValueNode, additionalDescription, attribute.loc);
@@ -82,7 +128,7 @@ module.exports = function(addonContext) {
   };
 
   LogStaticStrings.prototype._getBareString = function(string) {
-    var whitelist = Array.isArray(this.config) ? this.config : null;
+    var whitelist = this.config.whitelist;
 
     if (whitelist) {
       for (var i = 0; i < whitelist.length; i++) {

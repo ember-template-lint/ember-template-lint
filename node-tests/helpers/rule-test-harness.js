@@ -74,12 +74,13 @@ module.exports = function(options) {
 
     options.good.forEach(function(item) {
       var template = typeof item === 'object' ? item.template : item;
+      var testMethod = typeof item === 'object' && item.focus ? it.only : it;
 
-      it('passes when given `' + template + '`', function() {
+      testMethod('passes when given `' + template + '`', function() {
         if (typeof item === 'string') {
           compile(item);
         } else {
-          if (item.config) {
+          if (item.config !== undefined) {
             config[options.name] = item.config;
           }
 

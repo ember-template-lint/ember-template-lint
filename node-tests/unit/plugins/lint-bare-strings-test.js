@@ -5,7 +5,15 @@ var generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'bare-strings',
 
-  config: ['(', ')', ',', '.', '&', '+', '-', '=', '*', '/', '#', '%', '!', '?', ':', '[', ']', '{', '}'],
+  config: {
+    whitelist: ['(', ')', ',', '.', '&', '+', '-', '=', '*', '/', '#', '%', '!', '?', ':', '[', ']', '{', '}'],
+
+    globalAttributes: [ 'title' ],
+    elementAttributes: {
+      'input': ['placeholder'],
+      'img': ['alt']
+    }
+  },
 
   good: [
     '{{t "howdy"}}',
@@ -32,7 +40,35 @@ generateRuleTests({
     '<!-- template-lint enabled=false -->',
 
     // placeholder is a <input> specific attribute
-    '<div placeholder="wat?"></div>'
+    '<div placeholder="wat?"></div>',
+
+    {
+      // config as array is whitelist of chars
+      config: ['/', '"'],
+      template: '{{t "foo"}} / "{{name}}"'
+    },
+
+    {
+      config: true,
+      template: '\n {{translate "greeting"}},'
+    },
+
+    {
+      config: false,
+      template: '\nfoobar'
+    },
+
+    {
+      // override the globalAttributes list
+      config: { globalAttributes: [] },
+      template: '<a title="hahaha trolol"></a>'
+    },
+
+    {
+      // override the elementAttributes list
+      config: { elementAttributes: { }},
+      template: '<input placeholder="hahaha">'
+    }
   ],
 
   bad: [
@@ -47,6 +83,18 @@ generateRuleTests({
     {
       template: '<input placeholder="trolol">',
       message: "Non-translated string used in `placeholder` attribute ('layout.hbs'@ L1:C8): `trolol`."
+    },
+
+    {
+      config: { globalAttributes: ['data-foo'] },
+      template: '<div data-foo="derpy"></div>',
+      message: "Non-translated string used in `data-foo` attribute ('layout.hbs'@ L1:C6): `derpy`."
+    },
+
+    {
+      config: { elementAttributes: { img: ['data-alt']} },
+      template: '<img data-alt="some alternate here">',
+      message: "Non-translated string used in `data-alt` attribute ('layout.hbs'@ L1:C6): `some alternate here`."
     },
 
     {
