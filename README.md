@@ -74,13 +74,19 @@ This rule forbids the following:
 <h2>Some string here!</h2>
 ```
 
-The following values are valid configuration:
+ The following values are valid configuration:
 
-  * boolean -- `true` for enabled / `false` for disabled
-  * array -- an array of whitelisted strings
+   * boolean -- `true` for enabled / `false` for disabled
+   * array -- an array of whitelisted strings
+   * object -- An object with the following keys:
+     * `whitelist` -- An array of whitelisted strings
+     * `globalAttributes` -- An array of attributes to check on every element.
+     * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name.
 
-By default, the following characters are whitelisted:
-`(),.&+-=*/#%!?:[]{}`
+When the config value of `true` is used the following configuration is used:
+ * `whitelist` - `(),.&+-=*/#%!?:[]{}`
+ * `globalAttributes` - `title`
+ * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
 
 
 #### block-indentation
