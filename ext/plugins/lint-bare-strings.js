@@ -127,8 +127,9 @@ module.exports = function(addonContext) {
     }
   };
 
-  LogStaticStrings.prototype._getBareString = function(string) {
+  LogStaticStrings.prototype._getBareString = function(_string) {
     var whitelist = this.config.whitelist;
+    var string = _string;
 
     if (whitelist) {
       for (var i = 0; i < whitelist.length; i++) {
@@ -140,7 +141,7 @@ module.exports = function(addonContext) {
       }
     }
 
-    return string.trim() !== '' ? string : null;
+    return string.trim() !== '' ? _string : null;
   };
 
   LogStaticStrings.prototype._checkNodeAndLog = function(node, additionalDescription, loc) {
