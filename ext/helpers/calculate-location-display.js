@@ -7,7 +7,7 @@ module.exports = function calculateLocationDisplay(moduleName, _locPortion) {
   var line = locPortion.line;
   var moduleInfo = '';
   if (moduleName) {
-    moduleInfo +=  "'" + moduleName + "'";
+    moduleInfo +=  '\'' + moduleName + '\'';
   }
 
   if (line !== undefined && column !== undefined) {

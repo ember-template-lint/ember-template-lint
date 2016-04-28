@@ -205,7 +205,7 @@ module.exports = function(addonContext) {
       childNodeError = 'an element with attribute `usemap`';
     }
 
-    return "Don't use " + childNodeError + ' inside ' + parentNodeError + ' ' +
+    return 'Don\'t use ' + childNodeError + ' inside ' + parentNodeError + ' ' +
       calculateLocationDisplay(this.options.moduleName, node.loc.start);
   };
 

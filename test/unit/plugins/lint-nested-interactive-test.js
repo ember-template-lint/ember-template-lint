@@ -54,19 +54,19 @@ generateRuleTests({
   ],
 
   bad: [
-    { config: ['a'], template: '<a href="/">button<a href="/">!</a></a>', message: "Don't use <a> inside <a> (\'layout.hbs\'@ L1:C18)" },
-    { config: ['a', 'button'], template: '<a href="/">button<button>!</button></a>', message: "Don't use <button> inside <a> (\'layout.hbs\'@ L1:C18)" },
-    { config: ['a', 'button'], template: '<button>button<a href="/">!</a></button>', message: "Don't use <a> inside <button> (\'layout.hbs\'@ L1:C14)" },
-    { config: ['button'], template: '<button>button<button>!</button></button>', message: "Don't use <button> inside <button> (\'layout.hbs\'@ L1:C14)" },
-    { config: ['button', 'input'], template: '<button><input type="text"></button>', message: "Don't use <input> inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'details'], template: '<button><details><summary>Some details</summary><p>!</p></details></button>', message: "Don't use <details> inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'embed'], template: '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>', message: "Don't use <embed> inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'iframe'], template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>', message: "Don't use <iframe> inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'select'], template: '<button><select></select></button>', message: "Don't use <select> inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'textarea'], template: '<button><textarea></textarea></button>', message: "Don't use <textarea> inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'tabindex'], template: '<div tabindex="1"><button></button></div>', message: "Don't use <button> inside an element with attribute `tabindex` (\'layout.hbs\'@ L1:C18)" },
-    { config: ['button', 'tabindex'], template: '<button><div tabindex="1"></div></button>', message: "Don't use an element with attribute `tabindex` inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'img'], template: '<button><img usemap=""></button>', message: "Don't use an element with attribute `usemap` inside <button> (\'layout.hbs\'@ L1:C8)" },
-    { config: ['button', 'object'], template: '<object usemap=""><button></button></object>', message: "Don't use <button> inside an element with attribute `usemap` (\'layout.hbs\'@ L1:C18)" }
+    { config: ['a'], template: '<a href="/">button<a href="/">!</a></a>', message: 'Don\'t use <a> inside <a> (\'layout.hbs\'@ L1:C18)' },
+    { config: ['a', 'button'], template: '<a href="/">button<button>!</button></a>', message: 'Don\'t use <button> inside <a> (\'layout.hbs\'@ L1:C18)' },
+    { config: ['a', 'button'], template: '<button>button<a href="/">!</a></button>', message: 'Don\'t use <a> inside <button> (\'layout.hbs\'@ L1:C14)' },
+    { config: ['button'], template: '<button>button<button>!</button></button>', message: 'Don\'t use <button> inside <button> (\'layout.hbs\'@ L1:C14)' },
+    { config: ['button', 'input'], template: '<button><input type="text"></button>', message: 'Don\'t use <input> inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'details'], template: '<button><details><summary>Some details</summary><p>!</p></details></button>', message: 'Don\'t use <details> inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'embed'], template: '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>', message: 'Don\'t use <embed> inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'iframe'], template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>', message: 'Don\'t use <iframe> inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'select'], template: '<button><select></select></button>', message: 'Don\'t use <select> inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'textarea'], template: '<button><textarea></textarea></button>', message: 'Don\'t use <textarea> inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'tabindex'], template: '<div tabindex="1"><button></button></div>', message: 'Don\'t use <button> inside an element with attribute `tabindex` (\'layout.hbs\'@ L1:C18)' },
+    { config: ['button', 'tabindex'], template: '<button><div tabindex="1"></div></button>', message: 'Don\'t use an element with attribute `tabindex` inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'img'], template: '<button><img usemap=""></button>', message: 'Don\'t use an element with attribute `usemap` inside <button> (\'layout.hbs\'@ L1:C8)' },
+    { config: ['button', 'object'], template: '<object usemap=""><button></button></object>', message: 'Don\'t use <button> inside an element with attribute `usemap` (\'layout.hbs\'@ L1:C18)' }
   ]
 });
