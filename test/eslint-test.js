@@ -2,6 +2,7 @@ var lint = require('mocha-eslint');
 
 var paths = [
   'bin',
+  'ext',
   'lib',
   'test'
 ];
