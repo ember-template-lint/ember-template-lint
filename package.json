@@ -3,7 +3,7 @@
   "version": "0.5.0",
   "description": "Lint your templates.",
   "scripts": {
-    "test": "node node-tests/nodetest-runner.js"
+    "test": "mocha"
   },
   "homepage": "https://github.com/rwjblue/ember-template-lint",
   "repository": {
@@ -20,12 +20,11 @@
     "glob": "^7.0.0",
     "loader.js": "^4.0.1",
     "mocha": "^2.4.5",
-    "mocha-eslint": "^2.0.1",
+    "mocha-eslint": "^2.0.2",
     "mocha-only-detector": "^0.1.0",
     "rimraf": "^2.5.2"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "dependencies": {
     "chalk": "^1.1.1",
     "exists-sync": "0.0.3",
