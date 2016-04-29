@@ -6,7 +6,7 @@ var assert = require('power-assert');
 var fixturePath = path.join(__dirname, 'fixtures');
 var initialCWD = process.cwd();
 
-describe.only('public api', function() {
+describe('public api', function() {
   function buildFakeConsole() {
     return {
       _logLines: [],
