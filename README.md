@@ -1,9 +1,10 @@
 # ember-cli-template-lint
 
-[![Build Status](https://travis-ci.org/rwjblue/ember-cli-template-lint.svg?branch=master)](https://travis-ci.org/rwjblue/ember-cli-template-lint)
+[![Build Status](https://travis-ci.org/rwjblue/ember-template-lint.svg?branch=master)](https://travis-ci.org/rwjblue/ember-template-lint)
 
-ember-cli-template-lint will lint your templates and add a test for each  asserting
-that all style rules have been satisfied.
+ember-template-lint will lint your template and return error results. This is commonly
+used through ember-cli-template-lint which adds failing lint tests for consuming ember-cli
+applications.
 
 For example, given the rule `bare-strings` is enabled, this template would be
 in violation:
@@ -13,18 +14,16 @@ in violation:
 <div>A bare string</div>
 ```
 
-Thus a the test `TemplateLint: app/components/my-thing/template.hbs` would
-fail with the assertion "A bare string was found (0:5)".
+When ran throught the linters `verify` method we would have a single result indicating that
+the `bare-strings` rule found an error.
 
 ## Install
 
-To install ember-cli-template-lint
+To install ember-template-lint
 
 ```
-ember install ember-cli-template-lint
+npm install --save-dev ember-template-lint
 ```
-
-__Ember CLI >= 2.4.2 is required for linting templates__
 
 ## Configuration
 
@@ -201,21 +200,7 @@ A few ideas for where to take this in the future:
 
 * `git clone` this repository
 * `npm install`
-* `bower install`
-
-### Running
-
-* `ember server`
-* Visit your app at http://localhost:4200.
 
 ### Running Tests
 
-* `npm run test-node`
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+* `npm test`
