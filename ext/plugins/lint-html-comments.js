@@ -1,6 +1,5 @@
 'use strict';
 
-var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var AstNodeInfo = require('../helpers/ast-node-info');
 var buildPlugin = require('./base');
 
@@ -29,9 +28,12 @@ module.exports = function(addonContext) {
   };
 
   LogHtmlComments.prototype.process = function(node) {
-    var location = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
-    this.log('Html comment detected `<!--' + node.value + '-->` at ' + location +
-      '. Use Handlebars comment instead `{{!--' + node.value +'--}}`');
+    this.log({
+      message: 'HTML comment detected',
+      line: node.loc && node.loc.start.line,
+      column: node.loc && node.loc.start.column,
+      source: '<!-- ' + node.value + '-->'
+    });
   };
 
   return LogHtmlComments;

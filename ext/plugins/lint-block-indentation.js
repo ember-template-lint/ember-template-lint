@@ -154,7 +154,13 @@ module.exports = function(addonContext) {
       var warning = 'Incorrect indentation for `' + displayName + '` beginning at ' + startLocation +
             '. Expected `' + display + '` ending at ' + endLocation + ' to be at an indentation of ' + startColumn + ' but ' +
             'was found at ' + correctedEndColumn + '.';
-      this.log(warning);
+
+      this.log({
+        message: warning,
+        line: node.loc.start.line,
+        column: node.loc.start.column,
+        source: this.sourceForNode(node)
+      });
     }
   };
 
@@ -252,7 +258,12 @@ module.exports = function(addonContext) {
             '. Expected `' + display + '` to be at an indentation of ' + expectedStartColumn + ' but ' +
             'was found at ' + childStartColumn + '.';
 
-        this.log(warning);
+        this.log({
+          message: warning,
+          line: child.loc && child.loc.start.line,
+          column: child.loc && child.loc.start.column,
+          source: this.sourceForNode(node)
+        });
       }
     }
   };

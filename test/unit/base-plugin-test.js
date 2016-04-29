@@ -6,17 +6,28 @@ var buildPlugin = require('./../../ext/plugins/base');
 var ast = require('./../../ext/helpers/ast-node-info');
 
 describe('base plugin tests', function() {
-  var addonContext, messages, config;
+  var messages, config;
 
-  function plugin(addonContext) {
-    var FakePlugin = buildPlugin(addonContext, 'fake');
+  function plugin() {
+    var FakePlugin = buildPlugin({
+      log: function(result) {
+        messages.push(result.source);
+      },
+      name: 'fake',
+      config: config
+    });
 
     FakePlugin.prototype.detect = function(node) {
       return ast.isElementNode(node) || ast.isTextNode(node);
     };
 
     FakePlugin.prototype.process = function(node) {
-      this.log(this.sourceForNode(node));
+      this.log({
+        message: 'Node source',
+        line: node.loc && node.loc.start.line,
+        column: node.loc && node.loc.start.column,
+        source: this.sourceForNode(node)
+      });
     };
 
     return FakePlugin;
@@ -28,7 +39,7 @@ describe('base plugin tests', function() {
       moduleName: 'layout.hbs',
       plugins: {
         ast: [
-          plugin(addonContext)
+          plugin()
         ]
       }
     });
@@ -37,15 +48,6 @@ describe('base plugin tests', function() {
   beforeEach(function() {
     messages = [];
     config   = {};
-
-    addonContext = {
-      logLintingError: function(pluginName, moduleName, message) {
-        messages.push(message);
-      },
-      loadConfig: function() {
-        return config;
-      }
-    };
   });
 
   function expectSource(config) {

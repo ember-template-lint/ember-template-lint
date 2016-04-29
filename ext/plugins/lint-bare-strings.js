@@ -22,7 +22,6 @@
      * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name.
  */
 
-var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
 var astInfo = require('../helpers/ast-node-info');
 
@@ -148,10 +147,12 @@ module.exports = function(addonContext) {
     var bareStringText = this._getBareString(node.chars);
 
     if (bareStringText) {
-      var locationDisplay = calculateLocationDisplay(this.options.moduleName, loc && loc.start);
-      var warning = 'Non-translated string used ' + additionalDescription + locationDisplay + ': `' + bareStringText + '`.';
-
-      this.log(warning);
+      this.log({
+        message: 'Non-translated string used',
+        line: loc.start.line,
+        column: loc.start.column,
+        source: bareStringText
+      });
     }
   };
 
