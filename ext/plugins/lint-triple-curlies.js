@@ -1,6 +1,5 @@
 'use strict';
 
-var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
 
 module.exports = function(addonContext) {
@@ -28,9 +27,12 @@ module.exports = function(addonContext) {
   };
 
   LogTripleCurlies.prototype.process = function(node) {
-    var location = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
-
-    this.log('Usage of triple curly brackets is unsafe `{{{' + node.path.original + '}}}` at ' + location);
+    this.log({
+      message: 'Usage of triple curly brackets is unsafe',
+      line: node.loc && node.loc.start.line,
+      column: node.loc && node.loc.start.column,
+      source: '{{{' + node.path.original + '}}}'
+    });
   };
 
   return LogTripleCurlies;

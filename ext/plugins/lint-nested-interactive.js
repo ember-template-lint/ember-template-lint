@@ -212,7 +212,13 @@ module.exports = function(addonContext) {
   LogNestedInteractive.prototype.findNestedInteractiveElements = function(node, parentInteractiveNode, whitelistTests) {
     if (this.isInteractiveElement(parentInteractiveNode, whitelistTests)) {
       if (this.isInteractiveElement(node, whitelistTests)) {
-        this.log(this.getLogMessage(node, parentInteractiveNode));
+        this.log({
+          message: this.getLogMessage(node, parentInteractiveNode),
+          line: node.loc && node.loc.start.line,
+          column: node.loc && node.loc.start.column,
+          source: this.sourceForNode(node)
+        });
+
         return;
       }
     }

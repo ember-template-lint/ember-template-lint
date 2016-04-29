@@ -10,7 +10,7 @@ module.exports = function(options) {
     var DISABLE_ALL = '<!-- template-lint disable=true -->';
     var DISABLE_ONE = '<!-- template-lint ' + options.name + '=false -->';
 
-    var addonContext, messages, config;
+    var messages, config;
 
     function compile(template) {
       _compile(template, {
@@ -18,7 +18,13 @@ module.exports = function(options) {
         moduleName: 'layout.hbs',
         plugins: {
           ast: [
-            plugins[options.name](addonContext)
+            plugins[options.name]({
+              log: function(result) {
+                messages.push(result);
+              },
+              name: options.name,
+              config: config
+            })
           ]
         }
       });
@@ -27,20 +33,20 @@ module.exports = function(options) {
     beforeEach(function() {
       messages = [];
       config   = {};
-      config[options.name] = options.config;
-
-      addonContext = {
-        logLintingError: function(pluginName, moduleName, message) {
-          messages.push(message);
-        },
-        loadConfig: function() {
-          return config;
-        }
-      };
+      config = options.config;
     });
 
     options.bad.forEach(function(badItem) {
-      var testMethod = badItem.focus ? it.only : it;
+
+      var testMethod;
+      if (!badItem.results) {
+        testMethod = it.skip;
+      } else if (badItem.focus) {
+        testMethod = it.only;
+      } else {
+        testMethod = it;
+      }
+
       var expectedMessages = badItem.messages || [badItem.message];
 
       testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
@@ -54,7 +60,7 @@ module.exports = function(options) {
       });
 
       it('passes with `' + badItem.template + '` when rule is disabled', function() {
-        config[options.name] = false;
+        config = false;
         compile(badItem.template);
 
         assert.deepEqual(messages, []);
@@ -82,7 +88,7 @@ module.exports = function(options) {
           compile(item);
         } else {
           if (item.config !== undefined) {
-            config[options.name] = item.config;
+            config = item.config;
           }
 
           compile(template);

@@ -1,6 +1,10 @@
 'use strict';
 
-module.exports = function(linterContext, name) {
+module.exports = function(options) {
+  var log = options.log;
+  var config = options.config;
+  var ruleName = options.name;
+
   function BasePlugin(options) {
     this.options = options;
     this.syntax = null; // set by HTMLBars
@@ -8,9 +12,9 @@ module.exports = function(linterContext, name) {
     // split into a source array (allow windows and posix line endings)
     this.source = this.options.rawSource.split(/(?:\r\n?|\n)/g);
 
-    this.config = this.parseConfig(
-      linterContext.config[name]
-    );
+    this.ruleName = ruleName;
+    this.config = this.parseConfig(config);
+    this._log = log;
   }
 
   BasePlugin.prototype.parseConfig = function(config) {
@@ -72,7 +76,7 @@ module.exports = function(linterContext, name) {
       }
 
       // handle <!-- template-lint block-indentation=false -->
-      if (key === name && value === 'false') {
+      if (key === ruleName && value === 'false') {
         this.config = false;
       }
     }
@@ -82,8 +86,11 @@ module.exports = function(linterContext, name) {
     return this.config === false;
   };
 
-  BasePlugin.prototype.log = function(message) {
-    linterContext.logLintingError(name, this.options.moduleName, message);
+  BasePlugin.prototype.log = function(result) {
+    result.moduleId = this.options.moduleName;
+    result.rule = this.ruleName;
+
+    this._log(result);
   };
 
   BasePlugin.prototype.detect = function() {
