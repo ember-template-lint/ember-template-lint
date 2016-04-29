@@ -28,9 +28,7 @@ module.exports = function(options) {
 
     options.bad.forEach(function(badItem) {
       var testMethod;
-      if (!badItem.results && !badItem.result) {
-        testMethod = it.skip;
-      } else if (badItem.focus) {
+      if (badItem.focus) {
         testMethod = it.only;
       } else {
         testMethod = it;
