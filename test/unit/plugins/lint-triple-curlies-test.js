@@ -14,6 +14,17 @@ generateRuleTests({
   ],
 
   bad: [
-    { template: '\n {{{foo}}}', message: 'Usage of triple curly brackets is unsafe `{{{foo}}}` at (\'layout.hbs\'@ L2:C1)' }
+    {
+      template: '\n {{{foo}}}',
+
+      result: {
+        rule: 'triple-curlies',
+        message: 'Usage of triple curly brackets is unsafe',
+        moduleId: 'layout.hbs',
+        source: '{{{foo}}}',
+        line: 2,
+        column: 1
+      }
+    }
   ]
 });
