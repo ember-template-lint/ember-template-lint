@@ -48,7 +48,6 @@
 
  */
 
-var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
 var VOID_TAGS = { area: true,
                   base: true,
@@ -148,8 +147,8 @@ module.exports = function(addonContext) {
     var startOffset = node._startOffset || 0;
     var correctedEndColumn = endColumn - displayName.length - openCloseCharOffset + startOffset;
     if(correctedEndColumn !== startColumn) {
-      var startLocation = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
-      var endLocation = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.end);
+      var startLocation = 'L' + node.loc.start.line + ':C' + node.loc.start.column;
+      var endLocation = 'L' + node.loc.end.line + ':C' + node.loc.end.column;
 
       var warning = 'Incorrect indentation for `' + displayName + '` beginning at ' + startLocation +
             '. Expected `' + display + '` ending at ' + endLocation + ' to be at an indentation of ' + startColumn + ' but ' +
@@ -157,8 +156,8 @@ module.exports = function(addonContext) {
 
       this.log({
         message: warning,
-        line: node.loc.start.line,
-        column: node.loc.start.column,
+        line: node.loc.end.line,
+        column: node.loc.end.column,
         source: this.sourceForNode(node)
       });
     }
@@ -252,8 +251,7 @@ module.exports = function(addonContext) {
           display = child.path.original;
         }
 
-        var startLocation = calculateLocationDisplay(this.options.moduleName, child.loc && child.loc.start);
-
+        var startLocation = 'L' + child.loc.start.line + ':C' + child.loc.start.column;
         var warning = 'Incorrect indentation for `' + display + '` beginning at ' + startLocation +
             '. Expected `' + display + '` to be at an indentation of ' + expectedStartColumn + ' but ' +
             'was found at ' + childStartColumn + '.';

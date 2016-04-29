@@ -91,22 +91,51 @@ generateRuleTests({
       // start and end must be the same indentation
       template: '\n  {{#each cats as |dog|}}\n        {{/each}}',
 
-      message: 'Incorrect indentation for `each` beginning at (\'layout.hbs\'@ L2:C2). Expected `{{/each}}` ending at (\'layout.hbs\'@ L3:C17) to be at an indentation of 2 but was found at 8.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `each` beginning at L2:C2. Expected `{{/each}}` ending at L3:C17 to be at an indentation of 2 but was found at 8.',
+        moduleId: 'layout.hbs',
+        source: '{{#each cats as |dog|}}\n        {{/each}}',
+        line: 3,
+        column: 17
+      }
     },
+
     {
       template: '<div>\n  <p>Stuff goes here</p></div>',
 
-      message: 'Incorrect indentation for `div` beginning at (\'layout.hbs\'@ L1:C0). Expected `</div>` ending at (\'layout.hbs\'@ L2:C30) to be at an indentation of 0 but was found at 24.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `div` beginning at L1:C0. Expected `</div>` ending at L2:C30 to be at an indentation of 0 but was found at 24.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n  <p>Stuff goes here</p></div>',
+        line: 2,
+        column: 30
+      }
     },
     {
       template: '<div>\n<p>Stuff goes here</p>\n</div>',
 
-      message: 'Incorrect indentation for `<p>` beginning at (\'layout.hbs\'@ L2:C0). Expected `<p>` to be at an indentation of 2 but was found at 0.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n<p>Stuff goes here</p>\n</div>',
+        line: 2,
+        column: 0
+      }
     },
     {
       template: '{{#if}}\n<p>Stuff goes here</p>\n{{/if}}',
 
-      message: 'Incorrect indentation for `<p>` beginning at (\'layout.hbs\'@ L2:C0). Expected `<p>` to be at an indentation of 2 but was found at 0.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '{{#if}}\n<p>Stuff goes here</p>\n{{/if}}',
+        line: 2,
+        column: 0
+      }
     },
     {
       template: '{{#if isMorning}}\n' +
@@ -116,7 +145,14 @@ generateRuleTests({
         '    {{/if}}\n' +
         '{{/if}}',
 
-      message: 'Incorrect indentation for `if` beginning at (\'layout.hbs\'@ L3:C2). Expected `{{/if}}` ending at (\'layout.hbs\'@ L5:C11) to be at an indentation of 2 but was found at 4.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `if` beginning at L3:C2. Expected `{{/if}}` ending at L5:C11 to be at an indentation of 2 but was found at 4.',
+        moduleId: 'layout.hbs',
+        source: '{{#if something}}\n    Good night\n    {{/if}}',
+        line: 5,
+        column: 11
+      }
     },
     {
       config: 4,
@@ -126,7 +162,14 @@ generateRuleTests({
         '  <p>Hi!</p>\n' +
         '</div>',
 
-      message: 'Incorrect indentation for `<p>` beginning at (\'layout.hbs\'@ L2:C2). Expected `<p>` to be at an indentation of 4 but was found at 2.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `<p>` beginning at L2:C2. Expected `<p>` to be at an indentation of 4 but was found at 2.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n  <p>Hi!</p>\n</div>',
+        line: 2,
+        column: 2
+      }
     },
     {
       template: '<div>\n' +
@@ -134,7 +177,14 @@ generateRuleTests({
         '{{bar}}\n' +
         '</div>',
 
-      message: 'Incorrect indentation for `{{bar}}` beginning at (\'layout.hbs\'@ L3:C0). Expected `{{bar}}` to be at an indentation of 2 but was found at 0.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{bar}}` beginning at L3:C0. Expected `{{bar}}` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n  {{foo}}\n{{bar}}\n</div>',
+        line: 3,
+        column: 0
+      }
     },
     {
       template: '<div>\n' +
@@ -142,7 +192,14 @@ generateRuleTests({
         '{{bar}}\n' +
         '</div>',
 
-      message: 'Incorrect indentation for `{{bar}}` beginning at (\'layout.hbs\'@ L3:C0). Expected `{{bar}}` to be at an indentation of 2 but was found at 0.'
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{bar}}` beginning at L3:C0. Expected `{{bar}}` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n  Foo:\n{{bar}}\n</div>',
+        line: 3,
+        column: 0
+      }
     },
     {
       // Start and end of multi-line block must be aligned, even when start
@@ -151,7 +208,15 @@ generateRuleTests({
         '  <span>Foo</span>{{#some-thing}}\n' +
         '  {{/some-thing}}\n' +
         '</div>',
-      message: 'Incorrect indentation for `some-thing` beginning at (\'layout.hbs\'@ L2:C18). Expected `{{/some-thing}}` ending at (\'layout.hbs\'@ L3:C17) to be at an indentation of 18 but was found at 2.'
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `some-thing` beginning at L2:C18. Expected `{{/some-thing}}` ending at L3:C17 to be at an indentation of 18 but was found at 2.',
+        moduleId: 'layout.hbs',
+        source: '{{#some-thing}}\n  {{/some-thing}}',
+        line: 3,
+        column: 17
+      }
     },
     {
       // Start and end of multi-line element must be aligned, even when start
@@ -161,7 +226,15 @@ generateRuleTests({
         '            Bar\n' +
         '  </p>\n' +
         '{{/if}}',
-      message: 'Incorrect indentation for `p` beginning at (\'layout.hbs\'@ L2:C10). Expected `</p>` ending at (\'layout.hbs\'@ L4:C6) to be at an indentation of 10 but was found at 2.'
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `p` beginning at L2:C10. Expected `</p>` ending at L4:C6 to be at an indentation of 10 but was found at 2.',
+        moduleId: 'layout.hbs',
+        source: '<p>\n            Bar\n  </p>',
+        line: 4,
+        column: 6
+      }
     }
   ]
 });
