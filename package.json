@@ -16,6 +16,7 @@
   "author": "Robert Jackson <me@rwjblue.com>",
   "license": "MIT",
   "devDependencies": {
+    "assert-diff": "^1.0.1",
     "eslint-plugin-node": "^1.0.0",
     "espower-loader": "^1.0.0",
     "glob": "^7.0.0",

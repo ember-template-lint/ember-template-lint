@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(addonContext, name) {
+module.exports = function(linterContext, name) {
   function BasePlugin(options) {
     this.options = options;
     this.syntax = null; // set by HTMLBars
@@ -9,7 +9,7 @@ module.exports = function(addonContext, name) {
     this.source = this.options.rawSource.split(/(?:\r\n?|\n)/g);
 
     this.config = this.parseConfig(
-      addonContext.loadConfig()[name]
+      linterContext.config[name]
     );
   }
 
@@ -83,7 +83,7 @@ module.exports = function(addonContext, name) {
   };
 
   BasePlugin.prototype.log = function(message) {
-    addonContext.logLintingError(name, this.options.moduleName, message);
+    linterContext.logLintingError(name, this.options.moduleName, message);
   };
 
   BasePlugin.prototype.detect = function() {
