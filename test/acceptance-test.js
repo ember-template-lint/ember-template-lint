@@ -1,4 +1,4 @@
-var path = require('path')
+var path = require('path');
 var fs = require('fs');
 var Linter = require('../lib/index');
 var assert = require('power-assert');
@@ -108,11 +108,11 @@ describe.only('public api', function() {
       var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       var expected = [
         {
-          message: 'Non-translated string used (\'/Users/rjackson/Source/javascript/ember-template-lint/test/fixtures/with-errors/app/templates/application.hbs\'@ L1:C4): `Here too!!`.',
+          message: 'Non-translated string used (\'' + __dirname + '/fixtures/with-errors/app/templates/application.hbs\'@ L1:C4): `Here too!!`.',
           rule: 'bare-strings',
           moduleId: templatePath
         }, {
-          message: 'Non-translated string used (\'/Users/rjackson/Source/javascript/ember-template-lint/test/fixtures/with-errors/app/templates/application.hbs\'@ L2:C5): `Bare strings are bad...`.',
+          message: 'Non-translated string used (\'' + __dirname + '/fixtures/with-errors/app/templates/application.hbs\'@ L2:C5): `Bare strings are bad...`.',
           rule: 'bare-strings',
           moduleId: templatePath
         }
