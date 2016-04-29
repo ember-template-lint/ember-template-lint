@@ -32,7 +32,7 @@ module.exports = function(addonContext) {
       message: 'HTML comment detected',
       line: node.loc && node.loc.start.line,
       column: node.loc && node.loc.start.column,
-      source: '<!-- ' + node.value + '-->'
+      source: '<!--' + node.value + '-->'
     });
   };
 
