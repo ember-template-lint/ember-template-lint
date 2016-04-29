@@ -1,8 +1,8 @@
 'use strict';
 
 var assert = require('power-assert');
-var _compile = require('htmlbars').compile;
-var plugins = require('../../ext/plugins');
+var assertDiff = require('assert-diff');
+var Linter = require('../../lib/index');
 
 module.exports = function(options) {
 
@@ -10,36 +10,25 @@ module.exports = function(options) {
     var DISABLE_ALL = '<!-- template-lint disable=true -->';
     var DISABLE_ONE = '<!-- template-lint ' + options.name + '=false -->';
 
-    var messages, config;
+    var linter, config;
 
-    function compile(template) {
-      _compile(template, {
-        rawSource: template,
-        moduleName: 'layout.hbs',
-        plugins: {
-          ast: [
-            plugins[options.name]({
-              log: function(result) {
-                messages.push(result);
-              },
-              name: options.name,
-              config: config
-            })
-          ]
-        }
-      });
+    function verify(template) {
+      linter.config[options.name] = config;
+      return linter.verify({ source: template, moduleId: 'layout.hbs' });
     }
 
     beforeEach(function() {
-      messages = [];
-      config   = {};
-      config = options.config;
+      var fullConfig = {};
+      fullConfig[options.name] = config = options.config;
+
+      linter = new Linter({
+        config: fullConfig
+      });
     });
 
     options.bad.forEach(function(badItem) {
-
       var testMethod;
-      if (!badItem.results) {
+      if (!badItem.results && !badItem.result) {
         testMethod = it.skip;
       } else if (badItem.focus) {
         testMethod = it.only;
@@ -47,35 +36,36 @@ module.exports = function(options) {
         testMethod = it;
       }
 
-      var expectedMessages = badItem.messages || [badItem.message];
 
       testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
+        var expectedResults = badItem.results || [badItem.result];
+
         if (badItem.config) {
-          config[options.name] = badItem.config;
+          config = badItem.config;
         }
 
-        compile(badItem.template);
+        var actual = verify(badItem.template);
 
-        assert.deepEqual(messages, expectedMessages);
+        assertDiff.deepEqual(actual, expectedResults);
       });
 
       it('passes with `' + badItem.template + '` when rule is disabled', function() {
         config = false;
-        compile(badItem.template);
+        var actual = verify(badItem.template);
 
-        assert.deepEqual(messages, []);
+        assert.deepEqual(actual, []);
       });
 
       it('passes with `' + badItem.template + '` when disabled via inline comment - single rule', function() {
-        compile(DISABLE_ONE + '\n' + badItem.template);
+        var actual = verify(DISABLE_ONE + '\n' + badItem.template);
 
-        assert.deepEqual(messages, []);
+        assert.deepEqual(actual, []);
       });
 
       it('passes with `' + badItem.template + '` when disabled via inline comment - all rules', function() {
-        compile(DISABLE_ALL + '\n' + badItem.template);
+        var actual = verify(DISABLE_ALL + '\n' + badItem.template);
 
-        assert.deepEqual(messages, []);
+        assert.deepEqual(actual, []);
       });
     });
 
@@ -84,17 +74,18 @@ module.exports = function(options) {
       var testMethod = typeof item === 'object' && item.focus ? it.only : it;
 
       testMethod('passes when given `' + template + '`', function() {
+        var actual;
         if (typeof item === 'string') {
-          compile(item);
+          actual = verify(item);
         } else {
           if (item.config !== undefined) {
             config = item.config;
           }
 
-          compile(template);
+          actual = verify(template);
         }
 
-        assert.deepEqual(messages, []);
+        assert.deepEqual(actual, []);
       });
     });
   });
