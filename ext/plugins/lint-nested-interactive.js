@@ -16,7 +16,6 @@
    * boolean -- `true` for enabled / `false` for disabled
  */
 
-var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
 
 module.exports = function(addonContext) {
@@ -205,8 +204,7 @@ module.exports = function(addonContext) {
       childNodeError = 'an element with attribute `usemap`';
     }
 
-    return 'Don\'t use ' + childNodeError + ' inside ' + parentNodeError + ' ' +
-      calculateLocationDisplay(this.options.moduleName, node.loc.start);
+    return 'Do not use ' + childNodeError + ' inside ' + parentNodeError;
   };
 
   LogNestedInteractive.prototype.findNestedInteractiveElements = function(node, parentInteractiveNode, whitelistTests) {
