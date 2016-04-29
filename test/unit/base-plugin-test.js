@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('power-assert');
 var _compile = require('htmlbars').compile;
 var buildPlugin = require('./../../ext/plugins/base');
 var ast = require('./../../ext/helpers/ast-node-info');
