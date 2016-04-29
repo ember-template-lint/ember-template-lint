@@ -54,19 +54,187 @@ generateRuleTests({
   ],
 
   bad: [
-    { config: ['a'], template: '<a href="/">button<a href="/">!</a></a>', message: 'Don\'t use <a> inside <a> (\'layout.hbs\'@ L1:C18)' },
-    { config: ['a', 'button'], template: '<a href="/">button<button>!</button></a>', message: 'Don\'t use <button> inside <a> (\'layout.hbs\'@ L1:C18)' },
-    { config: ['a', 'button'], template: '<button>button<a href="/">!</a></button>', message: 'Don\'t use <a> inside <button> (\'layout.hbs\'@ L1:C14)' },
-    { config: ['button'], template: '<button>button<button>!</button></button>', message: 'Don\'t use <button> inside <button> (\'layout.hbs\'@ L1:C14)' },
-    { config: ['button', 'input'], template: '<button><input type="text"></button>', message: 'Don\'t use <input> inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'details'], template: '<button><details><summary>Some details</summary><p>!</p></details></button>', message: 'Don\'t use <details> inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'embed'], template: '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>', message: 'Don\'t use <embed> inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'iframe'], template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>', message: 'Don\'t use <iframe> inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'select'], template: '<button><select></select></button>', message: 'Don\'t use <select> inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'textarea'], template: '<button><textarea></textarea></button>', message: 'Don\'t use <textarea> inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'tabindex'], template: '<div tabindex="1"><button></button></div>', message: 'Don\'t use <button> inside an element with attribute `tabindex` (\'layout.hbs\'@ L1:C18)' },
-    { config: ['button', 'tabindex'], template: '<button><div tabindex="1"></div></button>', message: 'Don\'t use an element with attribute `tabindex` inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'img'], template: '<button><img usemap=""></button>', message: 'Don\'t use an element with attribute `usemap` inside <button> (\'layout.hbs\'@ L1:C8)' },
-    { config: ['button', 'object'], template: '<object usemap=""><button></button></object>', message: 'Don\'t use <button> inside an element with attribute `usemap` (\'layout.hbs\'@ L1:C18)' }
+    {
+      config: ['a'],
+      template: '<a href="/">button<a href="/">!</a></a>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <a> inside <a>',
+        moduleId: 'layout.hbs',
+        source: '<a href=\"/\">!</a>',
+        line: 1,
+        column: 18
+      }
+    },
+    {
+      config: ['a', 'button'],
+      template: '<a href="/">button<button>!</button></a>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <button> inside <a>',
+        moduleId: 'layout.hbs',
+        source: '<button>!</button>',
+        line: 1,
+        column: 18
+      }
+    },
+    {
+      config: ['a', 'button'],
+      template: '<button>button<a href="/">!</a></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <a> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<a href=\"/\">!</a>',
+        line: 1,
+        column: 14
+      }
+    },
+    {
+      config: ['button'],
+      template: '<button>button<button>!</button></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <button> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<button>!</button>',
+        line: 1,
+        column: 14
+      }
+    },
+    {
+      config: ['button', 'input'],
+      template: '<button><input type="text"></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <input> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<input type="text">',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'details'],
+      template: '<button><details><summary>Some details</summary><p>!</p></details></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <details> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<details><summary>Some details</summary><p>!</p></details>',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'embed'],
+      template: '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <embed> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<embed type=\"video/quicktime\" src=\"movie.mov\" width=\"640\" height=\"480\">',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'iframe'],
+      template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <iframe> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<iframe src=\"/frame.html\" width=\"640\" height=\"480\"></iframe>',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'select'],
+      template: '<button><select></select></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <select> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<select></select>',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'textarea'],
+      template: '<button><textarea></textarea></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <textarea> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<textarea></textarea>',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'tabindex'],
+      template: '<div tabindex="1"><button></button></div>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <button> inside an element with attribute `tabindex`',
+        moduleId: 'layout.hbs',
+        source: '<button></button>',
+        line: 1,
+        column: 18
+      }
+    },
+    {
+      config: ['button', 'tabindex'],
+      template: '<button><div tabindex="1"></div></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use an element with attribute `tabindex` inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<div tabindex=\"1\"></div>',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'img'],
+      template: '<button><img usemap=""></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use an element with attribute `usemap` inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<img usemap=\"\">',
+        line: 1,
+        column: 8
+      }
+    },
+    {
+      config: ['button', 'object'],
+      template: '<object usemap=""><button></button></object>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <button> inside an element with attribute `usemap`',
+        moduleId: 'layout.hbs',
+        source: '<button></button>',
+        line: 1,
+        column: 18
+      }
+    }
   ]
 });
