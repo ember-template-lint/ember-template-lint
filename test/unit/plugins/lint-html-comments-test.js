@@ -17,13 +17,27 @@ generateRuleTests({
   bad: [
     {
       template: '<!-- comment here -->',
-      message: 'Html comment detected `<!-- comment here -->` at (\'layout.hbs\'@ L1:C3). ' +
-        'Use Handlebars comment instead `{{!-- comment here --}}`'
+
+      result: {
+        rule: 'html-comments',
+        message: 'HTML comment detected',
+        moduleId: 'layout.hbs',
+        source: '<!-- comment here -->',
+        line: 1,
+        column: 3
+      }
     },
     {
       template: '<!--comment here-->',
-      message: 'Html comment detected `<!--comment here-->` at (\'layout.hbs\'@ L1:C3). ' +
-        'Use Handlebars comment instead `{{!--comment here--}}`'
+
+      result: {
+        rule: 'html-comments',
+        message: 'HTML comment detected',
+        moduleId: 'layout.hbs',
+        source: '<!--comment here-->',
+        line: 1,
+        column: 3
+      }
     }
   ]
 });
