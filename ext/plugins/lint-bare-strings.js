@@ -117,7 +117,7 @@ module.exports = function(addonContext) {
   LogStaticStrings.prototype._getBareStringAttribute = function(tag, attribute) {
     var attributeType = attribute.name;
     var attributeValueNode = attribute.value;
-    var additionalDescription = 'in `' + attributeType + '` attribute ';
+    var additionalDescription = ' in `' + attributeType + '` attribute';
     var isGlobalAttribute = this.config.globalAttributes.indexOf(attributeType) > -1;
     var isElementAttribute = this.config.elementAttributes[tag] && this.config.elementAttributes[tag].indexOf(attributeType) > -1;
 
@@ -148,7 +148,7 @@ module.exports = function(addonContext) {
 
     if (bareStringText) {
       this.log({
-        message: 'Non-translated string used',
+        message: 'Non-translated string used' + additionalDescription,
         line: loc.start.line,
         column: loc.start.column,
         source: bareStringText

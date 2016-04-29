@@ -38,7 +38,7 @@ module.exports = function(options) {
 
 
       testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
-        var expectedResults = badItem.results || [badItem.message];
+        var expectedResults = badItem.results || [badItem.result];
 
         if (badItem.config) {
           config = badItem.config;

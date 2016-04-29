@@ -64,37 +64,104 @@ generateRuleTests({
   ],
 
   bad: [
-    { template: '\n howdy', message: 'Non-translated string used (\'layout.hbs\'@ L1:C0): `\n howdy`.' },
-    { template: '<div>\n  1234\n</div>', message: 'Non-translated string used (\'layout.hbs\'@ L1:C5): `\n  1234\n`.' },
+    {
+      template: '\n howdy',
+
+      result: {
+        rule: 'bare-strings',
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used',
+        line: 1,
+        column: 0,
+        source: '\n howdy'
+      }
+    },
+    {
+      template: '<div>\n  1234\n</div>',
+
+      result: {
+        rule: 'bare-strings',
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used',
+        line: 1,
+        column: 5,
+        source: '\n  1234\n'
+      }
+    },
 
     {
       template: '<a title="hahaha trolol"></a>',
-      message: 'Non-translated string used in `title` attribute (\'layout.hbs\'@ L1:C4): `hahaha trolol`.'
+
+      result: {
+        rule: 'bare-strings',
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `title` attribute',
+        line: 1,
+        column: 4,
+        source: 'hahaha trolol'
+      }
     },
 
     {
       template: '<input placeholder="trolol">',
-      message: 'Non-translated string used in `placeholder` attribute (\'layout.hbs\'@ L1:C8): `trolol`.'
+
+      result: {
+        rule: 'bare-strings',
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `placeholder` attribute',
+        line: 1,
+        column: 8,
+        source: 'trolol'
+      }
     },
 
     {
       config: { globalAttributes: ['data-foo'] },
       template: '<div data-foo="derpy"></div>',
-      message: 'Non-translated string used in `data-foo` attribute (\'layout.hbs\'@ L1:C6): `derpy`.'
+
+      result: {
+        rule: 'bare-strings',
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `data-foo` attribute',
+        line: 1,
+        column: 6,
+        source: 'derpy'
+      }
     },
 
     {
       config: { elementAttributes: { img: ['data-alt']} },
       template: '<img data-alt="some alternate here">',
-      message: 'Non-translated string used in `data-alt` attribute (\'layout.hbs\'@ L1:C6): `some alternate here`.'
+
+      result: {
+        rule: 'bare-strings',
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `data-alt` attribute',
+        line: 1,
+        column: 6,
+        source: 'some alternate here'
+      }
     },
 
     {
       // multiple bare strings are all logged
       template: '<div>Bady\n  <input placeholder="trolol">\n</div>',
-      messages: [
-        'Non-translated string used (\'layout.hbs\'@ L1:C5): `Bady\n  `.',
-        'Non-translated string used in `placeholder` attribute (\'layout.hbs\'@ L2:C10): `trolol`.'
+      results: [
+        {
+          rule: 'bare-strings',
+          moduleId: 'layout.hbs',
+          message: 'Non-translated string used',
+          line: 1,
+          column: 5,
+          source: 'Bady\n  '
+        }, {
+          rule: 'bare-strings',
+          moduleId: 'layout.hbs',
+          message: 'Non-translated string used in `placeholder` attribute',
+          line: 2,
+          column: 10,
+          source: 'trolol'
+        }
       ]
     }
   ]
