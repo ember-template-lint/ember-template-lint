@@ -98,21 +98,6 @@ describe('public api', function() {
       });
     });
 
-    it.skip('logs issues with the provided template', function() {
-      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
-      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-
-      linter.verify({
-        source: templateContents,
-        moduleId: templatePath
-      });
-
-      var combinedLog = mockConsole._logLines.join('\n');
-
-      assert(combinedLog.indexOf('Here too!') > -1);
-      assert(combinedLog.indexOf('Bare strings are bad') > -1);
-    });
-
     it('returns an array of issues with the provided template', function() {
       var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
