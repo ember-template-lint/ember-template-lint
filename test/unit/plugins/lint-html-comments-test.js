@@ -24,7 +24,10 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<!-- comment here -->',
         line: 1,
-        column: 3
+        column: 3,
+        fix: {
+          text: '{{! comment here }}'
+        }
       }
     },
     {
@@ -36,7 +39,10 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<!--comment here-->',
         line: 1,
-        column: 3
+        column: 3,
+        fix: {
+          text: '{{!comment here}}'
+        }
       }
     }
   ]
