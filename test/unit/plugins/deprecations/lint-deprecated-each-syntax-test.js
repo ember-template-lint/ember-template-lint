@@ -1,6 +1,9 @@
 'use strict';
 
 var generateRuleTests = require('../../../helpers/rule-test-harness');
+var DEPRECATION_URL = require('../../../../ext/plugins/deprecations/lint-deprecated-each-syntax').DEPRECATION_URL;
+
+var message = 'Deprecated {{#each}} usage. See the deprecation guide at ' + DEPRECATION_URL;
 
 generateRuleTests({
   name: 'deprecated-each-syntax',
@@ -17,11 +20,14 @@ generateRuleTests({
 
       result: {
         rule: 'deprecated-each-syntax',
-        message: 'Deprecated {{#each}} usage \nActual: {{#each post in posts}}\nExpected (rewrite the template to this): {{#each posts as |post|}}\nThe `#each in` syntax was deprecated in 1.11 and removed in Ember 2.0.\nSee the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code',
+        message: message,
         moduleId: 'layout.hbs',
-        source: '{{#each post in posts}}{{post.name}}{{/each}}',
+        source: '{{#each post in posts}}',
         line: 1,
-        column: 0
+        column: 0,
+        fix: {
+          text: '{{#each posts as |post|}}'
+        }
       }
     }
   ]
