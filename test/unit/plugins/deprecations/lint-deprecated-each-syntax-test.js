@@ -8,6 +8,8 @@ var message = 'Deprecated {{#each}} usage. See the deprecation guide at ' + DEPR
 generateRuleTests({
   name: 'deprecated-each-syntax',
 
+  config: true,
+
   good: [
     {
       template: '{{#each posts as |post|}}{{post.name}}{{/each}}'
@@ -27,6 +29,21 @@ generateRuleTests({
         column: 0,
         fix: {
           text: '{{#each posts as |post|}}'
+        }
+      }
+    },
+    {
+      template: '{{#each posts}}{{name}}{{/each}}',
+
+      result: {
+        rule: 'deprecated-each-syntax',
+        message: message,
+        moduleId: 'layout.hbs',
+        source: '{{#each posts}}',
+        line: 1,
+        column: 0,
+        fix: {
+          text: '{{#each posts as |item|}}'
         }
       }
     }
