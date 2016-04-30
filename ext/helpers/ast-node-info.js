@@ -18,4 +18,8 @@ AstNodeInfo.isElementNode = function(node) {
   return node.type === 'ElementNode';
 };
 
+AstNodeInfo.isBlockStatement = function(node) {
+  return node.type === 'BlockStatement';
+};
+
 module.exports = AstNodeInfo;
