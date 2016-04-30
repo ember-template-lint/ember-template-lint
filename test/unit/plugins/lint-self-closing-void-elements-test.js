@@ -32,7 +32,7 @@ generateRuleTests({
       message: 'Self-closing void element as <area> is redundant (\'layout.hbs\'@ L1:C0)',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<area/>',
@@ -44,7 +44,7 @@ generateRuleTests({
       template: '<base/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<base/>',
@@ -56,7 +56,7 @@ generateRuleTests({
       template: '<br/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<br/>',
@@ -68,7 +68,7 @@ generateRuleTests({
       template: '<col/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<col/>',
@@ -80,7 +80,7 @@ generateRuleTests({
       template: '<command/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<command/>',
@@ -92,7 +92,7 @@ generateRuleTests({
       template: '<embed/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<embed/>',
@@ -104,7 +104,7 @@ generateRuleTests({
       template: '<hr/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<hr/>',
@@ -116,7 +116,7 @@ generateRuleTests({
       template: '<img/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<img/>',
@@ -128,7 +128,7 @@ generateRuleTests({
       template: '<input/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<input/>',
@@ -140,7 +140,7 @@ generateRuleTests({
       template: '<keygen/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<keygen/>',
@@ -152,7 +152,7 @@ generateRuleTests({
       template: '<link/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<link/>',
@@ -164,7 +164,7 @@ generateRuleTests({
       template: '<meta/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<meta/>',
@@ -176,7 +176,7 @@ generateRuleTests({
       template: '<param/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<param/>',
@@ -188,7 +188,7 @@ generateRuleTests({
       template: '<source/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<source/>',
@@ -200,7 +200,7 @@ generateRuleTests({
       template: '<track/>',
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<track/>',
@@ -213,7 +213,7 @@ generateRuleTests({
       config: true,
 
       result: {
-        rule: 'lint-self-closing-void-elements',
+        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<wbr/>',
