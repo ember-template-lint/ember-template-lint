@@ -16,7 +16,6 @@
    * boolean -- `true` for enabled / `false` for disabled
  */
 
-var calculateLocationDisplay = require('../helpers/calculate-location-display');
 var buildPlugin = require('./base');
 /**
  * [Specs of Void Elements]{@link https://www.w3.org/TR/html-markup/syntax.html#void-element}
@@ -51,10 +50,14 @@ module.exports = function(addonContext) {
     var sourceEndTwoCharacters = source.slice(source.length - 2);
 
     if (sourceEndTwoCharacters === '/>') {
-      var warning = 'Self-closing void element as <' + node.tag +
-        '> is redundant ' + calculateLocationDisplay(this.options.moduleName, node.loc.start);
+      var warning = 'Self-closing a void element is redundant';
 
-      this.log(warning);
+      this.log({
+        message: warning,
+        line: node.loc.start.line,
+        column: node.loc.start.column,
+        source: this.sourceForNode(node)
+      });
     }
   };
 
