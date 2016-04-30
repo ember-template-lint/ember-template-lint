@@ -30,10 +30,8 @@
   },
   "keywords": [],
   "dependencies": {
-    "chalk": "^1.1.1",
     "exists-sync": "0.0.3",
-    "htmlbars": "^0.14.17",
-    "js-string-escape": "^1.0.0"
+    "htmlbars": "^0.14.17"
   },
   "bugs": {
     "url": "https://github.com/rwjblue/ember-template-lint/issues"
