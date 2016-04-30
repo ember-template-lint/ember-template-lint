@@ -2,7 +2,6 @@
 
 var buildPlugin = require('../base');
 var astInfo = require('../../helpers/ast-node-info');
-var calculateLocationDisplay = require('../../helpers/calculate-location-display');
 
 var DEPRECATION_URL = 'http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code';
 
@@ -25,17 +24,20 @@ module.exports = function(addonContext) {
     var actual = '{{#each ' + singular + ' in ' + collection + '}}';
     var expected = '{{#each ' + collection + ' as |' + singular + '|}}';
 
-    var startLocation = calculateLocationDisplay(this.options.moduleName, node.loc && node.loc.start);
-
     var message = [
-      'Deprecated {{#each}} usage at ' + startLocation,
+      'Deprecated {{#each}} usage ',
       'Actual: ' + actual,
-      'Expected (Rewrite the template to this): ' + expected,
-      'The `#each in` syntax was deprecated in 1.11 and removed in 2.0.',
+      'Expected (rewrite the template to this): ' + expected,
+      'The `#each in` syntax was deprecated in 1.11 and removed in Ember 2.0.',
       'See the deprecation guide at ' + DEPRECATION_URL
     ].join('\n');
 
-    this.log(message);
+    this.log({
+      message: message,
+      line: node.loc && node.loc.start.line,
+      column: node.loc && node.loc.start.column,
+      source: this.sourceForNode(node)
+    });
   };
 
   return DeprecatedEachSyntax;
