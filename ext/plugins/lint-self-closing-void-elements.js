@@ -50,13 +50,16 @@ module.exports = function(addonContext) {
     var sourceEndTwoCharacters = source.slice(source.length - 2);
 
     if (sourceEndTwoCharacters === '/>') {
-      var warning = 'Self-closing a void element is redundant';
+      var expected = source.slice(0, -2) + '>';
 
       this.log({
-        message: warning,
+        message: 'Self-closing a void element is redundant',
         line: node.loc.start.line,
         column: node.loc.start.column,
-        source: this.sourceForNode(node)
+        source: source,
+        fix: {
+          text: expected
+        }
       });
     }
   };
