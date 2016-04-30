@@ -1,4 +1,4 @@
-# ember-cli-template-lint
+# ember-template-lint
 
 [![Build Status](https://travis-ci.org/rwjblue/ember-template-lint.svg?branch=master)](https://travis-ci.org/rwjblue/ember-template-lint)
 
