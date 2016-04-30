@@ -2,8 +2,8 @@
 
 var assert = require('power-assert');
 var _compile = require('htmlbars').compile;
-var buildPlugin = require('./../../ext/plugins/base');
-var ast = require('./../../ext/helpers/ast-node-info');
+var buildPlugin = require('./../../lib/rules/base');
+var ast = require('./../../lib/helpers/ast-node-info');
 
 describe('base plugin tests', function() {
   var messages, config;
