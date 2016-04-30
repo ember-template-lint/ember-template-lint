@@ -211,7 +211,7 @@ Instead, you should write the template as:
 
 More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
 
-#### lint-self-closing-void-elements
+#### self-closing-void-elements
 
 HTML has no self-closing tags. The HTML 5 parser will ignore self-closing tag in
 the case of [`void elements`](https://www.w3.org/TR/html-markup/syntax.html#void-element)

@@ -3,7 +3,7 @@
 var generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'lint-self-closing-void-elements',
+  name: 'self-closing-void-elements',
 
   config: true,
 
