@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## v0.5.2
+
+- Add `fix` information to the results object for:
+  - `html-comments`
+  - `self-closing-void-elements`
+  - `deprecated-each-syntax`
+- Add support for context shifting `{{#each` (i.e. `{{#each posts}}`) to the `deprecated-each-syntax`.
+
 ## v0.5.1
 
 - Bring back rules lost during migration from ember-cli-template-lint (deprecated-each, self-closing-void-elements).
