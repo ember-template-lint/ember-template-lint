@@ -83,7 +83,7 @@ module.exports = function(options) {
   };
 
   BasePlugin.prototype.isDisabled = function() {
-    return this.config === false;
+    return !this.config;
   };
 
   BasePlugin.prototype.log = function(result) {
