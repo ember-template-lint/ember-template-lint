@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## v0.5.3
+
+- Add ability to extend from internally managed configurations.
+- Add `recommended` configuration, which can be used via the following in your `.template-lintrc.js`:
+
+```js
+module.exports = {
+  extends: 'recommended'
+}
+```
+
 ## v0.5.2
 
 - Add `fix` information to the results object for:
