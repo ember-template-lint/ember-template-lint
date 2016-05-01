@@ -34,9 +34,12 @@ You can turn on specific rules by toggling them in a
 
 ```javascript
 module.exports = {
-  'bare-strings': false
+  extends: 'recommended'
 }
 ```
+
+This extends from the builtin recommended configuration ([lib/config/recommended.js](https://github.com/rwjblue/ember-template-lint/blob/master/lib/config/recommended.js)).
+Using this mechanism allows you to extend from the builtin, and modify specific rules as needed.
 
 Some rules also allow setting additional configuration, for example if you would like to configure
 some "bare strings" that are allowed you might have:
