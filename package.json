@@ -31,7 +31,8 @@
   "keywords": [],
   "dependencies": {
     "exists-sync": "0.0.3",
-    "htmlbars": "^0.14.17"
+    "htmlbars": "^0.14.17",
+    "lodash.assign": "^4.0.8"
   },
   "bugs": {
     "url": "https://github.com/rwjblue/ember-template-lint/issues"
