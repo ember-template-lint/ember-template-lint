@@ -3,6 +3,7 @@
 var assert = require('power-assert');
 var assertDiff = require('assert-diff');
 var Linter = require('../../lib/index');
+var assign = require('lodash').assign;
 
 module.exports = function(options) {
 
@@ -36,9 +37,20 @@ module.exports = function(options) {
         testMethod = it;
       }
 
+      function parseResult(result) {
+        var defaults = {
+          rule: options.name,
+          moduleId: 'layout.hbs',
+          severity: 2
+        };
+
+        return assign({}, defaults, result);
+      }
 
       testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
         var expectedResults = badItem.results || [badItem.result];
+
+        expectedResults = expectedResults.map(parseResult);
 
         if (badItem.config) {
           config = badItem.config;

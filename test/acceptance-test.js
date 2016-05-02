@@ -108,14 +108,16 @@ describe('public api', function() {
           line: 1,
           column: 4,
           source: 'Here too!!',
-          rule: 'bare-strings'
+          rule: 'bare-strings',
+          severity: 2
         }, {
           message: 'Non-translated string used',
           moduleId: templatePath,
           line: 2,
           column: 5,
           source: 'Bare strings are bad...',
-          rule: 'bare-strings'
+          rule: 'bare-strings',
+          severity: 2
         }
       ];
 
