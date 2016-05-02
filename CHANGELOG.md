@@ -1,6 +1,31 @@
 Changelog
 =========
 
+## v0.5.4
+
+- Move rule configuration into `rules` property inside `.tempalte-lintrc.js`. Configuration in the root is still supported, 
+  but triggers a deprecation warning. Migration should be very straigtforward.
+
+  Before:
+
+  ```js
+  // .template-lintrc.js
+  module.exports = {
+    'bare-strings': true
+  }
+  ```
+
+  After:
+
+  ```js
+  // .template-lintrc.js
+  module.exports = {
+    rules: {
+      'bare-strings': true
+    }
+  }
+  ```
+
 ## v0.5.3
 
 - Add ability to extend from internally managed configurations.
