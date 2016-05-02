@@ -46,7 +46,9 @@ some "bare strings" that are allowed you might have:
 
 ```javascript
 module.exports = {
-  'bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
+  rules: {
+    'bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
+  }
 };
 ```
 

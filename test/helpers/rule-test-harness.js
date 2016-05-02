@@ -13,13 +13,15 @@ module.exports = function(options) {
     var linter, config;
 
     function verify(template) {
-      linter.config[options.name] = config;
+      linter.config.rules[options.name] = config;
       return linter.verify({ source: template, moduleId: 'layout.hbs' });
     }
 
     beforeEach(function() {
-      var fullConfig = {};
-      fullConfig[options.name] = config = options.config;
+      var fullConfig = {
+        rules: { }
+      };
+      fullConfig.rules[options.name] = config = options.config;
 
       linter = new Linter({
         config: fullConfig
