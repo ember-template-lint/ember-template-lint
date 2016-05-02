@@ -108,14 +108,16 @@ describe('public api', function() {
           line: 1,
           column: 4,
           source: 'Here too!!',
-          rule: 'bare-strings'
+          rule: 'bare-strings',
+          severity: 2
         }, {
           message: 'Non-translated string used',
           moduleId: templatePath,
           line: 2,
           column: 5,
           source: 'Bare strings are bad...',
-          rule: 'bare-strings'
+          rule: 'bare-strings',
+          severity: 2
         }
       ];
 
@@ -134,6 +136,74 @@ describe('public api', function() {
       });
 
       assert(result[0].fatal === true);
+    });
+
+    it('defaults all messages to warning severity level when module listed in pending', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'bare-strings': true },
+          pending: ['some/path/here']
+        }
+      });
+
+      var template = '<div>bare string</div>';
+      var result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here'
+      });
+
+      var expected = {
+        message: 'Non-translated string used',
+        moduleId: 'some/path/here',
+        line: 1,
+        column: 5,
+        source: 'bare string',
+        rule: 'bare-strings',
+        severity: 1
+      };
+
+      assert.deepEqual(result, [expected]);
+    });
+
+    it('module listed in pending passes an error results', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'bare-strings': true },
+          pending: ['some/path/here']
+        }
+      });
+
+      var template = '<div></div>';
+      var result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here'
+      });
+
+      var expected = {
+        message: 'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
+        moduleId: 'some/path/here',
+        severity: 2
+      };
+
+      assert.deepEqual(result, [expected]);
+    });
+  });
+
+  describe('Linter.prototype.isPending', function() {
+    it('returns true when the provided moduleId is listed in `pending`', function() {
+      var linter = new Linter({
+        console: mockConsole,
+        config: {
+          pending: [
+            'some/path/here'
+          ]
+        }
+      });
+
+      assert(linter.isPending('some/path/here'));
+      assert(!linter.isPending('some/other/path'));
     });
   });
 });

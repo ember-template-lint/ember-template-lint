@@ -66,6 +66,16 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 
 It is not currently possible to change rule configuration in the template.
 
+### Configuration Keys
+
+The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
+
+* `rules` -- This is an object containing rule specific configuration (see details for each rule below).
+* `extends` -- This is a string that allows you to specify an internally curated list of rules (we suggest `recommended` here).
+* `pending` -- An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
+  into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
+  and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
+
 ## Rules
 
 #### bare-strings
@@ -91,7 +101,6 @@ When the config value of `true` is used the following configuration is used:
  * `whitelist` - `(),.&+-=*/#%!?:[]{}`
  * `globalAttributes` - `title`
  * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
-
 
 #### block-indentation
 
