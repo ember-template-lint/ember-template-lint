@@ -126,5 +126,14 @@ describe('public api', function() {
 
       assert.deepEqual(result, expected);
     });
+
+    it('returns a "fatal" result object if an error occurs during parsing', function() {
+      var template = '<div>';
+      var result = linter.verify({
+        source: template
+      });
+
+      assert(result[0].fatal === true);
+    });
   });
 });
