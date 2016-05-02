@@ -1,4 +1,6 @@
 module.exports = {
-  "foo": "bar",
-  "baz": "derp"
+  rules: {
+    "foo": "bar",
+    "baz": "derp"
+  }
 };

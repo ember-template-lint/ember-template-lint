@@ -1,6 +1,6 @@
 var path = require('path');
 var assert = require('power-assert');
-var assign = require('lodash.assign');
+var clone = require('lodash').clone;
 var getConfig = require('../../lib/get-config');
 var recommendedConfig = require('../../lib/config/recommended');
 
@@ -55,15 +55,46 @@ describe('get-config', function() {
   });
 
   it('can extend and override a default configuration', function() {
-    var expected = assign({}, recommendedConfig, { 'bare-strings': false });
+    var expected = clone(recommendedConfig);
+    expected.rules['bare-strings'] = false;
+
     var actual = getConfig({
       config: {
         extends: 'recommended',
-        'bare-strings': false
+        rules: {
+          'bare-strings': false
+        }
       }
     });
 
     assert.deepEqual(actual, expected);
-    assert(actual['bare-strings'] === false);
+    assert(actual.rules['bare-strings'] === false);
+  });
+
+  it('migrates rules in the config root into `rules` property', function() {
+    var expected = { rules: { 'bare-strings': true }};
+    var actual = getConfig({
+      console: { log: function() { }},
+      config: {
+        'bare-strings': true
+      }
+    });
+
+    assert.deepEqual(actual, expected);
+  });
+
+  it('rules in the config root trigger a deprecation', function() {
+    var message;
+    getConfig({
+      console: { log: function(_message) {
+        message = _message;
+      }},
+
+      config: {
+        'bare-strings': true
+      }
+    });
+
+    assert(/Rule configuration has been moved/.test(message));
   });
 });

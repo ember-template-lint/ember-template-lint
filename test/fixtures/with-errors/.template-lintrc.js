@@ -1,3 +1,5 @@
 module.exports = {
-  'bare-strings': true
+  rules: {
+    'bare-strings': true
+  }
 };
