@@ -1,0 +1,39 @@
+var fs = require('fs');
+var path = require('path');
+var assert = require('power-assert');
+var rules = require('../../lib/rules');
+
+var DEFAULT_CONFIG_PATH = path.join(__dirname, '..', '..', 'lib', 'config');
+
+describe('default configurations', function() {
+  describe('use valid rules', function() {
+    var configFiles = fs.readdirSync(DEFAULT_CONFIG_PATH);
+
+    configFiles.forEach(function(file) {
+      it('should contain only valid rules', function() {
+        var config = require(path.join(DEFAULT_CONFIG_PATH, file));
+
+        for (var rule in config.rules) {
+          assert(rule in rules);
+        }
+      });
+
+      it('should contain only valid rule configuration', function() {
+        var config = require(path.join(DEFAULT_CONFIG_PATH, file));
+
+        for (var rule in config.rules) {
+          var options = {
+            config: config.rules[rule]
+          };
+
+          var Rule = rules[rule](options);
+          assert.doesNotThrow(function() {
+            new Rule({
+              rawSource: ''
+            });
+          });
+        }
+      });
+    });
+  });
+});
