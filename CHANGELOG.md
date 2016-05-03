@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.5.6
+
+- Remove `bare-strings` from `recommended` configuration. See [#27](https://github.com/rwjblue/ember-template-lint/pull/27) for more details.
+
 ## v0.5.5
 
 - Fix invalid rule name in `recommended` configuration.
