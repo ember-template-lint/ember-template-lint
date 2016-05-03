@@ -97,4 +97,21 @@ describe('get-config', function() {
 
     assert(/Rule configuration has been moved/.test(message));
   });
+
+  it('warns for unknown rules', function() {
+    var message;
+    getConfig({
+      console: { log: function(_message) {
+        message = _message;
+      }},
+
+      config: {
+        rules: {
+          'blammo': true
+        }
+      }
+    });
+
+    assert(/Invalid rule configuration found/.test(message));
+  });
 });
