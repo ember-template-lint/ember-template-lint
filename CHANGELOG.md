@@ -1,9 +1,14 @@
 Changelog
 =========
 
+## v0.5.5
+
+- Fix invalid rule name in `recommended` configuration.
+- Add ability to mark files as `pending` in the `.template-lintrc.js` configuration file.  When a module is listed in the `pending` list, it will be checked but any errors detected will be marked as warnings (and will not trigger a failing test when using ember-cli-template-lint). If there are no errors detected when checking a pending file, a new error will be triggered. The goal of this process is to allow large existing projects begin utilizing `ember-template-lint` / `ember-cli-template-lint` and slowly fix their template files to comply with the rules here.  Feedback welcome on this idea/process...
+
 ## v0.5.4
 
-- Move rule configuration into `rules` property inside `.tempalte-lintrc.js`. Configuration in the root is still supported, 
+- Move rule configuration into `rules` property inside `.tempalte-lintrc.js`. Configuration in the root is still supported,
   but triggers a deprecation warning. Migration should be very straigtforward.
 
   Before:
