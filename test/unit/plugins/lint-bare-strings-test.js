@@ -97,7 +97,7 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `title` attribute',
         line: 1,
-        column: 4,
+        column: 3,
         source: 'hahaha trolol'
       }
     },
@@ -110,7 +110,7 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
-        column: 8,
+        column: 7,
         source: 'trolol'
       }
     },
@@ -124,7 +124,7 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `data-foo` attribute',
         line: 1,
-        column: 6,
+        column: 5,
         source: 'derpy'
       }
     },
@@ -138,7 +138,7 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `data-alt` attribute',
         line: 1,
-        column: 6,
+        column: 5,
         source: 'some alternate here'
       }
     },
@@ -159,7 +159,7 @@ generateRuleTests({
           moduleId: 'layout.hbs',
           message: 'Non-translated string used in `placeholder` attribute',
           line: 2,
-          column: 10,
+          column: 9,
           source: 'trolol'
         }
       ]
