@@ -83,7 +83,15 @@ generateRuleTests({
         '</div>'
     },
     '<!-- template-lint bare-strings=false -->',
-    '<!-- template-lint enabled=false -->'
+    '<!-- template-lint enabled=false -->',
+    {
+      template: [
+        '<div>',
+        '  {{foo-bar baz="asdf"}}',
+        '  <!-- foo bar baz -->',
+        '</div>'
+      ].join('\n')
+    }
   ],
 
   bad: [
@@ -234,6 +242,23 @@ generateRuleTests({
         source: '<p>\n            Bar\n  </p>',
         line: 4,
         column: 6
+      }
+    },
+
+    {
+      template: [
+        '<div>',
+        '<!-- foo bar baz -->',
+        '</div>'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `<!-- foo bar baz -->` beginning at L2:C0. Expected `<!-- foo bar baz -->` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n<!-- foo bar baz -->\n</div>',
+        line: 2,
+        column: 0
       }
     }
   ]
