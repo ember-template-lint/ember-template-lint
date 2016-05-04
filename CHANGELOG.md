@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## v0.5.7
+
+- Fix a bug with `block-indentation` rule that would throw an error if a block contained a comment.
+- Fixed bugs upstream in HTMLBars that caused location information to be incorrect for attributes and comments.
+
 ## v0.5.6
 
 - Remove `bare-strings` from `recommended` configuration. See [#27](https://github.com/rwjblue/ember-template-lint/pull/27) for more details.
