@@ -66,6 +66,47 @@ generateRuleTests({
       '  {{foo}}:\n' +
       '  {{bar}}\n' +
       '{{/if}}',
+    [
+      '{{#if foo}}',
+      '  <div></div>',
+      '{{~/if}}'
+    ].join('\n'),
+    [
+      '{{~#if foo}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n'),
+    [
+      '{{#if foo~}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n'),
+    [
+      '{{#if foo}}',
+      '  <div></div>',
+      '{{/if~}}'
+    ].join('\n'),
+    [
+      '{{#if foo}}',
+      '  <div></div>',
+      '{{~else}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n'),
+    [
+      '{{#if foo}}',
+      '  <div></div>',
+      '{{else~}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n'),
+    [
+      '{{#if foo}}',
+      '  <div></div>',
+      '{{~else~}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n'),
     {
       config: 4,
 
