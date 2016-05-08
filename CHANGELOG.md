@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v0.5.8
+
+- Fix various issues with `block-indentation` rule:
+  - Ensure that usage of whitespace control in end block does not trigger an error. Before this: `{{#if foo}}{{~/if}}` would error.
+  - Validate indentation for block inverse (aka `{{else}}`).
+
 ## v0.5.7
 
 - Fix a bug with `block-indentation` rule that would throw an error if a block contained a comment.
