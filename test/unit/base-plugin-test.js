@@ -18,7 +18,7 @@ describe('base plugin tests', function() {
     });
 
     FakePlugin.prototype.detect = function(node) {
-      return ast.isElementNode(node) || ast.isTextNode(node);
+      return node.loc && (ast.isElementNode(node) || ast.isTextNode(node));
     };
 
     FakePlugin.prototype.process = function(node) {
