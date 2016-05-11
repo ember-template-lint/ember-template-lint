@@ -18,10 +18,6 @@ generateRuleTests({
     }, {
       config: 'double',
       template: '<img alt src="tomster.png">'
-    // TODO:
-    // }, {
-    //   config: 'double',
-    //   template: '<img alt src=tomster.png>'
     }
   ],
 
