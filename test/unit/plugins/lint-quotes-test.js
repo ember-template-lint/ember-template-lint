@@ -47,7 +47,7 @@ generateRuleTests({
       config: true,
       template: '<img alt=tomster>',
       result: {
-        message: 'Quotes: you should use qoutes for HTML attributes',
+        message: 'Quotes: you should use quotes for attributes',
         source: 'alt=tomster',
         line: 1,
         column: 5
@@ -56,7 +56,7 @@ generateRuleTests({
       config: 'double',
       template: '<img alt=\'tomster\'>',
       result: {
-        message: 'Quotes: you got single qoutes for an attribute instead of double qoutes',
+        message: 'Quotes: you got single quotes when you set quotes style to double quotes',
         source: 'alt=\'tomster\'',
         line: 1,
         column: 5
@@ -65,7 +65,7 @@ generateRuleTests({
       config: 'single',
       template: '<img alt="tomster">',
       result: {
-        message: 'Quotes: you got double qoutes for an attribute instead of single qoutes',
+        message: 'Quotes: you got double quotes when you set quotes style to single quotes',
         source: 'alt="tomster"',
         line: 1,
         column: 5
