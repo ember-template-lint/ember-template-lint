@@ -20,25 +20,25 @@ generateRuleTests({
       template: '<img alt src="tomster.png">'
     }, {
       config: 'double',
-      template: '<img alt src={{url-for-tomster}}>'
+      template: '<img alt src={{url-tomster}}>'
     }, {
       config: 'double',
-      template: '<img alt src={{url-for "tomster"}}>'
+      template: '<img alt src={{url "tomster"}}>'
     }, {
       config: 'double',
-      template: '<img alt src={{url-for img="tomster"}}>'
+      template: '<img alt src={{url img="tomster"}}>'
     }, {
       config: 'double',
-      template: '<img alt src={{url-for (inner-helper "tomster")}}>'
+      template: '<img alt src={{url (inner-helper "tomster")}}>'
     }, {
       config: 'double',
-      template: '<img alt src={{url-for hash-param=(inner-helper "tomster")}}>'
+      template: '<img alt src={{url hash-param=(inner-helper "tomster")}}>'
     }, {
       config: 'double',
-      template: '<img alt src="{{url-for "tomster"}}">'
+      template: '<img alt src="{{url "tomster"}}">'
     }, {
       config: 'double',
-      template: '{{url-for "tomster"}}'
+      template: '{{url "tomster"}}'
     }
   ],
 
