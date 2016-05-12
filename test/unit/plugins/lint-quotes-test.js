@@ -56,7 +56,7 @@ generateRuleTests({
       config: 'double',
       template: '<img alt=\'tomster\'>',
       result: {
-        message: 'Quotes: you got single quotes when you set quotes style to double quotes',
+        message: 'Quotes: you got single quotes when you set quotes style to be double quotes',
         source: 'alt=\'tomster\'',
         line: 1,
         column: 5
@@ -65,7 +65,7 @@ generateRuleTests({
       config: 'single',
       template: '<img alt="tomster">',
       result: {
-        message: 'Quotes: you got double quotes when you set quotes style to single quotes',
+        message: 'Quotes: you got double quotes when you set quotes style to be single quotes',
         source: 'alt="tomster"',
         line: 1,
         column: 5
