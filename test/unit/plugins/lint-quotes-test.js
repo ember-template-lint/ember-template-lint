@@ -88,6 +88,15 @@ generateRuleTests({
         line: 1,
         column: 21
       }
+    }, {
+      config: 'single',
+      template: '<img alt={{url (local "tomster")}}>',
+      result: {
+        message: 'Quotes: you got double quotes when you set quotes style to be single quotes',
+        source: '"tomster"',
+        line: 1,
+        column: 22
+      }
     }
   ]
 });
