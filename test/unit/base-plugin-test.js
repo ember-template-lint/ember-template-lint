@@ -3,7 +3,6 @@
 var assert = require('power-assert');
 var _compile = require('htmlbars').compile;
 var buildPlugin = require('./../../lib/rules/base');
-var ast = require('./../../lib/helpers/ast-node-info');
 
 describe('base plugin tests', function() {
   var messages, config;
@@ -17,8 +16,18 @@ describe('base plugin tests', function() {
       config: config
     });
 
-    FakePlugin.prototype.detect = function(node) {
-      return ast.isElementNode(node) || ast.isTextNode(node);
+    FakePlugin.prototype.visitors = function() {
+      return {
+        ElementNode: function(node) {
+          this.process(node);
+        },
+
+        TextNode: function(node) {
+          if (!node.loc) { return; }
+
+          this.process(node);
+        }
+      };
     };
 
     FakePlugin.prototype.process = function(node) {

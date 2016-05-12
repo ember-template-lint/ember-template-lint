@@ -6,8 +6,8 @@ var Linter = require('../../lib/index');
 var assign = require('lodash').assign;
 
 module.exports = function(options) {
-
-  describe(options.name, function() {
+  var groupingMethod = options.focus ? describe.only : describe;
+  groupingMethod(options.name, function() {
     var DISABLE_ALL = '<!-- template-lint disable=true -->';
     var DISABLE_ONE = '<!-- template-lint ' + options.name + '=false -->';
 
