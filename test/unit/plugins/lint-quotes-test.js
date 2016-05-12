@@ -115,6 +115,15 @@ generateRuleTests({
         line: 1,
         column: 16
       }
+    }, {
+      config: 'single',
+      template: '{{url "tomster"}}',
+      result: {
+        message: 'Quotes: you got double quotes when you set quotes style to be single quotes',
+        source: '"tomster"',
+        line: 1,
+        column: 6
+      }
     }
   ]
 });
