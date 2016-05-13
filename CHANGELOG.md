@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## v0.5.9
+
+- Update internals to use better API for traversing nodes in template AST.
+- Lock down parser version (should make package more stable as loose deps won't break consumers).
+
 ## v0.5.8
 
 - Fix various issues with `block-indentation` rule:
