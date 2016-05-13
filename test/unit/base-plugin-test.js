@@ -84,6 +84,7 @@ describe('base plugin tests', function() {
       '<div>\n  <div data-foo="blerp">\n    Wheee!\n  </div>\n</div>',
       '\n  ',
       '<div data-foo="blerp">\n    Wheee!\n  </div>',
+      '"blerp"',
       '\n    Wheee!\n  ',
       '\n'
     ]
