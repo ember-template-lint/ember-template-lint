@@ -3,7 +3,9 @@
   "version": "0.5.8",
   "description": "Lint your templates.",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "homepage": "https://github.com/rwjblue/ember-template-lint",
   "repository": {
