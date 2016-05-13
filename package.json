@@ -31,7 +31,7 @@
   "keywords": [],
   "dependencies": {
     "exists-sync": "0.0.3",
-    "htmlbars": "^0.14.20",
+    "htmlbars": "^0.14.22",
     "lodash": "^4.11.1"
   },
   "bugs": {
