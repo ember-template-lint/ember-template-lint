@@ -166,12 +166,103 @@ describe('public api', function() {
       assert.deepEqual(result, [expected]);
     });
 
-    it('module listed in pending passes an error results', function() {
+    it('does not exclude errors when other rules are marked as pending', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'bare-strings': true, 'block-indentation': true },
+          pending: [
+            { moduleId: 'some/path/here', only: ['block-indentation'] }
+          ]
+        }
+      });
+
+      var template = '<div>bare string</div>';
+      var result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here'
+      });
+
+      var expected = {
+        message: 'Non-translated string used',
+        moduleId: 'some/path/here',
+        line: 1,
+        column: 5,
+        source: 'bare string',
+        rule: 'bare-strings',
+        severity: 2
+      };
+
+      assert.deepEqual(result, [expected]);
+    });
+
+    it('triggers warnings when specific rule is marked as pending', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'bare-strings': true, 'block-indentation': true },
+          pending: [
+            { moduleId: 'some/path/here', only: ['block-indentation'] }
+          ]
+        }
+      });
+
+      var template = [
+        '<div>',
+        '<p></p>',
+        '</div>'
+      ].join('\n');
+
+      var result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here'
+      });
+
+      var expected = {
+        message: 'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'some/path/here',
+        line: 2,
+        column: 0,
+        source: '<div>\n<p></p>\n</div>',
+        rule: 'block-indentation',
+        severity: 1
+      };
+
+      assert.deepEqual(result, [expected]);
+    });
+
+    it('module listed via moduleId in pending passes an error results', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
           rules: { 'bare-strings': true },
-          pending: ['some/path/here']
+          pending: ['some/path/here' ]
+        }
+      });
+
+      var template = '<div></div>';
+      var result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here'
+      });
+
+      var expected = {
+        message: 'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
+        moduleId: 'some/path/here',
+        severity: 2
+      };
+
+      assert.deepEqual(result, [expected]);
+    });
+
+    it('module listed as object via rule exclusion in pending passes an error results', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'bare-strings': true },
+          pending: [
+            { moduleId: 'some/path/here', only: ['bare-strings']}
+          ]
         }
       });
 
@@ -191,19 +282,21 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter.prototype.isPending', function() {
+  describe('Linter.prototype.pendingStatusForModule', function() {
     it('returns true when the provided moduleId is listed in `pending`', function() {
       var linter = new Linter({
         console: mockConsole,
         config: {
           pending: [
-            'some/path/here'
+            'some/path/here',
+            { moduleId: 'foo/bar/baz', only: ['bare-strings']}
           ]
         }
       });
 
-      assert(linter.isPending('some/path/here'));
-      assert(!linter.isPending('some/other/path'));
+      assert(linter.pendingStatusForModule('some/path/here'));
+      assert(linter.pendingStatusForModule('foo/bar/baz'));
+      assert(!linter.pendingStatusForModule('some/other/path'));
     });
   });
 });
