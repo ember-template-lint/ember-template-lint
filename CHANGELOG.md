@@ -1,6 +1,21 @@
 Changelog
 =========
 
+## v0.5.10
+
+- Add ability to mark specific rules as pending for a module. Given the following `.template-lintrc.js` file, the `foo/bar/baz` module would have only its indentation related issues labeled as warnings:
+
+```js
+module.exports = {
+  extends: 'recommended',
+  pending: [
+    { moduleId: 'foo/bar/baz', only: ['block-indentation']}
+  ]
+}
+```
+
+All other rules with errors in the `foo/bar/baz` template would still be reported as errors.
+
 ## v0.5.9
 
 - Update internals to use better API for traversing nodes in template AST.
