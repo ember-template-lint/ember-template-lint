@@ -13,54 +13,16 @@ generateRuleTests({
     '<a><button>button</button></a>',
     '<a href="/">link</a>',
     '<a href="/">link <strong>!!!</strong></a>',
-    '<button><input type="hidden"></button>',
-    {
-      config: ['button', 'details', 'embed', 'iframe', 'img', 'input', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<a href="/">button<a href="/">!</a></a>'
-    }, {
-      config: ['a', 'details', 'embed', 'iframe', 'img', 'input', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<a href="/">button<button>!</button></a>'
-    }, {
-      config: ['a', 'details', 'embed', 'iframe', 'img', 'input', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<button>button<button>!</button></button>'
-    }, {
-      config: ['a', 'button', 'details', 'embed', 'iframe', 'img', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<button><input type="text"></button>'
-    }, {
-      config: ['a', 'button', 'embed', 'iframe', 'img', 'input', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<button><details><summary>Some details</summary><p>!</p></details></button>'
-    }, {
-      config: ['a', 'button', 'details', 'iframe', 'img', 'input', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>'
-    }, {
-      config: ['a', 'button', 'details', 'embed', 'img', 'input', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>'
-    }, {
-      config: ['a', 'button', 'details', 'embed', 'iframe', 'img', 'input', 'object', 'tabindex', 'textarea'],
-      template: '<button><select></select></button>'
-    }, {
-      config: ['a', 'button', 'details', 'embed', 'iframe', 'img', 'input', 'object', 'select', 'tabindex'],
-      template: '<button><textarea></textarea></button>'
-    }, {
-      config: ['a', 'button', 'details', 'embed', 'iframe', 'img', 'input', 'object', 'select', 'textarea'],
-      template: '<div tabindex="1"><button></button></div>'
-    }, {
-      config: ['a', 'button', 'details', 'embed', 'iframe', 'input', 'object', 'select', 'tabindex', 'textarea'],
-      template: '<button><img usemap=""></button>'
-    }, {
-      config: ['a', 'button', 'details', 'embed', 'iframe', 'img', 'input', 'select', 'tabindex', 'textarea'],
-      template: '<object usemap=""><button></button></object>'
-    }
+    '<button><input type="hidden"></button>'
   ],
 
   bad: [
     {
-      config: ['a'],
       template: '<a href="/">button<a href="/">!</a></a>',
 
       result: {
         rule: 'nested-interactive',
-        message: 'Do not use <a> inside <a>',
+        message: 'Do not use an <a> element with the `href` attribute inside an <a> element with the `href` attribute',
         moduleId: 'layout.hbs',
         source: '<a href=\"/\">!</a>',
         line: 1,
@@ -68,12 +30,11 @@ generateRuleTests({
       }
     },
     {
-      config: ['a', 'button'],
       template: '<a href="/">button<button>!</button></a>',
 
       result: {
         rule: 'nested-interactive',
-        message: 'Do not use <button> inside <a>',
+        message: 'Do not use <button> inside an <a> element with the `href` attribute',
         moduleId: 'layout.hbs',
         source: '<button>!</button>',
         line: 1,
@@ -81,12 +42,11 @@ generateRuleTests({
       }
     },
     {
-      config: ['a', 'button'],
       template: '<button>button<a href="/">!</a></button>',
 
       result: {
         rule: 'nested-interactive',
-        message: 'Do not use <a> inside <button>',
+        message: 'Do not use an <a> element with the `href` attribute inside <button>',
         moduleId: 'layout.hbs',
         source: '<a href=\"/\">!</a>',
         line: 1,
@@ -94,7 +54,6 @@ generateRuleTests({
       }
     },
     {
-      config: ['button'],
       template: '<button>button<button>!</button></button>',
 
       result: {
@@ -107,7 +66,6 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'input'],
       template: '<button><input type="text"></button>',
 
       result: {
@@ -120,7 +78,6 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'details'],
       template: '<button><details><summary>Some details</summary><p>!</p></details></button>',
 
       result: {
@@ -133,7 +90,6 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'embed'],
       template: '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>',
 
       result: {
@@ -146,7 +102,6 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'iframe'],
       template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>',
 
       result: {
@@ -159,7 +114,6 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'select'],
       template: '<button><select></select></button>',
 
       result: {
@@ -172,7 +126,6 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'textarea'],
       template: '<button><textarea></textarea></button>',
 
       result: {
@@ -185,12 +138,11 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'tabindex'],
       template: '<div tabindex="1"><button></button></div>',
 
       result: {
         rule: 'nested-interactive',
-        message: 'Do not use <button> inside an element with attribute `tabindex`',
+        message: 'Do not use <button> inside an element with the `tabindex` attribute',
         moduleId: 'layout.hbs',
         source: '<button></button>',
         line: 1,
@@ -198,12 +150,11 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'tabindex'],
       template: '<button><div tabindex="1"></div></button>',
 
       result: {
         rule: 'nested-interactive',
-        message: 'Do not use an element with attribute `tabindex` inside <button>',
+        message: 'Do not use an element with the `tabindex` attribute inside <button>',
         moduleId: 'layout.hbs',
         source: '<div tabindex=\"1\"></div>',
         line: 1,
@@ -211,12 +162,11 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'img'],
       template: '<button><img usemap=""></button>',
 
       result: {
         rule: 'nested-interactive',
-        message: 'Do not use an element with attribute `usemap` inside <button>',
+        message: 'Do not use an <img> element with the `usemap` attribute inside <button>',
         moduleId: 'layout.hbs',
         source: '<img usemap=\"\">',
         line: 1,
@@ -224,12 +174,11 @@ generateRuleTests({
       }
     },
     {
-      config: ['button', 'object'],
       template: '<object usemap=""><button></button></object>',
 
       result: {
         rule: 'nested-interactive',
-        message: 'Do not use <button> inside an element with attribute `usemap`',
+        message: 'Do not use <button> inside an <object> element with the `usemap` attribute',
         moduleId: 'layout.hbs',
         source: '<button></button>',
         line: 1,
