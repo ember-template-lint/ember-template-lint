@@ -31,7 +31,7 @@ describe('isInteractiveElement', function() {
   ];
 
   var interactive = {
-    '<a href="derp">Link</a>': '<a> with `href` attribute',
+    '<a href="derp">Link</a>': 'an <a> element with the `href` attribute',
     '<button>Derp</button>': '<button>',
     '<details></details>': '<details>',
     '<embed>': '<embed>',
@@ -39,8 +39,8 @@ describe('isInteractiveElement', function() {
     '<input>': '<input>',
     '<select></select>': '<select>',
     '<textarea></textarea>': '<textarea>',
-    '<img usemap="#foo">': '<img> with `usemap` attribute',
-    '<object usemap="#foo"></object>': '<object> with `usemap` attribute',
+    '<img usemap="#foo">': 'an <img> element with the `usemap` attribute',
+    '<object usemap="#foo"></object>': 'an <object> element with the `usemap` attribute',
     '<div tabindex=1></div>': 'an element with the `tabindex` attribute'
   };
 
