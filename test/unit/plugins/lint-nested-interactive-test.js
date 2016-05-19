@@ -1,9 +1,11 @@
 'use strict';
 
 var generateRuleTests = require('../../helpers/rule-test-harness');
+var ARRAY_DEPRECATION_MESSAGE = require('../../../lib/rules/lint-nested-interactive').ARRAY_DEPRECATION_MESSAGE;
 
 generateRuleTests({
   name: 'nested-interactive',
+
 
   config: true,
 
@@ -32,18 +34,6 @@ generateRuleTests({
         ignoreUsemapAttribute: true
       },
 
-      template: '<button><img usemap=""></button>'
-    },
-    {
-      config: ['button'],
-      template: '<button><input></button>'
-    },
-    {
-      config: ['tabindex'],
-      template: '<button><div tabindex=-1></div></button>'
-    },
-    {
-      config: ['usemap'],
       template: '<button><img usemap=""></button>'
     }
   ],
@@ -230,6 +220,42 @@ generateRuleTests({
         source: '<my-special-input></my-special-input>',
         line: 1,
         column: 8
+      }
+    },
+
+    // deprecated
+    {
+      config: ['button'],
+      template: '<button><input></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: ARRAY_DEPRECATION_MESSAGE,
+        source: '["button"]',
+        severity: 1
+      }
+    },
+    {
+      config: ['tabindex'],
+      template: '<button><div tabindex=-1></div></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: ARRAY_DEPRECATION_MESSAGE,
+        moduleId: 'layout.hbs',
+        source: '["tabindex"]',
+        severity: 1
+      }
+    },
+    {
+      config: ['usemap'],
+      template: '<button><img usemap=""></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: ARRAY_DEPRECATION_MESSAGE,
+        source: '["usemap"]',
+        severity: 1
       }
     }
   ]
