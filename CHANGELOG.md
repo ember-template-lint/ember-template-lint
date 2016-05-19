@@ -1,6 +1,23 @@
 Changelog
 =========
 
+## v0.5.11
+
+- Add internal helper for determining if a given element is an interactive element.
+- Update `nested-interactive` rule to use the new `isInteractiveElement` helper function.
+- Change `nested-interactive` configuration.  Now uses an object (instead of an array). Example:
+
+```js
+rules: {
+  'nested-interactive': {
+    ignoredTags: ['a', 'button'], // list of tag names to ignore
+    ignoreTabindex: true, // ignore the tabindex check
+    ignoreUsemapAttribute: ['img', 'object'], // ignore `usemap` check for specific tag names
+    additionalInteractiveTags: ['some-custom-tag'], // not sure this is needed, but it seams neat :P
+  }
+}
+```
+
 ## v0.5.10
 
 - Add ability to mark specific rules as pending for a module. Given the following `.template-lintrc.js` file, the `foo/bar/baz` module would have only its indentation related issues labeled as warnings:
