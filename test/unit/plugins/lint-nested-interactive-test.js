@@ -13,7 +13,27 @@ generateRuleTests({
     '<a><button>button</button></a>',
     '<a href="/">link</a>',
     '<a href="/">link <strong>!!!</strong></a>',
-    '<button><input type="hidden"></button>'
+    '<button><input type="hidden"></button>',
+    {
+      config: {
+        ignoredTags: ['button']
+      },
+      template: '<button><input></button>'
+    },
+    {
+      config: {
+        ignoreTabindex: true
+      },
+
+      template: '<button><div tabindex=-1></div></button>'
+    },
+    {
+      config: {
+        ignoreUsemapAttribute: true
+      },
+
+      template: '<button><img usemap=""></button>'
+    }
   ],
 
   bad: [
@@ -183,6 +203,21 @@ generateRuleTests({
         source: '<button></button>',
         line: 1,
         column: 18
+      }
+    },
+    {
+      config: {
+        additionalInteractiveTags: ['my-special-input']
+      },
+      template: '<button><my-special-input></my-special-input></button>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use <my-special-input> inside <button>',
+        moduleId: 'layout.hbs',
+        source: '<my-special-input></my-special-input>',
+        line: 1,
+        column: 8
       }
     }
   ]
