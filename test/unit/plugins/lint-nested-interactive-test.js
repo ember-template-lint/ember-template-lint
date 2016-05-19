@@ -33,6 +33,18 @@ generateRuleTests({
       },
 
       template: '<button><img usemap=""></button>'
+    },
+    {
+      config: ['button'],
+      template: '<button><input></button>'
+    },
+    {
+      config: ['tabindex'],
+      template: '<button><div tabindex=-1></div></button>'
+    },
+    {
+      config: ['usemap'],
+      template: '<button><img usemap=""></button>'
     }
   ],
 
