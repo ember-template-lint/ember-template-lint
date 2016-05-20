@@ -6,7 +6,6 @@ var ARRAY_DEPRECATION_MESSAGE = require('../../../lib/rules/lint-nested-interact
 generateRuleTests({
   name: 'nested-interactive',
 
-
   config: true,
 
   good: [
@@ -16,6 +15,8 @@ generateRuleTests({
     '<a href="/">link</a>',
     '<a href="/">link <strong>!!!</strong></a>',
     '<button><input type="hidden"></button>',
+    '<div tabindex=-1><button>Click me!</button></div>',
+    '<div tabindex="1"><button></button></div>',
     {
       config: {
         ignoredTags: ['button']
@@ -157,18 +158,6 @@ generateRuleTests({
         source: '<textarea></textarea>',
         line: 1,
         column: 8
-      }
-    },
-    {
-      template: '<div tabindex="1"><button></button></div>',
-
-      result: {
-        rule: 'nested-interactive',
-        message: 'Do not use <button> inside an element with the `tabindex` attribute',
-        moduleId: 'layout.hbs',
-        source: '<button></button>',
-        line: 1,
-        column: 18
       }
     },
     {
