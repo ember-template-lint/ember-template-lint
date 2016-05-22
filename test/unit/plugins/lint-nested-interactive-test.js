@@ -17,6 +17,7 @@ generateRuleTests({
     '<button><input type="hidden"></button>',
     '<div tabindex=-1><button>Click me!</button></div>',
     '<div tabindex="1"><button></button></div>',
+    '<label><input></label>',
     {
       config: {
         ignoredTags: ['button']
@@ -209,6 +210,37 @@ generateRuleTests({
         source: '<my-special-input></my-special-input>',
         line: 1,
         column: 8
+      }
+    },
+
+    {
+      template: '<label><input><input></label>',
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use multiple interactive elements inside a single `<label>`',
+        moduleId: 'layout.hbs',
+        source: '<label><input><input></label>',
+        line: 1,
+        column: 14
+      }
+    },
+
+    {
+      template: [
+        '<label for="foo">',
+        '  <div id="foo" tabindex=-1></div>',
+        '  <input>',
+        '</label>'
+      ].join('\n'),
+
+      result: {
+        rule: 'nested-interactive',
+        message: 'Do not use multiple interactive elements inside a single `<label>`',
+        moduleId: 'layout.hbs',
+        source: '<label for="foo">\n  <div id="foo" tabindex=-1></div>\n  <input>\n</label>',
+        line: 3,
+        column: 2
       }
     },
 
