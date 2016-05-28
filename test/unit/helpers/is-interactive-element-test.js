@@ -1,6 +1,6 @@
 var assert = require('power-assert');
 var parse = require('htmlbars/dist/cjs/htmlbars-syntax').parse;
-var isInteractiveElement = require('../../lib/helpers/is-interactive-element');
+var isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
 describe('isInteractiveElement', function() {
   function testTemplate(template, expectedValue) {
