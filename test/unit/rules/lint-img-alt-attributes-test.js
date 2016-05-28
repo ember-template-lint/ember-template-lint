@@ -8,7 +8,8 @@ generateRuleTests({
   config: true,
 
   good: [
-    '<img alt="hullo">'
+    '<img alt="hullo">',
+    '<img src="hello.jpg" alt="">'
   ],
 
   bad: [
