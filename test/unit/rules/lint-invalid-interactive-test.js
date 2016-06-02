@@ -5,8 +5,13 @@ var generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'invalid-interactive',
 
-  good: [
+  config: true,
 
+  focus: true,
+
+  good: [
+    '<button {{action "foo"}}></button>',
+    '<div role="button" {{action "foo"}}></div>'
   ],
 
   bad: [
@@ -14,10 +19,10 @@ generateRuleTests({
       template: '<div {{action "foo"}}></div>',
 
       result: {
-        message: 'Interaction added to non-interactive element.',
+        message: 'Interaction added to non-interactive element',
         line: 1,
-        column: 0,
-        source: '\n howdy'
+        column: 5,
+        source: '<div {{action \"foo\"}}></div>'
       }
     }
   ]
