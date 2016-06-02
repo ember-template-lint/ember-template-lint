@@ -42,7 +42,9 @@ describe('isInteractiveElement', function() {
     '<img usemap="#foo">': 'an <img> element with the `usemap` attribute',
     '<object usemap="#foo"></object>': 'an <object> element with the `usemap` attribute',
     '<div tabindex=1></div>': 'an element with the `tabindex` attribute',
-    '<label></label>': '<label>'
+    '<label></label>': '<label>',
+    '<div role="button"></div>': 'an element with `role="button"`',
+    '<div role="dialog"></div>': 'an element with `role="dialog"`'
   };
 
   nonInteractive.forEach(function(template) {
