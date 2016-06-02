@@ -7,8 +7,6 @@ generateRuleTests({
 
   config: true,
 
-  focus: true,
-
   good: [
     '<button {{action "foo"}}></button>',
     '<div role="button" {{action "foo"}}></div>'
