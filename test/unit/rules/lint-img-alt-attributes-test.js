@@ -8,7 +8,10 @@ generateRuleTests({
   config: true,
 
   good: [
-    '<img alt="hullo">'
+    '<img alt="hullo">',
+    '<img alt={{foo}}>',
+    '<img alt="blah {{derp}}">',
+    '<img aria-hidden="true">'
   ],
 
   bad: [
