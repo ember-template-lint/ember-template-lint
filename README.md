@@ -197,31 +197,6 @@ The following values are valid configuration:
     * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
     * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.'
 
-### Deprecations
-
-#### deprecated-each-syntax
-
-In Ember 2.0, support for using the `in` form of the `{{#each}}` helper
-has been removed.
-
-For example, this rule forbids the following:
-
-```hbs
-{{{#each post in posts}}}
-  <li>{{post.name}}</li>
-{{/each}}
-```
-
-Instead, you should write the template as:
-
-```hbs
-{{#each posts as |post|}}
-  <li>{{post.name}}</li>
-{{/each}}
-```
-
-More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
-
 #### self-closing-void-elements
 
 HTML has no self-closing tags. The HTML 5 parser will ignore self-closing tag in
@@ -247,6 +222,30 @@ The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
 
+### Deprecations
+
+#### deprecated-each-syntax
+
+In Ember 2.0, support for using the `in` form of the `{{#each}}` helper
+has been removed.
+
+For example, this rule forbids the following:
+
+```hbs
+{{{#each post in posts}}}
+  <li>{{post.name}}</li>
+{{/each}}
+```
+
+Instead, you should write the template as:
+
+```hbs
+{{#each posts as |post|}}
+  <li>{{post.name}}</li>
+{{/each}}
+```
+
+More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
 
 ## Contributing
 
