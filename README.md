@@ -197,31 +197,6 @@ The following values are valid configuration:
     * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
     * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.'
 
-### Deprecations
-
-#### deprecated-each-syntax
-
-In Ember 2.0, support for using the `in` form of the `{{#each}}` helper
-has been removed.
-
-For example, this rule forbids the following:
-
-```hbs
-{{{#each post in posts}}}
-  <li>{{post.name}}</li>
-{{/each}}
-```
-
-Instead, you should write the template as:
-
-```hbs
-{{#each posts as |post|}}
-  <li>{{post.name}}</li>
-{{/each}}
-```
-
-More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
-
 #### self-closing-void-elements
 
 HTML has no self-closing tags. The HTML 5 parser will ignore self-closing tag in
@@ -247,6 +222,80 @@ The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
 
+#### img-alt-attributes
+
+An `<img>` without an `alt` attribute is essentially invisible to assistive technology (i.e. screen readers).
+In order to ensure that screen readers can provide useful information, we need to ensure that all `<img>` elements
+have an `alt` specified. See [WCAG Suggestion H37](https://www.w3.org/TR/WCAG20-TECHS/H37.html).
+
+The rule forbids the following:
+
+```hbs
+<img src="rwjblue.png">
+```
+
+Instead, you should write the template as:
+
+```hbs
+<img src="rwjblue.png" alt="picture of Robert Jackson">
+```
+
+The following values are valid configuration:
+
+  * boolean -- `true` for enabled / `false` for disabled
+
+#### invalid-interactive
+
+Adding interactivity to an element that is not naturally interactive content leads to a very poor experience for
+users of assistive technology (i.e. screen readers). In order to ensure that screen readers can provide useful information
+to their users, we should add an appropriate `role` attribute when the underlying element would not have made that
+role obvious.
+
+This rule forbids the following:
+
+```hbs
+<div {{action 'foo'}}></div>
+```
+
+Instead, you should add a `role` to the element in question so that the A/T is aware that it is interactive:
+
+```hbs
+<div role="button" {{action "foo"}}></div>
+```
+
+The following values are valid configuration (same as the `nested-interactive` rule above):
+
+  * boolean -- `true` indicates all whitelist test will run, `false` indicates that the rule is disabled.
+  * object - Containing the following values:
+    * `ignoredTags` - An array of element tag names that should be whitelisted. Default to `[]`.
+    * `ignoreTabindex` - When `true` tabindex will be ignored. Defaults to `false`.
+    * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
+    * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.'
+
+### Deprecations
+
+#### deprecated-each-syntax
+
+In Ember 2.0, support for using the `in` form of the `{{#each}}` helper
+has been removed.
+
+For example, this rule forbids the following:
+
+```hbs
+{{{#each post in posts}}}
+  <li>{{post.name}}</li>
+{{/each}}
+```
+
+Instead, you should write the template as:
+
+```hbs
+{{#each posts as |post|}}
+  <li>{{post.name}}</li>
+{{/each}}
+```
+
+More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
 
 ## Contributing
 
