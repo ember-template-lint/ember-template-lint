@@ -22,6 +22,17 @@ generateRuleTests({
         column: 5,
         source: '<div {{action \"foo\"}}></div>'
       }
+    },
+
+    {
+      template: '<div onclick={{action "foo"}}></div>',
+
+      result: {
+        message: 'Interaction added to non-interactive element',
+        line: 1,
+        column: 5,
+        source: '<div onclick={{action \"foo\"}}></div>'
+      }
     }
   ]
 });
