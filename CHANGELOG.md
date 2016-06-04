@@ -1,6 +1,50 @@
 Changelog
 =========
 
+## v0.5.12
+
+- Change `nested-interactive` rule to ignore elements using `tabindex` when determining if a parent element is interactive. `tabindex` is still used
+  for detecting all child elements once already inside of another interactive element.
+- Fix various issues with `nested-interactive` and `<label>`.
+  - Consider `<label>` an interactive element.
+  - Specifically handle the various edge cases of having `<label><input></label>`.
+  - Prevent multiple interactive elements inside of a `<label>`.
+- Fix bugs with the `invalid-indentation` around escaped mustaches and raw blocks.
+- Add `invalid-interactive` rule ([full documentation](https://github.com/rwjblue/ember-template-lint#invalid-interactive)).
+  Adding interactivity to an element that is not naturally interactive content leads to a very poor experience for
+  users of assistive technology (i.e. screen readers). In order to ensure that screen readers can provide useful information
+  to their users, we should add an appropriate `role` attribute when the underlying element would not have made that
+  role obvious.
+
+  This rule forbids the following:
+
+```hbs
+<div {{action 'foo'}}></div>
+```
+
+  Instead, you should add a `role` to the element in question so that the A/T is aware that it is interactive:
+
+```hbs
+<div role="button" {{action "foo"}}></div>
+```
+
+- Add `img-alt-attributes` rule ([full documentation](https://github.com/rwjblue/ember-template-lint#img-alt-attributes)).
+  An `<img>` without an `alt` attribute is essentially invisible to assistive technology (i.e. screen readers).
+  In order to ensure that screen readers can provide useful information, we need to ensure that all `<img>` elements
+  have an `alt` specified. See [WCAG Suggestion H37](https://www.w3.org/TR/WCAG20-TECHS/H37.html).
+
+  The rule forbids the following:
+
+```hbs
+<img src="rwjblue.png">
+```
+
+  Instead, you should write the template as:
+
+```hbs
+<img src="rwjblue.png" alt="picture of Robert Jackson">
+```
+
 ## v0.5.11
 
 - Add internal helper for determining if a given element is an interactive element.
