@@ -124,6 +124,10 @@ generateRuleTests({
       '  <div></div>',
       '{{~/if~}}'
     ].join('\n'),
+    [
+      '<div class="multi"',
+      '     id="lines"></div>'
+    ].join('\n'),
     {
       config: 4,
 
@@ -166,7 +170,18 @@ generateRuleTests({
         column: 17
       }
     },
+    {
+      template: '<div>\n  </div>',
 
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `div` beginning at L1:C0. Expected `</div>` ending at L2:C8 to be at an indentation of 0 but was found at 2.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n  </div>',
+        line: 2,
+        column: 8
+      }
+    },
     {
       template: '<div>\n  <p>Stuff goes here</p></div>',
 
