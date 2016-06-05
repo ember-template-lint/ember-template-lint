@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.5.13
+
+- Fix bug with `invalid-interactive` rule incorrectly flagging valid elements.
+
 ## v0.5.12
 
 - Change `nested-interactive` rule to ignore elements using `tabindex` when determining if a parent element is interactive. `tabindex` is still used
