@@ -9,7 +9,8 @@ generateRuleTests({
 
   good: [
     '<button {{action "foo"}}></button>',
-    '<div role="button" {{action "foo"}}></div>'
+    '<div role="button" {{action "foo"}}></div>',
+    '<li><button {{action "foo"}}></button></li>'
   ],
 
   bad: [
