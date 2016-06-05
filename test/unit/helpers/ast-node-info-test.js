@@ -11,3 +11,25 @@ describe('isImgElement', function() {
     assert(AstNodeInfo.isImgElement(imgAst.body[0]) === true);
   });
 });
+
+describe('hasChildren', function() {
+  it('functions for empty input', function() {
+    assert(AstNodeInfo.hasChildren(parse('')) === false);
+  });
+
+  it('functions for empty elements', function() {
+    var ast = parse('<div></div>');
+    assert(AstNodeInfo.hasChildren(ast.body[0]) === false);
+    assert(AstNodeInfo.hasChildren(ast) === true);
+  });
+
+  it('detects text', function() {
+    var ast = parse('<div>hello</div>');
+    assert(AstNodeInfo.hasChildren(ast.body[0]) === true);
+  });
+
+  it('detects whitespace', function() {
+    var ast = parse('<div> </div>');
+    assert(AstNodeInfo.hasChildren(ast.body[0]) === true);
+  });
+});
