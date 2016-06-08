@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## v0.5.14
+
+- Fix `invalid-indentation` rule to allow scenarios where the opening and closing elements can have no space between. For example:
+
+```hbs
+<textarea
+    class="form-control"
+    id="job-instructions"
+    rows="3"
+    placeholder="Do it well"
+    value={{job.instructions}}
+    oninput={{action 'updateInstructions' value='target.value'}}></textarea>
+```
+
+  If the above `</textarea>` had been after a newline and indented properly, the default contents of the textarea would then include that whitespace. The rule now enforces
+  that there be no child elements within a given block.
+
+- Remove a few ARIA roles that were incorrectly flagging things as interactive elements (i.e. `dialog` and `alertdialog`).
+
 ## v0.5.13
 
 - Fix bug with `invalid-interactive` rule incorrectly flagging valid elements.
