@@ -44,7 +44,7 @@ describe('isInteractiveElement', function() {
     '<div tabindex=1></div>': 'an element with the `tabindex` attribute',
     '<label></label>': '<label>',
     '<div role="button"></div>': 'an element with `role="button"`',
-    '<div role="dialog"></div>': 'an element with `role="dialog"`'
+    '<div role="textbox"></div>': 'an element with `role="textbox"`'
   };
 
   nonInteractive.forEach(function(template) {
