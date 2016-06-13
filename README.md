@@ -14,7 +14,7 @@ in violation:
 <div>A bare string</div>
 ```
 
-When ran throught the linters `verify` method we would have a single result indicating that
+When ran through the linter's `verify` method, we would have a single result indicating that
 the `bare-strings` rule found an error.
 
 ## Install
