@@ -125,6 +125,13 @@ generateRuleTests({
       '{{~/if~}}'
     ].join('\n'),
     [
+      '{{#if foo}}',
+      '  <div></div>',
+      '{{else if bar~}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n'),
+    [
       '<div class="multi"',
       '     id="lines"></div>'
     ].join('\n'),
