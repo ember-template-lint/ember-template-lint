@@ -18,6 +18,13 @@ generateRuleTests({
       '  Good Morning',
       '{{{{/if}}}}'
     ].join('\n'),
+    [
+      '{{#if isDoc}}',
+      '  Download',
+      '{{else if isIframe}}',
+      '  <iframe src="some_url"></iframe>',
+      '{{/if}}'
+    ].join('\n'),
     '\n  {{#each cats as |dog|}}\n  {{/each}}',
     '<div><p>Stuff</p></div>',
     '<div>\n  <p>Stuff Here</p>\n</div>',
