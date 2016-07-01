@@ -23,7 +23,7 @@
     "espower-loader": "^1.0.0",
     "glob": "^7.0.0",
     "loader.js": "^4.0.1",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.0",
     "mocha-eslint": "^2.0.2",
     "mocha-only-detector": "^0.1.0",
     "power-assert": "^1.3.1",
