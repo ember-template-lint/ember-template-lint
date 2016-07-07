@@ -25,6 +25,27 @@ To install ember-template-lint
 npm install --save-dev ember-template-lint
 ```
 
+## Usage
+
+Run templates through the linter's `verify` method like so:
+
+```js
+var TemplateLinter = require('ember-template-lint');
+
+var linter = new TemplateLinter();
+var template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
+var results = linter.verify(template);
+```
+
+`results` will be an array of objects which have the following properties:
+* `rule` - The name of the rule that triggered this warning/error.
+* `message` - The message that should be output.
+* `line` - The line on which the error occurred.
+* `column` - The column on which the error occurred.
+* `moduleId` - The module path for the file containing the error.
+* `source` - The source that caused the error.
+* `fix` - An object describing how to fix the error.
+
 ## Configuration
 
 ### Project Wide
