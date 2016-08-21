@@ -296,7 +296,7 @@ The following values are valid configuration (same as the `nested-interactive` r
     * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
     * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.'
 
-#### only-block-link-to
+#### inline-link-to
 
 Ember's `link-to` component has both an inline form and a block form. This rule forbids the inline form.
 

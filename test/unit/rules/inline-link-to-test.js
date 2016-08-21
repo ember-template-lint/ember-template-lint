@@ -1,10 +1,10 @@
 'use strict';
 
 var generateRuleTests = require('../../helpers/rule-test-harness');
-var message = require('../../../lib/rules/lint-only-block-link-to').message;
+var message = require('../../../lib/rules/lint-inline-link-to').message;
 
 generateRuleTests({
-  name: 'only-block-link-to',
+  name: 'inline-link-to',
 
   config: true,
 
@@ -18,7 +18,7 @@ generateRuleTests({
       template: '{{link-to \'Link text\' \'routeName\'}}',
 
       result: {
-        rule: 'only-block-link-to',
+        rule: 'inline-link-to',
         message: message,
         moduleId: 'layout.hbs',
         source: '{{link-to \'Link text\' \'routeName\'}}',
@@ -30,7 +30,7 @@ generateRuleTests({
       template: '{{link-to \'Link text\' \'routeName\' one two}}',
 
       result: {
-        rule: 'only-block-link-to',
+        rule: 'inline-link-to',
         message: message,
         moduleId: 'layout.hbs',
         source: '{{link-to \'Link text\' \'routeName\' one two}}',
