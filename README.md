@@ -306,7 +306,7 @@ has been removed.
 For example, this rule forbids the following:
 
 ```hbs
-{{{#each post in posts}}}
+{{#each post in posts}}
   <li>{{post.name}}</li>
 {{/each}}
 ```
