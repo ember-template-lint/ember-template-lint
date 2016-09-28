@@ -1,6 +1,19 @@
 Changelog
 =========
 
+## v0.5.16
+
+- Fix issue with `link-rel-noopener` rule when using properly with a listing (i.e. `rel="noopener noreferrer"`).
+- Add `inline-link-to` rule to prevent usage of inline `{{link-to`.
+- Add `style-concatenation` rule. This prevents the usage of `<div style="{{make-background url}}">` (quoted value with any dynamic segments) but allows
+  `<div style={{make-background url}}>`.
+
+## v0.5.15
+
+- Fix issue causing `<iframe>` to be detected as `{{#if`.
+- Add `link-rel-noopener` rule. This rule requires that any `<a target="_blank">` have a `rel="noopener"`. This prevents the newly opened window from having access
+  to the opener (and helps prevent a number of phishing attacks).
+
 ## v0.5.14
 
 - Fix `invalid-indentation` rule to allow scenarios where the opening and closing elements can have no space between. For example:
