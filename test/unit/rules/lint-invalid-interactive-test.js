@@ -10,7 +10,15 @@ generateRuleTests({
   good: [
     '<button {{action "foo"}}></button>',
     '<div role="button" {{action "foo"}}></div>',
-    '<li><button {{action "foo"}}></button></li>'
+    '<li><button {{action "foo"}}></button></li>',
+    {
+      config: { additionalInteractiveTags: ['div'] },
+      template: '<div {{action "foo"}}></div>'
+    },
+    {
+      config: { additionalInteractiveTags: ['div'] },
+      template: '<div onclick={{action "foo"}}></div>'
+    }
   ],
 
   bad: [
