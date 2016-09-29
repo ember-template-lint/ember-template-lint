@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.5.17
+
+- Fix issue with the `invalid-interactive` rule not honoring the documented `additonalInteractiveTags` option.
+
 ## v0.5.16
 
 - Fix issue with `link-rel-noopener` rule when using properly with a listing (i.e. `rel="noopener noreferrer"`).
