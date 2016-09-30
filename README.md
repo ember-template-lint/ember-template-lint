@@ -343,7 +343,7 @@ This rule is configured with one boolean value:
 
   * boolean -- `true` for enabled / `false` for disabled
 
-#### style-concatentation
+#### style-concatenation
 
 Ember has a runtime warning that says "Binding style attributes may introduce cross-site scripting vulnerabilities." It can only be avoided by always marking the bound value with `Ember.String.htmlSafe`. While we can't detect statically if you're always providing a safe string, we can detect cases common where it's impossible that you're doing so. For example,
 
