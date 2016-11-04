@@ -92,6 +92,21 @@ generateRuleTests({
           text: '<div data-foo={{hallo}}></div>'
         }
       }
+    },
+    {
+      template: '{{#foo-bar derp=view.whoops thing=whatever}}{{/foo-bar}}',
+
+      result: {
+        rule: 'deprecated-inline-view-helper',
+        message: message,
+        moduleId: 'layout.hbs',
+        source: '{{#foo-bar derp=view.whoops}}{{/foo-bar}}',
+        line: 1,
+        column: 11,
+        fix: {
+          text: '{{#foo-bar derp=whoops}}{{/foo-bar}}'
+        }
+      }
     }
   ]
 });
