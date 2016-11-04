@@ -33,7 +33,7 @@
   "keywords": [],
   "dependencies": {
     "chalk": "^1.1.3",
-    "exists-sync": "0.0.3",
+    "exists-sync": "0.0.4",
     "htmlbars": "0.14.24",
     "lodash": "^4.11.1"
   },
