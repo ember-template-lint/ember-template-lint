@@ -270,10 +270,12 @@ The following values are valid configuration:
 When you want to link in your app to some external page it is very common to use `<a href="url" target="_blank"></a>`
 to make the browser open this link in a new tab.
 However, this practice has performance problems (see [https://jakearchibald.com/2016/performance-benefits-of-rel-noopener/](https://jakearchibald.com/2016/performance-benefits-of-rel-noopener/))
-and also opens a door to some security attacks because the opened page can redirect the opener app to
-somewhere to a malicious clone to perform phishing on your users.
+and also opens a door to some security attacks because the opened page can redirect the opener app
+to a malicious clone to perform phishing on your users.
+Adding `rel="noopener"` closes that door and avoids javascript in the opened tab to block the main
+thread in the opener.
 
-To avoid those two problems, this rule forbids the following:
+This rule forbids the following:
 
 ```hbs
 <a href="https://i.seem.secure.com" target="_blank">I'm a bait</a>
