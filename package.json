@@ -19,7 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "assert-diff": "^1.0.1",
-    "eslint-plugin-node": "^2.0.0",
+    "eslint-plugin-node": "^3.0.0",
     "espower-loader": "^1.0.0",
     "glob": "^7.0.0",
     "loader.js": "^4.0.1",
