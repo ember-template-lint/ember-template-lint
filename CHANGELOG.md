@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## v0.6.0
+
+- Add `invalid-interactive` to recommended rules.
+- Add `img-alt-attributes` to recommended rules.
+- Add `style-concatenation` to recommended rules.
+- Add `deprecated-inline-view-helper` to recommended rules.
+- Add `link-rel-noopener` to recommended rules.
+
 ## v0.5.18
 
 - Add `deprecated-inline-view-helper` rule. Usage of `{{view` / `{{#view` helper and `{{view.path.here}}` were deprecated in Ember 1.13, and subsequently removed in Ember 2.0.
