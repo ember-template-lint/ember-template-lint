@@ -8,6 +8,7 @@ Changelog
 - Add `style-concatenation` to recommended rules.
 - Add `deprecated-inline-view-helper` to recommended rules.
 - Add `link-rel-noopener` to recommended rules.
+- Remove support for Node 0.10.
 
 ## v0.5.18
 
