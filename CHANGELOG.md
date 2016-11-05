@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## v0.5.18
+
+- Add `deprecated-inline-view-helper` rule. Usage of `{{view` / `{{#view` helper and `{{view.path.here}}` were deprecated in Ember 1.13, and subsequently removed in Ember 2.0.
+  This rule flags these usages.
+
 ## v0.5.17
 
 - Fix issue with the `invalid-interactive` rule not honoring the documented `additonalInteractiveTags` option.
