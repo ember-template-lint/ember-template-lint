@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.6.1
+
+- Fix issue with new `deprecated-inline-view-helper` (throwing error when parsing mustache statements).
+
 ## v0.6.0
 
 - Add `invalid-interactive` to recommended rules.
