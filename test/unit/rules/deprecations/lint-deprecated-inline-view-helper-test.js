@@ -12,9 +12,9 @@ generateRuleTests({
   config: true,
 
   good: [
-    {
-      template: '{{great-fishsticks}}'
-    }
+    '{{great-fishsticks}}',
+    '{{input placeholder=(t "email") value=email}}',
+    '{{title "CrossCheck Web" prepend=true separator=" | "}}'
   ],
 
   bad: [
