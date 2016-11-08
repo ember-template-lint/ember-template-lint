@@ -72,7 +72,7 @@ describe('get-config', function() {
   });
 
   it('migrates rules in the config root into `rules` property', function() {
-    var expected = { pending: [], rules: { 'bare-strings': true }};
+    var expected = { ignore: [], pending: [], rules: { 'bare-strings': true }};
     var actual = getConfig({
       console: { log: function() { }},
       config: {
