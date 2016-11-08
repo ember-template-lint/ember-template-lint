@@ -60,7 +60,9 @@ generateRuleTests({
       // override the elementAttributes list
       config: { elementAttributes: { }},
       template: '<input placeholder="hahaha">'
-    }
+    },
+
+    '<foo-bar>\n</foo-bar>'
   ],
 
   bad: [
