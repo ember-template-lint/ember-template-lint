@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('power-assert');
-var _compile = require('htmlbars').compile;
+var _precompile = require('glimmer-engine').precompile;
 var buildPlugin = require('./../../lib/rules/base');
 
 describe('base plugin tests', function() {
@@ -42,8 +42,8 @@ describe('base plugin tests', function() {
     return FakePlugin;
   }
 
-  function compile(template) {
-    _compile(template, {
+  function precompile(template) {
+    _precompile(template, {
       rawSource: template,
       moduleName: 'layout.hbs',
       plugins: {
@@ -64,7 +64,7 @@ describe('base plugin tests', function() {
     var nodeSources = config.sources;
 
     it('can get raw source for `' + template + '`', function() {
-      compile(template);
+      precompile(template);
 
       assert.deepEqual(messages, nodeSources);
     });

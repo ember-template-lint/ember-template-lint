@@ -1,11 +1,11 @@
 var assert = require('power-assert');
-var parse = require('htmlbars/dist/cjs/htmlbars-syntax').parse;
+var preprocess = require('glimmer-engine/dist/node_modules/glimmer-syntax').preprocess;
 var isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
 describe('isInteractiveElement', function() {
   function testTemplate(template, expectedValue) {
     it('isInteractiveElement(`' + template + '` should be ' + expectedValue, function() {
-      var ast = parse(template);
+      var ast = preprocess(template);
 
       var interactive = isInteractiveElement(ast.body[0]);
 
@@ -15,7 +15,7 @@ describe('isInteractiveElement', function() {
 
   function testReason(template, expectedReason) {
     it('isInteractiveElement.reason(`' + template + '` should be `' + expectedReason+ '`', function() {
-      var ast = parse(template);
+      var ast = preprocess(template);
 
       var reason = isInteractiveElement.reason(ast.body[0]);
 
@@ -59,7 +59,7 @@ describe('isInteractiveElement', function() {
 
   describe('reason', function() {
     function test(template) {
-      var ast = parse(template);
+      var ast = preprocess(template);
 
       return isInteractiveElement.reason(ast.body[0]);
     }
