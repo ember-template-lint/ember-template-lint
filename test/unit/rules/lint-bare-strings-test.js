@@ -28,8 +28,8 @@ generateRuleTests({
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
     '(),.&+-=*/#%!?:[]{}',
-    '<!-- template-lint bare-strings=false -->',
-    '<!-- template-lint enabled=false -->',
+    '{{! template-lint-disable bare-strings }}',
+    '{{! template-lint-disable }}',
 
     // placeholder is a <input> specific attribute
     '<div placeholder="wat?"></div>',
