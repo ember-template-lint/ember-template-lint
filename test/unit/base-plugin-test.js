@@ -97,11 +97,14 @@ describe('base plugin', function() {
   });
 
   describe('parses instructions', function() {
-    var config;
+    var messages, config;
 
-    function plugin() {
+    function plugin(name) {
       var FakePlugin = buildPlugin({
-        name: 'fake',
+        log: function(result) {
+          messages.push(result.message);
+        },
+        name: name || 'fake',
         config: true
       });
 
@@ -125,6 +128,7 @@ describe('base plugin', function() {
     }
 
     beforeEach(function() {
+      messages = [];
       config = null;
     });
 
@@ -132,6 +136,7 @@ describe('base plugin', function() {
       it('can parse `' + instruction + '`', function() {
         precompile('{{! ' + instruction + ' }}');
         assert.deepEqual(config, expectedConfig);
+        assert.deepEqual(messages, []);
       });
     }
 
@@ -144,23 +149,23 @@ describe('base plugin', function() {
 
     // Specific enable/disable
     expectConfig('template-lint-disable fake', { value: false, tree: false });
-    expectConfig('template-lint-disable-tree fake', { value: false, tree: true });
-    expectConfig('template-lint-disable fake foobar', { value: false, tree: false });
-    expectConfig('template-lint-disable foobar fake barfoo', { value: false, tree: false });
-    expectConfig('template-lint-disable foobar', null);
+    expectConfig('template-lint-disable-tree "fake"', { value: false, tree: true });
+    expectConfig('template-lint-disable fake \'bare-strings\'', { value: false, tree: false });
+    expectConfig('template-lint-disable bare-strings fake block-indentation', { value: false, tree: false });
+    expectConfig('template-lint-disable bare-strings', null);
     expectConfig(' template-lint-disable   fake ', { value: false, tree: false });
-    expectConfig('template-lint-disable   foobar    fake   barfoo ', { value: false, tree: false });
+    expectConfig('template-lint-disable   bare-strings    fake   block-indentation ', { value: false, tree: false });
 
     // Configure
     expectConfig('template-lint-configure fake { "key1": "value", "key2": { "key3": 1 } }', {
       value: { key1: 'value', key2: { key3: 1 } },
       tree: false
     });
-    expectConfig('template-lint-configure-tree fake { "key": "value" }', {
+    expectConfig('template-lint-configure-tree "fake" { "key": "value" }', {
       value: { key: 'value' },
       tree: true
     });
-    expectConfig('template-lint-configure-tree fake true', {
+    expectConfig('template-lint-configure-tree \'fake\' true', {
       value: true,
       tree: true
     });
@@ -168,7 +173,7 @@ describe('base plugin', function() {
       value: false,
       tree: true
     });
-    expectConfig('template-lint-configure-tree foobar { "key": "value" }', null);
+    expectConfig('template-lint-configure-tree bare-strings { "key": "value" }', null);
     expectConfig('  template-lint-configure-tree    fake   { "key": "value" }', {
       value: { key: 'value' },
       tree: true
@@ -176,12 +181,57 @@ describe('base plugin', function() {
 
     // Not config
     expectConfig('this code is awesome', null);
-    expectConfig('template-lint', null);
-    expectConfig('template-lint-', null);
+    expectConfig('', null);
+
+    // Errors
+    it('logs an error when it encounters an unknown rule name', function() {
+      precompile([
+        '{{! template-lint-enable notarule }}',
+        '{{! template-lint-disable fake norme meneither }}',
+        '{{! template-lint-configure nope false }}'
+      ].join('\n'));
+      assert.deepEqual(messages, [
+        'unrecognized rule name `notarule` in template-lint-enable instruction',
+        'unrecognized rule name `norme` in template-lint-disable instruction',
+        'unrecognized rule name `meneither` in template-lint-disable instruction',
+        'unrecognized rule name `nope` in template-lint-configure instruction'
+      ]);
+    });
+
+    it('logs an error when it can\'t parse a configure instruction\'s JSON', function() {
+      precompile('{{! template-lint-configure fake { not: "json" ] }}');
+      assert.deepEqual(messages, [
+        'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON'
+      ]);
+    });
+
+    it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function() {
+      precompile([
+        '{{! template-lint-bloober fake }}',
+        '{{! template-lint- fake }}',
+        '{{! template-lint fake }}'
+      ].join('\n'));
+      assert.deepEqual(messages, [
+        'unrecognized template-lint instruction: `template-lint-bloober`',
+        'unrecognized template-lint instruction: `template-lint-`',
+        'unrecognized template-lint instruction: `template-lint`'
+      ]);
+    });
+
+    it('only logs syntax errors once across all rules', function() {
+      precompileTemplate('{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}', [
+        plugin('fake1'),
+        plugin('fake2'),
+        plugin('fake3'),
+        plugin('fake4'),
+        plugin('fake5')
+      ]);
+      assert.equal(messages.length, 3);
+    });
   });
 
   describe('scopes instructions', function() {
-    var events;
+    var messages, events;
 
     function getId(node) {
       if (node.attributes) {
@@ -200,6 +250,9 @@ describe('base plugin', function() {
 
     function plugin() {
       var FakePlugin = buildPlugin({
+        log: function(result) {
+          messages.push(result.source);
+        },
         name: 'fake',
         config: true
       });
@@ -245,6 +298,7 @@ describe('base plugin', function() {
     }
 
     beforeEach(function() {
+      messages = [];
       events = [];
     });
 
@@ -256,6 +310,7 @@ describe('base plugin', function() {
       it(description, function() {
         precompile(template);
         assert.deepEqual(events, expectedEvents);
+        assert.deepEqual(messages, []);
       });
     }
 
