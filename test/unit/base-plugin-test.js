@@ -105,7 +105,7 @@ describe('base plugin', function() {
           messages.push(result.message);
         },
         name: name || 'fake',
-        config: true
+        config: 'foo'
       });
 
       FakePlugin.prototype.visitors = function() {
@@ -143,9 +143,9 @@ describe('base plugin', function() {
     // Global enable/disable
     expectConfig('template-lint-disable', { value: false, tree: false });
     expectConfig('template-lint-disable-tree', { value: false, tree: true });
-    expectConfig('template-lint-enable', { value: true, tree: false });
-    expectConfig('template-lint-enable-tree', { value: true, tree: true });
-    expectConfig('  template-lint-enable-tree ', { value: true, tree: true });
+    expectConfig('template-lint-enable', { value: 'foo', tree: false });
+    expectConfig('template-lint-enable-tree', { value: 'foo', tree: true });
+    expectConfig('  template-lint-enable-tree ', { value: 'foo', tree: true });
 
     // Specific enable/disable
     expectConfig('template-lint-disable fake', { value: false, tree: false });
@@ -248,13 +248,17 @@ describe('base plugin', function() {
       events.push([ event, getId(node), plugin.config ]);
     }
 
-    function plugin() {
+    function plugin(config) {
+      if (config === undefined) {
+        config = true;
+      }
+
       var FakePlugin = buildPlugin({
         log: function(result) {
           messages.push(result.source);
         },
         name: 'fake',
-        config: true
+        config: config
       });
 
       FakePlugin.prototype.visitors = function() {
@@ -293,8 +297,8 @@ describe('base plugin', function() {
       return FakePlugin;
     }
 
-    function precompile(template) {
-      precompileTemplate(template, [ plugin() ]);
+    function precompile(template, config) {
+      precompileTemplate(template, [ plugin(config) ]);
     }
 
     beforeEach(function() {
@@ -306,9 +310,10 @@ describe('base plugin', function() {
       var description = data.desc;
       var template = data.template;
       var expectedEvents = data.events;
+      var config = data.config;
 
       it(description, function() {
-        precompile(template);
+        precompile(template, config);
         assert.deepEqual(events, expectedEvents);
         assert.deepEqual(messages, []);
       });
@@ -597,6 +602,59 @@ describe('base plugin', function() {
         [ 'comment/enter',          '',    'foo' ],
         [ 'comment/exit',           '',    'foo' ],
         [ 'element/exit',           'id1', 'foo' ]
+      ]
+    });
+
+    expectEvents({
+      desc: 'enable restores default config',
+      config: 'foo',
+      template: [
+        '<div id="id1">',
+        '  {{! template-lint-configure fake "bar" }}',
+        '  <span id="id2">',
+        '    {{! template-lint-disable fake }}',
+        '    <i id="id3">',
+        '      {{! template-lint-enable fake }}',
+        '      <b id="id4"/>',
+        '    </i>',
+        '  </span>',
+        '</div>'
+      ].join('\n'),
+      events: [
+        [ 'element/enter',          'id1', 'foo' ],
+        [ 'element/enter:children', 'id1', 'foo' ],
+        [ 'comment/enter',          '',    'foo' ],
+        [ 'comment/exit',           '',    'bar' ],
+        [ 'element/enter',          'id2', 'bar' ],
+        [ 'element/enter:children', 'id2', 'bar' ],
+        [ 'comment/enter',          '',    'bar' ],
+        [ 'comment/exit',           '',    'foo' ],
+        [ 'element/enter',          'id4', 'foo' ],
+        [ 'element/enter:children', 'id4', 'foo' ],
+        [ 'element/exit:children',  'id4', 'foo' ],
+        [ 'element/exit',           'id4', 'foo' ],
+        [ 'element/exit:children',  'id2', 'bar' ],
+        [ 'element/exit',           'id2', 'bar' ],
+        [ 'element/exit:children',  'id1', 'foo' ],
+        [ 'element/exit',           'id1', 'foo' ]
+      ]
+    });
+
+    expectEvents({
+      desc: 'enabling a disabled-by-default rule actually enables it',
+      config: false,
+      template: [
+        '<div id="id1">',
+        '  {{! template-lint-enable fake }}',
+        '  <span id="id2"></span>',
+        '</div>'
+      ].join('\n'),
+      events: [
+        [ 'comment/exit',           '',    true  ],
+        [ 'element/enter',          'id2', true  ],
+        [ 'element/enter:children', 'id2', true  ],
+        [ 'element/exit:children',  'id2', true  ],
+        [ 'element/exit',           'id2', true  ]
       ]
     });
 

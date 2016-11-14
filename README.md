@@ -87,19 +87,19 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 <!-- disable all rules -->
 {{! template-lint-disable }}
 
-<!-- disable only bare-strings -->
+<!-- disable bare-strings -->
 {{! template-lint-disable bare-strings }}
 
-<!-- disable only bare-strings and triple-curlies -->
+<!-- disable bare-strings and triple-curlies -->
 {{! template-lint-disable bare-strings triple-curlies }}
 
 <!-- enable all rules -->
 {{! template-lint-enable }}
 
-<!-- enable only bare-strings -->
+<!-- enable bare-strings -->
 {{! template-lint-enable bare-strings }}
 
-<!-- enable only bare-strings and triple-curlies -->
+<!-- enable bare-strings and triple-curlies -->
 {{! template-lint-enable bare-strings triple-curlies }}
 ```
 
@@ -151,6 +151,8 @@ An in-element instruction with the `-tree` suffix will apply to that element and
   </p>
 </div>
 ```
+
+Note that enabling a rule (`{{! template-lint-enable }}`) that has been configured in-template (`{{! template-lint-configure }}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{! template-lint-enable }}` instruction.
 
 ### Configuration Keys
 
