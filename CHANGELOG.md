@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## v0.6.2
+
+- Add `ignore` to allowed configuration values. `ignore` is an array of moduleId's that are to be completely ignored. This is similar (but different) from `pending`.
+- Add `unused-block-params` rule. The following example would fail this rule (since it has an unused block param `index`):
+
+```hbs
+{{#each foo as |bar index|}}
+  {{bar}}
+{{/each}}
+```
+- Update `img-alt-attributes` rule to allow `<img alt>` and `<img alt="">`.
+- Update `invalid-interactive` rule to allow `<form {{action 'foo' on="submit"}}>`.
+
+
 ## v0.6.1
 
 - Fix issue with new `deprecated-inline-view-helper` (throwing error when parsing mustache statements).
