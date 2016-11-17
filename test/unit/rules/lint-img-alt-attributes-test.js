@@ -11,7 +11,9 @@ generateRuleTests({
     '<img alt="hullo">',
     '<img alt={{foo}}>',
     '<img alt="blah {{derp}}">',
-    '<img aria-hidden="true">'
+    '<img aria-hidden="true">',
+    '<img alt="">',
+    '<img alt>'
   ],
 
   bad: [
@@ -23,30 +25,6 @@ generateRuleTests({
         message: 'img tags must have an alt attribute',
         moduleId: 'layout.hbs',
         source: '<img>',
-        line: 1,
-        column: 0
-      }
-    },
-    {
-      template: '<img alt>',
-
-      result: {
-        rule: 'img-alt-attributes',
-        message: 'img tags must have an alt attribute',
-        moduleId: 'layout.hbs',
-        source: '<img alt>',
-        line: 1,
-        column: 0
-      }
-    },
-    {
-      template: '<img alt="">',
-
-      result: {
-        rule: 'img-alt-attributes',
-        message: 'img tags must have an alt attribute',
-        moduleId: 'layout.hbs',
-        source: '<img alt="">',
         line: 1,
         column: 0
       }
