@@ -326,7 +326,7 @@ However, this practice has performance problems (see [https://jakearchibald.com/
 and also opens a door to some security attacks because the opened page can redirect the opener app
 to a malicious clone to perform phishing on your users.
 Adding `rel="noopener"` closes that door and avoids javascript in the opened tab to block the main
-thread in the opener.
+thread in the opener. Also note that adding `rel="noreferrer"` will [acheive the same goal](https://html.spec.whatwg.org/multipage/semantics.html#link-type-noreferrer).
 
 This rule forbids the following:
 

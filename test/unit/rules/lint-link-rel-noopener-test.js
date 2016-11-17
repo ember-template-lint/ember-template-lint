@@ -11,7 +11,8 @@ generateRuleTests({
     '<a href="/some/where"></a>',
     '<a href="/some/where" target="_self"></a>',
     '<a href="/some/where" target="_blank" rel="noopener"></a>',
-    '<a href="/some/where" target="_blank" rel="noopener noreferrer"></a>'
+    '<a href="/some/where" target="_blank" rel="noopener noreferrer"></a>',
+    '<a href="/some/where" target="_blank" rel="noreferrer"></a>'
   ],
 
   bad: [
