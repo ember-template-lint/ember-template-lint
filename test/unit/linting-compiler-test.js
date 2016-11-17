@@ -1,13 +1,13 @@
 'use strict';
 
 var assert = require('power-assert');
-var _compile = require('htmlbars').compile;
+var _precompile = require('glimmer-engine').precompile;
 
 describe('Ember template compiler', function() {
   var astPlugins;
 
-  function compile(template) {
-    return _compile(template, {
+  function precompile(template) {
+    return _precompile(template, {
       rawSource: template,
       plugins: {
         ast: astPlugins
@@ -20,7 +20,7 @@ describe('Ember template compiler', function() {
   });
 
   it('sanity: compiles templates', function() {
-    var template = compile('<div></div>');
+    var template = precompile('<div></div>');
     assert.ok(template, 'template is created');
   });
 
@@ -33,7 +33,7 @@ describe('Ember template compiler', function() {
       return ast;
     };
     astPlugins.push(NoopPlugin);
-    compile('<div></div>');
+    precompile('<div></div>');
 
     assert.equal(instanceCount, 1, 'registered plugins are instantiated');
   });
@@ -48,7 +48,7 @@ describe('Ember template compiler', function() {
     };
     astPlugins.push(NoopPlugin);
     var expectedTemplate = '<div></div>';
-    compile(expectedTemplate);
+    precompile(expectedTemplate);
 
     assert.equal(expectedTemplate, options.rawSource, 'rawSource can be passed through compile options');
   });

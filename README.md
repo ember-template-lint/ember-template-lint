@@ -25,6 +25,27 @@ To install ember-template-lint
 npm install --save-dev ember-template-lint
 ```
 
+## Usage
+
+Run templates through the linter's `verify` method like so:
+
+```js
+var TemplateLinter = require('ember-template-lint');
+
+var linter = new TemplateLinter();
+var template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
+var results = linter.verify(template);
+```
+
+`results` will be an array of objects which have the following properties:
+* `rule` - The name of the rule that triggered this warning/error.
+* `message` - The message that should be output.
+* `line` - The line on which the error occurred.
+* `column` - The column on which the error occurred.
+* `moduleId` - The module path for the file containing the error.
+* `source` - The source that caused the error.
+* `fix` - An object describing how to fix the error.
+
 ## Configuration
 
 ### Project Wide
@@ -63,14 +84,75 @@ module.exports = {
 It is also possible to disable specific rules (or all rules) in a template itself:
 
 ```hbs
-{{! disable all rules for this template }}
-<!-- template-lint disable=true -->
+<!-- disable all rules -->
+{{! template-lint-disable }}
 
-{{! disable specific rules for this template }}
-<!-- template-lint bare-strings=false -->
+<!-- disable bare-strings -->
+{{! template-lint-disable bare-strings }}
+
+<!-- disable bare-strings and triple-curlies -->
+{{! template-lint-disable bare-strings triple-curlies }}
+
+<!-- enable all rules -->
+{{! template-lint-enable }}
+
+<!-- enable bare-strings -->
+{{! template-lint-enable bare-strings }}
+
+<!-- enable bare-strings and triple-curlies -->
+{{! template-lint-enable bare-strings triple-curlies }}
 ```
 
-It is not currently possible to change rule configuration in the template.
+and to configure rules in the template:
+
+```hbs
+{{! template-lint-configure bare-strings ["ZOMG THIS IS ALLOWED!!!!"] }}
+
+{{! template-lint-configure bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]} }}
+```
+
+The configure instruction can only configure a single rule, and the configuration value must be valid JSON that parses into a configuration for that rule.
+
+These configuration instructions do not modify the rule for the rest of the template, but instead modify it within whatever DOM scope the comment instruction appears.
+
+An instruction will apply to all later siblings and their descendants:
+
+```hbs
+<!-- disable for <p> and <span> and their contents, but not for <div> or <hr> -->
+<div>
+  <hr>
+  {{! template-lint-disable }}
+  <p>
+    <span>Hello!</span>
+  </p>
+</div>
+```
+
+An in-element instruction will apply to only that element:
+
+```hbs
+<!-- enable for <p>, but not for <div>, <hr> or <span> -->
+<div>
+  <hr>
+  <p {{! template-lint-enable }}>
+    <span>Hello!</span>
+  </p>
+</div>
+```
+
+An in-element instruction with the `-tree` suffix will apply to that element and all its descendants:
+
+```hbs
+<!-- configure for <p>, <span> and their contents, but not for <div> or <hr> -->
+<div>
+  <hr>
+  <p {{! template-lint-configure-tree block-indentation "tab" }}>
+    <span>Hello!</span>
+  </p>
+</div>
+```
+
+Note that enabling a rule (`{{! template-lint-enable }}`) that has been configured in-template (`{{! template-lint-configure }}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{! template-lint-enable }}` instruction.
 
 ### Configuration Keys
 
@@ -81,6 +163,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 * `pending` -- An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
+* `ignore` -- An array of module id's that are to be completely ignored.
 
 ## Rules
 
@@ -151,15 +234,6 @@ but allows the following:
 ```hbs
 {{!-- comment goes here --}}
 ```
-
-Html comments containing linting instructions such as:
-
-```hbs
-<!-- template-lint bare-strings=false -->
-```
-
-are of course allowed (and since the linter strips them during processing, they will not get compiled and rendered into the DOM regardless of this rule).
-
 
 #### triple-curlies
 
@@ -244,6 +318,32 @@ The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
 
+#### link-rel-noopener
+
+When you want to link in your app to some external page it is very common to use `<a href="url" target="_blank"></a>`
+to make the browser open this link in a new tab.
+However, this practice has performance problems (see [https://jakearchibald.com/2016/performance-benefits-of-rel-noopener/](https://jakearchibald.com/2016/performance-benefits-of-rel-noopener/))
+and also opens a door to some security attacks because the opened page can redirect the opener app
+to a malicious clone to perform phishing on your users.
+Adding `rel="noopener"` closes that door and avoids javascript in the opened tab to block the main
+thread in the opener.
+
+This rule forbids the following:
+
+```hbs
+<a href="https://i.seem.secure.com" target="_blank">I'm a bait</a>
+```
+
+Instead, you should write the template as:
+
+```hbs
+<a href="https://i.seem.secure.com" target="_blank" rel="noopener">I'm a bait</a>
+```
+
+The following values are valid configuration:
+
+  * boolean -- `true` for enabled / `false` for disabled
+
 #### invalid-interactive
 
 Adding interactivity to an element that is not naturally interactive content leads to a very poor experience for
@@ -272,6 +372,52 @@ The following values are valid configuration (same as the `nested-interactive` r
     * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
     * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.'
 
+#### inline-link-to
+
+Ember's `link-to` component has both an inline form and a block form. This rule forbids the inline form.
+
+Forbidden (inline form):
+
+```hbs
+{{link-to 'Link text' 'routeName' prop1 prop2}}
+```
+
+Allowed (block form):
+
+```hbs
+{{#link-to 'routeName' prop1 prop2}}Link text{{/link-to}}
+```
+
+The block form is a little longer but has advantages over the inline form:
+
+* It maps closer to the use of HTML anchor tags which wrap their inner content.
+* It provides an obvious way for developers to put nested markup and components inside of their link.
+* The block form's argument order is more direct: "link to route". The inline form's argument order is somewhat ambiguous (link text then link target). This is opposite of the order in HTML (`href` then link text).
+
+This rule is configured with one boolean value:
+
+  * boolean -- `true` for enabled / `false` for disabled
+
+#### style-concatenation
+
+Ember has a runtime warning that says "Binding style attributes may introduce cross-site scripting vulnerabilities." It can only be avoided by always marking the bound value with `Ember.String.htmlSafe`. While we can't detect statically if you're always providing a safe string, we can detect cases common where it's impossible that you're doing so. For example,
+
+```hbs
+<div style="background-style: url({{url}})">
+```
+
+is never safe because the implied string concatentation does not propagate `htmlSafe`. Any use of quotes is therefore forbidden. This is forbidden:
+
+```hbs
+<div style="{{make-background url}}">
+```
+
+whereas this is allowed:
+
+```hbs
+<div style={{make-background url}}>
+```
+
 ### Deprecations
 
 #### deprecated-each-syntax
@@ -282,7 +428,7 @@ has been removed.
 For example, this rule forbids the following:
 
 ```hbs
-{{{#each post in posts}}}
+{{#each post in posts}}
   <li>{{post.name}}</li>
 {{/each}}
 ```
@@ -296,6 +442,38 @@ Instead, you should write the template as:
 ```
 
 More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
+
+#### deprecated-inline-view-helper
+
+In Ember 1.12, support for invoking the inline View helper was deprecated.
+
+For example, this rule forbids the following:
+
+```hbs
+{{view 'this-is-bad'}}
+
+{{view.also-bad}}
+
+{{qux-qaz please=view.stop}}
+
+{{#not-this please=view.stop}}{{/not-this}}
+
+<div foo={{view.bar}}></div>
+```
+
+Instead, you should use:
+
+```hbs
+{{this-is-better}}
+
+{{qux-qaz this=good}}
+
+{{#ok-this yay=nice}}{{/ok-this}}
+
+<div foo={{bar}}></div>
+```
+
+More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_ember-view).
 
 ## Contributing
 

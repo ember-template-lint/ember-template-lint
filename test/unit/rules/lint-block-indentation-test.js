@@ -18,6 +18,13 @@ generateRuleTests({
       '  Good Morning',
       '{{{{/if}}}}'
     ].join('\n'),
+    [
+      '{{#if isDoc}}',
+      '  Download',
+      '{{else if isIframe}}',
+      '  <iframe src="some_url"></iframe>',
+      '{{/if}}'
+    ].join('\n'),
     '\n  {{#each cats as |dog|}}\n  {{/each}}',
     '<div><p>Stuff</p></div>',
     '<div>\n  <p>Stuff Here</p>\n</div>',
@@ -151,8 +158,8 @@ generateRuleTests({
         '\t<p>Hi!</p>\n' +
         '</div>'
     },
-    '<!-- template-lint bare-strings=false -->',
-    '<!-- template-lint enabled=false -->',
+    '{{! template-lint-disable bare-strings }}',
+    '{{! template-lint-disable }}',
     {
       template: [
         '<div>',

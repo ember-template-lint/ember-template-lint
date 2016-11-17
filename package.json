@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "0.5.14",
+  "version": "0.6.3",
   "description": "Lint your templates.",
   "scripts": {
     "test": "mocha",
@@ -19,11 +19,11 @@
   "license": "MIT",
   "devDependencies": {
     "assert-diff": "^1.0.1",
-    "eslint-plugin-node": "^1.0.0",
+    "eslint-plugin-node": "^3.0.3",
     "espower-loader": "^1.0.0",
     "glob": "^7.0.0",
     "loader.js": "^4.0.1",
-    "mocha": "^2.4.5",
+    "mocha": "^3.0.0",
     "mocha-eslint": "^2.0.2",
     "mocha-only-detector": "^0.1.0",
     "power-assert": "^1.3.1",
@@ -33,8 +33,8 @@
   "keywords": [],
   "dependencies": {
     "chalk": "^1.1.3",
-    "exists-sync": "0.0.3",
-    "htmlbars": "0.14.23",
+    "exists-sync": "0.0.4",
+    "glimmer-engine": "^0.18.0",
     "lodash": "^4.11.1"
   },
   "bugs": {

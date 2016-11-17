@@ -280,9 +280,28 @@ describe('public api', function() {
 
       assert.deepEqual(result, [expected]);
     });
+
+    it('does not include errors when marked as ignored', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'bare-strings': true, 'block-indentation': true },
+          ignore: [ 'some/path/here' ]
+        }
+      });
+
+      var template = '<div>bare string</div>';
+      var result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here'
+      });
+
+      assert.deepEqual(result, []);
+    });
+
   });
 
-  describe('Linter.prototype.pendingStatusForModule', function() {
+  describe('Linter.prototype.statusForModule', function() {
     it('returns true when the provided moduleId is listed in `pending`', function() {
       var linter = new Linter({
         console: mockConsole,
@@ -294,9 +313,9 @@ describe('public api', function() {
         }
       });
 
-      assert(linter.pendingStatusForModule('some/path/here'));
-      assert(linter.pendingStatusForModule('foo/bar/baz'));
-      assert(!linter.pendingStatusForModule('some/other/path'));
+      assert(linter.statusForModule('pending', 'some/path/here'));
+      assert(linter.statusForModule('pending', 'foo/bar/baz'));
+      assert(!linter.statusForModule('pending', 'some/other/path'));
     });
   });
 });

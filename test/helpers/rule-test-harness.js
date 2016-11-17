@@ -8,8 +8,8 @@ var assign = require('lodash').assign;
 module.exports = function(options) {
   var groupingMethod = options.focus ? describe.only : describe;
   groupingMethod(options.name, function() {
-    var DISABLE_ALL = '<!-- template-lint disable=true -->';
-    var DISABLE_ONE = '<!-- template-lint ' + options.name + '=false -->';
+    var DISABLE_ALL = '{{! template-lint-disable }}';
+    var DISABLE_ONE = '{{! template-lint-disable ' + options.name + ' }}';
 
     var linter, config;
 
