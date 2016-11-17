@@ -151,8 +151,8 @@ generateRuleTests({
         '\t<p>Hi!</p>\n' +
         '</div>'
     },
-    '<!-- template-lint bare-strings=false -->',
-    '<!-- template-lint enabled=false -->',
+    '{{! template-lint-disable bare-strings }}',
+    '{{! template-lint-disable }}',
     {
       template: [
         '<div>',
