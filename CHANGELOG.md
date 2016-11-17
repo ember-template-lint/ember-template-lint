@@ -1,6 +1,56 @@
 Changelog
 =========
 
+## v0.6.3
+
+- Add support for Handlebars comments.
+  
+  A few new types of control statements are now available:
+    * `{{! template-lint-enable some-rule-name }}` - This will enable the rule `some-rule-name` with the default configuration (from `.template-lintrc.js`) or `true` (if not present in the config file). This can be ran for multiple rules at once (i.e. `{{! template-lint-enable bare-strings some-other-thing }}`).
+    * `{{! template-lint-disable some-rule-name }}` - This will disable the rule `some-rule-name`. Multiple rules can be provided at once (i.e. `{{! template-lint-disable bare-strings some-other-thing }}`).
+    * `{{! template-lint-configure some-rule-name { "whitelist": ["some", "valid", "json"] } }}` - This configures the rule `some-rule-name` with the `JSON.parse()`'ed result of the second argument.  The configure instruction only applies toa  single rule at a time.
+  
+  These configuration instructions do not modify the rule for the rest of the template, but instead only modify it within whatever DOM scope the comment instruction appears.
+
+  An instruction will apply to all later siblings and their descendants:
+
+  ```hbs
+  {{! disable for <p> and <span> and their contents, but not for <div> or <hr> }}
+  <div>
+    <hr>
+    {{! template-lint-disable }}
+    <p>
+      <span>Hello!</span>
+    </p>
+  </div>
+  ```
+
+  An in-element instruction will apply to only that element:
+
+  ```hbs
+  {{! enable for <p>, but not for <div>, <hr> or <span> }}
+  <div>
+    <hr>
+    <p {{! template-lint-enable }}>
+      <span>Hello!</span>
+    </p>
+  </div>
+  ```
+
+  An in-element instruction with the -tree suffix will apply to that element and all its descendants:
+
+  ```hbs
+  {{! configure for <p>, <span> and their contents, but not for <div> or <hr> }}
+  <div>
+    <hr>
+    <p {{! template-lint-configure-tree block-indentation "tab" }}>
+      <span>Hello!</span>
+    </p>
+  </div>
+  ```
+
+- Deprecate using HTML comments for enabling/disabling rules. Support for HTML comments will be removed in v0.7.0.
+
 ## v0.6.2
 
 - Add `ignore` to allowed configuration values. `ignore` is an array of moduleId's that are to be completely ignored. This is similar (but different) from `pending`.
