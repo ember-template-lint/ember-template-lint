@@ -301,6 +301,184 @@ describe('public api', function() {
 
   });
 
+  describe('Linter using plugins', function() {
+    var basePath = path.join(fixturePath, 'with-plugins');
+    var linter;
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js')
+      });
+    });
+
+    it('returns plugin rule issues', function() {
+      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      var expected = [
+        {
+          message: 'The inline form of component is not allowed',
+          moduleId: templatePath,
+          line: 1,
+          column: 4,
+          source: '{{component value="Hej"}}',
+          rule: 'inline-component',
+          severity: 2
+        }
+      ];
+
+      var result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath
+      });
+
+      assert.deepEqual(result, expected);
+    });
+
+  });
+
+  describe('Linter using plugin with extends', function() {
+    var basePath = path.join(fixturePath, 'with-plugin-with-configurations');
+    var linter;
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js')
+      });
+    });
+
+    it('returns plugin rule issues', function() {
+      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      var expected = [
+        {
+          message: 'The inline form of component is not allowed',
+          moduleId: templatePath,
+          line: 1,
+          column: 4,
+          source: '{{component value="Hej"}}',
+          rule: 'inline-component',
+          severity: 2
+        }
+      ];
+
+      var result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath
+      });
+
+      assert.deepEqual(result, expected);
+    });
+
+  });
+  describe('Linter using plugin with multiple extends', function() {
+    var basePath = path.join(fixturePath, 'with-multiple-extends');
+    var linter;
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js')
+      });
+    });
+
+    it('returns plugin rule issues', function() {
+      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      var expected = [
+        {
+          message: 'Usage of triple curly brackets is unsafe',
+          moduleId: templatePath,
+          line: 2,
+          column: 2,
+          source: '{{{myVar}}}',
+          rule: 'triple-curlies',
+          severity: 2
+        },
+        {
+          message: 'The inline form of component is not allowed',
+          moduleId: templatePath,
+          line: 1,
+          column: 4,
+          source: '{{component value="Hej"}}',
+          rule: 'inline-component',
+          severity: 2
+        }
+      ];
+
+      var result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath
+      });
+
+      assert.deepEqual(result, expected);
+    });
+
+  });
+  describe('Linter using plugins (inline plugins)', function() {
+    var basePath = path.join(fixturePath, 'with-inline-plugins');
+    var linter;
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js')
+      });
+    });
+
+    it('returns plugin rule issues', function() {
+      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      var expected = [
+        {
+          message: 'The inline form of component is not allowed',
+          moduleId: templatePath,
+          line: 1,
+          column: 4,
+          source: '{{component value="Hej"}}',
+          rule: 'inline-component',
+          severity: 2
+        }
+      ];
+
+      var result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath
+      });
+
+      assert.deepEqual(result, expected);
+    });
+
+  });
+
+  describe('Linter using plugins loading a configuration that extends from another plugins configuration', function() {
+    var basePath = path.join(fixturePath, 'with-plugins-overwriting');
+    var linter;
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js')
+      });
+    });
+
+    it('returns plugin rule issues', function() {
+      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      var expected = [];
+
+      var result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath
+      });
+
+      assert.deepEqual(result, expected);
+    });
+
+  });
+
+
   describe('Linter.prototype.statusForModule', function() {
     it('returns true when the provided moduleId is listed in `pending`', function() {
       var linter = new Linter({
