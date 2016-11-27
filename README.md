@@ -418,6 +418,40 @@ whereas this is allowed:
 <div style={{make-background url}}>
 ```
 
+#### unused-block-params
+
+This rule forbids unused block parameters except when they are needed to access a later parameter.
+
+Forbidden (unused parameters):
+
+```
+{{#each users as |user index|}}
+  {{user.name}}
+{{/each}}
+```
+
+Allowed (used parameters):
+
+```
+{{#each users as |user|}}
+  {{user.name}}
+{{/each}}
+```
+
+```
+{{#each users as |user index|}}
+  {{index}} {{user.name}}
+{{/each}}
+```
+
+Allowed (later parameter used):
+
+```
+{{#each users as |user index|}}
+  {{index}}
+{{/each}}
+```
+
 ### Deprecations
 
 #### deprecated-each-syntax
