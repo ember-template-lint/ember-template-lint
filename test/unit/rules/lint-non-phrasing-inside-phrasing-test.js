@@ -12,8 +12,9 @@ generateRuleTests({
     '<span><span>phrasing in phrasing</span></span>',
     '<span><span>phrasing in phrasing</span></span>',
     // TODO this fails because it has source in video :/
-    // TODO same problem with select and option, probably more uncategorized? tags
-    // '<video width="320" height="240" autoplay><source src="movie.mp4" type="video/mp4"><source src="movie.ogg" type="video/ogg">Your browser does not support the video tag.</video>'
+    '<video width="320" height="240" autoplay><source src="movie.mp4" type="video/mp4"><source src="movie.ogg" type="video/ogg">Your browser does not support the video tag.</video>',
+    // TODO same problem with select and option, and probably more uncategorized? tags
+    '<select><option></option></select>'
   ],
 
   bad: [
