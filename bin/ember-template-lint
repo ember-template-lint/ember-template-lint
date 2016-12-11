@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const path = require('path');
+const fs = require('fs');
+const Linter = require('../lib/index');
+
+function errorsToMessages(errors) {
+  return errors.map((error) => {
+    let message = `${error.rule}: ${error.message} (${error.moduleId}`;
+
+    if (error.line && error.column) {
+      message += ` @ L${error.line}:C${error.column}`;
+    }
+
+    message += ')';
+
+    if (error.source) message += `: \n\`${error.source}\``;
+
+    return message;
+  }).join('\n');
+}
+
+function run() {
+  const linter = new Linter();
+
+  const relativeFilePath = process.argv.find((arg) => arg.slice(-4) === '.hbs');
+  const filePath = path.resolve(relativeFilePath);
+
+  const contents = fs.readFileSync(filePath, { encoding: 'utf8' });
+
+  const errors = linter.verify({
+    source: contents,
+    moduleId: relativeFilePath.slice(0, -4),
+  });
+
+  const textErrors = errorsToMessages(errors);
+  const rawErrors = JSON.stringify({ [filePath]: errors }, null, 2);
+
+  if (process.argv.indexOf('--json') + 1) {
+    console.log(rawErrors);
+  } else {
+    console.log(textErrors);
+  }
+
+  if (errors.some((err) => err.severity > 1).length) process.exit(1);
+}
+
+run();
