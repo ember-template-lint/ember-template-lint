@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+'use strict';
+
+var linter = require('../lib/lint-dir.js');
+var options = require('cli').parse({
+  dir: ['d', 'templates directory', 'dir', 'app/templates']
+});
+
+linter(options);
