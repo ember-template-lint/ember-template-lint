@@ -46,6 +46,14 @@ var results = linter.verify(template);
 * `source` - The source that caused the error.
 * `fix` - An object describing how to fix the error.
 
+It is also possible to run linter via CLI.
+```
+./node_modules/ember-template-lint/bin/lint
+```
+
+By default script finds template files in directory: app/templates, but you can adjust it using option:
+* -d, --dir [templatesDir] templates directory (default: app/templates)
+
 ## Configuration
 
 ### Project Wide
@@ -397,7 +405,7 @@ The block form is a little longer but has advantages over the inline form:
 This rule is configured with one boolean value:
 
   * boolean -- `true` for enabled / `false` for disabled
-  
+
 #### inline-styles
 
 Inline styles are not the best practice because they are hard to maintain and usually make the overall size of the project bigger. This rule forbids the inline styles.
