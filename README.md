@@ -51,7 +51,7 @@ It is also possible to run linter via CLI.
 ./node_modules/ember-template-lint/bin/lint
 ```
 
-By default script finds template files in directory: app/templates, but you can adjust it using option:
+By default script finds template files in directory: app/templates, but it's possible to adjust it using option:
 * -d, --dir [templatesDir] templates directory (default: app/templates)
 
 ## Configuration
