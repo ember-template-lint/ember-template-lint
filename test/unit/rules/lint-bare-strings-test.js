@@ -51,6 +51,11 @@ generateRuleTests({
     },
 
     {
+      config: ['&#8377;'],
+      template: '&#8377;'
+    },
+
+    {
       // override the globalAttributes list
       config: { globalAttributes: [] },
       template: '<a title="hahaha trolol"></a>'
