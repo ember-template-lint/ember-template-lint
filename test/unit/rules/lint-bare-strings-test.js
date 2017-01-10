@@ -51,7 +51,7 @@ generateRuleTests({
     },
 
     {
-      config: ['&#8377;'],
+      config: ['₹'],
       template: '&#8377;'
     },
 
