@@ -374,6 +374,25 @@ generateRuleTests({
         line: 2,
         column: 2
       }
+    },
+
+    {
+      template: [
+        '<div>',
+        '  {{#if foo}}',
+        '  {{/if}}',
+        '    {{! comment with incorrect indentation }}',
+        '</div>'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{! comment with incorrect indentation }}` beginning at L4:C4. Expected `{{! comment with incorrect indentation }}` to be at an indentation of 2 but was found at 4.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n  {{#if foo}}\n  {{/if}}\n    {{! comment with incorrect indentation }}\n</div>',
+        line: 4,
+        column: 4
+      }
     }
   ]
 });
