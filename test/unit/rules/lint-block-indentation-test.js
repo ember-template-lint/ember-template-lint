@@ -374,6 +374,25 @@ generateRuleTests({
         line: 2,
         column: 2
       }
+    },
+
+    {
+      template: [
+        '<div>',
+        '  {{#if foo}}',
+        '  {{/if}}',
+        '    {{! comment with incorrect indentation }}',
+        '</div>'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: '',
+        moduleId: 'layout.hbs',
+        source: '',
+        line: 2,
+        column: 2
+      }
     }
   ]
 });
