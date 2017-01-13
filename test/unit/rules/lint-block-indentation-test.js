@@ -28,13 +28,6 @@ generateRuleTests({
     '\n  {{#each cats as |dog|}}\n  {{/each}}',
     '<div><p>Stuff</p></div>',
     '<div>\n  <p>Stuff Here</p>\n</div>',
-    '{{#if isMorning}}' +
-      '  Good morning\n' +
-      '{{else if isAfternoon}}' +
-      '  Good afternoon\n' +
-      '{{else}}\n' +
-      '  Good night\n' +
-      '{{/if}}',
     '{{#if isMorning}}\n' +
       '  Good morning\n' +
       '{{else foo-bar isAfternoon}}\n' +
@@ -130,6 +123,11 @@ generateRuleTests({
       '{{else}}',
       '  <div></div>',
       '{{~/if~}}'
+    ].join('\n'),
+    [
+      '{{#if foo~}}',
+      '  -',
+      '{{/if}}'
     ].join('\n'),
     [
       '<div class="multi"',
@@ -392,6 +390,27 @@ generateRuleTests({
         source: '<div>\n  {{#if foo}}\n  {{/if}}\n    {{! comment with incorrect indentation }}\n</div>',
         line: 4,
         column: 4
+      }
+    },
+
+    {
+      template: [
+        '{{#if isMorning}}' +
+        '  Good morning\n' +
+        '{{else if isAfternoon}}\n' +
+        '  Good afternoon\n' +
+        '{{else}}\n' +
+        '  Good night\n' +
+        '{{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `  Good morning\n` beginning at L1:C17. Expected `  Good morning\n` to be at an indentation of 2 but was found at 19.',
+        moduleId: 'layout.hbs',
+        source: '{{#if isMorning}}  Good morning\n{{else if isAfternoon}}\n  Good afternoon\n{{else}}\n  Good night\n{{/if}}',
+        line: 1,
+        column: 17
       }
     }
   ]
