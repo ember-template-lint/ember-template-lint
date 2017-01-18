@@ -138,6 +138,13 @@ generateRuleTests({
       '{{/if}}'
     ].join('\n'),
     [
+      '{{#if foo}}',
+      '  <div>do foo</div>',
+      '{{else if bar~}}',
+      '  <div>do bar</div>',
+      '{{/if}}'
+    ].join('\n'),
+    [
       '<div class="multi"',
       '     id="lines"></div>'
     ].join('\n'),
@@ -439,6 +446,25 @@ generateRuleTests({
         source: '{{#if isMorning}}  Good morning\n{{else if isAfternoon}}\n  Good afternoon\n{{else}}\n  Good night\n{{/if}}',
         line: 1,
         column: 17
+      }
+    },
+  
+    {
+      template: [
+        '{{#if isMorning}}\n' +
+        '  Good morning\n' +
+        '{{else if isAfternoon~}}\n' +
+        '    Good afternoon\n' +
+        '{{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `Good afternoon\n` beginning at L4:C4. Expected `Good afternoon\n` to be at an indentation of 2 but was found at 4.',
+        moduleId: 'layout.hbs',
+        source: '{{else if isAfternoon~}}\n    Good afternoon\n',
+        line: 4,
+        column: 4
       }
     }
   ]
