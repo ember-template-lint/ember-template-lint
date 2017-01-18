@@ -131,6 +131,14 @@ generateRuleTests({
     ].join('\n'),
     [
       '{{#if foo}}',
+      '{{else if bar}}',
+      '{{else}}',
+      '  {{#if baz}}',
+      '  {{/if~}}',
+      '{{/if}}'
+    ].join('\n'),
+    [
+      '{{#if foo}}',
       '  <div>do foo</div>',
       '{{else if bar~}}',
       '  <div>do bar</div>',
@@ -361,6 +369,26 @@ generateRuleTests({
         source: '{{else}}\n',
         line: 2,
         column: 2
+      }
+    },
+
+    {
+      template: [
+        '{{#if foo}}',
+        '{{else if bar}}',
+        '{{else}}',
+        '  {{#if baz}}',
+        '  {{/if~}}',
+        '  {{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `if` beginning at L1:C0. Expected `{{/if}}` ending at L6:C9 to be at an indentation of 0 but was found at 2.',
+        moduleId: 'layout.hbs',
+        source: '{{#if foo}}\n{{else if bar}}\n{{else}}\n  {{#if baz}}\n  {{/if~}}\n  {{/if}}',
+        line: 6,
+        column: 9
       }
     },
 
