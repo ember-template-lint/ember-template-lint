@@ -1,5 +1,5 @@
 var assert = require('power-assert');
-var preprocess = require('glimmer-engine/dist/node_modules/glimmer-syntax').preprocess;
+var preprocess = require('glimmer-engine/dist/node_modules/@glimmer/syntax').preprocess;
 var isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
 describe('isInteractiveElement', function() {
