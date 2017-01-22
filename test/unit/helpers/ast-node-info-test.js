@@ -1,5 +1,5 @@
 var assert = require('power-assert');
-var preprocess = require('glimmer-engine/dist/node_modules/glimmer-syntax').preprocess;
+var preprocess = require('glimmer-engine/dist/node_modules/@glimmer/syntax').preprocess;
 var AstNodeInfo = require('../../../lib/helpers/ast-node-info');
 
 describe('isImgElement', function() {

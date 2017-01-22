@@ -28,13 +28,6 @@ generateRuleTests({
     '\n  {{#each cats as |dog|}}\n  {{/each}}',
     '<div><p>Stuff</p></div>',
     '<div>\n  <p>Stuff Here</p>\n</div>',
-    '{{#if isMorning}}' +
-      '  Good morning\n' +
-      '{{else if isAfternoon}}' +
-      '  Good afternoon\n' +
-      '{{else}}\n' +
-      '  Good night\n' +
-      '{{/if}}',
     '{{#if isMorning}}\n' +
       '  Good morning\n' +
       '{{else foo-bar isAfternoon}}\n' +
@@ -130,6 +123,26 @@ generateRuleTests({
       '{{else}}',
       '  <div></div>',
       '{{~/if~}}'
+    ].join('\n'),
+    [
+      '{{#if foo~}}',
+      '  -',
+      '{{/if}}'
+    ].join('\n'),
+    [
+      '{{#if foo}}',
+      '{{else if bar}}',
+      '{{else}}',
+      '  {{#if baz}}',
+      '  {{/if~}}',
+      '{{/if}}'
+    ].join('\n'),
+    [
+      '{{#if foo}}',
+      '  <div>do foo</div>',
+      '{{else if bar~}}',
+      '  <div>do bar</div>',
+      '{{/if}}'
     ].join('\n'),
     [
       '<div class="multi"',
@@ -361,6 +374,26 @@ generateRuleTests({
 
     {
       template: [
+        '{{#if foo}}',
+        '{{else if bar}}',
+        '{{else}}',
+        '  {{#if baz}}',
+        '  {{/if~}}',
+        '  {{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `if` beginning at L1:C0. Expected `{{/if}}` ending at L6:C9 to be at an indentation of 0 but was found at 2.',
+        moduleId: 'layout.hbs',
+        source: '{{#if foo}}\n{{else if bar}}\n{{else}}\n  {{#if baz}}\n  {{/if~}}\n  {{/if}}',
+        line: 6,
+        column: 9
+      }
+    },
+
+    {
+      template: [
         '{{#each foo as |bar|}}',
         '  {{else}}',
         '{{/each}}'
@@ -373,6 +406,65 @@ generateRuleTests({
         source: '{{else}}\n',
         line: 2,
         column: 2
+      }
+    },
+
+    {
+      template: [
+        '<div>',
+        '  {{#if foo}}',
+        '  {{/if}}',
+        '    {{! comment with incorrect indentation }}',
+        '</div>'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{! comment with incorrect indentation }}` beginning at L4:C4. Expected `{{! comment with incorrect indentation }}` to be at an indentation of 2 but was found at 4.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n  {{#if foo}}\n  {{/if}}\n    {{! comment with incorrect indentation }}\n</div>',
+        line: 4,
+        column: 4
+      }
+    },
+
+    {
+      template: [
+        '{{#if isMorning}}' +
+        '  Good morning\n' +
+        '{{else if isAfternoon}}\n' +
+        '  Good afternoon\n' +
+        '{{else}}\n' +
+        '  Good night\n' +
+        '{{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `  Good morning\n` beginning at L1:C17. Expected `  Good morning\n` to be at an indentation of 2 but was found at 19.',
+        moduleId: 'layout.hbs',
+        source: '{{#if isMorning}}  Good morning\n{{else if isAfternoon}}\n  Good afternoon\n{{else}}\n  Good night\n{{/if}}',
+        line: 1,
+        column: 17
+      }
+    },
+  
+    {
+      template: [
+        '{{#if isMorning}}\n' +
+        '  Good morning\n' +
+        '{{else if isAfternoon~}}\n' +
+        '    Good afternoon\n' +
+        '{{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `Good afternoon\n` beginning at L4:C4. Expected `Good afternoon\n` to be at an indentation of 2 but was found at 4.',
+        moduleId: 'layout.hbs',
+        source: '{{else if isAfternoon~}}\n    Good afternoon\n',
+        line: 4,
+        column: 4
       }
     }
   ]
