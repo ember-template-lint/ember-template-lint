@@ -22,26 +22,21 @@ function errorsToMessages(errors) {
   }).join('\n');
 }
 
-function run() {
+function lintFile(filePath, moduleId) {
   const linter = new Linter();
+  const source = fs.readFileSync(filePath, { encoding: 'utf8' });
+  return linter.verify({ source, moduleId });
+}
 
+function run() {
   const relativeFilePath = process.argv.find((arg) => arg.slice(-4) === '.hbs');
   const filePath = path.resolve(relativeFilePath);
-
-  const contents = fs.readFileSync(filePath, { encoding: 'utf8' });
-
-  const errors = linter.verify({
-    source: contents,
-    moduleId: relativeFilePath.slice(0, -4),
-  });
-
-  const textErrors = errorsToMessages(errors);
-  const rawErrors = JSON.stringify({ [filePath]: errors }, null, 2);
+  const errors = lintFile(filePath, relativeFilePath.slice(0, -4));
 
   if (process.argv.indexOf('--json') + 1) {
-    console.log(rawErrors);
+    console.log(JSON.stringify({ [filePath]: errors }, null, 2));
   } else {
-    console.log(textErrors);
+    console.log(errorsToMessages(errors));
   }
 
   if (errors.some((err) => err.severity > 1).length) process.exit(1);
