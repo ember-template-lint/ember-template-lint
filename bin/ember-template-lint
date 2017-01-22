@@ -2,9 +2,11 @@
 
 'use strict';
 
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
 const Linter = require('../lib/index');
+const linter = new Linter();
 
 function errorsToMessages(errors) {
   return errors.map((error) => {
@@ -22,24 +24,59 @@ function errorsToMessages(errors) {
   }).join('\n');
 }
 
+function printErrors(errors) {
+  if (process.argv.indexOf('--json') + 1) {
+    console.log(JSON.stringify(errors, null, 2));
+  } else {
+    Object.keys(errors).forEach(filePath => console.log(errorsToMessages(errors[filePath])));
+  }
+}
+
 function lintFile(filePath, moduleId) {
-  const linter = new Linter();
   const source = fs.readFileSync(filePath, { encoding: 'utf8' });
   return linter.verify({ source, moduleId });
 }
 
+function getRelativeFilePaths() {
+  const fileArgs = process.argv.slice(2).filter(arg => arg.slice(0, 2) !== '--');
+
+  const relativeFilePaths = fileArgs
+    .reduce((filePaths, fileArg) => {
+      let globPath;
+      let isDirectory;
+
+      try {
+        isDirectory = fs.statSync(fileArg).isDirectory();
+      } catch(e) {
+        isDirectory = false;
+      }
+
+      if (isDirectory) globPath = `${fileArg}/**/*.hbs`;
+      else globPath = fileArg;
+
+      return filePaths.concat(glob.sync(globPath));
+    }, [])
+    .filter(filePath => filePath.slice(-4) === '.hbs');
+
+  return Array.from(new Set(relativeFilePaths));
+}
+
 function run() {
-  const relativeFilePath = process.argv.find((arg) => arg.slice(-4) === '.hbs');
-  const filePath = path.resolve(relativeFilePath);
-  const errors = lintFile(filePath, relativeFilePath.slice(0, -4));
+  let exitCode = 0;
 
-  if (process.argv.indexOf('--json') + 1) {
-    console.log(JSON.stringify({ [filePath]: errors }, null, 2));
-  } else {
-    console.log(errorsToMessages(errors));
-  }
+  const errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
+    const filePath = path.resolve(relativeFilePath);
+    const fileErrors = lintFile(filePath, relativeFilePath.slice(0, -4));
 
-  if (errors.some((err) => err.severity > 1).length) process.exit(1);
+    if (fileErrors.some((err) => err.severity > 1).length) exitCode = 1;
+
+    errors[filePath] = fileErrors;
+    return errors;
+  }, {});
+
+  printErrors(errors);
+
+  if (exitCode) return process.exit(exitCode);
 }
 
 run();
