@@ -18,7 +18,7 @@ function errorsToMessages(errors) {
 
     message += ')';
 
-    if (error.source) message += `: \n\`${error.source}\``;
+    if (error.source) message += `:\n\`${error.source}\``;
 
     return message;
   }).join('\n');
@@ -68,14 +68,13 @@ function run() {
     const filePath = path.resolve(relativeFilePath);
     const fileErrors = lintFile(filePath, relativeFilePath.slice(0, -4));
 
-    if (fileErrors.some((err) => err.severity > 1).length) exitCode = 1;
+    if (fileErrors.some((err) => err.severity > 1)) exitCode = 1;
 
-    errors[filePath] = fileErrors;
+    if (fileErrors.length) errors[filePath] = fileErrors;
     return errors;
   }, {});
 
-  printErrors(errors);
-
+  if (Object.keys(errors).length) printErrors(errors);
   if (exitCode) return process.exit(exitCode);
 }
 
