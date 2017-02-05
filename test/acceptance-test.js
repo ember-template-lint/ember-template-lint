@@ -478,7 +478,6 @@ describe('public api', function() {
 
   });
 
-
   describe('Linter.prototype.statusForModule', function() {
     it('returns true when the provided moduleId is listed in `pending`', function() {
       var linter = new Linter({
@@ -494,6 +493,46 @@ describe('public api', function() {
       assert(linter.statusForModule('pending', 'some/path/here'));
       assert(linter.statusForModule('pending', 'foo/bar/baz'));
       assert(!linter.statusForModule('pending', 'some/other/path'));
+    });
+  });
+
+  describe('Linter.errorsToMessages', function() {
+    it('formats error with rule, message and moduleId', function() {
+      assert.equal(
+        Linter.errorsToMessages([
+          { rule: 'some rule', message: 'some message', moduleId: 'some moduleId' }
+        ]),
+        'some rule: some message (some moduleId)'
+      );
+    });
+
+    it('formats error with rule, message, moduleId, line and column numbers', function() {
+      assert.equal(
+        Linter.errorsToMessages([
+          { rule: 'some rule', message: 'some message', moduleId: 'some moduleId', line: 11, column: 12 }
+        ]),
+        'some rule: some message (some moduleId @ L11:C12)'
+      );
+    });
+
+    it('formats error with rule, message, moduleId, source', function() {
+      assert.equal(
+        Linter.errorsToMessages([
+          { rule: 'some rule', message: 'some message', moduleId: 'some moduleId', source: 'some source' }
+        ]),
+        'some rule: some message (some moduleId):\n`some source`'
+      );
+    });
+
+    it('formats more than one error', function() {
+      assert.equal(
+        Linter.errorsToMessages([
+          { rule: 'some rule', message: 'some message', moduleId: 'some moduleId', line: 11, column: 12 },
+          { rule: 'some rule2', message: 'some message2', moduleId: 'some moduleId2', source: 'some source2' }
+        ]),
+        'some rule: some message (some moduleId @ L11:C12)\n' +
+        'some rule2: some message2 (some moduleId2):\n`some source2`'
+      );
     });
   });
 });
