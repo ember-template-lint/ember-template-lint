@@ -35,8 +35,7 @@ function getRelativeFilePaths() {
         isDirectory = false;
       }
 
-      if (isDirectory) globPath = `${fileArg}/**/*.hbs`;
-      else globPath = fileArg;
+      globPath = isDirectory ? `${fileArg}/**/*.hbs` : fileArg;
 
       return filePaths.concat(glob.sync(globPath));
     }, [])
