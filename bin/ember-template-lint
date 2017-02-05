@@ -8,27 +8,11 @@ const glob = require('glob');
 const Linter = require('../lib/index');
 const linter = new Linter();
 
-function errorsToMessages(errors) {
-  return errors.map((error) => {
-    let message = `${error.rule}: ${error.message} (${error.moduleId}`;
-
-    if (error.line && error.column) {
-      message += ` @ L${error.line}:C${error.column}`;
-    }
-
-    message += ')';
-
-    if (error.source) message += `:\n\`${error.source}\``;
-
-    return message;
-  }).join('\n');
-}
-
 function printErrors(errors) {
   if (process.argv.indexOf('--json') + 1) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
-    Object.keys(errors).forEach(filePath => console.log(errorsToMessages(errors[filePath])));
+    Object.keys(errors).forEach(filePath => console.log(Linter.errorsToMessages(errors[filePath])));
   }
 }
 
