@@ -14,6 +14,12 @@ generateRuleTests({
       '</div>'
     ].join('\n'),
     [
+      '<div>',
+      '  {{! What a comment}}',
+      '  {{foo-bar}}',
+      '</div>'
+    ].join('\n'),
+    [
       '{{{{if isMorning}}}}',
       '  Good Morning',
       '{{{{/if}}}}'
@@ -354,7 +360,6 @@ generateRuleTests({
         column: 0
       }
     },
-
     {
       template: [
         '{{#if foo}}',
@@ -448,7 +453,7 @@ generateRuleTests({
         column: 17
       }
     },
-  
+
     {
       template: [
         '{{#if isMorning}}\n' +
@@ -465,6 +470,39 @@ generateRuleTests({
         source: '{{else if isAfternoon~}}\n    Good afternoon\n',
         line: 4,
         column: 4
+      }
+    },
+    {
+      template: [
+        '<div>',
+        '{{! What a comment }}',
+        '  {{foo-bar}}',
+        '</div>'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{! What a comment }}` beginning at L2:C0. Expected `{{! What a comment }}` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '<div>\n{{! What a comment }}\n  {{foo-bar}}\n</div>',
+        line: 2,
+        column: 0
+      }
+    },
+    {
+      template: [
+        '<div> {{! bad comment }}',
+        '  {{foo-bar}}',
+        '</div>'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{! bad comment }}` beginning at L1:C6. Expected `{{! bad comment }}` to be at an indentation of 2 but was found at 6.',
+        moduleId: 'layout.hbs',
+        source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
+        line: 1,
+        column: 6
       }
     }
   ]
