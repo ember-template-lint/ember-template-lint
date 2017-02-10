@@ -2,32 +2,36 @@
 
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
-const Linter = require('../lib/index');
-const linter = new Linter();
+var fs = require('fs');
+var path = require('path');
+var glob = require('glob');
+var Linter = require('../lib/index');
+var linter = new Linter();
 
 function printErrors(errors) {
   if (process.argv.indexOf('--json') + 1) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
-    Object.keys(errors).forEach(filePath => console.log(Linter.errorsToMessages(errors[filePath])));
+    Object.keys(errors).forEach(function(filePath) {
+      console.log(Linter.errorsToMessages(errors[filePath]));
+    });
   }
 }
 
 function lintFile(filePath, moduleId) {
-  const source = fs.readFileSync(filePath, { encoding: 'utf8' });
-  return linter.verify({ source, moduleId });
+  var source = fs.readFileSync(filePath, { encoding: 'utf8' });
+  return linter.verify({ source: source, moduleId: moduleId });
 }
 
 function getRelativeFilePaths() {
-  const fileArgs = process.argv.slice(2).filter(arg => arg.slice(0, 2) !== '--');
+  var fileArgs = process.argv.slice(2).filter(function(arg) {
+    return arg.slice(0, 2) !== '--';
+  });
 
-  const relativeFilePaths = fileArgs
-    .reduce((filePaths, fileArg) => {
-      let globPath;
-      let isDirectory;
+  var relativeFilePaths = fileArgs
+    .reduce(function(filePaths, fileArg) {
+      var globPath;
+      var isDirectory;
 
       try {
         isDirectory = fs.statSync(fileArg).isDirectory();
@@ -35,23 +39,26 @@ function getRelativeFilePaths() {
         isDirectory = false;
       }
 
-      globPath = isDirectory ? `${fileArg}/**/*.hbs` : fileArg;
+      globPath = fileArg;
+      if (isDirectory) globPath += '/**/*.hbs';
 
       return filePaths.concat(glob.sync(globPath));
     }, [])
-    .filter(filePath => filePath.slice(-4) === '.hbs');
+    .filter(function(filePath) {
+      return filePath.slice(-4) === '.hbs';
+    });
 
   return Array.from(new Set(relativeFilePaths));
 }
 
 function run() {
-  let exitCode = 0;
+  var exitCode = 0;
 
-  const errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
-    const filePath = path.resolve(relativeFilePath);
-    const fileErrors = lintFile(filePath, relativeFilePath.slice(0, -4));
+  var errors = getRelativeFilePaths().reduce(function(errors, relativeFilePath) {
+    var filePath = path.resolve(relativeFilePath);
+    var fileErrors = lintFile(filePath, relativeFilePath.slice(0, -4));
 
-    if (fileErrors.some((err) => err.severity > 1)) exitCode = 1;
+    if (fileErrors.some(function(err) { return err.severity > 1; })) exitCode = 1;
 
     if (fileErrors.length) errors[filePath] = fileErrors;
     return errors;
