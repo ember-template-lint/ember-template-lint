@@ -175,5 +175,70 @@ describe('get-config', function() {
 
   });
 
+  it('validates non-default loaded rules', function() {
+    var message;
+    var actual = getConfig({
+      console: { log: function(_message) {
+        message = _message;
+      }},
+
+      config: {
+
+        rules: {
+          'foo-bar': true
+        },
+
+        plugins: [{
+          name: 'myplugin',
+          rules: {
+            'foo-bar': 'plugin-function-placeholder'
+          }
+        }]
+      }
+
+    });
+
+    assert(!message);
+    assert(actual.loadedRules['foo-bar'] === 'plugin-function-placeholder');
+  });
+
+  it('getting config is idempotent', function() {
+    var firstMessage;
+    var secondMessage;
+    var firstPass = getConfig({
+      console: { log: function(_message) {
+        firstMessage = _message;
+      }},
+
+      config: {
+
+        rules: {
+          'foo-bar': true
+        },
+
+        plugins: [{
+          name: 'myplugin',
+          rules: {
+            'foo-bar': 'plugin-function-placeholder'
+          }
+        }]
+      }
+
+    });
+    var firstPassJSON = JSON.stringify(firstPass);
+    var secondPass = getConfig({
+      console: { log: function(_message) {
+        secondMessage = _message;
+      }},
+
+      config: firstPass
+
+    });
+    var secondPassJSON = JSON.stringify(secondPass);
+
+    assert(firstPassJSON === secondPassJSON);
+    assert(!firstMessage);
+    assert(!secondMessage);
+  });
 
 });
