@@ -27,6 +27,8 @@ npm install --save-dev ember-template-lint
 
 ## Usage
 
+### Direct usage
+
 Run templates through the linter's `verify` method like so:
 
 ```js
@@ -45,6 +47,23 @@ var results = linter.verify(template);
 * `moduleId` - The module path for the file containing the error.
 * `source` - The source that caused the error.
 * `fix` - An object describing how to fix the error.
+
+### CLI executable
+
+Basic `ember-template-lint` executable is provided, allowing for easy use within i.e. Git pre-commit/push hooks and development of appropriate plugins for text editors.
+
+Example usage:
+
+```bash
+# basic usage
+./node_modules/.bin/ember-template-lint app/templates/application.hbs
+
+# multiple file/directory/wildcard paths are accepted
+./node_modules/.bin/ember-template-lint app/templates/components/**/* app/templates/application.hbs
+
+# output errors as pretty-printed JSON string
+./node_modules/.bin/ember-template-lint app/templates/application.hbs --json
+```
 
 ## Configuration
 
