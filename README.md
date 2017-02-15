@@ -326,7 +326,7 @@ However, this practice has performance problems (see [https://jakearchibald.com/
 and also opens a door to some security attacks because the opened page can redirect the opener app
 to a malicious clone to perform phishing on your users.
 Adding `rel="noopener"` closes that door and avoids javascript in the opened tab to block the main
-thread in the opener.
+thread in the opener. Also note that adding `rel="noreferrer"` will [acheive the same goal](https://html.spec.whatwg.org/multipage/semantics.html#link-type-noreferrer).
 
 This rule forbids the following:
 
@@ -397,6 +397,26 @@ The block form is a little longer but has advantages over the inline form:
 This rule is configured with one boolean value:
 
   * boolean -- `true` for enabled / `false` for disabled
+  
+#### inline-styles
+
+Inline styles are not the best practice because they are hard to maintain and usually make the overall size of the project bigger. This rule forbids the inline styles.
+
+Forbidden:
+
+```hbs
+<div style="width:900px"></div>
+```
+
+Allowed:
+
+```hbs
+<div class="wide-element"></div>
+```
+
+This rule is configured with one boolean value:
+
+  * boolean -- `true` for enabled rule that forbids the inline styles / `false` for disabled rule that allows them
 
 #### style-concatenation
 
@@ -416,6 +436,40 @@ whereas this is allowed:
 
 ```hbs
 <div style={{make-background url}}>
+```
+
+#### unused-block-params
+
+This rule forbids unused block parameters except when they are needed to access a later parameter.
+
+Forbidden (unused parameters):
+
+``` hbs
+{{#each users as |user index|}}
+  {{user.name}}
+{{/each}}
+```
+
+Allowed (used parameters):
+
+``` hbs
+{{#each users as |user|}}
+  {{user.name}}
+{{/each}}
+```
+
+``` hbs
+{{#each users as |user index|}}
+  {{index}} {{user.name}}
+{{/each}}
+```
+
+Allowed (later parameter used):
+
+``` hbs
+{{#each users as |user index|}}
+  {{index}}
+{{/each}}
 ```
 
 ### Deprecations
