@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v0.6.4
+
+- Fix many issues with whitespace control (things like `{{~#if foo ~}}`).
+- Fix bug in `block-indentation` rule that caused errors when using handlebars style comments.
+
+
 ## v0.6.3
 
 - Add support for Handlebars comments.
