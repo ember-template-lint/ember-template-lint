@@ -1,5 +1,6 @@
 # ember-template-lint
 
+[![npm version](https://badge.fury.io/js/ember-template-lint.svg)](https://badge.fury.io/js/ember-template-lint)
 [![Build Status](https://travis-ci.org/rwjblue/ember-template-lint.svg?branch=master)](https://travis-ci.org/rwjblue/ember-template-lint)
 
 ember-template-lint will lint your template and return error results. This is commonly
