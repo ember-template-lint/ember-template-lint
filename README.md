@@ -37,7 +37,7 @@ var TemplateLinter = require('ember-template-lint');
 
 var linter = new TemplateLinter();
 var template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
-var results = linter.verify(template);
+var results = linter.verify({ source: template, moduleId: 'template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
