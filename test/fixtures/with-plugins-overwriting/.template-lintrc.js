@@ -4,8 +4,8 @@ module.exports = {
     './plugins/plugin2'
   ],
   extends: [
-    'plugin1:enable-inline-component',
     'plugin2:disable-inline-component',
+    'plugin1:enable-inline-component',
   ],
   rules: {
     'bare-strings': true
