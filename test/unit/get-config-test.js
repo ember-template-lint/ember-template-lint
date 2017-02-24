@@ -56,7 +56,7 @@ describe('get-config', function() {
 
   it('can extend and override a default configuration', function() {
     var expected = clone(recommendedConfig);
-    expected.rules['bare-strings'] = false;
+    expected.rules['bare-strings'] = true;
 
     var actual = getConfig({
       config: {
