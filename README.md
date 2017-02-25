@@ -178,12 +178,18 @@ Note that enabling a rule (`{{! template-lint-enable }}`) that has been configur
 
 The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
 
-* `rules` -- This is an object containing rule specific configuration (see details for each rule below).
-* `extends` -- This is a string that allows you to specify an internally curated list of rules (we suggest `recommended` here).
-* `pending` -- An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
+* `rules` -- `Object`
+  This is an object containing rule specific configuration (see details for each rule below).
+* `extends` -- `string|string[]`
+  Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).
+* `pending` -- `string[]`
+  An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-* `ignore` -- An array of module id's that are to be completely ignored.
+* `ignore` -- `string[]`
+  An array of module id's that are to be completely ignored.
+* `plugins` -- `(string|Object)[]`
+  An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
 
 ## Rules
 
@@ -548,6 +554,10 @@ Instead, you should use:
 ```
 
 More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_ember-view).
+
+### Defining your own rules
+
+You can define and use your own custom rules using the plugin system. See [plugin documentation](docs/plugins.md) for more details.
 
 ## Contributing
 
