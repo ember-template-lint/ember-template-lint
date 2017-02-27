@@ -74,6 +74,8 @@ generateRuleTests({
       '{{/if}}',
     ].join('\n'),
     ['<div class="multi"', '     id="lines"></div>'].join('\n'),
+    ['{{#if foo}}', '  &nbsp;Hello', '{{/if}}'].join('\n'),
+    ['{{#if foo}}', '  &nbsp;<div></div>', '{{/if}}'].join('\n'),
     {
       config: 4,
 
