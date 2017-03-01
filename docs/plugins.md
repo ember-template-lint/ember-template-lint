@@ -8,7 +8,7 @@ Plugins can define new rules and set up default configurations that can be exten
 
 In order to enable a plugin, you must add it to the `plugins` key in your configuration file.
 
-`plugins` accepts an array of either objects, or strings that resolve to files that export plugin objects.
+`plugins` accepts an array of either plugin objects or strings to be passed to `require` which resolve to plugin objects.
 
 #### Define a plugin inline
 
@@ -18,20 +18,23 @@ In order to enable a plugin, you must add it to the `plugins` key in your config
 module.exports = {
   plugins: [
     {
+      // Name of plugin
+      name: 'some-inline-plugin',
+
       // Define rules for this plugin. Each path should map to a plugin rule
-      rules: [
+      rules: {
         'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
         'another-custom-rule': require('.lib/template-lint-rules/another-custom-rule')
-      ],
+      },
 
       // Define configurations for this plugin that can be extended by the base configuration
-      configurations: [
+      configurations: {
         'no-inline': {
             rules: {
               'disallow-inline-components': true
             }
         }
-      ]
+      }
     },
   ],
 
@@ -131,7 +134,7 @@ Each plugin object, whether defined inline or in a separate file, can include th
 
 Every rule defined by a plugin can use these public APIs defined by `ember-template-lint`.
 
-### Building a rule object
+#### Building a rule object
 
 Each file that defines a rule should export a function that accepts an `addonContext` object and returns a rule object.
 
@@ -202,7 +205,7 @@ The base rule object also has a few helper functions that can be useful in defin
 
   Given a Handlebars AST node, return the string source of that node. Useful to generate `source` when logging errors with `log`.
 
-### AST Node Helpers
+#### AST Node Helpers
 
 There are a number of helper functions exported by [`ember-template-lint/lib/helpers/ast-node-info.js`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor functions.
 
