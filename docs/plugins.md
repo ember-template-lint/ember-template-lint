@@ -4,117 +4,11 @@ You can customize the linter with rules that are more specific to your use case 
 
 Plugins can define new rules and set up default configurations that can be extended.
 
-### Adding Plugins to Your Configuration
+### Defining plugin objects
 
-In order to enable a plugin, you must add it to the `plugins` key in your configuration file.
+Each plugin object can include these properties.
 
-`plugins` accepts an array of either plugin objects or strings to be passed to `require` which resolve to plugin objects.
-
-#### Define a plugin inline
-
-```javascript
-// .template-lintrc.js
-
-module.exports = {
-  plugins: [
-    {
-      // Name of plugin
-      name: 'some-inline-plugin',
-
-      // Define rules for this plugin. Each path should map to a plugin rule
-      rules: {
-        'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
-        'another-custom-rule': require('.lib/template-lint-rules/another-custom-rule')
-      },
-
-      // Define configurations for this plugin that can be extended by the base configuration
-      configurations: {
-        'no-inline': {
-            rules: {
-              'disallow-inline-components': true
-            }
-        }
-      }
-    },
-  ],
-
-  extends: [
-    // Extend configuration defined in the inline plugin
-    'no-inline'
-  ],
-
-  rules: {
-    'bare-strings': true,
-
-    // Use a rule defined in the inline plugin
-    'another-custom-rule': true
-  }
-}
-```
-
-#### Define a plugin based on a relative path
-```javascript
-// .template-lintrc.js
-
-module.exports = {
-  plugins: [
-    // Define a plugin that is exported elsewhere (i.e. a third-party plugin)
-    './plugins/some-local-plugin',
-    'some-npm-package/third-party-plugin',
-  ],
-
-  extends: [
-    'recommended',
-
-    // Extend configuration defined in plugins
-    'some-local-plugin:recommended',
-    'third-party-plugin:strict'
-  ],
-
-  rules: {
-    'bare-strings': true,
-
-    // Use a rule defined in a plugin
-    'rule-defined-in-some-local-plugin': true
-  }
-}
-
-```
-
-Each path included as part of `plugins` should resolve to a file that exports a plugin object.
-
-```javascript
-// plugins/some-local-plugin.js
-
-'use strict';
-
-module.exports = {
-
-  // Name of plugin
-  name: 'some-local-plugin',
-
-  // These rules will be added to the namespace of any config file that imports this plugin
-  rules: {
-    'inline-component': require('./rules/lint-inline-component')
-  },
-
-  // These configurations will be available to extend in any config file that imports this plugin, namespaced by the name of this plugin
-  configurations: {
-    recommended: {
-      rules: {
-        'inline-component': true,
-        'bare-strings': true
-      }
-    }
-  }
-};
-```
-
-### Configuration Keys for Plugins
-
-Each plugin object, whether defined inline or in a separate file, can include these properties.
-
-* `name` -- `string`
+* `name` -- `string` (required)
 
   The name of the plugin. Will be used to namespace any configuration objects.
 
@@ -129,6 +23,71 @@ Each plugin object, whether defined inline or in a separate file, can include th
   Object that defines new configurations that can be extended.
   Each key represents the name of the configuration object.
   Each value should be a configuration object, that can include the [same properties as the base config object](../README.md#configuration-keys) in any `.template-lintrc.js` -- i.e. `rules`, `extends`, `ignore`, etc.
+
+Sample plugin object:
+
+```javascript
+{
+  // Name of plugin
+  name: 'my-plugin',
+
+  // Define rules for this plugin. Each path should map to a plugin rule
+  rules: {
+    'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
+    'another-custom-rule': require('.lib/template-lint-rules/another-custom-rule')
+  },
+
+  // Define configurations for this plugin that can be extended by the base configuration
+  configurations: {
+    'no-inline': {
+      rules: {
+        'disallow-inline-components': true
+      }
+    }
+  }
+}
+```
+
+### Adding Plugins to Your Configuration
+
+In order to enable a plugin, you must add it to the `plugins` key in your configuration file.
+
+`plugins` accepts an array of either plugin objects or strings to be passed to `require` which resolve to plugin objects.
+
+```javascript
+// .template-lintrc.js
+
+module.exports = {
+  plugins: [
+
+    // Define a plugin inline
+    {
+      name: 'inline-plugin',
+
+      ...
+    },
+
+    // Define a plugin that is exported elsewhere (i.e. a third-party plugin)
+    './plugins/some-local-plugin',
+    'some-npm-package/third-party-plugin',
+  ],
+
+  extends: [
+    // Extend configuration defined in inline plugins
+    'configuration-defined-in-my-inline-plugin',
+
+    // Extend configuration defined in plugins in other files
+    'some-local-plugin:recommended',
+    'third-party-plugin:another-configuration'
+  ],
+
+  rules: {
+    // Use rules defined in plugins
+    'rule-defined-in-my-inline-plugin': true
+    'rule-defined-in-some-local-plugin': true
+  }
+}
+```
 
 ### Rule APIs
 
