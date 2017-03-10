@@ -16,7 +16,7 @@ Each plugin object can include these properties.
 
   Object that defines new rules.
   Each key represents the name of the rule that is defined.
-  Each value should be a string that represents a relative file path to the rule definition. See [Rule APIs](#rule-apis) for more detail.
+  Each value should be a Rule object. See [Rule APIs](#rule-apis) for more detail.
 
 * `configurations` -- `Object`
 
