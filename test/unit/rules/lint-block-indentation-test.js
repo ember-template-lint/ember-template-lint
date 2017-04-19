@@ -520,6 +520,21 @@ generateRuleTests({
     },
     {
       template: [
+        '{{#foo-bar}}',
+        '{{/foo-bar}} content'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{! bad comment }}` beginning at L1:C6. Expected `{{! bad comment }}` to be at an indentation of 2 but was found at 6.',
+        moduleId: 'layout.hbs',
+        source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
+        line: 1,
+        column: 6
+      }
+    },
+    {
+      template: [
         '\uFEFF {{#if foo}}',
         '{{/if}}'
       ].join('\n'),
