@@ -1,2 +1,1 @@
---require ./test/enable-power-assert
 --recursive

@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('power-assert');
+var expect = require('chai').expect;
 var _precompile = require('glimmer-engine').precompile;
 
 describe('Ember template compiler', function() {
@@ -21,7 +21,7 @@ describe('Ember template compiler', function() {
 
   it('sanity: compiles templates', function() {
     var template = precompile('<div></div>');
-    assert.ok(template, 'template is created');
+    expect(template).to.be.ok;
   });
 
   it('sanity: loads plugins on the template compiler', function() {
@@ -35,7 +35,7 @@ describe('Ember template compiler', function() {
     astPlugins.push(NoopPlugin);
     precompile('<div></div>');
 
-    assert.equal(instanceCount, 1, 'registered plugins are instantiated');
+    expect(instanceCount).to.equal(1);
   });
 
   it('can access rawSource via options', function() {
@@ -50,6 +50,6 @@ describe('Ember template compiler', function() {
     var expectedTemplate = '<div></div>';
     precompile(expectedTemplate);
 
-    assert.equal(expectedTemplate, options.rawSource, 'rawSource can be passed through compile options');
+    expect(options.rawSource).to.equal(expectedTemplate);
   });
 });

@@ -1,5 +1,5 @@
 var path = require('path');
-var assert = require('power-assert');
+var expect = require('chai').expect;
 var clone = require('lodash').clone;
 var getConfig = require('../../lib/get-config');
 var recommendedConfig = require('../../lib/config/recommended');
@@ -16,7 +16,7 @@ describe('get-config', function() {
     var expected = { };
     var actual = getConfig({ config: expected });
 
-    assert(actual == expected);
+    expect(actual).to.equal(expected);
   });
 
   it('uses .template-lintrc.js in cwd if present', function() {
@@ -27,7 +27,7 @@ describe('get-config', function() {
 
     var actual = getConfig({});
 
-    assert.deepEqual(actual, expected);
+    expect(actual).to.deep.equal(expected);
   });
 
   it('uses .template-lintrc in provided configPath', function() {
@@ -41,8 +41,9 @@ describe('get-config', function() {
       configPath: configPath
     });
 
-    assert.deepEqual(actual, expected);
+    expect(actual).to.deep.equal(expected);
   });
+
   it('can specify that it extends a default configuration', function() {
     var actual = getConfig({
       config: {
@@ -50,8 +51,7 @@ describe('get-config', function() {
       }
     });
 
-    assert(actual.rules['block-indentation'] === 2);
-
+    expect(actual.rules['block-indentation']).to.equal(2);
   });
 
   it('can extend and override a default configuration', function() {
@@ -67,7 +67,7 @@ describe('get-config', function() {
       }
     });
 
-    assert(actual.rules['bare-strings'] === false);
+    expect(actual.rules['bare-strings']).to.be.false;
   });
 
   it('migrates rules in the config root into `rules` property', function() {
@@ -78,7 +78,7 @@ describe('get-config', function() {
       }
     });
 
-    assert(actual.rules['bare-strings'] === false);
+    expect(actual.rules['bare-strings']).to.be.false;
   });
 
   it('rules in the config root trigger a deprecation', function() {
@@ -93,7 +93,7 @@ describe('get-config', function() {
       }
     });
 
-    assert(/Rule configuration has been moved/.test(message));
+    expect(message).to.match(/Rule configuration has been moved/);
   });
 
   it('warns for unknown rules', function() {
@@ -110,7 +110,7 @@ describe('get-config', function() {
       }
     });
 
-    assert(/Invalid rule configuration found/.test(message));
+    expect(message).to.match(/Invalid rule configuration found/);
   });
 
   it('warns for unknown extends', function() {
@@ -128,7 +128,7 @@ describe('get-config', function() {
       }
     });
 
-    assert(/Cannot find configuration for extends/.test(message));
+    expect(message).to.match(/Cannot find configuration for extends/);
   });
 
   it('can specify plugin without rules', function() {
@@ -156,23 +156,20 @@ describe('get-config', function() {
 
     });
 
-    assert(!message);
-    assert(actual.rules['bare-strings'] === false);
+    expect(message).to.not.be.ok;
+    expect(actual.rules['bare-strings']).to.be.false;
   });
 
   it('throw exception when plugin path is incorrect', function() {
-
     var wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
-    assert.throws(function() {
+    expect(function() {
       getConfig({
         config: {
           plugins: [wrongPluginPath]
         }
       });
-    });
-
-
+    }).to.throw;
   });
 
   it('validates non-default loaded rules', function() {
@@ -198,8 +195,8 @@ describe('get-config', function() {
 
     });
 
-    assert(!message);
-    assert(actual.loadedRules['foo-bar'] === 'plugin-function-placeholder');
+    expect(message).to.not.be.ok;
+    expect(actual.loadedRules['foo-bar']).to.equal('plugin-function-placeholder');
   });
 
   it('getting config is idempotent', function() {
@@ -236,9 +233,9 @@ describe('get-config', function() {
     });
     var secondPassJSON = JSON.stringify(secondPass);
 
-    assert(firstPassJSON === secondPassJSON);
-    assert(!firstMessage);
-    assert(!secondMessage);
+    expect(firstPassJSON).to.equal(secondPassJSON);
+    expect(firstMessage).to.not.be.ok;
+    expect(secondMessage).to.not.be.ok;
   });
 
 });
