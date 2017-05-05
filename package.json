@@ -2,22 +2,31 @@
   "name": "ember-template-lint",
   "version": "0.6.3",
   "description": "Lint your templates.",
+  "keywords": [],
+  "homepage": "https://github.com/rwjblue/ember-template-lint",
+  "bugs": {
+    "url": "https://github.com/rwjblue/ember-template-lint/issues"
+  },
+  "license": "MIT",
+  "author": "Robert Jackson <me@rwjblue.com>",
+  "main": "lib/index.js",
+  "bin": "./bin/ember-template-lint.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
+  },
   "scripts": {
     "test": "mocha",
     "preversion": "npm test",
     "postversion": "git push && git push --tags && npm publish"
   },
-  "bin": "./bin/ember-template-lint.js",
-  "homepage": "https://github.com/rwjblue/ember-template-lint",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "glimmer-engine": "^0.21.2",
+    "lodash": "^4.11.1",
+    "node-glob": "^1.2.0",
+    "resolve": "^1.1.3"
   },
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "author": "Robert Jackson <me@rwjblue.com>",
-  "license": "MIT",
   "devDependencies": {
     "assert-diff": "^1.0.1",
     "eslint-plugin-node": "^4.0.1",
@@ -31,16 +40,7 @@
     "rimraf": "^2.5.2",
     "testem": "^1.7.0"
   },
-  "keywords": [],
-  "dependencies": {
-    "chalk": "^1.1.3",
-    "glimmer-engine": "^0.21.2",
-    "lodash": "^4.11.1",
-    "node-glob": "^1.2.0",
-    "resolve": "^1.1.3"
-  },
-  "bugs": {
-    "url": "https://github.com/rwjblue/ember-template-lint/issues"
-  },
-  "main": "lib/index.js"
+  "engines": {
+    "node": ">= 0.10.0"
+  }
 }
