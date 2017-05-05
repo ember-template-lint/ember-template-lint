@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const preprocess = require('glimmer-engine/dist/node_modules/@glimmer/syntax').preprocess;
+const preprocess = require('@glimmer/syntax').preprocess;
 const isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
 describe('isInteractiveElement', function() {

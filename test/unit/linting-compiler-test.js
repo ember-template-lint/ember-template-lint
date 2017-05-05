@@ -2,6 +2,7 @@
 
 const expect = require('chai').expect;
 const _precompile = require('glimmer-engine').precompile;
+const _precompile = require('@glimmer/compiler').precompile;
 
 describe('Ember template compiler', function() {
   let astPlugins;
