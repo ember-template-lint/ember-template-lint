@@ -6,10 +6,10 @@ var rules = require('../../lib/rules');
 var DEFAULT_CONFIG_PATH = path.join(__dirname, '..', '..', 'lib', 'config');
 
 describe('default configurations', function() {
-  describe('use valid rules', function() {
-    var configFiles = fs.readdirSync(DEFAULT_CONFIG_PATH);
+  var configFiles = fs.readdirSync(DEFAULT_CONFIG_PATH);
 
-    configFiles.forEach(function(file) {
+  configFiles.forEach(function(file) {
+    describe(file, function() {
       it('should contain only valid rules', function() {
         var config = require(path.join(DEFAULT_CONFIG_PATH, file));
 
