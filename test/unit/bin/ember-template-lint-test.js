@@ -1,7 +1,7 @@
 'use strict';
 
 var exec = require('child_process').exec;
-var assert = require('power-assert');
+var expect = require('chai').expect;
 var path = require('path');
 
 describe('ember-template-lint executable', function() {
@@ -9,9 +9,9 @@ describe('ember-template-lint executable', function() {
     describe('without any parameters', function() {
       it('should exit without error and any console output', function(done) {
         exec('./bin/ember-template-lint.js', function(err, stdout, stderr) {
-          assert.equal(err, null, 'exits without error');
-          assert.equal(stdout, '', 'doesn\'t print anything to standard output');
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.be.null;
+          expect(stdout).to.be.empty;
+          expect(stderr).to.be.empty;
           done();
         });
       });
@@ -22,9 +22,9 @@ describe('ember-template-lint executable', function() {
         exec('../../../bin/ember-template-lint.js app/templates/application-1.hbs', {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          assert.equal(err, null, 'exits without error');
-          assert.equal(stdout, '', 'doesn\'t print anything to standard output');
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.equal(null, 'exits without error');
+          expect(stdout).to.be.empty;
+          expect(stderr).to.be.empty;
           done();
         });
       });
@@ -35,9 +35,9 @@ describe('ember-template-lint executable', function() {
         exec('../../../bin/ember-template-lint.js app/templates/application.hbs', {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          assert.ok(err, 'exits with error');
-          assert.ok(stdout, 'prints errors to standard output');
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.be.ok;
+          expect(stdout).to.be.ok;
+          expect(stderr).to.be.empty;
           done();
         });
       });
@@ -48,9 +48,9 @@ describe('ember-template-lint executable', function() {
         exec('../../../bin/ember-template-lint.js app/templates/*', {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          assert.ok(err, 'exits with error');
-          assert.ok(stdout, 'print linting errors to standard output');
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.be.ok;
+          expect(stdout).to.be.ok;
+          expect(stderr).to.be.empty;
           done();
         });
       });
@@ -61,9 +61,9 @@ describe('ember-template-lint executable', function() {
         exec('../../../bin/ember-template-lint.js app', {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          assert.ok(err, 'exits with error');
-          assert.ok(stdout, 'print linting errors to standard output');
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.be.ok;
+          expect(stdout).to.be.ok;
+          expect(stderr).to.be.empty;
           done();
         });
       });
@@ -74,9 +74,9 @@ describe('ember-template-lint executable', function() {
         exec('../../../bin/ember-template-lint.js app/templates/application.hbs', {
           cwd: './test/fixtures/without-errors'
         }, function(err, stdout, stderr) {
-          assert.equal(err, null, 'exits without an error');
-          assert.equal(stdout, '', 'doesn\'t print anything to standard output');
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.be.null;
+          expect(stdout).to.be.empty;
+          expect(stderr).to.be.empty;
           done();
         });
       });
@@ -89,19 +89,15 @@ describe('ember-template-lint executable', function() {
         exec('../../../bin/ember-template-lint.js .', {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          assert.ok(err, 'exits with an error');
-          assert.deepEqual(
-            stdout.split('\n'),
-            [
-              'bare-strings: Non-translated string used (./app/templates/application @ L1:C4):',
-              '`Here too!!`',
-              'bare-strings: Non-translated string used (./app/templates/application @ L2:C5):',
-              '`Bare strings are bad...`',
-              ''
-            ],
-            'prints properly formatted error messages to standard output'
-          );
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.be.ok;
+          expect(stdout.split('\n')).to.deep.equal([
+            'bare-strings: Non-translated string used (./app/templates/application @ L1:C4):',
+            '`Here too!!`',
+            'bare-strings: Non-translated string used (./app/templates/application @ L2:C5):',
+            '`Bare strings are bad...`',
+            ''
+          ]);
+          expect(stderr).to.be.empty;
           done();
         });
       });
@@ -134,13 +130,9 @@ describe('ember-template-lint executable', function() {
             }
           ];
 
-          assert.ok(err, 'exits with an error');
-          assert.deepEqual(
-            JSON.parse(stdout),
-            expectedOutputData,
-            'prints errors as valid JSON string to standard output'
-          );
-          assert.equal(stderr, '', 'doesn\'t print anything to error output');
+          expect(err).to.be.ok;
+          expect(JSON.parse(stdout)).to.deep.equal(expectedOutputData);
+          expect(stderr).to.be.empty;
           done();
         });
       });

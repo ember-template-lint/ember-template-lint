@@ -1,7 +1,6 @@
 'use strict';
 
-var assert = require('power-assert');
-var assertDiff = require('assert-diff');
+var expect = require('chai').expect;
 var Linter = require('../../lib/index');
 var assign = require('lodash').assign;
 
@@ -58,26 +57,26 @@ module.exports = function(options) {
 
         var actual = verify(badItem.template);
 
-        assertDiff.deepEqual(actual, expectedResults);
+        expect(actual).to.deep.equal(expectedResults);
       });
 
       it('passes with `' + badItem.template + '` when rule is disabled', function() {
         config = false;
         var actual = verify(badItem.template);
 
-        assert.deepEqual(actual, []);
+        expect(actual).to.deep.equal([]);
       });
 
       it('passes with `' + badItem.template + '` when disabled via inline comment - single rule', function() {
         var actual = verify(DISABLE_ONE + '\n' + badItem.template);
 
-        assert.deepEqual(actual, []);
+        expect(actual).to.deep.equal([]);
       });
 
       it('passes with `' + badItem.template + '` when disabled via inline comment - all rules', function() {
         var actual = verify(DISABLE_ALL + '\n' + badItem.template);
 
-        assert.deepEqual(actual, []);
+        expect(actual).to.deep.equal([]);
       });
     });
 
@@ -97,7 +96,7 @@ module.exports = function(options) {
           actual = verify(template);
         }
 
-        assert.deepEqual(actual, []);
+        expect(actual).to.deep.equal([]);
       });
     });
   });

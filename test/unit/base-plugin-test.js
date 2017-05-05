@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('power-assert');
+var expect = require('chai').expect;
 var _precompile = require('glimmer-engine').precompile;
 var buildPlugin = require('./../../lib/rules/base');
 
@@ -71,7 +71,7 @@ describe('base plugin', function() {
       it('can get raw source for `' + template + '`', function() {
         precompile(template);
 
-        assert.deepEqual(messages, nodeSources);
+        expect(messages).to.deep.equal(nodeSources);
       });
     }
 
@@ -135,8 +135,8 @@ describe('base plugin', function() {
     function expectConfig(instruction, expectedConfig) {
       it('can parse `' + instruction + '`', function() {
         precompile('{{! ' + instruction + ' }}');
-        assert.deepEqual(config, expectedConfig);
-        assert.deepEqual(messages, []);
+        expect(config).to.deep.equal(expectedConfig);
+        expect(messages).to.deep.equal([]);
       });
     }
 
@@ -190,7 +190,7 @@ describe('base plugin', function() {
         '{{! template-lint-disable fake norme meneither }}',
         '{{! template-lint-configure nope false }}'
       ].join('\n'));
-      assert.deepEqual(messages, [
+      expect(messages).to.deep.equal([
         'unrecognized rule name `notarule` in template-lint-enable instruction',
         'unrecognized rule name `norme` in template-lint-disable instruction',
         'unrecognized rule name `meneither` in template-lint-disable instruction',
@@ -200,7 +200,7 @@ describe('base plugin', function() {
 
     it('logs an error when it can\'t parse a configure instruction\'s JSON', function() {
       precompile('{{! template-lint-configure fake { not: "json" ] }}');
-      assert.deepEqual(messages, [
+      expect(messages).to.deep.equal([
         'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON'
       ]);
     });
@@ -211,7 +211,7 @@ describe('base plugin', function() {
         '{{! template-lint- fake }}',
         '{{! template-lint fake }}'
       ].join('\n'));
-      assert.deepEqual(messages, [
+      expect(messages).to.deep.equal([
         'unrecognized template-lint instruction: `template-lint-bloober`',
         'unrecognized template-lint instruction: `template-lint-`',
         'unrecognized template-lint instruction: `template-lint`'
@@ -226,7 +226,7 @@ describe('base plugin', function() {
         plugin('fake4'),
         plugin('fake5')
       ]);
-      assert.equal(messages.length, 3);
+      expect(messages).to.have.lengthOf(3);
     });
   });
 
@@ -314,8 +314,8 @@ describe('base plugin', function() {
 
       it(description, function() {
         precompile(template, config);
-        assert.deepEqual(events, expectedEvents);
-        assert.deepEqual(messages, []);
+        expect(events).to.deep.equal(expectedEvents);
+        expect(messages).to.deep.equal([]);
       });
     }
 

@@ -1,4 +1,4 @@
-var assert = require('power-assert');
+var expect = require('chai').expect;
 var preprocess = require('glimmer-engine/dist/node_modules/@glimmer/syntax').preprocess;
 var isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
@@ -9,7 +9,7 @@ describe('isInteractiveElement', function() {
 
       var interactive = isInteractiveElement(ast.body[0]);
 
-      assert(interactive === expectedValue);
+      expect(interactive).to.equal(expectedValue);
     });
   }
 
@@ -19,7 +19,7 @@ describe('isInteractiveElement', function() {
 
       var reason = isInteractiveElement.reason(ast.body[0]);
 
-      assert(reason === expectedReason);
+      expect(reason).to.equal(expectedReason);
     });
   }
 
@@ -66,7 +66,7 @@ describe('isInteractiveElement', function() {
 
     nonInteractive.forEach(function(template) {
       it(template + ' should have a reason of `null`', function() {
-        assert(test(template) === null);
+        expect(test(template)).to.be.null;
       });
     });
 
