@@ -1,8 +1,8 @@
 'use strict';
 
-var expect = require('chai').expect;
-var _precompile = require('glimmer-engine').precompile;
-var buildPlugin = require('./../../lib/rules/base');
+const expect = require('chai').expect;
+const _precompile = require('glimmer-engine').precompile;
+const buildPlugin = require('./../../lib/rules/base');
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
@@ -16,10 +16,10 @@ describe('base plugin', function() {
   }
 
   describe('parses templates', function() {
-    var messages, config;
+    let messages, config;
 
     function plugin() {
-      var FakePlugin = buildPlugin({
+      let FakePlugin = buildPlugin({
         log: function(result) {
           messages.push(result.source);
         },
@@ -65,8 +65,8 @@ describe('base plugin', function() {
     });
 
     function expectSource(config) {
-      var template = config.template;
-      var nodeSources = config.sources;
+      let template = config.template;
+      let nodeSources = config.sources;
 
       it('can get raw source for `' + template + '`', function() {
         precompile(template);
@@ -97,10 +97,10 @@ describe('base plugin', function() {
   });
 
   describe('parses instructions', function() {
-    var messages, config;
+    let messages, config;
 
     function plugin(name) {
-      var FakePlugin = buildPlugin({
+      let FakePlugin = buildPlugin({
         log: function(result) {
           messages.push(result.message);
         },
@@ -231,11 +231,11 @@ describe('base plugin', function() {
   });
 
   describe('scopes instructions', function() {
-    var messages, events;
+    let messages, events;
 
     function getId(node) {
       if (node.attributes) {
-        for (var i = 0; i < node.attributes.length; i++) {
+        for (let i = 0; i < node.attributes.length; i++) {
           if (node.attributes[i].name === 'id') {
             return node.attributes[i].value.chars;
           }
@@ -253,7 +253,7 @@ describe('base plugin', function() {
         config = true;
       }
 
-      var FakePlugin = buildPlugin({
+      let FakePlugin = buildPlugin({
         log: function(result) {
           messages.push(result.source);
         },
@@ -262,7 +262,7 @@ describe('base plugin', function() {
       });
 
       FakePlugin.prototype.visitors = function() {
-        var pluginContext = this;
+        let pluginContext = this;
 
         return {
           ElementNode: {
@@ -307,10 +307,10 @@ describe('base plugin', function() {
     });
 
     function expectEvents(data) {
-      var description = data.desc;
-      var template = data.template;
-      var expectedEvents = data.events;
-      var config = data.config;
+      let description = data.desc;
+      let template = data.template;
+      let expectedEvents = data.events;
+      let config = data.config;
 
       it(description, function() {
         precompile(template, config);

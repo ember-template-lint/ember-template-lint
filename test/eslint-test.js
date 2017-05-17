@@ -1,11 +1,11 @@
-var lint = require('mocha-eslint');
+const lint = require('mocha-eslint');
 
-var paths = [
+const paths = [
   'bin',
   'ext',
   'lib',
   'test'
 ];
 
-var options = {};
+const options = {};
 lint(paths, options);

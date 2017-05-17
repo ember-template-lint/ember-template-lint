@@ -1,7 +1,7 @@
 'use strict';
 
-var generateRuleTests = require('../../helpers/rule-test-harness');
-var message = require('../../../lib/rules/lint-inline-link-to').message;
+const generateRuleTests = require('../../helpers/rule-test-harness');
+const message = require('../../../lib/rules/lint-inline-link-to').message;
 
 generateRuleTests({
   name: 'inline-link-to',

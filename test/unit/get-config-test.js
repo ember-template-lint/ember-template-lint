@@ -1,11 +1,13 @@
-var path = require('path');
-var expect = require('chai').expect;
-var clone = require('lodash').clone;
-var getConfig = require('../../lib/get-config');
-var recommendedConfig = require('../../lib/config/recommended');
+'use strict';
 
-var fixturePath = path.join(__dirname, '..', 'fixtures');
-var initialCWD = process.cwd();
+const path = require('path');
+const expect = require('chai').expect;
+const clone = require('lodash').clone;
+const getConfig = require('../../lib/get-config');
+const recommendedConfig = require('../../lib/config/recommended');
+
+const fixturePath = path.join(__dirname, '..', 'fixtures');
+const initialCWD = process.cwd();
 
 describe('get-config', function() {
   afterEach(function() {
@@ -13,31 +15,31 @@ describe('get-config', function() {
   });
 
   it('if config is provided, it is returned', function() {
-    var expected = { };
-    var actual = getConfig({ config: expected });
+    let expected = { };
+    let actual = getConfig({ config: expected });
 
     expect(actual).to.equal(expected);
   });
 
   it('uses .template-lintrc.js in cwd if present', function() {
-    var basePath = path.join(fixturePath, 'config-in-root');
-    var expected = require(path.join(basePath, '.template-lintrc'));
+    let basePath = path.join(fixturePath, 'config-in-root');
+    let expected = require(path.join(basePath, '.template-lintrc'));
 
     process.chdir(basePath);
 
-    var actual = getConfig({});
+    let actual = getConfig({});
 
     expect(actual).to.deep.equal(expected);
   });
 
   it('uses .template-lintrc in provided configPath', function() {
-    var basePath = path.join(fixturePath, 'config-in-root');
-    var configPath = path.join(basePath, '.template-lintrc.js');
-    var expected = require(configPath);
+    let basePath = path.join(fixturePath, 'config-in-root');
+    let configPath = path.join(basePath, '.template-lintrc.js');
+    let expected = require(configPath);
 
     process.chdir(basePath);
 
-    var actual = getConfig({
+    let actual = getConfig({
       configPath: configPath
     });
 
@@ -45,7 +47,7 @@ describe('get-config', function() {
   });
 
   it('can specify that it extends a default configuration', function() {
-    var actual = getConfig({
+    let actual = getConfig({
       config: {
         extends: 'recommended'
       }
@@ -55,10 +57,10 @@ describe('get-config', function() {
   });
 
   it('can extend and override a default configuration', function() {
-    var expected = clone(recommendedConfig);
+    let expected = clone(recommendedConfig);
     expected.rules['bare-strings'] = true;
 
-    var actual = getConfig({
+    let actual = getConfig({
       config: {
         extends: 'recommended',
         rules: {
@@ -71,7 +73,7 @@ describe('get-config', function() {
   });
 
   it('migrates rules in the config root into `rules` property', function() {
-    var actual = getConfig({
+    let actual = getConfig({
       console: { log: function() { }},
       config: {
         'bare-strings': false
@@ -82,7 +84,7 @@ describe('get-config', function() {
   });
 
   it('rules in the config root trigger a deprecation', function() {
-    var message;
+    let message;
     getConfig({
       console: { log: function(_message) {
         message = _message;
@@ -97,7 +99,7 @@ describe('get-config', function() {
   });
 
   it('warns for unknown rules', function() {
-    var message;
+    let message;
     getConfig({
       console: { log: function(_message) {
         message = _message;
@@ -114,7 +116,7 @@ describe('get-config', function() {
   });
 
   it('warns for unknown extends', function() {
-    var message;
+    let message;
     getConfig({
       console: { log: function(_message) {
         message = _message;
@@ -132,8 +134,8 @@ describe('get-config', function() {
   });
 
   it('can specify plugin without rules', function() {
-    var message;
-    var actual = getConfig({
+    let message;
+    let actual = getConfig({
       console: { log: function(_message) {
         message = _message;
       }},
@@ -161,7 +163,7 @@ describe('get-config', function() {
   });
 
   it('throw exception when plugin path is incorrect', function() {
-    var wrongPluginPath = './bad-plugin-path/incorrect-file-name';
+    let wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
     expect(function() {
       getConfig({
@@ -173,8 +175,8 @@ describe('get-config', function() {
   });
 
   it('validates non-default loaded rules', function() {
-    var message;
-    var actual = getConfig({
+    let message;
+    let actual = getConfig({
       console: { log: function(_message) {
         message = _message;
       }},
@@ -200,9 +202,9 @@ describe('get-config', function() {
   });
 
   it('getting config is idempotent', function() {
-    var firstMessage;
-    var secondMessage;
-    var firstPass = getConfig({
+    let firstMessage;
+    let secondMessage;
+    let firstPass = getConfig({
       console: { log: function(_message) {
         firstMessage = _message;
       }},
@@ -222,8 +224,8 @@ describe('get-config', function() {
       }
 
     });
-    var firstPassJSON = JSON.stringify(firstPass);
-    var secondPass = getConfig({
+    let firstPassJSON = JSON.stringify(firstPass);
+    let secondPass = getConfig({
       console: { log: function(_message) {
         secondMessage = _message;
       }},
@@ -231,7 +233,7 @@ describe('get-config', function() {
       config: firstPass
 
     });
-    var secondPassJSON = JSON.stringify(secondPass);
+    let secondPassJSON = JSON.stringify(secondPass);
 
     expect(firstPassJSON).to.equal(secondPassJSON);
     expect(firstMessage).to.not.be.ok;
