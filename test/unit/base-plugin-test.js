@@ -65,8 +65,8 @@ describe('base plugin', function() {
     });
 
     function expectSource(config) {
-      let template = config.template;
-      let nodeSources = config.sources;
+      var template = config.template;
+      var nodeSources = config.sources;
 
       it('can get raw source for `' + template + '`', function() {
         precompile(template);
@@ -97,10 +97,10 @@ describe('base plugin', function() {
   });
 
   describe('parses instructions', function() {
-    let messages, config;
+    var messages, config;
 
     function plugin(name) {
-      let FakePlugin = buildPlugin({
+      var FakePlugin = buildPlugin({
         log: function(result) {
           messages.push(result.message);
         },
@@ -231,11 +231,11 @@ describe('base plugin', function() {
   });
 
   describe('scopes instructions', function() {
-    let messages, events;
+    var messages, events;
 
     function getId(node) {
       if (node.attributes) {
-        for (let i = 0; i < node.attributes.length; i++) {
+        for (var i = 0; i < node.attributes.length; i++) {
           if (node.attributes[i].name === 'id') {
             return node.attributes[i].value.chars;
           }
@@ -253,7 +253,7 @@ describe('base plugin', function() {
         config = true;
       }
 
-      let FakePlugin = buildPlugin({
+      var FakePlugin = buildPlugin({
         log: function(result) {
           messages.push(result.source);
         },
@@ -262,7 +262,7 @@ describe('base plugin', function() {
       });
 
       FakePlugin.prototype.visitors = function() {
-        let pluginContext = this;
+        var pluginContext = this;
 
         return {
           ElementNode: {
@@ -307,10 +307,10 @@ describe('base plugin', function() {
     });
 
     function expectEvents(data) {
-      let description = data.desc;
-      let template = data.template;
-      let expectedEvents = data.events;
-      let config = data.config;
+      var description = data.desc;
+      var template = data.template;
+      var expectedEvents = data.events;
+      var config = data.config;
 
       it(description, function() {
         precompile(template, config);

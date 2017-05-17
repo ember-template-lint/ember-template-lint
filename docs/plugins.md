@@ -107,24 +107,22 @@ Sample rule:
 var buildPlugin = require('ember-template-lint/lib/rules/base');
 
 module.exports = function(addonContext) {
-  var NoEmptyComments = buildPlugin(addonContext, 'no-empty-comments');
-
-  NoEmptyComments.prototype.visitors = function() {
-    return {
-      CommentStatement: function(node) {
-        if (node.value.trim() === '') {
-          this.log({
-            message: 'comments cannot be empty',
-            line: node.loc && node.loc.start.line,
-            column: node.loc && node.loc.start.column,
-            source: this.sourceForNode(node)
-          });
+  return class NoEmptyComments extends buildPlugin(addonContext, 'no-empty-comments') {
+    visitors() {
+      return {
+        CommentStatement: function(node) {
+          if (node.value.trim() === '') {
+            this.log({
+              message: 'comments cannot be empty',
+              line: node.loc && node.loc.start.line,
+              column: node.loc && node.loc.start.column,
+              source: this.sourceForNode(node)
+            });
+          }
         }
-      }
-    };
+      };
+    }
   };
-
-  return NoEmptyComments;
 };
 ```
 
