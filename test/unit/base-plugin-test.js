@@ -68,7 +68,7 @@ describe('base plugin', function() {
       var template = config.template;
       var nodeSources = config.sources;
 
-      it('can get raw source for `' + template + '`', function() {
+      it(`can get raw source for \`${template}\``, function() {
         precompile(template);
 
         expect(messages).to.deep.equal(nodeSources);
@@ -133,8 +133,8 @@ describe('base plugin', function() {
     });
 
     function expectConfig(instruction, expectedConfig) {
-      it('can parse `' + instruction + '`', function() {
-        precompile('{{! ' + instruction + ' }}');
+      it(`can parse \`${instruction}\``, function() {
+        precompile(`{{! ${instruction} }}`);
         expect(config).to.deep.equal(expectedConfig);
         expect(messages).to.deep.equal([]);
       });

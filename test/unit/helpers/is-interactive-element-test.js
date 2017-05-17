@@ -6,7 +6,7 @@ const isInteractiveElement = require('../../../lib/helpers/is-interactive-elemen
 
 describe('isInteractiveElement', function() {
   function testTemplate(template, expectedValue) {
-    it('isInteractiveElement(`' + template + '` should be ' + expectedValue, function() {
+    it(`isInteractiveElement(\`${template}\` should be ${expectedValue}`, function() {
       let ast = preprocess(template);
 
       let interactive = isInteractiveElement(ast.body[0]);
@@ -16,7 +16,7 @@ describe('isInteractiveElement', function() {
   }
 
   function testReason(template, expectedReason) {
-    it('isInteractiveElement.reason(`' + template + '` should be `' + expectedReason+ '`', function() {
+    it(`isInteractiveElement.reason(\`${template}\` should be \`${expectedReason}\``, function() {
       let ast = preprocess(template);
 
       let reason = isInteractiveElement.reason(ast.body[0]);
@@ -67,7 +67,7 @@ describe('isInteractiveElement', function() {
     }
 
     nonInteractive.forEach(function(template) {
-      it(template + ' should have a reason of `null`', function() {
+      it(`${template} should have a reason of \`null\``, function() {
         expect(test(template)).to.be.null;
       });
     });

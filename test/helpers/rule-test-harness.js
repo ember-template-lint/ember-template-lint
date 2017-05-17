@@ -8,7 +8,7 @@ module.exports = function(options) {
   let groupingMethod = options.focus ? describe.only : describe;
   groupingMethod(options.name, function() {
     let DISABLE_ALL = '{{! template-lint-disable }}';
-    let DISABLE_ONE = '{{! template-lint-disable ' + options.name + ' }}';
+    let DISABLE_ONE = `{{! template-lint-disable ${options.name} }}`;
 
     let linter, config;
 
@@ -46,7 +46,7 @@ module.exports = function(options) {
         return assign({}, defaults, result);
       }
 
-      testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
+      testMethod(`logs a message in the console when given \`${badItem.template}\``, function() {
         let expectedResults = badItem.results || [badItem.result];
 
         expectedResults = expectedResults.map(parseResult);
@@ -60,20 +60,20 @@ module.exports = function(options) {
         expect(actual).to.deep.equal(expectedResults);
       });
 
-      it('passes with `' + badItem.template + '` when rule is disabled', function() {
+      it(`passes with \`${badItem.template}\` when rule is disabled`, function() {
         config = false;
         let actual = verify(badItem.template);
 
         expect(actual).to.deep.equal([]);
       });
 
-      it('passes with `' + badItem.template + '` when disabled via inline comment - single rule', function() {
+      it(`passes with \`${badItem.template}\` when disabled via inline comment - single rule`, function() {
         let actual = verify(DISABLE_ONE + '\n' + badItem.template);
 
         expect(actual).to.deep.equal([]);
       });
 
-      it('passes with `' + badItem.template + '` when disabled via inline comment - all rules', function() {
+      it(`passes with \`${badItem.template}\` when disabled via inline comment - all rules`, function() {
         let actual = verify(DISABLE_ALL + '\n' + badItem.template);
 
         expect(actual).to.deep.equal([]);
@@ -84,7 +84,7 @@ module.exports = function(options) {
       let template = typeof item === 'object' ? item.template : item;
       let testMethod = typeof item === 'object' && item.focus ? it.only : it;
 
-      testMethod('passes when given `' + template + '`', function() {
+      testMethod(`passes when given \`${template}\``, function() {
         let actual;
         if (typeof item === 'string') {
           actual = verify(item);
