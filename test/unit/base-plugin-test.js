@@ -20,7 +20,7 @@ describe('base plugin', function() {
 
     function plugin() {
       let FakePlugin = buildPlugin({
-        log: function(result) {
+        log(result) {
           messages.push(result.source);
         },
         name: 'fake',
@@ -29,11 +29,11 @@ describe('base plugin', function() {
 
       FakePlugin.prototype.visitors = function() {
         return {
-          ElementNode: function(node) {
+          ElementNode(node) {
             this.process(node);
           },
 
-          TextNode: function(node) {
+          TextNode(node) {
             if (!node.loc) {
               return;
             }
@@ -101,7 +101,7 @@ describe('base plugin', function() {
 
     function plugin(name) {
       var FakePlugin = buildPlugin({
-        log: function(result) {
+        log(result) {
           messages.push(result.message);
         },
         name: name || 'fake',
@@ -110,7 +110,7 @@ describe('base plugin', function() {
 
       FakePlugin.prototype.visitors = function() {
         return {
-          MustacheCommentStatement: function(node) {
+          MustacheCommentStatement(node) {
             this.process(node);
           }
         };
@@ -254,7 +254,7 @@ describe('base plugin', function() {
       }
 
       var FakePlugin = buildPlugin({
-        log: function(result) {
+        log(result) {
           messages.push(result.source);
         },
         name: 'fake',
@@ -266,28 +266,28 @@ describe('base plugin', function() {
 
         return {
           ElementNode: {
-            enter: function(node) {
+            enter(node) {
               addEvent('element/enter', node, pluginContext);
             },
-            exit: function(node) {
+            exit(node) {
               addEvent('element/exit', node, pluginContext);
             },
             keys: {
               children: {
-                enter: function(node) {
+                enter(node) {
                   addEvent('element/enter:children', node, pluginContext);
                 },
-                exit: function(node) {
+                exit(node) {
                   addEvent('element/exit:children', node, pluginContext);
                 }
               }
             }
           },
           MustacheCommentStatement: {
-            enter: function(node) {
+            enter(node) {
               addEvent('comment/enter', node, pluginContext);
             },
-            exit: function(node) {
+            exit(node) {
               addEvent('comment/exit', node, pluginContext);
             }
           }

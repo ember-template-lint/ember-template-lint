@@ -110,7 +110,7 @@ module.exports = function(addonContext) {
   return class NoEmptyComments extends buildPlugin(addonContext, 'no-empty-comments') {
     visitors() {
       return {
-        CommentStatement: function(node) {
+        CommentStatement(node) {
           if (node.value.trim() === '') {
             this.log({
               message: 'comments cannot be empty',

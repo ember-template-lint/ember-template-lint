@@ -8,7 +8,7 @@ module.exports = function(addonContext) {
   return class InlineComponent extends buildPlugin(addonContext, 'inline-component') {
     visitors() {
       return {
-        MustacheStatement: function(node) {
+        MustacheStatement(node) {
           if (node.path.original === 'component') {
             this.log({
               message: message,

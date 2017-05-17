@@ -13,7 +13,7 @@ describe('public api', function() {
     return {
       _logLines: [],
 
-      log: function(data) {
+      log(data) {
         this._logLines.push(data);
       }
     };
@@ -76,7 +76,7 @@ describe('public api', function() {
     it('accepts a fake console implementation', function() {
       let linter = new Linter({
         console: {
-          log: function(message) {
+          log(message) {
             actual = message;
           }
         }

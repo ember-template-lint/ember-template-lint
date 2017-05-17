@@ -74,7 +74,7 @@ describe('get-config', function() {
 
   it('migrates rules in the config root into `rules` property', function() {
     let actual = getConfig({
-      console: { log: function() { }},
+      console: { log() { }},
       config: {
         'bare-strings': false
       }
@@ -86,7 +86,7 @@ describe('get-config', function() {
   it('rules in the config root trigger a deprecation', function() {
     let message;
     getConfig({
-      console: { log: function(_message) {
+      console: { log(_message) {
         message = _message;
       }},
 
@@ -101,7 +101,7 @@ describe('get-config', function() {
   it('warns for unknown rules', function() {
     let message;
     getConfig({
-      console: { log: function(_message) {
+      console: { log(_message) {
         message = _message;
       }},
 
@@ -118,7 +118,7 @@ describe('get-config', function() {
   it('warns for unknown extends', function() {
     let message;
     getConfig({
-      console: { log: function(_message) {
+      console: { log(_message) {
         message = _message;
       }},
 
@@ -136,7 +136,7 @@ describe('get-config', function() {
   it('can specify plugin without rules', function() {
     let message;
     let actual = getConfig({
-      console: { log: function(_message) {
+      console: { log(_message) {
         message = _message;
       }},
 
@@ -177,7 +177,7 @@ describe('get-config', function() {
   it('validates non-default loaded rules', function() {
     let message;
     let actual = getConfig({
-      console: { log: function(_message) {
+      console: { log(_message) {
         message = _message;
       }},
 
@@ -205,7 +205,7 @@ describe('get-config', function() {
     let firstMessage;
     let secondMessage;
     let firstPass = getConfig({
-      console: { log: function(_message) {
+      console: { log(_message) {
         firstMessage = _message;
       }},
 
@@ -226,7 +226,7 @@ describe('get-config', function() {
     });
     let firstPassJSON = JSON.stringify(firstPass);
     let secondPass = getConfig({
-      console: { log: function(_message) {
+      console: { log(_message) {
         secondMessage = _message;
       }},
 
