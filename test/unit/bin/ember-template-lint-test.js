@@ -1,8 +1,8 @@
 'use strict';
 
-var exec = require('child_process').exec;
-var expect = require('chai').expect;
-var path = require('path');
+const exec = require('child_process').exec;
+const expect = require('chai').expect;
+const path = require('path');
 
 describe('ember-template-lint executable', function() {
   describe('basic usage', function() {
@@ -108,8 +108,8 @@ describe('ember-template-lint executable', function() {
         exec('../../../bin/ember-template-lint.js . --json', {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          var fullTemplateFilePath = path.resolve('./test/fixtures/with-errors/app/templates/application.hbs');
-          var expectedOutputData = {};
+          let fullTemplateFilePath = path.resolve('./test/fixtures/with-errors/app/templates/application.hbs');
+          let expectedOutputData = {};
           expectedOutputData[fullTemplateFilePath] = [
             {
               column: 4,

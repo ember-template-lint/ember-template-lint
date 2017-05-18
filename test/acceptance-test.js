@@ -1,23 +1,25 @@
-var path = require('path');
-var fs = require('fs');
-var Linter = require('../lib/index');
-var expect = require('chai').expect;
+'use strict';
 
-var fixturePath = path.join(__dirname, 'fixtures');
-var initialCWD = process.cwd();
+const path = require('path');
+const fs = require('fs');
+const Linter = require('../lib/index');
+const expect = require('chai').expect;
+
+const fixturePath = path.join(__dirname, 'fixtures');
+const initialCWD = process.cwd();
 
 describe('public api', function() {
   function buildFakeConsole() {
     return {
       _logLines: [],
 
-      log: function(data) {
+      log(data) {
         this._logLines.push(data);
       }
     };
   }
 
-  var mockConsole;
+  let mockConsole;
   beforeEach(function() {
     mockConsole = buildFakeConsole();
   });
@@ -28,8 +30,8 @@ describe('public api', function() {
 
   describe('Linter.prototype.loadConfig', function() {
     it('uses provided config', function() {
-      var config = {};
-      var linter = new Linter({
+      let config = {};
+      let linter = new Linter({
         console: mockConsole,
         config: config
       });
@@ -38,12 +40,12 @@ describe('public api', function() {
     });
 
     it('uses .template-lintrc.js in cwd if present', function() {
-      var basePath = path.join(fixturePath, 'config-in-root');
-      var expected = require(path.join(basePath, '.template-lintrc'));
+      let basePath = path.join(fixturePath, 'config-in-root');
+      let expected = require(path.join(basePath, '.template-lintrc'));
 
       process.chdir(basePath);
 
-      var linter = new Linter({
+      let linter = new Linter({
         console: mockConsole
       });
 
@@ -51,13 +53,13 @@ describe('public api', function() {
     });
 
     it('uses .template-lintrc in provided configPath', function() {
-      var basePath = path.join(fixturePath, 'config-in-root');
-      var configPath = path.join(basePath, '.template-lintrc.js');
-      var expected = require(configPath);
+      let basePath = path.join(fixturePath, 'config-in-root');
+      let configPath = path.join(basePath, '.template-lintrc.js');
+      let expected = require(configPath);
 
       process.chdir(basePath);
 
-      var linter = new Linter({
+      let linter = new Linter({
         console: mockConsole,
         configPath: configPath
       });
@@ -72,15 +74,15 @@ describe('public api', function() {
     });
 
     it('accepts a fake console implementation', function() {
-      var linter = new Linter({
+      let linter = new Linter({
         console: {
-          log: function(message) {
+          log(message) {
             actual = message;
           }
         }
       });
-      var expected = 'foo bar widget';
-      var actual;
+      let expected = 'foo bar widget';
+      let actual;
 
       linter.console.log(expected);
       expect(actual).to.equal(expected);
@@ -88,8 +90,8 @@ describe('public api', function() {
   });
 
   describe('Linter.prototype.verify', function() {
-    var basePath = path.join(fixturePath, 'with-errors');
-    var linter;
+    let basePath = path.join(fixturePath, 'with-errors');
+    let linter;
 
     beforeEach(function() {
       linter = new Linter({
@@ -99,9 +101,9 @@ describe('public api', function() {
     });
 
     it('returns an array of issues with the provided template', function() {
-      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
-      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      var expected = [
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
         {
           message: 'Non-translated string used',
           moduleId: templatePath,
@@ -121,7 +123,7 @@ describe('public api', function() {
         }
       ];
 
-      var result = linter.verify({
+      let result = linter.verify({
         source: templateContents,
         moduleId: templatePath
       });
@@ -130,8 +132,8 @@ describe('public api', function() {
     });
 
     it('returns a "fatal" result object if an error occurs during parsing', function() {
-      var template = '<div>';
-      var result = linter.verify({
+      let template = '<div>';
+      let result = linter.verify({
         source: template
       });
 
@@ -147,13 +149,13 @@ describe('public api', function() {
         }
       });
 
-      var template = '<div>bare string</div>';
-      var result = linter.verify({
+      let template = '<div>bare string</div>';
+      let result = linter.verify({
         source: template,
         moduleId: 'some/path/here'
       });
 
-      var expected = {
+      let expected = {
         message: 'Non-translated string used',
         moduleId: 'some/path/here',
         line: 1,
@@ -177,13 +179,13 @@ describe('public api', function() {
         }
       });
 
-      var template = '<div>bare string</div>';
-      var result = linter.verify({
+      let template = '<div>bare string</div>';
+      let result = linter.verify({
         source: template,
         moduleId: 'some/path/here'
       });
 
-      var expected = {
+      let expected = {
         message: 'Non-translated string used',
         moduleId: 'some/path/here',
         line: 1,
@@ -207,18 +209,18 @@ describe('public api', function() {
         }
       });
 
-      var template = [
+      let template = [
         '<div>',
         '<p></p>',
         '</div>'
       ].join('\n');
 
-      var result = linter.verify({
+      let result = linter.verify({
         source: template,
         moduleId: 'some/path/here'
       });
 
-      var expected = {
+      let expected = {
         message: 'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         moduleId: 'some/path/here',
         line: 2,
@@ -240,13 +242,13 @@ describe('public api', function() {
         }
       });
 
-      var template = '<div></div>';
-      var result = linter.verify({
+      let template = '<div></div>';
+      let result = linter.verify({
         source: template,
         moduleId: 'some/path/here'
       });
 
-      var expected = {
+      let expected = {
         message: 'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         moduleId: 'some/path/here',
         severity: 2
@@ -266,13 +268,13 @@ describe('public api', function() {
         }
       });
 
-      var template = '<div></div>';
-      var result = linter.verify({
+      let template = '<div></div>';
+      let result = linter.verify({
         source: template,
         moduleId: 'some/path/here'
       });
 
-      var expected = {
+      let expected = {
         message: 'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         moduleId: 'some/path/here',
         severity: 2
@@ -290,8 +292,8 @@ describe('public api', function() {
         }
       });
 
-      var template = '<div>bare string</div>';
-      var result = linter.verify({
+      let template = '<div>bare string</div>';
+      let result = linter.verify({
         source: template,
         moduleId: 'some/path/here'
       });
@@ -302,8 +304,8 @@ describe('public api', function() {
   });
 
   describe('Linter using plugins', function() {
-    var basePath = path.join(fixturePath, 'with-plugins');
-    var linter;
+    let basePath = path.join(fixturePath, 'with-plugins');
+    let linter;
 
     beforeEach(function() {
       linter = new Linter({
@@ -313,9 +315,9 @@ describe('public api', function() {
     });
 
     it('returns plugin rule issues', function() {
-      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
-      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      var expected = [
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
         {
           message: 'The inline form of component is not allowed',
           moduleId: templatePath,
@@ -327,7 +329,7 @@ describe('public api', function() {
         }
       ];
 
-      var result = linter.verify({
+      let result = linter.verify({
         source: templateContents,
         moduleId: templatePath
       });
@@ -338,8 +340,8 @@ describe('public api', function() {
   });
 
   describe('Linter using plugin with extends', function() {
-    var basePath = path.join(fixturePath, 'with-plugin-with-configurations');
-    var linter;
+    let basePath = path.join(fixturePath, 'with-plugin-with-configurations');
+    let linter;
 
     beforeEach(function() {
       linter = new Linter({
@@ -349,9 +351,9 @@ describe('public api', function() {
     });
 
     it('returns plugin rule issues', function() {
-      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
-      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      var expected = [
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
         {
           message: 'The inline form of component is not allowed',
           moduleId: templatePath,
@@ -363,7 +365,7 @@ describe('public api', function() {
         }
       ];
 
-      var result = linter.verify({
+      let result = linter.verify({
         source: templateContents,
         moduleId: templatePath
       });
@@ -373,8 +375,8 @@ describe('public api', function() {
 
   });
   describe('Linter using plugin with multiple extends', function() {
-    var basePath = path.join(fixturePath, 'with-multiple-extends');
-    var linter;
+    let basePath = path.join(fixturePath, 'with-multiple-extends');
+    let linter;
 
     beforeEach(function() {
       linter = new Linter({
@@ -384,9 +386,9 @@ describe('public api', function() {
     });
 
     it('returns plugin rule issues', function() {
-      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
-      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      var expected = [
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
         {
           message: 'Usage of triple curly brackets is unsafe',
           moduleId: templatePath,
@@ -407,7 +409,7 @@ describe('public api', function() {
         }
       ];
 
-      var result = linter.verify({
+      let result = linter.verify({
         source: templateContents,
         moduleId: templatePath
       });
@@ -417,8 +419,8 @@ describe('public api', function() {
 
   });
   describe('Linter using plugins (inline plugins)', function() {
-    var basePath = path.join(fixturePath, 'with-inline-plugins');
-    var linter;
+    let basePath = path.join(fixturePath, 'with-inline-plugins');
+    let linter;
 
     beforeEach(function() {
       linter = new Linter({
@@ -428,9 +430,9 @@ describe('public api', function() {
     });
 
     it('returns plugin rule issues', function() {
-      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
-      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      var expected = [
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
         {
           message: 'The inline form of component is not allowed',
           moduleId: templatePath,
@@ -442,7 +444,7 @@ describe('public api', function() {
         }
       ];
 
-      var result = linter.verify({
+      let result = linter.verify({
         source: templateContents,
         moduleId: templatePath
       });
@@ -453,8 +455,8 @@ describe('public api', function() {
   });
 
   describe('Linter using plugins loading a configuration that extends from another plugins configuration', function() {
-    var basePath = path.join(fixturePath, 'with-plugins-overwriting');
-    var linter;
+    let basePath = path.join(fixturePath, 'with-plugins-overwriting');
+    let linter;
 
     beforeEach(function() {
       linter = new Linter({
@@ -464,11 +466,11 @@ describe('public api', function() {
     });
 
     it('returns plugin rule issues', function() {
-      var templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
-      var templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      var expected = [];
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [];
 
-      var result = linter.verify({
+      let result = linter.verify({
         source: templateContents,
         moduleId: templatePath
       });
@@ -480,7 +482,7 @@ describe('public api', function() {
 
   describe('Linter.prototype.statusForModule', function() {
     it('returns true when the provided moduleId is listed in `pending`', function() {
-      var linter = new Linter({
+      let linter = new Linter({
         console: mockConsole,
         config: {
           pending: [
@@ -498,7 +500,7 @@ describe('public api', function() {
 
   describe('Linter.errorsToMessages', function() {
     it('formats error with rule, message and moduleId', function() {
-      var result = Linter.errorsToMessages([
+      let result = Linter.errorsToMessages([
         { rule: 'some rule', message: 'some message', moduleId: 'some moduleId' }
       ]);
 
@@ -506,7 +508,7 @@ describe('public api', function() {
     });
 
     it('formats error with rule, message, moduleId, line and column numbers', function() {
-      var result = Linter.errorsToMessages([
+      let result = Linter.errorsToMessages([
         { rule: 'some rule', message: 'some message', moduleId: 'some moduleId', line: 11, column: 12 }
       ]);
 
@@ -514,7 +516,7 @@ describe('public api', function() {
     });
 
     it('formats error with rule, message, moduleId, source', function() {
-      var result = Linter.errorsToMessages([
+      let result = Linter.errorsToMessages([
         { rule: 'some rule', message: 'some message', moduleId: 'some moduleId', source: 'some source' }
       ]);
 
@@ -522,7 +524,7 @@ describe('public api', function() {
     });
 
     it('formats more than one error', function() {
-      var result = Linter.errorsToMessages([
+      let result = Linter.errorsToMessages([
         { rule: 'some rule', message: 'some message', moduleId: 'some moduleId', line: 11, column: 12 },
         { rule: 'some rule2', message: 'some message2', moduleId: 'some moduleId2', source: 'some source2' }
       ]);

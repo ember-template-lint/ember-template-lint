@@ -1,9 +1,9 @@
 'use strict';
 
-var generateRuleTests = require('../../../helpers/rule-test-harness');
-var DEPRECATION_URL = require('../../../../lib/rules/deprecations/lint-deprecated-inline-view-helper').DEPRECATION_URL;
+const generateRuleTests = require('../../../helpers/rule-test-harness');
+const DEPRECATION_URL = require('../../../../lib/rules/deprecations/lint-deprecated-inline-view-helper').DEPRECATION_URL;
 
-var message = 'The inline form of `view` is deprecated. Please use the `Ember.Component` instead. ' +
+const message = 'The inline form of `view` is deprecated. Please use the `Ember.Component` instead. ' +
   'See the deprecation guide at ' + DEPRECATION_URL;
 
 generateRuleTests({

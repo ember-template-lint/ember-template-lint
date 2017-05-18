@@ -1,36 +1,38 @@
-var expect = require('chai').expect;
-var preprocess = require('glimmer-engine/dist/node_modules/@glimmer/syntax').preprocess;
-var isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
+'use strict';
+
+const expect = require('chai').expect;
+const preprocess = require('glimmer-engine/dist/node_modules/@glimmer/syntax').preprocess;
+const isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
 describe('isInteractiveElement', function() {
   function testTemplate(template, expectedValue) {
-    it('isInteractiveElement(`' + template + '` should be ' + expectedValue, function() {
-      var ast = preprocess(template);
+    it(`isInteractiveElement(\`${template}\` should be ${expectedValue}`, function() {
+      let ast = preprocess(template);
 
-      var interactive = isInteractiveElement(ast.body[0]);
+      let interactive = isInteractiveElement(ast.body[0]);
 
       expect(interactive).to.equal(expectedValue);
     });
   }
 
   function testReason(template, expectedReason) {
-    it('isInteractiveElement.reason(`' + template + '` should be `' + expectedReason+ '`', function() {
-      var ast = preprocess(template);
+    it(`isInteractiveElement.reason(\`${template}\` should be \`${expectedReason}\``, function() {
+      let ast = preprocess(template);
 
-      var reason = isInteractiveElement.reason(ast.body[0]);
+      let reason = isInteractiveElement.reason(ast.body[0]);
 
       expect(reason).to.equal(expectedReason);
     });
   }
 
-  var nonInteractive = [
+  let nonInteractive = [
     '<a></a>',
     '<input type="hidden">',
     '<img>',
     '<div></div>'
   ];
 
-  var interactive = {
+  let interactive = {
     '<a href="derp">Link</a>': 'an <a> element with the `href` attribute',
     '<button>Derp</button>': '<button>',
     '<details></details>': '<details>',
@@ -52,26 +54,26 @@ describe('isInteractiveElement', function() {
   });
 
   (function() {
-    for (var template in interactive) {
+    for (let template in interactive) {
       testTemplate(template, true);
     }
   })();
 
   describe('reason', function() {
     function test(template) {
-      var ast = preprocess(template);
+      let ast = preprocess(template);
 
       return isInteractiveElement.reason(ast.body[0]);
     }
 
     nonInteractive.forEach(function(template) {
-      it(template + ' should have a reason of `null`', function() {
+      it(`${template} should have a reason of \`null\``, function() {
         expect(test(template)).to.be.null;
       });
     });
 
     (function() {
-      for (var template in interactive) {
+      for (let template in interactive) {
         testReason(template, interactive[template]);
       }
     })();

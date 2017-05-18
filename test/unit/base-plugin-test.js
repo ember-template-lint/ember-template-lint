@@ -1,8 +1,8 @@
 'use strict';
 
-var expect = require('chai').expect;
-var _precompile = require('glimmer-engine').precompile;
-var buildPlugin = require('./../../lib/rules/base');
+const expect = require('chai').expect;
+const _precompile = require('glimmer-engine').precompile;
+const buildPlugin = require('./../../lib/rules/base');
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
@@ -16,11 +16,11 @@ describe('base plugin', function() {
   }
 
   describe('parses templates', function() {
-    var messages, config;
+    let messages, config;
 
     function plugin() {
-      var FakePlugin = buildPlugin({
-        log: function(result) {
+      let FakePlugin = buildPlugin({
+        log(result) {
           messages.push(result.source);
         },
         name: 'fake',
@@ -29,11 +29,11 @@ describe('base plugin', function() {
 
       FakePlugin.prototype.visitors = function() {
         return {
-          ElementNode: function(node) {
+          ElementNode(node) {
             this.process(node);
           },
 
-          TextNode: function(node) {
+          TextNode(node) {
             if (!node.loc) {
               return;
             }
@@ -68,7 +68,7 @@ describe('base plugin', function() {
       var template = config.template;
       var nodeSources = config.sources;
 
-      it('can get raw source for `' + template + '`', function() {
+      it(`can get raw source for \`${template}\``, function() {
         precompile(template);
 
         expect(messages).to.deep.equal(nodeSources);
@@ -101,7 +101,7 @@ describe('base plugin', function() {
 
     function plugin(name) {
       var FakePlugin = buildPlugin({
-        log: function(result) {
+        log(result) {
           messages.push(result.message);
         },
         name: name || 'fake',
@@ -110,7 +110,7 @@ describe('base plugin', function() {
 
       FakePlugin.prototype.visitors = function() {
         return {
-          MustacheCommentStatement: function(node) {
+          MustacheCommentStatement(node) {
             this.process(node);
           }
         };
@@ -133,8 +133,8 @@ describe('base plugin', function() {
     });
 
     function expectConfig(instruction, expectedConfig) {
-      it('can parse `' + instruction + '`', function() {
-        precompile('{{! ' + instruction + ' }}');
+      it(`can parse \`${instruction}\``, function() {
+        precompile(`{{! ${instruction} }}`);
         expect(config).to.deep.equal(expectedConfig);
         expect(messages).to.deep.equal([]);
       });
@@ -254,7 +254,7 @@ describe('base plugin', function() {
       }
 
       var FakePlugin = buildPlugin({
-        log: function(result) {
+        log(result) {
           messages.push(result.source);
         },
         name: 'fake',
@@ -266,28 +266,28 @@ describe('base plugin', function() {
 
         return {
           ElementNode: {
-            enter: function(node) {
+            enter(node) {
               addEvent('element/enter', node, pluginContext);
             },
-            exit: function(node) {
+            exit(node) {
               addEvent('element/exit', node, pluginContext);
             },
             keys: {
               children: {
-                enter: function(node) {
+                enter(node) {
                   addEvent('element/enter:children', node, pluginContext);
                 },
-                exit: function(node) {
+                exit(node) {
                   addEvent('element/exit:children', node, pluginContext);
                 }
               }
             }
           },
           MustacheCommentStatement: {
-            enter: function(node) {
+            enter(node) {
               addEvent('comment/enter', node, pluginContext);
             },
-            exit: function(node) {
+            exit(node) {
               addEvent('comment/exit', node, pluginContext);
             }
           }

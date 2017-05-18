@@ -1,10 +1,10 @@
 'use strict';
 
-var generateRuleTests = require('../../helpers/rule-test-harness');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 function mapBadStyleExampleToTestRule(inlineStyle) {
   return {
-    template: '<div ' + inlineStyle + '></div>',
+    template: `<div ${inlineStyle}></div>`,
 
     result: {
       rule: 'inline-styles',

@@ -12,7 +12,7 @@ function printErrors(errors) {
   if (process.argv.indexOf('--json') + 1) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
-    Object.keys(errors).forEach(function(filePath) {
+    Object.keys(errors).forEach(filePath => {
       console.log(Linter.errorsToMessages(errors[filePath]));
     });
   }
@@ -24,12 +24,10 @@ function lintFile(filePath, moduleId) {
 }
 
 function getRelativeFilePaths() {
-  var fileArgs = process.argv.slice(2).filter(function(arg) {
-    return arg.slice(0, 2) !== '--';
-  });
+  var fileArgs = process.argv.slice(2).filter(arg => arg.slice(0, 2) !== '--');
 
   var relativeFilePaths = fileArgs
-    .reduce(function(filePaths, fileArg) {
+    .reduce((filePaths, fileArg) => {
       var globPath;
       var isDirectory;
 
@@ -44,9 +42,7 @@ function getRelativeFilePaths() {
 
       return filePaths.concat(glob.sync(globPath));
     }, [])
-    .filter(function(filePath) {
-      return filePath.slice(-4) === '.hbs';
-    });
+    .filter(filePath => filePath.slice(-4) === '.hbs');
 
   return Array.from(new Set(relativeFilePaths));
 }
@@ -54,7 +50,7 @@ function getRelativeFilePaths() {
 function run() {
   var exitCode = 0;
 
-  var errors = getRelativeFilePaths().reduce(function(errors, relativeFilePath) {
+  var errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
     var filePath = path.resolve(relativeFilePath);
     var fileErrors = lintFile(filePath, relativeFilePath.slice(0, -4));
 

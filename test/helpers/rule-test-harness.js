@@ -1,16 +1,16 @@
 'use strict';
 
-var expect = require('chai').expect;
-var Linter = require('../../lib/index');
-var assign = require('lodash').assign;
+const expect = require('chai').expect;
+const Linter = require('../../lib/index');
+const assign = require('lodash').assign;
 
 module.exports = function(options) {
-  var groupingMethod = options.focus ? describe.only : describe;
+  let groupingMethod = options.focus ? describe.only : describe;
   groupingMethod(options.name, function() {
-    var DISABLE_ALL = '{{! template-lint-disable }}';
-    var DISABLE_ONE = '{{! template-lint-disable ' + options.name + ' }}';
+    let DISABLE_ALL = '{{! template-lint-disable }}';
+    let DISABLE_ONE = `{{! template-lint-disable ${options.name} }}`;
 
-    var linter, config;
+    let linter, config;
 
     function verify(template) {
       linter.config.rules[options.name] = config;
@@ -18,7 +18,7 @@ module.exports = function(options) {
     }
 
     beforeEach(function() {
-      var fullConfig = {
+      let fullConfig = {
         rules: { }
       };
       fullConfig.rules[options.name] = config = options.config;
@@ -29,7 +29,7 @@ module.exports = function(options) {
     });
 
     options.bad.forEach(function(badItem) {
-      var testMethod;
+      let testMethod;
       if (badItem.focus) {
         testMethod = it.only;
       } else {
@@ -37,7 +37,7 @@ module.exports = function(options) {
       }
 
       function parseResult(result) {
-        var defaults = {
+        let defaults = {
           rule: options.name,
           moduleId: 'layout.hbs',
           severity: 2
@@ -46,8 +46,8 @@ module.exports = function(options) {
         return assign({}, defaults, result);
       }
 
-      testMethod('logs a message in the console when given `' + badItem.template + '`', function() {
-        var expectedResults = badItem.results || [badItem.result];
+      testMethod(`logs a message in the console when given \`${badItem.template}\``, function() {
+        let expectedResults = badItem.results || [badItem.result];
 
         expectedResults = expectedResults.map(parseResult);
 
@@ -55,37 +55,37 @@ module.exports = function(options) {
           config = badItem.config;
         }
 
-        var actual = verify(badItem.template);
+        let actual = verify(badItem.template);
 
         expect(actual).to.deep.equal(expectedResults);
       });
 
-      it('passes with `' + badItem.template + '` when rule is disabled', function() {
+      it(`passes with \`${badItem.template}\` when rule is disabled`, function() {
         config = false;
-        var actual = verify(badItem.template);
+        let actual = verify(badItem.template);
 
         expect(actual).to.deep.equal([]);
       });
 
-      it('passes with `' + badItem.template + '` when disabled via inline comment - single rule', function() {
-        var actual = verify(DISABLE_ONE + '\n' + badItem.template);
+      it(`passes with \`${badItem.template}\` when disabled via inline comment - single rule`, function() {
+        let actual = verify(DISABLE_ONE + '\n' + badItem.template);
 
         expect(actual).to.deep.equal([]);
       });
 
-      it('passes with `' + badItem.template + '` when disabled via inline comment - all rules', function() {
-        var actual = verify(DISABLE_ALL + '\n' + badItem.template);
+      it(`passes with \`${badItem.template}\` when disabled via inline comment - all rules`, function() {
+        let actual = verify(DISABLE_ALL + '\n' + badItem.template);
 
         expect(actual).to.deep.equal([]);
       });
     });
 
     options.good.forEach(function(item) {
-      var template = typeof item === 'object' ? item.template : item;
-      var testMethod = typeof item === 'object' && item.focus ? it.only : it;
+      let template = typeof item === 'object' ? item.template : item;
+      let testMethod = typeof item === 'object' && item.focus ? it.only : it;
 
-      testMethod('passes when given `' + template + '`', function() {
-        var actual;
+      testMethod(`passes when given \`${template}\``, function() {
+        let actual;
         if (typeof item === 'string') {
           actual = verify(item);
         } else {

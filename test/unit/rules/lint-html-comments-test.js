@@ -1,6 +1,6 @@
 'use strict';
 
-var generateRuleTests = require('../../helpers/rule-test-harness');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'html-comments',
