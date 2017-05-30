@@ -1,5 +1,7 @@
 # ember-template-lint
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rwjblue/ember-template-lint.svg)](https://greenkeeper.io/)
+
 [![npm version](https://badge.fury.io/js/ember-template-lint.svg)](https://badge.fury.io/js/ember-template-lint)
 [![Build Status](https://travis-ci.org/rwjblue/ember-template-lint.svg?branch=master)](https://travis-ci.org/rwjblue/ember-template-lint)
 
