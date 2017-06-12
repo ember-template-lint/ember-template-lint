@@ -179,7 +179,12 @@ generateRuleTests({
         '  <!-- foo bar baz -->',
         '</div>'
       ].join('\n')
-    }
+    },
+    [
+      '\uFEFF{{#if foo}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n')
   ],
 
   bad: [
