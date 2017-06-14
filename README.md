@@ -188,7 +188,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
   An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-* `ignore` -- `string[]`
+* `ignore` -- `string[]|glob[]`
   An array of module id's that are to be completely ignored.
 * `plugins` -- `(string|Object)[]`
   An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
