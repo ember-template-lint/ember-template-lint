@@ -371,7 +371,7 @@ generateRuleTests({
         rule: 'block-indentation',
         message: 'Incorrect indentation for inverse block of `{{#if}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
         moduleId: 'layout.hbs',
-        source: '{{else}}\n',
+        source: '{{#if foo}}\n  {{else}}\n{{/if}}',
         line: 2,
         column: 2
       }
@@ -408,7 +408,7 @@ generateRuleTests({
         rule: 'block-indentation',
         message: 'Incorrect indentation for inverse block of `{{#each}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
         moduleId: 'layout.hbs',
-        source: '{{else}}\n',
+        source: '{{#each foo as |bar|}}\n  {{else}}\n{{/each}}',
         line: 2,
         column: 2
       }
