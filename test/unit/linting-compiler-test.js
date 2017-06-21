@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const _precompile = require('@glimmer/compiler').precompile;
 
-describe('template compiler', function() {
+describe('Ember template compiler', function() {
   let astPlugins;
 
   function precompile(template) {
@@ -25,34 +25,28 @@ describe('template compiler', function() {
   });
 
   it('sanity: loads plugins on the template compiler', function() {
-    let invokeCount = 0;
-    function noopPlugin() {
-      invokeCount++;
-
-      return {
-        name: 'noop',
-        visitors: {}
-      };
-    }
-
-    astPlugins.push(noopPlugin);
+    let instanceCount = 0;
+    let NoopPlugin = function(){
+      instanceCount++;
+    };
+    NoopPlugin.prototype.transform = function(ast) {
+      return ast;
+    };
+    astPlugins.push(NoopPlugin);
     precompile('<div></div>');
 
-    expect(invokeCount).to.equal(1);
+    expect(instanceCount).to.equal(1);
   });
 
   it('can access rawSource via options', function() {
     let options;
-    function noopPlugin(env) {
-      options = env;
-
-      return {
-        name: 'noop',
-        visitors: {}
-      };
-    }
-
-    astPlugins.push(noopPlugin);
+    let NoopPlugin = function(_options){
+      options = _options;
+    };
+    NoopPlugin.prototype.transform = function(ast) {
+      return ast;
+    };
+    astPlugins.push(NoopPlugin);
     let expectedTemplate = '<div></div>';
     precompile(expectedTemplate);
 

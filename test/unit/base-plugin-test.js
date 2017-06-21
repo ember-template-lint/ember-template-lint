@@ -3,7 +3,6 @@
 const expect = require('chai').expect;
 const _precompile = require('@glimmer/compiler').precompile;
 const buildPlugin = require('./../../lib/rules/base');
-const Linter = require('../../lib/index');
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
@@ -53,7 +52,7 @@ describe('base plugin', function() {
         });
       };
 
-      return Linter._shimPlugin('fake', FakePlugin);
+      return FakePlugin;
     }
 
     function precompile(template) {
@@ -100,8 +99,7 @@ describe('base plugin', function() {
   describe('parses instructions', function() {
     var messages, config;
 
-    function plugin(_name) {
-      let name = _name || 'fake';
+    function plugin(name) {
       var FakePlugin = buildPlugin({
         log(result) {
           messages.push(result.message);
@@ -122,7 +120,7 @@ describe('base plugin', function() {
         config = this._processInstructionNode(node);
       };
 
-      return Linter._shimPlugin(name, FakePlugin);
+      return FakePlugin;
     }
 
     function precompile(template) {
@@ -296,7 +294,7 @@ describe('base plugin', function() {
         };
       };
 
-      return Linter._shimPlugin('fake', FakePlugin);
+      return FakePlugin;
     }
 
     function precompile(template, config) {
