@@ -7,5 +7,6 @@ const paths = [
   'test'
 ];
 
-const options = {};
-lint(paths, options);
+lint(paths, {
+  timeout: 5000
+});
