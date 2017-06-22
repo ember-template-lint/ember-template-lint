@@ -37,6 +37,7 @@
     "mocha-eslint": "^2.0.2",
     "mocha-only-detector": "^0.1.0",
     "rimraf": "^2.5.2",
+    "strip-bom": "^3.0.0",
     "testem": "^1.7.0"
   },
   "engines": {

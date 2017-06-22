@@ -179,7 +179,12 @@ generateRuleTests({
         '  <!-- foo bar baz -->',
         '</div>'
       ].join('\n')
-    }
+    },
+    [
+      '\uFEFF{{#if foo}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n')
   ],
 
   bad: [
@@ -503,6 +508,21 @@ generateRuleTests({
         source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
         line: 1,
         column: 6
+      }
+    },
+    {
+      template: [
+        '\uFEFF {{#if foo}}',
+        '{{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `if` beginning at L1:C1. Expected `{{/if}}` ending at L2:C7 to be at an indentation of 1 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '{{#if foo}}\n{{/if}}',
+        line: 2,
+        column: 7
       }
     }
   ]
