@@ -150,7 +150,13 @@ The base rule also has a few helper functions that can be useful in defining rul
 
 #### AST Node Helpers
 
-There are a number of helper functions exported by [`ember-template-lint/lib/helpers/ast-node-info.js`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor functions.
+There are a number of helper functions exported by [`ember-template-lint`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor handlers.
+
+You can access these helpers via:
+
+```js
+const helpers = require('ember-template-lint').ASTHelpers;
+```
 
 * `function isConfigurationHtmlComment(node): boolean`
 
