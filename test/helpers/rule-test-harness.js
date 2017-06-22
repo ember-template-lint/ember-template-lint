@@ -39,14 +39,19 @@ module.exports = function(options) {
       function parseResult(result) {
         let defaults = {
           rule: options.name,
-          moduleId: 'layout.hbs',
           severity: 2
         };
+
+        if (result.moduleId !== null) {
+          defaults.moduleId = 'layout.hbs';
+        } else {
+          delete result.moduleId;
+        }
 
         return assign({}, defaults, result);
       }
 
-      testMethod(`logs a message in the console when given \`${badItem.template}\``, function() {
+      it(`logs a message in the console when given \`${badItem.template}\``, function() {
         let expectedResults = badItem.results || [badItem.result];
 
         expectedResults = expectedResults.map(parseResult);
@@ -67,7 +72,7 @@ module.exports = function(options) {
         expect(actual).to.deep.equal([]);
       });
 
-      it(`passes with \`${badItem.template}\` when disabled via inline comment - single rule`, function() {
+      testMethod(`passes with \`${badItem.template}\` when disabled via inline comment - single rule`, function() {
         let actual = verify(DISABLE_ONE + '\n' + badItem.template);
 
         expect(actual).to.deep.equal([]);
