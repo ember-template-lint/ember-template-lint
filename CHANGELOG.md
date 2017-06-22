@@ -1,6 +1,45 @@
 Changelog
 =========
 
+## 0.7.0-beta.2
+
+- Add support for user supplied rules and configuration. Please review [the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/plugins.md) for more details.
+- Add `ember-template-lint` command line script. This enable much easier running of the linter from the command line, editor plugins, etc. Supports `--json` flag to enable easier consumption by tools. See [documentation](https://github.com/rwjblue/ember-template-lint#cli-executable) for more details.
+- Allow `rel=noreferrer` to satisfy the `link-rel-noopener` rule.
+- Add `inline-styles` rule, which forbids using the `style` attribute in HTML elements.
+- Drop support for Node < 4.
+- Fix a number of issues with `block-indentation` rule when using "whitespace control" characters (e.g. `{{~if foo~}}`).
+- Add support for globs in `.template-lintrc.js`'s `ignore` option.
+- Add `unless-helper` rule which forbids using `{{unless` with an inverse (or from an inverse), and with complex helper invocations as the predicate.
+
+  ```hbs
+  {{! good }}
+
+  <div class="{{unless foo "bar"}}"></div>
+  {{#unless something}}
+  {{/unless}}
+
+  {{! bad }}
+
+  {{#unless something}}
+  {{else}}
+  {{/unless}}
+
+
+  {{#unless (complex (helper (invocation)))}}
+  {{/unless}}
+  ```
+- Add `unless-helper` to the recommended configuration.
+- Allow `<form onsubmit={{action 'foo'}}></form>` from the `invalid-interactive` rule.
+- Remove `deprecated-each-syntax` from `recommended` config.
+- Add configurable option to `link-rel-noopener` to require **both** `noopener` and `noreferrer`. See the [documentation](https://github.com/rwjblue/ember-template-lint#link-rel-noopener) for more details.
+- Update to leverage ES2015 features that are supported in Node 4.
+- Added `no-log` and `no-debugger` rules. These rules forbid usage of `{{log}}` and `{{debugger}` helpers, which should be used only for local debugging and never checked in.
+- Fix issues around templates including a [Byte Order Mark](https://en.wikipedia.org/wiki/Byte_order_mark).
+- Upgrade underlying engine to leverage `@glimmer/compiler@0.25.1`. Includes much smaller footprint, better location support, easier to use plugin API.
+- Change API around `Rule` definition. A simple `class extends Rule { }` is all that is required.
+
+
 ## v0.6.3
 
 - Add support for Handlebars comments.
