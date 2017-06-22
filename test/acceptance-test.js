@@ -301,6 +301,24 @@ describe('public api', function() {
       expect(result).to.deep.equal([]);
     });
 
+    it('does not include errors when marked as ignored using glob', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'bare-strings': true, 'block-indentation': true },
+          ignore: [ 'some/path/*' ]
+        }
+      });
+
+      let template = '<div>bare string</div>';
+      let result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here'
+      });
+
+      expect(result).to.deep.equal([]);
+    });
+
   });
 
   describe('Linter using plugins', function() {
