@@ -10,7 +10,7 @@ Changelog
 - Drop support for Node < 4.
 - Fix a number of issues with `block-indentation` rule when using "whitespace control" characters (e.g. `{{~if foo~}}`).
 - Add support for globs in `.template-lintrc.js`'s `ignore` option.
-- Add `unless-helper` rule which forbids using `{{unless` with an inverse (or from an inverse), and with complex helper invocations as the predicate.
+- Add `simple-unless` rule which forbids using `{{unless` with an inverse (or from an inverse), and with complex helper invocations as the predicate.
 
   ```hbs
   {{! good }}
@@ -29,7 +29,7 @@ Changelog
   {{#unless (complex (helper (invocation)))}}
   {{/unless}}
   ```
-- Add `unless-helper` to the recommended configuration.
+- Add `simple-unless` to the recommended configuration.
 - Allow `<form onsubmit={{action 'foo'}}></form>` from the `invalid-interactive` rule.
 - Remove `deprecated-each-syntax` from `recommended` config.
 - Add configurable option to `link-rel-noopener` to require **both** `noopener` and `noreferrer`. See the [documentation](https://github.com/rwjblue/ember-template-lint#link-rel-noopener) for more details.
