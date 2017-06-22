@@ -105,7 +105,7 @@ Sample rule:
 const Rule = require('ember-template-lint').Rule;
 
 module.exports = class NoEmptyComments extends Rule {
-  visitors() {
+  visitor() {
     return {
       CommentStatement(node) {
         if (node.value.trim() === '') {
@@ -124,9 +124,9 @@ module.exports = class NoEmptyComments extends Rule {
 
 You can override the following methods on the base plugin class:
 
-* `function visitors(): visitorsObject`
+* `function visitor(): visitorObject`
 
-  The `visitors` function should return an object that maps Handlebars node types to functions. Whenever the Handlebars parser encounters a particular type of node, any visitor function that you define for that node will be called on it. You can reference the [Handlebars Compiler API](https://github.com/wycats/handlebars.js/blob/master/docs/compiler-api.md) for more detail on the types of nodes and their interfaces.
+  The `visitor` function should return an object that maps Handlebars node types to functions. Whenever the Handlebars parser encounters a particular type of node, any handler function that you define for that node will be called on it. You can reference the [Handlebars Compiler API](https://github.com/wycats/handlebars.js/blob/master/docs/compiler-api.md) for more detail on the types of nodes and their interfaces.
 
 The base rule also has a few helper functions that can be useful in defining rule behavior:
 

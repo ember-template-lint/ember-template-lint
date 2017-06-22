@@ -5,7 +5,7 @@ var Rule = require('../../../../lib/rules/base');
 var message = 'The inline form of component is not allowed';
 
 module.exports = class InlineComponent extends Rule {
-  visitors() {
+  visitor() {
     return {
       MustacheStatement(node) {
         if (node.path.original === 'component') {
