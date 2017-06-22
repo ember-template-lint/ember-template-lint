@@ -490,7 +490,7 @@ whereas this is allowed:
 <div style={{make-background url}}>
 ```
 
-#### unless-helper (default === false)
+#### simple-unless (default === false)
 
 This rule strongly advises against `{{unless}}` blocks used in conjunction with other
 block helpers (e.g. `{{else}}`, `{{else if}}`), and template helpers.

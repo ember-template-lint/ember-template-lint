@@ -434,8 +434,8 @@ describe('public api', function() {
 
       expect(result).to.deep.equal(expected);
     });
-
   });
+
   describe('Linter using plugins (inline plugins)', function() {
     let basePath = path.join(fixturePath, 'with-inline-plugins');
     let linter;

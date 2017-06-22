@@ -1,16 +1,17 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const messages = require('../../../lib/rules/lint-unless-helper').messages;
+const messages = require('../../../lib/rules/lint-simple-unless').messages;
 
 generateRuleTests({
-  name: 'unless-helper',
+  name: 'simple-unless',
   config: true,
 
   good: [
     '{{#unless isRed}}I\'m blue, da ba dee da ba daa{{/unless}}',
     '<div class="{{unless foo \'no-foo\'}}"></div>',
     '<div class="{{if foo \'foo\'}}"></div>',
+    '{{unrelated-mustache-without-params}}',
     [
       '{{#unless hamburger}}',
       '  HOT DOG!',
@@ -23,7 +24,7 @@ generateRuleTests({
       template: '{{unless (if true)  \'Please no\'}}',
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
@@ -35,7 +36,7 @@ generateRuleTests({
       template: '{{unless (and isBad isAwful)  \'notBadAndAwful\'}}',
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
@@ -53,7 +54,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else}}',
@@ -71,7 +72,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else if goHawks}}',
@@ -91,7 +92,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else if goPats}}',
@@ -111,7 +112,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else if goBengals}}',
@@ -129,7 +130,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.asElseUnlessBlock,
         moduleId: 'layout.hbs',
         source: '{{else unless ...',
@@ -145,7 +146,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
@@ -161,7 +162,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (not ...',
@@ -179,7 +180,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'unless-helper',
+        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else}}',
