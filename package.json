@@ -16,9 +16,7 @@
     "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
   },
   "scripts": {
-    "test": "mocha",
-    "preversion": "npm test",
-    "postversion": "git push && git push --tags && npm publish"
+    "test": "mocha"
   },
   "dependencies": {
     "@glimmer/compiler": "^0.25.1",
