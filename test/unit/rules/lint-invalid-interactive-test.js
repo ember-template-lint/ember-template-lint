@@ -12,6 +12,7 @@ generateRuleTests({
     '<div role="button" {{action "foo"}}></div>',
     '<li><button {{action "foo"}}></button></li>',
     '<form {{action "foo" on="submit"}}></form>',
+    '<form onsubmit={{action "foo"}}></form>',
     {
       config: { additionalInteractiveTags: ['div'] },
       template: '<div {{action "foo"}}></div>'
@@ -42,6 +43,17 @@ generateRuleTests({
         line: 1,
         column: 5,
         source: '<div onclick={{action \"foo\"}}></div>'
+      }
+    },
+
+    {
+      template: '<div onsubmit={{action "foo"}}></div>',
+
+      result: {
+        message: 'Interaction added to non-interactive element',
+        line: 1,
+        column: 5,
+        source: '<div onsubmit={{action \"foo\"}}></div>'
       }
     },
 
