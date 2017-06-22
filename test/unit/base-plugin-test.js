@@ -21,7 +21,7 @@ describe('base plugin', function() {
     config = {};
   });
 
-  function buildPlugin(visitors) {
+  function buildPlugin(visitor) {
     class FakeRule extends Rule {
       log(result) {
         messages.push(result.source);
@@ -36,8 +36,8 @@ describe('base plugin', function() {
         });
       }
 
-      visitors() {
-        return visitors;
+      visitor() {
+        return visitor;
       }
     }
 
@@ -50,14 +50,14 @@ describe('base plugin', function() {
     return env => {
       plugin.templateEnvironmentData = env;
 
-      let visitors = plugin.getVisitors();
+      let visitor = plugin.getVisitor();
 
-      return { name, visitors };
+      return { name, visitors: visitor};
     };
   }
 
   describe('parses templates', function() {
-    let visitors = {
+    let visitor = {
       ElementNode(node) {
         this.process(node);
       },
@@ -72,7 +72,7 @@ describe('base plugin', function() {
     };
 
     function precompile(template) {
-      precompileTemplate(template, [ plugin(buildPlugin(visitors), 'fake', config) ]);
+      precompileTemplate(template, [ plugin(buildPlugin(visitor), 'fake', config) ]);
     }
 
     function expectSource(config) {
@@ -245,7 +245,7 @@ describe('base plugin', function() {
           messages.push(result.source);
         }
 
-        visitors() {
+        visitor() {
           var pluginContext = this;
 
           return {
