@@ -28,7 +28,7 @@ generateRuleTests({
         rule: 'unused-block-params',
         message: '\'cat\' is defined but never used',
         moduleId: 'layout.hbs',
-        source: '{{#each cats as |cat|}}Dogs',
+        source: '{{#each cats as |cat|}}Dogs{{/each}}',
         line: 1,
         column: 0
       }
@@ -39,7 +39,7 @@ generateRuleTests({
         rule: 'unused-block-params',
         message: '\'index\' is defined but never used',
         moduleId: 'layout.hbs',
-        source: '{{#each cats as |cat index|}}{{cat}}',
+        source: '{{#each cats as |cat index|}}{{cat}}{{/each}}',
         line: 1,
         column: 0
       }
@@ -55,7 +55,7 @@ generateRuleTests({
         rule: 'unused-block-params',
         message: '\'index\' is defined but never used',
         moduleId: 'layout.hbs',
-        source: '{{#each cats as |cat index|}}{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}',
+        source: '{{#each cats as |cat index|}}{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}{{/each}}',
         line: 1,
         column: 0
       }

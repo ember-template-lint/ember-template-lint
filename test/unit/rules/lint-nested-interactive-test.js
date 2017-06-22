@@ -250,9 +250,9 @@ generateRuleTests({
       template: '<button><input></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: ARRAY_DEPRECATION_MESSAGE,
         source: '["button"]',
+        moduleId: null,
         severity: 1
       }
     },
@@ -261,10 +261,9 @@ generateRuleTests({
       template: '<button><div tabindex=-1></div></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: ARRAY_DEPRECATION_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '["tabindex"]',
+        moduleId: null,
         severity: 1
       }
     },
@@ -273,9 +272,9 @@ generateRuleTests({
       template: '<button><img usemap=""></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: ARRAY_DEPRECATION_MESSAGE,
         source: '["usemap"]',
+        moduleId: null,
         severity: 1
       }
     }

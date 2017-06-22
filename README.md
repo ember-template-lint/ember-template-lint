@@ -1,5 +1,7 @@
 # ember-template-lint
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rwjblue/ember-template-lint.svg)](https://greenkeeper.io/)
+
 [![npm version](https://badge.fury.io/js/ember-template-lint.svg)](https://badge.fury.io/js/ember-template-lint)
 [![Build Status](https://travis-ci.org/rwjblue/ember-template-lint.svg?branch=master)](https://travis-ci.org/rwjblue/ember-template-lint)
 
@@ -261,6 +263,28 @@ but allows the following:
 {{!-- comment goes here --}}
 ```
 
+#### no-debugger
+
+`{{debugger}}` will inject `debugger` statement into compiled template code and will pause its rendering if developer tools are open. That is undesirable in a production environment.
+
+This rule forbids usage of the following:
+
+```hbs
+{{debugger}}
+```
+
+
+#### no-log
+
+`{{log}}` will produce messages in the browser console. That is undesirable in a production environment.
+
+This rule forbids usage of the following:
+
+```hbs
+{{log}}
+{{log "foo" var}}
+```
+
 #### triple-curlies
 
 Usage of triple curly braces to allow raw HTML to be injected into the DOM is large vector for exploits of your application (especially when the raw HTML is user controllable ). Instead of using `{{{foo}}}`, you should use appropriate helpers or computed properties that return a `SafeString` (via `Ember.String.htmlSafe` generally) and ensure that user supplied data is properly escaped.
@@ -465,6 +489,44 @@ whereas this is allowed:
 ```hbs
 <div style={{make-background url}}>
 ```
+
+#### unless-helper (default === false)
+
+This rule strongly advises against `{{unless}}` blocks used in conjunction with other
+block helpers (e.g. `{{else}}`, `{{else if}}`), and template helpers.
+
+For example, the rule forbids against the following:
+
+``` hbs
+{{! `if` template helper}}
+
+{{unless (if true) "This is not recommended"}}
+```
+
+``` hbs
+{{! `else` block}}
+
+{{#unless bandwagoner}}
+  Go Niners!
+{{else}}
+  Go Seahawks!
+{{/unless
+```
+
+Common solutions are to use an `{{if}}` block, or refactor potentially confusing
+logic within the template.
+
+``` hbs
+{{#if bandwagoner}}
+  Go Blue Jays!
+{{else}}
+  Go Mariners!
+{{/unless
+```
+
+The following values are valid configuration:
+
+  * boolean -- `true` for enabled / `false` for disabled
 
 #### unused-block-params
 
