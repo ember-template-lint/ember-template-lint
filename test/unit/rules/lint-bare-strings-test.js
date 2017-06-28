@@ -67,7 +67,13 @@ generateRuleTests({
       template: '<input placeholder="hahaha">'
     },
 
-    '<foo-bar>\n</foo-bar>'
+    '<foo-bar>\n</foo-bar>',
+
+    {
+      // combine bare string with a variable
+      config: ['X'],
+      template: '<input placeholder="{{foo}}X">'
+    }
   ],
 
   bad: [
@@ -119,6 +125,19 @@ generateRuleTests({
         line: 1,
         column: 7,
         source: 'trolol'
+      }
+    },
+
+    {
+      template: '<input placeholder="{{foo}}hahaha trolol">',
+
+      result: {
+        rule: 'bare-strings',
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `placeholder` attribute',
+        line: 1,
+        column: 7,
+        source: 'hahaha trolol'
       }
     },
 
