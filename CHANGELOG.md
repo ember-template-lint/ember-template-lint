@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.7.1
+
+- Prevent errors within the `bare-strings` rule for `<input placeholder="{{foo}}.">`
+
 ## 0.7.0
 
 - Add support for user supplied rules and configuration. Please review [the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/plugins.md) for more details.
