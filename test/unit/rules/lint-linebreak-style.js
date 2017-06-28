@@ -31,7 +31,7 @@ generateRuleTests({
       result: {
         rule: 'linebreak-style',
         moduleId: 'layout.hbs',
-        message: 'Wrong linebreak used',
+        message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 0,
         source: '\r\n'
@@ -43,7 +43,7 @@ generateRuleTests({
       result: {
         rule: 'linebreak-style',
         moduleId: 'layout.hbs',
-        message: 'Wrong linebreak used',
+        message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 12,
         source: '\r\n'
@@ -55,7 +55,7 @@ generateRuleTests({
       result: {
         rule: 'linebreak-style',
         moduleId: 'layout.hbs',
-        message: 'Wrong linebreak used',
+        message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 8,
         source: '\r\n'
@@ -67,7 +67,7 @@ generateRuleTests({
       result: {
         rule: 'linebreak-style',
         moduleId: 'layout.hbs',
-        message: 'Wrong linebreak used',
+        message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 8,
         source: '\r\n'
@@ -79,7 +79,7 @@ generateRuleTests({
       result: {
         rule: 'linebreak-style',
         moduleId: 'layout.hbs',
-        message: 'Wrong linebreak used',
+        message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 12,
         source: '\r\n'
@@ -92,7 +92,7 @@ generateRuleTests({
       result: {
         rule: 'linebreak-style',
         moduleId: 'layout.hbs',
-        message: 'Wrong linebreak used',
+        message: 'Wrong linebreak used. Expected CRLF but found LF',
         line: 1,
         column: 0,
         source: '\n'
