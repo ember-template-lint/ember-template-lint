@@ -510,7 +510,7 @@ For example, the rule forbids against the following:
   Go Niners!
 {{else}}
   Go Seahawks!
-{{/unless
+{{/unless}}
 ```
 
 Common solutions are to use an `{{if}}` block, or refactor potentially confusing
@@ -521,7 +521,7 @@ logic within the template.
   Go Blue Jays!
 {{else}}
   Go Mariners!
-{{/unless
+{{/if}}
 ```
 
 The following values are valid configuration:
