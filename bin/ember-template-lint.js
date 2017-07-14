@@ -7,14 +7,21 @@ var path = require('path');
 var glob = require('glob');
 var Linter = require('../lib/index');
 var linter = new Linter();
+const chalk = require('chalk');
 
 function printErrors(errors) {
   if (process.argv.indexOf('--json') + 1) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
+    let count = 0;
+
     Object.keys(errors).forEach(filePath => {
-      console.log(Linter.errorsToMessages(filePath, errors[filePath]));
+      let fileErrors = errors[filePath];
+      console.log(Linter.errorsToMessages(filePath, fileErrors));
+      count += fileErrors.length;
     });
+
+    console.log(chalk.red(chalk.bold(`✖ ${count} problems`)));
   }
 }
 
