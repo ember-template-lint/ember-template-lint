@@ -13,7 +13,7 @@ function printErrors(errors) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
     Object.keys(errors).forEach(filePath => {
-      console.log(Linter.errorsToMessages(errors[filePath]));
+      console.log(Linter.errorsToMessages(filePath, errors[filePath]));
     });
   }
 }
