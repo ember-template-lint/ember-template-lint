@@ -16,9 +16,15 @@ function printErrors(errors) {
     let count = 0;
 
     Object.keys(errors).forEach(filePath => {
-      let fileErrors = errors[filePath];
-      console.log(Linter.errorsToMessages(filePath, fileErrors));
+      let options = {};
+      let fileErrors = errors[filePath] || [];
       count += fileErrors.length;
+
+      if (process.argv.includes('--desc')) {
+        options.desc = true;
+      }
+
+      console.log(Linter.errorsToMessages(filePath, fileErrors, options));
     });
 
     console.log(chalk.red(chalk.bold(`✖ ${count} problems`)));
