@@ -19,6 +19,9 @@ Instead, you should write the template as:
 <hr>
 ```
 
+There may be cases where a self-closing tag may be necessary for void elements. In such cases, a `require` string may be passed to log the missing closing tags.
+
 The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
+  * string -- `require` to mandate the use of self closing tags
