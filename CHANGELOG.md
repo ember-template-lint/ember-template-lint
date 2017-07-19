@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.7.2
+
+- Prevent errors when using contextual components.
+
 ## 0.7.1
 
 - Prevent errors within the `bare-strings` rule for `<input placeholder="{{foo}}.">`

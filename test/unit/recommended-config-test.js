@@ -34,4 +34,7 @@ describe('recommended config', function() {
 
 
   ensureValid('<md-autocomplete-wrap id={{autocompleteWrapperId}} role="listbox" layout="row" class="{{if notFloating "md-whiteframe-z1"}} {{if notHidden "md-menu-showing"}}"></md-autocomplete-wrap>');
+
+  // This ensures that we don't face this issue again => https://github.com/rwjblue/ember-template-lint/issues/230
+  ensureValid('{{#foo-bar as |baz|}}{{#baz.derp}}{{/baz.derp}}{{/foo-bar}}');
 });
