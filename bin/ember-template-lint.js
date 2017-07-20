@@ -20,8 +20,8 @@ function printErrors(errors) {
       let fileErrors = errors[filePath] || [];
       count += fileErrors.length;
 
-      if (process.argv.includes('--desc')) {
-        options.desc = true;
+      if (process.argv.includes('--verbose')) {
+        options.verbose = true;
       }
 
       console.log(Linter.errorsToMessages(filePath, fileErrors, options));

@@ -547,7 +547,7 @@ describe('public api', function() {
     it('formats error with rule, message, source', function() {
       let result = Linter.errorsToMessages('file/path', [
         { rule: 'some rule', message: 'some message', source: 'some source' }
-      ], { desc: true });
+      ], { verbose: true });
 
       expect(result).to.equal(
         'file/path\n'+
