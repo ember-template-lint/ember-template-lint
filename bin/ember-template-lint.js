@@ -20,7 +20,7 @@ function printErrors(errors) {
       let fileErrors = errors[filePath] || [];
       count += fileErrors.length;
 
-      if (process.argv.includes('--verbose')) {
+      if (process.argv.indexOf('--verbose') + 1) {
         options.verbose = true;
       }
 
