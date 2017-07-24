@@ -61,6 +61,9 @@ Example usage:
 # basic usage
 ./node_modules/.bin/ember-template-lint app/templates/application.hbs
 
+# output errors with source description
+./node_modules/.bin/ember-template-lint app/templates/application.hbs --verbose
+
 # multiple file/directory/wildcard paths are accepted
 ./node_modules/.bin/ember-template-lint app/templates/components/**/* app/templates/application.hbs
 
