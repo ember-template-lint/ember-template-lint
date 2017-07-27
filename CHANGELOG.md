@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.0
+
+- Refactor the console output formatter to be a much closer match to ESLint output (changes the signature of `Linter.errorsToMessages`).
+
 ## 0.7.4
 
 - Cleanup dependencies (remove unused, update versions to latest, etc).
