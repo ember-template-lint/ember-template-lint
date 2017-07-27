@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 0.7.4
+
+- Cleanup dependencies (remove unused, update versions to latest, etc).
+- Move rule documentation out of the `README.md` and into `docs/rules/<rule-name>.md` to make it simpler to reason about and link to documentation by rule.
+- Add `require` as an option to `self-closing-void-elements`. Use this value if you would like to _require_ that all void elements are self closing (e.g. you require `<img />`).
+
+## 0.7.3
+
+- Move `strip-bom` to `dependencies` (was mistakenly a `devDependency`).
+
 ## 0.7.2
 
 - Prevent errors when using contextual components.
