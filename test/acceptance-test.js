@@ -568,5 +568,11 @@ describe('public api', function() {
         '  -:-  error  some message2  some rule2\n'
       );
     });
+
+    it('formats empty errors', function() {
+      let result = Linter.errorsToMessages('file/path', []);
+
+      expect(result).to.equal('');
+    });
   });
 });
