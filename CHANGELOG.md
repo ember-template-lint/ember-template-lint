@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.1
+
+- Fix issue with console output formatting to avoid noisy console output when no errors are present.
+
 ## 0.8.0
 
 - Refactor the console output formatter to be a much closer match to ESLint output (changes the signature of `Linter.errorsToMessages`).
