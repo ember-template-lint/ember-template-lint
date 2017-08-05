@@ -179,7 +179,12 @@ generateRuleTests({
         '  <!-- foo bar baz -->',
         '</div>'
       ].join('\n')
-    }
+    },
+    [
+      '\uFEFF{{#if foo}}',
+      '  <div></div>',
+      '{{/if}}'
+    ].join('\n')
   ],
 
   bad: [
@@ -371,7 +376,7 @@ generateRuleTests({
         rule: 'block-indentation',
         message: 'Incorrect indentation for inverse block of `{{#if}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
         moduleId: 'layout.hbs',
-        source: '{{else}}\n',
+        source: '{{#if foo}}\n  {{else}}\n{{/if}}',
         line: 2,
         column: 2
       }
@@ -408,7 +413,7 @@ generateRuleTests({
         rule: 'block-indentation',
         message: 'Incorrect indentation for inverse block of `{{#each}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
         moduleId: 'layout.hbs',
-        source: '{{else}}\n',
+        source: '{{#each foo as |bar|}}\n  {{else}}\n{{/each}}',
         line: 2,
         column: 2
       }
@@ -503,6 +508,21 @@ generateRuleTests({
         source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
         line: 1,
         column: 6
+      }
+    },
+    {
+      template: [
+        '\uFEFF {{#if foo}}',
+        '{{/if}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `if` beginning at L1:C1. Expected `{{/if}}` ending at L2:C7 to be at an indentation of 1 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '{{#if foo}}\n{{/if}}',
+        line: 2,
+        column: 7
       }
     }
   ]

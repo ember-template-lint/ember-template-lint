@@ -28,11 +28,8 @@ describe('default configurations', function() {
             config: config.rules[rule]
           };
 
-          let Rule = rules[rule](options);
           expect(function() {
-            new Rule({
-              rawSource: ''
-            });
+            new rules[rule](options);
           }).to.not.throw;
         }
       });

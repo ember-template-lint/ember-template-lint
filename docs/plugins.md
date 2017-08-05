@@ -95,54 +95,40 @@ Every rule defined by a plugin can use these public APIs defined by `ember-templ
 
 #### Building a rule object
 
-Each file that defines a rule should export a function that accepts an `addonContext` object and returns a rule object.
-
-You can easily build a new rule object using `buildPlugin`, a helper function exported by [`ember-template-lint/lib/rules/base.js`](../lib/rules/base.js).
+Each file that defines a rule should export a class that extends from the base rule object.
 
 Sample rule:
 
 ```javascript
 'use strict';
 
-var buildPlugin = require('ember-template-lint/lib/rules/base');
+const Rule = require('ember-template-lint').Rule;
 
-module.exports = function(addonContext) {
-  return class NoEmptyComments extends buildPlugin(addonContext, 'no-empty-comments') {
-    visitors() {
-      return {
-        CommentStatement(node) {
-          if (node.value.trim() === '') {
-            this.log({
-              message: 'comments cannot be empty',
-              line: node.loc && node.loc.start.line,
-              column: node.loc && node.loc.start.column,
-              source: this.sourceForNode(node)
-            });
-          }
+module.exports = class NoEmptyComments extends Rule {
+  visitor() {
+    return {
+      CommentStatement(node) {
+        if (node.value.trim() === '') {
+          this.log({
+            message: 'comments cannot be empty',
+            line: node.loc && node.loc.start.line,
+            column: node.loc && node.loc.start.column,
+            source: this.sourceForNode(node)
+          });
         }
-      };
-    }
-  };
+      }
+    };
+  }
 };
 ```
 
-`buildPlugin` takes two parameters:
+You can override the following methods on the base plugin class:
 
-* `options` -- `Object`
+* `function visitor(): visitorObject`
 
-  Options for the linter. You can pass the `addonContext` object provided by your default function directly to `buildPlugin`.
+  The `visitor` function should return an object that maps Handlebars node types to functions. Whenever the Handlebars parser encounters a particular type of node, any handler function that you define for that node will be called on it. You can reference the [Handlebars Compiler API](https://github.com/wycats/handlebars.js/blob/master/docs/compiler-api.md) for more detail on the types of nodes and their interfaces.
 
-* `name` -- `string`
-
-  The name of your rule, to be displayed with any lint errors.
-
-`buildPlugin` returns a base rule object. You can override the following properties:
-
-* `function visitors(): visitorsObject`
-
-  The `visitors` function should return an object that maps Handlebars node types to functions. Whenever the Handlebars parser encounters a particular type of node, any visitor function that you define for that node will be called on it. You can reference the [Handlebars Compiler API](https://github.com/wycats/handlebars.js/blob/master/docs/compiler-api.md) for more detail on the types of nodes and their interfaces.
-
-The base rule object also has a few helper functions that can be useful in defining rule behavior:
+The base rule also has a few helper functions that can be useful in defining rule behavior:
 
 * `function log(options)`
 
@@ -164,7 +150,13 @@ The base rule object also has a few helper functions that can be useful in defin
 
 #### AST Node Helpers
 
-There are a number of helper functions exported by [`ember-template-lint/lib/helpers/ast-node-info.js`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor functions.
+There are a number of helper functions exported by [`ember-template-lint`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor handlers.
+
+You can access these helpers via:
+
+```js
+const helpers = require('ember-template-lint').ASTHelpers;
+```
 
 * `function isConfigurationHtmlComment(node): boolean`
 

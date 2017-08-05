@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "0.6.3",
+  "version": "0.8.1",
   "description": "Lint your templates.",
   "keywords": [],
   "homepage": "https://github.com/rwjblue/ember-template-lint",
@@ -16,26 +16,24 @@
     "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
   },
   "scripts": {
-    "test": "mocha",
-    "preversion": "npm test",
-    "postversion": "git push && git push --tags && npm publish"
+    "test": "mocha"
   },
   "dependencies": {
-    "chalk": "^1.1.3",
-    "glimmer-engine": "^0.21.2",
+    "@glimmer/compiler": "^0.25.1",
+    "@glimmer/syntax": "^0.25.1",
+    "chalk": "^2.0.0",
     "lodash": "^4.11.1",
-    "node-glob": "^1.2.0",
-    "resolve": "^1.1.3"
+    "minimatch": "^3.0.4",
+    "resolve": "^1.1.3",
+    "strip-bom": "^3.0.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint-plugin-node": "^4.0.1",
+    "chai": "^4.0.0",
+    "eslint-plugin-node": "^5.1.0",
     "glob": "^7.0.0",
-    "loader.js": "^4.0.1",
     "mocha": "^3.0.0",
-    "mocha-eslint": "^2.0.2",
+    "mocha-eslint": "^3.0.1",
     "mocha-only-detector": "^0.1.0",
-    "rimraf": "^2.5.2",
     "testem": "^1.7.0"
   },
   "engines": {

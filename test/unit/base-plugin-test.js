@@ -1,8 +1,8 @@
 'use strict';
 
 const expect = require('chai').expect;
-const _precompile = require('glimmer-engine').precompile;
-const buildPlugin = require('./../../lib/rules/base');
+const _precompile = require('@glimmer/compiler').precompile;
+const Rule = require('./../../lib/rules/base');
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
@@ -15,54 +15,65 @@ describe('base plugin', function() {
     });
   }
 
-  describe('parses templates', function() {
-    let messages, config;
+  let messages, config;
+  beforeEach(function() {
+    messages = [];
+    config = {};
+  });
 
-    function plugin() {
-      let FakePlugin = buildPlugin({
-        log(result) {
-          messages.push(result.source);
-        },
-        name: 'fake',
-        config: config
-      });
+  function buildPlugin(visitor) {
+    class FakeRule extends Rule {
+      log(result) {
+        messages.push(result.source);
+      }
 
-      FakePlugin.prototype.visitors = function() {
-        return {
-          ElementNode(node) {
-            this.process(node);
-          },
-
-          TextNode(node) {
-            if (!node.loc) {
-              return;
-            }
-
-            this.process(node);
-          }
-        };
-      };
-
-      FakePlugin.prototype.process = function(node) {
+      process(node) {
         this.log({
           message: 'Node source',
           line: node.loc && node.loc.start.line,
           column: node.loc && node.loc.start.column,
           source: this.sourceForNode(node)
         });
-      };
+      }
 
-      return FakePlugin;
+      visitor() {
+        return visitor;
+      }
     }
+
+    return FakeRule;
+  }
+
+  function plugin(Rule, name, config) {
+    let plugin = new Rule({ name, config});
+
+    return env => {
+      plugin.templateEnvironmentData = env;
+
+      let visitor = plugin.getVisitor();
+
+      return { name, visitors: visitor};
+    };
+  }
+
+  describe('parses templates', function() {
+    let visitor = {
+      ElementNode(node) {
+        this.process(node);
+      },
+
+      TextNode(node) {
+        if (!node.loc) {
+          return;
+        }
+
+        this.process(node);
+      }
+    };
 
     function precompile(template) {
-      precompileTemplate(template, [ plugin() ]);
+      precompileTemplate(template, [ plugin(buildPlugin(visitor), 'fake', config) ]);
     }
-
-    beforeEach(function() {
-      messages = [];
-      config = {};
-    });
 
     function expectSource(config) {
       var template = config.template;
@@ -97,40 +108,20 @@ describe('base plugin', function() {
   });
 
   describe('parses instructions', function() {
-    var messages, config;
-
-    function plugin(name) {
-      var FakePlugin = buildPlugin({
-        log(result) {
-          messages.push(result.message);
-        },
-        name: name || 'fake',
-        config: 'foo'
+    function precompile(template) {
+      let Rule = buildPlugin({
+        MustacheCommentStatement(node) {
+          this.process(node);
+        }
       });
-
-      FakePlugin.prototype.visitors = function() {
-        return {
-          MustacheCommentStatement(node) {
-            this.process(node);
-          }
-        };
+      Rule.prototype.log = function(result) {
+        messages.push(result.message);
       };
-
-      FakePlugin.prototype.process = function(node) {
+      Rule.prototype.process = function(node) {
         config = this._processInstructionNode(node);
       };
-
-      return FakePlugin;
+      precompileTemplate(template, [ plugin(Rule, 'fake', 'foo') ]);
     }
-
-    function precompile(template) {
-      precompileTemplate(template, [ plugin() ]);
-    }
-
-    beforeEach(function() {
-      messages = [];
-      config = null;
-    });
 
     function expectConfig(instruction, expectedConfig) {
       it(`can parse \`${instruction}\``, function() {
@@ -220,18 +211,18 @@ describe('base plugin', function() {
 
     it('only logs syntax errors once across all rules', function() {
       precompileTemplate('{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}', [
-        plugin('fake1'),
-        plugin('fake2'),
-        plugin('fake3'),
-        plugin('fake4'),
-        plugin('fake5')
+        plugin(buildPlugin({}), 'fake1'),
+        plugin(buildPlugin({}), 'fake2'),
+        plugin(buildPlugin({}), 'fake3'),
+        plugin(buildPlugin({}), 'fake4'),
+        plugin(buildPlugin({}), 'fake5')
       ]);
       expect(messages).to.have.lengthOf(3);
     });
   });
 
   describe('scopes instructions', function() {
-    var messages, events;
+    var events;
 
     function getId(node) {
       if (node.attributes) {
@@ -248,57 +239,55 @@ describe('base plugin', function() {
       events.push([ event, getId(node), plugin.config ]);
     }
 
-    function plugin(config) {
+    function buildPlugin() {
+      class FakeRule extends Rule {
+        log(result) {
+          messages.push(result.source);
+        }
+
+        visitor() {
+          var pluginContext = this;
+
+          return {
+            ElementNode: {
+              enter(node) {
+                addEvent('element/enter', node, pluginContext);
+              },
+              exit(node) {
+                addEvent('element/exit', node, pluginContext);
+              },
+              keys: {
+                children: {
+                  enter(node) {
+                    addEvent('element/enter:children', node, pluginContext);
+                  },
+                  exit(node) {
+                    addEvent('element/exit:children', node, pluginContext);
+                  }
+                }
+              }
+            },
+            MustacheCommentStatement: {
+              enter(node) {
+                addEvent('comment/enter', node, pluginContext);
+              },
+              exit(node) {
+                addEvent('comment/exit', node, pluginContext);
+              }
+            }
+          };
+        }
+      }
+
+      return FakeRule;
+    }
+
+    function precompile(template, config) {
       if (config === undefined) {
         config = true;
       }
 
-      var FakePlugin = buildPlugin({
-        log(result) {
-          messages.push(result.source);
-        },
-        name: 'fake',
-        config: config
-      });
-
-      FakePlugin.prototype.visitors = function() {
-        var pluginContext = this;
-
-        return {
-          ElementNode: {
-            enter(node) {
-              addEvent('element/enter', node, pluginContext);
-            },
-            exit(node) {
-              addEvent('element/exit', node, pluginContext);
-            },
-            keys: {
-              children: {
-                enter(node) {
-                  addEvent('element/enter:children', node, pluginContext);
-                },
-                exit(node) {
-                  addEvent('element/exit:children', node, pluginContext);
-                }
-              }
-            }
-          },
-          MustacheCommentStatement: {
-            enter(node) {
-              addEvent('comment/enter', node, pluginContext);
-            },
-            exit(node) {
-              addEvent('comment/exit', node, pluginContext);
-            }
-          }
-        };
-      };
-
-      return FakePlugin;
-    }
-
-    function precompile(template, config) {
-      precompileTemplate(template, [ plugin(config) ]);
+      precompileTemplate(template, [ plugin(buildPlugin(), 'fake', config) ]);
     }
 
     beforeEach(function() {

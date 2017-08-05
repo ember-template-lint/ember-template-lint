@@ -1,6 +1,71 @@
 Changelog
 =========
 
+## 0.8.1
+
+- Fix issue with console output formatting to avoid noisy console output when no errors are present.
+
+## 0.8.0
+
+- Refactor the console output formatter to be a much closer match to ESLint output (changes the signature of `Linter.errorsToMessages`).
+
+## 0.7.4
+
+- Cleanup dependencies (remove unused, update versions to latest, etc).
+- Move rule documentation out of the `README.md` and into `docs/rules/<rule-name>.md` to make it simpler to reason about and link to documentation by rule.
+- Add `require` as an option to `self-closing-void-elements`. Use this value if you would like to _require_ that all void elements are self closing (e.g. you require `<img />`).
+
+## 0.7.3
+
+- Move `strip-bom` to `dependencies` (was mistakenly a `devDependency`).
+
+## 0.7.2
+
+- Prevent errors when using contextual components.
+
+## 0.7.1
+
+- Prevent errors within the `bare-strings` rule for `<input placeholder="{{foo}}.">`
+
+## 0.7.0
+
+- Add support for user supplied rules and configuration. Please review [the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/plugins.md) for more details.
+- Add `ember-template-lint` command line script. This enable much easier running of the linter from the command line, editor plugins, etc. Supports `--json` flag to enable easier consumption by tools. See [documentation](https://github.com/rwjblue/ember-template-lint#cli-executable) for more details.
+- Allow `rel=noreferrer` to satisfy the `link-rel-noopener` rule.
+- Add `inline-styles` rule, which forbids using the `style` attribute in HTML elements.
+- Drop support for Node < 4.
+- Fix a number of issues with `block-indentation` rule when using "whitespace control" characters (e.g. `{{~if foo~}}`).
+- Add support for globs in `.template-lintrc.js`'s `ignore` option.
+- Add `simple-unless` rule which forbids using `{{unless` with an inverse (or from an inverse), and with complex helper invocations as the predicate.
+
+  ```hbs
+  {{! good }}
+
+  <div class="{{unless foo "bar"}}"></div>
+  {{#unless something}}
+  {{/unless}}
+
+  {{! bad }}
+
+  {{#unless something}}
+  {{else}}
+  {{/unless}}
+
+
+  {{#unless (complex (helper (invocation)))}}
+  {{/unless}}
+  ```
+- Add `simple-unless` to the recommended configuration.
+- Allow `<form onsubmit={{action 'foo'}}></form>` from the `invalid-interactive` rule.
+- Remove `deprecated-each-syntax` from `recommended` config.
+- Add configurable option to `link-rel-noopener` to require **both** `noopener` and `noreferrer`. See the [documentation](https://github.com/rwjblue/ember-template-lint#link-rel-noopener) for more details.
+- Update to leverage ES2015 features that are supported in Node 4.
+- Added `no-log` and `no-debugger` rules. These rules forbid usage of `{{log}}` and `{{debugger}` helpers, which should be used only for local debugging and never checked in.
+- Fix issues around templates including a [Byte Order Mark](https://en.wikipedia.org/wiki/Byte_order_mark).
+- Upgrade underlying engine to leverage `@glimmer/compiler@0.25.1`. Includes much smaller footprint, better location support, easier to use plugin API.
+- Change API around `Rule` definition. A simple `class extends Rule { }` is all that is required.
+
+
 ## v0.6.3
 
 - Add support for Handlebars comments.
