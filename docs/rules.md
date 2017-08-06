@@ -11,6 +11,7 @@
 * [nested-interactive](rule/nested-interactive.md)
 * [no-debugger](rule/no-debugger.md)
 * [no-log](rule/no-log.md)
+* [no-duplicate-attributes](rule/unused-block-params.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
 * [simple-unless](rule/simple-unless.md)
 * [style-concatenation](rule/style-concatenation.md)
