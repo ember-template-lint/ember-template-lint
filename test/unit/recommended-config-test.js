@@ -37,4 +37,7 @@ describe('recommended config', function() {
 
   // This ensures that we don't face this issue again => https://github.com/rwjblue/ember-template-lint/issues/230
   ensureValid('{{#foo-bar as |baz|}}{{#baz.derp}}{{/baz.derp}}{{/foo-bar}}');
+
+  // This ensures that we don't face this issue again => https://github.com/rwjblue/ember-template-lint/issues/253
+  ensureValid('<img alt="special thing" src={{some-dir/some-thing x}}>');
 });
