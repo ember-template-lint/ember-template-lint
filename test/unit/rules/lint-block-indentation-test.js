@@ -65,6 +65,8 @@ generateRuleTests({
       '  <p>Hi!</p>\n' +
       '{{/if}}',
     '{{#if foo}}<p>Hi!</p>{{/if}}',
+    '{{#if foo}}<p>Hi!</p>{{else}}<p>Bye!</p>{{/if}}',
+    '{{#if foo}}<p>Hi!</p>{{else if bar}}<p>Hello!</p>{{else}}<p>Bye!</p>{{/if}}',
     '<div>\n' +
       '  <span>Foo</span>{{#some-thing}}<p>lorum ipsum</p>{{/some-thing}}\n' +
       '</div>',
@@ -524,6 +526,32 @@ generateRuleTests({
         line: 2,
         column: 7
       }
+    },
+    {
+      template: [
+        '{{#if foo}}foo{{else}}',
+        '  bar',
+        '{{/if}}'
+      ].join('\n'),
+
+      results: [
+        {
+          rule: 'block-indentation',
+          message: 'Incorrect indentation for inverse block of `{{#if}}` beginning at L1:C0. Expected `{{else}}` starting at L1:C14 to be at an indentation of 0 but was found at 14.',
+          moduleId: 'layout.hbs',
+          source: '{{#if foo}}foo{{else}}\n  bar\n{{/if}}',
+          line: 1,
+          column: 14
+        },
+        {
+          rule: 'block-indentation',
+          message: 'Incorrect indentation for `foo` beginning at L1:C11. Expected `foo` to be at an indentation of 2 but was found at 11.',
+          moduleId: 'layout.hbs',
+          source: '{{#if foo}}foo{{else}}\n  bar\n{{/if}}',
+          line: 1,
+          column: 11
+        }
+      ]
     }
   ]
 });
