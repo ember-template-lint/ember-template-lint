@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 0.8.3
+
+- Update @glimmer packages to 0.27.0.
+- Update `block-indentation` rule to allow `{{#if foo}}stuff{{else}}stuff{{/if}}`.
+- Fix error being thrown by `linebreak-style` rule when dynamic attributes were being used (e.g. `<img alt="example" src={{some/thing here}}>`).
+
 ## 0.8.2
 
 - Add new rule `no-duplicate-attributes` to prevent duplicating the same attributes in a single mustache/block/element. Read the [documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/no-duplicate-attributes.md) for more details.
