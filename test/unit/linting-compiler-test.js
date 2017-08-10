@@ -29,7 +29,7 @@ describe('template compiler', function() {
     function noopPlugin() {
       invocationCount++;
 
-      return { name: 'fake', visitors: { } };
+      return { name: 'fake', visitor: { } };
     }
     astPlugins.push(noopPlugin);
     precompile('<div></div>');
@@ -45,7 +45,7 @@ describe('template compiler', function() {
       return {
         name: 'noop',
 
-        visitors: {}
+        visitor: {}
       };
     }
 
