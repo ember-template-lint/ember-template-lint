@@ -52,7 +52,7 @@ describe('base plugin', function() {
 
       let visitor = plugin.getVisitor();
 
-      return { name, visitors: visitor};
+      return { name, visitor };
     };
   }
 
