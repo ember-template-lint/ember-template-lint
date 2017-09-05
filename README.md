@@ -71,6 +71,13 @@ Example usage:
 ./node_modules/.bin/ember-template-lint app/templates/application.hbs --json
 ```
 
+### ESLint
+
+If you're using [ember-inline-component](https://github.com/knownasilya/ember-inline-component)
+for your templates, then your templates show up in your `.js.` files, and not
+in `.hbs` files. In this case, it's still possible to use `ember-template-lint`
+through an [eslint-plugin](https://github.com/psbanka/eslint-plugin-hbs).
+
 ## Configuration
 
 ### Project Wide
