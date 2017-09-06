@@ -73,10 +73,9 @@ Example usage:
 
 ### ESLint
 
-If you're using [ember-inline-component](https://github.com/knownasilya/ember-inline-component)
-for your templates, then your templates show up in your `.js.` files, and not
-in `.hbs` files. In this case, it's still possible to use `ember-template-lint`
-through an [eslint-plugin](https://github.com/psbanka/eslint-plugin-hbs).
+If you are using templates inlined into your JS files, you can leverage
+[eslint-plugin-hbs](https://github.com/psbanka/eslint-plugin-hbs) to integrate
+ember-template-lint into your normal eslint workflow.
 
 ## Configuration
 
