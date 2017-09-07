@@ -8,8 +8,7 @@ generateRuleTests({
   config: true,
 
   good: [
-    'testing this',
-    'testing \n this',
+    'testing this\nand\nthis\nand\this',
     {
       config: {max: 10},
       template: 'testing\nthis\n'
