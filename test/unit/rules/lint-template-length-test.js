@@ -47,21 +47,6 @@ generateRuleTests({
         line: 1,
         column: 0,
       }
-    /*
-    },
-    {
-      config: true,
-      template: Array(200).fill().map('test this\n').join(),
-
-      result: {
-        rule: 'template-length',
-        moduleId: 'layout.hbs',
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 1,
-        column: 8,
-        source: '\r\n'
-      }
-      */
     }
   ]
 });

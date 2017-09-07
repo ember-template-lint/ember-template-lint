@@ -16,6 +16,7 @@
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
 * [simple-unless](rule/simple-unless.md)
 * [style-concatenation](rule/style-concatenation.md)
+* [template-length](rule/template-length.md)
 * [triple-curlies](rule/triple-curlies.md)
 * [unused-block-params](rule/unused-block-params.md)
 
