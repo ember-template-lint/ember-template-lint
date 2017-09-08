@@ -1,5 +1,6 @@
 # Rules
 
+* [attribute-indentation](rule/attribute-indentation.md)
 * [bare-strings](rule/bare-strings.md)
 * [block-indentation](rule/block-indentation.md)
 * [html-comments](rule/html-comments.md)
