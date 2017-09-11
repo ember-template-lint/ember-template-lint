@@ -1,6 +1,52 @@
 Changelog
 =========
 
+## 0.8.4
+
+- Add new `attribute-indentation` rule.  Examples:
+
+``` hbs
+{{! good }}
+
+{{foo-bar baz="bat" derp="qux"}}
+
+{{foo-bar
+  baz="bat"
+  derp="qux"
+}}
+
+{{#foo-bar
+  baz="bat"
+  derp="qux"
+as |foo|}}
+  stuff here
+{{/foo-bar}}
+
+{{#foo-bar baz="bat" derp="qux" as |foo|}}
+  stuff here
+{{/foo-bar}}
+```
+
+``` hbs
+{{! bad }}
+
+{{foo-bar baz="bat"
+  derp="qux"
+}}
+
+{{foo-bar
+baz="bat"
+derp="qux"
+}}
+
+{{foo-bar
+  baz="bat"
+  derp="qux"}}
+```
+
+You can read more about the rule (and configuration) [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/attribute-indentation.md).
+
+
 ## 0.8.3
 
 - Update @glimmer packages to 0.27.0.
