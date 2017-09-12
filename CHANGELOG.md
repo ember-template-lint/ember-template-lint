@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.5
+
+- Add new `template-length` rule. When enabled, this rule restricts the total number of lines in a template file to the configured number. You can read more about the rule (and configuration) [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/template-length.md).
+
 ## 0.8.4
 
 - Add new `attribute-indentation` rule.  Examples:
