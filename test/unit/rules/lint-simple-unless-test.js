@@ -12,6 +12,7 @@ generateRuleTests({
     '<div class="{{unless foo \'no-foo\'}}"></div>',
     '<div class="{{if foo \'foo\'}}"></div>',
     '{{unrelated-mustache-without-params}}',
+    '{{#if foo}}{{else}}{{/if}}',
     [
       '{{#unless hamburger}}',
       '  HOT DOG!',
