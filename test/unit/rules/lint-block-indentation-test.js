@@ -552,6 +552,49 @@ generateRuleTests({
           column: 11
         }
       ]
+    },
+    {
+      template: [
+        '{{#if foo}}',
+        '  foo',
+        '{{else}}',
+        '    bar',
+        '{{/if}}'
+      ].join('\n'),
+
+      results: [
+        {
+          rule: 'block-indentation',
+          message: 'Incorrect indentation for `    bar\n` beginning at L4:C0. Expected `    bar\n` to be at an indentation of 2 but was found at 4.',
+          moduleId: 'layout.hbs',
+          source: '{{#if foo}}\n  foo\n{{else}}\n    bar\n{{/if}}',
+          line: 4,
+          column: 0
+        }
+      ]
+    },
+    {
+      template: [
+        '{{#if foo}}',
+        '  foo',
+        '{{else}}',
+        '    {{#if bar}}',
+        '      bar',
+        '    {{/if}}',
+        '{{/if}}'
+      ].join('\n'),
+
+      results: [
+        {
+          rule: 'block-indentation',
+          message: 'Incorrect indentation for `{{#if}}` beginning at L4:C4. Expected `{{#if}}` to be at an indentation of 2 but was found at 4.',
+          moduleId: 'layout.hbs',
+          source: '{{#if foo}}\n  foo\n{{else}}\n    {{#if bar}}\n      bar\n    {{/if}}\n{{/if}}',
+          line: 4,
+          column: 4
+        }
+      ]
     }
+
   ]
 });
