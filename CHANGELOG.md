@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.7
+
+- Ensure that the contents of else blocks (a.k.a. `inverse` blocks) are checked for indentation.
+
 ## 0.8.6
 
 - Fix error in `simple-unless` rule when an `{{if` or `{{unless` block was empty.
