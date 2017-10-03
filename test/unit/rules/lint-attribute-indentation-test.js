@@ -122,7 +122,7 @@ generateRuleTests({
       'source': '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}'
     }]
   }, {
-      //Block form (> 80 chars)
+    //Block form (> 80 chars)
     template: '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}' + '\n' +
     '  {{fullName}}' + '\n' +
     '{{/contact-details}}',
@@ -163,7 +163,7 @@ generateRuleTests({
       'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
     }]
   }, {
-      //Block form with no params with multiple lines.
+    //Block form with no params with multiple lines.
     template: '{{#contact-details' + '\n' +
                '\n' +
                '\n' +
