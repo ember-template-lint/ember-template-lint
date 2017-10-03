@@ -48,7 +48,7 @@ generateRuleTests({
         rule: 'nested-interactive',
         message: 'Do not use an <a> element with the `href` attribute inside an <a> element with the `href` attribute',
         moduleId: 'layout.hbs',
-        source: '<a href=\"/\">!</a>',
+        source: '<a href="/">!</a>',
         line: 1,
         column: 18
       }
@@ -72,7 +72,7 @@ generateRuleTests({
         rule: 'nested-interactive',
         message: 'Do not use an <a> element with the `href` attribute inside <button>',
         moduleId: 'layout.hbs',
-        source: '<a href=\"/\">!</a>',
+        source: '<a href="/">!</a>',
         line: 1,
         column: 14
       }
@@ -120,7 +120,7 @@ generateRuleTests({
         rule: 'nested-interactive',
         message: 'Do not use <embed> inside <button>',
         moduleId: 'layout.hbs',
-        source: '<embed type=\"video/quicktime\" src=\"movie.mov\" width=\"640\" height=\"480\">',
+        source: '<embed type="video/quicktime" src="movie.mov" width="640" height="480">',
         line: 1,
         column: 8
       }
@@ -132,7 +132,7 @@ generateRuleTests({
         rule: 'nested-interactive',
         message: 'Do not use <iframe> inside <button>',
         moduleId: 'layout.hbs',
-        source: '<iframe src=\"/frame.html\" width=\"640\" height=\"480\"></iframe>',
+        source: '<iframe src="/frame.html" width="640" height="480"></iframe>',
         line: 1,
         column: 8
       }
@@ -168,7 +168,7 @@ generateRuleTests({
         rule: 'nested-interactive',
         message: 'Do not use an element with the `tabindex` attribute inside <button>',
         moduleId: 'layout.hbs',
-        source: '<div tabindex=\"1\"></div>',
+        source: '<div tabindex="1"></div>',
         line: 1,
         column: 8
       }
@@ -180,7 +180,7 @@ generateRuleTests({
         rule: 'nested-interactive',
         message: 'Do not use an <img> element with the `usemap` attribute inside <button>',
         moduleId: 'layout.hbs',
-        source: '<img usemap=\"\">',
+        source: '<img usemap="">',
         line: 1,
         column: 8
       }
