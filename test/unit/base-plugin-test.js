@@ -107,6 +107,26 @@ describe('base plugin', function() {
     });
   });
 
+  describe('node types', function() {
+    let wasCalled;
+
+    let visitor = {
+      Program() {
+        wasCalled = true;
+      }
+    };
+
+    function precompile(template) {
+      precompileTemplate(template, [ plugin(buildPlugin(visitor), 'fake', config) ]);
+    }
+
+    it('calls the "Program" node type', function() {
+      precompile('<div>Foo</div>');
+
+      expect(wasCalled).to.be.true;
+    });
+  });
+
   describe('parses instructions', function() {
     function precompile(template) {
       let Rule = buildPlugin({
