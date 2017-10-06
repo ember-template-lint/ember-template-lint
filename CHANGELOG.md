@@ -1,6 +1,48 @@
 Changelog
 =========
 
+## 0.8.8
+
+- Add new `table-groups` rule. Examples:
+
+The rule forbids the following:
+
+```hbs
+<table>
+  <tr>
+    <td></td>
+  </tr>
+</table>
+```
+
+```hbs
+<table>
+  {{some-thing content=content}}
+</table>
+```
+
+Instead, you should write your table as:
+
+```hbs
+<table>
+  <tbody>
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+```
+
+```hbs
+<table>
+  <tbody>
+    {{some-thing content=content}}
+  </tbody>
+</table>
+```
+
+You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/table-groups.md).
+
 ## 0.8.7
 
 - Ensure that the contents of else blocks (a.k.a. `inverse` blocks) are checked for indentation.
