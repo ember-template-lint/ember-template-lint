@@ -9,6 +9,7 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<table> </table>',
     '<table><thead><tr><td>Header</td></tr></thead></table>',
     '<table><tbody><tr><td>Body</td></tr></tbody></table>',
     '<table><tfoot><tr><td>Footer</td></tr></tfoot></table>',
