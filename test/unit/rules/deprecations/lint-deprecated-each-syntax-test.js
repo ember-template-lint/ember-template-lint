@@ -22,7 +22,7 @@ generateRuleTests({
 
       result: {
         rule: 'deprecated-each-syntax',
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{#each post in posts}}',
         line: 1,
@@ -37,7 +37,7 @@ generateRuleTests({
 
       result: {
         rule: 'deprecated-each-syntax',
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{#each posts}}',
         line: 1,
