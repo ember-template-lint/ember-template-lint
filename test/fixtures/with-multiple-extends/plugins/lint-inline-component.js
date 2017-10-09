@@ -10,7 +10,7 @@ module.exports = class InlineComponent extends Rule {
       MustacheStatement(node) {
         if (node.path.original === 'component') {
           this.log({
-            message: message,
+            message,
             line: node.loc && node.loc.start.line,
             column: node.loc && node.loc.start.column,
             source: this.sourceForNode(node)

@@ -41,7 +41,7 @@ generateRuleTests({
       template: '<table><tr><td>Foo</td></tr></table>',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '<table><tr><td>Foo</td></tr></table>',
         line: 1,
@@ -52,7 +52,7 @@ generateRuleTests({
       template: '<table>{{some-component}}</table>',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '<table>{{some-component}}</table>',
         line: 1,
@@ -63,7 +63,7 @@ generateRuleTests({
       template: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
         line: 1,
@@ -77,7 +77,7 @@ generateRuleTests({
         '</table>',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '<table>' +
             '<tr></tr>' +

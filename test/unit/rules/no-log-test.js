@@ -18,7 +18,7 @@ generateRuleTests({
       template: '{{log}}',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{log}}',
         line: 1,
@@ -29,7 +29,7 @@ generateRuleTests({
       template: '{{log "Logs are best for debugging!"}}',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{log "Logs are best for debugging!"}}',
         line: 1,
@@ -40,7 +40,7 @@ generateRuleTests({
       template: '{{#log}}Arrgh!{{/log}}',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{#log}}Arrgh!{{/log}}',
         line: 1,
@@ -51,7 +51,7 @@ generateRuleTests({
       template: '{{#log "Foo"}}{{/log}}',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{#log "Foo"}}{{/log}}',
         line: 1,

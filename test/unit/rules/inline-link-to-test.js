@@ -18,7 +18,7 @@ generateRuleTests({
       template: '{{link-to \'Link text\' \'routeName\'}}',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{link-to \'Link text\' \'routeName\'}}',
         line: 1,
@@ -29,7 +29,7 @@ generateRuleTests({
       template: '{{link-to \'Link text\' \'routeName\' one two}}',
 
       result: {
-        message: message,
+        message,
         moduleId: 'layout.hbs',
         source: '{{link-to \'Link text\' \'routeName\' one two}}',
         line: 1,
