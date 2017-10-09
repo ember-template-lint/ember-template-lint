@@ -18,7 +18,6 @@ generateRuleTests({
       template: '{{debugger}}',
 
       result: {
-        rule: 'no-debugger',
         message: message,
         moduleId: 'layout.hbs',
         source: '{{debugger}}',
@@ -30,7 +29,6 @@ generateRuleTests({
       template: '{{debugger}}',
 
       result: {
-        rule: 'no-debugger',
         message: message,
         moduleId: 'layout.hbs',
         source: '{{debugger}}',
@@ -42,7 +40,6 @@ generateRuleTests({
       template: '{{#debugger}}Invalid!{{/debugger}}',
 
       result: {
-        rule: 'no-debugger',
         message: message,
         moduleId: 'layout.hbs',
         source: '{{#debugger}}Invalid!{{/debugger}}',

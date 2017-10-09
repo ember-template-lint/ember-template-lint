@@ -96,7 +96,6 @@ generateRuleTests({
       message: 'Self-closing void element as <area> is redundant (\'layout.hbs\'@ L1:C0)',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<area/>',
@@ -111,7 +110,6 @@ generateRuleTests({
       template: '<base/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<base/>',
@@ -126,7 +124,6 @@ generateRuleTests({
       template: '<br/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<br/>',
@@ -141,7 +138,6 @@ generateRuleTests({
       template: '<col/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<col/>',
@@ -156,7 +152,6 @@ generateRuleTests({
       template: '<command/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<command/>',
@@ -171,7 +166,6 @@ generateRuleTests({
       template: '<embed/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<embed/>',
@@ -186,7 +180,6 @@ generateRuleTests({
       template: '<hr/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<hr/>',
@@ -201,7 +194,6 @@ generateRuleTests({
       template: '<img/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<img/>',
@@ -216,7 +208,6 @@ generateRuleTests({
       template: '<input/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<input/>',
@@ -231,7 +222,6 @@ generateRuleTests({
       template: '<keygen/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<keygen/>',
@@ -246,7 +236,6 @@ generateRuleTests({
       template: '<link/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<link/>',
@@ -261,7 +250,6 @@ generateRuleTests({
       template: '<meta/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<meta/>',
@@ -276,7 +264,6 @@ generateRuleTests({
       template: '<param/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<param/>',
@@ -291,7 +278,6 @@ generateRuleTests({
       template: '<source/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<source/>',
@@ -306,7 +292,6 @@ generateRuleTests({
       template: '<track/>',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<track/>',
@@ -322,7 +307,6 @@ generateRuleTests({
       config: true,
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is redundant',
         moduleId: 'layout.hbs',
         source: '<wbr/>',
@@ -338,7 +322,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<area>',
@@ -354,7 +337,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<base>',
@@ -370,7 +352,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<br>',
@@ -386,7 +367,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<col>',
@@ -402,7 +382,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<command>',
@@ -418,7 +397,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<embed>',
@@ -434,7 +412,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<hr>',
@@ -450,7 +427,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<img>',
@@ -466,7 +442,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<input>',
@@ -482,7 +457,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<keygen>',
@@ -498,7 +472,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<link>',
@@ -514,7 +487,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<meta>',
@@ -530,7 +502,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<param>',
@@ -546,7 +517,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<source>',
@@ -562,7 +532,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<track>',
@@ -578,7 +547,6 @@ generateRuleTests({
       config: 'require',
 
       result: {
-        rule: 'self-closing-void-elements',
         message: 'Self-closing a void element is required',
         moduleId: 'layout.hbs',
         source: '<wbr>',

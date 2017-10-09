@@ -19,7 +19,6 @@ generateRuleTests({
       template: '<!-- comment here -->',
 
       result: {
-        rule: 'html-comments',
         message: 'HTML comment detected',
         moduleId: 'layout.hbs',
         source: '<!-- comment here -->',
@@ -34,7 +33,6 @@ generateRuleTests({
       template: '<!--comment here-->',
 
       result: {
-        rule: 'html-comments',
         message: 'HTML comment detected',
         moduleId: 'layout.hbs',
         source: '<!--comment here-->',

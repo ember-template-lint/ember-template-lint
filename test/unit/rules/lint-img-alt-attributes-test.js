@@ -21,7 +21,6 @@ generateRuleTests({
       template: '<img>',
 
       result: {
-        rule: 'img-alt-attributes',
         message: 'img tags must have an alt attribute',
         moduleId: 'layout.hbs',
         source: '<img>',

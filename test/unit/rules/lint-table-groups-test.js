@@ -41,7 +41,6 @@ generateRuleTests({
       template: '<table><tr><td>Foo</td></tr></table>',
 
       result: {
-        rule: 'table-groups',
         message: message,
         moduleId: 'layout.hbs',
         source: '<table><tr><td>Foo</td></tr></table>',
@@ -53,7 +52,6 @@ generateRuleTests({
       template: '<table>{{some-component}}</table>',
 
       result: {
-        rule: 'table-groups',
         message: message,
         moduleId: 'layout.hbs',
         source: '<table>{{some-component}}</table>',
@@ -65,7 +63,6 @@ generateRuleTests({
       template: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
 
       result: {
-        rule: 'table-groups',
         message: message,
         moduleId: 'layout.hbs',
         source: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
@@ -80,7 +77,6 @@ generateRuleTests({
         '</table>',
 
       result: {
-        rule: 'table-groups',
         message: message,
         moduleId: 'layout.hbs',
         source: '<table>' +

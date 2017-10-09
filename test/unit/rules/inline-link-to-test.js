@@ -18,7 +18,6 @@ generateRuleTests({
       template: '{{link-to \'Link text\' \'routeName\'}}',
 
       result: {
-        rule: 'inline-link-to',
         message: message,
         moduleId: 'layout.hbs',
         source: '{{link-to \'Link text\' \'routeName\'}}',
@@ -30,7 +29,6 @@ generateRuleTests({
       template: '{{link-to \'Link text\' \'routeName\' one two}}',
 
       result: {
-        rule: 'inline-link-to',
         message: message,
         moduleId: 'layout.hbs',
         source: '{{link-to \'Link text\' \'routeName\' one two}}',

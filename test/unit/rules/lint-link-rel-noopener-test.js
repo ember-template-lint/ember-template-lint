@@ -24,7 +24,6 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank"></a>',
 
       result: {
-        rule: 'link-rel-noopener',
         message: 'links with target="_blank" must have rel="noopener"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank"></a>',
@@ -36,7 +35,6 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
 
       result: {
-        rule: 'link-rel-noopener',
         message: 'links with target="_blank" must have rel="noopener"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
@@ -49,7 +47,6 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank" rel="noopener"></a>',
 
       result: {
-        rule: 'link-rel-noopener',
         message: 'links with target="_blank" must have rel="noopener noreferrer"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="noopener"></a>',
@@ -62,7 +59,6 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
 
       result: {
-        rule: 'link-rel-noopener',
         message: 'links with target="_blank" must have rel="noopener noreferrer"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
@@ -75,7 +71,6 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
 
       result: {
-        rule: 'link-rel-noopener',
         message: 'links with target="_blank" must have rel="noopener noreferrer"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
