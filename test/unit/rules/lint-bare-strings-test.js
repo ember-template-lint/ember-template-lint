@@ -81,7 +81,6 @@ generateRuleTests({
       template: '\n howdy',
 
       result: {
-        rule: 'bare-strings',
         moduleId: 'layout.hbs',
         message: 'Non-translated string used',
         line: 1,
@@ -93,7 +92,6 @@ generateRuleTests({
       template: '<div>\n  1234\n</div>',
 
       result: {
-        rule: 'bare-strings',
         moduleId: 'layout.hbs',
         message: 'Non-translated string used',
         line: 1,
@@ -106,7 +104,6 @@ generateRuleTests({
       template: '<a title="hahaha trolol"></a>',
 
       result: {
-        rule: 'bare-strings',
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `title` attribute',
         line: 1,
@@ -119,7 +116,6 @@ generateRuleTests({
       template: '<input placeholder="trolol">',
 
       result: {
-        rule: 'bare-strings',
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
@@ -132,7 +128,6 @@ generateRuleTests({
       template: '<input placeholder="{{foo}}hahaha trolol">',
 
       result: {
-        rule: 'bare-strings',
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
@@ -146,7 +141,6 @@ generateRuleTests({
       template: '<div data-foo="derpy"></div>',
 
       result: {
-        rule: 'bare-strings',
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `data-foo` attribute',
         line: 1,
@@ -160,7 +154,6 @@ generateRuleTests({
       template: '<img data-alt="some alternate here">',
 
       result: {
-        rule: 'bare-strings',
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `data-alt` attribute',
         line: 1,
@@ -174,14 +167,12 @@ generateRuleTests({
       template: '<div>Bady\n  <input placeholder="trolol">\n</div>',
       results: [
         {
-          rule: 'bare-strings',
           moduleId: 'layout.hbs',
           message: 'Non-translated string used',
           line: 1,
           column: 5,
           source: 'Bady\n  '
         }, {
-          rule: 'bare-strings',
           moduleId: 'layout.hbs',
           message: 'Non-translated string used in `placeholder` attribute',
           line: 2,

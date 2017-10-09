@@ -29,7 +29,6 @@ generateRuleTests({
       template: '\r\n',
 
       result: {
-        rule: 'linebreak-style',
         moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
@@ -41,7 +40,6 @@ generateRuleTests({
       template: '{{#if test}}\r\n{{/if}}',
 
       result: {
-        rule: 'linebreak-style',
         moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
@@ -53,7 +51,6 @@ generateRuleTests({
       template: '{{blah}}\r\n{{blah}}',
 
       result: {
-        rule: 'linebreak-style',
         moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
@@ -65,7 +62,6 @@ generateRuleTests({
       template: '{{blah}}\r\n',
 
       result: {
-        rule: 'linebreak-style',
         moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
@@ -77,7 +73,6 @@ generateRuleTests({
       template: '{{blah arg="\r\n"}}',
 
       result: {
-        rule: 'linebreak-style',
         moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
@@ -90,7 +85,6 @@ generateRuleTests({
       template: '\n',
 
       result: {
-        rule: 'linebreak-style',
         moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected CRLF but found LF',
         line: 1,

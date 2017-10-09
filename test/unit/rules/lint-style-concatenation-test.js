@@ -17,7 +17,6 @@ generateRuleTests({
       template: '<img style="background-image: {{url}}">',
 
       result: {
-        rule: 'style-concatenation',
         message: 'You may not use string concatenation to build up styles',
         moduleId: 'layout.hbs',
         source: 'style="background-image: {{url}}"',
@@ -29,7 +28,6 @@ generateRuleTests({
       template: '<img style="{{background-image url}}">',
 
       result: {
-        rule: 'style-concatenation',
         message: 'You may not use string concatenation to build up styles',
         moduleId: 'layout.hbs',
         source: 'style="{{background-image url}}"',

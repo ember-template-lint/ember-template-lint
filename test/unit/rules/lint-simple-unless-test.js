@@ -25,7 +25,6 @@ generateRuleTests({
       template: '{{unless (if true)  \'Please no\'}}',
 
       result: {
-        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
@@ -37,7 +36,6 @@ generateRuleTests({
       template: '{{unless (and isBad isAwful)  \'notBadAndAwful\'}}',
 
       result: {
-        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
@@ -55,7 +53,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else}}',
@@ -73,7 +70,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else if goHawks}}',
@@ -93,7 +89,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else if goPats}}',
@@ -113,7 +108,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else if goBengals}}',
@@ -131,7 +125,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.asElseUnlessBlock,
         moduleId: 'layout.hbs',
         source: '{{else unless ...',
@@ -147,7 +140,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
@@ -163,7 +155,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.withHelper,
         moduleId: 'layout.hbs',
         source: '{{unless (not ...',
@@ -181,7 +172,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'simple-unless',
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else}}',

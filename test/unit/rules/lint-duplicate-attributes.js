@@ -28,7 +28,6 @@ generateRuleTests({
       template: '{{my-component firstName=firstName lastName=lastName firstName=firstName}}',
 
       result: {
-        rule: 'no-duplicate-attributes',
         message: `Duplicate attribute 'firstName' found in the MustacheStatement.`,
         moduleId: 'layout.hbs',
         source: '{{my-component firstName=firstName lastName=lastName firstName=firstName}}',
@@ -42,7 +41,6 @@ generateRuleTests({
       '{{/my-component}}',
 
       result: {
-        rule: 'no-duplicate-attributes',
         message: `Duplicate attribute 'firstName' found in the BlockStatement.`,
         moduleId: 'layout.hbs',
         source: '{{#my-component firstName=firstName  lastName=lastName firstName=firstName as |fullName|}}' +
@@ -56,7 +54,6 @@ generateRuleTests({
       template: '<a class="btn" class="btn">{{btnLabel}}</a>',
 
       result: {
-        rule: 'no-duplicate-attributes',
         message: `Duplicate attribute 'class' found in the Element.`,
         moduleId: 'layout.hbs',
         source: '<a class="btn" class="btn">{{btnLabel}}</a>',
@@ -68,7 +65,6 @@ generateRuleTests({
       template: '{{employee-profile employee=(hash firstName=firstName lastName=lastName age=age firstName=firstName)}}',
 
       result: {
-        rule: 'no-duplicate-attributes',
         message: `Duplicate attribute 'firstName' found in the SubExpression.`,
         moduleId: 'layout.hbs',
         source: '(hash firstName=firstName lastName=lastName age=age firstName=firstName)',
@@ -80,7 +76,6 @@ generateRuleTests({
       template: '{{employee-profile employee=(hash fullName=(hash firstName=firstName lastName=lastName firstName=firstName) age=age)}}',
 
       result: {
-        rule: 'no-duplicate-attributes',
         message: `Duplicate attribute 'firstName' found in the SubExpression.`,
         moduleId: 'layout.hbs',
         source: '(hash firstName=firstName lastName=lastName firstName=firstName)',

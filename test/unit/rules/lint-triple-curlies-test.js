@@ -18,7 +18,6 @@ generateRuleTests({
       template: '\n {{{foo}}}',
 
       result: {
-        rule: 'triple-curlies',
         message: 'Usage of triple curly brackets is unsafe',
         moduleId: 'layout.hbs',
         source: '{{{foo}}}',

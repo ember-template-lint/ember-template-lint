@@ -45,7 +45,6 @@ generateRuleTests({
       template: '<a href="/">button<a href="/">!</a></a>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use an <a> element with the `href` attribute inside an <a> element with the `href` attribute',
         moduleId: 'layout.hbs',
         source: '<a href="/">!</a>',
@@ -57,7 +56,6 @@ generateRuleTests({
       template: '<a href="/">button<button>!</button></a>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <button> inside an <a> element with the `href` attribute',
         moduleId: 'layout.hbs',
         source: '<button>!</button>',
@@ -69,7 +67,6 @@ generateRuleTests({
       template: '<button>button<a href="/">!</a></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use an <a> element with the `href` attribute inside <button>',
         moduleId: 'layout.hbs',
         source: '<a href="/">!</a>',
@@ -81,7 +78,6 @@ generateRuleTests({
       template: '<button>button<button>!</button></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <button> inside <button>',
         moduleId: 'layout.hbs',
         source: '<button>!</button>',
@@ -93,7 +89,6 @@ generateRuleTests({
       template: '<button><input type="text"></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <input> inside <button>',
         moduleId: 'layout.hbs',
         source: '<input type="text">',
@@ -105,7 +100,6 @@ generateRuleTests({
       template: '<button><details><summary>Some details</summary><p>!</p></details></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <details> inside <button>',
         moduleId: 'layout.hbs',
         source: '<details><summary>Some details</summary><p>!</p></details>',
@@ -117,7 +111,6 @@ generateRuleTests({
       template: '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <embed> inside <button>',
         moduleId: 'layout.hbs',
         source: '<embed type="video/quicktime" src="movie.mov" width="640" height="480">',
@@ -129,7 +122,6 @@ generateRuleTests({
       template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <iframe> inside <button>',
         moduleId: 'layout.hbs',
         source: '<iframe src="/frame.html" width="640" height="480"></iframe>',
@@ -141,7 +133,6 @@ generateRuleTests({
       template: '<button><select></select></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <select> inside <button>',
         moduleId: 'layout.hbs',
         source: '<select></select>',
@@ -153,7 +144,6 @@ generateRuleTests({
       template: '<button><textarea></textarea></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <textarea> inside <button>',
         moduleId: 'layout.hbs',
         source: '<textarea></textarea>',
@@ -165,7 +155,6 @@ generateRuleTests({
       template: '<button><div tabindex="1"></div></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use an element with the `tabindex` attribute inside <button>',
         moduleId: 'layout.hbs',
         source: '<div tabindex="1"></div>',
@@ -177,7 +166,6 @@ generateRuleTests({
       template: '<button><img usemap=""></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use an <img> element with the `usemap` attribute inside <button>',
         moduleId: 'layout.hbs',
         source: '<img usemap="">',
@@ -189,7 +177,6 @@ generateRuleTests({
       template: '<object usemap=""><button></button></object>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <button> inside an <object> element with the `usemap` attribute',
         moduleId: 'layout.hbs',
         source: '<button></button>',
@@ -204,7 +191,6 @@ generateRuleTests({
       template: '<button><my-special-input></my-special-input></button>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use <my-special-input> inside <button>',
         moduleId: 'layout.hbs',
         source: '<my-special-input></my-special-input>',
@@ -217,7 +203,6 @@ generateRuleTests({
       template: '<label><input><input></label>',
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use multiple interactive elements inside a single `<label>`',
         moduleId: 'layout.hbs',
         source: '<label><input><input></label>',
@@ -235,7 +220,6 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        rule: 'nested-interactive',
         message: 'Do not use multiple interactive elements inside a single `<label>`',
         moduleId: 'layout.hbs',
         source: '<label for="foo">\n  <div id="foo" tabindex=-1></div>\n  <input>\n</label>',

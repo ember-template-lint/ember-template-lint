@@ -29,7 +29,6 @@ generateRuleTests({
       template: 'testing\ntoo-short template\n',
 
       result: {
-        rule: 'template-length',
         moduleId: 'layout.hbs',
         message: 'Template length of 3 is smaller than 10',
         line: 1,
@@ -41,7 +40,6 @@ generateRuleTests({
       template: 'test\nthis\nand\nthis\n',
 
       result: {
-        rule: 'template-length',
         moduleId: 'layout.hbs',
         message: 'Template length of 5 exceeds 3',
         line: 1,

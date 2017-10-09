@@ -7,7 +7,6 @@ function mapBadStyleExampleToTestRule(inlineStyle) {
     template: `<div ${inlineStyle}></div>`,
 
     result: {
-      rule: 'inline-styles',
       message: 'elements cannot have inline styles',
       moduleId: 'layout.hbs',
       source: inlineStyle,
