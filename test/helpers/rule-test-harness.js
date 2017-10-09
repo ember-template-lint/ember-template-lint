@@ -29,12 +29,8 @@ module.exports = function(options) {
     });
 
     options.bad.forEach(function(badItem) {
-      let testMethod;
-      if (badItem.focus) {
-        testMethod = it.only;
-      } else {
-        testMethod = it;
-      }
+      let template = badItem.template;
+      let testMethod = badItem.focus ? it.only : it;
 
       function parseResult(result) {
         let defaults = {
@@ -51,7 +47,7 @@ module.exports = function(options) {
         return assign({}, defaults, result);
       }
 
-      it(`logs a message in the console when given \`${badItem.template}\``, function() {
+      it(`logs a message in the console when given \`${template}\``, function() {
         let expectedResults = badItem.results || [badItem.result];
 
         expectedResults = expectedResults.map(parseResult);
@@ -60,26 +56,26 @@ module.exports = function(options) {
           config = badItem.config;
         }
 
-        let actual = verify(badItem.template);
+        let actual = verify(template);
 
         expect(actual).to.deep.equal(expectedResults);
       });
 
-      it(`passes with \`${badItem.template}\` when rule is disabled`, function() {
+      it(`passes with \`${template}\` when rule is disabled`, function() {
         config = false;
-        let actual = verify(badItem.template);
+        let actual = verify(template);
 
         expect(actual).to.deep.equal([]);
       });
 
-      testMethod(`passes with \`${badItem.template}\` when disabled via inline comment - single rule`, function() {
-        let actual = verify(DISABLE_ONE + '\n' + badItem.template);
+      testMethod(`passes with \`${template}\` when disabled via inline comment - single rule`, function() {
+        let actual = verify(DISABLE_ONE + '\n' + template);
 
         expect(actual).to.deep.equal([]);
       });
 
-      it(`passes with \`${badItem.template}\` when disabled via inline comment - all rules`, function() {
-        let actual = verify(DISABLE_ALL + '\n' + badItem.template);
+      it(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
+        let actual = verify(DISABLE_ALL + '\n' + template);
 
         expect(actual).to.deep.equal([]);
       });
