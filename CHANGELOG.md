@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 0.8.9
+
+- Add support for `colgroup` and `caption` to `table-groups` rule.
+- Colorize the error severity in the console output.
+
 ## 0.8.8
 
 - Add new `table-groups` rule. Examples:
