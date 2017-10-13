@@ -9,6 +9,15 @@ generateRuleTests({
 
   good: [
     [
+      '  this is fine'
+    ].join('\n'),
+    [
+      '<h1>Header</h1>',
+      '<div>',
+      '  \\{{example}}',
+      '</div>'
+    ].join('\n'),
+    [
       '<div>',
       '  \\{{example}}',
       '</div>'
@@ -498,13 +507,22 @@ generateRuleTests({
         '{{/if}}'
       ].join('\n'),
 
-      result: {
-        message: 'Incorrect indentation for `if` beginning at L1:C1. Expected `{{/if}}` ending at L2:C7 to be at an indentation of 1 but was found at 0.',
-        moduleId: 'layout.hbs',
-        source: '{{#if foo}}\n{{/if}}',
-        line: 2,
-        column: 7
-      }
+      results: [
+        {
+          message: 'Incorrect indentation for `{{#if}}` beginning at L1:C1. Expected `{{#if}}` to be at an indentation of 0, but was found at 1.',
+          moduleId: 'layout.hbs',
+          source: '{{#if foo}}\n{{/if}}',
+          line: 1,
+          column: 1
+        },
+        {
+          message: 'Incorrect indentation for `if` beginning at L1:C1. Expected `{{/if}}` ending at L2:C7 to be at an indentation of 1 but was found at 0.',
+          moduleId: 'layout.hbs',
+          source: '{{#if foo}}\n{{/if}}',
+          line: 2,
+          column: 7
+        }
+      ]
     },
     {
       template: [
@@ -569,7 +587,38 @@ generateRuleTests({
           column: 4
         }
       ]
-    }
+    },
+    {
+      template: [
+        '     {{#foo-bar}}',
+        '     {{/foo-bar}}'
+      ].join('\n'),
 
+      results: [
+        {
+          message: 'Incorrect indentation for `{{#foo-bar}}` beginning at L1:C5. Expected `{{#foo-bar}}` to be at an indentation of 0, but was found at 5.',
+          moduleId: 'layout.hbs',
+          source: '{{#foo-bar}}\n     {{/foo-bar}}',
+          line: 1,
+          column: 5
+        }
+      ]
+    },
+    {
+      template: [
+        '  <div>',
+        '  </div>'
+      ].join('\n'),
+
+      results: [
+        {
+          message: 'Incorrect indentation for `<div>` beginning at L1:C2. Expected `<div>` to be at an indentation of 0, but was found at 2.',
+          moduleId: 'layout.hbs',
+          source: '<div>\n  </div>',
+          line: 1,
+          column: 2
+        }
+      ]
+    }
   ]
 });
