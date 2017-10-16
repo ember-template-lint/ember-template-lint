@@ -1,6 +1,24 @@
 Changelog
 =========
 
+- Add new `no-trailing-spaces` rule. Examples:
+
+Bad:
+
+```hbs
+<div>test</div>//••
+//•••••
+```
+
+Good:
+
+```hbs
+<div>test</div>//
+//
+```
+
+You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/no-trailing-spaces.md).
+
 - Add new `eol-last` rule. Examples:
 
 Enforce either:
