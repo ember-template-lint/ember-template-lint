@@ -47,7 +47,7 @@ module.exports = function(options) {
         return assign({}, defaults, result);
       }
 
-      it(`logs a message in the console when given \`${template}\``, function() {
+      testMethod(`logs a message in the console when given \`${template}\``, function() {
         let expectedResults = badItem.results || [badItem.result];
 
         expectedResults = expectedResults.map(parseResult);
@@ -61,7 +61,7 @@ module.exports = function(options) {
         expect(actual).to.deep.equal(expectedResults);
       });
 
-      it(`passes with \`${template}\` when rule is disabled`, function() {
+      testMethod(`passes with \`${template}\` when rule is disabled`, function() {
         config = false;
         let actual = verify(template);
 
@@ -74,7 +74,7 @@ module.exports = function(options) {
         expect(actual).to.deep.equal([]);
       });
 
-      it(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
+      testMethod(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
         let actual = verify(DISABLE_ALL + '\n' + template);
 
         expect(actual).to.deep.equal([]);
