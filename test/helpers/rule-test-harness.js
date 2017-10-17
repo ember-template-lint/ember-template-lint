@@ -28,24 +28,24 @@ module.exports = function(options) {
       });
     });
 
+    function parseResult(result) {
+      let defaults = {
+        rule: options.name,
+        severity: 2
+      };
+
+      if (result.moduleId !== null) {
+        defaults.moduleId = 'layout.hbs';
+      } else {
+        delete result.moduleId;
+      }
+
+      return assign({}, defaults, result);
+    }
+
     options.bad.forEach(function(badItem) {
       let template = badItem.template;
       let testMethod = badItem.focus ? it.only : it;
-
-      function parseResult(result) {
-        let defaults = {
-          rule: options.name,
-          severity: 2
-        };
-
-        if (result.moduleId !== null) {
-          defaults.moduleId = 'layout.hbs';
-        } else {
-          delete result.moduleId;
-        }
-
-        return assign({}, defaults, result);
-      }
 
       testMethod(`logs a message in the console when given \`${template}\``, function() {
         let expectedResults = badItem.results || [badItem.result];
@@ -98,6 +98,44 @@ module.exports = function(options) {
         }
 
         expect(actual).to.deep.equal([]);
+      });
+    });
+
+    let error = options.error || [];
+    error.forEach(item => {
+      let template = item.template;
+      let testMethod = item.focus ? it.only : it;
+
+      if (item.config !== undefined) {
+        config = item.config;
+      }
+
+      let friendlyConfig = JSON.stringify(config);
+
+      let _config = config;
+
+      testMethod(`errors when given \`${template}\` with config \`${friendlyConfig}\``, function() {
+        let expectedResults = item.results || [item.result];
+
+        expectedResults = expectedResults.map(parseResult);
+
+        config = _config;
+
+        let actual = verify(template);
+
+        for (let i = 0; i < actual.length; i++) {
+          if (actual[i].fatal) {
+            delete expectedResults[i].rule;
+            delete actual[i].source;
+
+            expect(actual[i].message).to.contain(expectedResults[i].message);
+
+            delete actual[i].message;
+            delete expectedResults[i].message;
+          }
+        }
+
+        expect(actual).to.deep.equal(expectedResults);
       });
     });
   });

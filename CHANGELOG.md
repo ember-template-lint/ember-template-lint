@@ -1,6 +1,23 @@
 Changelog
 =========
 
+- Add new `eol-last` rule. Examples:
+
+Enforce either:
+
+```hbs
+<div>test</div>
+```
+
+or:
+
+```hbs
+<div>test</div>
+
+```
+
+You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/eol-last.md).
+
 ## 0.8.9
 
 - Add support for `colgroup` and `caption` to `table-groups` rule.
