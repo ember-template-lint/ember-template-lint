@@ -1,6 +1,8 @@
 Changelog
 =========
 
+## 0.8.10
+
 - Add new `no-trailing-spaces` rule. Examples:
 
 Bad:
