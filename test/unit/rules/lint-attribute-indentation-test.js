@@ -28,6 +28,16 @@ generateRuleTests({
     '  lastName=lastName' + '\n' +
     '}}',
 
+    //Multiple open-invocations with multiple lines.
+    '{{contact-details' + '\n' +
+    '  firstName=firstName' + '\n' +
+    '  lastName=lastName' + '\n' +
+    '}}' + '\n' +
+    '{{contact-details' + '\n' +
+    '  firstName=firstName' + '\n' +
+    '  lastName=lastName' + '\n' +
+    '}}',
+
     //Block form within 80 characters
     //with positional params
     '{{#contact-details firstName lastName}}' + '\n' +
