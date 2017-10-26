@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.11
+
+- Fix issue with `attribute-indentation` rule (reporting incorrect indentation for multiple valid invocations).
+
 ## 0.8.10
 
 - Add new `no-trailing-spaces` rule. Examples:
