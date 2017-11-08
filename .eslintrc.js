@@ -5,7 +5,8 @@ module.exports = {
   "env": {
     "node": true
   },
-  "extends": "eslint:recommended",
+  "plugins": ["node"],
+  "extends": ["eslint:recommended", "plugin:node/recommended"],
   "rules": {
     "indent": [
       2,
