@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.12
+
+- Ensure packages required by the executable script are dependencies. This fixes issues when using `ember-template-lint` as a globally installed package.
+
 ## 0.8.11
 
 - Fix issue with `attribute-indentation` rule (reporting incorrect indentation for multiple valid invocations).
