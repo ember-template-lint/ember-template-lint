@@ -74,6 +74,7 @@ function run() {
   }, {});
 
   if (Object.keys(errors).length) printErrors(errors);
+  // eslint-disable-next-line no-process-exit
   if (exitCode) return process.exit(exitCode);
 }
 
