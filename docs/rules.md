@@ -15,6 +15,7 @@
 * [no-duplicate-attributes](rule/unused-block-params.md)
 * [no-log](rule/no-log.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
+* [quotes](rule/quotes.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
 * [simple-unless](rule/simple-unless.md)
 * [style-concatenation](rule/style-concatenation.md)

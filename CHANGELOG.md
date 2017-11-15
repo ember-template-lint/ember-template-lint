@@ -1,6 +1,24 @@
 Changelog
 =========
 
+- Add new `quotes` rule. Examples:
+
+Enforce either:
+
+```hbs
+<div class="my-class">test</div>
+{{my-helper "hello there"}}
+```
+
+or:
+
+```hbs
+<div class='my-class'>test</div>
+{{my-helper 'hello there'}}
+```
+
+You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/quotes.md).
+
 ## 0.8.12
 
 - Ensure packages required by the executable script are dependencies. This fixes issues when using `ember-template-lint` as a globally installed package.
