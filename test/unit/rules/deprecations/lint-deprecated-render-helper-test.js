@@ -21,7 +21,6 @@ generateRuleTests({
       template: `{{render 'ken-griffey'}}`,
 
       result: {
-        rule: 'deprecated-render-helper',
         message,
         moduleId: 'layout.hbs',
         source: `{{render 'ken-griffey'}}`,
@@ -36,7 +35,6 @@ generateRuleTests({
       template: `{{render 'baseball-player' pitcher}}`,
 
       result: {
-        rule: 'deprecated-render-helper',
         message,
         moduleId: 'layout.hbs',
         source: `{{render 'baseball-player' pitcher}}`,

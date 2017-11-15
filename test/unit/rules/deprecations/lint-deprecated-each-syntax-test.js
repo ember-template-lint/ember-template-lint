@@ -21,7 +21,6 @@ generateRuleTests({
       template: '{{#each post in posts}}{{post.name}}{{/each}}',
 
       result: {
-        rule: 'deprecated-each-syntax',
         message,
         moduleId: 'layout.hbs',
         source: '{{#each post in posts}}',
@@ -36,7 +35,6 @@ generateRuleTests({
       template: '{{#each posts}}{{name}}{{/each}}',
 
       result: {
-        rule: 'deprecated-each-syntax',
         message,
         moduleId: 'layout.hbs',
         source: '{{#each posts}}',
