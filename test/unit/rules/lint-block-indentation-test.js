@@ -503,6 +503,23 @@ generateRuleTests({
     },
     {
       template: [
+        '{{#if media.isMobile}}',
+        '{{else}}',
+        '<span>',
+        '</span>',
+        '{{/if}}'
+      ].join('\n'),
+
+      result: {
+        message: 'Incorrect indentation for `<span>` beginning at L3:C0. Expected `<span>` to be at an indentation of 2 but was found at 0.',
+        moduleId: 'layout.hbs',
+        source: '{{#if media.isMobile}}\n{{else}}\n<span>\n</span>\n{{/if}}',
+        line: 3,
+        column: 0
+      }
+    },
+    {
+      template: [
         '\uFEFF {{#if foo}}',
         '{{/if}}'
       ].join('\n'),
