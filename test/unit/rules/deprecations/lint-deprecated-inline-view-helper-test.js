@@ -22,7 +22,6 @@ generateRuleTests({
       template: '{{view \'awful-fishsticks\'}}',
 
       result: {
-        rule: 'deprecated-inline-view-helper',
         message,
         moduleId: 'layout.hbs',
         source: '{{view \'awful-fishsticks\'}}',
@@ -37,7 +36,6 @@ generateRuleTests({
       template: '{{view.bad-fishsticks}}',
 
       result: {
-        rule: 'deprecated-inline-view-helper',
         message,
         moduleId: 'layout.hbs',
         source: '{{view.bad-fishsticks}}',
@@ -52,7 +50,6 @@ generateRuleTests({
       template: '{{view.terrible.fishsticks}}',
 
       result: {
-        rule: 'deprecated-inline-view-helper',
         message,
         moduleId: 'layout.hbs',
         source: '{{view.terrible.fishsticks}}',
@@ -67,7 +64,6 @@ generateRuleTests({
       template: '{{foo-bar bab=good baz=view.qux.qaz boo=okay}}',
 
       result: {
-        rule: 'deprecated-inline-view-helper',
         message,
         moduleId: 'layout.hbs',
         source: '{{foo-bar baz=view.qux.qaz}}',
@@ -82,7 +78,6 @@ generateRuleTests({
       template: '<div class="whatever-class" data-foo={{view.hallo}} sure=thing></div>',
 
       result: {
-        rule: 'deprecated-inline-view-helper',
         message,
         moduleId: 'layout.hbs',
         source: '<div data-foo={{view.hallo}}></div>',
@@ -97,7 +92,6 @@ generateRuleTests({
       template: '{{#foo-bar derp=view.whoops thing=whatever}}{{/foo-bar}}',
 
       result: {
-        rule: 'deprecated-inline-view-helper',
         message,
         moduleId: 'layout.hbs',
         source: '{{#foo-bar derp=view.whoops}}{{/foo-bar}}',
