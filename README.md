@@ -9,7 +9,7 @@ ember-template-lint will lint your template and return error results. This is co
 used through ember-cli-template-lint which adds failing lint tests for consuming ember-cli
 applications.
 
-For example, given the rule [`bare-strings`](https://github.com/rwjblue/ember-template-lint#bare-strings) is enabled, this template would be
+For example, given the rule [`bare-strings`](docs/rule/bare-strings.md) is enabled, this template would be
 in violation:
 
 ```hbs
