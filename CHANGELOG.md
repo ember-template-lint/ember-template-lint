@@ -1,6 +1,8 @@
 Changelog
 =========
 
+## 0.8.13
+
 - Add new `quotes` rule. Examples:
 
 Enforce either:
