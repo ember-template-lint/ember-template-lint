@@ -1,6 +1,6 @@
 ## attribute-indentation
 
-This rule requires the positional params, attributes and block params of the helper/component to be indented by moving them to multiple lines when the open invocation has more than 80 characters(configurable).
+This rule requires the positional params, attributes and block params of the helper/component to be indented by moving them to multiple lines when the open invocation has more than 80 characters (configurable).
 
 Forbidden:
 
