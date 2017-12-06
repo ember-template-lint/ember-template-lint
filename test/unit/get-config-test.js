@@ -202,6 +202,52 @@ describe('get-config', function() {
     expect(actual.loadedRules['foo-bar']).to.equal('plugin-function-placeholder');
   });
 
+  it('can chain extends and load rules across chained plugins', function() {
+    let message;
+    let actual = getConfig({
+      console: { log(_message) {
+        message = _message;
+      }},
+
+      config: {
+        extends: 'plugin1:recommended',
+
+        plugins: [{
+          name: 'plugin1',
+
+          configurations: {
+            recommended: {
+              extends: 'plugin2:recommended',
+
+              plugins: [{
+                name: 'plugin2',
+
+                rules: {
+                  'foo-bar': true
+                },
+
+                configurations: {
+                  recommended: {
+                    extends: 'recommended',
+
+                    rules: {
+                      'foo-bar': true
+                    }
+                  }
+                }
+              }]
+            }
+          }
+        }]
+      }
+
+    });
+
+    expect(message).to.be.not.ok;
+    expect(actual.rules['foo-bar']).to.equal(true);
+    expect(actual.rules['block-indentation']).to.equal(2);
+  });
+
   it('getting config is idempotent', function() {
     let firstMessage;
     let secondMessage;
