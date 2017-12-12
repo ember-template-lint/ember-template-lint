@@ -12,7 +12,7 @@
 * [link-rel-noopener](rule/link-rel-noopener.md)
 * [nested-interactive](rule/nested-interactive.md)
 * [no-debugger](rule/no-debugger.md)
-* [no-duplicate-attributes](rule/unused-block-params.md)
+* [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-log](rule/no-log.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [quotes](rule/quotes.md)
