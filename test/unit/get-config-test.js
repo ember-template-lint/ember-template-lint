@@ -241,7 +241,7 @@ describe('get-config', function() {
     expect(secondMessage).to.not.be.ok;
   });
 
-  it('does no mutate the config', function() {
+  it('does not mutate the config', function() {
     let config = {
       config: {
         extends: 'recommended'
