@@ -252,7 +252,7 @@ describe('get-config', function() {
 
     let actual = getConfig(config);
 
-    expect(Object.keys(actual.rules), 'make sure the operation would have resulted in a mutated object').to.not.equal(0);
+    expect(actual.rules, 'make sure the operation would have resulted in a mutated object').to.not.be.empty;
     expect(config, 'assert object matches its original clone').to.deep.equal(cloned);
   });
 });
