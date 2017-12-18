@@ -241,4 +241,18 @@ describe('get-config', function() {
     expect(secondMessage).to.not.be.ok;
   });
 
+  it('does no mutate the config', function() {
+    let config = {
+      config: {
+        extends: 'recommended'
+      }
+    };
+
+    let cloned = JSON.parse(JSON.stringify(config));
+
+    let actual = getConfig(config);
+
+    expect(Object.keys(actual.rules), 'make sure the operation would have resulted in a mutated object').to.not.equal(0);
+    expect(config, 'assert object matches its original clone').to.deep.equal(cloned);
+  });
 });
