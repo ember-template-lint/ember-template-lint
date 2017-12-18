@@ -31,13 +31,15 @@ describe('public api', function() {
 
   describe('Linter.prototype.loadConfig', function() {
     it('uses provided config', function() {
-      let config = {};
+      let basePath = path.join(fixturePath, 'config-in-root');
+      let expected = require(path.join(basePath, '.template-lintrc'));
+
       let linter = new Linter({
         console: mockConsole,
-        config: config
+        config: expected
       });
 
-      expect(linter.config).to.equal(config);
+      expect(linter.config.rules).to.deep.equal(expected.rules);
     });
 
     it('uses .template-lintrc.js in cwd if present', function() {
@@ -50,7 +52,7 @@ describe('public api', function() {
         console: mockConsole
       });
 
-      expect(linter.config).to.equal(expected);
+      expect(linter.config.rules).to.deep.equal(expected.rules);
     });
 
     it('uses .template-lintrc in provided configPath', function() {
@@ -65,7 +67,7 @@ describe('public api', function() {
         configPath: configPath
       });
 
-      expect(linter.config).to.equal(expected);
+      expect(linter.config.rules).to.deep.equal(expected.rules);
     });
   });
 

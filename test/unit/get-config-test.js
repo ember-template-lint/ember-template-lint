@@ -2,7 +2,6 @@
 
 const path = require('path');
 const expect = require('chai').expect;
-const clone = require('lodash').clone;
 const getConfig = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 
@@ -15,10 +14,12 @@ describe('get-config', function() {
   });
 
   it('if config is provided, it is returned', function() {
-    let expected = { };
+    let basePath = path.join(fixturePath, 'config-in-root');
+    let expected = require(path.join(basePath, '.template-lintrc'));
+
     let actual = getConfig({ config: expected });
 
-    expect(actual).to.equal(expected);
+    expect(actual.rules).to.deep.equal(expected.rules);
   });
 
   it('uses .template-lintrc.js in cwd if present', function() {
@@ -29,7 +30,7 @@ describe('get-config', function() {
 
     let actual = getConfig({});
 
-    expect(actual).to.deep.equal(expected);
+    expect(actual.rules).to.deep.equal(expected.rules);
   });
 
   it('uses .template-lintrc in provided configPath', function() {
@@ -43,7 +44,7 @@ describe('get-config', function() {
       configPath: configPath
     });
 
-    expect(actual).to.deep.equal(expected);
+    expect(actual.rules).to.deep.equal(expected.rules);
   });
 
   it('can specify that it extends a default configuration', function() {
@@ -57,19 +58,19 @@ describe('get-config', function() {
   });
 
   it('can extend and override a default configuration', function() {
-    let expected = clone(recommendedConfig);
-    expected.rules['bare-strings'] = true;
+    let expected = recommendedConfig;
 
     let actual = getConfig({
       config: {
         extends: 'recommended',
         rules: {
-          'bare-strings': false
+          'block-indentation': 4
         }
       }
     });
 
-    expect(actual.rules['bare-strings']).to.be.false;
+    expect(actual.rules['block-indentation']).to.equal(4);
+    expect(actual.rules['block-indentation']).to.not.equal(expected.rules['block-indentation']);
   });
 
   it('migrates rules in the config root into `rules` property', function() {
@@ -240,4 +241,18 @@ describe('get-config', function() {
     expect(secondMessage).to.not.be.ok;
   });
 
+  it('does no mutate the config', function() {
+    let config = {
+      config: {
+        extends: 'recommended'
+      }
+    };
+
+    let cloned = JSON.parse(JSON.stringify(config));
+
+    let actual = getConfig(config);
+
+    expect(Object.keys(actual.rules), 'make sure the operation would have resulted in a mutated object').to.not.equal(0);
+    expect(config, 'assert object matches its original clone').to.deep.equal(cloned);
+  });
 });
