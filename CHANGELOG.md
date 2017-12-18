@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.14
+
+- Ensure that the configuration objects are not mutated.
+-
 ## 0.8.13
 
 - Add new `quotes` rule. Examples:
