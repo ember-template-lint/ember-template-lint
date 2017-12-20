@@ -639,6 +639,39 @@ generateRuleTests({
           column: 2
         }
       ]
+    },
+    {
+      template: [
+        '{{foo-bar',
+        'baz=true',
+        '}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{! bad comment }}` beginning at L1:C6. Expected `{{! bad comment }}` to be at an indentation of 2 but was found at 6.',
+        moduleId: 'layout.hbs',
+        source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
+        line: 1,
+        column: 6
+      }
+    },
+    {
+      template: [
+        '{{#foo-bar',
+        'baz=true',
+        '}}',
+        '{{/foo-bar}}'
+      ].join('\n'),
+
+      result: {
+        rule: 'block-indentation',
+        message: 'Incorrect indentation for `{{! bad comment }}` beginning at L1:C6. Expected `{{! bad comment }}` to be at an indentation of 2 but was found at 6.',
+        moduleId: 'layout.hbs',
+        source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
+        line: 1,
+        column: 6
+      }
     }
   ]
 });
