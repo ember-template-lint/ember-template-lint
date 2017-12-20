@@ -210,6 +210,10 @@ Current list of rules and deprecations can be found in [docs/rules.md](docs/rule
 
 You can define and use your own custom rules using the plugin system. See [plugin documentation](docs/plugins.md) for more details.
 
+### Sharing configs
+
+It is possible to share a config (`extends`) or plugin (custom rules) across projects. See [ember-template-lint-plugin-peopleconnect](https://github.com/peopleconnectus/ember-template-lint-plugin-peopleconnect) for an example.
+
 ## Contributing
 
 A few ideas for where to take this in the future:
