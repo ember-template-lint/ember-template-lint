@@ -10,7 +10,7 @@ generateRuleTests({
 
   good: [
     '<table> </table>',
-    '<table><caption>Foo</caption></table>',
+    '<table> <caption>Foo</caption></table>',
     '<table><colgroup><col style="background-color: red"></colgroup></table>',
     '<table><thead><tr><td>Header</td></tr></thead></table>',
     '<table><tbody><tr><td>Body</td></tr></tbody></table>',
@@ -33,6 +33,10 @@ generateRuleTests({
       '<tbody>' +
         '<tr><td>Body</td></tr>' +
       '</tbody>' +
+    '</table>',
+    '<table>\n' +
+      '<tbody>\n' +
+      '</tbody>\n' +
     '</table>',
   ],
 
@@ -83,6 +87,17 @@ generateRuleTests({
             '<tr></tr>' +
             '<tbody><tr><td>Foo</td></tr></tbody>' +
           '</table>',
+        line: 1,
+        column: 0
+      }
+    },
+    {
+      template: '<table> whitespace<thead></thead></table>',
+
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table> whitespace<thead></thead></table>',
         line: 1,
         column: 0
       }
