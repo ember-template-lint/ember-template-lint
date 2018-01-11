@@ -37,6 +37,17 @@ generateRuleTests({
     '  firstName=firstName' + '\n' +
     '  lastName=lastName' + '\n' +
     '}}',
+    //with component from hash
+    '{{t.body' + '\n' +
+    '  canExpand=true' + '\n' +
+    '}}',
+    //with helper
+    '{{print-debug' + '\n' +
+    '  (hash' + '\n' +
+    '    foo="bar"' + '\n' +
+    '  )' + '\n' +
+    '  title="baz"' + '\n' +
+    '}}',
 
     //Block form within 80 characters
     //with positional params
