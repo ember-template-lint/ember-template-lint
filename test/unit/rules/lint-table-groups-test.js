@@ -34,6 +34,10 @@ generateRuleTests({
         '<tr><td>Body</td></tr>' +
       '</tbody>' +
     '</table>',
+    '<table>\n' +
+      '<tbody>\n' +
+      '</tbody>\n' +
+    '</table>',
   ],
 
   bad: [
@@ -83,6 +87,17 @@ generateRuleTests({
             '<tr></tr>' +
             '<tbody><tr><td>Foo</td></tr></tbody>' +
           '</table>',
+        line: 1,
+        column: 0
+      }
+    },
+    {
+      template: '<table> whitespace<thead></thead></table>',
+
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table> whitespace<thead></thead></table>',
         line: 1,
         column: 0
       }
