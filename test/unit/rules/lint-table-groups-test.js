@@ -10,7 +10,7 @@ generateRuleTests({
 
   good: [
     '<table> </table>',
-    '<table><caption>Foo</caption></table>',
+    '<table> <caption>Foo</caption></table>',
     '<table><colgroup><col style="background-color: red"></colgroup></table>',
     '<table><thead><tr><td>Header</td></tr></thead></table>',
     '<table><tbody><tr><td>Body</td></tr></tbody></table>',
