@@ -1,6 +1,30 @@
 ## no-trailing-dot-in-path-expression
 
-This rule doesn't allow trailing dot(s) on a path expression.
+This rule doesn't allow trailing dot(s) on a path expression. Since the trailing dot is treated as a separate path expression which represents the context associated to the template.
+
+For instance:
+
+```hbs
+  /application.hbs
+
+  <span class={{if contact. 'bg-success'}}>{{contact.name}}</span>
+```
+
+is interpreted as
+
+```hbs
+  /application.hbs
+
+  <span class={{if contact . 'bg-success'}}>{{contact.name}}</span>
+```
+
+hence results in
+
+```html
+  <span class="<my-app@controller:application::ember223>">John</span>
+```
+
+
 
 Forbidden:
 
