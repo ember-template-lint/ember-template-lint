@@ -20,6 +20,10 @@ generateRuleTests({
       template: '{{#my-component}}\n' +
       '  test\n' +
       '{{/my-component}}'
+    },
+    {
+      config: 'always',
+      template: '{{#my-component}}{{/my-component}}\n'
     }
   ],
 
