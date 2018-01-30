@@ -52,6 +52,10 @@ generateRuleTests({
     ' {{contact.fullName}}' + '\n' +
     '{{/contact-details}}',
 
+    '{{yield (hash' +
+    '  header=(component "x-very-long-name-header")' +
+    '  body=(component "x-very-long-name-body"))' +
+    '}}',
     //Block form with open-invocation more than 80 characters
     {
       config: {
