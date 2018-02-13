@@ -43,6 +43,14 @@ generateRuleTests({
     '}}',
     //with helper
     '{{print-debug' + '\n' +
+    '  foo=(or' + '\n' +
+    '    foo' + '\n' +
+    '    bar' + '\n' +
+    '  )' + '\n' +
+    '  baz=baz' + '\n' +
+    '}}',
+    //with positional helper
+    '{{print-debug' + '\n' +
     '  (hash' + '\n' +
     '    foo="bar"' + '\n' +
     '  )' + '\n' +
