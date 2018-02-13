@@ -66,10 +66,24 @@ generateRuleTests({
     '{{#contact-details firstName=firstName lastName=lastName}}' + '\n' +
     ' {{contactImage}}' + '\n' +
     '{{/contact-details}}',
+    //component from hash
+    '{{#t.body' + '\n' +
+    '  canExpand=true' + '\n' +
+    '  multiRowExpansion=false' + '\n' +
+    '}}' + '\n' +
+    '  {{foo}}' + '\n' +
+    '{{/t.body}}',
     //with block params
     '{{#contact-details firstName=firstName lastName=lastName as |contact|}}' + '\n' +
     ' {{contact.fullName}}' + '\n' +
     '{{/contact-details}}',
+    //component from positional
+    '{{#t.body' + '\n' +
+    '  canExpand=(helper help)' + '\n' +
+    '  multiRowExpansion=false' + '\n' +
+    'as |body|}}' + '\n' +
+    '  {{foo}}' + '\n' +
+    '{{/t.body}}',
 
     //Block form with open-invocation more than 80 characters
     {
