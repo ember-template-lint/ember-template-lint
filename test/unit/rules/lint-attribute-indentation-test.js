@@ -36,6 +36,11 @@ generateRuleTests({
     '{{contact-null' + '\n' +
     '  null' + '\n' +
     '}}',
+    // component
+    '{{component' + '\n' +
+    '  field' + '\n' +
+    '  action=(action reaction)' + '\n' +
+    '}}',
 
     //Multiple open-invocations with multiple lines.
     '{{contact-details' + '\n' +
