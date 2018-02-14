@@ -27,6 +27,11 @@ generateRuleTests({
     '  firstName=firstName' + '\n' +
     '  lastName=lastName' + '\n' +
     '}}',
+    // positional params
+    '{{contact-details' + '\n' +
+    '  firstName' + '\n' +
+    '  lastName' + '\n' +
+    '}}',
 
     //Multiple open-invocations with multiple lines.
     '{{contact-details' + '\n' +
@@ -55,6 +60,12 @@ generateRuleTests({
     '    foo="bar"' + '\n' +
     '  )' + '\n' +
     '  title="baz"' + '\n' +
+    '}}',
+    '{{yield' + '\n' +
+    '  (hash' + '\n' +
+    '    header=(component "x-very-long-name-header")' + '\n' +
+    '    body=(component "x-very-long-name-body")' + '\n' +
+    '  )' + '\n' +
     '}}',
 
     //Block form within 80 characters
