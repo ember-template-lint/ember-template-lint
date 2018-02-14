@@ -32,6 +32,10 @@ generateRuleTests({
     '  firstName' + '\n' +
     '  lastName' + '\n' +
     '}}',
+    // positional null
+    '{{contact-null' + '\n' +
+    '  null' + '\n' +
+    '}}',
 
     //Multiple open-invocations with multiple lines.
     '{{contact-details' + '\n' +
