@@ -202,6 +202,128 @@ describe('get-config', function() {
     expect(actual.loadedRules['foo-bar']).to.equal('plugin-function-placeholder');
   });
 
+  it('can chain extends and load rules across chained plugins', function() {
+    let message;
+    let actual = getConfig({
+      console: { log(_message) {
+        message = _message;
+      }},
+
+      config: {
+        extends: 'plugin1:recommended',
+
+        plugins: [{
+          name: 'plugin1',
+
+          configurations: {
+            recommended: {
+              extends: 'plugin2:recommended',
+
+              plugins: [{
+                name: 'plugin2',
+
+                rules: {
+                  'foo-bar': true
+                },
+
+                configurations: {
+                  recommended: {
+                    extends: 'recommended',
+
+                    rules: {
+                      'foo-bar': true
+                    }
+                  }
+                }
+              }]
+            }
+          }
+        }]
+      }
+
+    });
+
+    expect(message).to.be.not.ok;
+    expect(actual.rules['foo-bar']).to.equal(true);
+    expect(actual.rules['block-indentation']).to.equal(2);
+  });
+
+  it('handles circular reference in config', function() {
+    let message;
+
+    let config = {
+      extends: 'plugin1:recommended',
+
+      rules: {
+        'foo-bar': true
+      },
+
+      plugins: [{
+        name: 'plugin1',
+
+        rules: {
+          'foo-bar': true
+        },
+
+        configurations: {}
+      }]
+    };
+
+    config.plugins[0].configurations.recommended = config;
+
+    let actual = getConfig({
+      console: { log(_message) {
+        message = _message;
+      }},
+
+      config
+
+    });
+
+    expect(message).to.be.not.ok;
+    expect(actual.rules['foo-bar']).to.equal(true);
+  });
+
+  it('handles circular reference in plugin', function() {
+    let message;
+
+    let plugin = {
+      name: 'plugin1',
+
+      rules: {
+        'foo-bar': true
+      },
+
+      configurations: {
+        recommended: {
+          extends: 'plugin1:recommended',
+
+          rules: {
+            'foo-bar': true
+          },
+        }
+      }
+    };
+
+    plugin.configurations.recommended.plugins = [plugin];
+
+    let actual = getConfig({
+      console: { log(_message) {
+        message = _message;
+      }},
+
+      config: {
+        extends: 'plugin1:recommended',
+
+        plugins: [plugin]
+      }
+
+    });
+
+    expect(message).to.be.not.ok;
+    expect(actual.rules['foo-bar']).to.equal(true);
+  });
+
   it('getting config is idempotent', function() {
     let firstMessage;
     let secondMessage;
