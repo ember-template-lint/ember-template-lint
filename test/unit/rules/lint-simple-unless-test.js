@@ -5,7 +5,9 @@ const messages = require('../../../lib/rules/lint-simple-unless').messages;
 
 generateRuleTests({
   name: 'simple-unless',
-  config: true,
+  config: {
+    whitelist: ['or', 'eq', 'not-eq']
+  },
 
   good: [
     '{{#unless isRed}}I\'m blue, da ba dee da ba daa{{/unless}}',
@@ -13,6 +15,8 @@ generateRuleTests({
     '<div class="{{if foo \'foo\'}}"></div>',
     '{{unrelated-mustache-without-params}}',
     '{{#if foo}}{{else}}{{/if}}',
+    '{{#unless (or foo bar)}}order whiskey{{/unless}}',
+    '{{#unless (eq (or foo bar) baz)}}order whiskey{{/unless}}',
     [
       '{{#unless hamburger}}',
       '  HOT DOG!',
@@ -22,10 +26,21 @@ generateRuleTests({
 
   bad: [
     {
+      template: '{{unless (if (or true))  \'Please no\'}}',
+
+      result: {
+        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        moduleId: 'layout.hbs',
+        source: '{{unless (if ...',
+        line: 1,
+        column: 9
+      }
+    },
+    {
       template: '{{unless (if true)  \'Please no\'}}',
 
       result: {
-        message: messages.withHelper,
+        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
@@ -36,7 +51,7 @@ generateRuleTests({
       template: '{{unless (and isBad isAwful)  \'notBadAndAwful\'}}',
 
       result: {
-        message: messages.withHelper,
+        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
@@ -140,7 +155,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper,
+        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
@@ -155,7 +170,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper,
+        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
         moduleId: 'layout.hbs',
         source: '{{unless (not ...',
         line: 1,
@@ -164,7 +179,7 @@ generateRuleTests({
     },
     {
       template: [
-        '{{#unless (not isBrown isSticky)}}',
+        '{{#unless isSticky}}',
         '  I think I am a brown stick',
         '{{else}}',
         '  Not a brown stick',
@@ -177,6 +192,21 @@ generateRuleTests({
         source: '{{else}}',
         line: 3,
         column: 0
+      }
+    },{
+      config: ['exampleHelper'],
+      template: [
+        '{{#unless (concat "blue" "red")}}',
+        '  I think I am a brown stick',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: messages.withHelper + ' Allowed helper: exampleHelper',
+        moduleId: 'layout.hbs',
+        source: '{{unless (concat ...',
+        line: 1,
+        column: 10
       }
     }
   ]
