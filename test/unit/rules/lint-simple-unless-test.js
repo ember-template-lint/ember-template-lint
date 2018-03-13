@@ -6,7 +6,8 @@ const messages = require('../../../lib/rules/lint-simple-unless').messages;
 generateRuleTests({
   name: 'simple-unless',
   config: {
-    whitelist: ['or', 'eq', 'not-eq']
+    whitelist: ['or', 'eq', 'not-eq'],
+    maxHelpers: 2
   },
 
   good: [
@@ -192,6 +193,20 @@ generateRuleTests({
         source: '{{else}}',
         line: 3,
         column: 0
+      }
+    },{
+      template: [
+        '{{#unless (or (eq foo bar) (not-eq baz "beer"))}}',
+        '  MUCH HELPERS, VERY BAD',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: messages.withHelper + ' MaxHelpers: 2',
+        moduleId: 'layout.hbs',
+        source: '{{unless (... (not-eq ...',
+        line: 1,
+        column: 27
       }
     },{
       config: ['exampleHelper'],
