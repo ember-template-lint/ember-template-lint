@@ -230,5 +230,36 @@ generateRuleTests({
       'source': '{{#contact-details\n\n\nas |contact|}}\n  {{contact.fullName}}\n{{/contact-details}}'
     }]
 
+  },{
+    // with helper, non-block, > 80 chars
+    config: {
+      'open-invocation-max-len': 80
+    },
+    template: '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}',
+    results: [{
+      'column': 5,
+      'line': 1,
+      'message': 'Incorrect indentation of positional param \'or\' beginning at L1:C5. Expected \'or\' to be at L2:C2.',
+      'moduleId': 'layout.hbs',
+      'source': '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}'
+    }, {
+      'column': 57,
+      'line': 1,
+      'message': 'Incorrect indentation of positional param \'Logging Out...\' beginning at L1:C57. Expected \'Logging Out...\' to be at L3:C2.',
+      'moduleId': 'layout.hbs',
+      'source': '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}'
+    }, {
+      'column': 74,
+      'line': 1,
+      'message': 'Incorrect indentation of positional param \'Log Out\' beginning at L1:C74. Expected \'Log Out\' to be at L4:C2.',
+      'moduleId': 'layout.hbs',
+      'source': '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}'
+    }, {
+      'column': 83,
+      'line': 1,
+      'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{if}}\' beginning at L1:C83. Expected \'{{if}}\' to be at L5:C0',
+      'moduleId': 'layout.hbs',
+      'source': '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}'
+    }]
   }]
 });
