@@ -32,6 +32,21 @@ generateRuleTests({
     '  firstName' + '\n' +
     '  lastName' + '\n' +
     '}}',
+    // helper
+    '{{if' + '\n' +
+    '  (or logout.isRunning (not session.isAuthenticated))' + '\n' +
+    '  "Logging Out..."' + '\n' +
+    '  "Log Out"' + '\n' +
+    '}}',
+    // helper unfolded
+    '{{if' + '\n' +
+    '  (or ' + '\n' +
+    '    logout.isRunning' + '\n' +
+    '    (not session.isAuthenticated)' + '\n' +
+    '  )' + '\n' +
+    '  "Logging Out..."' + '\n' +
+    '  "Log Out"' + '\n' +
+    '}}',
     // positional null
     '{{contact-null' + '\n' +
     '  null' + '\n' +
