@@ -137,19 +137,19 @@ generateRuleTests({
     results: [{
       'column': 18,
       'line': 1,
-      'message': 'Incorrect indentation of attribute \'firstName\' beginning at L1:C18. Expected \'firstName\' to be at L2:C2 with an indentation of 2 but was found at 18',
+      'message': 'Incorrect indentation of attribute \'firstName\' beginning at L1:C18. Expected \'firstName\' to be at L2:C2.',
       'moduleId': 'layout.hbs',
       'source': '{{contact-details firstName=firstName lastName=lastName}}'
     }, {
       'column': 38,
       'line': 1,
-      'message': 'Incorrect indentation of attribute \'lastName\' beginning at L1:C38. Expected \'lastName\' to be at L3:C2 with an indentation of 2 but was found at 38',
+      'message': 'Incorrect indentation of attribute \'lastName\' beginning at L1:C38. Expected \'lastName\' to be at L3:C2.',
       'moduleId': 'layout.hbs',
       'source': '{{contact-details firstName=firstName lastName=lastName}}'
     }, {
       'column': 55,
       'line': 1,
-      'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{contact-details}}\' beginning at L1:C55. Expected to be indentation at L2:C0 with an of 0 but was found at 55',
+      'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{contact-details}}\' beginning at L1:C55. Expected \'{{contact-details}}\' to be at L2:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{contact-details firstName=firstName lastName=lastName}}'
     }]
@@ -162,19 +162,19 @@ generateRuleTests({
     results: [{
       'column': 1,
       'line': 2,
-      'message': `Incorrect indentation of attribute 'firstName' beginning at L2:C1. Expected 'firstName' to be at L2:C2 with an indentation of 2 but was found at 1`,
+      'message': `Incorrect indentation of attribute 'firstName' beginning at L2:C1. Expected 'firstName' to be at L2:C2.`,
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}'
     }, {
       'column': 21,
       'line': 2,
-      'message': 'Incorrect indentation of attribute \'lastName\' beginning at L2:C21. Expected \'lastName\' to be at L3:C2 with an indentation of 2 but was found at 21',
+      'message': 'Incorrect indentation of attribute \'lastName\' beginning at L2:C21. Expected \'lastName\' to be at L3:C2.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}'
     }, {
       'column': 38,
       'line': 2,
-      'message': 'Incorrect indentation of block params \'as |contact|}}\' beginning at L2:C38. Expecting the block params to be at L3:C0 with an indentation of 0 but was found at 38.',
+      'message': 'Incorrect indentation of block params \'as |contact|}}\' beginning at L2:C38. Expecting the block params to be at L3:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}'
     }]
@@ -186,31 +186,31 @@ generateRuleTests({
     results: [{
       'column': 19,
       'line': 1,
-      'message': 'Incorrect indentation of attribute \'firstName\' beginning at L1:C19. Expected \'firstName\' to be at L2:C2 with an indentation of 2 but was found at 19',
+      'message': 'Incorrect indentation of attribute \'firstName\' beginning at L1:C19. Expected \'firstName\' to be at L2:C2.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
     }, {
       'column': 39,
       'line': 1,
-      'message': 'Incorrect indentation of attribute \'lastName\' beginning at L1:C39. Expected \'lastName\' to be at L3:C2 with an indentation of 2 but was found at 39',
+      'message': 'Incorrect indentation of attribute \'lastName\' beginning at L1:C39. Expected \'lastName\' to be at L3:C2.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
     }, {
       'column': 57,
       'line': 1,
-      'message': 'Incorrect indentation of attribute \'age\' beginning at L1:C57. Expected \'age\' to be at L4:C2 with an indentation of 2 but was found at 57',
+      'message': 'Incorrect indentation of attribute \'age\' beginning at L1:C57. Expected \'age\' to be at L4:C2.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
     }, {
       'column': 65,
       'line': 1,
-      'message': 'Incorrect indentation of attribute \'avatar\' beginning at L1:C65. Expected \'avatar\' to be at L5:C2 with an indentation of 2 but was found at 65',
+      'message': 'Incorrect indentation of attribute \'avatar\' beginning at L1:C65. Expected \'avatar\' to be at L5:C2.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
     }, {
       'column': 78,
       'line': 1,
-      'message': 'Incorrect indentation of block params \'as |contact|}}\' beginning at L1:C78. Expecting the block params to be at L2:C0 with an indentation of 0 but was found at 78.',
+      'message': 'Incorrect indentation of block params \'as |contact|}}\' beginning at L1:C78. Expecting the block params to be at L2:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
     }]
@@ -225,7 +225,7 @@ generateRuleTests({
     results: [{
       'column': 0,
       'line': 4,
-      'message': `Incorrect indentation of block params 'as |contact|}}' beginning at L4:C0. Expecting the block params to be at L2:C0 with an indentation of 0 but was found at 0.`,
+      'message': `Incorrect indentation of block params 'as |contact|}}' beginning at L4:C0. Expecting the block params to be at L2:C0.`,
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details\n\n\nas |contact|}}\n  {{contact.fullName}}\n{{/contact-details}}'
     }]
