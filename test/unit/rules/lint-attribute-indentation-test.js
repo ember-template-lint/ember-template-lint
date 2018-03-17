@@ -164,7 +164,7 @@ generateRuleTests({
     }, {
       'column': 55,
       'line': 1,
-      'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{contact-details}}\' beginning at L1:C55. Expected \'{{contact-details}}\' to be at L2:C0.',
+      'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{contact-details}}\' beginning at L1:C55. Expected \'{{contact-details}}\' to be at L4:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{contact-details firstName=firstName lastName=lastName}}'
     }]
@@ -272,7 +272,7 @@ generateRuleTests({
     }, {
       'column': 83,
       'line': 1,
-      'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{if}}\' beginning at L1:C83. Expected \'{{if}}\' to be at L5:C0',
+      'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{if}}\' beginning at L1:C83. Expected \'{{if}}\' to be at L5:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}'
     }]
