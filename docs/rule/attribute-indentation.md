@@ -2,7 +2,7 @@
 
 This rule requires the positional params, attributes and block params of the helper/component to be indented by moving them to multiple lines when the open invocation has more than 80 characters (configurable).
 
-Forbidden:
+#### Forbidden:
 
 Non-Block form
 ``` hbs
@@ -18,7 +18,7 @@ Block form
   {{/employee-details}}
 ```
 
-Allowed:
+#### Allowed:
 
 Non-Block form
 ``` hbs
@@ -31,10 +31,31 @@ Non-Block form
   }}
 ```
 
-Non-Block Form (open invocation < 80 characters)
+Non-Block form (open invocation < 80 characters)
 ``` hbs
 
   {{employee-details firstName=firstName lastName=lastName}}
+```
+
+Non-Block form with Helper
+```hbs
+  {{if
+    (or logout.isRunning (not session.isAuthenticated))
+    "Logging Out..."
+    "Log Out"
+  }}
+```
+
+Non-Block form with Helper unfolded
+```hbs
+  {{if
+    (or
+      logout.isRunning
+      (not session.isAuthenticated)
+    )
+    "Logging Out..."
+    "Log Out"
+  }}
 ```
 
 Block form
@@ -50,7 +71,7 @@ Block form
   {{/employee-details}}
 ```
 
-Block Form (open invocation < 80 characters)
+Block form (open invocation < 80 characters)
 ``` hbs
 
   {{#employee-details firstName=firstName lastName=lastName as |employee|}}
@@ -58,7 +79,6 @@ Block Form (open invocation < 80 characters)
   {{/employee-details}}
 ```
 
-The following values are valid configuration:
-
+#### Configuration:
   * boolean - `true` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.
   * object - { 'open-invocation-max-len': n characters } - Maximum length of the opening invocation.
