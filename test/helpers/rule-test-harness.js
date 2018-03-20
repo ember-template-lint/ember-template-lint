@@ -4,17 +4,24 @@ const expect = require('chai').expect;
 const Linter = require('../../lib/index');
 const assign = require('lodash').assign;
 
+function parseMeta(item) {
+  let meta = (item !== undefined && typeof item === 'object' && item.meta) ? item.meta : {};
+  meta.moduleId = meta.moduleId || 'layout.hbs';
+
+  return meta;
+}
+
 module.exports = function(options) {
   let groupingMethod = options.focus ? describe.only : describe;
   groupingMethod(options.name, function() {
     let DISABLE_ALL = '{{! template-lint-disable }}';
     let DISABLE_ONE = `{{! template-lint-disable ${options.name} }}`;
 
-    let linter, config;
+    let linter, config, meta;
 
     function verify(template) {
       linter.config.rules[options.name] = config;
-      return linter.verify({ source: template, moduleId: 'layout.hbs' });
+      return linter.verify({ source: template, moduleId: meta.moduleId });
     }
 
     beforeEach(function() {
@@ -22,6 +29,8 @@ module.exports = function(options) {
         rules: { }
       };
       fullConfig.rules[options.name] = config = options.config;
+
+      meta = null;
 
       linter = new Linter({
         config: fullConfig
@@ -50,6 +59,8 @@ module.exports = function(options) {
       testMethod(`logs a message in the console when given \`${template}\``, function() {
         let expectedResults = badItem.results || [badItem.result];
 
+        meta = parseMeta(badItem);
+
         expectedResults = expectedResults.map(parseResult);
 
         if (badItem.config) {
@@ -63,18 +74,21 @@ module.exports = function(options) {
 
       testMethod(`passes with \`${template}\` when rule is disabled`, function() {
         config = false;
+        meta = parseMeta(badItem);
         let actual = verify(template);
 
         expect(actual).to.deep.equal([]);
       });
 
       testMethod(`passes with \`${template}\` when disabled via inline comment - single rule`, function() {
+        meta = parseMeta(badItem);
         let actual = verify(DISABLE_ONE + '\n' + template);
 
         expect(actual).to.deep.equal([]);
       });
 
       testMethod(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
+        meta = parseMeta(badItem);
         let actual = verify(DISABLE_ALL + '\n' + template);
 
         expect(actual).to.deep.equal([]);
@@ -86,7 +100,9 @@ module.exports = function(options) {
       let testMethod = typeof item === 'object' && item.focus ? it.only : it;
 
       testMethod(`passes when given \`${template}\``, function() {
+        meta = parseMeta(item);
         let actual;
+
         if (typeof item === 'string') {
           actual = verify(item);
         } else {
@@ -116,7 +132,7 @@ module.exports = function(options) {
 
       testMethod(`errors when given \`${template}\` with config \`${friendlyConfig}\``, function() {
         let expectedResults = item.results || [item.result];
-
+        meta = parseMeta(item);
         expectedResults = expectedResults.map(parseResult);
 
         config = _config;

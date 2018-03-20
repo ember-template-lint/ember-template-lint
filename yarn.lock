@@ -18,6 +18,12 @@
   dependencies:
     "@glimmer/wire-format" "^0.30.2"
 
+"@glimmer/interfaces@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@glimmer/interfaces/-/interfaces-0.31.0.tgz#642764765b266d5cf921f64354e06a3112551081"
+  dependencies:
+    "@glimmer/wire-format" "^0.31.0"
+
 "@glimmer/syntax@^0.30.2":
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.30.2.tgz#c1acbf44d4c73e7b112192c398e71476cd24e825"
@@ -27,15 +33,34 @@
     handlebars "^4.0.6"
     simple-html-tokenizer "^0.4.1"
 
+"@glimmer/syntax@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@glimmer/syntax/-/syntax-0.31.0.tgz#5e4f2732c39b07060a716a95e55e7a67c7d1a213"
+  dependencies:
+    "@glimmer/interfaces" "^0.31.0"
+    "@glimmer/util" "^0.31.0"
+    handlebars "^4.0.6"
+    simple-html-tokenizer "^0.4.1"
+
 "@glimmer/util@^0.30.2":
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.30.2.tgz#dd3ed4293b97ce7d89f3b8682381e666c43ba6d7"
+
+"@glimmer/util@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@glimmer/util/-/util-0.31.0.tgz#45e353a7dcaffe6df00cc3d729153ae6121cf0e4"
 
 "@glimmer/wire-format@^0.30.2":
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.30.2.tgz#ce4a4c903ada28ee2c62b857b69dfdc06512f53a"
   dependencies:
     "@glimmer/util" "^0.30.2"
+
+"@glimmer/wire-format@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@glimmer/wire-format/-/wire-format-0.31.0.tgz#5a12e7a770a981ce9ea3a7daf737433bd6cd03d9"
+  dependencies:
+    "@glimmer/util" "^0.31.0"
 
 accepts@1.3.3, accepts@~1.3.3:
   version "1.3.3"
@@ -211,9 +236,9 @@ brace-expansion@^1.0.0, brace-expansion@^1.1.7:
     balanced-match "^0.4.1"
     concat-map "0.0.1"
 
-browser-stdout@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/browser-stdout/-/browser-stdout-1.3.0.tgz#f351d32969d32fa5d7a5567154263d928ae3bd1f"
+browser-stdout@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.npmjs.org/browser-stdout/-/browser-stdout-1.3.1.tgz#baa559ee14ced73452229bad7326467c61fabd60"
 
 buffer-shims@~1.0.0:
   version "1.0.0"
@@ -399,7 +424,7 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-cross-spawn@^5.1.0:
+cross-spawn@^5.0.1, cross-spawn@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
   dependencies:
@@ -475,9 +500,9 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
-diff@3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/diff/-/diff-3.3.1.tgz#aa8567a6eed03c531fc89d3f711cd0e5259dec75"
+diff@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.npmjs.org/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
 
 doctrine@^2.0.0:
   version "2.0.0"
@@ -541,23 +566,14 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-plugin-node@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-node/-/eslint-plugin-node-5.1.0.tgz#bc8cdb85180d0b4d946a2531640e2a4dd7a4e6d4"
-  dependencies:
-    ignore "^3.3.3"
-    minimatch "^3.0.4"
-    resolve "^1.3.3"
-    semver "5.3.0"
-
-eslint-plugin-node@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-node/-/eslint-plugin-node-5.2.1.tgz#80df3253c4d7901045ec87fa660a284e32bdca29"
+eslint-plugin-node@^6.0.0:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/eslint-plugin-node/-/eslint-plugin-node-6.0.1.tgz#bf19642298064379315d7a4b2a75937376fa05e4"
   dependencies:
     ignore "^3.3.6"
     minimatch "^3.0.4"
     resolve "^1.3.3"
-    semver "5.3.0"
+    semver "^5.4.1"
 
 eslint-scope@^3.7.1:
   version "3.7.1"
@@ -667,6 +683,18 @@ eventemitter3@1.x.x:
 events-to-array@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/events-to-array/-/events-to-array-1.1.2.tgz#2d41f563e1fe400ed4962fe1a4d5c6a7539df7f6"
+
+execa@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.npmjs.org/execa/-/execa-0.9.0.tgz#adb7ce62cf985071f60580deb4a88b9e34712d01"
+  dependencies:
+    cross-spawn "^5.0.1"
+    get-stream "^3.0.0"
+    is-stream "^1.1.0"
+    npm-run-path "^2.0.0"
+    p-finally "^1.0.0"
+    signal-exit "^3.0.0"
+    strip-eof "^1.0.0"
 
 express@^4.10.7:
   version "4.15.2"
@@ -794,6 +822,10 @@ get-func-name@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
 
+get-stream@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
+
 glob-all@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/glob-all/-/glob-all-3.1.0.tgz#8913ddfb5ee1ac7812656241b03d5217c64b02ab"
@@ -855,11 +887,9 @@ graceful-fs@^4.1.2:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-growl@1.10.2:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.2.tgz#8f16dfcd8fb7c04cfc1f4e0012e0ea858726979a"
-  dependencies:
-    eslint-plugin-node "^5.1.0"
+growl@1.10.3:
+  version "1.10.3"
+  resolved "https://registry.npmjs.org/growl/-/growl-1.10.3.tgz#1926ba90cf3edfe2adb4927f5880bc22c66c790f"
 
 growly@^1.3.0:
   version "1.3.0"
@@ -1019,6 +1049,10 @@ is-resolvable@^1.0.0:
   dependencies:
     tryit "^1.0.1"
 
+is-stream@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
+
 is-type@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/is-type/-/is-type-0.0.1.tgz#f651d85c365d44955d14a51d8d7061f3f6b4779c"
@@ -1112,6 +1146,10 @@ lodash._isiterateecall@^3.0.0:
 lodash.assignin@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.assignin/-/lodash.assignin-4.2.0.tgz#ba8df5fb841eb0a3e8044232b0e263a8dc6a28a2"
+
+lodash.castarray@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npmjs.org/lodash.castarray/-/lodash.castarray-4.4.0.tgz#c02513515e309daddd4c24c60cfddcf5976d9115"
 
 lodash.clonedeep@^4.4.1:
   version "4.5.0"
@@ -1234,17 +1272,17 @@ mocha-only-detector@^0.1.0:
     esprimaq "^0.0.1"
     glob "^4.3.2"
 
-mocha@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-4.0.0.tgz#3da718ccd76e93b9d82afb065e17086bdbe352bf"
+mocha@^5.0.0:
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/mocha/-/mocha-5.0.4.tgz#6b7aa328472da1088e69d47e75925fd3a3bb63c6"
   dependencies:
-    browser-stdout "1.3.0"
+    browser-stdout "1.3.1"
     commander "2.11.0"
     debug "3.1.0"
-    diff "3.3.1"
+    diff "3.5.0"
     escape-string-regexp "1.0.5"
     glob "7.1.2"
-    growl "1.10.2"
+    growl "1.10.3"
     he "1.1.1"
     mkdirp "0.5.1"
     supports-color "4.4.0"
@@ -1289,6 +1327,12 @@ node-notifier@^5.0.1:
     semver "^5.3.0"
     shellwords "^0.1.0"
     which "^1.2.12"
+
+npm-run-path@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/npm-run-path/-/npm-run-path-2.0.2.tgz#35a9232dfa35d7067b4cb2ddf2357b1871536c5f"
+  dependencies:
+    path-key "^2.0.0"
 
 npmlog@^4.0.0:
   version "4.0.2"
@@ -1355,6 +1399,10 @@ os-tmpdir@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
 
+p-finally@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
+
 parsejson@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/parsejson/-/parsejson-0.0.3.tgz#ab7e3759f209ece99437973f7d0f1f64ae0e64ab"
@@ -1384,6 +1432,10 @@ path-is-absolute@^1.0.0:
 path-is-inside@^1.0.1, path-is-inside@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
+
+path-key@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
 path-parse@^1.0.5:
   version "1.0.5"
@@ -1526,9 +1578,13 @@ rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
-semver@5.3.0, semver@^5.3.0:
+semver@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+
+semver@^5.4.1:
+  version "5.5.0"
+  resolved "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
 send@0.15.1:
   version "0.15.1"
@@ -1696,6 +1752,10 @@ strip-bom@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/strip-bom/-/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
 
+strip-eof@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
+
 strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
@@ -1740,22 +1800,23 @@ tap-parser@^5.1.0:
   optionalDependencies:
     readable-stream "^2"
 
-testem@^1.7.0:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/testem/-/testem-1.16.1.tgz#ef8b2c793a47082ca1791e2a49d3f22bf1d4ca28"
+testem@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/testem/-/testem-2.0.0.tgz#b05c96200c7ac98bae998d71c94c0c5345907d13"
   dependencies:
     backbone "^1.1.2"
     bluebird "^3.4.6"
     charm "^1.0.0"
     commander "^2.6.0"
     consolidate "^0.14.0"
-    cross-spawn "^5.1.0"
+    execa "^0.9.0"
     express "^4.10.7"
     fireworm "^0.7.0"
     glob "^7.0.4"
     http-proxy "^1.13.1"
     js-yaml "^3.2.5"
     lodash.assignin "^4.1.0"
+    lodash.castarray "^4.4.0"
     lodash.clonedeep "^4.4.1"
     lodash.find "^4.5.1"
     lodash.uniqby "^4.7.0"
