@@ -14,6 +14,7 @@
 * [no-debugger](rule/no-debugger.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-log](rule/no-log.md)
+* [no-unbound](rule/no-unbound.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [quotes](rule/quotes.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
