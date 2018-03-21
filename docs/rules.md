@@ -14,6 +14,8 @@
 * [no-debugger](rule/no-debugger.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-log](rule/no-log.md)
+* [no-input-block](rule/no-input-block.md)
+* [no-input-tagname](rule/no-input-tagname.md)
 * [no-unbound](rule/no-unbound.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [quotes](rule/quotes.md)
