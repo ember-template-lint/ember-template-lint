@@ -17,6 +17,7 @@
 * [no-input-block](rule/no-input-block.md)
 * [no-input-tagname](rule/no-input-tagname.md)
 * [no-unbound](rule/no-unbound.md)
+* [no-outlet-outside-routes](rule/no-outlet-outside-routes.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [quotes](rule/quotes.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
