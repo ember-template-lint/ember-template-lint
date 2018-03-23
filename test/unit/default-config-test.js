@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const expect = require('chai').expect;
 const rules = require('../../lib/rules');
 
 const DEFAULT_CONFIG_PATH = path.join(__dirname, '..', '..', 'lib', 'config');
@@ -16,7 +15,7 @@ describe('default configurations', function() {
         let config = require(path.join(DEFAULT_CONFIG_PATH, file));
 
         for (let rule in config.rules) {
-          expect(rules).to.contain.keys(rule);
+          expect(rules).toHaveProperty(rule);
         }
       });
 
@@ -30,7 +29,7 @@ describe('default configurations', function() {
 
           expect(function() {
             new rules[rule](options);
-          }).to.not.throw;
+          }).not.toThrow();
         }
       });
     });

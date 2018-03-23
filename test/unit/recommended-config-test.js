@@ -1,7 +1,6 @@
 'use strict';
 
 const Linter = require('../../lib/index');
-const expect = require('chai').expect;
 
 describe('recommended config', function() {
   function buildFakeConsole() {
@@ -28,7 +27,7 @@ describe('recommended config', function() {
         config: config
       });
 
-      expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).to.deep.equal([]);
+      expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).toEqual([]);
     });
   }
 

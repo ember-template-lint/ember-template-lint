@@ -1,6 +1,5 @@
 'use strict';
 
-const expect = require('chai').expect;
 const _precompile = require('@glimmer/compiler').precompile;
 
 describe('template compiler', function() {
@@ -21,7 +20,7 @@ describe('template compiler', function() {
 
   it('sanity: compiles templates', function() {
     let template = precompile('<div></div>');
-    expect(template).to.be.ok;
+    expect(template).toBeTruthy();
   });
 
   it('sanity: loads plugins on the template compiler', function() {
@@ -34,7 +33,7 @@ describe('template compiler', function() {
     astPlugins.push(noopPlugin);
     precompile('<div></div>');
 
-    expect(invocationCount).to.equal(1);
+    expect(invocationCount).toEqual(1);
   });
 
   it('can access rawSource via options', function() {
@@ -53,6 +52,6 @@ describe('template compiler', function() {
     let expectedTemplate = '<div></div>';
     precompile(expectedTemplate);
 
-    expect(options.rawSource).to.equal(expectedTemplate);
+    expect(options.rawSource).toEqual(expectedTemplate);
   });
 });

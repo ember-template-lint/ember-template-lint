@@ -1,7 +1,6 @@
 'use strict';
 
 const execFile = require('child_process').execFile;
-const expect = require('chai').expect;
 const path = require('path');
 
 describe('ember-template-lint executable', function() {
@@ -9,9 +8,9 @@ describe('ember-template-lint executable', function() {
     describe('without any parameters', function() {
       it('should exit without error and any console output', function(done) {
         execFile('node', ['./bin/ember-template-lint.js'], function(err, stdout, stderr) {
-          expect(err).to.be.null;
-          expect(stdout).to.be.empty;
-          expect(stderr).to.be.empty;
+          expect(err).toBe(null);
+          expect(stdout).toEqual('');
+          expect(stderr).toEqual('');
           done();
         });
       });
@@ -22,9 +21,9 @@ describe('ember-template-lint executable', function() {
         execFile('node', ['../../../bin/ember-template-lint.js', 'app/templates/application-1.hbs'], {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          expect(err).to.equal(null, 'exits without error');
-          expect(stdout).to.be.empty;
-          expect(stderr).to.be.empty;
+          expect(err).toBe(null, 'exits without error');
+          expect(stdout).toEqual('');
+          expect(stderr).toEqual('');
           done();
         });
       });
@@ -35,9 +34,9 @@ describe('ember-template-lint executable', function() {
         execFile('node', ['../../../bin/ember-template-lint.js', 'app/templates/application.hbs'], {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          expect(err).to.be.ok;
-          expect(stdout).to.be.ok;
-          expect(stderr).to.be.empty;
+          expect(err).toBeTruthy();
+          expect(stdout).toBeTruthy();
+          expect(stderr).toEqual('');
           done();
         });
       });
@@ -48,9 +47,9 @@ describe('ember-template-lint executable', function() {
         execFile('node', ['../../../bin/ember-template-lint.js', 'app/templates/*'], {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          expect(err).to.be.ok;
-          expect(stdout).to.be.ok;
-          expect(stderr).to.be.empty;
+          expect(err).toBeTruthy();
+          expect(stdout).toBeTruthy();
+          expect(stderr).toEqual('');
           done();
         });
       });
@@ -61,9 +60,9 @@ describe('ember-template-lint executable', function() {
         execFile('node', ['../../../bin/ember-template-lint.js', 'app'], {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          expect(err).to.be.ok;
-          expect(stdout).to.be.ok;
-          expect(stderr).to.be.empty;
+          expect(err).toBeTruthy();
+          expect(stdout).toBeTruthy();
+          expect(stderr).toEqual('');
           done();
         });
       });
@@ -74,9 +73,9 @@ describe('ember-template-lint executable', function() {
         execFile('node', ['../../../bin/ember-template-lint.js', 'app/templates/application.hbs'], {
           cwd: './test/fixtures/without-errors'
         }, function(err, stdout, stderr) {
-          expect(err).to.be.null;
-          expect(stdout).to.be.empty;
-          expect(stderr).to.be.empty;
+          expect(err).toBe(null);
+          expect(stdout).toEqual('');
+          expect(stderr).toEqual('');
           done();
         });
       });
@@ -89,8 +88,8 @@ describe('ember-template-lint executable', function() {
         execFile('node', ['../../../bin/ember-template-lint.js', '.'], {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
-          expect(err).to.be.ok;
-          expect(stdout.split('\n')).to.deep.equal([
+          expect(err).toBeTruthy();
+          expect(stdout.split('\n')).toEqual([
             path.resolve('./test/fixtures/with-errors/app/templates/application.hbs'),
             '  1:4  error  Non-translated string used  bare-strings',
             '  2:5  error  Non-translated string used  bare-strings',
@@ -98,7 +97,7 @@ describe('ember-template-lint executable', function() {
             '✖ 2 problems',
             ''
           ]);
-          expect(stderr).to.be.empty;
+          expect(stderr).toEqual('');
           done();
         });
       });
@@ -131,9 +130,9 @@ describe('ember-template-lint executable', function() {
             }
           ];
 
-          expect(err).to.be.ok;
-          expect(JSON.parse(stdout)).to.deep.equal(expectedOutputData);
-          expect(stderr).to.be.empty;
+          expect(err).toBeTruthy();
+          expect(JSON.parse(stdout)).toEqual(expectedOutputData);
+          expect(stderr).toEqual('');
           done();
         });
       });
