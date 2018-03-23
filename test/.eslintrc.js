@@ -1,6 +1,6 @@
 module.exports = {
   "env": {
-    "mocha": true
+    "jest": true
   },
   rules: {
     // disabled because of Chai.js

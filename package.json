@@ -16,7 +16,7 @@
     "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "jest"
   },
   "dependencies": {
     "@glimmer/compiler": "^0.32.3",
@@ -30,12 +30,17 @@
   "devDependencies": {
     "chai": "^4.0.0",
     "eslint-plugin-node": "^6.0.0",
-    "mocha": "^5.0.0",
-    "mocha-eslint": "^4.1.0",
-    "mocha-only-detector": "^0.1.0",
+    "jest": "^21.0.0",
+    "jest-runner-eslint": "^0.4.0",
     "testem": "^2.0.0"
   },
   "engines": {
     "node": ">= 4"
+  },
+  "jest": {
+    "projects": [
+      "<rootDir>/jest-test.config.js",
+      "<rootDir>/jest-eslint.config.js"
+    ]
   }
 }
