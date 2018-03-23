@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const preprocess = require('@glimmer/syntax').preprocess;
+const preprocess = require('./parse');
 const AstNodeInfo = require('../../../lib/helpers/ast-node-info');
 
 describe('isImgElement', function() {
