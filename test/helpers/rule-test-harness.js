@@ -1,6 +1,5 @@
 'use strict';
 
-const expect = require('chai').expect;
 const Linter = require('../../lib/index');
 const assign = require('lodash').assign;
 
@@ -69,7 +68,7 @@ module.exports = function(options) {
 
         let actual = verify(template);
 
-        expect(actual).to.deep.equal(expectedResults);
+        expect(actual).toEqual(expectedResults);
       });
 
       testMethod(`passes with \`${template}\` when rule is disabled`, function() {
@@ -77,21 +76,21 @@ module.exports = function(options) {
         meta = parseMeta(badItem);
         let actual = verify(template);
 
-        expect(actual).to.deep.equal([]);
+        expect(actual).toEqual([]);
       });
 
       testMethod(`passes with \`${template}\` when disabled via inline comment - single rule`, function() {
         meta = parseMeta(badItem);
         let actual = verify(DISABLE_ONE + '\n' + template);
 
-        expect(actual).to.deep.equal([]);
+        expect(actual).toEqual([]);
       });
 
       testMethod(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
         meta = parseMeta(badItem);
         let actual = verify(DISABLE_ALL + '\n' + template);
 
-        expect(actual).to.deep.equal([]);
+        expect(actual).toEqual([]);
       });
     });
 
@@ -113,7 +112,7 @@ module.exports = function(options) {
           actual = verify(template);
         }
 
-        expect(actual).to.deep.equal([]);
+        expect(actual).toEqual([]);
       });
     });
 
@@ -144,14 +143,14 @@ module.exports = function(options) {
             delete expectedResults[i].rule;
             delete actual[i].source;
 
-            expect(actual[i].message).to.contain(expectedResults[i].message);
+            expect(actual[i].message).toContain(expectedResults[i].message);
 
             delete actual[i].message;
             delete expectedResults[i].message;
           }
         }
 
-        expect(actual).to.deep.equal(expectedResults);
+        expect(actual).toEqual(expectedResults);
       });
     });
   });

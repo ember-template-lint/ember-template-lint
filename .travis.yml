@@ -21,4 +21,4 @@ install:
   - yarn install --no-lockfile
 
 script:
-  - yarn test
+  - yarn test --coverage
