@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "eslint-plugin-node": "^6.0.0",
+    "execa": "^0.10.0",
     "jest": "^21.0.0",
     "jest-runner-eslint": "^0.4.0",
     "testem": "^2.0.0"
