@@ -4,6 +4,8 @@ const execa = require('execa');
 const path = require('path');
 
 describe('ember-template-lint executable', function() {
+  jest.setTimeout(20000);
+
   describe('basic usage', function() {
     describe('without any parameters', function() {
       it('should exit without error and any console output', function() {
