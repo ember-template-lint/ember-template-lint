@@ -18,12 +18,6 @@
   dependencies:
     "@glimmer/wire-format" "^0.30.2"
 
-"@glimmer/interfaces@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.npmjs.org/@glimmer/interfaces/-/interfaces-0.31.0.tgz#642764765b266d5cf921f64354e06a3112551081"
-  dependencies:
-    "@glimmer/wire-format" "^0.31.0"
-
 "@glimmer/syntax@^0.30.2":
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.30.2.tgz#c1acbf44d4c73e7b112192c398e71476cd24e825"
@@ -33,34 +27,15 @@
     handlebars "^4.0.6"
     simple-html-tokenizer "^0.4.1"
 
-"@glimmer/syntax@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.npmjs.org/@glimmer/syntax/-/syntax-0.31.0.tgz#5e4f2732c39b07060a716a95e55e7a67c7d1a213"
-  dependencies:
-    "@glimmer/interfaces" "^0.31.0"
-    "@glimmer/util" "^0.31.0"
-    handlebars "^4.0.6"
-    simple-html-tokenizer "^0.4.1"
-
 "@glimmer/util@^0.30.2":
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.30.2.tgz#dd3ed4293b97ce7d89f3b8682381e666c43ba6d7"
-
-"@glimmer/util@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.npmjs.org/@glimmer/util/-/util-0.31.0.tgz#45e353a7dcaffe6df00cc3d729153ae6121cf0e4"
 
 "@glimmer/wire-format@^0.30.2":
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.30.2.tgz#ce4a4c903ada28ee2c62b857b69dfdc06512f53a"
   dependencies:
     "@glimmer/util" "^0.30.2"
-
-"@glimmer/wire-format@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.npmjs.org/@glimmer/wire-format/-/wire-format-0.31.0.tgz#5a12e7a770a981ce9ea3a7daf737433bd6cd03d9"
-  dependencies:
-    "@glimmer/util" "^0.31.0"
 
 accepts@1.3.3, accepts@~1.3.3:
   version "1.3.3"
