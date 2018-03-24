@@ -31,7 +31,7 @@
     "eslint-plugin-node": "^6.0.0",
     "mocha": "^5.0.0",
     "mocha-eslint": "^4.1.0",
-    "mocha-only-detector": "^0.1.0",
+    "mocha-only-detector": "^1.0.0",
     "testem": "^2.0.0"
   },
   "engines": {
