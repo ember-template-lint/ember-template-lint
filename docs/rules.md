@@ -19,6 +19,7 @@
 * [no-unbound](rule/no-unbound.md)
 * [no-outlet-outside-routes](rule/no-outlet-outside-routes.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
+* [no-partial](rule/no-partial.md)
 * [quotes](rule/quotes.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
 * [simple-unless](rule/simple-unless.md)
