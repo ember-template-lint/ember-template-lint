@@ -22,11 +22,35 @@ generateRuleTests({
       '{{#unless hamburger}}',
       '  HOT DOG!',
       '{{/unless}}'
-    ].join('\n')
+    ].join('\n'),
+    {
+      config: true,
+      template: '{{unless foo bar}}'
+    },
+    {
+      config: { },
+      template: '{{unless foo bar}}'
+    },
+    {
+      config: {
+        whitelist: ['or', 'eq', 'not-eq'],
+      },
+      template: '{{unless (eq foo bar) baz}}'
+    },
+    {
+      config: {
+        maxHelpers: 2,
+      },
+      template: '{{unless (eq (not foo) bar) baz}}'
+    }
   ],
 
   bad: [
     {
+      config: {
+        whitelist: ['or', 'eq', 'not-eq'],
+        maxHelpers: 2
+      },
       template: '{{unless (if (or true))  \'Please no\'}}',
 
       result: {
@@ -222,6 +246,83 @@ generateRuleTests({
         source: '{{unless (concat ...',
         line: 1,
         column: 10
+      }
+    },{
+      config: {},
+      template: [
+        '{{#unless (concat "blue" "red")}}',
+        '  I think I am a brown stick',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0',
+        source: '{{unless (concat ...',
+        line: 1,
+        column: 10
+      }
+    },{
+      config: true,
+      template: [
+        '{{#unless (concat "blue" "red")}}',
+        '  I think I am a brown stick',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0',
+        source: '{{unless (concat ...',
+        line: 1,
+        column: 10
+      }
+    },{
+      config: 1,
+      template: [
+        '{{#unless (one (max power) two)}}',
+        '  I think I am a brown stick',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1',
+        source: '{{unless (... (max ...',
+        line: 1,
+        column: 15
+      }
+    },{
+      config: { whitelist: ['test'] },
+      template: [
+        '{{#unless (one (test power) two)}}',
+        '  I think I am a brown stick',
+        '{{/unless}}'
+      ].join('\n'),
+
+      results: [
+        {
+          message: 'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: test',
+          source: '{{unless (one ...',
+          line: 1,
+          column: 10
+        },{
+          message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1',
+          source: '{{unless (... (test ...',
+          line: 1,
+          column: 15
+        }
+      ]
+    },{
+      config: { maxHelpers: 2 },
+      template: [
+        '{{#unless (one (two three) (four five))}}',
+        '  I think I am a brown stick',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2',
+        source: '{{unless (... (four ...',
+        line: 1,
+        column: 27
       }
     }
   ]
