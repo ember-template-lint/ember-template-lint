@@ -35,3 +35,8 @@ logic within the template.
 The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
+  * array -- `whitelist` ```['or']``` for specific helpers / ```[]``` for wildcard, `maxHelpers` defaults to 1
+  * number -- `maxHelpers`, `whitelist` will be wildcard
+  * object --
+    * `whitelist` -- array
+    * `maxHelpers` -- number
