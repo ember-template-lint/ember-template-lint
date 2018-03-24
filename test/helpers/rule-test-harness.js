@@ -2,7 +2,6 @@
 
 const expect = require('chai').expect;
 const Linter = require('../../lib/index');
-const assign = require('lodash').assign;
 
 function parseMeta(item) {
   let meta = (item !== undefined && typeof item === 'object' && item.meta) ? item.meta : {};
@@ -49,7 +48,7 @@ module.exports = function(options) {
         delete result.moduleId;
       }
 
-      return assign({}, defaults, result);
+      return Object.assign({}, defaults, result);
     }
 
     options.bad.forEach(function(badItem) {
