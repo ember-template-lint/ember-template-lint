@@ -28,18 +28,16 @@ generateRuleTests({
       template: '{{unless foo bar}}'
     },
     {
-      config: { },
-      template: '{{unless foo bar}}'
-    },
-    {
       config: {
         whitelist: ['or', 'eq', 'not-eq'],
+        maxHelpers: 2
       },
       template: '{{unless (eq foo bar) baz}}'
     },
     {
       config: {
-        maxHelpers: 2,
+        whitelist: [],
+        maxHelpers: 2
       },
       template: '{{unless (eq (not foo) bar) baz}}'
     }
@@ -233,35 +231,6 @@ generateRuleTests({
         column: 27
       }
     },{
-      config: ['exampleHelper'],
-      template: [
-        '{{#unless (concat "blue" "red")}}',
-        '  I think I am a brown stick',
-        '{{/unless}}'
-      ].join('\n'),
-
-      result: {
-        message: messages.withHelper + ' Allowed helper: exampleHelper',
-        moduleId: 'layout.hbs',
-        source: '{{unless (concat ...',
-        line: 1,
-        column: 10
-      }
-    },{
-      config: {},
-      template: [
-        '{{#unless (concat "blue" "red")}}',
-        '  I think I am a brown stick',
-        '{{/unless}}'
-      ].join('\n'),
-
-      result: {
-        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0',
-        source: '{{unless (concat ...',
-        line: 1,
-        column: 10
-      }
-    },{
       config: true,
       template: [
         '{{#unless (concat "blue" "red")}}',
@@ -276,21 +245,10 @@ generateRuleTests({
         column: 10
       }
     },{
-      config: 1,
-      template: [
-        '{{#unless (one (max power) two)}}',
-        '  I think I am a brown stick',
-        '{{/unless}}'
-      ].join('\n'),
-
-      result: {
-        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1',
-        source: '{{unless (... (max ...',
-        line: 1,
-        column: 15
-      }
-    },{
-      config: { whitelist: ['test'] },
+      config: {
+        whitelist: ['test'],
+        maxHelpers: 1
+      },
       template: [
         '{{#unless (one (test power) two)}}',
         '  I think I am a brown stick',
@@ -311,7 +269,10 @@ generateRuleTests({
         }
       ]
     },{
-      config: { maxHelpers: 2 },
+      config: {
+        whitelist: [],
+        maxHelpers: 2
+      },
       template: [
         '{{#unless (one (two three) (four five))}}',
         '  I think I am a brown stick',
