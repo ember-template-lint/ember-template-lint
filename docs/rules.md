@@ -27,7 +27,7 @@
 * [style-concatenation](rule/style-concatenation.md)
 * [table-groups](rule/table-groups.md)
 * [template-length](rule/template-length.md)
-* [triple-curlies](rule/triple-curlies.md)
+* [no-triple-curlies](rule/no-triple-curlies.md)
 * [unused-block-params](rule/unused-block-params.md)
 
 ## Deprecations

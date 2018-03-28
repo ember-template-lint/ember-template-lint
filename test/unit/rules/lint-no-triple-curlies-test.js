@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'triple-curlies',
+  name: 'no-triple-curlies',
 
   config: true,
 

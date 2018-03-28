@@ -121,8 +121,8 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 <!-- disable no-bare-strings -->
 {{! template-lint-disable no-bare-strings }}
 
-<!-- disable no-bare-strings and triple-curlies -->
-{{! template-lint-disable no-bare-strings triple-curlies }}
+<!-- disable no-bare-strings and no-triple-curlies -->
+{{! template-lint-disable no-bare-strings no-triple-curlies }}
 
 <!-- enable all rules -->
 {{! template-lint-enable }}
@@ -130,8 +130,8 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 <!-- enable no-bare-strings -->
 {{! template-lint-enable no-bare-strings }}
 
-<!-- enable no-bare-strings and triple-curlies -->
-{{! template-lint-enable no-bare-strings triple-curlies }}
+<!-- enable no-bare-strings and no-triple-curlies -->
+{{! template-lint-enable no-bare-strings no-triple-curlies }}
 ```
 
 and to configure rules in the template:

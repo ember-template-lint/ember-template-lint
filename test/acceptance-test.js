@@ -416,7 +416,7 @@ describe('public api', function() {
           line: 2,
           column: 2,
           source: '{{{myVar}}}',
-          rule: 'triple-curlies',
+          rule: 'no-triple-curlies',
           severity: 2
         },
         {
