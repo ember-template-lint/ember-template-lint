@@ -8,7 +8,7 @@
 * [html-comments](rule/html-comments.md)
 * [img-alt-attributes](rule/img-alt-attributes.md)
 * [inline-link-to](rule/inline-link-to.md)
-* [inline-styles](rule/inline-styles.md)
+* [no-inline-styles](rule/no-inline-styles.md)
 * [invalid-interactive](rule/invalid-interactive.md)
 * [link-rel-noopener](rule/link-rel-noopener.md)
 * [nested-interactive](rule/nested-interactive.md)
