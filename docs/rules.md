@@ -9,7 +9,7 @@
 * [img-alt-attributes](rule/img-alt-attributes.md)
 * [inline-link-to](rule/inline-link-to.md)
 * [no-inline-styles](rule/no-inline-styles.md)
-* [invalid-interactive](rule/invalid-interactive.md)
+* [no-invalid-interactive](rule/no-invalid-interactive.md)
 * [link-rel-noopener](rule/link-rel-noopener.md)
 * [nested-interactive](rule/nested-interactive.md)
 * [no-debugger](rule/no-debugger.md)
