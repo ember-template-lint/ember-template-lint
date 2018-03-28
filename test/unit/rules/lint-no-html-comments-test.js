@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'html-comments',
+  name: 'no-html-comments',
 
   config: true,
 
