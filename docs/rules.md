@@ -1,7 +1,7 @@
 # Rules
 
 * [attribute-indentation](rule/attribute-indentation.md)
-* [bare-strings](rule/bare-strings.md)
+* [no-bare-strings](rule/no-bare-strings.md)
 * [block-indentation](rule/block-indentation.md)
 * [eol-last](rule/eol-last.md)
 * [invocable-blacklist](rule/invocable-blacklist.md)

@@ -77,11 +77,11 @@ describe('get-config', function() {
     let actual = getConfig({
       console: { log() { }},
       config: {
-        'bare-strings': false
+        'no-bare-strings': false
       }
     });
 
-    expect(actual.rules['bare-strings']).to.be.false;
+    expect(actual.rules['no-bare-strings']).to.be.false;
   });
 
   it('rules in the config root trigger a deprecation', function() {
@@ -92,7 +92,7 @@ describe('get-config', function() {
       }},
 
       config: {
-        'bare-strings': true
+        'no-bare-strings': true
       }
     });
 
@@ -150,7 +150,7 @@ describe('get-config', function() {
           configurations: {
             'basic-configuration': {
               rules: {
-                'bare-strings': false
+                'no-bare-strings': false
               }
             }
           }
@@ -160,7 +160,7 @@ describe('get-config', function() {
     });
 
     expect(message).to.not.be.ok;
-    expect(actual.rules['bare-strings']).to.be.false;
+    expect(actual.rules['no-bare-strings']).to.be.false;
   });
 
   it('throw exception when plugin path is incorrect', function() {

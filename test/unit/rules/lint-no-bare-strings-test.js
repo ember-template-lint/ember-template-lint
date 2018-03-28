@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'bare-strings',
+  name: 'no-bare-strings',
 
   config: true,
 
@@ -28,7 +28,7 @@ generateRuleTests({
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
     '(),.&+-=*/#%!?:[]{}',
-    '{{! template-lint-disable bare-strings }}',
+    '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
 
     // placeholder is a <input> specific attribute

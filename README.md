@@ -9,7 +9,7 @@ ember-template-lint will lint your template and return error results. This is co
 used through ember-cli-template-lint which adds failing lint tests for consuming ember-cli
 applications.
 
-For example, given the rule [`bare-strings`](docs/rule/bare-strings.md) is enabled, this template would be
+For example, given the rule [`no-bare-strings`](docs/rule/no-bare-strings.md) is enabled, this template would be
 in violation:
 
 ```hbs
@@ -18,7 +18,7 @@ in violation:
 ```
 
 When ran through the linter's `verify` method, we would have a single result indicating that
-the `bare-strings` rule found an error.
+the `no-bare-strings` rule found an error.
 
 ## Install
 
@@ -89,13 +89,13 @@ module.exports = {
   extends: 'recommended',
 
   rules: {
-    'bare-strings': true
+    'no-bare-strings': true
   }
 }
 ```
 
 This extends from the builtin recommended configuration ([lib/config/recommended.js](https://github.com/rwjblue/ember-template-lint/blob/master/lib/config/recommended.js)),
-and also enables the `bare-strings` rule (see [here](https://github.com/rwjblue/ember-template-lint#bare-strings)).
+and also enables the `no-bare-strings` rule (see [here](https://github.com/rwjblue/ember-template-lint#no-bare-strings)).
 
 Using this mechanism allows you to extend from the builtin, and modify specific rules as needed.
 
@@ -105,7 +105,7 @@ some "bare strings" that are allowed you might have:
 ```javascript
 module.exports = {
   rules: {
-    'bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
+    'no-bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
   }
 };
 ```
@@ -118,28 +118,28 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 <!-- disable all rules -->
 {{! template-lint-disable }}
 
-<!-- disable bare-strings -->
-{{! template-lint-disable bare-strings }}
+<!-- disable no-bare-strings -->
+{{! template-lint-disable no-bare-strings }}
 
-<!-- disable bare-strings and triple-curlies -->
-{{! template-lint-disable bare-strings triple-curlies }}
+<!-- disable no-bare-strings and triple-curlies -->
+{{! template-lint-disable no-bare-strings triple-curlies }}
 
 <!-- enable all rules -->
 {{! template-lint-enable }}
 
-<!-- enable bare-strings -->
-{{! template-lint-enable bare-strings }}
+<!-- enable no-bare-strings -->
+{{! template-lint-enable no-bare-strings }}
 
-<!-- enable bare-strings and triple-curlies -->
-{{! template-lint-enable bare-strings triple-curlies }}
+<!-- enable no-bare-strings and triple-curlies -->
+{{! template-lint-enable no-bare-strings triple-curlies }}
 ```
 
 and to configure rules in the template:
 
 ```hbs
-{{! template-lint-configure bare-strings ["ZOMG THIS IS ALLOWED!!!!"] }}
+{{! template-lint-configure no-bare-strings ["ZOMG THIS IS ALLOWED!!!!"] }}
 
-{{! template-lint-configure bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]} }}
+{{! template-lint-configure no-bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]} }}
 ```
 
 The configure instruction can only configure a single rule, and the configuration value must be valid JSON that parses into a configuration for that rule.

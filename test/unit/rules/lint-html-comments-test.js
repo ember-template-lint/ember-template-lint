@@ -10,7 +10,7 @@ generateRuleTests({
   good: [
     '{{!-- comment here --}}',
     '{{!--comment here--}}',
-    '{{! template-lint-disable bare-strings }}',
+    '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}'
   ],
 

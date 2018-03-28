@@ -9,7 +9,7 @@ generateRuleTests({
 
   good: [
     '{{foo}}',
-    '{{! template-lint-disable bare-strings }}',
+    '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}'
   ],
 

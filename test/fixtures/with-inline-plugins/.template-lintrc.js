@@ -9,6 +9,6 @@ module.exports = {
   ],
   rules: {
     'inline-component': true,
-    'bare-strings': true
+    'no-bare-strings': true
   }
 };
