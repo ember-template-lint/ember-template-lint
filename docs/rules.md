@@ -28,7 +28,7 @@
 * [table-groups](rule/table-groups.md)
 * [template-length](rule/template-length.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
-* [unused-block-params](rule/unused-block-params.md)
+* [no-unused-block-params](rule/no-unused-block-params.md)
 
 ## Deprecations
 

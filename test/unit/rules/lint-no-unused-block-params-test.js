@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'unused-block-params',
+  name: 'no-unused-block-params',
 
   config: true,
 
