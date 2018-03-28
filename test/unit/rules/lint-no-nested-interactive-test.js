@@ -1,10 +1,10 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ARRAY_DEPRECATION_MESSAGE = require('../../../lib/rules/lint-nested-interactive').ARRAY_DEPRECATION_MESSAGE;
+const ARRAY_DEPRECATION_MESSAGE = require('../../../lib/rules/lint-no-nested-interactive').ARRAY_DEPRECATION_MESSAGE;
 
 generateRuleTests({
-  name: 'nested-interactive',
+  name: 'no-nested-interactive',
 
   config: true,
 

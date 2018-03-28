@@ -11,7 +11,7 @@
 * [no-inline-styles](rule/no-inline-styles.md)
 * [no-invalid-interactive](rule/no-invalid-interactive.md)
 * [link-rel-noopener](rule/link-rel-noopener.md)
-* [nested-interactive](rule/nested-interactive.md)
+* [no-nested-interactive](rule/no-nested-interactive.md)
 * [no-debugger](rule/no-debugger.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-log](rule/no-log.md)
