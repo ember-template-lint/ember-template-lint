@@ -606,10 +606,6 @@ espree@^3.5.1:
     acorn "^5.1.1"
     acorn-jsx "^3.0.0"
 
-esprima@^2.7.0:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
-
 esprima@^3.1.1:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-3.1.3.tgz#fdca51cee6133895e3c88d535ce49dbff62a4633"
@@ -1239,17 +1235,17 @@ mocha-eslint@^4.1.0:
     glob-all "^3.0.1"
     replaceall "^0.1.6"
 
-mocha-only-detector@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/mocha-only-detector/-/mocha-only-detector-0.1.0.tgz#c326faca698ed8d5bc682e2ca3e873e5b5601154"
+mocha-only-detector@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mocha-only-detector/-/mocha-only-detector-1.0.0.tgz#183c710afffcca79df172daf76c45afca3b8e37d"
   dependencies:
-    esprima "^2.7.0"
+    esprima "^4.0.0"
     esprimaq "^0.0.1"
     glob "^4.3.2"
 
 mocha@^5.0.0:
-  version "5.0.4"
-  resolved "https://registry.npmjs.org/mocha/-/mocha-5.0.4.tgz#6b7aa328472da1088e69d47e75925fd3a3bb63c6"
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-5.0.5.tgz#e228e3386b9387a4710007a641f127b00be44b52"
   dependencies:
     browser-stdout "1.3.1"
     commander "2.11.0"
