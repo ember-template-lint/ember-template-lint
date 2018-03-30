@@ -1,10 +1,30 @@
 Changelog
 =========
 
+## unreleased
+
+- add whitelist to simple-unless [#356](https://github.com/rwjblue/ember-template-lint/pull/356)
+- add no-partial rule [#369](https://github.com/rwjblue/ember-template-lint/pull/369)
+- unused-block-params: Disable rule when partial is used in scope [#368](https://github.com/rwjblue/ember-template-lint/pull/368)
+- Remove unused `lodash` dependency [#367](https://github.com/rwjblue/ember-template-lint/pull/367)
+- add no-unnecessary-concat rule [#365](https://github.com/rwjblue/ember-template-lint/pull/365)
+- update @glimmer/compiler to version 0.32.3 [#362](https://github.com/rwjblue/ember-template-lint/pull/362)
+- Remove explicit `@glimmer/syntax` dependency [#363](https://github.com/rwjblue/ember-template-lint/pull/363)
+- add no-outlet-outside-routes rule [#359](https://github.com/rwjblue/ember-template-lint/pull/359)
+- add no-input-block and no-input-tagname rules [#361](https://github.com/rwjblue/ember-template-lint/pull/361)
+- add no-unbound rule [#360](https://github.com/rwjblue/ember-template-lint/pull/360)
+- fix attribute-indentation) [#358](https://github.com/rwjblue/ember-template-lint/pull/358)
+- fix eol-last [#344](https://github.com/rwjblue/ember-template-lint/pull/344)
+- fix attribute-indentation [#334](https://github.com/rwjblue/ember-template-lint/pull/334)
+- Allow form elements to have reset actions [#355](https://github.com/rwjblue/ember-template-lint/pull/355)
+- No trailing dot(s) in a path expression [#342](https://github.com/rwjblue/ember-template-lint/pull/342)
+- Allow sharing and extending configs [#322](https://github.com/rwjblue/ember-template-lint/pull/322)
+- table-groups improvements [#335](https://github.com/rwjblue/ember-template-lint/pull/335)
+
 ## 0.8.14
 
 - Ensure that the configuration objects are not mutated.
--
+
 ## 0.8.13
 
 - Add new `quotes` rule. Examples:
