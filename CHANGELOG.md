@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## unreleased
+## 0.8.15
 
 - add whitelist to simple-unless [#356](https://github.com/rwjblue/ember-template-lint/pull/356)
 - add no-partial rule [#369](https://github.com/rwjblue/ember-template-lint/pull/369)
