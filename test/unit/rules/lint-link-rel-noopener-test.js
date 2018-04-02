@@ -12,10 +12,40 @@ generateRuleTests({
     '<a href="/some/where" target="_self"></a>',
     '<a href="/some/where" target="_blank" rel="noopener"></a>',
     '<a href="/some/where" target="_blank" rel="noopener noreferrer"></a>',
+    '<a href="/some/where" target="_blank" rel="noreferrer noopener"></a>',
+    '<a href="/some/where" target="_blank" rel="nofollow noreferrer noopener"></a>',
     '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
     {
       config: 'strict',
       template: '<a href="/some/where/ingrid" target="_blank" rel="noopener noreferrer"></a>,'
+    },
+    {
+      config: 'strict',
+      template: '<a href="/some/where/ingrid" target="_blank" rel="nofollow noopener noreferrer"></a>,'
+    },
+    {
+      config: 'strict',
+      template: '<a href="/some/where/ingrid" target="_blank" rel="noopener nofollow noreferrer"></a>,'
+    },
+    {
+      config: 'strict',
+      template: '<a href="/some/where/ingrid" target="_blank" rel="noopener noreferrer nofollow"></a>,'
+    },
+    {
+      config: 'strict',
+      template: '<a href="/some/where/ingrid" target="_blank" rel="noreferrer noopener"></a>,'
+    },
+    {
+      config: 'strict',
+      template: '<a href="/some/where/ingrid" target="_blank" rel="nofollow noreferrer noopener"></a>,'
+    },
+    {
+      config: 'strict',
+      template: '<a href="/some/where/ingrid" target="_blank" rel="noreferrer nofollow noopener"></a>,'
+    },
+    {
+      config: 'strict',
+      template: '<a href="/some/where/ingrid" target="_blank" rel="noreferrer noopener nofollow"></a>,'
     }
   ],
 
@@ -47,7 +77,7 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank" rel="noopener"></a>',
 
       result: {
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
+        message: 'links with target="_blank" must have rel="noopener noreferrer" or rel="noreferrer noopener"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="noopener"></a>',
         line: 1,
@@ -59,7 +89,7 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
 
       result: {
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
+        message: 'links with target="_blank" must have rel="noopener noreferrer" or rel="noreferrer noopener"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
         line: 1,
@@ -71,7 +101,7 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
 
       result: {
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
+        message: 'links with target="_blank" must have rel="noopener noreferrer" or rel="noreferrer noopener"',
         moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
         line: 1,
