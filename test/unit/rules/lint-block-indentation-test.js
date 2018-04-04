@@ -195,7 +195,10 @@ generateRuleTests({
       '\uFEFF{{#if foo}}',
       '  <div></div>',
       '{{/if}}'
-    ].join('\n')
+    ].join('\n'),
+    [
+      '{{\'this works\'}}'
+    ].join('\n'),
   ],
 
   bad: [
