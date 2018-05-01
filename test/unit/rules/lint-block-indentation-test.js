@@ -199,6 +199,15 @@ generateRuleTests({
     [
       '{{\'this works\'}}'
     ].join('\n'),
+    [
+      '{{#foo-bar as |baz|}}',
+      '  {{#baz.content}}',
+      '    {{#component "foo-bar"}}',
+      '      Content',
+      '    {{/component}}',
+      '  {{/baz.content}}',
+      '{{/foo-bar}}'
+    ].join('\n'),
   ],
 
   bad: [
