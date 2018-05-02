@@ -1,6 +1,8 @@
 Changelog
 =========
 
+- extract scope and frame for reuse [#406](https://github.com/rwjblue/ember-template-lint/pull/406)
+
 ## 0.8.15
 
 - add whitelist to simple-unless [#356](https://github.com/rwjblue/ember-template-lint/pull/356)
