@@ -1753,8 +1753,8 @@ tap-parser@^5.1.0:
     readable-stream "^2"
 
 testem@^2.0.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/testem/-/testem-2.2.1.tgz#7bcda44eeb34287d918b3c8b9c6863d26a616557"
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/testem/-/testem-2.4.0.tgz#c74e9bbc5269dc102dad6b95979888c397c6e712"
   dependencies:
     backbone "^1.1.2"
     bluebird "^3.4.6"
