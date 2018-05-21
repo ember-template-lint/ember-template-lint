@@ -2,40 +2,39 @@
 # yarn lockfile v1
 
 
-"@glimmer/compiler@^0.32.3":
-  version "0.32.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/compiler/-/compiler-0.32.3.tgz#fc15780ec38aa62b60da600618ca1f43da6b979c"
+"@glimmer/compiler@^0.34.3":
+  version "0.34.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/compiler/-/compiler-0.34.3.tgz#4fcfb1e22566336ae4b43aa32394b44335f83724"
   dependencies:
-    "@glimmer/interfaces" "^0.32.3"
-    "@glimmer/syntax" "^0.32.3"
-    "@glimmer/util" "^0.32.3"
-    "@glimmer/wire-format" "^0.32.3"
-    simple-html-tokenizer "^0.4.1"
+    "@glimmer/interfaces" "^0.34.3"
+    "@glimmer/syntax" "^0.34.3"
+    "@glimmer/util" "^0.34.3"
+    "@glimmer/wire-format" "^0.34.3"
 
-"@glimmer/interfaces@^0.32.3":
-  version "0.32.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.32.3.tgz#a328344d88490c1ae765ebe18ee357ed9a66f0fb"
+"@glimmer/interfaces@^0.34.3":
+  version "0.34.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.34.3.tgz#d95b19f18523379f6efac24f1ae77af3a83d8fc3"
   dependencies:
-    "@glimmer/wire-format" "^0.32.3"
+    "@glimmer/wire-format" "^0.34.3"
 
-"@glimmer/syntax@^0.32.3":
-  version "0.32.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.32.3.tgz#f6b035948013728e646731d774ccd8c49f7d10d1"
+"@glimmer/syntax@^0.34.3":
+  version "0.34.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.34.3.tgz#6071c1ae506c11f0adc13192df552c650d22dc15"
   dependencies:
-    "@glimmer/interfaces" "^0.32.3"
-    "@glimmer/util" "^0.32.3"
+    "@glimmer/interfaces" "^0.34.3"
+    "@glimmer/util" "^0.34.3"
     handlebars "^4.0.6"
-    simple-html-tokenizer "^0.4.1"
+    simple-html-tokenizer "^0.5.1"
 
-"@glimmer/util@^0.32.3":
-  version "0.32.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.32.3.tgz#b73ccc1b73097ba6ec1e250954a1a2e1eb83eb48"
+"@glimmer/util@^0.34.3":
+  version "0.34.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.34.3.tgz#4754f2b821daea1af3d01b6c4bb0a2c03f766aaa"
 
-"@glimmer/wire-format@^0.32.3":
-  version "0.32.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.32.3.tgz#2f684a6d88ba7162d32cd5f01bd0b83151cdb73d"
+"@glimmer/wire-format@^0.34.3":
+  version "0.34.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.34.3.tgz#be01956ffb0cfe007c73d6c403041e4e3f6c68b8"
   dependencies:
-    "@glimmer/util" "^0.32.3"
+    "@glimmer/util" "^0.34.3"
 
 accepts@~1.3.3:
   version "1.3.3"
@@ -1593,9 +1592,9 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-simple-html-tokenizer@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/simple-html-tokenizer/-/simple-html-tokenizer-0.4.1.tgz#028988bb7fe8b2e6645676d82052587d440b02d3"
+simple-html-tokenizer@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/simple-html-tokenizer/-/simple-html-tokenizer-0.5.1.tgz#125d486de28ffd5365624c11a71944a2cc2826dc"
 
 slice-ansi@1.0.0:
   version "1.0.0"
