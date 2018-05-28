@@ -10,7 +10,8 @@ generateRuleTests({
   good: [
     '{{foo}}',
     '{{! template-lint-disable no-bare-strings }}',
-    '{{! template-lint-disable }}'
+    '{{! template-lint-disable }}',
+    '{{! template-lint-disable triple-curlies}}{{{lol}}}'
   ],
 
   bad: [

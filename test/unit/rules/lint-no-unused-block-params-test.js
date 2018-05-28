@@ -18,7 +18,8 @@ generateRuleTests({
       '{{#each cat.lives as |life|}}' +
         '{{index}}: {{life}}' +
       '{{/each}}' +
-    '{{/each}}'
+    '{{/each}}',
+    '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
   ],
 
   bad: [
