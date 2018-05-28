@@ -17,7 +17,7 @@ function mapBadStyleExampleToTestRule(inlineStyle) {
 }
 
 generateRuleTests({
-  name: 'inline-styles',
+  name: 'no-inline-styles',
 
   config: true,
 

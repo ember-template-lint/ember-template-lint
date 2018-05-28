@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'invalid-interactive',
+  name: 'no-invalid-interactive',
 
   config: true,
 

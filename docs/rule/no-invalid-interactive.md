@@ -1,4 +1,4 @@
-## invalid-interactive
+## no-invalid-interactive
 
 Adding interactivity to an element that is not naturally interactive content leads to a very poor experience for
 users of assistive technology (i.e. screen readers). In order to ensure that screen readers can provide useful information
@@ -17,7 +17,7 @@ Instead, you should add a `role` to the element in question so that the A/T is a
 <div role="button" {{action "foo"}}></div>
 ```
 
-The following values are valid configuration (same as the `nested-interactive` rule above):
+The following values are valid configuration (same as the `no-nested-interactive` rule above):
 
   * boolean -- `true` indicates all whitelist test will run, `false` indicates that the rule is disabled.
   * object - Containing the following values:

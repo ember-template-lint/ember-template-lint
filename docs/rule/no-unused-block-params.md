@@ -1,4 +1,4 @@
-## unused-block-params
+## no-unused-block-params
 
 This rule forbids unused block parameters except when they are needed to access a later parameter.
 

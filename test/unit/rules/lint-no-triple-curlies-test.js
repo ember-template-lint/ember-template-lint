@@ -3,14 +3,15 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'triple-curlies',
+  name: 'no-triple-curlies',
 
   config: true,
 
   good: [
     '{{foo}}',
-    '{{! template-lint-disable bare-strings }}',
-    '{{! template-lint-disable }}'
+    '{{! template-lint-disable no-bare-strings }}',
+    '{{! template-lint-disable }}',
+    '{{! template-lint-disable triple-curlies}}{{{lol}}}'
   ],
 
   bad: [

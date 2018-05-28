@@ -161,11 +161,11 @@ describe('base plugin', function() {
     // Specific enable/disable
     expectConfig('template-lint-disable fake', { value: false, tree: false });
     expectConfig('template-lint-disable-tree "fake"', { value: false, tree: true });
-    expectConfig('template-lint-disable fake \'bare-strings\'', { value: false, tree: false });
-    expectConfig('template-lint-disable bare-strings fake block-indentation', { value: false, tree: false });
-    expectConfig('template-lint-disable bare-strings', null);
+    expectConfig('template-lint-disable fake \'no-bare-strings\'', { value: false, tree: false });
+    expectConfig('template-lint-disable no-bare-strings fake block-indentation', { value: false, tree: false });
+    expectConfig('template-lint-disable no-bare-strings', null);
     expectConfig(' template-lint-disable   fake ', { value: false, tree: false });
-    expectConfig('template-lint-disable   bare-strings    fake   block-indentation ', { value: false, tree: false });
+    expectConfig('template-lint-disable   no-bare-strings    fake   block-indentation ', { value: false, tree: false });
 
     // Configure
     expectConfig('template-lint-configure fake { "key1": "value", "key2": { "key3": 1 } }', {
@@ -184,7 +184,7 @@ describe('base plugin', function() {
       value: false,
       tree: true
     });
-    expectConfig('template-lint-configure-tree bare-strings { "key": "value" }', null);
+    expectConfig('template-lint-configure-tree no-bare-strings { "key": "value" }', null);
     expectConfig('  template-lint-configure-tree    fake   { "key": "value" }', {
       value: { key: 'value' },
       tree: true

@@ -1,17 +1,17 @@
 # Rules
 
 * [attribute-indentation](rule/attribute-indentation.md)
-* [bare-strings](rule/bare-strings.md)
+* [no-bare-strings](rule/no-bare-strings.md)
 * [block-indentation](rule/block-indentation.md)
 * [eol-last](rule/eol-last.md)
 * [invocable-blacklist](rule/invocable-blacklist.md)
-* [html-comments](rule/html-comments.md)
+* [no-html-comments](rule/no-html-comments.md)
 * [img-alt-attributes](rule/img-alt-attributes.md)
 * [inline-link-to](rule/inline-link-to.md)
-* [inline-styles](rule/inline-styles.md)
-* [invalid-interactive](rule/invalid-interactive.md)
+* [no-inline-styles](rule/no-inline-styles.md)
+* [no-invalid-interactive](rule/no-invalid-interactive.md)
 * [link-rel-noopener](rule/link-rel-noopener.md)
-* [nested-interactive](rule/nested-interactive.md)
+* [no-nested-interactive](rule/no-nested-interactive.md)
 * [no-debugger](rule/no-debugger.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-log](rule/no-log.md)
@@ -27,8 +27,8 @@
 * [style-concatenation](rule/style-concatenation.md)
 * [table-groups](rule/table-groups.md)
 * [template-length](rule/template-length.md)
-* [triple-curlies](rule/triple-curlies.md)
-* [unused-block-params](rule/unused-block-params.md)
+* [no-triple-curlies](rule/no-triple-curlies.md)
+* [no-unused-block-params](rule/no-unused-block-params.md)
 
 ## Deprecations
 

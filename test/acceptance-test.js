@@ -113,7 +113,7 @@ describe('public api', function() {
           line: 1,
           column: 4,
           source: 'Here too!!',
-          rule: 'bare-strings',
+          rule: 'no-bare-strings',
           severity: 2
         }, {
           message: 'Non-translated string used',
@@ -121,7 +121,7 @@ describe('public api', function() {
           line: 2,
           column: 5,
           source: 'Bare strings are bad...',
-          rule: 'bare-strings',
+          rule: 'no-bare-strings',
           severity: 2
         }
       ];
@@ -147,7 +147,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'bare-strings': true },
+          rules: { 'no-bare-strings': true },
           pending: ['some/path/here']
         }
       });
@@ -164,7 +164,7 @@ describe('public api', function() {
         line: 1,
         column: 5,
         source: 'bare string',
-        rule: 'bare-strings',
+        rule: 'no-bare-strings',
         severity: 1
       };
 
@@ -175,7 +175,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': true, 'block-indentation': true },
           pending: [
             { moduleId: 'some/path/here', only: ['block-indentation'] }
           ]
@@ -194,7 +194,7 @@ describe('public api', function() {
         line: 1,
         column: 5,
         source: 'bare string',
-        rule: 'bare-strings',
+        rule: 'no-bare-strings',
         severity: 2
       };
 
@@ -205,7 +205,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': true, 'block-indentation': true },
           pending: [
             { moduleId: 'some/path/here', only: ['block-indentation'] }
           ]
@@ -240,7 +240,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'bare-strings': true },
+          rules: { 'no-bare-strings': true },
           pending: ['some/path/here' ]
         }
       });
@@ -264,9 +264,9 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'bare-strings': true },
+          rules: { 'no-bare-strings': true },
           pending: [
-            { moduleId: 'some/path/here', only: ['bare-strings']}
+            { moduleId: 'some/path/here', only: ['no-bare-strings']}
           ]
         }
       });
@@ -290,7 +290,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': true, 'block-indentation': true },
           ignore: [ 'some/path/here' ]
         }
       });
@@ -308,7 +308,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': true, 'block-indentation': true },
           ignore: [ 'some/path/*' ]
         }
       });
@@ -416,7 +416,7 @@ describe('public api', function() {
           line: 2,
           column: 2,
           source: '{{{myVar}}}',
-          rule: 'triple-curlies',
+          rule: 'no-triple-curlies',
           severity: 2
         },
         {
@@ -508,7 +508,7 @@ describe('public api', function() {
         config: {
           pending: [
             'some/path/here',
-            { moduleId: 'foo/bar/baz', only: ['bare-strings']}
+            { moduleId: 'foo/bar/baz', only: ['no-bare-strings']}
           ]
         }
       });

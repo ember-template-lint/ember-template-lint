@@ -92,8 +92,8 @@ describe('ember-template-lint executable', function() {
           expect(err).to.be.ok;
           expect(stdout.split('\n')).to.deep.equal([
             path.resolve('./test/fixtures/with-errors/app/templates/application.hbs'),
-            '  1:4  error  Non-translated string used  bare-strings',
-            '  2:5  error  Non-translated string used  bare-strings',
+            '  1:4  error  Non-translated string used  no-bare-strings',
+            '  2:5  error  Non-translated string used  no-bare-strings',
             '',
             '✖ 2 problems',
             ''
@@ -117,7 +117,7 @@ describe('ember-template-lint executable', function() {
               line: 1,
               message: 'Non-translated string used',
               moduleId: './app/templates/application',
-              rule: 'bare-strings',
+              rule: 'no-bare-strings',
               severity: 2,
               source: 'Here too!!'
             }, {
@@ -125,7 +125,7 @@ describe('ember-template-lint executable', function() {
               line: 2,
               message: 'Non-translated string used',
               moduleId: './app/templates/application',
-              rule: 'bare-strings',
+              rule: 'no-bare-strings',
               severity: 2,
               source: 'Bare strings are bad...'
             }

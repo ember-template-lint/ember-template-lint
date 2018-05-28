@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'unused-block-params',
+  name: 'no-unused-block-params',
 
   config: true,
 
@@ -18,7 +18,8 @@ generateRuleTests({
       '{{#each cat.lives as |life|}}' +
         '{{index}}: {{life}}' +
       '{{/each}}' +
-    '{{/each}}'
+    '{{/each}}',
+    '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
   ],
 
   bad: [

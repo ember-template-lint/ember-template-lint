@@ -3,15 +3,16 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'html-comments',
+  name: 'no-html-comments',
 
   config: true,
 
   good: [
     '{{!-- comment here --}}',
     '{{!--comment here--}}',
-    '{{! template-lint-disable bare-strings }}',
-    '{{! template-lint-disable }}'
+    '{{! template-lint-disable no-bare-strings }}',
+    '{{! template-lint-disable }}',
+    '{{! template-lint-disable html-comments }}<!-- lol -->',
   ],
 
   bad: [

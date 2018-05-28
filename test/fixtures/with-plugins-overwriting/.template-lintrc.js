@@ -8,6 +8,6 @@ module.exports = {
     'plugin1:enable-inline-component',
   ],
   rules: {
-    'bare-strings': true
+    'no-bare-strings': true
   }
 };

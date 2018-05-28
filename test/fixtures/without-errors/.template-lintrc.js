@@ -1,5 +1,5 @@
 module.exports = {
   rules: {
-    'bare-strings': false
+    'no-bare-strings': false
   }
 };
