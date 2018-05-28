@@ -137,6 +137,54 @@ generateRuleTests({
     },
 
     {
+      template: '<div role="contentinfo" aria-label="Contact, Policies and Legal"></div>',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `aria-label` attribute',
+        line: 1,
+        column: 24,
+        source: 'Contact, Policies and Legal'
+      }
+    },
+
+    {
+      template: '<div contenteditable role="searchbox" aria-placeholder="Search for things"></div>',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `aria-placeholder` attribute',
+        line: 1,
+        column: 38,
+        source: 'Search for things'
+      }
+    },
+
+    {
+      template: '<div role="region" aria-roledescription="slide"></div>',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `aria-roledescription` attribute',
+        line: 1,
+        column: 19,
+        source: 'slide'
+      }
+    },
+
+    {
+      template: '<div role="slider" aria-valuetext="Off" tabindex="0" aria-valuemin="0" aria-valuenow="0" aria-valuemax="3"></div>',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used in `aria-valuetext` attribute',
+        line: 1,
+        column: 19,
+        source: 'Off'
+      }
+    },
+
+    {
       config: { globalAttributes: ['data-foo'] },
       template: '<div data-foo="derpy"></div>',
 
