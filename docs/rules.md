@@ -4,6 +4,7 @@
 * [bare-strings](rule/bare-strings.md)
 * [block-indentation](rule/block-indentation.md)
 * [eol-last](rule/eol-last.md)
+* [invocable-blacklist](rule/invocable-blacklist.md)
 * [html-comments](rule/html-comments.md)
 * [img-alt-attributes](rule/img-alt-attributes.md)
 * [inline-link-to](rule/inline-link-to.md)

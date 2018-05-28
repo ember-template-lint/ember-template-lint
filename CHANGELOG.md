@@ -1,6 +1,7 @@
 Changelog
 =========
 
+- add invocable-blacklist rule [#404](https://github.com/ember-template-lint/ember-template-lint/pull/404)
 - extract scope and frame for reuse [#406](https://github.com/rwjblue/ember-template-lint/pull/406)
 
 ## 0.8.15
