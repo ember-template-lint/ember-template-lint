@@ -69,6 +69,18 @@ describe('public api', function() {
 
       expect(linter.config.rules).to.deep.equal(expected.rules);
     });
+
+    it('with deprecated rule config', function() {
+      let basePath = path.join(fixturePath, 'deprecated-rule-config');
+      let expected = require(path.join(basePath, '.template-lintrc'));
+
+      let linter = new Linter({
+        console: mockConsole,
+        config: expected
+      });
+
+      expect(linter.config.rules).to.deep.equal({ 'no-bare-strings': true });
+    });
   });
 
   describe('Linter.prototype.constructor', function() {
