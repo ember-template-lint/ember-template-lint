@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 0.8.17
+
+- Fix issue with rule deprecation (introduced in 0.8.16). This was causing
+  deprecated rules that were configured properly to "loose" their config.
+- Ensure reported errors include line and column numbers.
+
 ## 0.8.16
 
 - Add `invocable-blacklist` rule allowing specific invokables to be disabled
