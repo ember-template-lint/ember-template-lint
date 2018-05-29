@@ -1,8 +1,26 @@
 Changelog
 =========
 
-- add invocable-blacklist rule [#404](https://github.com/ember-template-lint/ember-template-lint/pull/404)
-- extract scope and frame for reuse [#406](https://github.com/rwjblue/ember-template-lint/pull/406)
+## 0.8.16
+
+- Add `invocable-blacklist` rule allowing specific invokables to be disabled
+  (e.g. you want to forbit a `stinky-garbage` component or helper from usage in
+  your app).
+- Fix various ordering issues with `link-rel-noopener` rule (combinations of
+  `noreferrer` and `noopener` would incorrectly be marked as invalid).
+- Fix issues with templates with a string literal inside mustaches (e.g. `{{"foo"}}`).
+- Remove `tabpanel` from being considered an interactive element.
+- Add `aria-label`, `aria-placeholder`, `aria-roledescription`,
+  `aria-valuetext` to be considered as part of the `no-bare-strings` rule.
+- Rename a number of rules for consistency. A deprecation message will be
+  emitted when the deprecated name is used in your applications configuration:
+  - `inline-styles` -> `no-inline-styles`
+  - `bare-strings` -> `no-bare-strings`
+  - `html-comments` -> `no-html-comments`
+  - `invalid-interactive` -> `no-invalid-interactive`
+  - `nested-interactive` -> `no-nested-interactive`
+  - `triple-curlies` -> `no-triple-curlies`
+  - `unused-block-params` -> `no-unused-block-params`
 
 ## 0.8.15
 
