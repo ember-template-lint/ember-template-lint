@@ -535,6 +535,17 @@ describe('public api', function() {
       );
     });
 
+    it('formats error with rule, message, line and column numbers even when they are "falsey"', function() {
+      let result = Linter.errorsToMessages('file/path', [
+        { rule: 'some rule', message: 'some message', line: 1, column: 0 }
+      ]);
+
+      expect(result).to.equal(
+        'file/path\n'+
+        '  1:0  error  some message  some rule\n'
+      );
+    });
+
     it('formats error with rule, message, line and column numbers', function() {
       let result = Linter.errorsToMessages('file/path', [
         { rule: 'some rule', message: 'some message', line: 11, column: 12 }
