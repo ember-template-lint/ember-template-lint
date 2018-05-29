@@ -73,7 +73,14 @@ generateRuleTests({
       // combine bare string with a variable
       config: ['X'],
       template: '<input placeholder="{{foo}}X">'
-    }
+    },
+
+    '{{! template-lint-disable bare-strings}}LOL{{! template-lint-enable bare-strings}}',
+
+    `{{!-- template-lint-disable bare-strings --}}
+<i class="material-icons">folder_open</i>
+{{!-- template-lint-enable bare-strings --}}`,
+    '<div data-test-foo-bar></div>',
   ],
 
   bad: [
