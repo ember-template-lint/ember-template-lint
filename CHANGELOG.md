@@ -10,7 +10,7 @@ Changelog
 ## 0.8.16
 
 - Add `invocable-blacklist` rule allowing specific invokables to be disabled
-  (e.g. you want to forbit a `stinky-garbage` component or helper from usage in
+  (e.g. you want to forbid a `stinky-garbage` component or helper from usage in
   your app).
 - Fix various ordering issues with `link-rel-noopener` rule (combinations of
   `noreferrer` and `noopener` would incorrectly be marked as invalid).
