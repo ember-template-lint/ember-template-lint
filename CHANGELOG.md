@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.8.18
+
+- Ensure `no-nested-interactive` rule does not flag angle bracket invoked components.
+
 ## 0.8.17
 
 - Fix issue with rule deprecation (introduced in 0.8.16). This was causing
