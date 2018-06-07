@@ -15,6 +15,9 @@ generateRuleTests({
     '<form onsubmit={{action "foo"}}></form>',
     '<form {{action "foo" on="reset"}}></form>',
     '<form onreset={{action "foo"}}></form>',
+    '<InputSearch @onInput={{action "foo"}} />',
+    '<InputSearch @onInput={{action "foo"}}></InputSearch>',
+    '<foo.bar @onInput={{action "foo"}}></foo.bar>',
     {
       config: { additionalInteractiveTags: ['div'] },
       template: '<div {{action "foo"}}></div>'
