@@ -1753,8 +1753,8 @@ tap-parser@^7.0.0:
     minipass "^2.2.0"
 
 testem@^2.0.0:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/testem/-/testem-2.7.1.tgz#d0be5ed15aa084ebf4ef7f0f97e968ea4561a888"
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/testem/-/testem-2.7.2.tgz#7c4da147f4b184e79808748a2a6b0e4d11537703"
   dependencies:
     backbone "^1.1.2"
     bluebird "^3.4.6"
