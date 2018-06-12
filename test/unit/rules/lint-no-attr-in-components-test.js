@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'no-attr-in-components',
+  name: 'no-attrs-in-components',
 
   config: 'true',
   good: [
@@ -21,7 +21,7 @@ generateRuleTests({
       },
 
       result: {
-        rule: 'no-attr-in-components',
+        rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'templates/components/layout.hbs',
         source: 'attrs.foo',
@@ -37,7 +37,7 @@ generateRuleTests({
       },
 
       result: {
-        rule: 'no-attr-in-components',
+        rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'templates/components/layout.hbs',
         source: 'attrs.foo',
@@ -53,7 +53,7 @@ generateRuleTests({
       },
 
       result: {
-        rule: 'no-attr-in-components',
+        rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'templates/components/layout.hbs',
         source: 'attrs.foo',
@@ -69,7 +69,7 @@ generateRuleTests({
       },
 
       result: {
-        rule: 'no-attr-in-components',
+        rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'templates/components/layout.hbs',
         source: 'attrs.foo',
@@ -85,7 +85,7 @@ generateRuleTests({
       },
 
       result: {
-        rule: 'no-attr-in-components',
+        rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'templates/components/layout.hbs',
         source: 'attrs.foo',
@@ -101,7 +101,7 @@ generateRuleTests({
       },
 
       result: {
-        rule: 'no-attr-in-components',
+        rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'templates/components/layout.hbs',
         source: 'attrs.foo',
@@ -117,7 +117,7 @@ generateRuleTests({
       },
 
       result: {
-        rule: 'no-attr-in-components',
+        rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'components/comment/template.hbs',
         source: 'attrs.foo',
