@@ -1,4 +1,4 @@
-## no-implicit-this-paths
+## no-implicit-this
 
 This rule aides in the migration path for [emberjs/rfcs#308](https://github.com/emberjs/rfcs/pull/308).
 
