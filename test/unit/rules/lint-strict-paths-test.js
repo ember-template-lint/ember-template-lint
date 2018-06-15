@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/lint-strict-paths').message;
+const message = require('../../../lib/rules/lint-no-implicit-this-paths').message;
 
 let statements = [
   path => `{{${path}}}`,
@@ -35,7 +35,7 @@ statements.forEach(statement => {
 });
 
 generateRuleTests({
-  name: 'strict-paths',
+  name: 'no-implicit-this-paths',
 
   config: true,
 
