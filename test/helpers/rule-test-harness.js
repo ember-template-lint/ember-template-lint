@@ -12,6 +12,8 @@ function parseMeta(item) {
 
 module.exports = function(options) {
   let groupingMethod = options.focus ? describe.only : describe;
+  let skipDisabledTests = options.skipDisabledTests;
+
   groupingMethod(options.name, function() {
     let DISABLE_ALL = '{{! template-lint-disable }}';
     let DISABLE_ONE = `{{! template-lint-disable ${options.name} }}`;
@@ -38,9 +40,12 @@ module.exports = function(options) {
 
     function parseResult(result) {
       let defaults = {
-        rule: options.name,
         severity: 2
       };
+
+      if (!skipDisabledTests) {
+        defaults.rule = options.name;
+      }
 
       if (result.moduleId !== null) {
         defaults.moduleId = 'layout.hbs';
@@ -60,38 +65,46 @@ module.exports = function(options) {
 
         meta = parseMeta(badItem);
 
-        expectedResults = expectedResults.map(parseResult);
-
         if (badItem.config) {
           config = badItem.config;
         }
 
         let actual = verify(template);
 
-        expect(actual).to.deep.equal(expectedResults);
+        if (badItem.fatal) {
+          expect(actual.length).to.equal(1); // can't have more than one fatal error
+          delete actual[0].source; // remove the source (stack trace is not easy to assert)
+          expect(actual[0]).to.deep.equal(badItem.fatal);
+        } else {
+          expectedResults = expectedResults.map(parseResult);
+
+          expect(actual).to.deep.equal(expectedResults);
+        }
       });
 
-      testMethod(`passes with \`${template}\` when rule is disabled`, function() {
-        config = false;
-        meta = parseMeta(badItem);
-        let actual = verify(template);
+      if (!skipDisabledTests) {
+        testMethod(`passes with \`${template}\` when rule is disabled`, function() {
+          config = false;
+          meta = parseMeta(badItem);
+          let actual = verify(template);
 
-        expect(actual).to.deep.equal([]);
-      });
+          expect(actual).to.deep.equal([]);
+        });
 
-      testMethod(`passes with \`${template}\` when disabled via inline comment - single rule`, function() {
-        meta = parseMeta(badItem);
-        let actual = verify(DISABLE_ONE + '\n' + template);
+        testMethod(`passes with \`${template}\` when disabled via inline comment - single rule`, function() {
+          meta = parseMeta(badItem);
+          let actual = verify(DISABLE_ONE + '\n' + template);
 
-        expect(actual).to.deep.equal([]);
-      });
+          expect(actual).to.deep.equal([]);
+        });
 
-      testMethod(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
-        meta = parseMeta(badItem);
-        let actual = verify(DISABLE_ALL + '\n' + template);
+        testMethod(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
+          meta = parseMeta(badItem);
+          let actual = verify(DISABLE_ALL + '\n' + template);
 
-        expect(actual).to.deep.equal([]);
-      });
+          expect(actual).to.deep.equal([]);
+        });
+      }
     });
 
     options.good.forEach(function(item) {

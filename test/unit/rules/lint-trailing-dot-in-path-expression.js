@@ -4,7 +4,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'no-trailing-dot-in-path-expression',
-
+  skipDisabledTests: true,
   config: true,
 
   good: [
@@ -20,64 +20,60 @@ generateRuleTests({
 
   bad: [{
     template: '{{contact.}}',
-    result: {
-      rule: 'no-trailing-dot-in-path-expression',
-      moduleId: 'layout.hbs',
-      message: 'A MustacheStatement should not have a Path Expression with a trialing dot.',
+
+    fatal: {
+      fatal: true,
+      severity: 2,
+      message: '\'.\' is not a supported path in Glimmer; check for a path with a trailing \'.\' at L1:C9.',
       line: 1,
       column: 9,
-      source: '{{contact.}}'
+      moduleId: 'layout.hbs',
     }
   }, {
     template: '<span class={{if contact.is_new. \'bg-success\'}}>{{contact.contact_name}}</span>',
-    result: {
-      rule: 'no-trailing-dot-in-path-expression',
-      moduleId: 'layout.hbs',
-      message: 'A MustacheStatement should not have a Path Expression with a trialing dot.',
+
+    fatal: {
+      fatal: true,
+      severity: 2,
+      message: '\'.\' is not a supported path in Glimmer; check for a path with a trailing \'.\' at L1:C31.',
       line: 1,
       column: 31,
-      source: '{{if contact.is_new. \'bg-success\'}}'
+      moduleId: 'layout.hbs',
     }
   }, {
     template: '{{#if contact.contact_name.}}\n' +
       '   {{displayName.}}\n' +
       '{{/if}}',
 
-    results: [{
-      column: 26,
+    fatal: {
+      fatal: true,
+      severity: 2,
+      message: '\'.\' is not a supported path in Glimmer; check for a path with a trailing \'.\' at L1:C26.',
       line: 1,
-      message: 'A BlockStatement should not have a Path Expression with a trialing dot.',
+      column: 26,
       moduleId: 'layout.hbs',
-      rule: 'no-trailing-dot-in-path-expression',
-      source: '{{#if contact.contact_name.}}'
-    }, {
-      column: 16,
-      line: 2,
-      message: 'A MustacheStatement should not have a Path Expression with a trialing dot.',
-      moduleId: 'layout.hbs',
-      rule: 'no-trailing-dot-in-path-expression',
-      source: '{{displayName.}}'
-    }]
+    }
   }, {
     template: '{{if. contact \'bg-success\'}}',
-    results: [{
-      column: 4,
+
+    fatal: {
+      fatal: true,
+      severity: 2,
+      message: '\'.\' is not a supported path in Glimmer; check for a path with a trailing \'.\' at L1:C4.',
       line: 1,
-      message: 'A MustacheStatement should not have a Path Expression with a trialing dot.',
+      column: 4,
       moduleId: 'layout.hbs',
-      rule: 'no-trailing-dot-in-path-expression',
-      source: '{{if. contact \'bg-success\'}}',
-    }]
+    }
   }, {
     template: '{{contact-details contact=(hash. name=name age=age)}}',
 
-    results: [{
-      column: 31,
+    fatal: {
+      fatal: true,
+      severity: 2,
+      message: '\'.\' is not a supported path in Glimmer; check for a path with a trailing \'.\' at L1:C31.',
       line: 1,
-      message: 'A SubExpression should not have a Path Expression with a trialing dot.',
+      column: 31,
       moduleId: 'layout.hbs',
-      rule: 'no-trailing-dot-in-path-expression',
-      source: '(hash. name=name age=age)',
-    }]
+    }
   }]
 });
