@@ -29,7 +29,8 @@ generateRuleTests({
     '{{yield (baz (baz (baz) bar))}}',
     '{{yield (baz (baz (baz) (baz)))}}',
     '{{yield (baz (baz (baz) foo=(baz)))}}',
-    '{{#baz as |foo|}}{{foo}}{{/baz}}'
+    '{{#baz as |foo|}}{{foo}}{{/baz}}',
+    '{{#with (component "blah") as |Foo|}} <Foo /> {{/with}}',
   ],
 
   bad: [
@@ -40,6 +41,17 @@ generateRuleTests({
         message: 'Cannot use blacklisted helper or component \'{{foo}}\'',
         moduleId: 'layout.hbs',
         source: '{{foo}}',
+        line: 1,
+        column: 0
+      }
+    },
+    {
+      template: '<Foo />',
+
+      result: {
+        message: 'Cannot use blacklisted helper or component \'<Foo />\'',
+        moduleId: 'layout.hbs',
+        source: '<Foo />',
         line: 1,
         column: 0
       }
