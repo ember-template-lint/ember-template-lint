@@ -29,6 +29,7 @@
 * [template-length](rule/template-length.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
 * [no-unused-block-params](rule/no-unused-block-params.md)
+* [no-implicit-this](rule/no-implicit-this.md)
 
 ## Deprecations
 
