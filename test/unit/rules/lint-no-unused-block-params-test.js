@@ -20,6 +20,7 @@ generateRuleTests({
       '{{/each}}' +
     '{{/each}}',
     '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
+    '{{#with (component "foo-bar") as |FooBar|}}<FooBar />{{/with}}',
   ],
 
   bad: [
