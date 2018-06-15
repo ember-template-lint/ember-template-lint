@@ -10,6 +10,13 @@ node_js:
 matrix:
   fast_finish: true
 
+
+branches:
+  only:
+    - master
+    # npm version tags
+    - /^v\d+\.\d+\.\d+/
+
 cache:
   yarn: true
 
