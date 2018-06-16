@@ -639,6 +639,6 @@ generateRuleTests({
           column: 2
         }
       ]
-    }
+    },
   ]
 });
