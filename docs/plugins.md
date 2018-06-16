@@ -148,6 +148,10 @@ The base rule also has a few helper functions that can be useful in defining rul
 
   Given a Handlebars AST node, return the string source of that node. Useful to generate `source` when logging errors with `log`.
 
+* `function isLocal(ASTNode): boolean`
+
+  Given an AST node, check if it is derived from a local / block param.
+
 #### AST Node Helpers
 
 There are a number of helper functions exported by [`ember-template-lint`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor handlers.
