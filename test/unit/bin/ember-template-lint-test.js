@@ -102,6 +102,45 @@ describe('ember-template-lint executable', function() {
           done();
         });
       });
+
+      it('should print properly formatted verbose error and warning messages', function(done) {
+        execFile('node', ['../../../bin/ember-template-lint.js', '.'], {
+          cwd: './test/fixtures/with-errors-and-warnings'
+        }, function(err, stdout, stderr) {
+          expect(err).to.be.ok;
+          expect(stdout.split('\n')).to.deep.equal([
+            path.resolve('./test/fixtures/with-errors-and-warnings/app/templates/application.hbs'),
+            '  1:4  error  Non-translated string used  no-bare-strings',
+            '  2:5  error  Non-translated string used  no-bare-strings',
+            '  3:0  warning  HTML comment detected  no-html-comments',
+            '',
+            '✖ 3 problems (2 errors, 1 warnings)',
+            ''
+          ]);
+          expect(stderr).to.be.empty;
+          done();
+        });
+      });
+    });
+
+    describe('with --quiet param', function() {
+      it('should print properly formatted error messages, omitting any warnings', function(done) {
+        execFile('node', ['../../../bin/ember-template-lint.js', '.', '--quiet'], {
+          cwd: './test/fixtures/with-errors-and-warnings'
+        }, function(err, stdout, stderr) {
+          expect(err).to.be.ok;
+          expect(stdout.split('\n')).to.deep.equal([
+            path.resolve('./test/fixtures/with-errors-and-warnings/app/templates/application.hbs'),
+            '  1:4  error  Non-translated string used  no-bare-strings',
+            '  2:5  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 2 problems (2 errors, 0 warnings)',
+            ''
+          ]);
+          expect(stderr).to.be.empty;
+          done();
+        });
+      });
     });
 
     describe('with --json param', function() {
