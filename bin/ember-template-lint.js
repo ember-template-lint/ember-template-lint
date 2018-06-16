@@ -13,21 +13,39 @@ function printErrors(errors) {
   if (process.argv.indexOf('--json') + 1) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
-    let count = 0;
+    const quiet = process.argv.indexOf('--quiet') !== -1;
+
+    let errorCount   = 0;
+    let warningCount = 0;
 
     Object.keys(errors).forEach(filePath => {
-      let options = {};
+      let options = {
+        quiet: quiet
+      };
       let fileErrors = errors[filePath] || [];
-      count += fileErrors.length;
+
+      errorCount   += fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY).length;
+      warningCount += fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY).length;
 
       if (process.argv.indexOf('--verbose') + 1) {
         options.verbose = true;
       }
 
-      console.log(Linter.errorsToMessages(filePath, fileErrors, options));
+      const messages = Linter.errorsToMessages(filePath, fileErrors, options);
+      if (messages !== '') {
+        console.log(messages);
+      }
     });
 
-    console.log(chalk.red(chalk.bold(`✖ ${count} problems`)));
+    if (quiet) {
+      warningCount = 0;
+    }
+
+    const count = errorCount + warningCount;
+
+    if (count > 0) {
+      console.log(chalk.red(chalk.bold(`✖ ${count} problems (${errorCount} errors, ${warningCount} warnings)`)));
+    }
   }
 }
 
