@@ -276,5 +276,37 @@ generateRuleTests({
       'moduleId': 'layout.hbs',
       'source': '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}'
     }]
+  },
+  {
+    template: [
+      '{{foo-bar',
+      'baz=true',
+      '}}'
+    ].join('\n'),
+
+    result: {
+      rule: 'attribute-indentation',
+      message: 'Incorrect indentation of attribute \'baz\' beginning at L2:C0. Expected \'baz\' to be at L2:C2.',
+      moduleId: 'layout.hbs',
+      source: '{{foo-bar\nbaz=true\n}}',
+      line: 2,
+      column: 0
+    }
+  }, {
+    template: [
+      '{{#foo-bar',
+      'baz=true',
+      '}}',
+      '{{/foo-bar}}'
+    ].join('\n'),
+
+    result: {
+      rule: 'attribute-indentation',
+      message: 'Incorrect indentation of attribute \'baz\' beginning at L2:C0. Expected \'baz\' to be at L2:C2.',
+      moduleId: 'layout.hbs',
+      source: '{{#foo-bar\nbaz=true\n}}\n{{/foo-bar}}',
+      line: 2,
+      column: 0
+    }
   }]
 });
