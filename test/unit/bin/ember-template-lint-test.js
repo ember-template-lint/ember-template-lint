@@ -95,7 +95,7 @@ describe('ember-template-lint executable', function() {
             '  1:4  error  Non-translated string used  no-bare-strings',
             '  2:5  error  Non-translated string used  no-bare-strings',
             '',
-            '✖ 2 problems',
+            '✖ 2 problems (2 errors, 0 warnings)',
             ''
           ]);
           expect(stderr).to.be.empty;
