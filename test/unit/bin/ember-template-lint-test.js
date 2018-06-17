@@ -83,9 +83,9 @@ describe('ember-template-lint executable', function() {
     });
   });
 
-  describe('errors formatting', function() {
+  describe('errors and warnings formatting', function() {
     describe('without --json param', function() {
-      it('should print properly formatted verbose error messages', function(done) {
+      it('should print properly formatted error messages', function(done) {
         execFile('node', ['../../../bin/ember-template-lint.js', '.'], {
           cwd: './test/fixtures/with-errors'
         }, function(err, stdout, stderr) {
@@ -103,7 +103,7 @@ describe('ember-template-lint executable', function() {
         });
       });
 
-      it('should print properly formatted verbose error and warning messages', function(done) {
+      it('should print properly formatted error and warning messages', function(done) {
         execFile('node', ['../../../bin/ember-template-lint.js', '.'], {
           cwd: './test/fixtures/with-errors-and-warnings'
         }, function(err, stdout, stderr) {
