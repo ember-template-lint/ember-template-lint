@@ -17,7 +17,7 @@ generateRuleTests({
     '<form onreset={{action "foo"}}></form>',
     '<InputSearch @onInput={{action "foo"}} />',
     '<InputSearch @onInput={{action "foo"}}></InputSearch>',
-    '<foo.bar @onInput={{action "foo"}}></foo.bar>',
+    '{{#with (hash bar=(component "foo")) as |foo|}}<foo.bar @onInput={{action "foo"}}></foo.bar>{{/with}}',
     {
       config: { additionalInteractiveTags: ['div'] },
       template: '<div {{action "foo"}}></div>'
