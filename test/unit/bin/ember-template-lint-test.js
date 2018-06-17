@@ -141,6 +141,17 @@ describe('ember-template-lint executable', function() {
           done();
         });
       });
+
+      it('should exit without error and any console output', function(done) {
+        execFile('node', ['../../../bin/ember-template-lint.js', '.', '--quiet'], {
+          cwd: './test/fixtures/with-warnings'
+        }, function(err, stdout, stderr) {
+          expect(err).to.be.null;
+          expect(stdout).to.be.empty;
+          expect(stderr).to.be.empty;
+          done();
+        });
+      });
     });
 
     describe('with --json param', function() {
