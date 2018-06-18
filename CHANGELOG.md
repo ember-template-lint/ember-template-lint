@@ -1,6 +1,24 @@
 Changelog
 =========
 
+## v0.8.19
+
+### Bugfixes
+
+- Update to latest `@glimmer/compiler` (0.35.5).
+- Correct naming of `no-attrs-in-components` rule (deprecating `no-attr-in-components`).
+- Add line/column information to fatal / parsing errors.
+- Deprecate `no-trailing-dot-in-path-expression` rule (it is now directly enforced by Glimmer itself).
+- Update `invocation-blacklist` rule to accomodate angle bracket invocation.
+- Update `no-unused-block-param` rule to accomodate angle bracket invocation.
+- Add `Plugin.prototype.isLocal` to test if a given node is derived from a block param.
+- Add ability to configure the indentation level for `attribute-indentation` rule.
+
+### New Rules
+
+- Add `no-implicit-this` rule. See [the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-implicit-this.md) for more details.
+- Add `no-shadowed-elements` rule.
+
 ## 0.8.18
 
 - Ensure `no-nested-interactive` rule does not flag angle bracket invoked components.
