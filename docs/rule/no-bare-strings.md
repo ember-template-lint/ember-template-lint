@@ -19,5 +19,7 @@ This rule forbids the following:
 
 When the config value of `true` is used the following configuration is used:
  * `whitelist` - `(),.&+-=*/#%!?:[]{}`
- * `globalAttributes` - `title`
+ * `globalAttributes` - `title`, `aria-label`, `aria-placeholder`, `aria-roledescription`, `aria-valuetext`
  * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
+
+
