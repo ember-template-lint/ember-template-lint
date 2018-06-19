@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.8.20
+
+- Fix issue with using literals in mustaches (e.g. `{{false}}`).
+
 ## v0.8.19
 
 ### Bugfixes
