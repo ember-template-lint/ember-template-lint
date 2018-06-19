@@ -188,5 +188,55 @@ describe('ember-template-lint executable', function() {
         });
       });
     });
+
+    describe('with --json param and --quiet', function() {
+      it('should print valid JSON string with errors, omitting warnings', function(done) {
+        execFile('node', ['../../../bin/ember-template-lint.js', '.', '--json', '--quiet'], {
+          cwd: './test/fixtures/with-errors-and-warnings'
+        }, function(err, stdout, stderr) {
+          let fullTemplateFilePath = path.resolve('./test/fixtures/with-errors-and-warnings/app/templates/application.hbs');
+          let expectedOutputData = {};
+          expectedOutputData[fullTemplateFilePath] = [
+            {
+              column: 4,
+              line: 1,
+              message: 'Non-translated string used',
+              moduleId: './app/templates/application',
+              rule: 'no-bare-strings',
+              severity: 2,
+              source: 'Here too!!'
+            }, {
+              column: 5,
+              line: 2,
+              message: 'Non-translated string used',
+              moduleId: './app/templates/application',
+              rule: 'no-bare-strings',
+              severity: 2,
+              source: 'Bare strings are bad...'
+            }
+          ];
+
+          expect(err).to.be.ok;
+          expect(JSON.parse(stdout)).to.deep.equal(expectedOutputData);
+          expect(stderr).to.be.empty;
+          done();
+        });
+      });
+
+      it('should exit without error and empty errors array', function(done) {
+        execFile('node', ['../../../bin/ember-template-lint.js', '.', '--json', '--quiet'], {
+          cwd: './test/fixtures/with-warnings'
+        }, function(err, stdout, stderr) {
+          let fullTemplateFilePath = path.resolve('./test/fixtures/with-warnings/app/templates/application.hbs');
+          let expectedOutputData = {};
+          expectedOutputData[fullTemplateFilePath] = [];
+
+          expect(err).to.be.null;
+          expect(JSON.parse(stdout)).to.deep.equal(expectedOutputData);
+          expect(stderr).to.be.empty;
+          done();
+        });
+      });
+    });
   });
 });
