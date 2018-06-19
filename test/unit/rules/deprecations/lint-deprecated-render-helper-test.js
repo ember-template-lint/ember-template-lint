@@ -13,7 +13,12 @@ generateRuleTests({
     '{{valid-compoennt}}',
     '{{input placeholder=(t "email") value=email}}',
     '{{title "CrossCheck Web" prepent=true separator=" | "}}',
-    '{{hockey-player teamName="Boston Bruins"}}'
+    '{{hockey-player teamName="Boston Bruins"}}',
+    '{{false}}',
+    '{{"foo"}}',
+    '{{42}}',
+    '{{null}}',
+    '{{undefined}}',
   ],
 
   bad: [

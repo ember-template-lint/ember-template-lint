@@ -40,4 +40,14 @@ describe('recommended config', function() {
 
   // This ensures that we don't face this issue again => https://github.com/rwjblue/ember-template-lint/issues/253
   ensureValid('<img alt="special thing" src={{some-dir/some-thing x}}>');
+
+  // This ensures that we don't face this issue again => https://github.com/rwjblue/ember-template-lint/issues/443
+  ensureValid(`
+<PowerSelect
+  @selected={{@pageSize}}
+  @options={{this.availablePageSizes}}
+  @searchEnabled={{false}}
+  @onchange={{action this.changePageSize}} as |size|>
+  {{size}}
+</PowerSelect>`);
 });
