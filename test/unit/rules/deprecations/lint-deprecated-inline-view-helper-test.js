@@ -14,7 +14,12 @@ generateRuleTests({
   good: [
     '{{great-fishsticks}}',
     '{{input placeholder=(t "email") value=email}}',
-    '{{title "CrossCheck Web" prepend=true separator=" | "}}'
+    '{{title "CrossCheck Web" prepend=true separator=" | "}}',
+    '{{false}}',
+    '{{"foo"}}',
+    '{{42}}',
+    '{{null}}',
+    '{{undefined}}',
   ],
 
   bad: [
