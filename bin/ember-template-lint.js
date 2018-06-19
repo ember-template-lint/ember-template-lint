@@ -10,11 +10,27 @@ var linter = new Linter();
 const chalk = require('chalk');
 
 function printErrors(errors) {
+  const quiet = process.argv.indexOf('--quiet') !== -1;
+
   if (process.argv.indexOf('--json') + 1) {
+    let filteredErrors;
+
+    Object.keys(errors).forEach(filePath => {
+      let fileErrors = errors[filePath] || [];
+
+      filteredErrors = fileErrors.filter((error) => {
+        if (quiet && error.severity < Linter.ERROR_SEVERITY) {
+          return false;
+        }
+
+        return true;
+      });
+
+      errors[filePath] = filteredErrors;
+    });
+
     console.log(JSON.stringify(errors, null, 2));
   } else {
-    const quiet = process.argv.indexOf('--quiet') !== -1;
-
     let errorCount   = 0;
     let warningCount = 0;
 
