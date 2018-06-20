@@ -594,19 +594,6 @@ describe('public api', function() {
       );
     });
 
-    it('formats only errors with severity of 2 when quiet is true', function() {
-      let result = Linter.errorsToMessages('file/path', [
-        { rule: 'some rule',  message: 'some message',  line: 11, column: 12, severity: 1 },
-        { rule: 'some rule2', message: 'some message2', line: 13, column: 14, severity: 2 },
-        { rule: 'some rule3', message: 'some message3', line: 14, column: 15, severity: 1 },
-      ], { quiet: true });
-
-      expect(result).to.equal(
-        'file/path\n'+
-        '  13:14  error  some message2  some rule2\n'
-      );
-    });
-
     it('formats empty errors', function() {
       let result = Linter.errorsToMessages('file/path', []);
 
