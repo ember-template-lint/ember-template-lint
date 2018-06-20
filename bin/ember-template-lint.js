@@ -12,36 +12,27 @@ const chalk = require('chalk');
 function printErrors(errors) {
   const quiet = process.argv.indexOf('--quiet') !== -1;
 
+  let errorCount = 0;
+  let warningCount = 0;
+
+  Object.keys(errors).forEach(filePath => {
+    let fileErrors = errors[filePath] || [];
+
+    let errorsFiltered = fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY);
+    let warnings = quiet ? [] : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
+
+    errorCount += errorsFiltered.length;
+    warningCount += warnings.length;
+
+    errors[filePath] = errorsFiltered.concat(warnings);
+  });
+
   if (process.argv.indexOf('--json') + 1) {
-    let filteredErrors;
-
-    Object.keys(errors).forEach(filePath => {
-      let fileErrors = errors[filePath] || [];
-
-      filteredErrors = fileErrors.filter((error) => {
-        if (quiet && error.severity < Linter.ERROR_SEVERITY) {
-          return false;
-        }
-
-        return true;
-      });
-
-      errors[filePath] = filteredErrors;
-    });
-
     console.log(JSON.stringify(errors, null, 2));
   } else {
-    let errorCount   = 0;
-    let warningCount = 0;
-
     Object.keys(errors).forEach(filePath => {
-      let options = {
-        quiet: quiet
-      };
+      let options = {};
       let fileErrors = errors[filePath] || [];
-
-      errorCount   += fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY).length;
-      warningCount += fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY).length;
 
       if (process.argv.indexOf('--verbose') + 1) {
         options.verbose = true;
@@ -52,10 +43,6 @@ function printErrors(errors) {
         console.log(messages);
       }
     });
-
-    if (quiet) {
-      warningCount = 0;
-    }
 
     const count = errorCount + warningCount;
 
