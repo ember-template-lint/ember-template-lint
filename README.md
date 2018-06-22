@@ -69,6 +69,9 @@ Example usage:
 
 # output errors as pretty-printed JSON string
 ./node_modules/.bin/ember-template-lint app/templates/application.hbs --json
+
+# ignore warnings / only report errors
+./node_modules/.bin/ember-template-lint app/templates/application.hbs --quiet
 ```
 
 ### ESLint
