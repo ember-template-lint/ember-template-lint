@@ -18,6 +18,18 @@ Block form
   {{/employee-details}}
 ```
 
+Non-Block form (HTML)
+``` html
+
+  <input disabled id="firstName" value={{firstName}} class="input-field first-name" type="text">
+```
+
+Block form (HTML)
+``` html
+
+  <a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>
+```
+
 #### Allowed:
 
 Non-Block form
@@ -58,6 +70,18 @@ Non-Block form with Helper unfolded
   }}
 ```
 
+Non-Block form (HTML)
+``` html
+
+  <input
+    disabled
+    id="firstName"
+    value={{firstName}}
+    class="input-field first-name"
+    type="text"
+  >
+```
+
 Block form
 ``` hbs
 
@@ -79,6 +103,19 @@ Block form (open invocation < 80 characters)
   {{/employee-details}}
 ```
 
+Block form (HTML)
+``` html
+
+  <a
+    href="https://www.emberjs.com"
+    class="emberjs-home link"
+    rel="noopener"
+    target="_blank">
+    Ember JS
+  </a>
+```
+
 #### Configuration:
   * boolean - `true` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.
   * object - { 'open-invocation-max-len': n characters } - Maximum length of the opening invocation.
+  * object - { 'parse-html-elements': `true` } - Also validate the indentation of HTML elements.
