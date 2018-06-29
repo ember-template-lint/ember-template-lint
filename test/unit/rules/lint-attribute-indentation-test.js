@@ -349,6 +349,52 @@ generateRuleTests({
       'source': '<a\n  disabled={{if\n             true\n             (action "mostPowerfulAction" value=target.value)\n             (action "lessPowerfulAction" value=target.value)\n           }}\n>{{contact-details\n   firstName\n   lastName\n }}</a>'
     }]
   }, {
+    config: {
+      'parse-html-elements': true
+    },
+    template: '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'href' beginning at L1:C3. Expected 'href' to be at L2:C2.`,
+      'line': 1,
+      'column': 3,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'class' beginning at L1:C34. Expected 'class' to be at L3:C2.`,
+      'line': 1,
+      'column': 34,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'rel' beginning at L1:C60. Expected 'rel' to be at L4:C2.`,
+      'line': 1,
+      'column': 60,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'target' beginning at L1:C75. Expected 'target' to be at L5:C2.`,
+      'line': 1,
+      'column': 75,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close tag '</a>' for element '<a>' beginning at L1:C99. Expected '</a>' to be at L1:C0.`,
+      'line': 1,
+      'column': 99,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }],
+  }, {
     //Non-Block form more than 30 characters
     config: {
       'open-invocation-max-len': 30
