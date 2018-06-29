@@ -3,38 +3,38 @@
 
 
 "@glimmer/compiler@^0.35.5":
-  version "0.35.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/compiler/-/compiler-0.35.5.tgz#54adb45efafd9b1e174c37c27c46f5cc5e91dc53"
+  version "0.35.7"
+  resolved "https://registry.yarnpkg.com/@glimmer/compiler/-/compiler-0.35.7.tgz#8bc9dc86746fecfbde49e34b0f6ef48557b08f9f"
   dependencies:
-    "@glimmer/interfaces" "^0.35.5"
-    "@glimmer/syntax" "^0.35.5"
-    "@glimmer/util" "^0.35.5"
-    "@glimmer/wire-format" "^0.35.5"
+    "@glimmer/interfaces" "^0.35.7"
+    "@glimmer/syntax" "^0.35.7"
+    "@glimmer/util" "^0.35.7"
+    "@glimmer/wire-format" "^0.35.7"
 
-"@glimmer/interfaces@^0.35.5":
-  version "0.35.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.35.5.tgz#096f5656efaa7aeee0f4e58904e272ea7bed677a"
+"@glimmer/interfaces@^0.35.7":
+  version "0.35.7"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.35.7.tgz#8430229467f98e4a35d9514fe1dd809558b3b0ab"
   dependencies:
-    "@glimmer/wire-format" "^0.35.5"
+    "@glimmer/wire-format" "^0.35.7"
 
-"@glimmer/syntax@^0.35.5":
-  version "0.35.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.35.5.tgz#66fb4179b63c2f46528f008ceeb177a3c2d2501f"
+"@glimmer/syntax@^0.35.7":
+  version "0.35.7"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.35.7.tgz#5980ecbcda7b731b970100539518670d84a482d9"
   dependencies:
-    "@glimmer/interfaces" "^0.35.5"
-    "@glimmer/util" "^0.35.5"
+    "@glimmer/interfaces" "^0.35.7"
+    "@glimmer/util" "^0.35.7"
     handlebars "^4.0.6"
     simple-html-tokenizer "^0.5.5"
 
-"@glimmer/util@^0.35.5":
-  version "0.35.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.35.5.tgz#7518078aa5f43d17e1efc138a2d81c67c6ebbc35"
+"@glimmer/util@^0.35.7":
+  version "0.35.7"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.35.7.tgz#c6dcda4c03690d511bae17658b4e32c8ae222b39"
 
-"@glimmer/wire-format@^0.35.5":
-  version "0.35.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.35.5.tgz#2d17e1e8fb69a2a3f2996685e724844900ab6f9e"
+"@glimmer/wire-format@^0.35.7":
+  version "0.35.7"
+  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.35.7.tgz#5d287467c4adfe71505faeba6d85b05638c54f71"
   dependencies:
-    "@glimmer/util" "^0.35.5"
+    "@glimmer/util" "^0.35.7"
 
 accepts@~1.3.3:
   version "1.3.3"
