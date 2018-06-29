@@ -8,6 +8,21 @@ generateRuleTests({
   config: true,
 
   good: [
+    //Non Block form one line
+    '<input disabled>',
+    //Non Block with wrong indentation, configuration off
+    '<input' + '\n' +
+    'disabled' + '\n' +
+    '>',
+    //Non Block form multi line
+    {
+      config: {
+        'parse-html-elements': true
+      },
+      template: '<input' + '\n' +
+      '  disabled' + '\n' +
+      '>',
+    },
     //Non Block form with no params
     '{{contact-details}}',
     //Default config with open-invocation(< 80 chars)
