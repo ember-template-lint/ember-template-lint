@@ -19,6 +19,7 @@ generateRuleTests({
         '{{index}}: {{life}}' +
       '{{/each}}' +
     '{{/each}}',
+    '{{#each cats as |cat|}}{{#meow-meow cat as |cat|}}{{cat}}{{/meow-meow}}{{/each}}',
     '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
     '{{#with (component "foo-bar") as |FooBar|}}<FooBar />{{/with}}',
   ],
@@ -30,9 +31,9 @@ generateRuleTests({
       result: {
         message: '\'cat\' is defined but never used',
         moduleId: 'layout.hbs',
-        source: '{{#each cats as |cat|}}Dogs{{/each}}',
+        source: 'Dogs',
         line: 1,
-        column: 0
+        column: 23
       }
     },
     {
@@ -40,9 +41,9 @@ generateRuleTests({
       result: {
         message: '\'index\' is defined but never used',
         moduleId: 'layout.hbs',
-        source: '{{#each cats as |cat index|}}{{cat}}{{/each}}',
+        source: '{{cat}}',
         line: 1,
-        column: 0
+        column: 29
       }
     },
     {
@@ -55,9 +56,9 @@ generateRuleTests({
       result: {
         message: '\'index\' is defined but never used',
         moduleId: 'layout.hbs',
-        source: '{{#each cats as |cat index|}}{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}{{/each}}',
+        source: '{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}',
         line: 1,
-        column: 0
+        column: 29
       }
     },    {
       template:
@@ -68,9 +69,9 @@ generateRuleTests({
       result: {
         message: '\'life\' is defined but never used',
         moduleId: 'layout.hbs',
-        source: '{{#each cat.lives as |life|}}Life{{/each}}',
+        source: 'Life',
         line: 1,
-        column: 46,
+        column: 75,
       }
     }
   ]
