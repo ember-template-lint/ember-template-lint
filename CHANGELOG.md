@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## v0.8.21
+
+- Add `--quiet` option to command line interface. Similar to the same option in `eslint` the `--quiet` prevents warnings from being printed.
+- Fix issue with block param scope tracking (from `BlockStatement`s) included in prior versions.
+
 ## v0.8.20
 
 - Fix issue with using literals in mustaches (e.g. `{{false}}`).
