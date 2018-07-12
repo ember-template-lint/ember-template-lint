@@ -8,6 +8,18 @@ generateRuleTests({
   config: true,
 
   good: [
+    //Angle Bracket Invocation
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<SiteHeader' + '\n' +
+      '  @selected={{this.user.country}} as |Option|>' + '\n' +
+      '{{#each this.availableCountries as |country|}}'  + '\n' +
+      '<Option @value={{country}}>{{country.name}}</Option>' + '\n' +
+      '{{/each}}' + '\n' +
+      '</SiteHeader>',
+    },
     //Non Block form one line
     '<input disabled>',
     //Non Block with wrong indentation, configuration off
@@ -31,7 +43,23 @@ generateRuleTests({
       template: '<a' + '\n' +
       '  disabled' + '\n' +
       '>' + '\n' +
-      '<span>spam me</span>' + '\n' +
+      '<span' + '\n' +
+      '  class="abc"' + '\n' +
+      '>spam me' + '\n' +
+      '</span>' + '\n' +
+      '</a>',
+    },
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<a' + '\n' +
+      '  disabled' + '\n' +
+      '>' + '\n' +
+      '{{#each' + '\n' +
+      '  class="abc"' + '\n' +
+      '}}spam me' + '\n' +
+      '{{/each}}' + '\n' +
       '</a>',
     },
     {
@@ -457,6 +485,26 @@ generateRuleTests({
       'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{contact-details}}\' beginning at L1:C55. Expected \'{{contact-details}}\' to be at L4:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{contact-details firstName=firstName lastName=lastName}}'
+    }]
+  },{
+    config: {
+      'process-elements': true
+    },
+    template: '<a' + '\n' +
+    '  disabled' + '\n' +
+    '>' + '\n' +
+    '{{#each' + '\n' +
+    '  class="abc"' + '\n' +
+    '}}spam me' + '\n' +
+    '{{/each}}</a>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close tag '</a>' for element '<a>' beginning at L7:C9. Expected '</a>' to be at L8:C0.`,
+      'line': 7,
+      'column': 9,
+      'source': '<a\n  disabled\n>\n{{#each\n  class="abc"\n}}spam me\n{{/each}}</a>'
     }]
   },{
     //Block form with multiple lines
