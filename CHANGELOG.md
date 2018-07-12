@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v0.8.22
+
+- Add `link-href-attributes` rule to forbid `a` elements without an `href` attribute.
+
 ## v0.8.21
 
 - Add `--quiet` option to command line interface. Similar to the same option in `eslint` the `--quiet` prevents warnings from being printed.
