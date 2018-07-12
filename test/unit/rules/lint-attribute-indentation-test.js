@@ -309,7 +309,7 @@ generateRuleTests({
       'rule': 'attribute-indentation',
       'severity': 2,
       'moduleId': 'layout.hbs',
-      'message': `Incorrect indentation of close tag '>' for the element '<input>' beginning at L2:C0. Expected '<input>' to be at L3:C0.`,
+      'message': `Incorrect indentation of close bracket '>' for the element '<input>' beginning at L2:C0. Expected '<input>' to be at L3:C0.`,
       'line': 2,
       'column': 0,
       'source': '<input disabled\n>'
@@ -332,7 +332,7 @@ generateRuleTests({
       'rule': 'attribute-indentation',
       'severity': 2,
       'moduleId': 'layout.hbs',
-      'message': `Incorrect indentation of close tag '>' for the element '<div>' beginning at L2:C0. Expected '<div>' to be at L3:C0.`,
+      'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L2:C0. Expected '<div>' to be at L3:C0.`,
       'line': 2,
       'column': 0,
       'source': '<div disabled\n/>'
@@ -387,7 +387,7 @@ generateRuleTests({
       'rule': 'attribute-indentation',
       'severity': 2,
       'moduleId': 'layout.hbs',
-      'message': `Incorrect indentation of close tag '>' for the element '<input>' beginning at L1:C86. Expected '<input>' to be at L7:C0.`,
+      'message': `Incorrect indentation of close bracket '>' for the element '<input>' beginning at L1:C86. Expected '<input>' to be at L7:C0.`,
       'line': 1,
       'column': 86,
       'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
