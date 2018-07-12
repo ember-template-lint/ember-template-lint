@@ -26,6 +26,15 @@ generateRuleTests({
     '<input' + '\n' +
     'disabled' + '\n' +
     '>',
+    //Non Block with wrong indentation, configuration explicitly off
+    {
+      config: {
+        'process-elements': false
+      },
+      template: '<input' + '\n' +
+    'disabled' + '\n' +
+    '>',
+    },
     //Block form multi line
     {
       config: {
