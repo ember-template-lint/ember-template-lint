@@ -17,7 +17,7 @@ generateRuleTests({
     //Block form multi line
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<a' + '\n' +
       '  disabled' + '\n' +
@@ -26,7 +26,7 @@ generateRuleTests({
     },
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<a' + '\n' +
       '  disabled' + '\n' +
@@ -36,7 +36,7 @@ generateRuleTests({
     },
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<a' + '\n' +
       '  disabled' + '\n' +
@@ -45,7 +45,7 @@ generateRuleTests({
     },
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<a' + '\n' +
       '  disabled={{if'  + '\n' +
@@ -61,7 +61,7 @@ generateRuleTests({
     },
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<a' + '\n' +
       '  disabled={{if'  + '\n' +
@@ -78,7 +78,7 @@ generateRuleTests({
     //Non Block form multi line
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<input' + '\n' +
       '  disabled' + '\n' +
@@ -86,14 +86,14 @@ generateRuleTests({
     },
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<input disabled>'
     },
     //Non Block form multi line
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<input' + '\n' +
       '  disabled={{action "mostPowerfulAction" value=target.value}}' + '\n' +
@@ -102,7 +102,7 @@ generateRuleTests({
     //Non Block form multi line
     {
       config: {
-        'parse-html-elements': true
+        'process-elements': true
       },
       template: '<input' + '\n' +
       '  disabled={{if'  + '\n' +
@@ -250,7 +250,7 @@ generateRuleTests({
   bad: [{
     //Non Block HTML element
     config: {
-      'parse-html-elements': true
+      'process-elements': true
     },
     template: '<input disabled' + '\n' + '>',
     results: [{
@@ -273,7 +273,7 @@ generateRuleTests({
   },{
     // Too long for 80 characters line
     config: {
-      'parse-html-elements': true
+      'process-elements': true
     },
     template: '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">',
     results: [{
@@ -327,7 +327,7 @@ generateRuleTests({
     }]
   }, {
     config: {
-      'parse-html-elements': true
+      'process-elements': true
     },
     template: '<a' + '\n' +
     '  disabled={{if'  + '\n' +
@@ -350,7 +350,7 @@ generateRuleTests({
     }]
   }, {
     config: {
-      'parse-html-elements': true
+      'process-elements': true
     },
     template: '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>',
     results: [{

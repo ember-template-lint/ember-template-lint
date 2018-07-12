@@ -118,4 +118,4 @@ Block form (HTML)
 #### Configuration:
   * boolean - `true` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.
   * object - { 'open-invocation-max-len': n characters } - Maximum length of the opening invocation.
-  * object - { 'parse-html-elements': `true` } - Also validate the indentation of HTML elements.
+  * object - { 'process-elements': `true` } - Also validate the indentation of HTML/SVG elements.
