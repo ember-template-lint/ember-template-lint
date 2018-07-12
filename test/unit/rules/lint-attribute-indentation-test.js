@@ -75,6 +75,22 @@ generateRuleTests({
       ' }}{{foo}}{{/contact-details}}' + '\n' +
       '</a>'
     },
+    // Self closing single line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<div disabled />'
+    },
+    // Self closing multi line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<div' + '\n' +
+      '  disabled' + '\n' +
+      '/>'
+    },
     //Non Block form multi line
     {
       config: {
@@ -269,6 +285,29 @@ generateRuleTests({
       'line': 2,
       'column': 0,
       'source': '<input disabled\n>'
+    }]
+  },{
+    //Self closing element
+    config: {
+      'process-elements': true
+    },
+    template: '<div disabled' + '\n' + '/>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C5. Expected 'disabled' to be at L2:C2.`,
+      'line': 1,
+      'column': 5,
+      'source': '<div disabled\n/>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close tag '>' for the element '<div>' beginning at L2:C0. Expected '<div>' to be at L3:C0.`,
+      'line': 2,
+      'column': 0,
+      'source': '<div disabled\n/>'
     }]
   },{
     // Too long for 80 characters line
