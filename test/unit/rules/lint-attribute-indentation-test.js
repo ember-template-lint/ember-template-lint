@@ -8,6 +8,163 @@ generateRuleTests({
   config: true,
 
   good: [
+    //Angle Bracket Invocation
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<SiteHeader' + '\n' +
+      '  @selected={{this.user.country}} as |Option|>' + '\n' +
+      '{{#each this.availableCountries as |country|}}'  + '\n' +
+      '<Option @value={{country}}>{{country.name}}</Option>' + '\n' +
+      '{{/each}}' + '\n' +
+      '</SiteHeader>',
+    },
+    //Non Block form one line
+    '<input disabled>',
+    //Non Block with wrong indentation, configuration off
+    '<input' + '\n' +
+    'disabled' + '\n' +
+    '>',
+    //Non Block with wrong indentation, configuration explicitly off
+    {
+      config: {
+        'process-elements': false
+      },
+      template: '<input' + '\n' +
+    'disabled' + '\n' +
+    '>',
+    },
+    //Block form multi line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<a' + '\n' +
+      '  disabled' + '\n' +
+      '>abc'  + '\n' +
+      '</a>',
+    },
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<a' + '\n' +
+      '  disabled' + '\n' +
+      '>' + '\n' +
+      '<span' + '\n' +
+      '  class="abc"' + '\n' +
+      '>spam me' + '\n' +
+      '</span>' + '\n' +
+      '</a>',
+    },
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<a' + '\n' +
+      '  disabled' + '\n' +
+      '>' + '\n' +
+      '{{#each' + '\n' +
+      '  class="abc"' + '\n' +
+      '}}spam me' + '\n' +
+      '{{/each}}' + '\n' +
+      '</a>',
+    },
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<a' + '\n' +
+      '  disabled' + '\n' +
+      '>{{contact-details firstName lastName}}'  + '\n' +
+      '</a>',
+    },
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<a' + '\n' +
+      '  disabled={{if'  + '\n' +
+      '             true'  + '\n' +
+      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '           }}' + '\n' +
+      '>{{contact-details' + '\n' +
+      '   firstName' + '\n' +
+      '   lastName' + '\n' +
+      ' }}' + '\n' +
+      '</a>'
+    },
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<a' + '\n' +
+      '  disabled={{if'  + '\n' +
+      '             true'  + '\n' +
+      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '           }}' + '\n' +
+      '>{{#contact-details' + '\n' +
+      '   firstName' + '\n' +
+      '   lastName' + '\n' +
+      ' }}{{foo}}{{/contact-details}}' + '\n' +
+      '</a>'
+    },
+    // Self closing single line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<div disabled />'
+    },
+    // Self closing multi line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<div' + '\n' +
+      '  disabled' + '\n' +
+      '/>'
+    },
+    //Non Block form multi line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<input' + '\n' +
+      '  disabled' + '\n' +
+      '>',
+    },
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<input disabled>'
+    },
+    //Non Block form multi line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<input' + '\n' +
+      '  disabled={{action "mostPowerfulAction" value=target.value}}' + '\n' +
+      '>',
+    },
+    //Non Block form multi line
+    {
+      config: {
+        'process-elements': true
+      },
+      template: '<input' + '\n' +
+      '  disabled={{if'  + '\n' +
+      '             true' + '\n' +
+      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '           }}' + '\n' +
+      '>',
+    },
     //Non Block form with no params
     '{{contact-details}}',
     //Default config with open-invocation(< 80 chars)
@@ -144,6 +301,176 @@ generateRuleTests({
   ],
 
   bad: [{
+    //Non Block HTML element
+    config: {
+      'process-elements': true
+    },
+    template: '<input disabled' + '\n' + '>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C7. Expected 'disabled' to be at L2:C2.`,
+      'line': 1,
+      'column': 7,
+      'source': '<input disabled\n>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<input>' beginning at L2:C0. Expected '<input>' to be at L3:C0.`,
+      'line': 2,
+      'column': 0,
+      'source': '<input disabled\n>'
+    }]
+  },{
+    //Self closing element
+    config: {
+      'process-elements': true
+    },
+    template: '<div disabled' + '\n' + '/>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C5. Expected 'disabled' to be at L2:C2.`,
+      'line': 1,
+      'column': 5,
+      'source': '<div disabled\n/>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L2:C0. Expected '<div>' to be at L3:C0.`,
+      'line': 2,
+      'column': 0,
+      'source': '<div disabled\n/>'
+    }]
+  },{
+    // Too long for 80 characters line
+    config: {
+      'process-elements': true
+    },
+    template: '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C7. Expected 'disabled' to be at L2:C2.`,
+      'line': 1,
+      'column': 7,
+      'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'type' beginning at L1:C17. Expected 'type' to be at L3:C2.`,
+      'line': 1,
+      'column': 17,
+      'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'value' beginning at L1:C28. Expected 'value' to be at L4:C2.`,
+      'line': 1,
+      'column': 28,
+      'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'class' beginning at L1:C40. Expected 'class' to be at L5:C2.`,
+      'line': 1,
+      'column': 40,
+      'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'id' beginning at L1:C72. Expected 'id' to be at L6:C2.`,
+      'line': 1,
+      'column': 72,
+      'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<input>' beginning at L1:C86. Expected '<input>' to be at L7:C0.`,
+      'line': 1,
+      'column': 86,
+      'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
+    }]
+  }, {
+    config: {
+      'process-elements': true
+    },
+    template: '<a' + '\n' +
+    '  disabled={{if'  + '\n' +
+    '             true'  + '\n' +
+    '             (action "mostPowerfulAction" value=target.value)' + '\n' +
+    '             (action "lessPowerfulAction" value=target.value)' + '\n' +
+    '           }}' + '\n' +
+    '>{{contact-details' + '\n' +
+    '   firstName' + '\n' +
+    '   lastName' + '\n' +
+    ' }}</a>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close tag '</a>' for element '<a>' beginning at L10:C3. Expected '</a>' to be at L10:C0.`,
+      'line': 10,
+      'column': 3,
+      'source': '<a\n  disabled={{if\n             true\n             (action "mostPowerfulAction" value=target.value)\n             (action "lessPowerfulAction" value=target.value)\n           }}\n>{{contact-details\n   firstName\n   lastName\n }}</a>'
+    }]
+  }, {
+    config: {
+      'process-elements': true
+    },
+    template: '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'href' beginning at L1:C3. Expected 'href' to be at L2:C2.`,
+      'line': 1,
+      'column': 3,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'class' beginning at L1:C34. Expected 'class' to be at L3:C2.`,
+      'line': 1,
+      'column': 34,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'rel' beginning at L1:C60. Expected 'rel' to be at L4:C2.`,
+      'line': 1,
+      'column': 60,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of htmlAttribute 'target' beginning at L1:C75. Expected 'target' to be at L5:C2.`,
+      'line': 1,
+      'column': 75,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close tag '</a>' for element '<a>' beginning at L1:C99. Expected '</a>' to be at L1:C0.`,
+      'line': 1,
+      'column': 99,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }],
+  }, {
     //Non-Block form more than 30 characters
     config: {
       'open-invocation-max-len': 30
@@ -167,6 +494,26 @@ generateRuleTests({
       'message': 'Incorrect indentation of close curly braces \'}}\' for the component \'{{contact-details}}\' beginning at L1:C55. Expected \'{{contact-details}}\' to be at L4:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{contact-details firstName=firstName lastName=lastName}}'
+    }]
+  },{
+    config: {
+      'process-elements': true
+    },
+    template: '<a' + '\n' +
+    '  disabled' + '\n' +
+    '>' + '\n' +
+    '{{#each' + '\n' +
+    '  class="abc"' + '\n' +
+    '}}spam me' + '\n' +
+    '{{/each}}</a>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close tag '</a>' for element '<a>' beginning at L7:C9. Expected '</a>' to be at L8:C0.`,
+      'line': 7,
+      'column': 9,
+      'source': '<a\n  disabled\n>\n{{#each\n  class="abc"\n}}spam me\n{{/each}}</a>'
     }]
   },{
     //Block form with multiple lines
