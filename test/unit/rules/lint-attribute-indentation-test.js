@@ -8,6 +8,98 @@ generateRuleTests({
   config: true,
 
   good: [
+    {
+      config: {
+        'blockless-mustache-end': 'last-attribute',
+        'elements-end': 'new-line'
+      },
+      template: '<div' + '\n' +
+      '  foo={{action' + '\n' +
+      '        some' + '\n' +
+      '        stuff}}' + '\n' +
+      '  baz=qux' + '\n' +
+      '/>',
+    },
+    {
+      config: {
+        'elements-end': 'new-line'
+      },
+      template: '<div' + '\n' +
+      '  foo={{action' + '\n' +
+      '        some' + '\n' +
+      '        stuff' + '\n' +
+      '      }}' + '\n' +
+      '  baz=qux' + '\n' +
+      '/>',
+    },
+    {
+      config: {
+        'elements-end': 'new-line'
+      },
+      template: '<div' + '\n' +
+      '  foo={{action some stuff}}' + '\n' +
+      '  baz=qux' + '\n' +
+      '/>',
+    },
+    {
+      config: {
+        'elements-end': 'new-line'
+      },
+      template: '<div' + '\n' +
+      '  foo=bar' + '\n' +
+      '  baz=qux' + '\n' +
+      '/>',
+    },
+    {
+      config: {
+        'elements-end': 'last-attribute'
+      },
+      template: '<div' + '\n' +
+      '  foo=bar' + '\n' +
+      '  baz=qux/>',
+    },
+    {
+      config: {
+        'elements-end': 'new-line'
+      },
+      template: '<input' + '\n' +
+      '  foo=bar' + '\n' +
+      '  baz=qux' + '\n' +
+      '>',
+    },
+    {
+      config: {
+        'elements-end': 'last-attribute'
+      },
+      template: '<input' + '\n' +
+      '  foo=bar' + '\n' +
+      '  baz=qux>', 
+    },
+    {
+      config: {
+        'blockless-mustache-end': 'new-line'
+      },
+      template: '{{my-component' + '\n' +
+      '  foo=bar' + '\n' +
+      '  baz=qux' + '\n' +
+      '  my-attr=(component "my-other-component" data=(hash' + '\n' +
+      '    foo=bar'  + '\n' +
+      '    foo=bar'  + '\n' +
+      '    baz=qux))'  + '\n' +
+      '}}',
+    },
+    {
+      config: {
+        'blockless-mustache-end': 'last-attribute'
+      },
+      template: '{{my-component' + '\n' +
+      '  foo=bar' + '\n' +
+      '  baz=qux' + '\n' +
+      '  my-attr=(component "my-other-component" data=(hash' + '\n' +
+      '    foo=bar'  + '\n' +
+      '    foo=bar'  + '\n' +
+      '    baz=qux))}}',
+    },
     //Angle Bracket Invocation
     {
       config: {
@@ -299,6 +391,101 @@ generateRuleTests({
   ],
 
   bad: [{
+    config: {
+      'blockless-mustache-end': 'last-attribute'
+    },
+    template: '{{my-component' + '\n' +
+    '  foo=bar' + '\n' +
+    '  baz=qux' + '\n' +
+    '  my-attr=(component "my-other-component" data=(hash' + '\n' +
+    '    foo=bar'  + '\n' +
+    '    foo=bar'  + '\n' +
+    '    baz=qux))'  + '\n' +
+    '}}',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{my-component}}' beginning at L8:C0. Expected '{{my-component}}' to be at L7:C13.`,
+      'line': 8,
+      'column': 0,
+      'source': '{{my-component\n  foo=bar\n  baz=qux\n  my-attr=(component "my-other-component" data=(hash\n    foo=bar\n    foo=bar\n    baz=qux))\n}}'
+    }],
+  },{
+    config: {
+      'blockless-mustache-end': 'last-attribute'
+    },
+    template: '{{my-component' + '\n' +
+    '  foo=bar' + '\n' +
+    '  baz=qux' + '\n' +
+    '  my-attr=(component "my-other-component" data=(hash' + '\n' +
+    '    foo=bar'  + '\n' +
+    '    foo=bar'  + '\n' +
+    '    baz=qux))'  + '\n' +
+    '}}',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{my-component}}' beginning at L8:C0. Expected '{{my-component}}' to be at L7:C13.`,
+      'line': 8,
+      'column': 0,
+      'source': `{{my-component\n  foo=bar\n  baz=qux\n  my-attr=(component "my-other-component" data=(hash\n    foo=bar\n    foo=bar\n    baz=qux))\n}}`
+    }],
+  },{
+    config: {
+      'blockless-mustache-end': 'new-line'
+    },
+    template: '{{my-component' + '\n' +
+    '  foo=bar' + '\n' +
+    '  baz=qux' + '\n' +
+    '  my-attr=(component "my-other-component" data=(hash' + '\n' +
+    '    foo=bar'  + '\n' +
+    '    foo=bar'  + '\n' +
+    '    baz=qux))}}',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{my-component}}' beginning at L7:C13. Expected '{{my-component}}' to be at L8:C0.`,
+      'line': 7,
+      'column': 13,
+      'source': `{{my-component\n  foo=bar\n  baz=qux\n  my-attr=(component "my-other-component" data=(hash\n    foo=bar\n    foo=bar\n    baz=qux))}}`
+    }],
+  },{
+    config: {
+      'elements-end': 'last-attribute'
+    },
+    template: '<input' + '\n' +
+    '  foo=bar' + '\n' +
+    '  baz=bar' + '\n' +
+    '>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<input>' beginning at L4:C0. Expected '<input>' to be at L3:C9.`,
+      'line': 4,
+      'column': 0,
+      'source': '<input\n  foo=bar\n  baz=bar\n>'
+    }],
+  },{
+    config: {
+      'elements-end': 'new-line'
+    },
+    template: '<input' + '\n' +
+    '  foo=bar' + '\n' +
+    '  baz=qux>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<input>' beginning at L3:C9. Expected '<input>' to be at L4:C0.`,
+      'line': 3,
+      'column': 9,
+      'source': '<input\n  foo=bar\n  baz=qux>'
+    }],
+  },{
     //Non Block HTML element
     config: {
       'process-elements': true
