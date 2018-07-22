@@ -10,6 +10,58 @@ generateRuleTests({
   good: [
     {
       config: {
+        'blockless-mustache-end': 'new-line',
+        'elements-end': 'new-line'
+      },
+      template: '<div' + '\n' +
+      '  foo={{action' + '\n' +
+      '        (if' + '\n' +
+      '          abc' + '\n' +
+      '          def' + '\n' +
+      '          ghi)' + '\n' +
+      '        stuff' + '\n' +
+      '      }}' + '\n' +
+      '  baz=qux' + '\n' +
+      '/>',
+    },
+    {
+      config: {
+        'blockless-mustache-end': 'new-line',
+        'elements-end': 'new-line'
+      },
+      template: '<div' + '\n' +
+      '  foo={{action' + '\n' +
+      '        some' + '\n' +
+      '        stuff' + '\n' +
+      '      }}' + '\n' +
+      '  baz=qux' + '\n' +
+      '/>',
+    },
+    {
+      config: {
+        'blockless-mustache-end': 'new-line',
+        'elements-end': 'last-attribute'
+      },
+      template: '<div' + '\n' +
+      '  foo={{action' + '\n' +
+      '        some' + '\n' +
+      '        stuff' + '\n' +
+      '      }}' + '\n' +
+      '  baz=qux/>',
+    },
+    {
+      config: {
+        'blockless-mustache-end': 'last-attribute',
+        'elements-end': 'last-attribute'
+      },
+      template: '<div' + '\n' +
+      '  foo={{action' + '\n' +
+      '        some' + '\n' +
+      '        stuff}}' + '\n' +
+      '  baz=qux/>',
+    },
+    {
+      config: {
         'blockless-mustache-end': 'last-attribute',
         'elements-end': 'new-line'
       },
@@ -391,6 +443,66 @@ generateRuleTests({
   ],
 
   bad: [{
+    config: {
+      'blockless-mustache-end': 'new-line',
+      'elements-end': 'new-line'
+    },
+    template: '<div' + '\n' +
+    '  foo={{action' + '\n' +
+    '        some' + '\n' +
+    '        stuff}}' + '\n' +
+    '  baz=qux/>',
+    results: [
+      {
+        'rule': 'attribute-indentation',
+        'severity': 2,
+        'moduleId': 'layout.hbs',
+        'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L5:C9. Expected '<div>' to be at L6:C0.`,
+        'line': 5,
+        'column': 9,
+        'source': `<div\n  foo={{action\n        some\n        stuff}}\n  baz=qux/>`
+      },
+      {
+        'rule': 'attribute-indentation',
+        'severity': 2,
+        'moduleId': 'layout.hbs',
+        'message': `Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L4:C13. Expected '{{action}}' to be at L5:C6.`,
+        'line': 4,
+        'column': 13,
+        'source': '{{action\n        some\n        stuff}}'
+      }
+    ],
+  },{
+    config: {
+      'blockless-mustache-end': 'last-attribute',
+      'elements-end': 'last-attribute'
+    },
+    template: '<div' + '\n' +
+    '  foo={{action' + '\n' +
+    '        some' + '\n' +
+    '        stuff' + '\n' +
+    '      }}' + '\n' +
+    '  baz=qux' + '\n' +
+    '/>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L7:C0. Expected '<div>' to be at L6:C9.`,
+      'line': 7,
+      'column': 0,
+      'source': '<div\n  foo={{action\n        some\n        stuff\n      }}\n  baz=qux\n/>'
+    },
+    {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L5:C6. Expected '{{action}}' to be at L4:C13.`,
+      'line': 5,
+      'column': 6,
+      'source': '{{action\n        some\n        stuff\n      }}'
+    }],
+  },{
     config: {
       'blockless-mustache-end': 'last-attribute'
     },
