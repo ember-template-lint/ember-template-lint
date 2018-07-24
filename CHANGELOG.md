@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## v0.8.23
+
+- Fix regression in `no-unused-block-params` rule.
+- Add support for element validation to `attribute-indentation` rule (enableable via the `process-elements` configuration option).
+
 ## v0.8.22
 
 - Add `link-href-attributes` rule to forbid `a` elements without an `href` attribute.
