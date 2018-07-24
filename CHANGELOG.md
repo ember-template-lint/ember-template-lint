@@ -1,6 +1,32 @@
 Changelog
 =========
 
+## master
+
+- Drop support for Node 4, 5, 7, and 9.
+- Update `attribute-indentation`'s default `true` config to include processing of elements.
+- Make `0-8-recommended` configuration (to make upgrading a bit easier for folks.
+- Change "recommended" configuration
+  - To be added to the recommended config for 0.9.0:
+    - `no-inline-styles`
+    - `linebreak-style`
+    - `no-duplicate-attributes`
+    - `table-groups`
+    - `attribute-indentation`
+    - `no-unnecessary-concat`
+    - `no-input-block`
+    - `no-input-tagname`
+    - `no-unbound`
+    - `no-outlet-outside-routes`
+    - `no-partial`
+    - `no-unnecessary-concat`
+    - `quotes`
+    - `no-attrs-in-components`
+    - `no-shadowed-elements`
+  - To be removed from the recommended config for 0.9.0:
+    - `deprecated-inline-view-helper`
+
+
 ## v0.8.23
 
 - Fix regression in `no-unused-block-params` rule.
