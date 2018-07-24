@@ -30,6 +30,9 @@ jobs:
   include:
     - stage: tests
       name: "Node 10"
+      script:
+        - yarn lint:js
+        - yarn test
 
     - stage: additional tests
       name: floating dependencies
