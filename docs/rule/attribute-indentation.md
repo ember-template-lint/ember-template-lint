@@ -116,6 +116,6 @@ Block form (HTML)
 ```
 
 #### Configuration:
-  * boolean - `true` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines. This will only enforce the rule for handlebar elements and not HTML/SVG elements.
+  * boolean - `true` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.
   * object - { 'open-invocation-max-len': n characters } - Maximum length of the opening invocation.
   * object - { 'process-elements': `true` } - Also validate the indentation of HTML/SVG elements.
