@@ -22,6 +22,8 @@ generateRuleTests({
     '{{#each cats as |cat|}}{{#meow-meow cat as |cat|}}{{cat}}{{/meow-meow}}{{/each}}',
     '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
     '{{#with (component "foo-bar") as |FooBar|}}<FooBar />{{/with}}',
+    '<BurgerMenu as |menu|><header>Something</header><menu.item>Text</menu.item></BurgerMenu>',
+    '{{#burger-menu as |menu|}}<header>Something</header>{{#menu.item}}Text{{/menu.item}}{{/burger-menu}}',
   ],
 
   bad: [
