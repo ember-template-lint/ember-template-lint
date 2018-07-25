@@ -298,6 +298,7 @@ generateRuleTests({
     'as |contact|}}' + '\n' +
     '  {{contact.fullName}}' + '\n' +
     '{{/contact-details}}',
+    '<div>\n  <p></p>\n</div>',
   ],
 
   bad: [{
