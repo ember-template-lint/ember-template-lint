@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Tweak bin script so that it automatically ignores any files ignored by `.gitignore`.
 - Drop support for Node 4, 5, 7, and 9.
 - Update `attribute-indentation`'s default `true` config to include processing of elements.
 - Make `0-8-recommended` configuration (to make upgrading a bit easier for folks.
