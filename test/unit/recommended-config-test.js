@@ -56,7 +56,8 @@ describe('recommended config', function() {
   @selected={{@pageSize}}
   @options={{this.availablePageSizes}}
   @searchEnabled={{false}}
-  @onchange={{action this.changePageSize}} as |size|>
+  @onchange={{action this.changePageSize}} as |size|
+>
   {{size}}
 </PowerSelect>`);
 });

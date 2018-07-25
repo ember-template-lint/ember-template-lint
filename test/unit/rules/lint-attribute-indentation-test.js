@@ -14,18 +14,15 @@ generateRuleTests({
         'process-elements': true
       },
       template: '<SiteHeader' + '\n' +
-      '  @selected={{this.user.country}} as |Option|>' + '\n' +
-      '{{#each this.availableCountries as |country|}}'  + '\n' +
+      '  @selected={{this.user.country}} as |Option|' + '\n' +
+      '>{{#each this.availableCountries as |country|}}'  + '\n' +
       '<Option @value={{country}}>{{country.name}}</Option>' + '\n' +
       '{{/each}}' + '\n' +
       '</SiteHeader>',
     },
     //Non Block form one line
     '<input disabled>',
-    //Non Block with wrong indentation, configuration off
-    '<input' + '\n' +
-    'disabled' + '\n' +
-    '>',
+
     //Non Block with wrong indentation, configuration explicitly off
     {
       config: {
@@ -461,6 +458,14 @@ generateRuleTests({
       'message': `Incorrect indentation of htmlAttribute 'target' beginning at L1:C75. Expected 'target' to be at L5:C2.`,
       'line': 1,
       'column': 75,
+      'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
+    }, {
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<a>' beginning at L1:C90. Expected '<a>' to be at L6:C0.`,
+      'line': 1,
+      'column': 90,
       'source': '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>'
     }, {
       'rule': 'attribute-indentation',
