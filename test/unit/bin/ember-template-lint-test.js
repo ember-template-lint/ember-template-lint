@@ -166,7 +166,7 @@ describe('ember-template-lint executable', function() {
               column: 4,
               line: 1,
               message: 'Non-translated string used',
-              moduleId: './app/templates/application',
+              moduleId: 'app/templates/application',
               rule: 'no-bare-strings',
               severity: 2,
               source: 'Here too!!'
@@ -174,7 +174,7 @@ describe('ember-template-lint executable', function() {
               column: 5,
               line: 2,
               message: 'Non-translated string used',
-              moduleId: './app/templates/application',
+              moduleId: 'app/templates/application',
               rule: 'no-bare-strings',
               severity: 2,
               source: 'Bare strings are bad...'
@@ -201,7 +201,7 @@ describe('ember-template-lint executable', function() {
               column: 4,
               line: 1,
               message: 'Non-translated string used',
-              moduleId: './app/templates/application',
+              moduleId: 'app/templates/application',
               rule: 'no-bare-strings',
               severity: 2,
               source: 'Here too!!'
@@ -209,7 +209,7 @@ describe('ember-template-lint executable', function() {
               column: 5,
               line: 2,
               message: 'Non-translated string used',
-              moduleId: './app/templates/application',
+              moduleId: 'app/templates/application',
               rule: 'no-bare-strings',
               severity: 2,
               source: 'Bare strings are bad...'

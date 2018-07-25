@@ -4,7 +4,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var glob = require('glob');
+var globby = require('globby');
 var Linter = require('../lib/index');
 var linter = new Linter();
 const chalk = require('chalk');
@@ -62,19 +62,7 @@ function getRelativeFilePaths() {
 
   var relativeFilePaths = fileArgs
     .reduce((filePaths, fileArg) => {
-      var globPath;
-      var isDirectory;
-
-      try {
-        isDirectory = fs.statSync(fileArg).isDirectory();
-      } catch(e) {
-        isDirectory = false;
-      }
-
-      globPath = fileArg;
-      if (isDirectory) globPath += '/**/*.hbs';
-
-      return filePaths.concat(glob.sync(globPath));
+      return filePaths.concat(globby.sync(fileArg));
     }, [])
     .filter(filePath => filePath.slice(-4) === '.hbs');
 

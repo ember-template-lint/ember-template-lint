@@ -5,7 +5,7 @@ module.exports = {
   },
   pending: [
     {
-      'moduleId': './app/templates/application',
+      'moduleId': 'app/templates/application',
       'only': [
         'no-html-comments'
       ]
