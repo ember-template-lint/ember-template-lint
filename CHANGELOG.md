@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## master
+## v1.0.0-beta.1
 
 - Tweak bin script so that it automatically ignores any files ignored by `.gitignore`.
 - Drop support for Node 4, 5, 7, and 9.
