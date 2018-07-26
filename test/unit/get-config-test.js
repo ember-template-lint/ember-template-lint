@@ -54,7 +54,7 @@ describe('get-config', function() {
       }
     });
 
-    expect(actual.rules['block-indentation']).to.equal(2);
+    expect(actual.rules['block-indentation']).to.equal(true);
   });
 
   it('can extend and override a default configuration', function() {
@@ -245,7 +245,7 @@ describe('get-config', function() {
 
     expect(message).to.be.not.ok;
     expect(actual.rules['foo-bar']).to.equal(true);
-    expect(actual.rules['block-indentation']).to.equal(2);
+    expect(actual.rules['block-indentation']).to.equal(true);
   });
 
   it('handles circular reference in config', function() {
