@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.0.0-beta.2
+
+- Fix issue with `attribute-indentation` rule parsing of element nodes.
+- Add `no-quoteless-attributes` rule. See the [rule documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-quoteless-attributes.md) for details.
+- Add `no-quoteless-attributes` to the default `recommended` configuration.
+-
 ## v1.0.0-beta.1
 
 - Tweak bin script so that it automatically ignores any files ignored by `.gitignore`.
