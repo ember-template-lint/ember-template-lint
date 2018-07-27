@@ -26,7 +26,6 @@ Changelog
     - `no-unbound`
     - `no-outlet-outside-routes`
     - `no-partial`
-    - `no-unnecessary-concat`
     - `quotes`
     - `no-attrs-in-components`
     - `no-shadowed-elements`
