@@ -10,8 +10,8 @@ generateRuleTests({
   good: [
     {
       config: {
-        'blockless-mustache-end': 'new-line',
-        'elements-end': 'new-line'
+        'mustache-open-end': 'new-line',
+        'end-element-open': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -26,8 +26,8 @@ generateRuleTests({
     },
     {
       config: {
-        'blockless-mustache-end': 'new-line',
-        'elements-end': 'new-line'
+        'mustache-open-end': 'new-line',
+        'end-element-open': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -39,8 +39,8 @@ generateRuleTests({
     },
     {
       config: {
-        'blockless-mustache-end': 'new-line',
-        'elements-end': 'last-attribute'
+        'mustache-open-end': 'new-line',
+        'end-element-open': 'last-attribute'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -51,8 +51,8 @@ generateRuleTests({
     },
     {
       config: {
-        'blockless-mustache-end': 'last-attribute',
-        'elements-end': 'last-attribute'
+        'mustache-open-end': 'last-attribute',
+        'end-element-open': 'last-attribute'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -62,8 +62,8 @@ generateRuleTests({
     },
     {
       config: {
-        'blockless-mustache-end': 'last-attribute',
-        'elements-end': 'new-line'
+        'mustache-open-end': 'last-attribute',
+        'end-element-open': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -74,7 +74,7 @@ generateRuleTests({
     },
     {
       config: {
-        'elements-end': 'new-line'
+        'end-element-open': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -86,7 +86,7 @@ generateRuleTests({
     },
     {
       config: {
-        'elements-end': 'new-line'
+        'end-element-open': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action some stuff}}' + '\n' +
@@ -95,7 +95,7 @@ generateRuleTests({
     },
     {
       config: {
-        'elements-end': 'new-line'
+        'end-element-open': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo=bar' + '\n' +
@@ -104,7 +104,7 @@ generateRuleTests({
     },
     {
       config: {
-        'elements-end': 'last-attribute'
+        'end-element-open': 'last-attribute'
       },
       template: '<div' + '\n' +
       '  foo=bar' + '\n' +
@@ -112,7 +112,7 @@ generateRuleTests({
     },
     {
       config: {
-        'elements-end': 'new-line'
+        'end-element-open': 'new-line'
       },
       template: '<input' + '\n' +
       '  foo=bar' + '\n' +
@@ -121,7 +121,7 @@ generateRuleTests({
     },
     {
       config: {
-        'elements-end': 'last-attribute'
+        'end-element-open': 'last-attribute'
       },
       template: '<input' + '\n' +
       '  foo=bar' + '\n' +
@@ -129,7 +129,7 @@ generateRuleTests({
     },
     {
       config: {
-        'blockless-mustache-end': 'new-line'
+        'mustache-open-end': 'new-line'
       },
       template: '{{my-component' + '\n' +
       '  foo=bar' + '\n' +
@@ -142,7 +142,7 @@ generateRuleTests({
     },
     {
       config: {
-        'blockless-mustache-end': 'last-attribute'
+        'mustache-open-end': 'last-attribute'
       },
       template: '{{my-component' + '\n' +
       '  foo=bar' + '\n' +
@@ -444,8 +444,8 @@ generateRuleTests({
 
   bad: [{
     config: {
-      'blockless-mustache-end': 'new-line',
-      'elements-end': 'new-line'
+      'mustache-open-end': 'new-line',
+      'end-element-open': 'new-line'
     },
     template: '<div' + '\n' +
     '  foo={{action' + '\n' +
@@ -474,8 +474,8 @@ generateRuleTests({
     ],
   },{
     config: {
-      'blockless-mustache-end': 'last-attribute',
-      'elements-end': 'last-attribute'
+      'mustache-open-end': 'last-attribute',
+      'end-element-open': 'last-attribute'
     },
     template: '<div' + '\n' +
     '  foo={{action' + '\n' +
@@ -504,7 +504,7 @@ generateRuleTests({
     }],
   },{
     config: {
-      'blockless-mustache-end': 'last-attribute'
+      'mustache-open-end': 'last-attribute'
     },
     template: '{{my-component' + '\n' +
     '  foo=bar' + '\n' +
@@ -525,7 +525,7 @@ generateRuleTests({
     }],
   },{
     config: {
-      'blockless-mustache-end': 'last-attribute'
+      'mustache-open-end': 'last-attribute'
     },
     template: '{{my-component' + '\n' +
     '  foo=bar' + '\n' +
@@ -546,7 +546,7 @@ generateRuleTests({
     }],
   },{
     config: {
-      'blockless-mustache-end': 'new-line'
+      'mustache-open-end': 'new-line'
     },
     template: '{{my-component' + '\n' +
     '  foo=bar' + '\n' +
@@ -566,7 +566,7 @@ generateRuleTests({
     }],
   },{
     config: {
-      'elements-end': 'last-attribute'
+      'end-element-open': 'last-attribute'
     },
     template: '<input' + '\n' +
     '  foo=bar' + '\n' +
@@ -583,7 +583,7 @@ generateRuleTests({
     }],
   },{
     config: {
-      'elements-end': 'new-line'
+      'end-element-open': 'new-line'
     },
     template: '<input' + '\n' +
     '  foo=bar' + '\n' +
