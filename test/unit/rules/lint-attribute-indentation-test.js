@@ -414,13 +414,15 @@ generateRuleTests({
     '{{#t.body' + '\n' +
     '  canExpand=(helper help)' + '\n' +
     '  multiRowExpansion=false' + '\n' +
-    'as |body|}}' + '\n' +
+    'as |body|' + '\n' +
+    '}}' + '\n' +
     '  {{foo}}' + '\n' +
     '{{/t.body}}',
 
     //Block form with open-invocation more than 80 characters
     {
       config: {
+        'mustache-open-end': 'last-attribute',
         'open-invocation-max-len': 120
       },
       template: '{{#contact-details firstName=firstName lastName=lastName age=age avatarUrl=avatarUrl as |contact|}}' + '\n' +
@@ -431,18 +433,43 @@ generateRuleTests({
     '{{#contact-details' + '\n' +
     '  firstName=firstName' + '\n' +
     '  lastName=lastName' + '\n' +
-    'as |fullName|}}' + '\n' +
+    'as |fullName|' + '\n' +
+    '}}' + '\n' +
     '  {{fullName}}' + '\n' +
     '{{/contact-details}}',
     //Block form with no params
     '{{#contact-details' + '\n' +
-    'as |contact|}}' + '\n' +
+    'as |contact|' + '\n' +
+    '}}' + '\n' +
     '  {{contact.fullName}}' + '\n' +
     '{{/contact-details}}',
     '<div>\n  <p></p>\n</div>',
+    {
+      config: {
+        'mustache-open-end': 'last-attribute',
+      },
+      template: '{{#contact-details' + '\n' +
+      '  param0' + '\n' +
+      '  param1=abc' + '\n' +
+      '  param2=abc' + '\n' +
+      'as |ab cd ef  cd ef |}}' + '\n' +
+      '  {{contact.fullName}}' + '\n' +
+      '{{/contact-details}}',
+      results: [],
+    }
   ],
 
   bad: [{
+    template:     '{{#contact-details' + '\n' +
+    '  firstName=firstName' + '\n' +
+    '  lastName=lastName' + '\n' +
+    'as |fullName|' + '\n' +
+    '}}' + '\n' +
+    '  {{fullName}}' + '\n' +
+    '{{/contact-details}}',
+    results: [],
+  },
+  {
     config: {
       'mustache-open-end': 'new-line',
       'end-element-open': 'new-line'
@@ -844,6 +871,12 @@ generateRuleTests({
       'message': 'Incorrect indentation of block params \'as |contact|}}\' beginning at L2:C38. Expecting the block params to be at L3:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}'
+    }, {
+      'column': 51,
+      'line': 2,
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L2:C51. Expected '{{contact-details}}' to be at L4:C0.`,
+      'moduleId': 'layout.hbs',
+      'source': '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}'
     }]
   }, {
     //Block form (> 80 chars)
@@ -880,6 +913,12 @@ generateRuleTests({
       'message': 'Incorrect indentation of block params \'as |contact|}}\' beginning at L1:C78. Expecting the block params to be at L2:C0.',
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
+    }, {
+      'column': 91,
+      'line': 1,
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L1:C91. Expected '{{contact-details}}' to be at L3:C0.`,
+      'moduleId': 'layout.hbs',
+      'source': '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}'
     }]
   }, {
     //Block form with no params with multiple lines.
@@ -893,6 +932,12 @@ generateRuleTests({
       'column': 0,
       'line': 4,
       'message': `Incorrect indentation of block params 'as |contact|}}' beginning at L4:C0. Expecting the block params to be at L2:C0.`,
+      'moduleId': 'layout.hbs',
+      'source': '{{#contact-details\n\n\nas |contact|}}\n  {{contact.fullName}}\n{{/contact-details}}'
+    }, {
+      'column': 12,
+      'line': 4,
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L4:C12. Expected '{{contact-details}}' to be at L3:C0.`,
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details\n\n\nas |contact|}}\n  {{contact.fullName}}\n{{/contact-details}}'
     }]
