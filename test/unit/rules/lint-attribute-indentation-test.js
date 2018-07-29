@@ -188,6 +188,16 @@ generateRuleTests({
     },
     {
       config: {
+        'process-elements': true,
+        'end-element-open': 'last-attribute',
+      },
+      template: '<a' + '\n' +
+      '  disabled>' + '\n' +
+      'abc'  + '\n' +
+      '</a>',
+    },
+    {
+      config: {
         'process-elements': true
       },
       template: '<a' + '\n' +
@@ -253,6 +263,58 @@ generateRuleTests({
       ' }}{{foo}}{{/contact-details}}' + '\n' +
       '</a>'
     },
+    {
+      config: {
+        'process-elements': true,
+        'end-element-open': 'last-attribute',
+        'mustache-open-end': 'last-attribute'
+      },
+      template: '<a' + '\n' +
+      '  disabled={{if'  + '\n' +
+      '             true'  + '\n' +
+      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '             (action "lessPowerfulAction" value=target.value)}}>' + '\n' +
+      '{{#contact-details' + '\n' +
+      '  firstName' + '\n' +
+      '  lastName}}' + '\n' +
+      ' {{foo}}{{/contact-details}}' + '\n' +
+      '</a>'
+    },
+    {
+      config: {
+        'process-elements': true,
+        'end-element-open': 'new-line',
+        'mustache-open-end': 'last-attribute'
+      },
+      template: '<a' + '\n' +
+      '  disabled={{if'  + '\n' +
+      '             true'  + '\n' +
+      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '             (action "lessPowerfulAction" value=target.value)}}' + '\n' +
+      '>{{#contact-details' + '\n' +
+      '   firstName' + '\n' +
+      '   lastName}}' + '\n' +
+      ' {{foo}}{{/contact-details}}' + '\n' +
+      '</a>'
+    },
+    {
+      config: {
+        'process-elements': true,
+        'end-element-open': 'last-attribute',
+        'mustache-open-end': 'new-line'
+      },
+      template: '<a' + '\n' +
+      '  disabled={{if'  + '\n' +
+      '             true'  + '\n' +
+      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '           }}>{{#contact-details' + '\n' +
+      '                firstName' + '\n' +
+      '                lastName' + '\n' +
+      '              }}' + '\n' +
+      ' {{foo}}{{/contact-details}}' + '\n' +
+      '</a>'
+    },
     // Self closing single line
     {
       config: {
@@ -293,7 +355,6 @@ generateRuleTests({
       '  disabled={{action "mostPowerfulAction" value=target.value}}' + '\n' +
       '>',
     },
-    //Non Block form multi line
     {
       config: {
         'process-elements': true
@@ -455,21 +516,91 @@ generateRuleTests({
       'as |ab cd ef  cd ef |}}' + '\n' +
       '  {{contact.fullName}}' + '\n' +
       '{{/contact-details}}',
-      results: [],
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+      },
+      template: '{{#contact-details' + '\n' +
+      '  param0' + '\n' +
+      '  param1=abc' + '\n' +
+      '  param2=abc' + '\n' +
+      'as |ab cd ef  cd ef |' + '\n' +
+      '}}' + '\n' +
+      '  {{contact.fullName}}' + '\n' +
+      '{{/contact-details}}',
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+        'end-element-open': 'new-line',
+      },
+      template: '<div' + '\n' +
+      '  class="classy"' + '\n' +
+      '>' + '\n' +
+      '{{#contact-details' + '\n' +
+      '  param0' + '\n' +
+      '  param1=abc' + '\n' +
+      '  param2=abc' + '\n' +
+      'as |ab cd ef  cd ef |' + '\n' +
+      '}}' + '\n' +
+      '  {{contact.fullName}}' + '\n' +
+      '{{/contact-details}}' + '\n' +
+      '</div>',
+    },
+    {
+      config: {
+        'mustache-open-end': 'last-attribute',
+        'end-element-open': 'last-attribute',
+      },
+      template: '<div' + '\n' +
+      '  class="classy">' + '\n' +
+      '{{#contact-details' + '\n' +
+      '  param0' + '\n' +
+      '  param1=abc' + '\n' +
+      '  param2=abc' + '\n' +
+      'as |ab cd ef  cd ef |}}' + '\n' +
+      '  {{contact.fullName}}' + '\n' +
+      '{{/contact-details}}' + '\n' +
+      '</div>',
+    },
+    {
+      config: {
+        'mustache-open-end': 'last-attribute',
+        'end-element-open': 'new-line',
+      },
+      template: '<div' + '\n' +
+      '  class="classy"' + '\n' +
+      '>' + '\n' +
+      '{{#contact-details' + '\n' +
+      '  param0' + '\n' +
+      '  param1=abc' + '\n' +
+      '  param2=abc' + '\n' +
+      'as |ab cd ef  cd ef |}}' + '\n' +
+      '  {{contact.fullName}}' + '\n' +
+      '{{/contact-details}}' + '\n' +
+      '</div>',
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+        'end-element-open': 'last-attribute',
+      },
+      template: '<div' + '\n' +
+      '  class="classy">' + '\n' +
+      '{{#contact-details' + '\n' +
+      '  param0' + '\n' +
+      '  param1=abc' + '\n' +
+      '  param2=abc' + '\n' +
+      'as |ab cd ef  cd ef |' + '\n' +
+      '}}' + '\n' +
+      '  {{contact.fullName}}' + '\n' +
+      '{{/contact-details}}' + '\n' +
+      '</div>',
     }
   ],
 
   bad: [{
-    template:     '{{#contact-details' + '\n' +
-    '  firstName=firstName' + '\n' +
-    '  lastName=lastName' + '\n' +
-    'as |fullName|' + '\n' +
-    '}}' + '\n' +
-    '  {{fullName}}' + '\n' +
-    '{{/contact-details}}',
-    results: [],
-  },
-  {
     config: {
       'mustache-open-end': 'new-line',
       'end-element-open': 'new-line'
@@ -878,7 +1009,23 @@ generateRuleTests({
       'moduleId': 'layout.hbs',
       'source': '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}'
     }]
-  }, {
+  },{
+    template:     '{{#contact-details' + '\n' +
+    '  firstName=firstName' + '\n' +
+    '  lastName=lastName' + '\n' +
+    'as |fullName|}}' + '\n' +
+    '  {{fullName}}' + '\n' +
+    '{{/contact-details}}',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L4:C13. Expected '{{contact-details}}' to be at L5:C0.`,
+      'line': 4,
+      'column': 13,
+      'source': '{{#contact-details\n  firstName=firstName\n  lastName=lastName\nas |fullName|}}\n  {{fullName}}\n{{/contact-details}}'
+    }]
+  },{
     //Block form (> 80 chars)
     template: '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}' + '\n' +
     '  {{fullName}}' + '\n' +
@@ -1005,5 +1152,137 @@ generateRuleTests({
       line: 2,
       column: 0
     }
+  },{
+    config: {
+      'mustache-open-end': 'new-line',
+      'end-element-open': 'new-line',
+    },
+    template: '<div' + '\n' +
+    '  class="classy">' + '\n' +
+    '{{#contact-details' + '\n' +
+    '  param0' + '\n' +
+    '  param1=abc' + '\n' +
+    '  param2=abc' + '\n' +
+    'as |ab cd ef  cd ef |}}' + '\n' +
+    '  {{contact.fullName}}' + '\n' +
+    '{{/contact-details}}' + '\n' +
+    '</div>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L2:C16. Expected '<div>' to be at L3:C0.`,
+      'line': 2,
+      'column': 16,
+      'source': '<div\n  class="classy">\n{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |}}\n  {{contact.fullName}}\n{{/contact-details}}\n</div>'
+    },{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L7:C21. Expected '{{contact-details}}' to be at L8:C0.`,
+      'line': 7,
+      'column': 21,
+      'source': '{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |}}\n  {{contact.fullName}}\n{{/contact-details}}'
+    }],
+  },{
+    config: {
+      'mustache-open-end': 'last-attribute',
+      'end-element-open': 'last-attribute',
+    },
+    template: '<div' + '\n' +
+    '  class="classy"' + '\n' +
+    '>' + '\n' +
+    '{{#contact-details' + '\n' +
+    '  param0' + '\n' +
+    '  param1=abc' + '\n' +
+    '  param2=abc' + '\n' +
+    'as |ab cd ef  cd ef |' + '\n' +
+    '}}' + '\n' +
+    '  {{contact.fullName}}' + '\n' +
+    '{{/contact-details}}' + '\n' +
+    '</div>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L3:C0. Expected '<div>' to be at L2:C16.`,
+      'line': 3,
+      'column': 0,
+      'source': '<div\n  class="classy"\n>\n{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |\n}}\n  {{contact.fullName}}\n{{/contact-details}}\n</div>'
+    },{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L9:C0. Expected '{{contact-details}}' to be at L8:C0.`,
+      'line': 9,
+      'column': 0,
+      'source': '{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |\n}}\n  {{contact.fullName}}\n{{/contact-details}}'
+    }],
+  },{
+    config: {
+      'mustache-open-end': 'last-attribute',
+      'end-element-open': 'new-line',
+    },
+    template: '<div' + '\n' +
+    '  class="classy">' + '\n' +
+    '{{#contact-details' + '\n' +
+    '  param0' + '\n' +
+    '  param1=abc' + '\n' +
+    '  param2=abc' + '\n' +
+    'as |ab cd ef  cd ef |' + '\n' +
+    '}}' + '\n' +
+    '  {{contact.fullName}}' + '\n' +
+    '{{/contact-details}}' + '\n' +
+    '</div>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L2:C16. Expected '<div>' to be at L3:C0.`,
+      'line': 2,
+      'column': 16,
+      'source': '<div\n  class="classy">\n{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |\n}}\n  {{contact.fullName}}\n{{/contact-details}}\n</div>'
+    },{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L8:C0. Expected '{{contact-details}}' to be at L7:C0.`,
+      'line': 8,
+      'column': 0,
+      'source': '{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |\n}}\n  {{contact.fullName}}\n{{/contact-details}}'
+    }],
+  },{
+    config: {
+      'mustache-open-end': 'new-line',
+      'end-element-open': 'last-attribute',
+    },
+    template: '<div' + '\n' +
+    '  class="classy"' + '\n' +
+    '>' + '\n' +
+    '{{#contact-details' + '\n' +
+    '  param0' + '\n' +
+    '  param1=abc' + '\n' +
+    '  param2=abc' + '\n' +
+    'as |ab cd ef  cd ef |}}' + '\n' +
+    '  {{contact.fullName}}' + '\n' +
+    '{{/contact-details}}' + '\n' +
+    '</div>',
+    results: [{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L3:C0. Expected '<div>' to be at L2:C16.`,
+      'line': 3,
+      'column': 0,
+      'source': '<div\n  class="classy"\n>\n{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |}}\n  {{contact.fullName}}\n{{/contact-details}}\n</div>'
+    },{
+      'rule': 'attribute-indentation',
+      'severity': 2,
+      'moduleId': 'layout.hbs',
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L8:C21. Expected '{{contact-details}}' to be at L9:C0.`,
+      'line': 8,
+      'column': 21,
+      'source': '{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |}}\n  {{contact.fullName}}\n{{/contact-details}}'
+    }],
   }]
 });
