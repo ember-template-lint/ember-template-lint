@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## v1.0.0-beta.3
+
+- Fix issue causing `node_modules` to be scanned when running `ember-template-lint .`.
+
 ## v1.0.0-beta.2
 
 - Fix issue with `attribute-indentation` rule parsing of element nodes.
