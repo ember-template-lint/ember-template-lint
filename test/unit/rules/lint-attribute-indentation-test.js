@@ -11,7 +11,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'new-line',
-        'end-element-open': 'new-line'
+        'element-open-end': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -27,7 +27,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'new-line',
-        'end-element-open': 'new-line'
+        'element-open-end': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -40,7 +40,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'new-line',
-        'end-element-open': 'last-attribute'
+        'element-open-end': 'last-attribute'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -52,7 +52,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'last-attribute',
-        'end-element-open': 'last-attribute'
+        'element-open-end': 'last-attribute'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -63,7 +63,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'last-attribute',
-        'end-element-open': 'new-line'
+        'element-open-end': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -74,7 +74,7 @@ generateRuleTests({
     },
     {
       config: {
-        'end-element-open': 'new-line'
+        'element-open-end': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
@@ -86,7 +86,7 @@ generateRuleTests({
     },
     {
       config: {
-        'end-element-open': 'new-line'
+        'element-open-end': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo={{action some stuff}}' + '\n' +
@@ -95,7 +95,7 @@ generateRuleTests({
     },
     {
       config: {
-        'end-element-open': 'new-line'
+        'element-open-end': 'new-line'
       },
       template: '<div' + '\n' +
       '  foo=bar' + '\n' +
@@ -104,7 +104,7 @@ generateRuleTests({
     },
     {
       config: {
-        'end-element-open': 'last-attribute'
+        'element-open-end': 'last-attribute'
       },
       template: '<div' + '\n' +
       '  foo=bar' + '\n' +
@@ -112,7 +112,7 @@ generateRuleTests({
     },
     {
       config: {
-        'end-element-open': 'new-line'
+        'element-open-end': 'new-line'
       },
       template: '<input' + '\n' +
       '  foo=bar' + '\n' +
@@ -121,7 +121,7 @@ generateRuleTests({
     },
     {
       config: {
-        'end-element-open': 'last-attribute'
+        'element-open-end': 'last-attribute'
       },
       template: '<input' + '\n' +
       '  foo=bar' + '\n' +
@@ -189,7 +189,7 @@ generateRuleTests({
     {
       config: {
         'process-elements': true,
-        'end-element-open': 'last-attribute',
+        'element-open-end': 'last-attribute',
       },
       template: '<a' + '\n' +
       '  disabled>' + '\n' +
@@ -266,7 +266,7 @@ generateRuleTests({
     {
       config: {
         'process-elements': true,
-        'end-element-open': 'last-attribute',
+        'element-open-end': 'last-attribute',
         'mustache-open-end': 'last-attribute'
       },
       template: '<a' + '\n' +
@@ -283,7 +283,7 @@ generateRuleTests({
     {
       config: {
         'process-elements': true,
-        'end-element-open': 'new-line',
+        'element-open-end': 'new-line',
         'mustache-open-end': 'last-attribute'
       },
       template: '<a' + '\n' +
@@ -300,7 +300,7 @@ generateRuleTests({
     {
       config: {
         'process-elements': true,
-        'end-element-open': 'last-attribute',
+        'element-open-end': 'last-attribute',
         'mustache-open-end': 'new-line'
       },
       template: '<a' + '\n' +
@@ -533,7 +533,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'new-line',
-        'end-element-open': 'new-line',
+        'element-open-end': 'new-line',
       },
       template: '<div' + '\n' +
       '  class="classy"' + '\n' +
@@ -551,7 +551,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'last-attribute',
-        'end-element-open': 'last-attribute',
+        'element-open-end': 'last-attribute',
       },
       template: '<div' + '\n' +
       '  class="classy">' + '\n' +
@@ -567,7 +567,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'last-attribute',
-        'end-element-open': 'new-line',
+        'element-open-end': 'new-line',
       },
       template: '<div' + '\n' +
       '  class="classy"' + '\n' +
@@ -584,7 +584,7 @@ generateRuleTests({
     {
       config: {
         'mustache-open-end': 'new-line',
-        'end-element-open': 'last-attribute',
+        'element-open-end': 'last-attribute',
       },
       template: '<div' + '\n' +
       '  class="classy">' + '\n' +
@@ -603,7 +603,7 @@ generateRuleTests({
   bad: [{
     config: {
       'mustache-open-end': 'new-line',
-      'end-element-open': 'new-line'
+      'element-open-end': 'new-line'
     },
     template: '<div' + '\n' +
     '  foo={{action' + '\n' +
@@ -633,7 +633,7 @@ generateRuleTests({
   },{
     config: {
       'mustache-open-end': 'last-attribute',
-      'end-element-open': 'last-attribute'
+      'element-open-end': 'last-attribute'
     },
     template: '<div' + '\n' +
     '  foo={{action' + '\n' +
@@ -724,7 +724,7 @@ generateRuleTests({
     }],
   },{
     config: {
-      'end-element-open': 'last-attribute'
+      'element-open-end': 'last-attribute'
     },
     template: '<input' + '\n' +
     '  foo=bar' + '\n' +
@@ -741,7 +741,7 @@ generateRuleTests({
     }],
   },{
     config: {
-      'end-element-open': 'new-line'
+      'element-open-end': 'new-line'
     },
     template: '<input' + '\n' +
     '  foo=bar' + '\n' +
@@ -1155,7 +1155,7 @@ generateRuleTests({
   },{
     config: {
       'mustache-open-end': 'new-line',
-      'end-element-open': 'new-line',
+      'element-open-end': 'new-line',
     },
     template: '<div' + '\n' +
     '  class="classy">' + '\n' +
@@ -1187,7 +1187,7 @@ generateRuleTests({
   },{
     config: {
       'mustache-open-end': 'last-attribute',
-      'end-element-open': 'last-attribute',
+      'element-open-end': 'last-attribute',
     },
     template: '<div' + '\n' +
     '  class="classy"' + '\n' +
@@ -1221,7 +1221,7 @@ generateRuleTests({
   },{
     config: {
       'mustache-open-end': 'last-attribute',
-      'end-element-open': 'new-line',
+      'element-open-end': 'new-line',
     },
     template: '<div' + '\n' +
     '  class="classy">' + '\n' +
@@ -1254,7 +1254,7 @@ generateRuleTests({
   },{
     config: {
       'mustache-open-end': 'new-line',
-      'end-element-open': 'last-attribute',
+      'element-open-end': 'last-attribute',
     },
     template: '<div' + '\n' +
     '  class="classy"' + '\n' +
