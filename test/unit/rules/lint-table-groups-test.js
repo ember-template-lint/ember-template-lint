@@ -38,6 +38,12 @@ generateRuleTests({
       '<tbody>\n' +
       '</tbody>\n' +
     '</table>',
+    '<table>\n' +
+      '{{#if foo}}' +
+        '<tbody>\n' +
+        '</tbody>\n' +
+      '{{/if}}' +
+    '</table>',
   ],
 
   bad: [
