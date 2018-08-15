@@ -11,6 +11,7 @@ generateRuleTests({
     '{{#foo-bar as |Baz|}}<Baz />{{/foo-bar}}',
     '<FooBar as |Baz|><Baz /></FooBar>',
     '{{#with foo=(component "blah-zorz") as |Div|}}<Div></Div>{{/with}}',
+    '<Foo as |bar|><bar.baz /></Foo>',
   ],
 
   bad: [
