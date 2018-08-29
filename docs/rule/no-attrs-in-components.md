@@ -1,6 +1,6 @@
 ## no-attrs-in-components
 
-This rule prevents the usage of `attrs` property to access values passed to the component since all the values can be accessed directly from the from the template.
+This rule prevents the usage of `attrs` property to access values passed to the component since all the values can be accessed directly from the template.
 
 For example, doing
 
