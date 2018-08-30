@@ -15,6 +15,8 @@ let statements = [
 
 let good = [
   '{{debugger}}',
+  '{{has-block}}',
+  '{{hasBlock}}',
   '{{input}}',
   '{{outlet}}',
   '{{textarea}}',
