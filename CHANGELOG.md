@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## v1.0.0-beta.4
+
+- Ensure the `no-implicit-this` rule allows `hasBlock` / `has-block` without arguments.
+- Ensure `no-ambiguous-elements` rule does not mark angle bracket invocation of yielded block param paths as invalid.
+
 ## v1.0.0-beta.3
 
 - Fix issue causing `node_modules` to be scanned when running `ember-template-lint .`.
