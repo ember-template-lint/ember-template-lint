@@ -62,6 +62,12 @@ generateRuleTests({
     },
 
     {
+      // override the globalAttributes list
+      config: { globalAttributes: [] },
+      template: '<script>var foo = "bar"</script>'
+    },
+
+    {
       // override the elementAttributes list
       config: { elementAttributes: { }},
       template: '<input placeholder="hahaha">'
