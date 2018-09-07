@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## v1.0.0-beta.5
+
+- Refactor `linebreak-style` rule to add:
+  - `system` setting which enforces current system native line endings
+  - `true` value now prevents _mixing_ line endings (as opposed to enforcing a specific one)
+- Fix a number of issues with `attribute-indentation`:
+  - Ensure that using a value-less attribute does **not** cause following attributes to be considered the wrong indentation
+  - Ensure that mustache invocation from within an ElementNode uses the correct indentation
+  - Add configuration to control where the `>` / `/>` or `}}` of the open element/mustache go
+    - 'new-line' - requires the closing symbol on a new line (outdented)
+    - 'last-attribute' - requires the closing symbol to be directly after the last attribute
+- Ensure invalid config errors are properly bubbled to the console
+- Update `simple-unless` to allow either `maxHelpers` or `whitelist` or both together
+
 ## v1.0.0-beta.4
 
 - Ensure the `no-implicit-this` rule allows `hasBlock` / `has-block` without arguments.
