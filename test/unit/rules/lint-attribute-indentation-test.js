@@ -15,12 +15,12 @@ generateRuleTests({
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
-      '        (if' + '\n' +
-      '          abc' + '\n' +
-      '          def' + '\n' +
-      '          ghi)' + '\n' +
-      '        stuff' + '\n' +
-      '      }}' + '\n' +
+      '    (if' + '\n' +
+      '      abc' + '\n' +
+      '      def' + '\n' +
+      '      ghi)' + '\n' +
+      '    stuff' + '\n' +
+      '  }}' + '\n' +
       '  baz=qux' + '\n' +
       '/>',
     },
@@ -31,9 +31,9 @@ generateRuleTests({
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
-      '        some' + '\n' +
-      '        stuff' + '\n' +
-      '      }}' + '\n' +
+      '    some' + '\n' +
+      '    stuff' + '\n' +
+      '  }}' + '\n' +
       '  baz=qux' + '\n' +
       '/>',
     },
@@ -44,9 +44,9 @@ generateRuleTests({
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
-      '        some' + '\n' +
-      '        stuff' + '\n' +
-      '      }}' + '\n' +
+      '    some' + '\n' +
+      '    stuff' + '\n' +
+      '  }}' + '\n' +
       '  baz=qux/>',
     },
     {
@@ -56,8 +56,8 @@ generateRuleTests({
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
-      '        some' + '\n' +
-      '        stuff}}' + '\n' +
+      '    some' + '\n' +
+      '    stuff}}' + '\n' +
       '  baz=qux/>',
     },
     {
@@ -67,8 +67,8 @@ generateRuleTests({
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
-      '        some' + '\n' +
-      '        stuff}}' + '\n' +
+      '    some' + '\n' +
+      '    stuff}}' + '\n' +
       '  baz=qux' + '\n' +
       '/>',
     },
@@ -78,9 +78,9 @@ generateRuleTests({
       },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
-      '        some' + '\n' +
-      '        stuff' + '\n' +
-      '      }}' + '\n' +
+      '    some' + '\n' +
+      '    stuff' + '\n' +
+      '  }}' + '\n' +
       '  baz=qux' + '\n' +
       '/>',
     },
@@ -125,7 +125,7 @@ generateRuleTests({
       },
       template: '<input' + '\n' +
       '  foo=bar' + '\n' +
-      '  baz=qux>', 
+      '  baz=qux>',
     },
     {
       config: {
@@ -237,10 +237,10 @@ generateRuleTests({
       },
       template: '<a' + '\n' +
       '  disabled={{if'  + '\n' +
-      '             true'  + '\n' +
-      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
-      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
-      '           }}' + '\n' +
+      '    true'  + '\n' +
+      '    (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '    (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '  }}' + '\n' +
       '>{{contact-details' + '\n' +
       '   firstName' + '\n' +
       '   lastName' + '\n' +
@@ -253,10 +253,10 @@ generateRuleTests({
       },
       template: '<a' + '\n' +
       '  disabled={{if'  + '\n' +
-      '             true'  + '\n' +
-      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
-      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
-      '           }}' + '\n' +
+      '    true'  + '\n' +
+      '    (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '    (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '  }}' + '\n' +
       '>{{#contact-details' + '\n' +
       '   firstName' + '\n' +
       '   lastName' + '\n' +
@@ -271,9 +271,9 @@ generateRuleTests({
       },
       template: '<a' + '\n' +
       '  disabled={{if'  + '\n' +
-      '             true'  + '\n' +
-      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
-      '             (action "lessPowerfulAction" value=target.value)}}>' + '\n' +
+      '    true'  + '\n' +
+      '    (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '    (action "lessPowerfulAction" value=target.value)}}>' + '\n' +
       '{{#contact-details' + '\n' +
       '  firstName' + '\n' +
       '  lastName}}' + '\n' +
@@ -288,13 +288,15 @@ generateRuleTests({
       },
       template: '<a' + '\n' +
       '  disabled={{if'  + '\n' +
-      '             true'  + '\n' +
-      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
-      '             (action "lessPowerfulAction" value=target.value)}}' + '\n' +
-      '>{{#contact-details' + '\n' +
-      '   firstName' + '\n' +
-      '   lastName}}' + '\n' +
-      ' {{foo}}{{/contact-details}}' + '\n' +
+      '    true'  + '\n' +
+      '    (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '    (action "lessPowerfulAction" value=target.value)}}' + '\n' +
+      '>\n' +
+      '  {{#contact-details' + '\n' +
+      '    firstName' + '\n' +
+      '    lastName}}' + '\n' +
+      '  {{foo}}\n' +
+      '  {{/contact-details}}' + '\n' +
       '</a>'
     },
     {
@@ -305,14 +307,15 @@ generateRuleTests({
       },
       template: '<a' + '\n' +
       '  disabled={{if'  + '\n' +
-      '             true'  + '\n' +
-      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
-      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
-      '           }}>{{#contact-details' + '\n' +
-      '                firstName' + '\n' +
-      '                lastName' + '\n' +
-      '              }}' + '\n' +
-      ' {{foo}}{{/contact-details}}' + '\n' +
+      '    true'  + '\n' +
+      '    (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '    (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '  }}>\n' +
+      '  {{#contact-details' + '\n' +
+      '    firstName' + '\n' +
+      '    lastName' + '\n' +
+      '  }}' + '\n' +
+      '   {{foo}}{{/contact-details}}' + '\n' +
       '</a>'
     },
     // Self closing single line
@@ -361,10 +364,10 @@ generateRuleTests({
       },
       template: '<input' + '\n' +
       '  disabled={{if'  + '\n' +
-      '             true' + '\n' +
-      '             (action "mostPowerfulAction" value=target.value)' + '\n' +
-      '             (action "lessPowerfulAction" value=target.value)' + '\n' +
-      '           }}' + '\n' +
+      '    true' + '\n' +
+      '    (action "mostPowerfulAction" value=target.value)' + '\n' +
+      '    (action "lessPowerfulAction" value=target.value)' + '\n' +
+      '  }}' + '\n' +
       '>',
     },
     //Non Block form with no params
@@ -597,6 +600,36 @@ generateRuleTests({
       '  {{contact.fullName}}' + '\n' +
       '{{/contact-details}}' + '\n' +
       '</div>',
+    },
+    {
+      config: {
+        'mustache-open-end': 'last-attribute',
+      },
+      template: `
+        <SomeThing
+          @long-arg={{hash
+            foo="bar"}}
+        />`
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+      },
+      template: `
+        <SomeThing
+          @long-arg={{hash
+            foo="bar"
+          }}
+        />`
+    },
+    {
+      template: `
+        <SomeThing
+          @long-arg={{hash
+            foo="bar"
+          }}
+          data-after-long-arg={{true}}
+        />`
     }
   ],
 
@@ -607,8 +640,8 @@ generateRuleTests({
     },
     template: '<div' + '\n' +
     '  foo={{action' + '\n' +
-    '        some' + '\n' +
-    '        stuff}}' + '\n' +
+    '    some' + '\n' +
+    '    stuff}}' + '\n' +
     '  baz=qux/>',
     results: [
       {
@@ -618,16 +651,16 @@ generateRuleTests({
         'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L5:C9. Expected '<div>' to be at L6:C0.`,
         'line': 5,
         'column': 9,
-        'source': `<div\n  foo={{action\n        some\n        stuff}}\n  baz=qux/>`
+        'source': `<div\n  foo={{action\n    some\n    stuff}}\n  baz=qux/>`
       },
       {
         'rule': 'attribute-indentation',
         'severity': 2,
         'moduleId': 'layout.hbs',
-        'message': `Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L4:C13. Expected '{{action}}' to be at L5:C6.`,
+        'message': `Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L4:C9. Expected '{{action}}' to be at L5:C2.`,
         'line': 4,
-        'column': 13,
-        'source': '{{action\n        some\n        stuff}}'
+        'column': 9,
+        'source': '{{action\n    some\n    stuff}}'
       }
     ],
   },{
@@ -637,9 +670,9 @@ generateRuleTests({
     },
     template: '<div' + '\n' +
     '  foo={{action' + '\n' +
-    '        some' + '\n' +
-    '        stuff' + '\n' +
-    '      }}' + '\n' +
+    '    some' + '\n' +
+    '    stuff' + '\n' +
+    '  }}' + '\n' +
     '  baz=qux' + '\n' +
     '/>',
     results: [{
@@ -649,16 +682,16 @@ generateRuleTests({
       'message': `Incorrect indentation of close bracket '>' for the element '<div>' beginning at L7:C0. Expected '<div>' to be at L6:C9.`,
       'line': 7,
       'column': 0,
-      'source': '<div\n  foo={{action\n        some\n        stuff\n      }}\n  baz=qux\n/>'
+      'source': '<div\n  foo={{action\n    some\n    stuff\n  }}\n  baz=qux\n/>'
     },
     {
       'rule': 'attribute-indentation',
       'severity': 2,
       'moduleId': 'layout.hbs',
-      'message': `Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L5:C6. Expected '{{action}}' to be at L4:C13.`,
+      'message': `Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L5:C2. Expected '{{action}}' to be at L4:C9.`,
       'line': 5,
-      'column': 6,
-      'source': '{{action\n        some\n        stuff\n      }}'
+      'column': 2,
+      'source': '{{action\n    some\n    stuff\n  }}'
     }],
   },{
     config: {
@@ -819,9 +852,9 @@ generateRuleTests({
       'rule': 'attribute-indentation',
       'severity': 2,
       'moduleId': 'layout.hbs',
-      'message': `Incorrect indentation of htmlAttribute 'type' beginning at L1:C17. Expected 'type' to be at L3:C2.`,
+      'message': `Incorrect indentation of htmlAttribute 'type' beginning at L1:C16. Expected 'type' to be at L3:C2.`,
       'line': 1,
-      'column': 17,
+      'column': 16,
       'source': '<input disabled type="text" value="abc" class="classy classic classist" id="input-now">'
     }, {
       'rule': 'attribute-indentation',
@@ -862,10 +895,10 @@ generateRuleTests({
     },
     template: '<a' + '\n' +
     '  disabled={{if'  + '\n' +
-    '             true'  + '\n' +
-    '             (action "mostPowerfulAction" value=target.value)' + '\n' +
-    '             (action "lessPowerfulAction" value=target.value)' + '\n' +
-    '           }}' + '\n' +
+    '    true'  + '\n' +
+    '    (action "mostPowerfulAction" value=target.value)' + '\n' +
+    '    (action "lessPowerfulAction" value=target.value)' + '\n' +
+    '  }}' + '\n' +
     '>{{contact-details' + '\n' +
     '   firstName' + '\n' +
     '   lastName' + '\n' +
@@ -877,7 +910,7 @@ generateRuleTests({
       'message': `Incorrect indentation of close tag '</a>' for element '<a>' beginning at L10:C3. Expected '</a>' to be at L10:C0.`,
       'line': 10,
       'column': 3,
-      'source': '<a\n  disabled={{if\n             true\n             (action "mostPowerfulAction" value=target.value)\n             (action "lessPowerfulAction" value=target.value)\n           }}\n>{{contact-details\n   firstName\n   lastName\n }}</a>'
+      'source': '<a\n  disabled={{if\n    true\n    (action "mostPowerfulAction" value=target.value)\n    (action "lessPowerfulAction" value=target.value)\n  }}\n>{{contact-details\n   firstName\n   lastName\n }}</a>'
     }]
   }, {
     config: {
