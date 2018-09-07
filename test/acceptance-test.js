@@ -30,6 +30,17 @@ describe('public api', function() {
   });
 
   describe('Linter.prototype.loadConfig', function() {
+    it('throws an error if the config file has an error on parsing', function() {
+      let basePath = path.join(fixturePath, 'config-with-parse-error');
+      process.chdir(basePath);
+
+      expect(() => {
+        new Linter({
+          console: mockConsole,
+        });
+      }).to.throw(/error happening during config loading/);
+    });
+
     it('uses provided config', function() {
       let basePath = path.join(fixturePath, 'config-in-root');
       let expected = require(path.join(basePath, '.template-lintrc'));
