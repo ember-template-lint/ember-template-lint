@@ -4,5 +4,5 @@ Having consistent linebreaks is important to make sure that the source code is r
 
 This rule is configured with a boolean, or a string value:
 
-* boolean -- `true` for enabled in `unix` mode / `false` for disabling this rule
-* string -- `unix` for LF linebreaks / `windows` for CRLF linebreaks
+* boolean -- `true` for enforcing consistency (all `CRLF` or all `LF` not both in a single file)
+* string -- `system` for the current platforms default line ending / `unix` for LF linebreaks / `windows` for CRLF linebreaks

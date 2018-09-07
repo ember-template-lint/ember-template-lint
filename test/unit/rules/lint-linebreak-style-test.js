@@ -1,5 +1,6 @@
 'use strict';
 
+const os = require('os');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -10,6 +11,11 @@ generateRuleTests({
   good: [
     'testing this',
     'testing \n this',
+    'testing \r\n this',
+    {
+      config: 'system',
+      template: os.EOL === '\n' ? 'testing\nthis' : 'testing\r\nthis',
+    },
     {
       config: 'windows',
       template: 'testing\r\nthis'
@@ -18,14 +24,22 @@ generateRuleTests({
       config: 'unix',
       template: 'testing\nthis'
     },
-    {
-      config: true,
-      template: 'testing\nthis'
-    },
   ],
 
   bad: [
     {
+      template: 'something\ngoes\r\n',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'Wrong linebreak used. Expected LF but found CRLF',
+        line: 2,
+        column: 4,
+        source: '\r\n'
+      }
+    },
+    {
+      config: 'unix',
       template: '\r\n',
 
       result: {
@@ -37,6 +51,7 @@ generateRuleTests({
       }
     },
     {
+      config: 'unix',
       template: '{{#if test}}\r\n{{/if}}',
 
       result: {
@@ -48,6 +63,7 @@ generateRuleTests({
       }
     },
     {
+      config: 'unix',
       template: '{{blah}}\r\n{{blah}}',
 
       result: {
@@ -59,6 +75,7 @@ generateRuleTests({
       }
     },
     {
+      config: 'unix',
       template: '{{blah}}\r\n',
 
       result: {
@@ -70,6 +87,7 @@ generateRuleTests({
       }
     },
     {
+      config: 'unix',
       template: '{{blah arg="\r\n"}}',
 
       result: {
