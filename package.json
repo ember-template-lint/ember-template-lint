@@ -20,7 +20,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@glimmer/compiler": "^0.36.0",
+    "@glimmer/compiler": "^0.36.2",
     "chalk": "^2.0.0",
     "globby": "^8.0.1",
     "minimatch": "^3.0.4",
@@ -38,8 +38,5 @@
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
-  },
-  "resolutions": {
-    "simple-html-tokenizer": "^0.5.6"
   }
 }
