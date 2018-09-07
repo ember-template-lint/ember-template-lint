@@ -40,6 +40,12 @@ generateRuleTests({
         maxHelpers: 2
       },
       template: '{{unless (eq (not foo) bar) baz}}'
+    },
+    {
+      config: {
+        maxHelpers: 2
+      },
+      template: '{{unless (eq (not foo) bar) baz}}'
     }
   ],
 
