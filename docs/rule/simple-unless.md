@@ -1,4 +1,4 @@
-## simple-unless (default === false)
+## simple-unless (default === true)
 
 This rule strongly advises against `{{unless}}` blocks used in conjunction with other
 block helpers (e.g. `{{else}}`, `{{else if}}`), and template helpers.
