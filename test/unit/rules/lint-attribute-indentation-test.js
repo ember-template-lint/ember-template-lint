@@ -482,6 +482,14 @@ generateRuleTests({
     '}}' + '\n' +
     '  {{foo}}' + '\n' +
     '{{/t.body}}',
+    //with indented block params
+    '  {{#t.body' + '\n' +
+    '    canExpand=(helper help)' + '\n' +
+    '    multiRowExpansion=false' + '\n' +
+    '  as |body|' + '\n' +
+    '  }}' + '\n' +
+    '    {{foo}}' + '\n' +
+    '  {{/t.body}}',
 
     //Block form with open-invocation more than 80 characters
     {
