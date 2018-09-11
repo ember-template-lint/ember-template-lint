@@ -638,7 +638,15 @@ generateRuleTests({
           }}
           data-after-long-arg={{true}}
         />`
-    }
+    },
+    {
+      template: `
+        <form
+          class='form-signin'
+          {{action 'authenticate' email password}}
+        >
+        </form>`
+    },
   ],
 
   bad: [{
@@ -1325,5 +1333,34 @@ generateRuleTests({
       'column': 21,
       'source': '{{#contact-details\n  param0\n  param1=abc\n  param2=abc\nas |ab cd ef  cd ef |}}\n  {{contact.fullName}}\n{{/contact-details}}'
     }],
-  }]
+  },
+  {
+    template: `
+      <form
+        {{action 'authenticate' email password}}
+        class='form-signin'
+      >
+      </form>`,
+    results: [
+      {
+        'rule': 'attribute-indentation',
+        'severity': 2,
+        'moduleId': 'layout.hbs',
+        'message': `Incorrect indentation of htmlAttribute 'class' beginning at L4:C8. Expected 'class' to be at L3:C8.`,
+        'line': 4,
+        'column': 8,
+        'source': `<form\n        {{action 'authenticate' email password}}\n        class='form-signin'\n      >\n      </form>`
+      },
+      {
+        'rule': 'attribute-indentation',
+        'severity': 2,
+        'moduleId': 'layout.hbs',
+        'message': `Incorrect indentation of element modifier 'action' beginning at L3:C8. Expected 'action' to be at L4:C8.`,
+        'line': 3,
+        'column': 8,
+        'source': `<form\n        {{action 'authenticate' email password}}\n        class='form-signin'\n      >\n      </form>`
+      },
+    ]
+  },
+  ]
 });
