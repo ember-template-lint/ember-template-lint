@@ -647,6 +647,33 @@ generateRuleTests({
         >
         </form>`
     },
+    // Multiple line angle bracket with block params - #1
+    {
+      config: {
+        'element-open-end': 'last-attribute',
+      },
+      template: `
+        <SomeThing
+          @foo=this.foo
+          @bar=this.bar
+        as |thing|>
+          <div class={{thing.foo}}>{{thing.bar}}</div>
+        </SomeThing>
+      `
+    },
+    // Multiple line angle bracket with block params - #2
+    {
+      config: {
+        'element-open-end': 'last-attribute',
+      },
+      template: `
+        <SomeThing
+          @foo=this.foo
+          @bar=this.bar as |thing|>
+          <div class={{thing.foo}}>{{thing.bar}}</div>
+        </SomeThing>
+      `
+    }
   ],
 
   bad: [{
