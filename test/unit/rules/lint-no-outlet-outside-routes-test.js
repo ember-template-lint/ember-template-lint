@@ -25,6 +25,19 @@ generateRuleTests({
       }
     },
     {
+      template: '{{#outlet}}Route with "components" name{{/outlet}}',
+      meta: {
+        moduleId: 'app/templates/components.hbs',
+      },
+      result: {
+        message,
+        moduleId: 'app/templates/components.hbs',
+        source: '{{outlet}}',
+        line: 1,
+        column: 0
+      }
+    },
+    {
       template: '{{outlet}}',
       meta: {
         moduleId: 'app/templates/routes/foo.hbs'
