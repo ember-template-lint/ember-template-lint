@@ -650,13 +650,14 @@ generateRuleTests({
     // Multiple line angle bracket with block params - #1
     {
       config: {
-        'element-open-end': 'last-attribute',
+        'element-open-end': 'new-line',
       },
       template: `
         <SomeThing
           @foo=this.foo
           @bar=this.bar
-        as |thing|>
+        as |thing|
+        >
           <div class={{thing.foo}}>{{thing.bar}}</div>
         </SomeThing>
       `
@@ -669,11 +670,12 @@ generateRuleTests({
       template: `
         <SomeThing
           @foo=this.foo
-          @bar=this.bar as |thing|>
+          @bar=this.bar
+        as |thing|>
           <div class={{thing.foo}}>{{thing.bar}}</div>
         </SomeThing>
       `
-    }
+    },
   ],
 
   bad: [{
