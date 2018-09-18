@@ -28,6 +28,7 @@
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
 * [no-unbound](rule/no-unbound.md)
+* [no-unnecessary-concatenation](rule/no-unnecessary-concatenation.md)
 * [no-unused-block-params](rule/no-unused-block-params.md)
 * [quotes](rule/quotes.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
