@@ -1,4 +1,4 @@
-#### no-nested-interactive
+## no-nested-interactive
 
 Usage of nested `interactive content` can lead to UX problems, accessibility
 problems, bugs and in some cases to DOM errors. You should not put interactive
