@@ -1,4 +1,4 @@
-#### template-length
+## template-length
 
 Some ember shops try to put some guard-rails on the length of templates for the following reasons:
 
