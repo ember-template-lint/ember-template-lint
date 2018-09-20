@@ -1,4 +1,4 @@
-#### quotes
+## quotes
 
 Enforce the consistent use of either double or single quotes. Similar to https://eslint.org/docs/rules/quotes.
 
