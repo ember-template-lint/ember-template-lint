@@ -1,4 +1,4 @@
-## no-unnecessary-concatenation
+## no-unnecessary-concat
 
 This rule forbids unnecessary use of ` " ` when wrapping `concat` instances or use of `{{some.value}}` hbs.
 
