@@ -13,6 +13,20 @@ generateRuleTests({
         'mustache-open-end': 'new-line',
         'element-open-end': 'new-line'
       },
+      template: '<a' + '\n' +
+      '  class="button is-small"' + '\n' +
+      '  {{action (queue' + '\n' +
+      '    (action @closeSidebar)' + '\n' +
+      '    (action @toggleModal "share-info"))' + '\n' +
+      '  }}' + '\n' +
+      '>' + '\n' +
+      '</a>'
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+        'element-open-end': 'new-line'
+      },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
       '    (if' + '\n' +
