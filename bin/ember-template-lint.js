@@ -6,7 +6,6 @@ var fs = require('fs');
 var path = require('path');
 var globby = require('globby');
 var Linter = require('../lib/index');
-var linter = new Linter();
 const chalk = require('chalk');
 
 function printErrors(errors) {
@@ -52,7 +51,7 @@ function printErrors(errors) {
   }
 }
 
-function lintFile(filePath, moduleId) {
+function lintFile(linter, filePath, moduleId) {
   var source = fs.readFileSync(filePath, { encoding: 'utf8' });
   return linter.verify({ source: source, moduleId: moduleId });
 }
@@ -69,12 +68,26 @@ function getRelativeFilePaths() {
   return Array.from(new Set(relativeFilePaths));
 }
 
+function checkConfigPath() {
+  var configPathIndex = process.argv.indexOf('--config-path');
+  var configPath = null;
+  if (configPathIndex > -1) {
+    var configPathValue = process.argv[configPathIndex + 1];
+    configPath = path.join(process.cwd(), configPathValue);
+  }
+
+  return configPath;
+}
+
 function run() {
   var exitCode = 0;
 
+  var configPath = checkConfigPath();
+  var linter = new Linter({ configPath });
+
   var errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
     var filePath = path.resolve(relativeFilePath);
-    var fileErrors = lintFile(filePath, relativeFilePath.slice(0, -4));
+    var fileErrors = lintFile(linter, filePath, relativeFilePath.slice(0, -4));
 
     if (fileErrors.some(function(err) { return err.severity > 1; })) exitCode = 1;
 
