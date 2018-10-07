@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## v1.0.0-beta.6
+
+- Fix a number of issues with attribute-indentation:
+  - Ensure contextual component indentation / closing indentation is properly enforced.
+  - Ensure block opening indentation is properly detected when the block itself is indented.
+  - Ensure element modifiers are handled and do cause elements to fail
+    attribute-indentation (note: this requires that all element modifiers are
+    **after** all attributes).
+
 ## v1.0.0-beta.5
 
 - Refactor `linebreak-style` rule to add:
