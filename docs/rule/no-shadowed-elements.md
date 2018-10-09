@@ -1,6 +1,7 @@
 ## no-shadowed-elements
 
-This rule prevents situations where a `variable` declared within an iterator has the same `name` than any other primitive element like `<div>, <body>` etc.
+This rule prevents ambiguity in situations where yielded block param which starts with a lower case letter, is also
+used within the block itself as an element name.
 
 The following code will throw an error:
 
