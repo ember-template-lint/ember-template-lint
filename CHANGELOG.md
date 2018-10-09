@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## Unreleased
+
+- Add `no-action-modifiers` rule. See the [rule documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-action-modifiers.md) for details.
+
 ## v1.0.0-beta.6
 
 - Fix a number of issues with attribute-indentation:
