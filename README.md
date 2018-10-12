@@ -70,6 +70,9 @@ Example usage:
 
 # ignore warnings / only report errors
 ./node_modules/.bin/ember-template-lint app/templates/application.hbs --quiet
+
+# define custom config path
+./node_modules/.bin/ember-template-lint app/templates/application.hbs --config-path .my-template-lintrc.js
 ```
 
 ### ESLint
@@ -83,7 +86,8 @@ ember-template-lint into your normal eslint workflow.
 ### Project Wide
 
 You can turn on specific rules by toggling them in a
-`.template-lintrc.js` file at the base of your project:
+`.template-lintrc.js` file at the base of your project, or at a custom relative
+path which may be identified using the CLI:
 
 ```javascript
 module.exports = {

@@ -238,5 +238,40 @@ describe('ember-template-lint executable', function() {
         });
       });
     });
+
+    describe('with --config-path param', function() {
+      describe('given a directory with errors and a lintrc with rules', function() {
+        it('should print properly formatted error messages', function(done) {
+          execFile('node', ['../../../bin/ember-template-lint.js', '.', '--config-path', '../with-errors/.template-lintrc'], {
+            cwd: './test/fixtures/without-errors'
+          }, function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout.split('\n')).to.deep.equal([
+              path.resolve('./test/fixtures/without-errors/app/templates/application.hbs'),
+              '  1:4  error  Non-translated string used  no-bare-strings',
+              '  2:5  error  Non-translated string used  no-bare-strings',
+              '',
+              '✖ 2 problems (2 errors, 0 warnings)',
+              ''
+            ]);
+            expect(stderr).to.be.empty;
+            done();
+          });
+        });
+      });
+
+      describe('given a directory with errors but a lintrc without any rules', function() {
+        it('should exit without error and any console output', function(done) {
+          execFile('node', ['../../../bin/ember-template-lint.js', '.', '--config-path', '../without-errors/.template-lintrc'], {
+            cwd: './test/fixtures/with-errors'
+          }, function(err, stdout, stderr) {
+            expect(err).to.be.null;
+            expect(stdout).to.be.empty;
+            expect(stderr).to.be.empty;
+            done();
+          });
+        });
+      });
+    });
   });
 });
