@@ -100,7 +100,7 @@ module.exports = {
 ```
 
 This extends from the builtin recommended configuration ([lib/config/recommended.js](https://github.com/rwjblue/ember-template-lint/blob/master/lib/config/recommended.js)),
-and also enables the `no-bare-strings` rule (see [here](https://github.com/rwjblue/ember-template-lint#no-bare-strings)).
+and also enables the `no-bare-strings` rule (see [here](docs/rule/no-bare-strings.md)).
 
 Using this mechanism allows you to extend from the builtin, and modify specific rules as needed.
 
