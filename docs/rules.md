@@ -25,6 +25,7 @@
 * [no-outlet-outside-routes](rule/no-outlet-outside-routes.md)
 * [no-partial](rule/no-partial.md)
 * [no-quoteless-attributes](rule/no-quoteless-attributes.md)
+* [no-shadowed-elements](rule/no-shadowed-elements.md)
 * [no-trailing-dot-in-path-expression](rule/no-trailing-dot-in-path-expression.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
