@@ -1,6 +1,6 @@
 ## no-shadowed-elements
 
-This rule prevents ambiguity in situations where yielded block param which starts with a lower case letter, is also
+This rule prevents ambiguity in situations where a yielded block param which starts with a lower case letter is also
 used within the block itself as an element name.
 
 The following code will throw an error:
