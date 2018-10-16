@@ -110,7 +110,8 @@ Block form (HTML)
     href="https://www.emberjs.com"
     class="emberjs-home link"
     rel="noopener"
-    target="_blank">
+    target="_blank"
+  >
     Ember JS
   </a>
 ```
