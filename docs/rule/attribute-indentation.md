@@ -90,7 +90,8 @@ Block form
     lastName=lastName
     age=age
     avatarUrl=avatarUrl
-  as |employee|}}
+  as |employee|
+  }}
     {{employee.fullName}}
   {{/employee-details}}
 ```
