@@ -899,6 +899,19 @@ generateRuleTests({
           }}}
         </div>`,
     },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+        'element-open-end': 'new-line',
+      },
+      template:
+        '<a\n' +
+        '  class="\n' +
+        '    flex-row\n' +
+        '    justify-content-center\n' +
+        '    align-items-center"\n' +
+        '/>',
+    },
   ],
 
   bad: [
