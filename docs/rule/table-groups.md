@@ -1,6 +1,6 @@
 ## table-groups
 
-A table row should always be groouped into either a `thead`, `tbody` or `tfoot` to avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
+A table row should always be grouped into either a `thead`, `tbody` or `tfoot` to avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
 
 The rule forbids the following:
 
