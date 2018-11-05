@@ -2693,9 +2693,9 @@ tap-parser@^7.0.0:
     minipass "^2.2.0"
 
 testem@^2.0.0:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/testem/-/testem-2.13.0.tgz#587f3460a923779949804efac0fcc2015835dd63"
-  integrity sha512-n0XBuEi/3SqnXfwUWtHVIUn2/j4LouJeOJrZMfwdXmZRKr15cH7cV59e9c3rFa4AvspAn9lOXcaMBysPC5jHZg==
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/testem/-/testem-2.14.0.tgz#418a9a15843f68381659c6a486abb4ea48d06c29"
+  integrity sha512-tldpNPCzXfibmxOoTMGOfr8ztUiHf9292zSXCu7SitBx9dCK83k7vEoa77qJBS9t3RGCQCRF+GNMUuiFw//Mbw==
   dependencies:
     backbone "^1.1.2"
     bluebird "^3.4.6"
