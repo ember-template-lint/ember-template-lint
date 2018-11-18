@@ -206,6 +206,20 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
   An array of module id's that are to be completely ignored.
 * `plugins` -- `(string|Object)[]`
   An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
+  
+You can ignore individual files or directories.
+
+```javascript
+module.exports = {
+  extends: 'recommended',
+
+  ignore: [
+    './node_modules/**',
+    './vendor/**',
+    'app-name/templates/login'
+  ]
+};
+```
 
 ## Rules
 
