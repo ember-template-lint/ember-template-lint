@@ -1362,5 +1362,21 @@ generateRuleTests({
       },
     ]
   },
+  {
+    template: `{{#foo bar as |foo|}} 
+    {{foo.bar 
+      baz}}{{/foo}}`,
+    results: [
+      {
+        'column': 9,
+        'line': 3,
+        'message': `Incorrect indentation of close curly braces '}}' for the component '{{foo.bar}}' beginning at L3:C9. Expected '{{foo.bar}}' to be at L4:C4.`,
+        'moduleId': 'layout.hbs',
+        'rule': 'attribute-indentation',
+        'severity': 2,
+        'source': '{{foo.bar \n      baz}}'
+      }
+    ]
+  },
   ]
 });
