@@ -18,44 +18,45 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@glimmer/compiler@^0.36.2":
-  version "0.36.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/compiler/-/compiler-0.36.5.tgz#ea2ac9aa1a5c3ada7f8d93cd295fdc14f1c1ccc4"
-  integrity sha512-C6fs3uejZwxB32c+XSmMvu3r4oesLILETRQcd+LKazY9YdCUy8S4QfnSdCW/gnfEmtB0qgLTxyMiHqMpzT9KHw==
+"@glimmer/compiler@^0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/compiler/-/compiler-0.37.0.tgz#861d9c8064b54c24895262e1dd6a805cf24b8175"
+  integrity sha512-h01QJvqzClYw6Y5+DptqaB74KeBz14fsbNlig2O1sH5B2RKXRXo6T/OFSlFO/BHdzPLIrhyrkNQ/pooy2nTNmQ==
   dependencies:
-    "@glimmer/interfaces" "^0.36.5"
-    "@glimmer/syntax" "^0.36.5"
-    "@glimmer/util" "^0.36.5"
-    "@glimmer/wire-format" "^0.36.5"
+    "@glimmer/interfaces" "^0.37.0"
+    "@glimmer/syntax" "^0.37.0"
+    "@glimmer/util" "^0.37.0"
+    "@glimmer/wire-format" "^0.37.0"
 
-"@glimmer/interfaces@^0.36.5":
-  version "0.36.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.36.5.tgz#b9ef4a6756745dc41927ab01d6c23cdf7ece4158"
-  integrity sha512-IhoGEP0Awe9bTOMcLF9dUgEV3xguI6m2vFer7SHYX1vuugthA6NEJb83hqUe9FqOd1cNxJE8nAsX0JInx8gn+A==
+"@glimmer/interfaces@^0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.37.0.tgz#7e16dc3b44369ea084e13064dd30ec14ed86623f"
+  integrity sha512-tLvn6O0SqPotkQy/I/PBgnUorho+kim7psitpAZQMljOY8ocSf0+dfIY4GKQsTqefbpHbmdu4dYBhyy09xDJag==
   dependencies:
-    "@glimmer/wire-format" "^0.36.5"
+    "@glimmer/wire-format" "^0.37.0"
+    "@simple-dom/interface" "1.4.0"
 
-"@glimmer/syntax@^0.36.5":
-  version "0.36.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.36.5.tgz#603099a0bf2019dc497e3b858eb6fc84abda805a"
-  integrity sha512-62BcnXtej4oBEMYSCBezSCOvlZ+1gLAJ/zVXwDgTmin56wKUL2bChScw332OeIL+brvcExAlwZ/hB1UoldMgwQ==
+"@glimmer/syntax@^0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.37.0.tgz#3d91aef9ecad70e70654584f84552c195f3280a6"
+  integrity sha512-DTWPjTK6f7sXAYIqLjC7lfNpONyY21jmHjhzAbC6nbEfZ3DegmogWDBLCO8dhun1bAF4T2FL7+gLho698UqBiw==
   dependencies:
-    "@glimmer/interfaces" "^0.36.5"
-    "@glimmer/util" "^0.36.5"
+    "@glimmer/interfaces" "^0.37.0"
+    "@glimmer/util" "^0.37.0"
     handlebars "^4.0.6"
     simple-html-tokenizer "^0.5.6"
 
-"@glimmer/util@^0.36.5":
-  version "0.36.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.36.5.tgz#829f393ef0bf791df5b287f104f0fd76e456182c"
-  integrity sha512-RcDsxxuKGnIc6Ro6wZGFMUZ/E8L3Rbcd5E5F2WOSa59RYHel146fhQtctGrpGxQUZwfxMEMs91GJIaKeukd84g==
+"@glimmer/util@^0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.37.0.tgz#962937c187b05a8a371d5b064674e74e838411c7"
+  integrity sha512-gwApoQ4xAAPKUBd9IpKYqW3UojZv45gIH+hxi9G9BbZWQZd1f9qIUHwk6JP+bNQ4zvxv9z4QEL1pOCWLx0TE3w==
 
-"@glimmer/wire-format@^0.36.5":
-  version "0.36.5"
-  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.36.5.tgz#6713c95fbdc23c2e4dcc946e16452ded5cc17447"
-  integrity sha512-wt+H4iNsGPkW/b/POP21DmTM4cYYYcDmaI54RkEgtMRoeBP6hyi7Y4awbRPMWal6QKIxFepMUY4vnbq345m00w==
+"@glimmer/wire-format@^0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.37.0.tgz#cd26f3d260d92a9e5d2873bd0234b54556ab3e85"
+  integrity sha512-wMBCo9cosxKzcsHuPlFzd+WHS8AqJoNYYK+LcpgLZRhjXO55oeirEQcwthV1uHdYs0CK7i+HcljuMDdJk2heww==
   dependencies:
-    "@glimmer/util" "^0.36.5"
+    "@glimmer/util" "^0.37.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -69,6 +70,11 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
   integrity sha512-LAQ1d4OPfSJ/BMbI2DuizmYrrkD9JMaTdi2hQTlI53lQ4kRQPyZQRS4CYQ7O66bnBBnP/oYdRxbk++X0xuFU6A==
+
+"@simple-dom/interface@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@simple-dom/interface/-/interface-1.4.0.tgz#e8feea579232017f89b0138e2726facda6fbb71f"
+  integrity sha512-l5qumKFWU0S+4ZzMaLXFU8tQZsicHEMEyAxI5kDFGhJsRqDwe0a7/iPA/GdxlGyDKseQQAgIz5kzU7eXTrlSpA==
 
 accepts@~1.3.3:
   version "1.3.3"
