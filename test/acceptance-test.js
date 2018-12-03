@@ -611,4 +611,30 @@ describe('public api', function() {
       expect(result).to.equal('');
     });
   });
+
+  describe('Linter accepts RegExp in rules[\'no-implicit-this\'].allow', function() {
+    let basePath = path.join(fixturePath, 'test-selector');
+    let linter;
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js')
+      });
+    });
+
+    it('accepts Strings and RegExps in allow array', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [];
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath
+      });
+
+      expect(result).to.deep.equal(expected);
+    });
+
+  });
 });
