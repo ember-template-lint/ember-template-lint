@@ -43,7 +43,7 @@ following:
 ```
 
 Now some time goes on and someone adds a `formatName` helper at
-`app/helpers/fortmatName.js` that looks like the following:
+`app/helpers/formatName.js` that looks like the following:
 
 ```js
 export default function formatName([firstName, lastName]) {
