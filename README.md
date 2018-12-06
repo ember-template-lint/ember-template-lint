@@ -115,7 +115,42 @@ module.exports = {
 };
 ```
 
-### Per Template
+### Configuration Keys
+
+The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
+
+* `rules` -- `Object`
+  This is an object containing rule specific configuration (see details for each rule below).
+* `extends` -- `string|string[]`
+  Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).
+* `pending` -- `string[]`
+  An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
+  into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
+  and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
+* `ignore` -- `string[]|glob[]`
+  An array of module id's that are to be completely ignored.
+* `plugins` -- `(string|Object)[]`
+  An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
+  
+You can ignore individual files or directories.
+
+```javascript
+module.exports = {
+  extends: 'recommended',
+
+  ignore: [
+    './node_modules/**',
+    './vendor/**',
+    'app-name/templates/login'
+  ]
+};
+```
+
+## Rules
+
+Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
+
+### Per Template File
 
 It is also possible to disable specific rules (or all rules) in a template itself:
 
@@ -189,41 +224,6 @@ An in-element instruction with the `-tree` suffix will apply to that element and
 ```
 
 Note that enabling a rule (`{{! template-lint-enable }}`) that has been configured in-template (`{{! template-lint-configure }}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{! template-lint-enable }}` instruction.
-
-### Configuration Keys
-
-The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
-
-* `rules` -- `Object`
-  This is an object containing rule specific configuration (see details for each rule below).
-* `extends` -- `string|string[]`
-  Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).
-* `pending` -- `string[]`
-  An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
-  into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
-  and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-* `ignore` -- `string[]|glob[]`
-  An array of module id's that are to be completely ignored.
-* `plugins` -- `(string|Object)[]`
-  An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
-  
-You can ignore individual files or directories.
-
-```javascript
-module.exports = {
-  extends: 'recommended',
-
-  ignore: [
-    './node_modules/**',
-    './vendor/**',
-    'app-name/templates/login'
-  ]
-};
-```
-
-## Rules
-
-Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
 ### Defining your own rules
 
