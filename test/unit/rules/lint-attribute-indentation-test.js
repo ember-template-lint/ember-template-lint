@@ -13,6 +13,18 @@ generateRuleTests({
         'mustache-open-end': 'new-line',
         'element-open-end': 'new-line'
       },
+      template: '<div>' + '\n' +
+      '  {{{i18n' + '\n' +
+      '    param=true' + '\n' +
+      '    otherParam=false' + '\n' +
+      '  }}}' + '\n' +
+      '</div>'
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+        'element-open-end': 'new-line'
+      },
       template: '<div' + '\n' +
       '  foo={{action' + '\n' +
       '    (if' + '\n' +
