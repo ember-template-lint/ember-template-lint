@@ -540,6 +540,21 @@ describe('public api', function() {
       expect(linter.statusForModule('pending', 'foo/bar/baz')).to.be.ok;
       expect(linter.statusForModule('pending', 'some/other/path')).to.not.be.ok;
     });
+
+    it('matches with absolute paths for modules', function() {
+      let linter = new Linter({
+        console: mockConsole,
+        config: {
+          pending: [
+            'some/path/here',
+            { moduleId: 'foo/bar/baz', only: ['no-bare-strings']}
+          ]
+        }
+      });
+
+      expect(linter.statusForModule('pending', process.cwd() + '/some/path/here')).to.be.ok;
+      expect(linter.statusForModule('pending', process.cwd() + '/foo/bar/baz')).to.be.ok;
+    });
   });
 
   describe('Linter.errorsToMessages', function() {
