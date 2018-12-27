@@ -8,8 +8,17 @@ var globby = require('globby');
 var Linter = require('../lib/index');
 const chalk = require('chalk');
 
+let [templatePatterns, args] = process.argv.slice(2).reduce(function([files, options], arg) {
+  if (options.length || (arg.slice(0, 2) === '--')) {
+    options = options.concat(arg);
+  } else {
+    files = files.concat(arg);
+  }
+  return [files, options];
+}, [[], []]);
+
 function printErrors(errors) {
-  const quiet = process.argv.indexOf('--quiet') !== -1;
+  const quiet = args.indexOf('--quiet') !== -1;
 
   let errorCount = 0;
   let warningCount = 0;
@@ -28,14 +37,14 @@ function printErrors(errors) {
     errors[filePath] = errorsFiltered.concat(warnings);
   });
 
-  if (process.argv.indexOf('--json') + 1) {
+  if (args.indexOf('--json') + 1) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
     Object.keys(errors).forEach(filePath => {
       let options = {};
       let fileErrors = errors[filePath] || [];
 
-      if (process.argv.indexOf('--verbose') + 1) {
+      if (args.indexOf('--verbose') + 1) {
         options.verbose = true;
       }
 
@@ -63,7 +72,7 @@ function lintFile(linter, filePath, moduleId) {
 }
 
 function getRelativeFilePaths() {
-  var fileArgs = process.argv.slice(2).filter(arg => arg.slice(0, 2) !== '--');
+  var fileArgs = templatePatterns;
 
   var relativeFilePaths = fileArgs
     .reduce((filePaths, fileArg) => {
@@ -75,10 +84,11 @@ function getRelativeFilePaths() {
 }
 
 function checkConfigPath() {
-  var configPathIndex = process.argv.indexOf('--config-path');
+  var configPathIndex = args.indexOf('--config-path');
   var configPath = null;
   if (configPathIndex > -1) {
-    configPath = process.argv[configPathIndex + 1];
+    var configPathValue = args[configPathIndex + 1];
+    configPath = path.join(process.cwd(), configPathValue);
   }
 
   return configPath;
