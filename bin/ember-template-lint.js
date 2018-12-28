@@ -141,12 +141,13 @@ function run() {
     stdinPromise = getStdin().then((stdin)=> {
       var filePath = tmp.fileSync().name;
       fs.writeFileSync(filePath, stdin);
+      let modulePath = path.resolve(process.cwd(), path.dirname(checkConfigPath() || ''), stdinFilename.slice(0, -4));
 
-      var fileErrors = lintFile(linter, filePath, stdinFilename.slice(-1, -4));
+      var fileErrors = lintFile(linter, filePath, modulePath);
 
       if (fileErrors.some(function(err) { return err.severity > 1; })) exitCode = 1;
 
-      if (fileErrors.length) errors[filePath] = fileErrors;
+      if (fileErrors.length) errors[stdinFilename] = fileErrors;
     });
   }
 
