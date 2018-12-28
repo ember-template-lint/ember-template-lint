@@ -7,6 +7,8 @@ var path = require('path');
 var globby = require('globby');
 var Linter = require('../lib/index');
 const chalk = require('chalk');
+const getStdin = require('get-stdin');
+const tmp = require('tmp');
 
 let [templatePatterns, args] = process.argv.slice(2).reduce(function([files, options], arg) {
   if (options.length || (arg.slice(0, 2) === '--')) {
@@ -94,6 +96,17 @@ function checkConfigPath() {
   return configPath;
 }
 
+function getStdinFilename() {
+  var stdinFilenameIndex = args.indexOf('--stdin-filename');
+  var stdinFilename = null;
+  if (stdinFilenameIndex > -1) {
+    var stdinFilenameValue = args[stdinFilenameIndex + 1];
+    stdinFilename = path.resolve(process.cwd(), stdinFilenameValue);
+  }
+
+  return stdinFilename;
+}
+
 function run() {
   var exitCode = 0;
 
@@ -122,9 +135,26 @@ function run() {
     return errors;
   }, {});
 
-  if (Object.keys(errors).length) printErrors(errors);
-  // eslint-disable-next-line no-process-exit
-  if (exitCode) return process.exit(exitCode);
+  var stdinFilename  = getStdinFilename();
+  let stdinPromise = Promise.resolve();
+  if (stdinFilename) {
+    stdinPromise = getStdin().then((stdin)=> {
+      var filePath = tmp.fileSync().name;
+      fs.writeFileSync(filePath, stdin);
+
+      var fileErrors = lintFile(linter, filePath, stdinFilename.slice(-1, -4));
+
+      if (fileErrors.some(function(err) { return err.severity > 1; })) exitCode = 1;
+
+      if (fileErrors.length) errors[filePath] = fileErrors;
+    });
+  }
+
+  stdinPromise.then(()=> {
+    if (Object.keys(errors).length) printErrors(errors);
+    // eslint-disable-next-line no-process-exit
+    process.exit(exitCode);
+  });
 }
 
 run();

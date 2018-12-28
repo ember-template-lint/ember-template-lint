@@ -2,6 +2,7 @@
 
 const execFile = require('child_process').execFile;
 const expect = require('chai').expect;
+const stream = require('stream');
 const path = require('path');
 
 describe('ember-template-lint executable', function() {
@@ -364,6 +365,59 @@ describe('ember-template-lint executable', function() {
           );
         });
       });
+    });
+  });
+
+  describe('using stdin', function() {
+    it('does not lint stdin when `--stdin-filename` is not specified', function(done) {
+      const stdinStream = new stream.Readable();
+      stdinStream.push('some bare string that raises an error');
+      stdinStream.push(null);
+      let child = execFile('node', ['./bin/ember-template-lint.js'], function(err, stdout, stderr) {
+        expect(err).to.be.null;
+        expect(stdout).to.be.empty;
+        expect(stderr).to.be.empty;
+        done();
+      });
+      stdinStream.pipe(child.stdin);
+    });
+
+    it('accepts empty stdin as valid when `--stdin-filename` is specified', function(done) {
+      const stdinStream = new stream.Readable();
+      stdinStream.push(null);
+      let child = execFile('node', ['./bin/ember-template-lint.js', '--stdin-filename', 'path/to/file.hbs'], function(err, stdout, stderr) {
+        expect(err).to.be.null;
+        expect(stdout).to.be.empty;
+        expect(stderr).to.be.empty;
+        done();
+      });
+      stdinStream.pipe(child.stdin);
+    });
+
+    it('accepts valid stdin', function(done) {
+      const stdinStream = new stream.Readable();
+      stdinStream.push('<h1>{{my-title-component}}</h1>');
+      stdinStream.push(null);
+      let child = execFile('node', ['./bin/ember-template-lint.js', '--stdin-filename', 'path/to/file.hbs'], function(err, stdout, stderr) {
+        expect(err).to.be.null;
+        expect(stdout).to.be.empty;
+        expect(stderr).to.be.empty;
+        done();
+      });
+      stdinStream.pipe(child.stdin);
+    });
+
+    it('detects linting errors from stdin', function(done) {
+      const stdinStream = new stream.Readable();
+      stdinStream.push('<div> unclosed tag raises an error');
+      stdinStream.push(null);
+      let child = execFile('node', ['./bin/ember-template-lint.js', '--stdin-filename', 'path/to/file.hbs'], function(err, stdout, stderr) {
+        expect(err).to.be.ok;
+        expect(stdout).to.be.ok;
+        expect(stderr).to.be.empty;
+        done();
+      });
+      stdinStream.pipe(child.stdin);
     });
   });
 });
