@@ -1,17 +1,20 @@
 ## no-action-modifiers
 
-This rule forbids the use of `{{action}}` modifiers on elements. The following
-code will throw an error:
+This rule forbids the use of `{{action}}` modifiers on elements.
+
+This rule **forbids** the following:
 
 ```hbs
 <button {{action 'handleClick'}}>
 ```
 
-The following code will be accepted:
+This rule **allows** the following:
 
 ```hbs
 <button onclick={{action 'handleClick'}}>
 ```
+
+### Configuration
 
 The following values are valid configuration:
 

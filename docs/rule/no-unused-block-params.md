@@ -2,13 +2,15 @@
 
 This rule forbids unused block parameters except when they are needed to access a later parameter.
 
-Forbidden (unused parameters):
+This rule **forbids** the following (unused parameters):
 
 ``` hbs
 {{#each users as |user index|}}
   {{user.name}}
 {{/each}}
 ```
+
+This rule **allows** the following:
 
 Allowed (used parameters):
 

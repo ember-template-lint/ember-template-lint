@@ -2,7 +2,7 @@
 
 This rule forbids unnecessary use of ` " ` when wrapping `concat` instances or use of `{{some.value}}` hbs.
 
-The following code will throw an error:
+This rule **forbids** the following:
 
 ```hbs
 <span class="{{if errors.length 'text-danger' 'text-grey'}}">
@@ -17,7 +17,7 @@ The following code will throw an error:
   radioClass="custom-control-input"
 }}
 ```
-The following code will be accepted:
+This rule **allows** the following:
 
 ```hbs
 <span class={{if errors.length 'text-danger' 'text-grey'}}>

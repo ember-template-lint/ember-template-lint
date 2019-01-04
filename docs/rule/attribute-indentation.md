@@ -2,7 +2,7 @@
 
 This rule requires the positional params, attributes and block params of the helper/component to be indented by moving them to multiple lines when the open invocation has more than 80 characters (configurable).
 
-#### Forbidden:
+### Forbidden
 
 Non-Block form
 ``` hbs
@@ -30,7 +30,7 @@ Block form (HTML)
   <a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>
 ```
 
-#### Allowed:
+### Allowed
 
 Non-Block form
 ``` hbs
@@ -117,10 +117,14 @@ Block form (HTML)
   </a>
 ```
 
-#### Configuration:
+### Configuration
   * boolean - `true` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.
   * object - { 'indentation': n spaces } - Indentation length for attributes (defaults to `2`).
   * object - { 'open-invocation-max-len': n characters } - Maximum length of the opening invocation.
   * object - { 'process-elements': `true` } - Also validate the indentation of HTML/SVG elements.
   * object - { 'element-open-end': `new-line`|`last-attribute` } - Enforce the position of the closing brace `>` to be on a new line or next to the last attribute (defaults to `new-line`).
   * object - { 'mustache-open-end': `new-line`|`last-attribute` } - Enforce the position of the closing braces `}}` to be on a new line or next to the last attribute (defaults to `new-line`).
+
+### Related Rules
+
+* [attribute-indentation](attribute-indentation.md)

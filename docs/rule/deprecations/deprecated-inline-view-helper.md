@@ -2,7 +2,7 @@
 
 In Ember 1.12, support for invoking the inline View helper was deprecated.
 
-For example, this rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 {{view 'this-is-bad'}}
@@ -16,7 +16,7 @@ For example, this rule forbids the following:
 <div foo={{view.bar}}></div>
 ```
 
-Instead, you should use:
+This rule **allows** the following:
 
 ```hbs
 {{this-is-better}}
@@ -28,4 +28,6 @@ Instead, you should use:
 <div foo={{bar}}></div>
 ```
 
-More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_ember-view).
+### References
+
+* More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_ember-view).

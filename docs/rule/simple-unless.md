@@ -3,7 +3,7 @@
 This rule strongly advises against `{{unless}}` blocks used in conjunction with other
 block helpers (e.g. `{{else}}`, `{{else if}}`), and template helpers.
 
-For example, the rule forbids against the following:
+This rule **forbids** the following:
 
 ``` hbs
 {{! `if` template helper}}
@@ -31,6 +31,8 @@ logic within the template.
   Go Mariners!
 {{/if}}
 ```
+
+### Configuration
 
 The following values are valid configuration:
 

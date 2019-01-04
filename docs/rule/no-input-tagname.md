@@ -5,7 +5,7 @@ fail to render, whether used in block form or inline. The only valid tagName for
 input helper is `input`. For `textarea`, `button` and other input-like elements create
 a new component or better use the DOM!
 
-This rule forbids usage of the following:
+This rule **forbids** the following:
 
 ```hbs
 {{input tagName="foo"}}

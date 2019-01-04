@@ -8,17 +8,19 @@ to a malicious clone to perform phishing on your users.
 Adding `rel="noopener noreferrer"` closes that door and avoids javascript in the opened tab to block the main
 thread in the opener. Also note that Firefox versions prior 52 do not implement `noopener` and `rel="noreferrer"` should be used instead [ see Firefox issue ](https://bugzilla.mozilla.org/show_bug.cgi?id=1222516) and https://html.spec.whatwg.org/multipage/semantics.html#link-type-noreferrer.
 
-This rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 <a href="https://i.seem.secure.com" target="_blank">I'm a bait</a>
 ```
 
-Instead, you should write the template as:
+This rule **allows** the following:
 
 ```hbs
 <a href="https://i.seem.secure.com" target="_blank" rel="noopener noreferrer">I'm a bait</a>
 ```
+
+### Configuration
 
 The following values are valid configuration:
 
