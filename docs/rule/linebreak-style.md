@@ -1,6 +1,8 @@
-#### linebreak-style
+## linebreak-style
 
 Having consistent linebreaks is important to make sure that the source code is rendered correctly in editors.
+
+### Configuration
 
 This rule is configured with a boolean, or a string value:
 

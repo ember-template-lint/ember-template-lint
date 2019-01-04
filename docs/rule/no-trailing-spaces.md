@@ -1,17 +1,21 @@
 ## no-trailing-spaces
 
-Disallow trailing whitespace at the end of lines. Similar to https://eslint.org/docs/rules/no-trailing-spaces.
+Disallow trailing whitespace at the end of lines.
 
-Bad:
+This rule **forbids** the following:
 
 ```hbs
 <div>test</div>//••
 //•••••
 ```
 
-Good:
+This rule **allows** the following:
 
 ```hbs
 <div>test</div>//
 //
 ```
+
+### Related Rules
+
+* [no-trailing-spaces](https://eslint.org/docs/rules/no-trailing-spaces) from eslint

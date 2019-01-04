@@ -5,14 +5,14 @@ the case of [`void elements`](https://www.w3.org/TR/html-markup/syntax.html#void
 (tags that shouldn't have a `closing tag`). Although the parser will ignore it's
 unnecessary and can lead to confusing with SVG/XML code.
 
-This rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 <img src="http://emberjs.com/images/ember-logo.svg" alt="ember" />
 <hr/>
 ```
 
-Instead, you should write the template as:
+This rule **allows** the following:
 
 ```hbs
 <img src="http://emberjs.com/images/ember-logo.svg" alt="ember">
@@ -20,6 +20,8 @@ Instead, you should write the template as:
 ```
 
 There may be cases where a self-closing tag may be necessary for void elements. In such cases, a `require` string may be passed to log the missing closing tags.
+
+### Configuration
 
 The following values are valid configuration:
 

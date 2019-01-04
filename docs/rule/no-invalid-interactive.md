@@ -1,21 +1,23 @@
 ## no-invalid-interactive
 
 Adding interactivity to an element that is not naturally interactive content leads to a very poor experience for
-users of assistive technology (i.e. screen readers). In order to ensure that screen readers can provide useful information
-to their users, we should add an appropriate `role` attribute when the underlying element would not have made that
-role obvious.
+users of assistive technology (i.e. screen readers). In order to ensure that screen readers can provide useful information to their users, we should add an appropriate `role` attribute when the underlying element would not have made that role obvious.
 
-This rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 <div {{action 'foo'}}></div>
 ```
+
+This rule **allows** the following:
 
 Instead, you should add a `role` to the element in question so that the A/T is aware that it is interactive:
 
 ```hbs
 <div role="button" {{action "foo"}}></div>
 ```
+
+### Configuration
 
 The following values are valid configuration (same as the `no-nested-interactive` rule above):
 

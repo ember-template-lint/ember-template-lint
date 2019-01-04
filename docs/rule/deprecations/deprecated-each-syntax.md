@@ -3,7 +3,7 @@
 In Ember 2.0, support for using the `in` form of the `{{#each}}` helper
 has been removed.
 
-For example, this rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 {{#each post in posts}}
@@ -11,7 +11,7 @@ For example, this rule forbids the following:
 {{/each}}
 ```
 
-Instead, you should write the template as:
+This rule **allows** the following:
 
 ```hbs
 {{#each posts as |post|}}
@@ -19,4 +19,6 @@ Instead, you should write the template as:
 {{/each}}
 ```
 
-More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
+### References
+
+* More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).
