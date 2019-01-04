@@ -41,6 +41,14 @@ describe('public api', function() {
       }).to.throw(/error happening during config loading/);
     });
 
+    it('uses an empty set of rules if no .template-lintrc is present', function() {
+      let linter = new Linter({
+        console: mockConsole
+      });
+
+      expect(linter.config.rules).to.deep.equal({});
+    });
+
     it('uses provided config', function() {
       let basePath = path.join(fixturePath, 'config-in-root');
       let expected = require(path.join(basePath, '.template-lintrc'));
@@ -79,6 +87,15 @@ describe('public api', function() {
       });
 
       expect(linter.config.rules).to.deep.equal(expected.rules);
+    });
+
+    it('breaks if the specified configPath does not exist', function() {
+      expect(() => {
+        new Linter({
+          console: mockConsole,
+          configPath: 'does/not/exist'
+        });
+      }).to.throw('The configuration file specified (does/not/exist) could not be found. Aborting.');
     });
 
     it('with deprecated rule config', function() {
