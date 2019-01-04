@@ -649,5 +649,34 @@ generateRuleTests({
         }
       ]
     },
+    {
+      template: [
+        '{{#foo bar as |foobar|}}',
+        '   {{#foobar.baz}}{{/foobar.baz}}',
+        '   {{foobar.baz}}',
+        '{{/foo}}'
+      ].join('\n'),
+
+      results: [
+        {
+          'column': 3,
+          'line': 2,
+          'message': 'Incorrect indentation for `{{#foobar.baz}}` beginning at L2:C3. Expected `{{#foobar.baz}}` to be at an indentation of 2 but was found at 3.',
+          'moduleId': 'layout.hbs',
+          'rule': 'block-indentation',
+          'severity': 2,
+          'source': '{{#foo bar as |foobar|}}\n   {{#foobar.baz}}{{/foobar.baz}}\n   {{foobar.baz}}\n{{/foo}}'
+        },
+        {
+          'column': 3,
+          'line': 3,
+          'message': 'Incorrect indentation for `{{foobar.baz}}` beginning at L3:C3. Expected `{{foobar.baz}}` to be at an indentation of 2 but was found at 3.',
+          'moduleId': 'layout.hbs',
+          'rule': 'block-indentation',
+          'severity': 2,
+          'source': '{{#foo bar as |foobar|}}\n   {{#foobar.baz}}{{/foobar.baz}}\n   {{foobar.baz}}\n{{/foo}}'
+        }
+      ]
+    },
   ]
 });
