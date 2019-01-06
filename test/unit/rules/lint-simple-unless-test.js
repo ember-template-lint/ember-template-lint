@@ -107,6 +107,38 @@ generateRuleTests({
     {
       template: [
         '{{#unless bandwagoner}}',
+        '{{else}}',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: messages.followingElseBlock,
+        moduleId: 'layout.hbs',
+        source: '{{else}}',
+        line: 2,
+        column: 0
+      }
+    },
+    {
+      template: [
+        '{{#unless bandwagoner}}',
+        '{{else}}',
+        '  {{#my-component}}',
+        '  {{/my-component}}',
+        '{{/unless}}'
+      ].join('\n'),
+
+      result: {
+        message: messages.followingElseBlock,
+        moduleId: 'layout.hbs',
+        source: '{{else}}',
+        line: 2,
+        column: 0
+      }
+    },
+    {
+      template: [
+        '{{#unless bandwagoner}}',
         '  Go Niners!',
         '{{else if goHawks}}',
         '  Go Seahawks!',
