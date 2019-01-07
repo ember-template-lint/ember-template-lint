@@ -20,7 +20,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@glimmer/compiler": "^0.37.0",
+    "@glimmer/compiler": "^0.38.0",
     "chalk": "^2.0.0",
     "globby": "^8.0.1",
     "minimatch": "^3.0.4",
