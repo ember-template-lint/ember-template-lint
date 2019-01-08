@@ -16,6 +16,7 @@
     "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
   },
   "scripts": {
+    "changelog": "lerna-changelog",
     "lint:js": "eslint .",
     "test": "mocha"
   },
@@ -32,6 +33,7 @@
     "common-tags": "^1.8.0",
     "eslint": "^5.2.0",
     "eslint-plugin-node": "^8.0.0",
+    "lerna-changelog": "^0.8.2",
     "mocha": "^5.0.0",
     "mocha-only-detector": "^1.0.0",
     "testem": "^2.0.0"
