@@ -21,6 +21,7 @@ let good = [
   '{{outlet}}',
   '{{textarea}}',
   '{{yield}}',
+  '{{welcome-page}}',
   {
     config: { allow: ['book-details'] },
     template: '{{book-details}}'
