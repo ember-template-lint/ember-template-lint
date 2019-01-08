@@ -32,10 +32,13 @@
     "chai": "^4.0.0",
     "common-tags": "^1.8.0",
     "eslint": "^5.2.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "lerna-changelog": "^0.8.2",
     "mocha": "^5.0.0",
     "mocha-only-detector": "^1.0.0",
+    "prettier": "^1.15.3",
     "testem": "^2.0.0"
   },
   "engines": {

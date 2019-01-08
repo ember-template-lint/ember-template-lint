@@ -1,28 +1,22 @@
 module.exports = {
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2019,
   },
-  "env": {
-    "node": true
+  env: {
+    node: true
   },
-  "plugins": ["node"],
-  "extends": ["eslint:recommended", "plugin:node/recommended"],
-  "rules": {
-    "indent": [
-      2,
-      2
-    ],
-    "linebreak-style": [
-      2,
-      "unix"
-    ],
-    "quotes": [
-      2,
-      "single"
-    ],
-    "semi": [
-      2,
-      "always"
-    ]
-  }
+  plugins: ['node', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
+  rules: {
+    'prettier/prettier': 'error',
+  },
+
+  overrides: [
+    {
+      files: ['test/**/*.js'],
+      env: {
+        mocha: true,
+      }
+    }
+  ],
 };
