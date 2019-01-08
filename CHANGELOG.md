@@ -1,9 +1,58 @@
 Changelog
 =========
 
-## Unreleased
+## v1.0.0 (2019-01-08)
 
-- Add `no-action-modifiers` rule. See the [rule documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-action-modifiers.md) for details.
+#### :boom: Breaking Change
+* [#599](https://github.com/ember-template-lint/ember-template-lint/pull/599) Remove attribute-indentation from recommended config. ([@rwjblue](https://github.com/rwjblue))
+
+#### :rocket: Enhancement
+* [#598](https://github.com/ember-template-lint/ember-template-lint/pull/598) Add lerna-changelog for changelog generation. ([@rwjblue](https://github.com/rwjblue))
+* [#582](https://github.com/ember-template-lint/ember-template-lint/pull/582) Ensure absolute paths are normalized when checking modules for "pending" status ([@xcambar](https://github.com/xcambar))
+* [#584](https://github.com/ember-template-lint/ember-template-lint/pull/584) feat: add rule 'no-extra-mut-helper-argument'. ([@bmish](https://github.com/bmish))
+* [#528](https://github.com/ember-template-lint/ember-template-lint/pull/528) Add option to executable for specifying a custom config path ([@krivaten](https://github.com/krivaten))
+* [#535](https://github.com/ember-template-lint/ember-template-lint/pull/535) Add no-action-modifiers rule ([@bendemboski](https://github.com/bendemboski))
+
+#### :bug: Bug Fix
+* [#597](https://github.com/ember-template-lint/ember-template-lint/pull/597) Fix config resolution with Yarn PnP. ([@rwjblue](https://github.com/rwjblue))
+* [#592](https://github.com/ember-template-lint/ember-template-lint/pull/592) fix: errors from 'simple-unless' rule with empty unless usage ([@bmish](https://github.com/bmish))
+* [#591](https://github.com/ember-template-lint/ember-template-lint/pull/591) feat: update 'style-concatenation' rule to catch an unsafe usage of the 'concat' helper. ([@bmish](https://github.com/bmish))
+* [#580](https://github.com/ember-template-lint/ember-template-lint/pull/580) Ensure failure when invalid config path is provided. ([@xcambar](https://github.com/xcambar))
+* [#568](https://github.com/ember-template-lint/ember-template-lint/pull/568) Fix contextual component error message in attribute-indentation and block-indentation rules ([@HodofHod](https://github.com/HodofHod))
+
+#### :memo: Documentation
+* [#590](https://github.com/ember-template-lint/ember-template-lint/pull/590) docs: improve organization, formatting, and consistency for rule docs. ([@bmish](https://github.com/bmish))
+* [#589](https://github.com/ember-template-lint/ember-template-lint/pull/589) docs: reorganize, reformat, add links, and add examples to improve doc for 'style-concatenation' rule. ([@bmish](https://github.com/bmish))
+* [#574](https://github.com/ember-template-lint/ember-template-lint/pull/574) Fix typo in no-implicit-this documentation ([@efx](https://github.com/efx))
+* [#564](https://github.com/ember-template-lint/ember-template-lint/pull/564) Removed ember-i18n recommendation in no-bare-string documentation ([@Alonski](https://github.com/Alonski))
+* [#563](https://github.com/ember-template-lint/ember-template-lint/pull/563) Add an example of how to ignore files to the README ([@h2blake](https://github.com/h2blake))
+* [#547](https://github.com/ember-template-lint/ember-template-lint/pull/547) Fix typo in table-groups rule documentation ([@evoactivity](https://github.com/evoactivity))
+* [#544](https://github.com/ember-template-lint/ember-template-lint/pull/544) Fix attribute-indentation rule documentation to comply with default config ([@benmurden](https://github.com/benmurden))
+* [#541](https://github.com/ember-template-lint/ember-template-lint/pull/541) Fix attribute-indentation rule documentation to comply with default config ([@benmurden](https://github.com/benmurden))
+* [#540](https://github.com/ember-template-lint/ember-template-lint/pull/540) Small tweaks to `no-shadowed-elements` docs ([@sduquej](https://github.com/sduquej))
+* [#515](https://github.com/ember-template-lint/ember-template-lint/pull/515) Add documentation for no-shadowed-elements rule ([@Willibaur](https://github.com/Willibaur))
+* [#538](https://github.com/ember-template-lint/ember-template-lint/pull/538) Fix links and markdown styling ([@scottwernervt](https://github.com/scottwernervt))
+
+#### :house: Internal
+* [#570](https://github.com/ember-template-lint/ember-template-lint/pull/570) TravisCI: Remove deprecated `sudo: false` option ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 16
+- Alon Bukai ([@Alonski](https://github.com/Alonski))
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+- Ben Murden ([@benmurden](https://github.com/benmurden))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Eli Flanagan ([@efx](https://github.com/efx))
+- Heather Blake ([@h2blake](https://github.com/h2blake))
+- Kris Van Houten ([@krivaten](https://github.com/krivaten))
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Sander Steenhuis ([@Redsandro](https://github.com/Redsandro))
+- Scott Werner ([@scottwernervt](https://github.com/scottwernervt))
+- Sebastián Duque ([@sduquej](https://github.com/sduquej))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- William Bautista ([@Willibaur](https://github.com/Willibaur))
+- Xavier Cambar ([@xcambar](https://github.com/xcambar))
+- [@HodofHod](https://github.com/HodofHod)
 
 ## v1.0.0-beta.6
 
