@@ -25,6 +25,10 @@ let good = [
   {
     config: { allow: ['book-details'] },
     template: '{{book-details}}'
+  },
+  {
+    config: { allow: [/^data-test-.+/] },
+    template: '{{foo-bar data-test-foo}}'
   }
 ];
 
