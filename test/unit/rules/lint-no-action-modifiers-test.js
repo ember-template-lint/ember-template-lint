@@ -15,9 +15,9 @@ generateRuleTests({
     '{{foo-bar action}}',
 
     {
-      config: [ 'button' ],
-      template: '<button {{action "foo"}}></button>'
-    }
+      config: ['button'],
+      template: '<button {{action "foo"}}></button>',
+    },
   ],
 
   bad: [
@@ -44,7 +44,7 @@ generateRuleTests({
       },
     },
     {
-      config: [ 'button' ],
+      config: ['button'],
       template: '<a href="#" {{action "foo"}}></a>',
 
       result: {

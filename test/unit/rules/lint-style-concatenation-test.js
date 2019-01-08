@@ -14,7 +14,7 @@ generateRuleTests({
     '<img style={{background-image url}}>',
     '<img style="background-image: url(/foo.png)"}}>',
     '<img style={{html-safe (concat "background-image: url(" url ")")}}>',
-    '<img style={{html-safe (concat knownSafeStyle1 ";" knownSafeStyle2)}}>'
+    '<img style={{html-safe (concat knownSafeStyle1 ";" knownSafeStyle2)}}>',
   ],
 
   bad: [
@@ -26,8 +26,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'style="{{myStyle}}"',
         line: 1,
-        column: 5
-      }
+        column: 5,
+      },
     },
     {
       template: '<img style="background-image: {{url}}">',
@@ -37,8 +37,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'style="background-image: {{url}}"',
         line: 1,
-        column: 5
-      }
+        column: 5,
+      },
     },
     {
       template: '<img style="{{background-image url}}">',
@@ -48,8 +48,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'style="{{background-image url}}"',
         line: 1,
-        column: 5
-      }
+        column: 5,
+      },
     },
     {
       template: '<img style={{concat knownSafeStyle1 ";" knownSafeStyle2}}>',
@@ -59,8 +59,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'style={{concat knownSafeStyle1 ";" knownSafeStyle2}}',
         line: 1,
-        column: 5
-      }
-    }
-  ]
+        column: 5,
+      },
+    },
+  ],
 });

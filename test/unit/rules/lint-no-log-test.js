@@ -8,10 +8,7 @@ generateRuleTests({
 
   config: true,
 
-  good: [
-    '{{foo}}',
-    '{{button}}'
-  ],
+  good: ['{{foo}}', '{{button}}'],
 
   bad: [
     {
@@ -22,8 +19,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{log}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{log "Logs are best for debugging!"}}',
@@ -33,8 +30,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{log "Logs are best for debugging!"}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{#log}}Arrgh!{{/log}}',
@@ -44,8 +41,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{#log}}Arrgh!{{/log}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{#log "Foo"}}{{/log}}',
@@ -55,8 +52,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{#log "Foo"}}{{/log}}',
         line: 1,
-        column: 0
-      }
-    }
-  ]
+        column: 0,
+      },
+    },
+  ],
 });

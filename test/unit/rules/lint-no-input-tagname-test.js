@@ -23,8 +23,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{input tagName="foo"}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{input tagName=bar}}',
@@ -34,8 +34,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{input tagName=bar}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{component "input" tagName="foo"}}',
@@ -45,8 +45,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{component "input" tagName="foo"}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{component "input" tagName=bar}}',
@@ -56,8 +56,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{component "input" tagName=bar}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{yield (component "input" tagName="foo")}}',
@@ -67,8 +67,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '(component "input" tagName="foo")',
         line: 1,
-        column: 8
-      }
+        column: 8,
+      },
     },
     {
       template: '{{yield (component "input" tagName=bar)}}',
@@ -78,8 +78,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '(component "input" tagName=bar)',
         line: 1,
-        column: 8
-      }
+        column: 8,
+      },
     },
-  ]
+  ],
 });

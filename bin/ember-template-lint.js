@@ -18,7 +18,9 @@ function printErrors(errors) {
     let fileErrors = errors[filePath] || [];
 
     let errorsFiltered = fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY);
-    let warnings = quiet ? [] : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
+    let warnings = quiet
+      ? []
+      : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
 
     errorCount += errorsFiltered.length;
     warningCount += warnings.length;
@@ -46,7 +48,11 @@ function printErrors(errors) {
     const count = errorCount + warningCount;
 
     if (count > 0) {
-      console.log(chalk.red(chalk.bold(`✖ ${count} problems (${errorCount} errors, ${warningCount} warnings)`)));
+      console.log(
+        chalk.red(
+          chalk.bold(`✖ ${count} problems (${errorCount} errors, ${warningCount} warnings)`)
+        )
+      );
     }
   }
 }
@@ -95,7 +101,12 @@ function run() {
     var filePath = path.resolve(relativeFilePath);
     var fileErrors = lintFile(linter, filePath, relativeFilePath.slice(0, -4));
 
-    if (fileErrors.some(function(err) { return err.severity > 1; })) exitCode = 1;
+    if (
+      fileErrors.some(function(err) {
+        return err.severity > 1;
+      })
+    )
+      exitCode = 1;
 
     if (fileErrors.length) errors[filePath] = fileErrors;
     return errors;

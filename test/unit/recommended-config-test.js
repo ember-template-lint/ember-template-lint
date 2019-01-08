@@ -11,7 +11,7 @@ describe('recommended config', function() {
 
       log(data) {
         this._logLines.push(data);
-      }
+      },
     };
   }
 
@@ -26,13 +26,12 @@ describe('recommended config', function() {
 
       let linter = new Linter({
         console: mockConsole,
-        config: config
+        config: config,
       });
 
       expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).to.deep.equal([]);
     });
   }
-
 
   ensureValid(stripIndent`
     <md-autocomplete-wrap

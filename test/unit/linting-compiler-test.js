@@ -10,8 +10,8 @@ describe('template compiler', function() {
     return _precompile(template, {
       rawSource: template,
       plugins: {
-        ast: astPlugins
-      }
+        ast: astPlugins,
+      },
     });
   }
 
@@ -29,7 +29,7 @@ describe('template compiler', function() {
     function noopPlugin() {
       invocationCount++;
 
-      return { name: 'fake', visitor: { } };
+      return { name: 'fake', visitor: {} };
     }
     astPlugins.push(noopPlugin);
     precompile('<div></div>');
@@ -45,7 +45,7 @@ describe('template compiler', function() {
       return {
         name: 'noop',
 
-        visitor: {}
+        visitor: {},
       };
     }
 

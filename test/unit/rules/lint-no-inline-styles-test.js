@@ -11,8 +11,8 @@ function mapBadStyleExampleToTestRule(inlineStyle) {
       moduleId: 'layout.hbs',
       source: inlineStyle,
       line: 1,
-      column: 5
-    }
+      column: 5,
+    },
   };
 }
 
@@ -21,11 +21,7 @@ generateRuleTests({
 
   config: true,
 
-  good: [
-    '<div></div>',
-    '<span></span>',
-    '<ul class="dummy"></ul>'
-  ],
+  good: ['<div></div>', '<span></span>', '<ul class="dummy"></ul>'],
 
   bad: [
     'style="width: 100px"',
@@ -33,6 +29,6 @@ generateRuleTests({
     'style="{{foo}} {{bar}}"',
     'style',
     'style=""',
-    'style="color:blue;margin-left:30px;"'
-  ].map(mapBadStyleExampleToTestRule)
+    'style="color:blue;margin-left:30px;"',
+  ].map(mapBadStyleExampleToTestRule),
 });

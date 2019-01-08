@@ -21,68 +21,68 @@ generateRuleTests({
         moduleId: 'foo/route.hbs',
         source: '{{outlet}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{outlet}}',
       meta: {
-        moduleId: 'routes/foo.hbs'
+        moduleId: 'routes/foo.hbs',
       },
       result: {
         message,
         moduleId: 'routes/foo.hbs',
         source: '{{outlet}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{#outlet}}Why?!{{/outlet}}',
       meta: {
-        moduleId: 'foo/route.hbs'
+        moduleId: 'foo/route.hbs',
       },
       result: {
         message,
         moduleId: 'foo/route.hbs',
         source: '{{#outlet}}Why?!{{/outlet}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{#outlet}}Why?!{{/outlet}}',
       meta: {
-        moduleId: 'routes/foo.hbs'
+        moduleId: 'routes/foo.hbs',
       },
       result: {
         message,
         moduleId: 'routes/foo.hbs',
         source: '{{#outlet}}Why?!{{/outlet}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{#outlet}}Works because ambiguous{{/outlet}}',
       meta: {
-        moduleId: 'something/foo.hbs'
+        moduleId: 'something/foo.hbs',
       },
       result: {
         message,
         moduleId: 'something/foo.hbs',
         source: '{{#outlet}}Works because ambiguous{{/outlet}}',
         line: 1,
-        column: 0
-      }
-    }
+        column: 0,
+      },
+    },
   ],
   bad: [
     {
       template: '{{outlet}}',
 
       meta: {
-        moduleId: 'components/foo/layout.hbs'
+        moduleId: 'components/foo/layout.hbs',
       },
 
       result: {
@@ -90,14 +90,14 @@ generateRuleTests({
         moduleId: 'components/foo/layout.hbs',
         source: '{{outlet}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{outlet}}',
 
       meta: {
-        moduleId: 'foo/-mything.hbs'
+        moduleId: 'foo/-mything.hbs',
       },
 
       result: {
@@ -105,9 +105,8 @@ generateRuleTests({
         moduleId: 'foo/-mything.hbs',
         source: '{{outlet}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
   ],
-
 });

@@ -11,7 +11,7 @@ generateRuleTests({
     '{{foo}}',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
-    '{{! template-lint-disable triple-curlies}}{{{lol}}}'
+    '{{! template-lint-disable triple-curlies}}{{{lol}}}',
   ],
 
   bad: [
@@ -23,8 +23,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{{foo}}}',
         line: 2,
-        column: 1
-      }
-    }
-  ]
+        column: 1,
+      },
+    },
+  ],
 });

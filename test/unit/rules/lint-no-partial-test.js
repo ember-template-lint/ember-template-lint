@@ -8,10 +8,7 @@ generateRuleTests({
 
   config: true,
 
-  good: [
-    '{{foo}}',
-    '{{button}}'
-  ],
+  good: ['{{foo}}', '{{button}}'],
 
   bad: [
     {
@@ -22,8 +19,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{partial "foo"}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
-  ]
+  ],
 });
