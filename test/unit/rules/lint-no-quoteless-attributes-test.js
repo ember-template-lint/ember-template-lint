@@ -28,7 +28,7 @@ generateRuleTests({
         line: 1,
         message: 'Attribute data-foo should be either quoted or wrapped in mustaches',
         source: '<div data-foo=asdf></div>',
-      }
+      },
     },
     {
       template: '<SomeThing @blah=asdf />',
@@ -38,7 +38,7 @@ generateRuleTests({
         line: 1,
         message: 'Attribute @blah should be either quoted or wrapped in mustaches',
         source: '<SomeThing @blah=asdf />',
-      }
+      },
     },
-  ]
+  ],
 });

@@ -25,12 +25,7 @@ describe('isInteractiveElement', function() {
     });
   }
 
-  let nonInteractive = [
-    '<a></a>',
-    '<input type="hidden">',
-    '<img>',
-    '<div></div>'
-  ];
+  let nonInteractive = ['<a></a>', '<input type="hidden">', '<img>', '<div></div>'];
 
   let interactive = {
     '<a href="derp">Link</a>': 'an <a> element with the `href` attribute',
@@ -46,7 +41,7 @@ describe('isInteractiveElement', function() {
     '<div tabindex=1></div>': 'an element with the `tabindex` attribute',
     '<label></label>': '<label>',
     '<div role="button"></div>': 'an element with `role="button"`',
-    '<div role="textbox"></div>': 'an element with `role="textbox"`'
+    '<div role="textbox"></div>': 'an element with `role="textbox"`',
   };
 
   nonInteractive.forEach(function(template) {

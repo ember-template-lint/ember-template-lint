@@ -23,8 +23,8 @@ generateRuleTests({
         message: 'Ambiguous element used (`div`)',
         line: 1,
         column: 17,
-        source: '<div></div>'
-      }
+        source: '<div></div>',
+      },
     },
   ],
 });

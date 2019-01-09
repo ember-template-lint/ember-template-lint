@@ -11,19 +11,19 @@ generateRuleTests({
     '{{t "howdy"}}',
     {
       config: [','],
-      template: '\n {{translate "greeting"}},'
+      template: '\n {{translate "greeting"}},',
     },
     {
       config: ['foo'],
-      template: '\nfoo'
+      template: '\nfoo',
     },
     {
       config: ['tarzan!'],
-      template: 'tarzan!\t\n  tarzan!'
+      template: 'tarzan!\t\n  tarzan!',
     },
     {
       config: ['/', '"'],
-      template: '{{t "foo"}} / "{{name}}"'
+      template: '{{t "foo"}} / "{{name}}"',
     },
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
@@ -37,34 +37,34 @@ generateRuleTests({
     {
       // config as array is whitelist of chars
       config: ['/', '"'],
-      template: '{{t "foo"}} / "{{name}}"'
+      template: '{{t "foo"}} / "{{name}}"',
     },
 
     {
       config: true,
-      template: '\n {{translate "greeting"}},'
+      template: '\n {{translate "greeting"}},',
     },
 
     {
       config: false,
-      template: '\nfoobar'
+      template: '\nfoobar',
     },
 
     {
       config: ['₹'],
-      template: '&#8377;'
+      template: '&#8377;',
     },
 
     {
       // override the globalAttributes list
       config: { globalAttributes: [] },
-      template: '<a title="hahaha trolol"></a>'
+      template: '<a title="hahaha trolol"></a>',
     },
 
     {
       // override the elementAttributes list
-      config: { elementAttributes: { }},
-      template: '<input placeholder="hahaha">'
+      config: { elementAttributes: {} },
+      template: '<input placeholder="hahaha">',
     },
 
     '<foo-bar>\n</foo-bar>',
@@ -72,7 +72,7 @@ generateRuleTests({
     {
       // combine bare string with a variable
       config: ['X'],
-      template: '<input placeholder="{{foo}}X">'
+      template: '<input placeholder="{{foo}}X">',
     },
 
     '{{! template-lint-disable bare-strings}}LOL{{! template-lint-enable bare-strings}}',
@@ -92,8 +92,8 @@ generateRuleTests({
         message: 'Non-translated string used',
         line: 1,
         column: 0,
-        source: '\n howdy'
-      }
+        source: '\n howdy',
+      },
     },
     {
       template: '<div>\n  1234\n</div>',
@@ -103,8 +103,8 @@ generateRuleTests({
         message: 'Non-translated string used',
         line: 1,
         column: 5,
-        source: '\n  1234\n'
-      }
+        source: '\n  1234\n',
+      },
     },
 
     {
@@ -115,8 +115,8 @@ generateRuleTests({
         message: 'Non-translated string used in `title` attribute',
         line: 1,
         column: 3,
-        source: 'hahaha trolol'
-      }
+        source: 'hahaha trolol',
+      },
     },
 
     {
@@ -127,8 +127,8 @@ generateRuleTests({
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
         column: 7,
-        source: 'trolol'
-      }
+        source: 'trolol',
+      },
     },
 
     {
@@ -139,8 +139,8 @@ generateRuleTests({
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
         column: 7,
-        source: 'hahaha trolol'
-      }
+        source: 'hahaha trolol',
+      },
     },
 
     {
@@ -151,8 +151,8 @@ generateRuleTests({
         message: 'Non-translated string used in `aria-label` attribute',
         line: 1,
         column: 24,
-        source: 'Contact, Policies and Legal'
-      }
+        source: 'Contact, Policies and Legal',
+      },
     },
 
     {
@@ -163,8 +163,8 @@ generateRuleTests({
         message: 'Non-translated string used in `aria-placeholder` attribute',
         line: 1,
         column: 38,
-        source: 'Search for things'
-      }
+        source: 'Search for things',
+      },
     },
 
     {
@@ -175,20 +175,21 @@ generateRuleTests({
         message: 'Non-translated string used in `aria-roledescription` attribute',
         line: 1,
         column: 19,
-        source: 'slide'
-      }
+        source: 'slide',
+      },
     },
 
     {
-      template: '<div role="slider" aria-valuetext="Off" tabindex="0" aria-valuemin="0" aria-valuenow="0" aria-valuemax="3"></div>',
+      template:
+        '<div role="slider" aria-valuetext="Off" tabindex="0" aria-valuemin="0" aria-valuenow="0" aria-valuemax="3"></div>',
 
       result: {
         moduleId: 'layout.hbs',
         message: 'Non-translated string used in `aria-valuetext` attribute',
         line: 1,
         column: 19,
-        source: 'Off'
-      }
+        source: 'Off',
+      },
     },
 
     {
@@ -200,12 +201,12 @@ generateRuleTests({
         message: 'Non-translated string used in `data-foo` attribute',
         line: 1,
         column: 5,
-        source: 'derpy'
-      }
+        source: 'derpy',
+      },
     },
 
     {
-      config: { elementAttributes: { img: ['data-alt']} },
+      config: { elementAttributes: { img: ['data-alt'] } },
       template: '<img data-alt="some alternate here">',
 
       result: {
@@ -213,8 +214,8 @@ generateRuleTests({
         message: 'Non-translated string used in `data-alt` attribute',
         line: 1,
         column: 5,
-        source: 'some alternate here'
-      }
+        source: 'some alternate here',
+      },
     },
 
     {
@@ -226,15 +227,16 @@ generateRuleTests({
           message: 'Non-translated string used',
           line: 1,
           column: 5,
-          source: 'Bady\n  '
-        }, {
+          source: 'Bady\n  ',
+        },
+        {
           moduleId: 'layout.hbs',
           message: 'Non-translated string used in `placeholder` attribute',
           line: 2,
           column: 9,
-          source: 'trolol'
-        }
-      ]
-    }
-  ]
+          source: 'trolol',
+        },
+      ],
+    },
+  ],
 });

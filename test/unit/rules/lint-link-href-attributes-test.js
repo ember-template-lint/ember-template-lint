@@ -8,11 +8,11 @@ generateRuleTests({
   config: true,
 
   good: [
-    '<a href=""></a>', /* empty string is really valid! */
+    '<a href=""></a>' /* empty string is really valid! */,
     '<a href="#"></a>',
     '<a href="javascript:;"></a>',
     '<a href="http://localhost"></a>',
-    '<a href={{link}}></a>'
+    '<a href={{link}}></a>',
   ],
 
   bad: [
@@ -23,8 +23,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<a></a>',
         line: 1,
-        column: 0
-      }
-    }
-  ]
+        column: 0,
+      },
+    },
+  ],
 });

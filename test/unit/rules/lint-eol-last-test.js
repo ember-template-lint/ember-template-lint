@@ -8,23 +8,21 @@ generateRuleTests({
   good: [
     {
       config: 'always',
-      template: 'test\n'
+      template: 'test\n',
     },
     {
       config: 'never',
-      template: 'test'
+      template: 'test',
     },
     // test the re-entering of yielded content
     {
       config: 'never',
-      template: '{{#my-component}}\n' +
-      '  test\n' +
-      '{{/my-component}}'
+      template: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
     },
     {
       config: 'always',
-      template: '{{#my-component}}{{/my-component}}\n'
-    }
+      template: '{{#my-component}}{{/my-component}}\n',
+    },
   ],
 
   bad: [
@@ -37,8 +35,8 @@ generateRuleTests({
         message: 'template must end with newline',
         line: 1,
         column: 0,
-        source: 'test'
-      }
+        source: 'test',
+      },
     },
     {
       config: 'never',
@@ -49,27 +47,23 @@ generateRuleTests({
         message: 'template cannot end with newline',
         line: 1,
         column: 0,
-        source: 'test\n'
-      }
+        source: 'test\n',
+      },
     },
     // test the re-entering of yielded content
     // only generates one error instead of two
     {
       config: 'never',
-      template: '{{#my-component}}\n' +
-      '  test\n' +
-      '{{/my-component}}\n',
+      template: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
 
       result: {
         moduleId: 'layout.hbs',
         message: 'template cannot end with newline',
         line: 1,
         column: 0,
-        source: '{{#my-component}}\n' +
-        '  test\n' +
-        '{{/my-component}}\n'
-      }
-    }
+        source: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
+      },
+    },
   ],
 
   error: [
@@ -80,8 +74,8 @@ generateRuleTests({
       result: {
         fatal: true,
         moduleId: 'layout.hbs',
-        message: 'You specified `"sometimes"`'
-      }
+        message: 'You specified `"sometimes"`',
+      },
     },
     {
       config: true,
@@ -90,8 +84,8 @@ generateRuleTests({
       result: {
         fatal: true,
         moduleId: 'layout.hbs',
-        message: 'You specified `true`'
-      }
-    }
-  ]
+        message: 'You specified `true`',
+      },
+    },
+  ],
 });

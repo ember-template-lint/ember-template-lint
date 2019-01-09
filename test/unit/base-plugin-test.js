@@ -10,8 +10,8 @@ describe('base plugin', function() {
       rawSource: template,
       moduleName: 'layout.hbs',
       plugins: {
-        ast: ast
-      }
+        ast: ast,
+      },
     });
   }
 
@@ -32,7 +32,7 @@ describe('base plugin', function() {
           message: 'Node source',
           line: node.loc && node.loc.start.line,
           column: node.loc && node.loc.start.column,
-          source: this.sourceForNode(node)
+          source: this.sourceForNode(node),
         });
       }
 
@@ -45,7 +45,7 @@ describe('base plugin', function() {
   }
 
   function plugin(Rule, name, config) {
-    let plugin = new Rule({ name, config});
+    let plugin = new Rule({ name, config });
 
     return env => {
       plugin.templateEnvironmentData = env;
@@ -68,11 +68,11 @@ describe('base plugin', function() {
         }
 
         this.process(node);
-      }
+      },
     };
 
     function precompile(template) {
-      precompileTemplate(template, [ plugin(buildPlugin(visitor), 'fake', config) ]);
+      precompileTemplate(template, [plugin(buildPlugin(visitor), 'fake', config)]);
     }
 
     function expectSource(config) {
@@ -88,10 +88,7 @@ describe('base plugin', function() {
 
     expectSource({
       template: '<div>Foo</div>',
-      sources: [
-        '<div>Foo</div>',
-        'Foo'
-      ]
+      sources: ['<div>Foo</div>', 'Foo'],
     });
 
     expectSource({
@@ -102,8 +99,8 @@ describe('base plugin', function() {
         '<div data-foo="blerp">\n    Wheee!\n  </div>',
         '"blerp"',
         '\n    Wheee!\n  ',
-        '\n'
-      ]
+        '\n',
+      ],
     });
   });
 
@@ -113,11 +110,11 @@ describe('base plugin', function() {
     let visitor = {
       Program() {
         wasCalled = true;
-      }
+      },
     };
 
     function precompile(template) {
-      precompileTemplate(template, [ plugin(buildPlugin(visitor), 'fake', config) ]);
+      precompileTemplate(template, [plugin(buildPlugin(visitor), 'fake', config)]);
     }
 
     it('calls the "Program" node type', function() {
@@ -132,7 +129,7 @@ describe('base plugin', function() {
       let Rule = buildPlugin({
         MustacheCommentStatement(node) {
           this.process(node);
-        }
+        },
       });
       Rule.prototype.log = function(result) {
         messages.push(result.message);
@@ -140,7 +137,7 @@ describe('base plugin', function() {
       Rule.prototype.process = function(node) {
         config = this._processInstructionNode(node);
       };
-      precompileTemplate(template, [ plugin(Rule, 'fake', 'foo') ]);
+      precompileTemplate(template, [plugin(Rule, 'fake', 'foo')]);
     }
 
     function expectConfig(instruction, expectedConfig) {
@@ -161,33 +158,39 @@ describe('base plugin', function() {
     // Specific enable/disable
     expectConfig('template-lint-disable fake', { value: false, tree: false });
     expectConfig('template-lint-disable-tree "fake"', { value: false, tree: true });
-    expectConfig('template-lint-disable fake \'no-bare-strings\'', { value: false, tree: false });
-    expectConfig('template-lint-disable no-bare-strings fake block-indentation', { value: false, tree: false });
+    expectConfig("template-lint-disable fake 'no-bare-strings'", { value: false, tree: false });
+    expectConfig('template-lint-disable no-bare-strings fake block-indentation', {
+      value: false,
+      tree: false,
+    });
     expectConfig('template-lint-disable no-bare-strings', null);
     expectConfig(' template-lint-disable   fake ', { value: false, tree: false });
-    expectConfig('template-lint-disable   no-bare-strings    fake   block-indentation ', { value: false, tree: false });
+    expectConfig('template-lint-disable   no-bare-strings    fake   block-indentation ', {
+      value: false,
+      tree: false,
+    });
 
     // Configure
     expectConfig('template-lint-configure fake { "key1": "value", "key2": { "key3": 1 } }', {
       value: { key1: 'value', key2: { key3: 1 } },
-      tree: false
+      tree: false,
     });
     expectConfig('template-lint-configure-tree "fake" { "key": "value" }', {
       value: { key: 'value' },
-      tree: true
+      tree: true,
     });
-    expectConfig('template-lint-configure-tree \'fake\' true', {
+    expectConfig("template-lint-configure-tree 'fake' true", {
       value: true,
-      tree: true
+      tree: true,
     });
     expectConfig('template-lint-configure-tree fake false', {
       value: false,
-      tree: true
+      tree: true,
     });
     expectConfig('template-lint-configure-tree no-bare-strings { "key": "value" }', null);
     expectConfig('  template-lint-configure-tree    fake   { "key": "value" }', {
       value: { key: 'value' },
-      tree: true
+      tree: true,
     });
 
     // Not config
@@ -196,47 +199,54 @@ describe('base plugin', function() {
 
     // Errors
     it('logs an error when it encounters an unknown rule name', function() {
-      precompile([
-        '{{! template-lint-enable notarule }}',
-        '{{! template-lint-disable fake norme meneither }}',
-        '{{! template-lint-configure nope false }}'
-      ].join('\n'));
+      precompile(
+        [
+          '{{! template-lint-enable notarule }}',
+          '{{! template-lint-disable fake norme meneither }}',
+          '{{! template-lint-configure nope false }}',
+        ].join('\n')
+      );
       expect(messages).to.deep.equal([
         'unrecognized rule name `notarule` in template-lint-enable instruction',
         'unrecognized rule name `norme` in template-lint-disable instruction',
         'unrecognized rule name `meneither` in template-lint-disable instruction',
-        'unrecognized rule name `nope` in template-lint-configure instruction'
+        'unrecognized rule name `nope` in template-lint-configure instruction',
       ]);
     });
 
-    it('logs an error when it can\'t parse a configure instruction\'s JSON', function() {
+    it("logs an error when it can't parse a configure instruction's JSON", function() {
       precompile('{{! template-lint-configure fake { not: "json" ] }}');
       expect(messages).to.deep.equal([
-        'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON'
+        'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON',
       ]);
     });
 
     it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function() {
-      precompile([
-        '{{! template-lint-bloober fake }}',
-        '{{! template-lint- fake }}',
-        '{{! template-lint fake }}'
-      ].join('\n'));
+      precompile(
+        [
+          '{{! template-lint-bloober fake }}',
+          '{{! template-lint- fake }}',
+          '{{! template-lint fake }}',
+        ].join('\n')
+      );
       expect(messages).to.deep.equal([
         'unrecognized template-lint instruction: `template-lint-bloober`',
         'unrecognized template-lint instruction: `template-lint-`',
-        'unrecognized template-lint instruction: `template-lint`'
+        'unrecognized template-lint instruction: `template-lint`',
       ]);
     });
 
     it('only logs syntax errors once across all rules', function() {
-      precompileTemplate('{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}', [
-        plugin(buildPlugin({}), 'fake1'),
-        plugin(buildPlugin({}), 'fake2'),
-        plugin(buildPlugin({}), 'fake3'),
-        plugin(buildPlugin({}), 'fake4'),
-        plugin(buildPlugin({}), 'fake5')
-      ]);
+      precompileTemplate(
+        '{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}',
+        [
+          plugin(buildPlugin({}), 'fake1'),
+          plugin(buildPlugin({}), 'fake2'),
+          plugin(buildPlugin({}), 'fake3'),
+          plugin(buildPlugin({}), 'fake4'),
+          plugin(buildPlugin({}), 'fake5'),
+        ]
+      );
       expect(messages).to.have.lengthOf(3);
     });
   });
@@ -256,7 +266,7 @@ describe('base plugin', function() {
     }
 
     function addEvent(event, node, plugin) {
-      events.push([ event, getId(node), plugin.config ]);
+      events.push([event, getId(node), plugin.config]);
     }
 
     function buildPlugin() {
@@ -283,9 +293,9 @@ describe('base plugin', function() {
                   },
                   exit(node) {
                     addEvent('element/exit:children', node, pluginContext);
-                  }
-                }
-              }
+                  },
+                },
+              },
             },
             MustacheCommentStatement: {
               enter(node) {
@@ -293,8 +303,8 @@ describe('base plugin', function() {
               },
               exit(node) {
                 addEvent('comment/exit', node, pluginContext);
-              }
-            }
+              },
+            },
           };
         }
       }
@@ -307,7 +317,7 @@ describe('base plugin', function() {
         config = true;
       }
 
-      precompileTemplate(template, [ plugin(buildPlugin(), 'fake', config) ]);
+      precompileTemplate(template, [plugin(buildPlugin(), 'fake', config)]);
     }
 
     beforeEach(function() {
@@ -330,18 +340,15 @@ describe('base plugin', function() {
 
     expectEvents({
       desc: 'handles top-level instructions',
-      template: [
-        '{{! template-lint-configure fake "foo" }}',
-        '<div id="id1"></div>'
-      ].join('\n'),
+      template: ['{{! template-lint-configure fake "foo" }}', '<div id="id1"></div>'].join('\n'),
       events: [
-        [ 'comment/enter',          '',    true  ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/enter',          'id1', 'foo' ],
-        [ 'element/enter:children', 'id1', 'foo' ],
-        [ 'element/exit:children',  'id1', 'foo' ],
-        [ 'element/exit',           'id1', 'foo' ]
-      ]
+        ['comment/enter', '', true],
+        ['comment/exit', '', 'foo'],
+        ['element/enter', 'id1', 'foo'],
+        ['element/enter:children', 'id1', 'foo'],
+        ['element/exit:children', 'id1', 'foo'],
+        ['element/exit', 'id1', 'foo'],
+      ],
     });
 
     expectEvents({
@@ -351,24 +358,24 @@ describe('base plugin', function() {
         '  {{! template-lint-configure fake "foo" }}',
         '  <span id="id2"></span>',
         '</div>',
-        '<i id="id3"></i>'
+        '<i id="id3"></i>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', true  ],
-        [ 'element/enter:children', 'id1', true  ],
-        [ 'comment/enter',          '',    true  ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', 'foo' ],
-        [ 'element/exit:children',  'id2', 'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', true  ],
-        [ 'element/exit',           'id1', true  ],
-        [ 'element/enter',          'id3', true  ],
-        [ 'element/enter:children', 'id3', true  ],
-        [ 'element/exit:children',  'id3', true  ],
-        [ 'element/exit',           'id3', true  ]
-      ]
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['comment/enter', '', true],
+        ['comment/exit', '', 'foo'],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', 'foo'],
+        ['element/exit:children', 'id2', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+        ['element/enter', 'id3', true],
+        ['element/enter:children', 'id3', true],
+        ['element/exit:children', 'id3', true],
+        ['element/exit', 'id3', true],
+      ],
     });
 
     expectEvents({
@@ -381,30 +388,30 @@ describe('base plugin', function() {
         '    <b id="id3"/>',
         '  </span>',
         '</div>',
-        '<i id="id4"></i>'
+        '<i id="id4"></i>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', true  ],
-        [ 'element/enter:children', 'id1', true  ],
-        [ 'comment/enter',          '',    true  ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'bar' ],
-        [ 'element/enter',          'id3', 'bar' ],
-        [ 'element/enter:children', 'id3', 'bar' ],
-        [ 'element/exit:children',  'id3', 'bar' ],
-        [ 'element/exit',           'id3', 'bar' ],
-        [ 'element/exit:children',  'id2', 'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', true  ],
-        [ 'element/exit',           'id1', true  ],
-        [ 'element/enter',          'id4', true  ],
-        [ 'element/enter:children', 'id4', true  ],
-        [ 'element/exit:children',  'id4', true  ],
-        [ 'element/exit',           'id4', true  ]
-      ]
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['comment/enter', '', true],
+        ['comment/exit', '', 'foo'],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'bar'],
+        ['element/enter', 'id3', 'bar'],
+        ['element/enter:children', 'id3', 'bar'],
+        ['element/exit:children', 'id3', 'bar'],
+        ['element/exit', 'id3', 'bar'],
+        ['element/exit:children', 'id2', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+        ['element/enter', 'id4', true],
+        ['element/enter:children', 'id4', true],
+        ['element/exit:children', 'id4', true],
+        ['element/exit', 'id4', true],
+      ],
     });
 
     expectEvents({
@@ -416,30 +423,30 @@ describe('base plugin', function() {
         '  {{! template-lint-configure fake "bar" }}',
         '  <b id="id3"/>',
         '</div>',
-        '<i id="id4"></i>'
+        '<i id="id4"></i>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', true  ],
-        [ 'element/enter:children', 'id1', true  ],
-        [ 'comment/enter',          '',    true  ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', 'foo' ],
-        [ 'element/exit:children',  'id2', 'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'bar' ],
-        [ 'element/enter',          'id3', 'bar' ],
-        [ 'element/enter:children', 'id3', 'bar' ],
-        [ 'element/exit:children',  'id3', 'bar' ],
-        [ 'element/exit',           'id3', 'bar' ],
-        [ 'element/exit:children',  'id1', true  ],
-        [ 'element/exit',           'id1', true  ],
-        [ 'element/enter',          'id4', true  ],
-        [ 'element/enter:children', 'id4', true  ],
-        [ 'element/exit:children',  'id4', true  ],
-        [ 'element/exit',           'id4', true  ]
-      ]
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['comment/enter', '', true],
+        ['comment/exit', '', 'foo'],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', 'foo'],
+        ['element/exit:children', 'id2', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'bar'],
+        ['element/enter', 'id3', 'bar'],
+        ['element/enter:children', 'id3', 'bar'],
+        ['element/exit:children', 'id3', 'bar'],
+        ['element/exit', 'id3', 'bar'],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+        ['element/enter', 'id4', true],
+        ['element/enter:children', 'id4', true],
+        ['element/exit:children', 'id4', true],
+        ['element/exit', 'id4', true],
+      ],
     });
 
     expectEvents({
@@ -451,28 +458,28 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', true  ],
-        [ 'element/enter:children', 'id1', true  ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', true  ],
-        [ 'element/enter',          'id3', true  ],
-        [ 'element/enter:children', 'id3', true  ],
-        [ 'element/enter',          'id4', true  ],
-        [ 'element/enter:children', 'id4', true  ],
-        [ 'element/exit:children',  'id4', true  ],
-        [ 'element/exit',           'id4', true  ],
-        [ 'element/exit:children',  'id3', true  ],
-        [ 'element/exit',           'id3', true  ],
-        [ 'element/exit:children',  'id2', true  ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', true  ],
-        [ 'element/exit',           'id1', true  ]
-      ]
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', true],
+        ['element/enter', 'id3', true],
+        ['element/enter:children', 'id3', true],
+        ['element/enter', 'id4', true],
+        ['element/enter:children', 'id4', true],
+        ['element/exit:children', 'id4', true],
+        ['element/exit', 'id4', true],
+        ['element/exit:children', 'id3', true],
+        ['element/exit', 'id3', true],
+        ['element/exit:children', 'id2', true],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+      ],
     });
 
     expectEvents({
@@ -484,28 +491,28 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', true  ],
-        [ 'element/enter:children', 'id1', true  ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', 'foo' ],
-        [ 'element/enter',          'id3', 'foo' ],
-        [ 'element/enter:children', 'id3', 'foo' ],
-        [ 'element/enter',          'id4', 'foo' ],
-        [ 'element/enter:children', 'id4', 'foo' ],
-        [ 'element/exit:children',  'id4', 'foo' ],
-        [ 'element/exit',           'id4', 'foo' ],
-        [ 'element/exit:children',  'id3', 'foo' ],
-        [ 'element/exit',           'id3', 'foo' ],
-        [ 'element/exit:children',  'id2', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', true  ],
-        [ 'element/exit',           'id1', true  ]
-      ]
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', 'foo'],
+        ['element/enter', 'id3', 'foo'],
+        ['element/enter:children', 'id3', 'foo'],
+        ['element/enter', 'id4', 'foo'],
+        ['element/enter:children', 'id4', 'foo'],
+        ['element/exit:children', 'id4', 'foo'],
+        ['element/exit', 'id4', 'foo'],
+        ['element/exit:children', 'id3', 'foo'],
+        ['element/exit', 'id3', 'foo'],
+        ['element/exit:children', 'id2', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+      ],
     });
 
     expectEvents({
@@ -517,30 +524,30 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', 'foo' ],
-        [ 'element/enter:children', 'id1', 'foo' ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', 'foo' ],
-        [ 'element/enter',          'id3', 'bar' ],
-        [ 'element/enter:children', 'id3', 'foo' ],
-        [ 'element/enter',          'id4', 'foo' ],
-        [ 'element/enter:children', 'id4', 'foo' ],
-        [ 'element/exit:children',  'id4', 'foo' ],
-        [ 'element/exit',           'id4', 'foo' ],
-        [ 'element/exit:children',  'id3', 'foo' ],
-        [ 'comment/enter',          '',    'bar' ],
-        [ 'comment/exit',           '',    'bar' ],
-        [ 'element/exit',           'id3', 'bar' ],
-        [ 'element/exit:children',  'id2', 'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/exit',           'id1', 'foo' ]
-      ]
+        ['element/enter', 'id1', 'foo'],
+        ['element/enter:children', 'id1', 'foo'],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', 'foo'],
+        ['element/enter', 'id3', 'bar'],
+        ['element/enter:children', 'id3', 'foo'],
+        ['element/enter', 'id4', 'foo'],
+        ['element/enter:children', 'id4', 'foo'],
+        ['element/exit:children', 'id4', 'foo'],
+        ['element/exit', 'id4', 'foo'],
+        ['element/exit:children', 'id3', 'foo'],
+        ['comment/enter', '', 'bar'],
+        ['comment/exit', '', 'bar'],
+        ['element/exit', 'id3', 'bar'],
+        ['element/exit:children', 'id2', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'foo'],
+        ['element/exit', 'id1', 'foo'],
+      ],
     });
 
     expectEvents({
@@ -552,30 +559,30 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', 'foo' ],
-        [ 'element/enter:children', 'id1', 'foo' ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', 'foo' ],
-        [ 'element/enter',          'id3', 'bar' ],
-        [ 'element/enter:children', 'id3', 'bar' ],
-        [ 'element/enter',          'id4', 'bar' ],
-        [ 'element/enter:children', 'id4', 'bar' ],
-        [ 'element/exit:children',  'id4', 'bar' ],
-        [ 'element/exit',           'id4', 'bar' ],
-        [ 'element/exit:children',  'id3', 'bar' ],
-        [ 'comment/enter',          '',    'bar' ],
-        [ 'comment/exit',           '',    'bar' ],
-        [ 'element/exit',           'id3', 'bar' ],
-        [ 'element/exit:children',  'id2', 'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/exit',           'id1', 'foo' ]
-      ]
+        ['element/enter', 'id1', 'foo'],
+        ['element/enter:children', 'id1', 'foo'],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', 'foo'],
+        ['element/enter', 'id3', 'bar'],
+        ['element/enter:children', 'id3', 'bar'],
+        ['element/enter', 'id4', 'bar'],
+        ['element/enter:children', 'id4', 'bar'],
+        ['element/exit:children', 'id4', 'bar'],
+        ['element/exit', 'id4', 'bar'],
+        ['element/exit:children', 'id3', 'bar'],
+        ['comment/enter', '', 'bar'],
+        ['comment/exit', '', 'bar'],
+        ['element/exit', 'id3', 'bar'],
+        ['element/exit:children', 'id2', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'foo'],
+        ['element/exit', 'id1', 'foo'],
+      ],
     });
 
     expectEvents({
@@ -588,30 +595,30 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', 'foo' ],
-        [ 'element/enter:children', 'id1', 'foo' ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'bar' ],
-        [ 'element/enter',          'id3', 'bar' ],
-        [ 'element/enter:children', 'id3', 'bar' ],
-        [ 'element/enter',          'id4', 'bar' ],
-        [ 'element/enter:children', 'id4', 'bar' ],
-        [ 'element/exit:children',  'id4', 'bar' ],
-        [ 'element/exit',           'id4', 'bar' ],
-        [ 'element/exit:children',  'id3', 'bar' ],
-        [ 'element/exit',           'id3', 'bar' ],
-        [ 'element/exit:children',  'id2', 'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/exit',           'id1', 'foo' ]
-      ]
+        ['element/enter', 'id1', 'foo'],
+        ['element/enter:children', 'id1', 'foo'],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'bar'],
+        ['element/enter', 'id3', 'bar'],
+        ['element/enter:children', 'id3', 'bar'],
+        ['element/enter', 'id4', 'bar'],
+        ['element/enter:children', 'id4', 'bar'],
+        ['element/exit:children', 'id4', 'bar'],
+        ['element/exit', 'id4', 'bar'],
+        ['element/exit:children', 'id3', 'bar'],
+        ['element/exit', 'id3', 'bar'],
+        ['element/exit:children', 'id2', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'foo'],
+        ['element/exit', 'id1', 'foo'],
+      ],
     });
 
     expectEvents({
@@ -627,26 +634,26 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', 'foo' ],
-        [ 'element/enter:children', 'id1', 'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'bar' ],
-        [ 'element/enter',          'id2', 'bar' ],
-        [ 'element/enter:children', 'id2', 'bar' ],
-        [ 'comment/enter',          '',    'bar' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/enter',          'id4', 'foo' ],
-        [ 'element/enter:children', 'id4', 'foo' ],
-        [ 'element/exit:children',  'id4', 'foo' ],
-        [ 'element/exit',           'id4', 'foo' ],
-        [ 'element/exit:children',  'id2', 'bar' ],
-        [ 'element/exit',           'id2', 'bar' ],
-        [ 'element/exit:children',  'id1', 'foo' ],
-        [ 'element/exit',           'id1', 'foo' ]
-      ]
+        ['element/enter', 'id1', 'foo'],
+        ['element/enter:children', 'id1', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'bar'],
+        ['element/enter', 'id2', 'bar'],
+        ['element/enter:children', 'id2', 'bar'],
+        ['comment/enter', '', 'bar'],
+        ['comment/exit', '', 'foo'],
+        ['element/enter', 'id4', 'foo'],
+        ['element/enter:children', 'id4', 'foo'],
+        ['element/exit:children', 'id4', 'foo'],
+        ['element/exit', 'id4', 'foo'],
+        ['element/exit:children', 'id2', 'bar'],
+        ['element/exit', 'id2', 'bar'],
+        ['element/exit:children', 'id1', 'foo'],
+        ['element/exit', 'id1', 'foo'],
+      ],
     });
 
     expectEvents({
@@ -656,21 +663,21 @@ describe('base plugin', function() {
         '<div id="id1">',
         '  {{! template-lint-enable fake }}',
         '  <span id="id2"></span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'comment/exit',           '',    true  ],
-        [ 'element/enter',          'id2', true  ],
-        [ 'element/enter:children', 'id2', true  ],
-        [ 'element/exit:children',  'id2', true  ],
-        [ 'element/exit',           'id2', true  ]
-      ]
+        ['comment/exit', '', true],
+        ['element/enter', 'id2', true],
+        ['element/enter:children', 'id2', true],
+        ['element/exit:children', 'id2', true],
+        ['element/exit', 'id2', true],
+      ],
     });
 
     // Not really a case that makes sense, but just to be sure it doesn't mess
     // up the config stack
     expectEvents({
-      desc: 'ensures this pretty silly case doesn\'t mess up the config stack',
+      desc: "ensures this pretty silly case doesn't mess up the config stack",
       template: [
         '<div id="id1">',
         '  <span id="id2" {{! template-lint-configure fake "bar" }} {{! template-lint-configure fake "foo" }}>',
@@ -678,34 +685,34 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', true  ],
-        [ 'element/enter:children', 'id1', true  ],
-        [ 'element/enter',          'id2', 'foo' ],
-        [ 'element/enter:children', 'id2', true  ],
-        [ 'element/enter',          'id3', true  ],
-        [ 'element/enter:children', 'id3', true  ],
-        [ 'element/enter',          'id4', true  ],
-        [ 'element/enter:children', 'id4', true  ],
-        [ 'element/exit:children',  'id4', true  ],
-        [ 'element/exit',           'id4', true  ],
-        [ 'element/exit:children',  'id3', true  ],
-        [ 'element/exit',           'id3', true  ],
-        [ 'element/exit:children',  'id2', true  ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'comment/enter',          '',    'foo' ],
-        [ 'comment/exit',           '',    'foo' ],
-        [ 'element/exit',           'id2', 'foo' ],
-        [ 'element/exit:children',  'id1', true  ],
-        [ 'element/exit',           'id1', true  ]
-      ]
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['element/enter', 'id2', 'foo'],
+        ['element/enter:children', 'id2', true],
+        ['element/enter', 'id3', true],
+        ['element/enter:children', 'id3', true],
+        ['element/enter', 'id4', true],
+        ['element/enter:children', 'id4', true],
+        ['element/exit:children', 'id4', true],
+        ['element/exit', 'id4', true],
+        ['element/exit:children', 'id3', true],
+        ['element/exit', 'id3', true],
+        ['element/exit:children', 'id2', true],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'foo'],
+        ['comment/enter', '', 'foo'],
+        ['comment/exit', '', 'foo'],
+        ['element/exit', 'id2', 'foo'],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+      ],
     });
 
     expectEvents({
-      desc: 'it doesn\'t call a disabled rule\'s visitor handlers',
+      desc: "it doesn't call a disabled rule's visitor handlers",
       template: [
         '<div id="id1">',
         '  <span id="id2" {{! template-lint-disable fake }}>',
@@ -713,24 +720,24 @@ describe('base plugin', function() {
         '      <b id="id4"/>',
         '    </i>',
         '  </span>',
-        '</div>'
+        '</div>',
       ].join('\n'),
       events: [
-        [ 'element/enter',          'id1', true  ],
-        [ 'element/enter:children', 'id1', true  ],
-        [ 'element/enter:children', 'id2', true  ],
-        [ 'element/enter',          'id3', true  ],
-        [ 'element/enter:children', 'id3', true  ],
-        [ 'element/enter',          'id4', true  ],
-        [ 'element/enter:children', 'id4', true  ],
-        [ 'element/exit:children',  'id4', true  ],
-        [ 'element/exit',           'id4', true  ],
-        [ 'element/exit:children',  'id3', true  ],
-        [ 'element/exit',           'id3', true  ],
-        [ 'element/exit:children',  'id2', true  ],
-        [ 'element/exit:children',  'id1', true  ],
-        [ 'element/exit',           'id1', true  ]
-      ]
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['element/enter:children', 'id2', true],
+        ['element/enter', 'id3', true],
+        ['element/enter:children', 'id3', true],
+        ['element/enter', 'id4', true],
+        ['element/enter:children', 'id4', true],
+        ['element/exit:children', 'id4', true],
+        ['element/exit', 'id4', true],
+        ['element/exit:children', 'id3', true],
+        ['element/exit', 'id3', true],
+        ['element/exit:children', 'id2', true],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+      ],
     });
   });
 });

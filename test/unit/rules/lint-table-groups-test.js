@@ -17,27 +17,24 @@ generateRuleTests({
     '<table><tfoot><tr><td>Footer</td></tr></tfoot></table>',
     '<table>' +
       '<thead>' +
-        '<tr><td>Header</td></tr>' +
+      '<tr><td>Header</td></tr>' +
       '</thead>' +
       '<tbody>' +
-        '<tr><td>Body</td></tr>' +
+      '<tr><td>Body</td></tr>' +
       '</tbody>' +
       '<tfoot>' +
-        '<tr><td>Footer</td></tr>' +
+      '<tr><td>Footer</td></tr>' +
       '</tfoot>' +
-    '</table>',
+      '</table>',
     '<table>' +
       '<colgroup>' +
-        '<col style="background-color: red">' +
+      '<col style="background-color: red">' +
       '</colgroup>' +
       '<tbody>' +
-        '<tr><td>Body</td></tr>' +
+      '<tr><td>Body</td></tr>' +
       '</tbody>' +
-    '</table>',
-    '<table>\n' +
-      '<tbody>\n' +
-      '</tbody>\n' +
-    '</table>',
+      '</table>',
+    '<table>\n' + '<tbody>\n' + '</tbody>\n' + '</table>',
   ],
 
   bad: [
@@ -49,8 +46,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<table><tr><td>Foo</td></tr></table>',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '<table>{{some-component}}</table>',
@@ -60,8 +57,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<table>{{some-component}}</table>',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
@@ -71,25 +68,19 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
-      template: '<table>' +
-          '<tr></tr>' +
-          '<tbody><tr><td>Foo</td></tr></tbody>' +
-        '</table>',
+      template: '<table>' + '<tr></tr>' + '<tbody><tr><td>Foo</td></tr></tbody>' + '</table>',
 
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: '<table>' +
-            '<tr></tr>' +
-            '<tbody><tr><td>Foo</td></tr></tbody>' +
-          '</table>',
+        source: '<table>' + '<tr></tr>' + '<tbody><tr><td>Foo</td></tr></tbody>' + '</table>',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '<table> whitespace<thead></thead></table>',
@@ -99,8 +90,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<table> whitespace<thead></thead></table>',
         line: 1,
-        column: 0
-      }
-    }
-  ]
+        column: 0,
+      },
+    },
+  ],
 });

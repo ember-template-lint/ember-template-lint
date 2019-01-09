@@ -26,74 +26,74 @@ generateRuleTests({
     '<wbr>',
     {
       config: 'require',
-      template: '<area/>'
+      template: '<area/>',
     },
     {
       config: 'require',
-      template: '<base/>'
+      template: '<base/>',
     },
     {
       config: 'require',
-      template: '<br/>'
+      template: '<br/>',
     },
     {
       config: 'require',
-      template: '<col/>'
+      template: '<col/>',
     },
     {
       config: 'require',
-      template: '<command/>'
+      template: '<command/>',
     },
     {
       config: 'require',
-      template: '<embed/>'
+      template: '<embed/>',
     },
     {
       config: 'require',
-      template: '<hr/>'
+      template: '<hr/>',
     },
     {
       config: 'require',
-      template: '<img/>'
+      template: '<img/>',
     },
     {
       config: 'require',
-      template: '<input/>'
+      template: '<input/>',
     },
     {
       config: 'require',
-      template: '<keygen/>'
+      template: '<keygen/>',
     },
     {
       config: 'require',
-      template: '<link/>'
+      template: '<link/>',
     },
     {
       config: 'require',
-      template: '<meta/>'
+      template: '<meta/>',
     },
     {
       config: 'require',
-      template: '<param/>'
+      template: '<param/>',
     },
     {
       config: 'require',
-      template: '<source/>'
+      template: '<source/>',
     },
     {
       config: 'require',
-      template: '<track/>'
+      template: '<track/>',
     },
     {
       config: 'require',
-      template: '<wbr/>'
-    }
+      template: '<wbr/>',
+    },
   ],
 
   bad: [
     {
       template: '<area/>',
-      message: 'Self-closing void element as <area> is redundant (\'layout.hbs\'@ L1:C0)',
+      message: "Self-closing void element as <area> is redundant ('layout.hbs'@ L1:C0)",
 
       result: {
         message: 'Self-closing a void element is redundant',
@@ -102,9 +102,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<area>'
-        }
-      }
+          text: '<area>',
+        },
+      },
     },
     {
       template: '<base/>',
@@ -116,9 +116,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<base>'
-        }
-      }
+          text: '<base>',
+        },
+      },
     },
     {
       template: '<br/>',
@@ -130,9 +130,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<br>'
-        }
-      }
+          text: '<br>',
+        },
+      },
     },
     {
       template: '<col/>',
@@ -144,9 +144,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<col>'
-        }
-      }
+          text: '<col>',
+        },
+      },
     },
     {
       template: '<command/>',
@@ -158,9 +158,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<command>'
-        }
-      }
+          text: '<command>',
+        },
+      },
     },
     {
       template: '<embed/>',
@@ -172,9 +172,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<embed>'
-        }
-      }
+          text: '<embed>',
+        },
+      },
     },
     {
       template: '<hr/>',
@@ -186,9 +186,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<hr>'
-        }
-      }
+          text: '<hr>',
+        },
+      },
     },
     {
       template: '<img/>',
@@ -200,9 +200,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<img>'
-        }
-      }
+          text: '<img>',
+        },
+      },
     },
     {
       template: '<input/>',
@@ -214,9 +214,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<input>'
-        }
-      }
+          text: '<input>',
+        },
+      },
     },
     {
       template: '<keygen/>',
@@ -228,9 +228,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<keygen>'
-        }
-      }
+          text: '<keygen>',
+        },
+      },
     },
     {
       template: '<link/>',
@@ -242,9 +242,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<link>'
-        }
-      }
+          text: '<link>',
+        },
+      },
     },
     {
       template: '<meta/>',
@@ -256,9 +256,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<meta>'
-        }
-      }
+          text: '<meta>',
+        },
+      },
     },
     {
       template: '<param/>',
@@ -270,9 +270,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<param>'
-        }
-      }
+          text: '<param>',
+        },
+      },
     },
     {
       template: '<source/>',
@@ -284,9 +284,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<source>'
-        }
-      }
+          text: '<source>',
+        },
+      },
     },
     {
       template: '<track/>',
@@ -298,9 +298,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<track>'
-        }
-      }
+          text: '<track>',
+        },
+      },
     },
     {
       template: '<wbr/>',
@@ -313,9 +313,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<wbr>'
-        }
-      }
+          text: '<wbr>',
+        },
+      },
     },
     {
       template: '<area>',
@@ -328,9 +328,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<area/>'
-        }
-      }
+          text: '<area/>',
+        },
+      },
     },
     {
       template: '<base>',
@@ -343,9 +343,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<base/>'
-        }
-      }
+          text: '<base/>',
+        },
+      },
     },
     {
       template: '<br>',
@@ -358,9 +358,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<br/>'
-        }
-      }
+          text: '<br/>',
+        },
+      },
     },
     {
       template: '<col>',
@@ -373,9 +373,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<col/>'
-        }
-      }
+          text: '<col/>',
+        },
+      },
     },
     {
       template: '<command>',
@@ -388,9 +388,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<command/>'
-        }
-      }
+          text: '<command/>',
+        },
+      },
     },
     {
       template: '<embed>',
@@ -403,9 +403,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<embed/>'
-        }
-      }
+          text: '<embed/>',
+        },
+      },
     },
     {
       template: '<hr>',
@@ -418,9 +418,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<hr/>'
-        }
-      }
+          text: '<hr/>',
+        },
+      },
     },
     {
       template: '<img>',
@@ -433,9 +433,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<img/>'
-        }
-      }
+          text: '<img/>',
+        },
+      },
     },
     {
       template: '<input>',
@@ -448,9 +448,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<input/>'
-        }
-      }
+          text: '<input/>',
+        },
+      },
     },
     {
       template: '<keygen>',
@@ -463,9 +463,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<keygen/>'
-        }
-      }
+          text: '<keygen/>',
+        },
+      },
     },
     {
       template: '<link>',
@@ -478,9 +478,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<link/>'
-        }
-      }
+          text: '<link/>',
+        },
+      },
     },
     {
       template: '<meta>',
@@ -493,9 +493,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<meta/>'
-        }
-      }
+          text: '<meta/>',
+        },
+      },
     },
     {
       template: '<param>',
@@ -508,9 +508,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<param/>'
-        }
-      }
+          text: '<param/>',
+        },
+      },
     },
     {
       template: '<source>',
@@ -523,9 +523,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<source/>'
-        }
-      }
+          text: '<source/>',
+        },
+      },
     },
     {
       template: '<track>',
@@ -538,9 +538,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<track/>'
-        }
-      }
+          text: '<track/>',
+        },
+      },
     },
     {
       template: '<wbr>',
@@ -553,9 +553,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '<wbr/>'
-        }
-      }
-    }
-  ]
+          text: '<wbr/>',
+        },
+      },
+    },
+  ],
 });

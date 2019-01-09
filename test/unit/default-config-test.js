@@ -25,7 +25,7 @@ describe('default configurations', function() {
 
         for (let rule in config.rules) {
           let options = {
-            config: config.rules[rule]
+            config: config.rules[rule],
           };
 
           expect(function() {

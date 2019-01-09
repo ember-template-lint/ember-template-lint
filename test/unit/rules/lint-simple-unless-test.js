@@ -7,85 +7,81 @@ generateRuleTests({
   name: 'simple-unless',
   config: {
     whitelist: ['or', 'eq', 'not-eq'],
-    maxHelpers: 2
+    maxHelpers: 2,
   },
 
   good: [
-    '{{#unless isRed}}I\'m blue, da ba dee da ba daa{{/unless}}',
+    "{{#unless isRed}}I'm blue, da ba dee da ba daa{{/unless}}",
     '<div class="{{unless foo \'no-foo\'}}"></div>',
     '<div class="{{if foo \'foo\'}}"></div>',
     '{{unrelated-mustache-without-params}}',
     '{{#if foo}}{{else}}{{/if}}',
     '{{#unless (or foo bar)}}order whiskey{{/unless}}',
     '{{#unless (eq (or foo bar) baz)}}order whiskey{{/unless}}',
-    [
-      '{{#unless hamburger}}',
-      '  HOT DOG!',
-      '{{/unless}}'
-    ].join('\n'),
+    ['{{#unless hamburger}}', '  HOT DOG!', '{{/unless}}'].join('\n'),
     {
       config: true,
-      template: '{{unless foo bar}}'
+      template: '{{unless foo bar}}',
     },
     {
       config: {
         whitelist: ['or', 'eq', 'not-eq'],
-        maxHelpers: 2
+        maxHelpers: 2,
       },
-      template: '{{unless (eq foo bar) baz}}'
+      template: '{{unless (eq foo bar) baz}}',
     },
     {
       config: {
         whitelist: [],
-        maxHelpers: 2
+        maxHelpers: 2,
       },
-      template: '{{unless (eq (not foo) bar) baz}}'
+      template: '{{unless (eq (not foo) bar) baz}}',
     },
     {
       config: {
-        maxHelpers: 2
+        maxHelpers: 2,
       },
-      template: '{{unless (eq (not foo) bar) baz}}'
-    }
+      template: '{{unless (eq (not foo) bar) baz}}',
+    },
   ],
 
   bad: [
     {
       config: {
         whitelist: ['or', 'eq', 'not-eq'],
-        maxHelpers: 2
+        maxHelpers: 2,
       },
-      template: '{{unless (if (or true))  \'Please no\'}}',
+      template: "{{unless (if (or true))  'Please no'}}",
 
       result: {
         message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
-        column: 9
-      }
+        column: 9,
+      },
     },
     {
-      template: '{{unless (if true)  \'Please no\'}}',
+      template: "{{unless (if true)  'Please no'}}",
 
       result: {
         message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
-        column: 9
-      }
+        column: 9,
+      },
     },
     {
-      template: '{{unless (and isBad isAwful)  \'notBadAndAwful\'}}',
+      template: "{{unless (and isBad isAwful)  'notBadAndAwful'}}",
 
       result: {
         message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
-        column: 9
-      }
+        column: 9,
+      },
     },
     {
       template: [
@@ -93,7 +89,7 @@ generateRuleTests({
         '  Go Niners!',
         '{{else}}',
         '  Go Seahawks!',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -101,23 +97,19 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 3,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
-      template: [
-        '{{#unless bandwagoner}}',
-        '{{else}}',
-        '{{/unless}}'
-      ].join('\n'),
+      template: ['{{#unless bandwagoner}}', '{{else}}', '{{/unless}}'].join('\n'),
 
       result: {
         message: messages.followingElseBlock,
         moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 2,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: [
@@ -125,7 +117,7 @@ generateRuleTests({
         '{{else}}',
         '  {{#my-component}}',
         '  {{/my-component}}',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -133,8 +125,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 2,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: [
@@ -142,7 +134,7 @@ generateRuleTests({
         '  Go Niners!',
         '{{else if goHawks}}',
         '  Go Seahawks!',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -150,8 +142,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{else if goHawks}}',
         line: 3,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: [
@@ -161,7 +153,7 @@ generateRuleTests({
         '  Tom Brady is GOAT',
         '{{else if goHawks}}',
         '  Go Seahawks!',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -169,8 +161,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{else if goPats}}',
         line: 3,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: [
@@ -180,7 +172,7 @@ generateRuleTests({
         '  Ouch, sorry',
         '{{else}}',
         '  Go Seahawks!',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -188,31 +180,27 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{else if goBengals}}',
         line: 3,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
-      template: [
-        '{{#if dog}}',
-        '  Ruff Ruff!',
-        '{{else unless cat}}',
-        '  not cat',
-        '{{/if}}'
-      ].join('\n'),
+      template: ['{{#if dog}}', '  Ruff Ruff!', '{{else unless cat}}', '  not cat', '{{/if}}'].join(
+        '\n'
+      ),
 
       result: {
         message: messages.asElseUnlessBlock,
         moduleId: 'layout.hbs',
         source: '{{else unless ...',
         line: 3,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: [
         '{{#unless (and isFruit isYellow)}}',
         '  I am a green celery!',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -220,14 +208,14 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
-        column: 10
-      }
+        column: 10,
+      },
     },
     {
       template: [
         '{{#unless (not isBrown isSticky)}}',
         '  I think I am a brown stick',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -235,8 +223,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{unless (not ...',
         line: 1,
-        column: 10
-      }
+        column: 10,
+      },
     },
     {
       template: [
@@ -244,7 +232,7 @@ generateRuleTests({
         '  I think I am a brown stick',
         '{{else}}',
         '  Not a brown stick',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -252,13 +240,14 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 3,
-        column: 0
-      }
-    },{
+        column: 0,
+      },
+    },
+    {
       template: [
         '{{#unless (or (eq foo bar) (not-eq baz "beer"))}}',
         '  MUCH HELPERS, VERY BAD',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
@@ -266,63 +255,71 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{unless (... (not-eq ...',
         line: 1,
-        column: 27
-      }
-    },{
+        column: 27,
+      },
+    },
+    {
       config: true,
       template: [
         '{{#unless (concat "blue" "red")}}',
         '  I think I am a brown stick',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
-        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0',
+        message:
+          'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0',
         source: '{{unless (concat ...',
         line: 1,
-        column: 10
-      }
-    },{
+        column: 10,
+      },
+    },
+    {
       config: {
         whitelist: ['test'],
-        maxHelpers: 1
+        maxHelpers: 1,
       },
       template: [
         '{{#unless (one (test power) two)}}',
         '  I think I am a brown stick',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       results: [
         {
-          message: 'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: test',
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: test',
           source: '{{unless (one ...',
           line: 1,
-          column: 10
-        },{
-          message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1',
+          column: 10,
+        },
+        {
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1',
           source: '{{unless (... (test ...',
           line: 1,
-          column: 15
-        }
-      ]
-    },{
+          column: 15,
+        },
+      ],
+    },
+    {
       config: {
         whitelist: [],
-        maxHelpers: 2
+        maxHelpers: 2,
       },
       template: [
         '{{#unless (one (two three) (four five))}}',
         '  I think I am a brown stick',
-        '{{/unless}}'
+        '{{/unless}}',
       ].join('\n'),
 
       result: {
-        message: 'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2',
+        message:
+          'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2',
         source: '{{unless (... (four ...',
         line: 1,
-        column: 27
-      }
-    }
-  ]
+        column: 27,
+      },
+    },
+  ],
 });

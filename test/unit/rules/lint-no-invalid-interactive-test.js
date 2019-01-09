@@ -20,12 +20,12 @@ generateRuleTests({
     '{{#with (hash bar=(component "foo")) as |foo|}}<foo.bar @onInput={{action "foo"}}></foo.bar>{{/with}}',
     {
       config: { additionalInteractiveTags: ['div'] },
-      template: '<div {{action "foo"}}></div>'
+      template: '<div {{action "foo"}}></div>',
     },
     {
       config: { additionalInteractiveTags: ['div'] },
-      template: '<div onclick={{action "foo"}}></div>'
-    }
+      template: '<div onclick={{action "foo"}}></div>',
+    },
   ],
 
   bad: [
@@ -36,8 +36,8 @@ generateRuleTests({
         message: 'Interaction added to non-interactive element',
         line: 1,
         column: 5,
-        source: '<div {{action "foo"}}></div>'
-      }
+        source: '<div {{action "foo"}}></div>',
+      },
     },
 
     {
@@ -47,8 +47,8 @@ generateRuleTests({
         message: 'Interaction added to non-interactive element',
         line: 1,
         column: 5,
-        source: '<div onclick={{action "foo"}}></div>'
-      }
+        source: '<div onclick={{action "foo"}}></div>',
+      },
     },
 
     {
@@ -58,8 +58,8 @@ generateRuleTests({
         message: 'Interaction added to non-interactive element',
         line: 1,
         column: 5,
-        source: '<div onsubmit={{action "foo"}}></div>'
-      }
+        source: '<div onsubmit={{action "foo"}}></div>',
+      },
     },
 
     {
@@ -69,8 +69,8 @@ generateRuleTests({
         message: 'Interaction added to non-interactive element',
         line: 1,
         column: 6,
-        source: '<form {{action "foo" on="click"}}></form>'
-      }
+        source: '<form {{action "foo" on="click"}}></form>',
+      },
     },
 
     {
@@ -80,8 +80,8 @@ generateRuleTests({
         message: 'Interaction added to non-interactive element',
         line: 1,
         column: 5,
-        source: '<div {{action "foo" on="submit"}}></div>'
-      }
-    }
-  ]
+        source: '<div {{action "foo" on="submit"}}></div>',
+      },
+    },
+  ],
 });

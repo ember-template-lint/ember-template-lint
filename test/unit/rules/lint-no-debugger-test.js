@@ -8,10 +8,7 @@ generateRuleTests({
 
   config: true,
 
-  good: [
-    '{{foo}}',
-    '{{button}}'
-  ],
+  good: ['{{foo}}', '{{button}}'],
 
   bad: [
     {
@@ -22,8 +19,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{debugger}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{debugger}}',
@@ -33,8 +30,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{debugger}}',
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
       template: '{{#debugger}}Invalid!{{/debugger}}',
@@ -44,8 +41,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '{{#debugger}}Invalid!{{/debugger}}',
         line: 1,
-        column: 0
-      }
-    }
-  ]
+        column: 0,
+      },
+    },
+  ],
 });

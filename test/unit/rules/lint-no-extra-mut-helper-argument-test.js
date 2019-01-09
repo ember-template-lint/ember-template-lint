@@ -13,7 +13,7 @@ generateRuleTests({
     '{{my-component click=(action (mut isClicked) true)}}',
     '{{my-component isClickedMutable=(mut isClicked)}}',
     '<button {{action (mut isClicked)}}></button>',
-    '<button {{action (mut isClicked) true}}></button>'
+    '<button {{action (mut isClicked) true}}></button>',
   ],
 
   bad: [
@@ -25,8 +25,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '(mut isClicked true)',
         line: 1,
-        column: 29
-      }
+        column: 29,
+      },
     },
     {
       template: '{{my-component isClickedMutable=(mut isClicked true)}}',
@@ -36,8 +36,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '(mut isClicked true)',
         line: 1,
-        column: 32
-      }
+        column: 32,
+      },
     },
     {
       template: '<button {{action (mut isClicked true)}}></button>',
@@ -47,8 +47,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '(mut isClicked true)',
         line: 1,
-        column: 17
-      }
-    }
-  ]
+        column: 17,
+      },
+    },
+  ],
 });
