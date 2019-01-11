@@ -1,6 +1,6 @@
 ## no-unnecessary-concat
 
-This rule forbids unnecessary use of ` " ` when wrapping `concat` instances or use of `{{some.value}}` hbs.
+This rule forbids unnecessary use of quotes (`""`) around expressions like `{{myValue}}`.
 
 This rule **forbids** the following:
 
@@ -10,12 +10,6 @@ This rule **forbids** the following:
 <img src="{{customSrc}}" alt="{{customAlt}}">
 
 <label for="{{concat elementId "-date"}}">
-
-{{radio-button
-  groupValue=selectedFilter
-  radioId=(concat "filter-" i)
-  radioClass="custom-control-input"
-}}
 ```
 This rule **allows** the following:
 
@@ -25,10 +19,12 @@ This rule **allows** the following:
 <img src={{customSrc}} alt={{customAlt}}>
 
 <label for={{concat elementId "-date"}}>
-
-{{radio-button
-  groupValue=selectedFilter
-  radioId=(concat "filter-" i)
-  radioClass="custom-control-input"
-}}
 ```
+
+### Migration
+
+Use regexp find-and-replace to fix existing violations of this rule:
+
+| Before | After |
+| --- | --- |
+| `="{{([^{]+)}}"` | `={{$1}}` |
