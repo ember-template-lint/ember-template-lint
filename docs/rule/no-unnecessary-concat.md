@@ -27,4 +27,4 @@ Use regexp find-and-replace to fix existing violations of this rule:
 
 | Before | After |
 | --- | --- |
-| `="{{([^{]+)}}"` | `={{$1}}` |
+| `="{{([^}]+)}}"` | `={{$1}}` |
