@@ -40,3 +40,7 @@ The following values are valid configuration:
   * object --
     * `whitelist` -- array - `['or']` for specific helpers / `[]` for wildcard
     * `maxHelpers` -- number
+
+### Related Rules
+
+  * [no-negated-condition](no-negated-condition.md)

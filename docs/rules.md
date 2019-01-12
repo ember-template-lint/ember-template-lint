@@ -22,6 +22,7 @@
 * [no-input-tagname](rule/no-input-tagname.md)
 * [no-invalid-interactive](rule/no-invalid-interactive.md)
 * [no-log](rule/no-log.md)
+* [no-negated-condition](rule/no-negated-condition.md)
 * [no-nested-interactive](rule/no-nested-interactive.md)
 * [no-outlet-outside-routes](rule/no-outlet-outside-routes.md)
 * [no-partial](rule/no-partial.md)
