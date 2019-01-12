@@ -1,7 +1,8 @@
-## simple-unless (default === true)
+## simple-unless
 
-This rule strongly advises against `{{unless}}` blocks used in conjunction with other
-block helpers (e.g. `{{else}}`, `{{else if}}`), and template helpers.
+This rule strongly advises against `{{unless}}` blocks used in conjunction with other block helpers (e.g. `{{else}}`, `{{else if}}`), and template helpers.
+
+Common solutions are to use an `{{if}}` block, or refactor potentially confusing logic within the template.
 
 This rule **forbids** the following:
 
@@ -21,8 +22,7 @@ This rule **forbids** the following:
 {{/unless}}
 ```
 
-Common solutions are to use an `{{if}}` block, or refactor potentially confusing
-logic within the template.
+This rule **allows** the following:
 
 ``` hbs
 {{#if bandwagoner}}

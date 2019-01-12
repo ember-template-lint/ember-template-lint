@@ -1,6 +1,12 @@
 ## table-groups
 
-A table row should always be grouped into either a `thead`, `tbody` or `tfoot` to avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
+It is best practice to group table rows into one of:
+
+* `thead`
+* `tbody`
+* `tfoot`
+
+This helps avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
 
 This rule **forbids** the following:
 
@@ -38,11 +44,11 @@ This rule **allows** the following:
 </table>
 ```
 
-If you have a component which `tagName` is either `thead`, `tbody` or `tfoot`, you should disable the rule inline:
+If you have a component with one of the table groups specified as its `tagName`, you should disable the rule inline:
 
 ```hbs
 <table>
   {{! template-lint-disable table-groups }}
-  {{some-thing-with-tagName-tbody}}
+  {{some-component-with-tagName-tbody}}
 </table>
 ```

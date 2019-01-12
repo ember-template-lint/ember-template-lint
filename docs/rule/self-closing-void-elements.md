@@ -1,9 +1,7 @@
 ## self-closing-void-elements
 
-HTML has no self-closing tags. The HTML 5 parser will ignore self-closing tag in
-the case of [`void elements`](https://www.w3.org/TR/html-markup/syntax.html#void-element)
-(tags that shouldn't have a `closing tag`). Although the parser will ignore it's
-unnecessary and can lead to confusing with SVG/XML code.
+HTML has no self-closing tags. The HTML5 parser will ignore self-closing tag in the case of [void elements](https://www.w3.org/TR/html-markup/syntax.html#void-element) (tags that shouldn't have a "closing tag"). Although the parser will ignore it, it's
+unnecessary and can lead to confusion with SVG/XML code.
 
 This rule **forbids** the following:
 

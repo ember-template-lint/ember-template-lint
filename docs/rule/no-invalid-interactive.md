@@ -11,8 +11,6 @@ This rule **forbids** the following:
 
 This rule **allows** the following:
 
-Instead, you should add a `role` to the element in question so that the A/T is aware that it is interactive:
-
 ```hbs
 <div role="button" {{action "foo"}}></div>
 ```
@@ -26,4 +24,4 @@ The following values are valid configuration (same as the `no-nested-interactive
     * `ignoredTags` - An array of element tag names that should be whitelisted. Default to `[]`.
     * `ignoreTabindex` - When `true` tabindex will be ignored. Defaults to `false`.
     * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
-    * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.'
+    * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.

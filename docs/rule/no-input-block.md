@@ -1,11 +1,15 @@
 ## no-input-block
 
-`{{#input}}Some Content{{/input}}` will result in an error during render. This rule
-provides a helpful error at build time that otherwise might not be caught quickly at
-runtime.
+Use of the block form of the handlebars `input` helper will result in an error at runtime.
 
 This rule **forbids** the following:
 
 ```hbs
-{{#input}}{{/input}}
+{{#input}}Some Content{{/input}}
+```
+
+This rule **allows** the following:
+
+```hbs
+{{input type="text" value=this.firstName disabled=this.entryNotAllowed size="50"}}
 ```
