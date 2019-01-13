@@ -67,7 +67,12 @@ function getRelativeFilePaths() {
 
   var relativeFilePaths = fileArgs
     .reduce((filePaths, fileArg) => {
-      return filePaths.concat(globby.sync(fileArg, { gitignore: true }));
+      return filePaths.concat(
+        globby.sync(fileArg, {
+          ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+          gitignore: true,
+        })
+      );
     }, [])
     .filter(filePath => filePath.slice(-4) === '.hbs');
 
