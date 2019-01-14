@@ -27,7 +27,7 @@ generateRuleTests({
         source: 'attrs.foo',
         line: 1,
         column: 2,
-      }
+      },
     },
     {
       template: '<div class={{attrs.foo}}></div>',
@@ -43,7 +43,7 @@ generateRuleTests({
         source: 'attrs.foo',
         line: 1,
         column: 13,
-      }
+      },
     },
     {
       template: '{{#if attrs.foo}}bar{{/if}}',
@@ -59,7 +59,7 @@ generateRuleTests({
         source: 'attrs.foo',
         line: 1,
         column: 6,
-      }
+      },
     },
     {
       template: '{{bar foo=attrs.foo}}',
@@ -75,7 +75,7 @@ generateRuleTests({
         source: 'attrs.foo',
         line: 1,
         column: 10,
-      }
+      },
     },
     {
       template: '{{component attrs.foo}}',
@@ -91,7 +91,7 @@ generateRuleTests({
         source: 'attrs.foo',
         line: 1,
         column: 12,
-      }
+      },
     },
     {
       template: '{{bar/baz (hash foo=attrs.foo)}}',
@@ -107,7 +107,7 @@ generateRuleTests({
         source: 'attrs.foo',
         line: 1,
         column: 20,
-      }
+      },
     },
     {
       template: '{{attrs.foo}}',
@@ -123,7 +123,7 @@ generateRuleTests({
         source: 'attrs.foo',
         line: 1,
         column: 2,
-      }
-    }
-  ]
+      },
+    },
+  ],
 });

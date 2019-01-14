@@ -2,13 +2,13 @@
 
 Disallow certain components or helpers from being used. Use case is you bring in some addon like ember-composable-helpers, but your team deems one or many of the helpers not suitable and wants to guard against their usage.
 
-Given a config of
+Given a config of:
 
 ```js
 'invocable-blacklist': ['foo']
 ```
 
-#### Forbidden:
+This rule **forbids** the following:
 
 ```hbs
 {{foo}}
@@ -18,5 +18,6 @@ Given a config of
 {{#foo}}{{/foo}}
 ```
 
-#### Configuration:
+### Configuration
+
   * array of strings - helpers or components to blacklist

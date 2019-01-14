@@ -24,9 +24,7 @@ hence results in
   <span class="<my-app@controller:application::ember223>">John</span>
 ```
 
-
-
-Forbidden:
+This rule **forbids** the following:
 
 ```hbs
 
@@ -43,7 +41,7 @@ Forbidden:
 {{contact-details contact=(hash. name=name. age=age)}}
 ```
 
-Allowed:
+This rule **allows** the following:
 
 ```hbs
 
@@ -59,7 +57,3 @@ Allowed:
 
 {{contact-details contact=(hash name=name age=age)}}
 ```
-
-This rule is configured with one boolean value:
-
-  * boolean - `true` for enabled / `false` for disabled

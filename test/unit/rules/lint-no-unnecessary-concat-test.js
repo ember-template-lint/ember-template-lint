@@ -7,11 +7,7 @@ generateRuleTests({
 
   config: true,
 
-  good: [
-    '<div class={{clazz}}></div>',
-    '<div class="first {{second}}"></div>',
-    '"{{foo}}"',
-  ],
+  good: ['<div class={{clazz}}></div>', '<div class="first {{second}}"></div>', '"{{foo}}"'],
 
   bad: [
     {
@@ -28,19 +24,23 @@ generateRuleTests({
     {
       template: '<img src="{{url}}" alt="{{t "alternate-text"}}">',
 
-      results: [{
-        message: 'Unnecessary string concatenation. Use {{url}} instead of "{{url}}".',
-        moduleId: 'layout.hbs',
-        source: '"{{url}}"',
-        line: 1,
-        column: 9,
-      }, {
-        message: 'Unnecessary string concatenation. Use {{t "alternate-text"}} instead of "{{t "alternate-text"}}".',
-        moduleId: 'layout.hbs',
-        source: '"{{t "alternate-text"}}"',
-        line: 1,
-        column: 23,
-      }],
+      results: [
+        {
+          message: 'Unnecessary string concatenation. Use {{url}} instead of "{{url}}".',
+          moduleId: 'layout.hbs',
+          source: '"{{url}}"',
+          line: 1,
+          column: 9,
+        },
+        {
+          message:
+            'Unnecessary string concatenation. Use {{t "alternate-text"}} instead of "{{t "alternate-text"}}".',
+          moduleId: 'layout.hbs',
+          source: '"{{t "alternate-text"}}"',
+          line: 1,
+          column: 23,
+        },
+      ],
     },
   ],
 });

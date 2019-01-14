@@ -3,14 +3,14 @@
 This rule prevents ambiguity in situations where a yielded block param which starts with a lower case letter is also
 used within the block itself as an element name.
 
-The following code will throw an error:
+This rule **forbids** the following:
 
 ```hbs
 <FooBar as |div|>
   <div></div>
 </FooBar>
 ```
-The following code will be accepted:
+This rule **allows** the following:
 
 ```hbs
 {{#foo-bar as |Baz|}}

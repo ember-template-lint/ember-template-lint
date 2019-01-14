@@ -6,13 +6,15 @@ content elements nested inside other interactive content elements. Instead using
 nested interactive content elements you should separate them and put them one
 after the other.
 
-This rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 <button type="button">
   Click here and <a href="/">go to home here</a>
 </button>
 ```
+
+### Configuration
 
 The following values are valid configuration:
 

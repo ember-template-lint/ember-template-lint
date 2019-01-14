@@ -8,27 +8,27 @@ generateRuleTests({
   good: [
     {
       config: 'double',
-      template: `{{component "test"}}`
+      template: `{{component "test"}}`,
     },
     {
       config: 'double',
-      template: `{{hello x="test"}}`
+      template: `{{hello x="test"}}`,
     },
     {
       config: 'double',
-      template: `<input type="checkbox">`
+      template: `<input type="checkbox">`,
     },
     {
       config: 'single',
-      template: `{{component 'test'}}`
+      template: `{{component 'test'}}`,
     },
     {
       config: 'single',
-      template: `{{hello x='test'}}`
+      template: `{{hello x='test'}}`,
     },
     {
       config: 'single',
-      template: `<input type='checkbox'>`
+      template: `<input type='checkbox'>`,
     },
   ],
 
@@ -42,8 +42,8 @@ generateRuleTests({
         message: 'you must use double quotes in templates',
         line: 1,
         column: 12,
-        source: `'test'`
-      }
+        source: `'test'`,
+      },
     },
     {
       config: 'double',
@@ -54,8 +54,8 @@ generateRuleTests({
         message: 'you must use double quotes in templates',
         line: 1,
         column: 10,
-        source: `'test'`
-      }
+        source: `'test'`,
+      },
     },
     {
       config: 'double',
@@ -66,8 +66,8 @@ generateRuleTests({
         message: 'you must use double quotes in templates',
         line: 1,
         column: 12,
-        source: `'checkbox'`
-      }
+        source: `'checkbox'`,
+      },
     },
     {
       config: 'single',
@@ -78,8 +78,8 @@ generateRuleTests({
         message: 'you must use single quotes in templates',
         line: 1,
         column: 12,
-        source: `"test"`
-      }
+        source: `"test"`,
+      },
     },
     {
       config: 'single',
@@ -90,8 +90,8 @@ generateRuleTests({
         message: 'you must use single quotes in templates',
         line: 1,
         column: 10,
-        source: `"test"`
-      }
+        source: `"test"`,
+      },
     },
     {
       config: 'single',
@@ -102,9 +102,9 @@ generateRuleTests({
         message: 'you must use single quotes in templates',
         line: 1,
         column: 12,
-        source: `"checkbox"`
-      }
-    }
+        source: `"checkbox"`,
+      },
+    },
   ],
 
   error: [
@@ -115,8 +115,8 @@ generateRuleTests({
       result: {
         fatal: true,
         moduleId: 'layout.hbs',
-        message: 'You specified `"sometimes"`'
-      }
+        message: 'You specified `"sometimes"`',
+      },
     },
     {
       config: true,
@@ -125,8 +125,8 @@ generateRuleTests({
       result: {
         fatal: true,
         moduleId: 'layout.hbs',
-        message: 'You specified `true`'
-      }
-    }
-  ]
+        message: 'You specified `true`',
+      },
+    },
+  ],
 });

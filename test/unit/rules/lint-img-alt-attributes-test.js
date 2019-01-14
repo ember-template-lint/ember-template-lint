@@ -13,7 +13,7 @@ generateRuleTests({
     '<img alt="blah {{derp}}">',
     '<img aria-hidden="true">',
     '<img alt="">',
-    '<img alt>'
+    '<img alt>',
   ],
 
   bad: [
@@ -25,8 +25,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: '<img>',
         line: 1,
-        column: 0
-      }
-    }
-  ]
+        column: 0,
+      },
+    },
+  ],
 });

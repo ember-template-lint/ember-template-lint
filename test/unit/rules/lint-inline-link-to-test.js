@@ -9,32 +9,32 @@ generateRuleTests({
   config: true,
 
   good: [
-    '{{#link-to \'routeName\' prop}}Link text{{/link-to}}',
-    '{{#link-to \'routeName\'}}Link text{{/link-to}}'
+    "{{#link-to 'routeName' prop}}Link text{{/link-to}}",
+    "{{#link-to 'routeName'}}Link text{{/link-to}}",
   ],
 
   bad: [
     {
-      template: '{{link-to \'Link text\' \'routeName\'}}',
+      template: "{{link-to 'Link text' 'routeName'}}",
 
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: '{{link-to \'Link text\' \'routeName\'}}',
+        source: "{{link-to 'Link text' 'routeName'}}",
         line: 1,
-        column: 0
-      }
+        column: 0,
+      },
     },
     {
-      template: '{{link-to \'Link text\' \'routeName\' one two}}',
+      template: "{{link-to 'Link text' 'routeName' one two}}",
 
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: '{{link-to \'Link text\' \'routeName\' one two}}',
+        source: "{{link-to 'Link text' 'routeName' one two}}",
         line: 1,
-        column: 0
-      }
-    }
-  ]
+        column: 0,
+      },
+    },
+  ],
 });

@@ -1,8 +1,8 @@
 ## no-unnecessary-concat
 
-This rule forbids unnecessary use of ` " ` when wrapping `concat` instances or use of `{{some.value}}` hbs.
+This rule forbids unnecessary use of quotes (`""`) around expressions like `{{myValue}}`.
 
-The following code will throw an error:
+This rule **forbids** the following:
 
 ```hbs
 <span class="{{if errors.length 'text-danger' 'text-grey'}}">
@@ -10,14 +10,8 @@ The following code will throw an error:
 <img src="{{customSrc}}" alt="{{customAlt}}">
 
 <label for="{{concat elementId "-date"}}">
-
-{{radio-button
-  groupValue=selectedFilter
-  radioId=(concat "filter-" i)
-  radioClass="custom-control-input"
-}}
 ```
-The following code will be accepted:
+This rule **allows** the following:
 
 ```hbs
 <span class={{if errors.length 'text-danger' 'text-grey'}}>
@@ -25,10 +19,12 @@ The following code will be accepted:
 <img src={{customSrc}} alt={{customAlt}}>
 
 <label for={{concat elementId "-date"}}>
-
-{{radio-button
-  groupValue=selectedFilter
-  radioId=(concat "filter-" i)
-  radioClass="custom-control-input"
-}}
 ```
+
+### Migration
+
+Use regexp find-and-replace to fix existing violations of this rule:
+
+| Before | After |
+| --- | --- |
+| `="{{([^}]+)}}"` | `={{$1}}` |

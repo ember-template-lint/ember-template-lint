@@ -1,6 +1,5 @@
 'use strict';
 
-
 var Rule = require('../../../../lib/rules/base');
 var message = 'The inline form of component is not allowed';
 
@@ -13,10 +12,10 @@ module.exports = class InlineComponent extends Rule {
             message,
             line: node.loc && node.loc.start.line,
             column: node.loc && node.loc.start.column,
-            source: this.sourceForNode(node)
+            source: this.sourceForNode(node),
           });
         }
-      }
+      },
     };
   }
 };

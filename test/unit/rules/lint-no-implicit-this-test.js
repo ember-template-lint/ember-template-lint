@@ -21,10 +21,15 @@ let good = [
   '{{outlet}}',
   '{{textarea}}',
   '{{yield}}',
+  '{{welcome-page}}',
   {
     config: { allow: ['book-details'] },
-    template: '{{book-details}}'
-  }
+    template: '{{book-details}}',
+  },
+  {
+    config: { allow: [/^data-test-.+/] },
+    template: '{{foo-bar data-test-foo}}',
+  },
 ];
 
 statements.forEach(statement => {
@@ -51,8 +56,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'book',
         line: 1,
-        column: 2
-      }
+        column: 2,
+      },
     },
     {
       template: '{{book-details}}',
@@ -61,8 +66,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'book-details',
         line: 1,
-        column: 2
-      }
+        column: 2,
+      },
     },
     {
       template: '{{book.author}}',
@@ -71,8 +76,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'book.author',
         line: 1,
-        column: 2
-      }
+        column: 2,
+      },
     },
     {
       template: '{{book.author argument=true}}',
@@ -81,8 +86,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'book.author',
         line: 1,
-        column: 2
-      }
+        column: 2,
+      },
     },
     {
       template: '{{helper book}}',
@@ -91,8 +96,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'book',
         line: 1,
-        column: 9
-      }
+        column: 9,
+      },
     },
     {
       template: '{{#helper book}}{{/helper}}',
@@ -101,8 +106,8 @@ generateRuleTests({
         moduleId: 'layout.hbs',
         source: 'book',
         line: 1,
-        column: 10
-      }
+        column: 10,
+      },
     },
-  ]
+  ],
 });

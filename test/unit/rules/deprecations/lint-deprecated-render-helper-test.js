@@ -32,9 +32,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '{{ken-griffey}}'
-        }
-      }
+          text: '{{ken-griffey}}',
+        },
+      },
     },
     {
       template: `{{render 'baseball-player' pitcher}}`,
@@ -46,9 +46,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '{{baseball-player model=pitcher}}'
-        }
-      }
-    }
-  ]
+          text: '{{baseball-player model=pitcher}}',
+        },
+      },
+    },
+  ],
 });

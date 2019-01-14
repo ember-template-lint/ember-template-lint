@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const Linter = require('../../lib/index');
 
 function parseMeta(item) {
-  let meta = (item !== undefined && typeof item === 'object' && item.meta) ? item.meta : {};
+  let meta = item !== undefined && typeof item === 'object' && item.meta ? item.meta : {};
   meta.moduleId = meta.moduleId || 'layout.hbs';
 
   return meta;
@@ -27,20 +27,20 @@ module.exports = function(options) {
 
     beforeEach(function() {
       let fullConfig = {
-        rules: { }
+        rules: {},
       };
       fullConfig.rules[options.name] = config = options.config;
 
       meta = null;
 
       linter = new Linter({
-        config: fullConfig
+        config: fullConfig,
       });
     });
 
     function parseResult(result) {
       let defaults = {
-        severity: 2
+        severity: 2,
       };
 
       if (!skipDisabledTests) {
@@ -91,19 +91,25 @@ module.exports = function(options) {
           expect(actual).to.deep.equal([]);
         });
 
-        testMethod(`passes with \`${template}\` when disabled via inline comment - single rule`, function() {
-          meta = parseMeta(badItem);
-          let actual = verify(DISABLE_ONE + '\n' + template);
+        testMethod(
+          `passes with \`${template}\` when disabled via inline comment - single rule`,
+          function() {
+            meta = parseMeta(badItem);
+            let actual = verify(DISABLE_ONE + '\n' + template);
 
-          expect(actual).to.deep.equal([]);
-        });
+            expect(actual).to.deep.equal([]);
+          }
+        );
 
-        testMethod(`passes with \`${template}\` when disabled via inline comment - all rules`, function() {
-          meta = parseMeta(badItem);
-          let actual = verify(DISABLE_ALL + '\n' + template);
+        testMethod(
+          `passes with \`${template}\` when disabled via inline comment - all rules`,
+          function() {
+            meta = parseMeta(badItem);
+            let actual = verify(DISABLE_ALL + '\n' + template);
 
-          expect(actual).to.deep.equal([]);
-        });
+            expect(actual).to.deep.equal([]);
+          }
+        );
       }
     });
 

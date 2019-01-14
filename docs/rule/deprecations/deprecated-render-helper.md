@@ -2,7 +2,7 @@
 
 In Ember 2.6 and newer, support for using the `{{render}}` helper has been deprecated.
 
-For example, this rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 {{render 'this-is-bad'}}
@@ -10,7 +10,7 @@ For example, this rule forbids the following:
 {{render 'also-bad' model}}
 ```
 
-Instead, you should use:
+This rule **allows** the following:
 
 ```hbs
 {{this-is-better}}
@@ -18,4 +18,6 @@ Instead, you should use:
 {{saul-goodman model=model}}
 ```
 
-More information is available at the [Deprecation Guide](https://emberjs.com/deprecations/v2.x/#toc_code-render-code-helper).
+### References
+
+* More information is available at the [Deprecation Guide](https://emberjs.com/deprecations/v2.x/#toc_code-render-code-helper).

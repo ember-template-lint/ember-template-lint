@@ -43,7 +43,7 @@ following:
 ```
 
 Now some time goes on and someone adds a `formatName` helper at
-`app/helpers/fortmatName.js` that looks like the following:
+`app/helpers/formatName.js` that looks like the following:
 
 ```js
 export default function formatName([firstName, lastName]) {
@@ -95,4 +95,4 @@ much easier to implement since we have semantics that mean "property on class".
   * boolean - `true` to enable / `false` to disable
   * object -- An object with the following keys:
     * `allow` -- An array of component / helper names for that may be called
-      without arguments
+      without arguments (string or regular expression)

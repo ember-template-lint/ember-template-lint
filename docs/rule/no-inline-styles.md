@@ -1,19 +1,19 @@
 ## no-inline-styles
 
-Inline styles are not the best practice because they are hard to maintain and usually make the overall size of the project bigger. This rule forbids the inline styles.
+Inline styles are not the best practice because they are hard to maintain and usually make the overall size of the project bigger. This rule forbids inline styles. Use CSS classes instead.
 
-Forbidden:
+This rule **forbids** the following:
 
 ```hbs
 <div style="width:900px"></div>
 ```
 
-Allowed:
+This rule **allows** the following:
 
 ```hbs
 <div class="wide-element"></div>
 ```
 
-This rule is configured with one boolean value:
+### Related Rules
 
-  * boolean -- `true` for enabled rule that forbids the inline styles / `false` for disabled rule that allows them
+* [style-concatenation](style-concatenation.md)

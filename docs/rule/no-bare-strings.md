@@ -1,12 +1,14 @@
 ## no-bare-strings
 
-In order to be able to internationalize your application, you will need to avoid using plain strings in your templates. Instead, you would need to use a template helper specializing in translation ([ember-i18n](https://github.com/jamesarosen/ember-i18n) and [ember-intl](https://github.com/yahoo/ember-intl) are great projects to use for this).
+In order to be able to internationalize your application, you will need to avoid using plain strings in your templates. Instead, you would need to use a template helper specializing in translation ([ember-intl](https://github.com/ember-intl/ember-intl) is the recommended project to use this for).
 
-This rule forbids the following:
+This rule **forbids** the following:
 
 ``` html
 <h2>Some string here!</h2>
 ```
+
+### Configuration
 
  The following values are valid configuration:
 
@@ -21,5 +23,3 @@ When the config value of `true` is used the following configuration is used:
  * `whitelist` - `(),.&+-=*/#%!?:[]{}`
  * `globalAttributes` - `title`, `aria-label`, `aria-placeholder`, `aria-roledescription`, `aria-valuetext`
  * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
-
-

@@ -1,7 +1,8 @@
 'use strict';
 
 const generateRuleTests = require('../../../helpers/rule-test-harness');
-const DEPRECATION_URL = require('../../../../lib/rules/deprecations/lint-deprecated-each-syntax').DEPRECATION_URL;
+const DEPRECATION_URL = require('../../../../lib/rules/deprecations/lint-deprecated-each-syntax')
+  .DEPRECATION_URL;
 
 const message = `Deprecated {{#each}} usage. See the deprecation guide at ${DEPRECATION_URL}`;
 
@@ -12,8 +13,8 @@ generateRuleTests({
 
   good: [
     {
-      template: '{{#each posts as |post|}}{{post.name}}{{/each}}'
-    }
+      template: '{{#each posts as |post|}}{{post.name}}{{/each}}',
+    },
   ],
 
   bad: [
@@ -27,9 +28,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '{{#each posts as |post|}}'
-        }
-      }
+          text: '{{#each posts as |post|}}',
+        },
+      },
     },
     {
       template: '{{#each posts}}{{name}}{{/each}}',
@@ -41,9 +42,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '{{#each posts as |item|}}'
-        }
-      }
-    }
-  ]
+          text: '{{#each posts as |item|}}',
+        },
+      },
+    },
+  ],
 });

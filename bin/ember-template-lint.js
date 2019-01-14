@@ -18,7 +18,9 @@ function printErrors(errors) {
     let fileErrors = errors[filePath] || [];
 
     let errorsFiltered = fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY);
-    let warnings = quiet ? [] : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
+    let warnings = quiet
+      ? []
+      : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
 
     errorCount += errorsFiltered.length;
     warningCount += warnings.length;
@@ -46,7 +48,11 @@ function printErrors(errors) {
     const count = errorCount + warningCount;
 
     if (count > 0) {
-      console.log(chalk.red(chalk.bold(`✖ ${count} problems (${errorCount} errors, ${warningCount} warnings)`)));
+      console.log(
+        chalk.red(
+          chalk.bold(`✖ ${count} problems (${errorCount} errors, ${warningCount} warnings)`)
+        )
+      );
     }
   }
 }
@@ -61,7 +67,12 @@ function getRelativeFilePaths() {
 
   var relativeFilePaths = fileArgs
     .reduce((filePaths, fileArg) => {
-      return filePaths.concat(globby.sync(fileArg, { gitignore: true }));
+      return filePaths.concat(
+        globby.sync(fileArg, {
+          ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+          gitignore: true,
+        })
+      );
     }, [])
     .filter(filePath => filePath.slice(-4) === '.hbs');
 
@@ -72,8 +83,7 @@ function checkConfigPath() {
   var configPathIndex = process.argv.indexOf('--config-path');
   var configPath = null;
   if (configPathIndex > -1) {
-    var configPathValue = process.argv[configPathIndex + 1];
-    configPath = path.join(process.cwd(), configPathValue);
+    configPath = process.argv[configPathIndex + 1];
   }
 
   return configPath;
@@ -83,13 +93,25 @@ function run() {
   var exitCode = 0;
 
   var configPath = checkConfigPath();
-  var linter = new Linter({ configPath });
+  var linter;
+  try {
+    linter = new Linter({ configPath });
+  } catch (e) {
+    console.error(e.message);
+    // eslint-disable-next-line no-process-exit
+    return process.exit(1);
+  }
 
   var errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
     var filePath = path.resolve(relativeFilePath);
     var fileErrors = lintFile(linter, filePath, relativeFilePath.slice(0, -4));
 
-    if (fileErrors.some(function(err) { return err.severity > 1; })) exitCode = 1;
+    if (
+      fileErrors.some(function(err) {
+        return err.severity > 1;
+      })
+    )
+      exitCode = 1;
 
     if (fileErrors.length) errors[filePath] = fileErrors;
     return errors;

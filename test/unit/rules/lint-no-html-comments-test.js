@@ -26,9 +26,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '{{! comment here }}'
-        }
-      }
+          text: '{{! comment here }}',
+        },
+      },
     },
     {
       template: '<!--comment here-->',
@@ -40,9 +40,9 @@ generateRuleTests({
         line: 1,
         column: 0,
         fix: {
-          text: '{{!comment here}}'
-        }
-      }
-    }
-  ]
+          text: '{{!comment here}}',
+        },
+      },
+    },
+  ],
 });

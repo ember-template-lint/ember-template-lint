@@ -25,12 +25,7 @@ describe('isInteractiveElement', function() {
     });
   }
 
-  let nonInteractive = [
-    '<a></a>',
-    '<input type="hidden">',
-    '<img>',
-    '<div></div>'
-  ];
+  let nonInteractive = ['<a></a>', '<input type="hidden">', '<img>', '<div></div>'];
 
   let interactive = {
     '<a href="derp">Link</a>': 'an <a> element with the `href` attribute',

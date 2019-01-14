@@ -2,7 +2,7 @@
 
 A table row should always be grouped into either a `thead`, `tbody` or `tfoot` to avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
 
-The rule forbids the following:
+This rule **forbids** the following:
 
 ```hbs
 <table>
@@ -18,7 +18,7 @@ The rule forbids the following:
 </table>
 ```
 
-Instead, you should write your table as:
+This rule **allows** the following:
 
 ```hbs
 <table>

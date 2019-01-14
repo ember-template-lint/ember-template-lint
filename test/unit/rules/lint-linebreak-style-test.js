@@ -18,11 +18,11 @@ generateRuleTests({
     },
     {
       config: 'windows',
-      template: 'testing\r\nthis'
+      template: 'testing\r\nthis',
     },
     {
       config: 'unix',
-      template: 'testing\nthis'
+      template: 'testing\nthis',
     },
   ],
 
@@ -35,8 +35,8 @@ generateRuleTests({
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 2,
         column: 4,
-        source: '\r\n'
-      }
+        source: '\r\n',
+      },
     },
     {
       config: 'unix',
@@ -47,8 +47,8 @@ generateRuleTests({
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 0,
-        source: '\r\n'
-      }
+        source: '\r\n',
+      },
     },
     {
       config: 'unix',
@@ -59,8 +59,8 @@ generateRuleTests({
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 12,
-        source: '\r\n'
-      }
+        source: '\r\n',
+      },
     },
     {
       config: 'unix',
@@ -71,8 +71,8 @@ generateRuleTests({
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 8,
-        source: '\r\n'
-      }
+        source: '\r\n',
+      },
     },
     {
       config: 'unix',
@@ -83,8 +83,8 @@ generateRuleTests({
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 8,
-        source: '\r\n'
-      }
+        source: '\r\n',
+      },
     },
     {
       config: 'unix',
@@ -95,8 +95,8 @@ generateRuleTests({
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 12,
-        source: '\r\n'
-      }
+        source: '\r\n',
+      },
     },
     {
       config: 'windows',
@@ -107,8 +107,8 @@ generateRuleTests({
         message: 'Wrong linebreak used. Expected CRLF but found LF',
         line: 1,
         column: 0,
-        source: '\n'
-      }
-    }
-  ]
+        source: '\n',
+      },
+    },
+  ],
 });
