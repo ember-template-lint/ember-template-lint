@@ -42,8 +42,8 @@ describe('isInteractiveElement', function() {
     '<label></label>': '<label>',
     '<div role="button"></div>': 'an element with `role="button"`',
     '<div role="textbox"></div>': 'an element with `role="textbox"`',
-    '<video controls></video>': 'an <video> element with the \`controls\` attribute',
-    '<audio controls></audio>': 'an <audio> element with the \`controls\` attribute',
+    '<video controls></video>': 'an <video> element with the `controls` attribute',
+    '<audio controls></audio>': 'an <audio> element with the `controls` attribute',
   };
 
   nonInteractive.forEach(function(template) {
