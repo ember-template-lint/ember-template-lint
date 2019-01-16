@@ -1,6 +1,31 @@
 Changelog
 =========
 
+## v1.1.0 (2019-01-16)
+
+#### :rocket: Enhancement
+* [#609](https://github.com/ember-template-lint/ember-template-lint/pull/609) Add 'no-negated-condition' rule ([@bmish](https://github.com/bmish))
+* [#573](https://github.com/ember-template-lint/ember-template-lint/pull/573) Allow RegExp's with no-implicit-this  ([@iki6](https://github.com/iki6))
+
+#### :bug: Bug Fix
+* [#559](https://github.com/ember-template-lint/ember-template-lint/pull/559) Added video and audio with control attribute as interactive elements ([@HenryVonfire](https://github.com/HenryVonfire))
+* [#607](https://github.com/ember-template-lint/ember-template-lint/pull/607) Always ignore dist, tmp, node_modules by default. ([@jasonmit](https://github.com/jasonmit))
+* [#600](https://github.com/ember-template-lint/ember-template-lint/pull/600) Add {{welcome-page}} to default allowed list for no-implicit-this. ([@rwjblue](https://github.com/rwjblue))
+
+#### :memo: Documentation
+* [#608](https://github.com/ember-template-lint/ember-template-lint/pull/608) Improve clarity of descriptions and examples in rule docs. ([@bmish](https://github.com/bmish))
+* [#606](https://github.com/ember-template-lint/ember-template-lint/pull/606) Fix typo in 'no-unnecessary-concat' doc migration regexp. ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#458](https://github.com/ember-template-lint/ember-template-lint/pull/458) Add prettier. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Jason Mitchell ([@jasonmit](https://github.com/jasonmit))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@HenryVonfire](https://github.com/HenryVonfire)
+- [@iki6](https://github.com/iki6)
+
 ## v1.0.0 (2019-01-08)
 
 #### :boom: Breaking Change
