@@ -5,23 +5,23 @@ This rule doesn't allow trailing dot(s) on a path expression. Since the trailing
 For instance:
 
 ```hbs
-  /application.hbs
+{{! application.hbs }}
 
-  <span class={{if contact. 'bg-success'}}>{{contact.name}}</span>
+<span class={{if contact. 'bg-success'}}>{{contact.name}}</span>
 ```
 
 is interpreted as
 
 ```hbs
-  /application.hbs
+{{! application.hbs }}
 
-  <span class={{if contact . 'bg-success'}}>{{contact.name}}</span>
+<span class={{if contact . 'bg-success'}}>{{contact.name}}</span>
 ```
 
 hence results in
 
 ```html
-  <span class="<my-app@controller:application::ember223>">John</span>
+<span class="<my-app@controller:application::ember223>">John</span>
 ```
 
 This rule **forbids** the following:

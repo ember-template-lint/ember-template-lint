@@ -1,6 +1,6 @@
 ## attribute-indentation
 
-This rule requires the positional params, attributes and block params of the helper/component to be indented by moving them to multiple lines when the open invocation has more than 80 characters (configurable).
+This rule requires the positional params, attributes, and block params of the helper/component to be indented by moving them to multiple lines when the open invocation has more than 80 characters (configurable).
 
 ### Forbidden
 
@@ -19,13 +19,13 @@ Block form
 ```
 
 Non-Block form (HTML)
-``` html
+``` hbs
 
   <input disabled id="firstName" value={{firstName}} class="input-field first-name" type="text">
 ```
 
 Block form (HTML)
-``` html
+``` hbs
 
   <a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>
 ```
@@ -71,7 +71,7 @@ Non-Block form with Helper unfolded
 ```
 
 Non-Block form (HTML)
-``` html
+``` hbs
 
   <input
     disabled
@@ -127,4 +127,4 @@ Block form (HTML)
 
 ### Related Rules
 
-* [attribute-indentation](attribute-indentation.md)
+* [block-indentation](block-indentation.md)

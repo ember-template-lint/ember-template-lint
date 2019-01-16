@@ -2,17 +2,17 @@
 
 Require or disallow newline at the end of files.
 
-Enforce either:
+Enforce either (without newline at end):
 
 ```hbs
 <div>test</div>
 ```
 
-or:
+or this (with newline at end):
 
 ```hbs
 <div>test</div>
-
+{{! newline would be here }}
 ```
 
 ### Configuration
