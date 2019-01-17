@@ -18,6 +18,7 @@ generateRuleTests({
     // if ...
     '{{#if condition}}<img>{{/if}}',
     '{{#if (or c1 c2)}}{{/if}}',
+    '{{#if (not (or c1 c2))}}{{/if}}', // Valid since we don't want to suggest `unless` with helpers in the condition.
 
     // if ... else ...
     '{{#if condition}}<img>{{else}}<img>{{/if}}',
@@ -67,6 +68,7 @@ generateRuleTests({
     // if ...
     '<img class={{if condition "some-class"}}>',
     '<img class={{if (or c1 c2) "some-class"}}>',
+    '<img class={{if (not (or c1 c2)) "some-class"}}>', // Valid since we don't want to suggest `unless` with helpers in the condition.
 
     // if ... else ...
     '<img class={{if condition "some-class" "other-class"}}>',
@@ -87,6 +89,7 @@ generateRuleTests({
     // if ...
     '{{input class=(if condition "some-class")}}',
     '{{input class=(if (or c1 c2) "some-class")}}',
+    '{{input class=(if (not (or c1 c2)) "some-class")}}', // Valid since we don't want to suggest `unless` with helpers in the condition.
 
     // if ... else ...
     '{{input class=(if condition "some-class" "other-class")}}',
