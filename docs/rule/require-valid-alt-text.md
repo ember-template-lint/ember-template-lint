@@ -1,4 +1,4 @@
-## a11y-alt-text
+## require-valid-alt-text
 
 Enforce that all elements that require alternative text have meaningful information to relay back to the end user. This is a critical component of accessibility for screenreader users in order for them to understand the content's purpose on the page. By default, this rule checks for alternative text on the following elements: `<img>`, `<area>`, `<input type="image">`, and `<object>`.
 
@@ -12,6 +12,7 @@ An `<img>` must have the `alt` prop set with meaningful text or as an empty stri
 
 The content of an `alt` attribute is used to calculate the accessible label of an element, whereas the text content is used to produce a label for the element. For this reason, adding a label to an icon can produce a confusing or duplicated label on a control that already has appropriate text content.
 
+If it's not a meaningful image, it should have an empty alt attribute value and have the role of presentation or none.
 
 This rule **forbids** the following:
 
@@ -77,3 +78,4 @@ This rule **allows** the following:
 ### References
 
 * See [WCAG Suggestion H37](https://www.w3.org/TR/WCAG20-TECHS/H37.html)
+* Ref [eslint-plugin-jsx-a11y/alt-text](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/alt-text.md)

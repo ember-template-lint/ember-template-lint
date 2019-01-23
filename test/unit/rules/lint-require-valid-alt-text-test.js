@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'a11y-alt-text',
+  name: 'require-valid-alt-text',
 
   config: true,
 
@@ -12,8 +12,9 @@ generateRuleTests({
     '<img alt={{foo}}>',
     '<img alt="blah {{derp}}">',
     '<img aria-hidden="true">',
-    '<img alt="">',
-    '<img alt>',
+    '<img alt="" role="none" src="zoey.jpg">',
+    '<img alt="" role="presentation" src="zoey.jpg">',
+    '<img alt="a stylized graphic of a female hamster" src="zoey.jpg">',
 
     '<input type="image" alt="some-alt">',
     '<input type="image" aria-labelledby="some-alt">',
@@ -38,6 +39,42 @@ generateRuleTests({
           'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
         moduleId: 'layout.hbs',
         source: '<img>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img src="zoey.jpg">',
+
+      result: {
+        message:
+          'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
+        moduleId: 'layout.hbs',
+        source: '<img src="zoey.jpg">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="" src="zoey.jpg">',
+
+      result: {
+        message:
+          'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
+        moduleId: 'layout.hbs',
+        source: '<img alt="" src="zoey.jpg">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt src="zoey.jpg">',
+
+      result: {
+        message:
+          'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
+        moduleId: 'layout.hbs',
+        source: '<img alt src="zoey.jpg">',
         line: 1,
         column: 0,
       },
