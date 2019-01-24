@@ -28,6 +28,7 @@
 * [no-partial](rule/no-partial.md)
 * [no-quoteless-attributes](rule/no-quoteless-attributes.md)
 * [no-shadowed-elements](rule/no-shadowed-elements.md)
+* [no-static-element-interactions](rule/no-static-element-interactions.md)
 * [no-trailing-dot-in-path-expression](rule/no-trailing-dot-in-path-expression.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
