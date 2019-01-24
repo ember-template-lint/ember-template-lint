@@ -42,9 +42,39 @@ generateRuleTests({
 
   good: [
     '<div role="list"><div role="listitem">Item One</div><div role="listitem">Item Two</div></div>',
+    '<div role="group"><div role="listitem">Item One</div><div role="listitem">Item Two</div></div>',
+    '<div role="row"><div role="columnheader">Item One</div></div>',
+    '<div role="row"><div role="gridcell">Item One</div></div>',
+    '<div role="group"><div role="menuitem">Item One</div></div>',
+    '<div role="menu"><div role="menuitem">Item One</div></div>',
+    '<div role="menubar"><div role="menuitem">Item One</div></div>',
+    '<div role="menu"><div role="menuitemcheckbox">Item One</div></div>',
+    '<div role="menubar"><div role="menuitemcheckbox">Item One</div></div>',
+    '<div role="group"><div role="menuitemradio">Item One</div></div>',
+    '<div role="menu"><div role="menuitemradio">Item One</div></div>',
+    '<div role="menubar"><div role="menuitemradio">Item One</div></div>',
+    '<div role="listbox"><div role="option">Item One</div></div>',
+    '<div role="grid"><div role="row">Item One</div></div>',
+    '<div role="rowgroup"><div role="row">Item One</div></div>',
+    '<div role="treegrid"><div role="row">Item One</div></div>',
+    '<div role="grid"><div role="rowgroup">Item One</div></div>',
+    '<div role="row"><div role="rowheader">Item One</div></div>',
+    '<div role="tablist"><div role="tab">Item One</div></div>',
+    '<div role="group"><div role="treeitem">Item One</div></div>',
+    '<div role="tree"><div role="treeitem">Item One</div></div>',
   ],
 
   bad: [
+    {
+      template: '<div role="tablist"><div role="treeitem">Item One</div></div>',
+      result: {
+        message: errorMessage('treeitem'),
+        moduleId: 'layout.hbs',
+        source: '<div role="treeitem">Item One</div>',
+        line: 1,
+        column: 20,
+      },
+    },
     {
       template: '<div><div role="columnheader">Item One</div></div>',
       result: {
