@@ -13,6 +13,7 @@
 * [no-attrs-in-components](rule/no-attrs-in-components.md)
 * [no-bare-strings](rule/no-bare-strings.md)
 * [no-debugger](rule/no-debugger.md)
+* [no-distracting-elements](rule/no-distracting-elements.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-extra-mut-helper-argument](rule/no-extra-mut-helper-argument.md)
 * [no-html-comments](rule/no-html-comments.md)
