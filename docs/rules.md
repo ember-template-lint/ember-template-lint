@@ -9,6 +9,7 @@
 * [linebreak-style](rule/linebreak-style.md)
 * [link-href-attributes](rule/link-href-attributes.md)
 * [link-rel-noopener](rule/link-rel-noopener.md)
+* [no-abstract-roles](rule/no-abstract-roles.md)
 * [no-action-modifiers](rule/no-action-modifiers.md)
 * [no-attrs-in-components](rule/no-attrs-in-components.md)
 * [no-bare-strings](rule/no-bare-strings.md)
