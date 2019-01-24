@@ -5,7 +5,7 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<div role="main-navigation"></div>', '<img aria-role="some-role">'],
+  good: ['<div role="button"></div>', '<img role="option">'],
 
   bad: [
     {
