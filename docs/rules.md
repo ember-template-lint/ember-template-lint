@@ -38,6 +38,7 @@
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
 * [simple-unless](rule/simple-unless.md)
 * [style-concatenation](rule/style-concatenation.md)
+* [require-valid-alt-text](rule/require-valid-alt-text.md)
 * [table-groups](rule/table-groups.md)
 * [template-length](rule/template-length.md)
 
