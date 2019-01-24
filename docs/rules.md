@@ -25,6 +25,7 @@
 * [no-negated-condition](rule/no-negated-condition.md)
 * [no-nested-interactive](rule/no-nested-interactive.md)
 * [no-outlet-outside-routes](rule/no-outlet-outside-routes.md)
+* [no-positive-tabindex](rule/no-positive-tabindex.md)
 * [no-partial](rule/no-partial.md)
 * [no-quoteless-attributes](rule/no-quoteless-attributes.md)
 * [no-shadowed-elements](rule/no-shadowed-elements.md)
