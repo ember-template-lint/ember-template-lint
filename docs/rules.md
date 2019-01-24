@@ -1,6 +1,5 @@
 # Rules
 
-* [aria-unsupported-elements](rule/aria-unsupported-elements.md)
 * [attribute-indentation](rule/attribute-indentation.md)
 * [block-indentation](rule/block-indentation.md)
 * [eol-last](rule/eol-last.md)
@@ -11,6 +10,7 @@
 * [link-href-attributes](rule/link-href-attributes.md)
 * [link-rel-noopener](rule/link-rel-noopener.md)
 * [no-action-modifiers](rule/no-action-modifiers.md)
+* [no-aria-attributes-on-unsupported-elements](rule/no-aria-attributes-on-unsupported-elements.md)
 * [no-attrs-in-components](rule/no-attrs-in-components.md)
 * [no-bare-strings](rule/no-bare-strings.md)
 * [no-debugger](rule/no-debugger.md)

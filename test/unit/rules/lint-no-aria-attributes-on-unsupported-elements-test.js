@@ -1,31 +1,37 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'aria-unsupported-elements',
+  name: 'no-aria-attributes-on-unsupported-elements',
 
   config: true,
 
-  good: ['<div role="button"></div>', '<img role="option">'],
+  good: [
+    '<div role="button"></div>',
+    '<img role="option">',
+    '<meta data-name="foo">',
+    '<script src="noop"></script>',
+    '<html title="noop"></html>',
+  ],
 
   bad: [
     {
-      template: '<meta role>',
+      template: '<meta role="button">',
 
       result: {
         message: 'meta tag must not contain "role" attribute',
         moduleId: 'layout.hbs',
-        source: '<meta role>',
+        source: '<meta role="button">',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<meta aria-foo>',
+      template: '<meta aria-foo="some-prop">',
 
       result: {
         message: 'meta tag must not contain "aria-foo" attribute',
         moduleId: 'layout.hbs',
-        source: '<meta aria-foo>',
+        source: '<meta aria-foo="some-prop">',
         line: 1,
         column: 0,
       },
@@ -42,34 +48,34 @@ generateRuleTests({
       },
     },
     {
-      template: '<html role></html>',
+      template: '<html role="button"></html>',
 
       result: {
         message: 'html tag must not contain "role" attribute',
         moduleId: 'layout.hbs',
-        source: '<html role></html>',
+        source: '<html role="button"></html>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<script role></script>',
+      template: '<script role="template"></script>',
 
       result: {
         message: 'script tag must not contain "role" attribute',
         moduleId: 'layout.hbs',
-        source: '<script role></script>',
+        source: '<script role="template"></script>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<style role></style>',
+      template: '<style role="style"></style>',
 
       result: {
         message: 'style tag must not contain "role" attribute',
         moduleId: 'layout.hbs',
-        source: '<style role></style>',
+        source: '<style role="style"></style>',
         line: 1,
         column: 0,
       },
