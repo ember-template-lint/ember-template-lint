@@ -4,6 +4,7 @@
 * [block-indentation](rule/block-indentation.md)
 * [eol-last](rule/eol-last.md)
 * [img-alt-attributes](rule/img-alt-attributes.md)
+* [iframe-has-title](rule/iframe-has-title.md)
 * [inline-link-to](rule/inline-link-to.md)
 * [invocable-blacklist](rule/invocable-blacklist.md)
 * [linebreak-style](rule/linebreak-style.md)
