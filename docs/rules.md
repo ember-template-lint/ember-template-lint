@@ -1,5 +1,6 @@
 # Rules
 
+* [aria-unsupported-elements](rule/aria-unsupported-elements.md)
 * [attribute-indentation](rule/attribute-indentation.md)
 * [block-indentation](rule/block-indentation.md)
 * [eol-last](rule/eol-last.md)
