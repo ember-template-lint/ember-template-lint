@@ -20,6 +20,7 @@ This rule **forbids** the following:
 
 ### References
 
+1. [w3.org/TR/WCAG20-TECHS/F47](https://www.w3.org/TR/WCAG20-TECHS/F47.html)
 1. [Deque University - marquee](https://dequeuniversity.com/rules/axe/1.1/marquee)
-2. [Deque University - blink](https://dequeuniversity.com/rules/axe/1.1/blink)
-3. [eslint-plugin-jsx-a11y/no-distracting-elements](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-distracting-elements.md)
+1. [Deque University - blink](https://dequeuniversity.com/rules/axe/1.1/blink)
+1. [eslint-plugin-jsx-a11y/no-distracting-elements](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-distracting-elements.md)
