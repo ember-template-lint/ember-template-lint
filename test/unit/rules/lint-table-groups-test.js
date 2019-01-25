@@ -61,6 +61,24 @@ generateRuleTests({
     {
       template: `
       <table>
+      {{#if foo}}
+        {{else}}
+        <div></div>
+      {{/if}}
+      </table>
+      `,
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source:
+          '<table>\n      {{#if foo}}\n        {{else}}\n        <div></div>\n      {{/if}}\n      </table>',
+        line: 2,
+        column: 6,
+      }
+    },
+    {
+      template: `
+      <table>
       {{#unless foo}}
         <div>
           <tr></tr>
