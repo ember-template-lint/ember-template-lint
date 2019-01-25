@@ -74,7 +74,7 @@ generateRuleTests({
           '<table>\n      {{#if foo}}\n        {{else}}\n        <div></div>\n      {{/if}}\n      </table>',
         line: 2,
         column: 6,
-      }
+      },
     },
     {
       template: `
