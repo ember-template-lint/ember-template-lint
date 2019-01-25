@@ -9,6 +9,8 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<table><!-- this --></table>',
+    '<table>{{! or this }}</table>',
     '<table> </table>',
     '<table> <caption>Foo</caption></table>',
     '<table><colgroup><col style="background-color: red"></colgroup></table>',
