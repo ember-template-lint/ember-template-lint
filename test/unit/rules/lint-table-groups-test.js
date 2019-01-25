@@ -9,6 +9,24 @@ generateRuleTests({
   config: true,
 
   good: [
+    `
+    <table>
+    {{#if foo}}
+      <tfoot>
+        <tr></tr>
+      </tfoot>
+    {{/if}}
+    </table>
+    `,
+    `
+    <table>
+    {{#unless foo}}
+      <tfoot>
+        <tr></tr>
+      </tfoot>
+    {{/unless}}
+    </table>
+    `,
     '<table><!-- this --></table>',
     '<table>{{! or this }}</table>',
     '<table> </table>',
