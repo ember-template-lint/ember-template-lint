@@ -59,6 +59,61 @@ generateRuleTests({
 
   bad: [
     {
+      template: `
+      <table>
+      {{#unless foo}}
+        <div>
+          <tr></tr>
+        </div>
+      {{/unless}}
+      </table>
+      `,
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source:
+          '<table>\n      {{#unless foo}}\n        <div>\n          <tr></tr>\n        </div>\n      {{/unless}}\n      </table>',
+        line: 2,
+        column: 6,
+      },
+    },
+    {
+      template: `
+      <table>
+      {{#if foo}}
+        <div>
+          <tr></tr>
+        </div>
+      {{/if}}
+      </table>
+      `,
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source:
+          '<table>\n      {{#if foo}}\n        <div>\n          <tr></tr>\n        </div>\n      {{/if}}\n      </table>',
+        line: 2,
+        column: 6,
+      },
+    },
+    {
+      template: `
+      <table>
+      {{#unless foo}}
+        {{some-component}}
+      {{/unless}}
+      </table>
+      `,
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source:
+          '<table>\n      {{#unless foo}}\n        {{some-component}}\n      {{/unless}}\n      </table>',
+        line: 2,
+        column: 6,
+      },
+    },
+    {
       template: '<table><tr><td>Foo</td></tr></table>',
 
       result: {
