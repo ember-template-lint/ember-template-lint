@@ -10,6 +10,7 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<details><summary>Click</summary> <button>click here</button></details>',
     '<button>button</button>',
     '<button>button <strong>!!!</strong></button>',
     '<a><button>button</button></a>',
