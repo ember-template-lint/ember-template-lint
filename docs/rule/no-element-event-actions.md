@@ -28,3 +28,8 @@ This rule **allows** the following:
 * [List of DOM Events](https://developer.mozilla.org/en-US/docs/Web/Events)
 
 [Deep Dive on Ember Events]: https://medium.com/square-corner-blog/deep-dive-on-ember-events-cf684fd3b808
+
+
+### Related Rules
+
+* [no-action-modifiers](no-action-modifiers.md)
