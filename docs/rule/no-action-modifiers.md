@@ -20,3 +20,7 @@ The following values are valid configuration:
 
   * boolean -- `true` for enabled / `false` for disabled
   * array -- an array of whitelisted element tag names, which will accept action modifiers
+
+### Related Rules
+
+* [no-element-event-actions](no-element-event-actions.md)
