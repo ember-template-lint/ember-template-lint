@@ -68,15 +68,18 @@ function lintFile(linter, filePath, moduleId) {
   return linter.verify({ source, moduleId });
 }
 
-function expandFileGlobs(positional) {
+function expandFileGlobs(
+  positional,
+  globbySyncArgs = {
+    ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+    gitignore: true,
+  }
+) {
   let result = new Set();
 
   positional.forEach(item => {
     globby
-      .sync(item, {
-        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-        gitignore: true,
-      })
+      .sync(item, globbySyncArgs)
       .filter(filePath => filePath.slice(-4) === '.hbs')
       .forEach(filePath => result.add(filePath));
   });
@@ -88,6 +91,51 @@ function parseArgv(_argv) {
   let toProcess = _argv.slice();
   let options = { positional: [], named: {} };
 
+  const optionDefinition = {
+    '--config-path': {
+      params: '<config_path>',
+      desc: 'Define a custom config path',
+      parse(options, toProcess) {
+        options.named.configPath = toProcess.shift();
+      },
+    },
+    '--quiet': {
+      desc: 'Ignore warnings and only show errors',
+      parse(options) {
+        options.named.quiet = true;
+      },
+    },
+    '--filename': {
+      parse(options, toProcess) {
+        options.named.filename = toProcess.shift();
+      },
+    },
+    '--json': {
+      desc: 'Format output as json',
+      parse(options) {
+        options.named.json = true;
+      },
+    },
+    '--verbose': {
+      desc: 'Output errors with source description',
+      parse(options) {
+        options.named.verbose = true;
+      },
+    },
+    '--print-pending': {
+      desc: 'Print list of formated rules for use with `pending` in config file',
+      parse(options) {
+        options.named.printPending = true;
+      },
+    },
+    '--no-default-ignores': {
+      desc: 'Disable default ignore config',
+      parse(options) {
+        options.named.noDefaultIgnores = true;
+      },
+    },
+  };
+
   let shouldHandleNamed = true;
 
   while (toProcess.length > 0) {
@@ -96,34 +144,36 @@ function parseArgv(_argv) {
     if (!shouldHandleNamed) {
       options.positional.push(arg);
     } else {
-      switch (arg) {
-        case '--config-path':
-          options.named.configPath = toProcess.shift();
-          break;
-        case '--filename':
-          options.named.filename = toProcess.shift();
-          break;
-        case '--quiet':
-          options.named.quiet = true;
-          break;
-        case '--json':
-          options.named.json = true;
-          break;
-        case '--verbose':
-          options.named.verbose = true;
-          break;
-        case '--print-pending':
-          options.named.printPending = true;
-          break;
-        case '--':
-          shouldHandleNamed = false;
-          break;
-        default:
-          if (arg.startsWith('--config-path=') || arg.startsWith('--filename=')) {
-            toProcess.unshift(...arg.split('=', 2));
-          } else {
-            options.positional.push(arg);
+      if (optionDefinition[arg]) {
+        optionDefinition[arg].parse(options, toProcess);
+      } else {
+        switch (arg) {
+          case '--help': {
+            const helpTexts = Object.keys(optionDefinition).map(key => {
+              const { params = '', desc = '' } = optionDefinition[key];
+
+              const paramAndArgs = `  ${key} ${params}`;
+              return desc
+                ? paramAndArgs + ' '.repeat(30 - paramAndArgs.length) + desc
+                : paramAndArgs;
+            });
+
+            console.log(['Help for ember-template-lint', ...helpTexts].join('\n'));
+            /* eslint-disable-next-line no-process-exit */
+            process.exit(0);
           }
+          case '--': {
+            shouldHandleNamed = false;
+            break;
+          }
+          default: {
+            if (arg.startsWith('--config-path=') || arg.startsWith('--filename=')) {
+              toProcess.unshift(...arg.split('=', 2));
+            } else {
+              options.positional.push(arg);
+            }
+          }
+        }
       }
     }
   }
@@ -135,7 +185,7 @@ function run() {
   let options = parseArgv(process.argv.slice(2));
 
   let {
-    named: { configPath, filename: filePathFromArgs = '', printPending, json },
+    named: { configPath, filename: filePathFromArgs = '', printPending, json, noDefaultIgnores },
     positional,
   } = options;
 
@@ -155,7 +205,7 @@ function run() {
   if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
     filesToLint = new Set([STDIN]);
   } else {
-    filesToLint = expandFileGlobs(positional);
+    filesToLint = expandFileGlobs(positional, noDefaultIgnores ? {} : undefined);
   }
 
   for (let relativeFilePath of filesToLint) {
