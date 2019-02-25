@@ -69,7 +69,10 @@ function getRelativeFilePaths() {
     .reduce((filePaths, fileArg) => {
       return filePaths.concat(
         globby.sync(fileArg, {
-          ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+          ignore:
+            process.argv.indexOf('--no-ignore') + 1
+              ? []
+              : ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
           gitignore: true,
         })
       );

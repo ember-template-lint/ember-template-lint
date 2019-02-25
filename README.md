@@ -73,6 +73,9 @@ Example usage:
 
 # define custom config path
 ./node_modules/.bin/ember-template-lint app/templates/application.hbs --config-path .my-template-lintrc.js
+
+# dont ignore `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
+./node_modules/.bin/ember-template-lint app/templates/application.hbs --no-ignore .my-template-lintrc.js
 ```
 
 ### ESLint
