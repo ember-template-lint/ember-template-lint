@@ -14,6 +14,19 @@ This rule **allows** the following:
 <div class="wide-element"></div>
 ```
 
+```hbs
+{{! only allowed when `allowDynamicStyles` is enabled }}
+<div style={{html-safe (concat "background-image: url(" url ")")}}></div>
+```
+
+### Configuration
+
+ The following values are valid configuration:
+
+  * boolean - `true` to enable / `false` to disable
+  * object -- An object with the following keys:
+    * `allowDynamicStyles` -- Whether dynamically-generated inline styles should be allowed (defaults to `false`)
+
 ### Related Rules
 
 * [style-concatenation](style-concatenation.md)
