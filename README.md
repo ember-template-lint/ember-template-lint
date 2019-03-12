@@ -127,6 +127,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
   An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
+  * If you are using `ember-cli-template-lint` you can generate this list with: `ember template-lint:print-failing`
 * `ignore` -- `string[]|glob[]`
   An array of module id's that are to be completely ignored.
 * `plugins` -- `(string|Object)[]`
