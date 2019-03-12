@@ -28,7 +28,7 @@ This rule **forbids** the following:
 This rule **allows** the following:
 
 ```hbs
-<div style={{html-safe (concat "background-image: url(" url ")"}}>
+<div style={{html-safe (concat "background-image: url(" url ")")}}>
 ```
 
 ```hbs
