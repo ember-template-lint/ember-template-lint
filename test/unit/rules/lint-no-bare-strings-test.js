@@ -85,6 +85,17 @@ generateRuleTests({
 <i class="material-icons">folder_open</i>
 {{!-- template-lint-enable bare-strings --}}`,
     '<div data-test-foo-bar></div>',
+
+    {
+      config: {
+        ignoreDummyTestApp: true,
+      },
+      meta: {
+        moduleId: 'tests/dummy/app/templates/my-page.hbs',
+      },
+      template:
+        '<div>Bare string which is allowed because `ignoreDummyTestApp` option is enabled.</div>',
+    },
   ],
 
   bad: [
@@ -241,6 +252,22 @@ generateRuleTests({
           source: 'trolol',
         },
       ],
+    },
+
+    {
+      meta: {
+        moduleId: 'tests/dummy/app/templates/my-page.hbs',
+      },
+      template:
+        '<div>Bare string not allowed in dummy test app unless `ignoreDummyTestApp` option enabled.</div>',
+      result: {
+        moduleId: 'tests/dummy/app/templates/my-page.hbs',
+        message: 'Non-translated string used',
+        line: 1,
+        column: 5,
+        source:
+          'Bare string not allowed in dummy test app unless `ignoreDummyTestApp` option enabled.',
+      },
     },
   ],
 });
