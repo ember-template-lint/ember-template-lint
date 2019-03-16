@@ -79,6 +79,12 @@ generateRuleTests({
       template: '<input placeholder="{{foo}}X">',
     },
 
+    {
+      // Still should use default `whitelist` when other option is specified.
+      config: { elementAttributes: {} },
+      template: '<img alt="some text"> * / #',
+    },
+
     '{{! template-lint-disable bare-strings}}LOL{{! template-lint-enable bare-strings}}',
 
     `{{!-- template-lint-disable bare-strings --}}
@@ -239,6 +245,28 @@ generateRuleTests({
           line: 2,
           column: 9,
           source: 'trolol',
+        },
+      ],
+    },
+
+    {
+      // Still should use default `elementAttributes` and default `globalAttributes` when other option is specified.
+      config: { whitelist: ['X'] },
+      template: '<img title="some title" alt="some alt text"> X',
+      results: [
+        {
+          moduleId: 'layout.hbs',
+          message: 'Non-translated string used in `title` attribute',
+          line: 1,
+          column: 5,
+          source: 'some title',
+        },
+        {
+          moduleId: 'layout.hbs',
+          message: 'Non-translated string used in `alt` attribute',
+          line: 1,
+          column: 24,
+          source: 'some alt text',
         },
       ],
     },
