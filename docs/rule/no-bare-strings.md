@@ -8,6 +8,13 @@ This rule **forbids** the following:
 <h2>Some string here!</h2>
 ```
 
+This rule **allows** the following:
+
+``` html
+{{! ember-intl example }}
+<h2>{{t 'photos.banner' numPhotos=model.photos.length}}</h2>
+```
+
 ### Configuration
 
  The following values are valid configuration:
