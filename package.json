@@ -33,7 +33,7 @@
     "common-tags": "^1.8.0",
     "eslint": "^5.2.0",
     "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "lerna-changelog": "^0.8.2",
     "mocha": "^6.0.0",
