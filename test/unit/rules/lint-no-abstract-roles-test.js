@@ -2,6 +2,13 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
+const errMsg = function(roleName) {
+  return (
+    roleName +
+    ' is an abstract role, and is not a valid value for the role attribute. See https://www.w3.org/WAI/PF/aria/roles#abstract_roles for more information.'
+  );
+};
+
 generateRuleTests({
   name: 'no-abstract-roles',
 
@@ -17,7 +24,7 @@ generateRuleTests({
       template: '<img role="command">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: command',
+        message: errMsg('command'),
         moduleId: 'layout.hbs',
         source: '<img role="command">',
         line: 1,
@@ -28,7 +35,7 @@ generateRuleTests({
       template: '<img role="composite">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: composite',
+        message: errMsg('composite'),
         moduleId: 'layout.hbs',
         source: '<img role="composite">',
         line: 1,
@@ -39,7 +46,7 @@ generateRuleTests({
       template: '<input role="input">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: input',
+        message: errMsg('input'),
         moduleId: 'layout.hbs',
         source: '<input role="input">',
         line: 1,
@@ -50,7 +57,7 @@ generateRuleTests({
       template: '<img role="landmark">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: landmark',
+        message: errMsg('landmark'),
         moduleId: 'layout.hbs',
         source: '<img role="landmark">',
         line: 1,
@@ -61,7 +68,7 @@ generateRuleTests({
       template: '<input role="range">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: range',
+        message: errMsg('range'),
         moduleId: 'layout.hbs',
         source: '<input role="range">',
         line: 1,
@@ -72,7 +79,7 @@ generateRuleTests({
       template: '<img role="roletype">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: roletype',
+        message: errMsg('roletype'),
         moduleId: 'layout.hbs',
         source: '<img role="roletype">',
         line: 1,
@@ -83,7 +90,7 @@ generateRuleTests({
       template: '<img role="section">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: section',
+        message: errMsg('section'),
         moduleId: 'layout.hbs',
         source: '<img role="section">',
         line: 1,
@@ -94,7 +101,7 @@ generateRuleTests({
       template: '<img role="sectionhead">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: sectionhead',
+        message: errMsg('sectionhead'),
         moduleId: 'layout.hbs',
         source: '<img role="sectionhead">',
         line: 1,
@@ -105,7 +112,7 @@ generateRuleTests({
       template: '<select role="select"></select>',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: select',
+        message: errMsg('select'),
         moduleId: 'layout.hbs',
         source: '<select role="select"></select>',
         line: 1,
@@ -116,7 +123,7 @@ generateRuleTests({
       template: '<div role="structure"></div>',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: structure',
+        message: errMsg('structure'),
         moduleId: 'layout.hbs',
         source: '<div role="structure"></div>',
         line: 1,
@@ -127,7 +134,7 @@ generateRuleTests({
       template: '<img role="widget">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: widget',
+        message: errMsg('widget'),
         moduleId: 'layout.hbs',
         source: '<img role="widget">',
         line: 1,
@@ -138,7 +145,7 @@ generateRuleTests({
       template: '<img role="window">',
 
       result: {
-        message: 'The HTML attribute role should never have the following value: window',
+        message: errMsg('window'),
         moduleId: 'layout.hbs',
         source: '<img role="window">',
         line: 1,

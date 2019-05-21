@@ -20,13 +20,13 @@ The HTML attribute role should never have the following values:
 This rule **forbids** the following:
 
 ```hbs
-<button role="window">
+<div role="window"> Hello, world! </div>
 ```
 
 This rule **allows** the following:
 
 ```hbs
-<img role="button">
+<div role="button"> Push it </div>
 ```
 
 ### References
