@@ -44,6 +44,15 @@ generateRuleTests({
     {{/unless}}
     </table>
     `,
+    '<table>{{some-component tagName="tbody"}}</table>',
+    '<table>{{some-component tagName="thead"}}</table>',
+    '<table>{{some-component tagName="tfoot"}}</table>',
+    '<table>{{component "some-component" tagName="tbody"}}</table>',
+    '<table>{{component "some-component" tagName="thead"}}</table>',
+    '<table>{{component "some-component" tagName="tfoot"}}</table>',
+    '<table><SomeComponent @tagName="tbody" /></table>',
+    '<table><SomeComponent @tagName="thead" /></table>',
+    '<table><SomeComponent @tagName="tfoot" /></table>',
     '<table><!-- this --></table>',
     '<table>{{! or this }}</table>',
     '<table> </table>',
@@ -245,6 +254,46 @@ generateRuleTests({
         message,
         moduleId: 'layout.hbs',
         source: '<table> whitespace<thead></thead></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table>{{some-component tagName="div"}}</table>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table>{{some-component tagName="div"}}</table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table>{{some-component otherProp="tbody"}}</table>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table>{{some-component otherProp="tbody"}}</table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><SomeComponent @tagName="div" /></table>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table><SomeComponent @tagName="div" /></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><SomeComponent @otherProp="tbody" /></table>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table><SomeComponent @otherProp="tbody" /></table>',
         line: 1,
         column: 0,
       },
