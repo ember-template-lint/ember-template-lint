@@ -16,6 +16,11 @@ generateRuleTests({
     '<div {{action "foo-bar" on=someValue}}></div>',
     '<div {{action "foo-bar" on="click"}} role="primary"></div>',
     '<div {{action "foo-bar" on="unknown"}}></div>',
+    '<input type="text" {{on "click" (fn this.onButtonClick)}}>',
+    '<div {{on "click" (fn this.onButtonClick)}} role="button"></div>',
+    '<div {{on "click" (fn this.onButtonClick)}} aria-interactive="button"></div>',
+    '<div {{on "click" (fn this.onButtonClick)}} role="primary"></div>',
+    '<div {{on "mouseenter" (fn this.onButtonClick)}}></div>',
   ],
 
   bad: [
@@ -115,6 +120,28 @@ generateRuleTests({
         message,
         moduleId: 'layout.hbs',
         source: '<div onclick={{action "click"}}></div>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<div {{on "click" (fn this.onButtonClick)}}></div>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<div {{on "click" (fn this.onButtonClick)}}></div>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template:
+        '<div {{on "mouseenter" (fn this.onButtonClick)}} {{on "click" (fn this.onButtonClick)}}></div>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source:
+          '<div {{on "mouseenter" (fn this.onButtonClick)}} {{on "click" (fn this.onButtonClick)}}></div>',
         line: 1,
         column: 0,
       },
