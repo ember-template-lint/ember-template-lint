@@ -35,8 +35,7 @@ generateRuleTests({
       template: '<img>',
 
       result: {
-        message:
-          'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
+        message: 'img tags must have an alt attribute',
         moduleId: 'layout.hbs',
         source: '<img>',
         line: 1,
@@ -47,8 +46,7 @@ generateRuleTests({
       template: '<img src="zoey.jpg">',
 
       result: {
-        message:
-          'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
+        message: 'img tags must have an alt attribute',
         moduleId: 'layout.hbs',
         source: '<img src="zoey.jpg">',
         line: 1,
@@ -60,7 +58,7 @@ generateRuleTests({
 
       result: {
         message:
-          'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
+          'if the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
         moduleId: 'layout.hbs',
         source: '<img alt="" src="zoey.jpg">',
         line: 1,
@@ -72,7 +70,7 @@ generateRuleTests({
 
       result: {
         message:
-          'img tags must have an alt attribute, either with meaningful text, or an empty string for decorative images.',
+          'if the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
         moduleId: 'layout.hbs',
         source: '<img alt src="zoey.jpg">',
         line: 1,
