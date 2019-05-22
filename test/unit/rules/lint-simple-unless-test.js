@@ -16,6 +16,8 @@ generateRuleTests({
     '<div class="{{if foo \'foo\'}}"></div>',
     '{{unrelated-mustache-without-params}}',
     '{{#if foo}}{{else}}{{/if}}',
+    '{{#if foo}}{{else}}{{#unless bar}}{{/unless}}{{/if}}',
+    '{{#if foo}}{{else}}{{unless bar someProperty}}{{/if}}',
     '{{#unless (or foo bar)}}order whiskey{{/unless}}',
     '{{#unless (eq (or foo bar) baz)}}order whiskey{{/unless}}',
     ['{{#unless hamburger}}', '  HOT DOG!', '{{/unless}}'].join('\n'),

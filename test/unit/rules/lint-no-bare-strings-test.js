@@ -10,6 +10,10 @@ generateRuleTests({
   good: [
     '{{t "howdy"}}',
     {
+      config: [''],
+      template: '\n {{translate "greeting"}}',
+    },
+    {
       config: [','],
       template: '\n {{translate "greeting"}},',
     },
