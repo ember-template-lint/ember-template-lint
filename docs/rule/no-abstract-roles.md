@@ -1,19 +1,19 @@
 ## no-abstract-roles
 
-The HTML attribute role should never have the following values:
+The HTML attribute `role` must never have the following values:
 
-* command
-* composite
-* input
-* landmark
-* range
-* roletype
-* section
-* sectionhead
-* select
-* structure
-* widget
-* window
+* `command`
+* `composite`
+* `input`
+* `landmark`
+* `range`
+* `roletype`
+* `section`
+* `sectionhead`
+* `select`
+* `structure`
+* `widget`
+* `window`
 
 ### `<* role>`
 
