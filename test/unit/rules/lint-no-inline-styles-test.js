@@ -21,7 +21,15 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<div></div>', '<span></span>', '<ul class="dummy"></ul>'],
+  good: [
+    '<div></div>',
+    '<span></span>',
+    '<ul class="dummy"></ul>',
+    {
+      config: { allowDynamicStyles: true },
+      template: '<div style={{html-safe (concat "background-image: url(" url ")")}}></div>',
+    },
+  ],
 
   bad: [
     'style="width: 100px"',
