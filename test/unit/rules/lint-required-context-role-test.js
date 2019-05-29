@@ -64,6 +64,7 @@ generateRuleTests({
     '<div role="tree"><div role="treeitem">Item One</div></div>',
     '<div role="list">{{#each someList as |item|}}{{list-item item=item}}{{/each}}</div>',
     '<div role="list">{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}</div>',
+    '<div role="list">{{#if this.show}}{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}{{/if}}</div>',
   ],
 
   bad: [
