@@ -17,6 +17,11 @@ generateRuleTests({
     '<img alt="" role="presentation" src="zoey.jpg">',
     '<img alt="a stylized graphic of a female hamster" src="zoey.jpg">',
 
+    '<img alt="some-alt-name">',
+    '<img alt="name {{picture}}">',
+    '<img aria-hidden="true">',
+    '<img alt="{{picture}}">',
+
     '<input type="image" alt="some-alt">',
     '<input type="image" aria-labelledby="some-alt">',
     '<input type="image" aria-label="some-alt">',
@@ -127,6 +132,66 @@ generateRuleTests({
           'Each area of an image map must have a text alternative through the `alt`, `aria-label`, or `aria-labelledby` attribute.',
         moduleId: 'layout.hbs',
         source: '<area>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="picture">',
+
+      result: {
+        message:
+          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        moduleId: 'layout.hbs',
+        source: '<img alt="picture">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="photo">',
+
+      result: {
+        message:
+          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        moduleId: 'layout.hbs',
+        source: '<img alt="photo">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="image">',
+
+      result: {
+        message:
+          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        moduleId: 'layout.hbs',
+        source: '<img alt="image">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="  IMAGE ">',
+
+      result: {
+        message:
+          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        moduleId: 'layout.hbs',
+        source: '<img alt="  IMAGE ">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="  IMAGE {{picture}} {{word}} ">',
+
+      result: {
+        message:
+          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        moduleId: 'layout.hbs',
+        source: '<img alt="  IMAGE {{picture}} {{word}} ">',
         line: 1,
         column: 0,
       },
