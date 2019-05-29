@@ -1,4 +1,4 @@
-## iframe-has-title
+## require-iframe-title
 
 ### `<iframe>`
 
