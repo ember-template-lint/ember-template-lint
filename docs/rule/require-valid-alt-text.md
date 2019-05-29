@@ -2,6 +2,8 @@
 
 Enforce that all elements that require alternative text have meaningful information to relay back to the end user. This is a critical component of accessibility for screenreader users in order for them to understand the content's purpose on the page. By default, this rule checks for alternative text on the following elements: `<img>`, `<area>`, `<input type="image">`, and `<object>`.
 
+Enforce `img` alt attribute does not contain the word image, picture, or photo. Screenreaders already announce `img` elements as an image. There is no need to use words such as *image*, *photo*, and/or *picture*. The rule will first check if `aria-hidden` is true to determine whether to enforce the rule. If the image is hidden, then rule will always succeed.
+
 This rule **forbids** the following:
 
 ### `<img>`
@@ -12,16 +14,24 @@ The content of an `alt` attribute is used to calculate the machine-readable labe
 
 If it's not a meaningful image, it should have an empty alt attribute value and have the role of presentation or none.
 
+`img` alt attribute does not contain the word image, picture, or photo. Screenreaders already announce `img` elements as an image. There is no need to use words such as *image*, *photo*, and/or *picture*.
+
+
 This rule **forbids** the following:
 
 ```hbs
 <img src="rwjblue.png">
+<img src="foo" alt="Photo of foo being weird." />
+<img src="bar" alt="Image of me at a bar!" />
+<img src="baz" alt="Picture of baz fixing a bug." />
 ```
 
 This rule **allows** the following:
 
 ```hbs
 <img src="rwjblue.png" alt="A man standing in front of a room of people, giving a presentation about Ember.">
+<img src="bar" aria-hidden alt="Picture of me taking a photo of an image" /> // Will pass because it is hidden.
+<img src="baz" alt="Baz taking a {{photo}}" /> // This is valid since photo is a variable name.
 ```
 
 ### `<object>`
