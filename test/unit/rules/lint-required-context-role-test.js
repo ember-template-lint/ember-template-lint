@@ -62,6 +62,8 @@ generateRuleTests({
     '<div role="tablist"><div role="tab">Item One</div></div>',
     '<div role="group"><div role="treeitem">Item One</div></div>',
     '<div role="tree"><div role="treeitem">Item One</div></div>',
+    '<div role="list">{{#each someList as |item|}}{{list-item item=item}}{{/each}}</div>',
+    '<div role="list">{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}</div>',
   ],
 
   bad: [
