@@ -53,6 +53,7 @@ generateRuleTests({
     '<table><SomeComponent @tagName="tbody" /></table>',
     '<table><SomeComponent @tagName="thead" /></table>',
     '<table><SomeComponent @tagName="tfoot" /></table>',
+    ` <table>{{yield}}</table> `,
     '<table><!-- this --></table>',
     '<table>{{! or this }}</table>',
     '<table> </table>',
