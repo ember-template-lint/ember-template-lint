@@ -33,14 +33,6 @@ This rule **forbids** the following:
 {{/unless}}
 ```
 
-```hbs
-{{#unless (not condition)}}
-  ...
-{{else}}
-  ...
-{{/unless}}
-```
-
 And similar examples with non-block forms like:
 
 ```hbs
