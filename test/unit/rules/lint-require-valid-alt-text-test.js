@@ -24,6 +24,8 @@ generateRuleTests({
     '<input type="image" aria-hidden="true">',
 
     '<object title="some-alt"></object>',
+    '<object role="presentation"></object>',
+    '<object role="none"></object>',
     '<object hidden></object>',
     '<object aria-hidden="true"></object>',
     '<object aria-labelledby="some-alt"></object>',
