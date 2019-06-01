@@ -129,23 +129,9 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
   * If you are using `ember-cli-template-lint` you can generate this list with: `ember template-lint:print-failing`
 * `ignore` -- `string[]|glob[]`
-  An array of module id's that are to be completely ignored.
+  An array of module id's that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.
 * `plugins` -- `(string|Object)[]`
   An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
-  
-You can ignore individual files or directories.
-
-```javascript
-module.exports = {
-  extends: 'recommended',
-
-  ignore: [
-    './node_modules/**',
-    './vendor/**',
-    'app-name/templates/login'
-  ]
-};
-```
 
 ## Rules
 
