@@ -90,8 +90,6 @@ function checkConfigPath() {
 }
 
 function run() {
-  var exitCode = 0;
-
   var configPath = checkConfigPath();
   var linter;
   try {
@@ -111,15 +109,13 @@ function run() {
         return err.severity > 1;
       })
     )
-      exitCode = 1;
+      process.exitCode = 1;
 
     if (fileErrors.length) errors[filePath] = fileErrors;
     return errors;
   }, {});
 
   if (Object.keys(errors).length) printErrors(errors);
-  // eslint-disable-next-line no-process-exit
-  if (exitCode) return process.exit(exitCode);
 }
 
 run();
