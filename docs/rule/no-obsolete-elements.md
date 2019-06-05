@@ -41,20 +41,7 @@ This rule **forbids** the following:
 
 This rule **allows** the following:
 
-```hbs
-<div></div>
-<embed></embed>
-<object></object>
-<audio></audio>
-<ul></ul>
-<iframe></iframe>
-<form></form>
-<pre></pre>
-<code></code>
-<ruby></ruby>
-<del></del>
-<s></s>
-```
+This rule allows anything that is not an obsolete element.
 
 ### Migration
 
