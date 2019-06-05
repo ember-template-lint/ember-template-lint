@@ -9,7 +9,7 @@ generateRuleTests({
 
   good: [
     '<div></div>',
-    '<embed></embed>',
+    '<embed>',
     '<object></object>',
     '<audio></audio>',
     '<ul></ul>',
@@ -19,13 +19,12 @@ generateRuleTests({
     '<code></code>',
     '<ruby></ruby>',
     '<del></del>',
-    '<s></s>'
+    '<s></s>',
   ],
 
   bad: [
     {
       template: '<applet></applet>',
-
       result: {
         message: 'Deprecated element. Use embed or object instead.',
         line: 1,
@@ -35,7 +34,6 @@ generateRuleTests({
     },
     {
       template: '<acronym></acronym>',
-
       result: {
         message: 'Deprecated element. Use abbr instead.',
         line: 1,
@@ -45,7 +43,6 @@ generateRuleTests({
     },
     {
       template: '<bgsound></bgsound>',
-
       result: {
         message: 'Deprecated element. Use audio instead.',
         line: 1,
@@ -55,7 +52,6 @@ generateRuleTests({
     },
     {
       template: '<dir></dir>',
-
       result: {
         message: 'Deprecated element. Use ul instead.',
         line: 1,
@@ -65,7 +61,6 @@ generateRuleTests({
     },
     {
       template: '<frame></frame>',
-
       result: {
         message:
           'Deprecated element. Either use iframe and CSS instead, or use server-side includes to generate complete pages with the various invariant parts merged in.',
@@ -76,7 +71,6 @@ generateRuleTests({
     },
     {
       template: '<frameset></frameset>',
-
       result: {
         message:
           'Deprecated element. Either use iframe and CSS instead, or use server-side includes to generate complete pages with the various invariant parts merged in.',
@@ -87,7 +81,6 @@ generateRuleTests({
     },
     {
       template: '<noframes></noframes>',
-
       result: {
         message:
           'Deprecated element. Either use iframe and CSS instead, or use server-side includes to generate complete pages with the various invariant parts merged in.',
@@ -98,7 +91,6 @@ generateRuleTests({
     },
     {
       template: '<isindex></isindex>',
-
       result: {
         message: 'Deprecated element. Use an explicit form and text control combination instead.',
         line: 1,
@@ -107,19 +99,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<keygen></keygen>',
-
+      template: '<keygen>',
       result: {
-        message: 
+        message:
           'Deprecated element. Use native on-device management capabilities or use the Web Cryptography API',
         line: 1,
         column: 0,
-        source: '<keygen></keygetn>',
+        source: '<keygen>',
       },
     },
     {
       template: '<listing></listing>',
-
       result: {
         message: 'Deprecated element. Use pre and code instead.',
         line: 1,
@@ -129,9 +119,8 @@ generateRuleTests({
     },
     {
       template: '<menuitem></menuitem>',
-
       result: {
-        message: 
+        message:
           'Deprecated element. To implement a custom context menu, use script to handle the contextmenu event.',
         line: 1,
         column: 0,
@@ -140,7 +129,6 @@ generateRuleTests({
     },
     {
       template: '<nextid></nextid>',
-
       result: {
         message: 'Deprecated element. Use GUIDs instead.',
         line: 1,
@@ -150,7 +138,6 @@ generateRuleTests({
     },
     {
       template: '<noembed></noembed>',
-
       result: {
         message: 'Deprecated element. Use object instead of embed when fallback is necessary.',
         line: 1,
@@ -160,9 +147,8 @@ generateRuleTests({
     },
     {
       template: '<rb></rb>',
-
       result: {
-        message: 
+        message:
           'Deprecated element. Providing the ruby base directly inside the ruby element or using nested ruby elements is sufficient.',
         line: 1,
         column: 0,
@@ -171,9 +157,8 @@ generateRuleTests({
     },
     {
       template: '<rtc></rtc>',
-
       result: {
-        message: 
+        message:
           'Deprecated element. Providing the ruby base directly inside the ruby element or using nested ruby elements is sufficient.',
         line: 1,
         column: 0,
@@ -182,7 +167,6 @@ generateRuleTests({
     },
     {
       template: '<strike></strike>',
-
       result: {
         message: 'Deprecated element. Use del instead.',
         line: 1,
@@ -192,9 +176,8 @@ generateRuleTests({
     },
     {
       template: '<xmp></xmp>',
-
       result: {
-        message: 
+        message:
           'Deprecated element. Use pre and code instead, and escape "<" and "&" characters as "&lt;" and "&amp;" respectively.',
         line: 1,
         column: 0,
@@ -203,7 +186,6 @@ generateRuleTests({
     },
     {
       template: '<basefont></basefont>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -213,7 +195,6 @@ generateRuleTests({
     },
     {
       template: '<big></big>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -223,7 +204,6 @@ generateRuleTests({
     },
     {
       template: '<blink></blink>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -233,7 +213,6 @@ generateRuleTests({
     },
     {
       template: '<center></center>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -243,7 +222,6 @@ generateRuleTests({
     },
     {
       template: '<font></font>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -253,7 +231,6 @@ generateRuleTests({
     },
     {
       template: '<marquee></marquee>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -263,7 +240,6 @@ generateRuleTests({
     },
     {
       template: '<multicol></multicol>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -273,7 +249,6 @@ generateRuleTests({
     },
     {
       template: '<nobr></nobr>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -283,7 +258,6 @@ generateRuleTests({
     },
     {
       template: '<spacer></spacer>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
@@ -293,13 +267,12 @@ generateRuleTests({
     },
     {
       template: '<tt></tt>',
-
       result: {
         message: 'Deprecated element. Use appropriate elements or CSS instead.',
         line: 1,
         column: 0,
         source: '<tt></tt>',
       },
-    }
+    },
   ],
 });

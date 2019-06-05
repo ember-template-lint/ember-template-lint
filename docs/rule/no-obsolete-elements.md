@@ -17,7 +17,7 @@ This rule **forbids** the following:
 <frameset></frameset>
 <noframes></noframes>
 <isindex></isindex>
-<keygen></keygen>
+<keygen>
 <listing></listing>
 <menuitem></menuitem>
 <nextid></nextid>
