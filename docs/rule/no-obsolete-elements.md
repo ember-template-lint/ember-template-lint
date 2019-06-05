@@ -9,34 +9,34 @@ This rule forbids the use of obsolete elements.
 This rule **forbids** the following:
 
 ```hbs
-  <applet></applet>
-  <acronym></acronym>
-  <bgsound></bgsound>
-  <dir></dir>
-  <frame></frame>
-  <frameset></frameset>
-  <noframes></noframes>
-  <isindex></isindex>
-  <keygen></keygen>
-  <listing></listing>
-  <menuitem></menuitem>
-  <nextid></nextid>
-  <noembed></noembed>
-  <plaintext></plaintext>
-  <rb></rb>
-  <rtc></rtc>
-  <strike></strike>
-  <xmp></xmp>
-  <basefont></basefont>
-  <big></big>
-  <blink></blink>
-  <center></center>
-  <font></font>
-  <marquee></marquee>
-  <multicol></multicol>
-  <nobr></nobr>
-  <spacer></spacer>
-  <tt></tt>
+<applet></applet>
+<acronym></acronym>
+<bgsound></bgsound>
+<dir></dir>
+<frame></frame>
+<frameset></frameset>
+<noframes></noframes>
+<isindex></isindex>
+<keygen></keygen>
+<listing></listing>
+<menuitem></menuitem>
+<nextid></nextid>
+<noembed></noembed>
+<plaintext></plaintext>
+<rb></rb>
+<rtc></rtc>
+<strike></strike>
+<xmp></xmp>
+<basefont></basefont>
+<big></big>
+<blink></blink>
+<center></center>
+<font></font>
+<marquee></marquee>
+<multicol></multicol>
+<nobr></nobr>
+<spacer></spacer>
+<tt></tt>
 ```
 
 This rule **allows** the following:
