@@ -3,558 +3,169 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'self-closing-void-elements',
+  name: 'no-childless-elements',
 
   config: true,
 
   good: [
-    '<area>',
-    '<base>',
-    '<br>',
-    '<col>',
-    '<command>',
-    '<embed>',
-    '<hr>',
-    '<img>',
-    '<input>',
-    '<keygen>',
-    '<link>',
-    '<meta>',
-    '<param>',
-    '<source>',
-    '<track>',
-    '<wbr>',
-    {
-      config: 'require',
-      template: '<area/>',
-    },
-    {
-      config: 'require',
-      template: '<base/>',
-    },
-    {
-      config: 'require',
-      template: '<br/>',
-    },
-    {
-      config: 'require',
-      template: '<col/>',
-    },
-    {
-      config: 'require',
-      template: '<command/>',
-    },
-    {
-      config: 'require',
-      template: '<embed/>',
-    },
-    {
-      config: 'require',
-      template: '<hr/>',
-    },
-    {
-      config: 'require',
-      template: '<img/>',
-    },
-    {
-      config: 'require',
-      template: '<input/>',
-    },
-    {
-      config: 'require',
-      template: '<keygen/>',
-    },
-    {
-      config: 'require',
-      template: '<link/>',
-    },
-    {
-      config: 'require',
-      template: '<meta/>',
-    },
-    {
-      config: 'require',
-      template: '<param/>',
-    },
-    {
-      config: 'require',
-      template: '<source/>',
-    },
-    {
-      config: 'require',
-      template: '<track/>',
-    },
-    {
-      config: 'require',
-      template: '<wbr/>',
-    },
+    '<h1>something</h1>',
+    '<h2>something</h2>',
+    '<h3>something</h3>',
+    '<h4>something</h4>',
+    '<h5>something</h5>',
+    '<h6>something</h6>',
+    '<p>something</p>',
+    '<span>something</span>',
+    '<a>something</a>',
+    '<ul>something</ul>',
+    '<ol>something</ol>',
+    '<li>something</li>',
+    '<div>something</div>',
   ],
 
   bad: [
     {
-      template: '<area/>',
-      message: "Self-closing void element as <area> is redundant ('layout.hbs'@ L1:C0)",
+      template: '<h1></h1>',
+      message: 'Empty non-void elements are not allowed',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<area/>',
+        source: '<h1></h1>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<area>',
-        },
       },
     },
     {
-      template: '<base/>',
+      template: '<h2></h2>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<base/>',
+        source: '<h2></h2>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<base>',
-        },
       },
     },
     {
-      template: '<br/>',
+      template: '<h3></h3>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<br/>',
+        source: '<h3></h3>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<br>',
-        },
       },
     },
     {
-      template: '<col/>',
+      template: '<h4></h4>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<col/>',
+        source: '<h4></h4>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<col>',
-        },
       },
     },
     {
-      template: '<command/>',
+      template: '<h5></h5>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<command/>',
+        source: '<h5></h5>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<command>',
-        },
       },
     },
     {
-      template: '<embed/>',
+      template: '<h6></h6>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<embed/>',
+        source: '<h6></h6>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<embed>',
-        },
       },
     },
     {
-      template: '<hr/>',
+      template: '<p></p>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<hr/>',
+        source: '<p></p>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<hr>',
-        },
       },
     },
     {
-      template: '<img/>',
+      template: '<span></span>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<img/>',
+        source: '<span></span>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<img>',
-        },
       },
     },
     {
-      template: '<input/>',
+      template: '<a></a>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<input/>',
+        source: '<a></a>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<input>',
-        },
       },
     },
     {
-      template: '<keygen/>',
+      template: '<ul></ul>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<keygen/>',
+        source: '<ul></ul>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<keygen>',
-        },
       },
     },
     {
-      template: '<link/>',
+      template: '<ol></ol>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<link/>',
+        source: '<ol></ol>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<link>',
-        },
       },
     },
     {
-      template: '<meta/>',
+      template: '<li></li>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<meta/>',
+        source: '<li></li>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<meta>',
-        },
       },
     },
     {
-      template: '<param/>',
+      template: '<div></div>',
 
       result: {
-        message: 'Self-closing a void element is redundant',
+        message: 'Empty non-void elements are not allowed',
         moduleId: 'layout.hbs',
-        source: '<param/>',
+        source: '<div></div>',
         line: 1,
         column: 0,
-        fix: {
-          text: '<param>',
-        },
-      },
-    },
-    {
-      template: '<source/>',
-
-      result: {
-        message: 'Self-closing a void element is redundant',
-        moduleId: 'layout.hbs',
-        source: '<source/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<source>',
-        },
-      },
-    },
-    {
-      template: '<track/>',
-
-      result: {
-        message: 'Self-closing a void element is redundant',
-        moduleId: 'layout.hbs',
-        source: '<track/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<track>',
-        },
-      },
-    },
-    {
-      template: '<wbr/>',
-      config: true,
-
-      result: {
-        message: 'Self-closing a void element is redundant',
-        moduleId: 'layout.hbs',
-        source: '<wbr/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<wbr>',
-        },
-      },
-    },
-    {
-      template: '<area>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<area>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<area/>',
-        },
-      },
-    },
-    {
-      template: '<base>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<base>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<base/>',
-        },
-      },
-    },
-    {
-      template: '<br>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<br>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<br/>',
-        },
-      },
-    },
-    {
-      template: '<col>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<col>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<col/>',
-        },
-      },
-    },
-    {
-      template: '<command>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<command>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<command/>',
-        },
-      },
-    },
-    {
-      template: '<embed>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<embed>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<embed/>',
-        },
-      },
-    },
-    {
-      template: '<hr>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<hr>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<hr/>',
-        },
-      },
-    },
-    {
-      template: '<img>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<img>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<img/>',
-        },
-      },
-    },
-    {
-      template: '<input>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<input>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<input/>',
-        },
-      },
-    },
-    {
-      template: '<keygen>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<keygen>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<keygen/>',
-        },
-      },
-    },
-    {
-      template: '<link>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<link>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<link/>',
-        },
-      },
-    },
-    {
-      template: '<meta>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<meta>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<meta/>',
-        },
-      },
-    },
-    {
-      template: '<param>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<param>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<param/>',
-        },
-      },
-    },
-    {
-      template: '<source>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<source>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<source/>',
-        },
-      },
-    },
-    {
-      template: '<track>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<track>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<track/>',
-        },
-      },
-    },
-    {
-      template: '<wbr>',
-      config: 'require',
-
-      result: {
-        message: 'Self-closing a void element is required',
-        moduleId: 'layout.hbs',
-        source: '<wbr>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<wbr/>',
-        },
       },
     },
   ],
