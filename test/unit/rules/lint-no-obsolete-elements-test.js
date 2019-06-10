@@ -11,7 +11,12 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<div></div>'],
+  good: [
+    '<div></div>',
+    `{{#let (component 'whatever-here') as |plaintext|}}
+      <plaintext />
+    {{/let}}`,
+  ],
 
   bad: OBSOLETE_ELEMENTS.map(element => {
     return {
