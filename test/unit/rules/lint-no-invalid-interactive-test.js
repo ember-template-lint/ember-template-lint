@@ -27,6 +27,10 @@ generateRuleTests({
       config: { additionalInteractiveTags: ['div'] },
       template: '<div onclick={{action "foo"}}></div>',
     },
+    {
+      config: { additionalInteractiveTags: ['img'] },
+      template: '<img onerror={{action "foo"}}>',
+    },
   ],
 
   bad: [
