@@ -39,9 +39,7 @@ This rule **forbids** the following:
 <tt></tt>
 ```
 
-This rule **allows** the following:
-
-This rule allows anything that is not an obsolete element.
+This rule **allows** anything that is not an obsolete element.
 
 ### Migration
 
