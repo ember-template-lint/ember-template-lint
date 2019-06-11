@@ -15,6 +15,7 @@ generateRuleTests({
     '<form onsubmit={{action "foo"}}></form>',
     '<form {{action "foo" on="reset"}}></form>',
     '<form onreset={{action "foo"}}></form>',
+    '<img onerror={{action "foo"}}>',
     '<InputSearch @onInput={{action "foo"}} />',
     '<InputSearch @onInput={{action "foo"}}></InputSearch>',
     '{{#with (hash bar=(component "foo")) as |foo|}}<foo.bar @onInput={{action "foo"}}></foo.bar>{{/with}}',
@@ -25,6 +26,10 @@ generateRuleTests({
     {
       config: { additionalInteractiveTags: ['div'] },
       template: '<div onclick={{action "foo"}}></div>',
+    },
+    {
+      config: { additionalInteractiveTags: ['img'] },
+      template: '<img onerror={{action "foo"}}>',
     },
   ],
 
