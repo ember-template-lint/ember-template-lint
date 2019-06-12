@@ -1,3 +1,57 @@
+## v1.2.0 (2019-06-12)
+
+#### :rocket: Enhancement
+* [#733](https://github.com/ember-template-lint/ember-template-lint/pull/733) Add new rule: no-obsolete-elements ([@MelSumner](https://github.com/MelSumner))
+* [#714](https://github.com/ember-template-lint/ember-template-lint/pull/714) Expose rule test harness for use by custom rule authors. ([@gabrielcsapo](https://github.com/gabrielcsapo))
+* [#631](https://github.com/ember-template-lint/ember-template-lint/pull/631) Add rule: [A11y] iframe-has-title ([@lifeart](https://github.com/lifeart))
+* [#681](https://github.com/ember-template-lint/ember-template-lint/pull/681) Update `table-groups` rule to allow `{{yield}}` inside `<table>` ([@sohara](https://github.com/sohara))
+* [#633](https://github.com/ember-template-lint/ember-template-lint/pull/633) Add rule: [A11y] `no-positive-tabindex` ([@lifeart](https://github.com/lifeart))
+* [#624](https://github.com/ember-template-lint/ember-template-lint/pull/624) Add rule: [A11y]`require-valid-alt-text` ([@lifeart](https://github.com/lifeart))
+* [#628](https://github.com/ember-template-lint/ember-template-lint/pull/628) Add rule: [A11y] `no-abstract-roles` ([@lifeart](https://github.com/lifeart))
+* [#721](https://github.com/ember-template-lint/ember-template-lint/pull/721) Allow `{{some-component tagName="tbody"}}` to be a child of a `table` ([@raycohen](https://github.com/raycohen))
+* [#672](https://github.com/ember-template-lint/ember-template-lint/pull/672) Add `allowDynamicStyles` option to `no-inline-styles` lint rule ([@bmish](https://github.com/bmish))
+* [#638](https://github.com/ember-template-lint/ember-template-lint/pull/638) Update `table-groups` rule to allow comments inside `<table>` ([@lifeart](https://github.com/lifeart))
+* [#614](https://github.com/ember-template-lint/ember-template-lint/pull/614) Add rule: `no-element-event-actions` ([@bmish](https://github.com/bmish))
+
+#### :bug: Bug Fix
+* [#737](https://github.com/ember-template-lint/ember-template-lint/pull/737) Allow `onerror` for `img` elements in `no-invalid-interactive` rule ([@elidupuis](https://github.com/elidupuis))
+* [#730](https://github.com/ember-template-lint/ember-template-lint/pull/730) Ensure console output is completed before exiting `ember-template-lint` executable ([@john-kurkowski](https://github.com/john-kurkowski))
+* [#709](https://github.com/ember-template-lint/ember-template-lint/pull/709) Update `@glimmer/compiler` to avoid errors when forwarding element modifiers to component invocations ([@dmzza](https://github.com/dmzza))
+* [#639](https://github.com/ember-template-lint/ember-template-lint/pull/639) Fix `no-bare-strings` to allow whitelisting empty string ([@lifeart](https://github.com/lifeart))
+* [#618](https://github.com/ember-template-lint/ember-template-lint/pull/618) Allow `{{else}} {{#unless ...}}` in the `simple-unless` and `no-negated-condition` rules ([@bmish](https://github.com/bmish))
+* [#613](https://github.com/ember-template-lint/ember-template-lint/pull/613) Avoid suggesting `unless` with helpers in condition in `no-negated-condition` rule ([@bmish](https://github.com/bmish))
+
+#### :memo: Documentation
+* [#678](https://github.com/ember-template-lint/ember-template-lint/pull/678) Add documentation on how to ignore modules when using ember-template-lint and ember-cli-template-lint together ([@DingoEatingFuzz](https://github.com/DingoEatingFuzz))
+* [#695](https://github.com/ember-template-lint/ember-template-lint/pull/695) Fixed 404 URL in `sourceForNode` comment ([@kevinansfield](https://github.com/kevinansfield))
+* [#686](https://github.com/ember-template-lint/ember-template-lint/pull/686) Fix link to spec in `self-closing-void-elements` documentation ([@woprandi](https://github.com/woprandi))
+* [#675](https://github.com/ember-template-lint/ember-template-lint/pull/675) Add allowed example to `no-bare-strings` rule documentation ([@bmish](https://github.com/bmish))
+* [#671](https://github.com/ember-template-lint/ember-template-lint/pull/671) Add command for generating pending list to README ([@TristanToye](https://github.com/TristanToye))
+* [#670](https://github.com/ember-template-lint/ember-template-lint/pull/670) Fix a typo in the `style-concatenation` rule documentation ([@dmzza](https://github.com/dmzza))
+* [#652](https://github.com/ember-template-lint/ember-template-lint/pull/652) Update documentation to show `no-element-event-actions` and `no-action-modifiers` as related rules ([@keanedawg](https://github.com/keanedawg))
+* [#641](https://github.com/ember-template-lint/ember-template-lint/pull/641) Add template for writing documentation for new rules ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#627](https://github.com/ember-template-lint/ember-template-lint/pull/627) Add `-test` suffix to some test files that were not running in CI ([@bmish](https://github.com/bmish))
+
+#### Committers: 16
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cameron Fife ([@keanedawg](https://github.com/keanedawg))
+- David Mazza ([@dmzza](https://github.com/dmzza))
+- Eli Dupuis ([@elidupuis](https://github.com/elidupuis))
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- John Kurkowski ([@john-kurkowski](https://github.com/john-kurkowski))
+- Kevin Ansfield ([@kevinansfield](https://github.com/kevinansfield))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Michael Lange ([@DingoEatingFuzz](https://github.com/DingoEatingFuzz))
+- Ray Cohen ([@raycohen](https://github.com/raycohen))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Sean O'Hara ([@sohara](https://github.com/sohara))
+- Tristan Toye ([@TristanToye](https://github.com/TristanToye))
+- William Oprandi ([@woprandi](https://github.com/woprandi))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v1.1.0 (2019-01-16)
 
 #### :rocket: Enhancement
