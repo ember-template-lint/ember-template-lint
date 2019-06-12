@@ -44,15 +44,32 @@ generateRuleTests({
     {{/unless}}
     </table>
     `,
+
+    // Component with tag:
     '<table>{{some-component tagName="tbody"}}</table>',
     '<table>{{some-component tagName="thead"}}</table>',
     '<table>{{some-component tagName="tfoot"}}</table>',
+
+    // Block statement component with tag:
+    '<table>{{#some-component tagName="tbody"}}{{/some-component}}</table>',
+    '<table>{{#some-component tagName="thead"}}{{/some-component}}</table>',
+    '<table>{{#some-component tagName="tfoot"}}{{/some-component}}</table>',
+
+    // Component helper with tag:
     '<table>{{component "some-component" tagName="tbody"}}</table>',
     '<table>{{component "some-component" tagName="thead"}}</table>',
     '<table>{{component "some-component" tagName="tfoot"}}</table>',
+
+    // Angle bracket component (self-closing) with tag:
     '<table><SomeComponent @tagName="tbody" /></table>',
     '<table><SomeComponent @tagName="thead" /></table>',
     '<table><SomeComponent @tagName="tfoot" /></table>',
+
+    // Angle bracket component (NOT self-closing) with tag:
+    '<table><SomeComponent @tagName="tbody"></SomeComponent></table>',
+    '<table><SomeComponent @tagName="thead"></SomeComponent></table>',
+    '<table><SomeComponent @tagName="tfoot"></SomeComponent></table>',
+
     ` <table>{{yield}}</table> `,
     '<table><!-- this --></table>',
     '<table>{{! or this }}</table>',

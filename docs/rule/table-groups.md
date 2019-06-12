@@ -44,6 +44,12 @@ This rule **allows** the following:
 </table>
 ```
 
+```hbs
+<table>
+  {{some-component tagName="tbody"}}
+</table>
+```
+
 If you have a component with one of the table groups specified as its `tagName`, you should disable the rule inline:
 
 ```hbs
