@@ -1,9 +1,9 @@
 ## v1.2.0 (2019-06-12)
 
 #### :rocket: Enhancement
-* [#733](https://github.com/ember-template-lint/ember-template-lint/pull/733) Add new rule: no-obsolete-elements ([@MelSumner](https://github.com/MelSumner))
+* [#733](https://github.com/ember-template-lint/ember-template-lint/pull/733) Add new rule: `no-obsolete-elements` ([@MelSumner](https://github.com/MelSumner))
 * [#714](https://github.com/ember-template-lint/ember-template-lint/pull/714) Expose rule test harness for use by custom rule authors. ([@gabrielcsapo](https://github.com/gabrielcsapo))
-* [#631](https://github.com/ember-template-lint/ember-template-lint/pull/631) Add rule: [A11y] iframe-has-title ([@lifeart](https://github.com/lifeart))
+* [#631](https://github.com/ember-template-lint/ember-template-lint/pull/631) Add rule: [A11y] `require-iframe-title` ([@lifeart](https://github.com/lifeart))
 * [#681](https://github.com/ember-template-lint/ember-template-lint/pull/681) Update `table-groups` rule to allow `{{yield}}` inside `<table>` ([@sohara](https://github.com/sohara))
 * [#633](https://github.com/ember-template-lint/ember-template-lint/pull/633) Add rule: [A11y] `no-positive-tabindex` ([@lifeart](https://github.com/lifeart))
 * [#624](https://github.com/ember-template-lint/ember-template-lint/pull/624) Add rule: [A11y]`require-valid-alt-text` ([@lifeart](https://github.com/lifeart))
