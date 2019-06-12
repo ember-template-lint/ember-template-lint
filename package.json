@@ -7,17 +7,18 @@
   "bugs": {
     "url": "https://github.com/rwjblue/ember-template-lint/issues"
   },
-  "license": "MIT",
-  "author": "Robert Jackson <me@rwjblue.com>",
-  "main": "lib/index.js",
-  "bin": "./bin/ember-template-lint.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
   },
+  "license": "MIT",
+  "author": "Robert Jackson <me@rwjblue.com>",
+  "main": "lib/index.js",
+  "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "changelog": "lerna-changelog",
     "lint:js": "eslint .",
+    "release": "release-it",
     "test": "mocha"
   },
   "dependencies": {
@@ -39,9 +40,27 @@
     "mocha": "^6.0.0",
     "mocha-only-detector": "^1.0.0",
     "prettier": "^1.15.3",
+    "release-it": "^12.2.1",
+    "release-it-lerna-changelog": "^1.0.3",
     "testem": "^2.0.0"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md"
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true
+    }
   }
 }
