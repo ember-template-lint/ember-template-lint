@@ -14,6 +14,7 @@ generateRuleTests({
     '<span tabindex={{"-1"}}>baz</span>',
     '<span tabindex="{{-1}}">baz</span>',
     '<span tabindex="{{"-1"}}">baz</span>',
+    '<span tabindex="{{if this.show "-1" "0"}}">baz</span>',
   ],
 
   bad: [
