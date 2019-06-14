@@ -43,3 +43,7 @@ This rule **allows** the following:
 ### Configuration
 
 Boolean - `true` to enable / `false` to disable
+
+### References
+
+[Specs of Void Elements](https://www.w3.org/TR/html-markup/syntax.html#void-element)
