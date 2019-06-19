@@ -392,6 +392,19 @@ describe('public api', function() {
 
       expect(result).to.deep.equal(expected);
     });
+
+    it('allow you to disable plugin rules inline', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'disabled-rule.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [];
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath,
+      });
+
+      expect(result).to.deep.equal(expected);
+    });
   });
 
   describe('Linter using plugin with extends', function() {
