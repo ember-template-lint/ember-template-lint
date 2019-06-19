@@ -25,6 +25,7 @@ This rule **allows** the following:
 
 * [Deep Dive on Ember Events]
 * Ember [Template Action](https://guides.emberjs.com/release/templates/actions/) documentation
+* [Spec](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/action?anchor=action) for `action` helper
 * [List of DOM Events](https://developer.mozilla.org/en-US/docs/Web/Events)
 
 [Deep Dive on Ember Events]: https://medium.com/square-corner-blog/deep-dive-on-ember-events-cf684fd3b808
