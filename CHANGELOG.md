@@ -1,3 +1,24 @@
+## v1.3.0 (2019-06-19)
+
+#### :rocket: Enhancement
+* [#742](https://github.com/ember-template-lint/ember-template-lint/pull/742) Update `table-groups` rule to allow `{{#some-component tagName="tbody"}}{{/some-component}}` to be a child of `table` ([@bmish](https://github.com/bmish))
+
+#### :bug: Bug Fix
+* [#750](https://github.com/ember-template-lint/ember-template-lint/pull/750) Ensure custom rules can be disabled with inline comments. ([@rwjblue](https://github.com/rwjblue))
+
+#### :memo: Documentation
+* [#744](https://github.com/ember-template-lint/ember-template-lint/pull/744) Tweak error message for `no-element-event-actions` rule. ([@bmish](https://github.com/bmish))
+* [#740](https://github.com/ember-template-lint/ember-template-lint/pull/740) Fix rule ordering and incorrect rule name in plugin documentation ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#738](https://github.com/ember-template-lint/ember-template-lint/pull/738) Add support for new node types to the AST ([@CvX](https://github.com/CvX))
+
+#### Committers: 4
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Jarek Radosz ([@CvX](https://github.com/CvX))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v1.2.0 (2019-06-12)
 
 #### :rocket: Enhancement
