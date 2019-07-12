@@ -1,3 +1,19 @@
+## v1.4.0 (2019-07-12)
+
+#### :rocket: Enhancement
+* [#759](https://github.com/ember-template-lint/ember-template-lint/pull/759) Deprecate `img-alt-attributes` rule in favor of `require-valid-alt-text` ([@bmish](https://github.com/bmish))
+* [#753](https://github.com/ember-template-lint/ember-template-lint/pull/753) Add `no-unnecessary-component-helper` rule ([@bmish](https://github.com/bmish))
+* [#518](https://github.com/ember-template-lint/ember-template-lint/pull/518) Add blacklist support to simple-unless rule ([@mattbalmer](https://github.com/mattbalmer))
+
+#### :bug: Bug Fix
+* [#772](https://github.com/ember-template-lint/ember-template-lint/pull/772) Fix `no-element-event-actions` rule to ignore case when checking the DOM event attribute name (should handle either `onclick` or `ONCLICK`) ([@bmish](https://github.com/bmish))
+* [#773](https://github.com/ember-template-lint/ember-template-lint/pull/773) Fix `no-invalid-interactive` rule to consider any DOM event attribute usage as adding interactivity to an element ([@bmish](https://github.com/bmish))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Matt Balmer ([@mattbalmer](https://github.com/mattbalmer))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v1.3.0 (2019-06-19)
 
 #### :rocket: Enhancement
