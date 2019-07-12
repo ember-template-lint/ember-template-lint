@@ -10,6 +10,7 @@ generateRuleTests({
   good: [
     '<button {{action "foo"}}></button>',
     '<div role="button" {{action "foo"}}></div>',
+    '<div randomProperty={{myValue}}></div>',
     '<li><button {{action "foo"}}></button></li>',
     '<form {{action "foo" on="submit"}}></form>',
     '<form onsubmit={{action "foo"}}></form>',
@@ -57,6 +58,18 @@ generateRuleTests({
     },
 
     {
+      // This example is detected solely based on the DOM event attribute name.
+      template: '<div onclick={{pipe-action "foo"}}></div>',
+
+      result: {
+        message: 'Interaction added to non-interactive element',
+        line: 1,
+        column: 5,
+        source: '<div onclick={{pipe-action "foo"}}></div>',
+      },
+    },
+
+    {
       template: '<div onsubmit={{action "foo"}}></div>',
 
       result: {
@@ -64,6 +77,18 @@ generateRuleTests({
         line: 1,
         column: 5,
         source: '<div onsubmit={{action "foo"}}></div>',
+      },
+    },
+
+    {
+      // Any usage of the `action` helper will be caught, regardless of the attribute name.
+      template: '<div randomAttribute={{action "foo"}}></div>',
+
+      result: {
+        message: 'Interaction added to non-interactive element',
+        line: 1,
+        column: 5,
+        source: '<div randomAttribute={{action "foo"}}></div>',
       },
     },
 
