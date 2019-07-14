@@ -36,6 +36,7 @@
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
 * [no-unbound](rule/no-unbound.md)
+* [no-unnecessary-component-helper](rule/no-unnecessary-component-helper.md)
 * [no-unnecessary-concat](rule/no-unnecessary-concat.md)
 * [no-unused-block-params](rule/no-unused-block-params.md)
 * [quotes](rule/quotes.md)
