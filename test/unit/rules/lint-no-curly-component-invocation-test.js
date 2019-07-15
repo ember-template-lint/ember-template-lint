@@ -11,6 +11,7 @@ generateRuleTests({
 
   config: {
     allow: ['some-valid-helper', 'some/valid-nested-helper'],
+    disallow: ['heading'],
   },
 
   good: [
@@ -34,6 +35,24 @@ generateRuleTests({
     {
       template: '{{nested/bad-code}}',
       results: [getErrorResult(generateError('nested/bad-code'), '{{nested/bad-code}}')],
+    },
+    {
+      template: '{{heading size="1" text="Disallowed heading component"}}',
+      results: [
+        getErrorResult(
+          generateError('heading'),
+          '{{heading size="1" text="Disallowed heading component"}}'
+        ),
+      ],
+    },
+    {
+      template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
+      results: [
+        getErrorResult(
+          generateError('heading'),
+          '{{#heading size="1"}}Disallowed heading component{{/heading}}'
+        ),
+      ],
     },
   ],
 });
