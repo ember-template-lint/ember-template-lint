@@ -1,8 +1,8 @@
-## Use angle bracket invocation for components
+## Use angle bracket syntax for components
 
-### Rule name: `no-classic-invocation-component`
+### Rule name: `no-curly-component-invocation`
 
-There are two ways to invoke a component in a template: classic invocation syntax (`{{my-component}}`), and angle bracket invocation syntax (`<MyComponent />`). The difference between them is syntactical. You should favour angle bracket invocation syntax as it improves readability of templates, i.e. disambiguates components from helpers, and is also the future direction Ember is going with Glimmer components.
+There are two ways to invoke a component in a template: curly compoment syntax (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The difference between them is syntactical. You should favour angle bracket syntax as it improves readability of templates, i.e. disambiguates components from helpers, and is also the future direction Ember is going with Glimmer components.
 
 #### Bad
 
@@ -33,12 +33,12 @@ There are two ways to invoke a component in a template: classic invocation synta
 ```
 
 ### Whitelisting helpers
-To be able to differentiate between components and helpers used within mustaches, e.g. `{{my-helper}}`, you can add a whitelist of all your known helpers to this rule's configuration. To do this add the following to your `.template-lintrc.js` which enables your rule.
+To be able to differentiate between components and helpers used within curlies, e.g. `{{my-helper}}`, you can add a whitelist of all your known helpers to this rule's configuration. To do this add the following to your `.template-lintrc.js` which enables your rule.
 
 ```js
 module.exports = {
   rules: {
-    'no-classic-invocation-component': {
+    'no-curly-component-invocation': {
         allow: [
         'some-random-helper',
         'another-helper',

@@ -1,13 +1,13 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const { transformTagName } = require('../../../lib/helpers/classic-invocation-component');
+const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
 
 function generateError(name) {
   let angleBracketName = transformTagName(name);
-  return `You are using the component {{${name}}} with classic invocation syntax. You should use <${angleBracketName}> instead. If it is actually a helper you must manually add it to the 'no-classic-invocation-component' rule configuration, e.g. \`'no-classic-invocation-component': { allow: ['${name}'] }\`.`;
+  return `You are using the component {{${name}}} with curly component syntax. You should use <${angleBracketName}> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['${name}'] }\`.`;
 }
 
 generateRuleTests({
-  name: 'no-classic-invocation-component',
+  name: 'no-curly-component-invocation',
 
   config: {
     allow: ['some-valid-helper', 'some/valid-nested-helper'],
@@ -40,7 +40,7 @@ generateRuleTests({
 
 function getErrorResult(message, source) {
   return {
-    rule: 'no-classic-invocation-component',
+    rule: 'no-curly-component-invocation',
     severity: 2,
     moduleId: 'layout.hbs',
     message,

@@ -5,7 +5,7 @@ const {
   transformTagName,
   isComponentTagName,
   isNestedComponentTagName,
-} = require('../../../lib/helpers/classic-invocation-component');
+} = require('../../../lib/helpers/curly-component-invocation');
 
 describe('#transformTagName', function() {
   it(`it works as expected`, function() {
