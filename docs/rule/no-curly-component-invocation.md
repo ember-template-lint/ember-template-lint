@@ -32,6 +32,7 @@ There are two ways to invoke a component in a template: curly compoment syntax (
 {{/each}}
 ```
 
+## Configuration
 ### Whitelisting helpers
 To be able to differentiate between components and helpers used within curlies, e.g. `{{my-helper}}`, you can add a whitelist of all your known helpers to this rule's configuration. To do this add the following to your `.template-lintrc.js` which enables your rule.
 
@@ -74,6 +75,19 @@ module.exports = {
         'heading',
         'datepicker',
       ],
+    },
+  },
+};
+```
+
+### Matching on components without dashes in their name
+Before Ember 3.8 components were required to have at least one dash, `-`, in their name. By default this rule assumes that all components have `-` in their name. If you'd like to change this behaviour to match all curly invocations, even those without dashes then set the `noDashInName` option to `true`.
+
+```js
+module.exports = {
+  rules: {
+    'no-curly-component-invocation': {
+        noDashInName: true,
     },
   },
 };

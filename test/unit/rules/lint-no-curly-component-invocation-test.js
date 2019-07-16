@@ -19,7 +19,61 @@ generateRuleTests({
     '<GoodCode></GoodCode>',
     '{{if someProperty "yay"}}',
     '<Nested::GoodCode />',
-    // '<Nested::GoodCode @someProperty={{-50}} @someProperty={{"-50"}}/ />',
+    '<Nested::GoodCode @someProperty={{-50}} @someProperty={{"-50"}} @someProperty={{true}} />',
+    '{{some-valid-helper param}}',
+    '{{some/valid-nested-helper param}}',
+    `{{@someArg}}`,
+    `{{this.someProperty}}`,
+    `{{#each items as |item|}}
+        {{item}}
+     {{/each}}`,
+  ],
+
+  bad: [
+    {
+      template: '{{bad-code}}',
+      results: [getErrorResult(generateError('bad-code'), '{{bad-code}}')],
+    },
+    {
+      template: '{{nested/bad-code}}',
+      results: [getErrorResult(generateError('nested/bad-code'), '{{nested/bad-code}}')],
+    },
+    {
+      template: '{{heading size="1" text="Disallowed heading component"}}',
+      results: [
+        getErrorResult(
+          generateError('heading'),
+          '{{heading size="1" text="Disallowed heading component"}}'
+        ),
+      ],
+    },
+    {
+      template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
+      results: [
+        getErrorResult(
+          generateError('heading'),
+          '{{#heading size="1"}}Disallowed heading component{{/heading}}'
+        ),
+      ],
+    },
+  ],
+});
+
+generateRuleTests({
+  name: 'no-curly-component-invocation',
+
+  config: {
+    allow: ['some-valid-helper', 'some/valid-nested-helper'],
+    disallow: ['heading'],
+    noDashInName: true,
+  },
+
+  good: [
+    '<GoodCode />',
+    '<GoodCode></GoodCode>',
+    '{{if someProperty "yay"}}',
+    '<Nested::GoodCode />',
+    '<Nested::GoodCode @someProperty={{-50}} @someProperty={{"-50"}}/ />',
     '{{some-valid-helper param}}',
     '{{some/valid-nested-helper param}}',
     `{{@someArg}}`,
@@ -30,8 +84,8 @@ generateRuleTests({
 
   bad: [
     {
-      template: '{{bad-code}}',
-      results: [getErrorResult(generateError('bad-code'), '{{bad-code}}')],
+      template: '{{box}}',
+      results: [getErrorResult(generateError('box'), '{{box}}')],
     },
     {
       template: '{{nested/bad-code}}',
