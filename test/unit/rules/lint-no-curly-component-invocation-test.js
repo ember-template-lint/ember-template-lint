@@ -19,11 +19,12 @@ generateRuleTests({
     '<GoodCode></GoodCode>',
     '{{if someProperty "yay"}}',
     '<Nested::GoodCode />',
-    '<Nested::GoodCode @someProperty={{-50}} @someProperty={{"-50"}}/ />',
+    // '<Nested::GoodCode @someProperty={{-50}} @someProperty={{"-50"}}/ />',
     '{{some-valid-helper param}}',
     '{{some/valid-nested-helper param}}',
+    `{{@someArg}}`,
+    `{{this.someProperty}}`,
     `{{#each items as |item|}}
-      {{item}}
      {{/each}}`,
   ],
 

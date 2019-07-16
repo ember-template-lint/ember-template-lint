@@ -3,7 +3,6 @@
 const expect = require('chai').expect;
 const {
   transformTagName,
-  isComponentTagName,
   isNestedComponentTagName,
 } = require('../../../lib/helpers/curly-component-invocation');
 
@@ -19,15 +18,6 @@ describe('#transformTagName', function() {
     expect(transformTagName('foo@bar-baz')).to.equal('Foo@BarBaz');
     expect(transformTagName('foo/bar-baz')).to.equal('Foo::BarBaz');
     expect(transformTagName('foo/bar-baz/bang')).to.equal('Foo::BarBaz::Bang');
-  });
-});
-
-describe('#isComponentTagName', function() {
-  it(`it works as expected`, function() {
-    expect(isComponentTagName('my-component')).to.be.true;
-    expect(isComponentTagName(-50)).to.be.false;
-    expect(isComponentTagName('-50')).to.be.false;
-    expect(isComponentTagName('helper')).to.be.false;
   });
 });
 
