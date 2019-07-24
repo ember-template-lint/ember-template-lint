@@ -89,6 +89,68 @@ describe('ember-template-lint executable', function() {
       });
     });
 
+    describe('given no path', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '<', 'app/templates/application.hbs'],
+          {
+            cwd: './test/fixtures/with-errors',
+            shell: true,
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('given - (stdin) path', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '-', '<', 'app/templates/application.hbs'],
+          {
+            cwd: './test/fixtures/with-errors',
+            shell: true,
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('given /dev/stdin path', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          [
+            '../../../bin/ember-template-lint.js',
+            '/dev/stdin',
+            '<',
+            'app/templates/application.hbs',
+          ],
+          {
+            cwd: './test/fixtures/with-errors',
+            shell: true,
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
     describe('given path to single file without errors', function() {
       it('should exit without error and any console output', function(done) {
         execFile(
