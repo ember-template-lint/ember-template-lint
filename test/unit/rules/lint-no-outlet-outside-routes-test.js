@@ -121,5 +121,20 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template: '{{outlet}}',
+
+      meta: {
+        moduleId: 'app/components/foo/layout.hbs',
+      },
+
+      result: {
+        message,
+        moduleId: 'app/components/foo/layout.hbs',
+        source: '{{outlet}}',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 });
