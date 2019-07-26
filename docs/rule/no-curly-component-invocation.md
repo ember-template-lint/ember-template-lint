@@ -2,7 +2,7 @@
 
 ### Rule name: `no-curly-component-invocation`
 
-There are two ways to invoke a component in a template: curly compoment syntax (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The difference between them is syntactical. You should favour angle bracket syntax as it improves readability of templates, i.e. disambiguates components from helpers, and is also the future direction Ember is going with Glimmer components.
+There are two ways to invoke a component in a template: curly compoment syntax (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The difference between them is syntactical. You should favour angle bracket syntax as it improves readability of templates, i.e. disambiguates components from helpers, and is also the future direction Ember is going with the Octane Edition.
 
 #### Bad
 
@@ -53,19 +53,21 @@ To get a list of of all the helpers in your app run the following code in your b
 
 ``` js
 var componentLikeHelpers = Object.keys(require.entries)
-    .filter(name=>(name.includes('/helpers/')|| name.includes('/helper')))
-    .filter(name=>!name.includes('/-')).map(name=>{
-        let path = name.split('/helpers/');
-        return path.pop();
-    }).filter(name=>!name.includes('/')).uniq();
+  .filter(name => name.includes('/helpers/'))
+  .map(name => {
+    let path = name.split('/helpers/');
+    return path.pop();
+  })
+  .filter(name => !name.includes('/'))
+  .uniq();
 
-copy(JSON.stringify(componentLikeHelpers))
+copy(JSON.stringify(componentLikeHelpers));
 ```
 
 Hat tip to @lifeart for [this code](https://github.com/lifeart/ember-ast-hot-load#how-to-use-this-addon).
 
 ### Blacklisting components without dashes
-Since Ember 3.8 components have not required dashes in their name, e.g. `{{datepicker}}`. To help the linter throw an error on these curly component invocations, which it would otherwise have thought to be a helper or property, you can explicitly add it to the `disallow` section of the rule's config. Any curly statements matching an entry in `disallow` will throw a lint error.
+Since Ember 3.10 components have not required dashes in their name, e.g. `{{datepicker}}`. To help the linter throw an error on these curly component invocations, which it would otherwise have thought to be a helper or property, you can explicitly add it to the `disallow` section of the rule's config. Any curly statements matching an entry in `disallow` will throw a lint error.
 
 ```js
 module.exports = {
@@ -80,14 +82,29 @@ module.exports = {
 };
 ```
 
+To get a list of of all the components in your app which don't have dashes in their name run the following code in your browser's Developer Tools Console when your app has loaded:
+
+``` js
+var componentsWithoutDashes = Object.keys(require.entries)
+  .filter(name => name.includes('/components/'))
+  .filter(name => !name.includes('-'))
+  .map(name => {
+    let path = name.split('/components/');
+    return path.pop();
+  })
+  .uniq();
+
+copy(JSON.stringify(componentsWithoutDashes));
+```
+
 ### Matching on components without dashes in their name
-Before Ember 3.8 components were required to have at least one dash, `-`, in their name. By default this rule assumes that all components have `-` in their name. If you'd like to change this behaviour to match all curly invocations, even those without dashes then set the `noDashInName` option to `true`.
+Before Ember 3.10 components were required to have at least one dash, `-`, in their name. By default this rule assumes that all components have `-` in their name. If you'd like to change this behaviour to match all curly invocations, even those without dashes then set the `requireDash` option to `false`.
 
 ```js
 module.exports = {
   rules: {
     'no-curly-component-invocation': {
-        noDashInName: true,
+        requireDash: false,
     },
   },
 };

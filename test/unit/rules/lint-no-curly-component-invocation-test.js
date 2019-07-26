@@ -65,7 +65,7 @@ generateRuleTests({
   config: {
     allow: ['some-valid-helper', 'some/valid-nested-helper'],
     disallow: ['heading'],
-    noDashInName: true,
+    requireDash: false,
   },
 
   good: [
