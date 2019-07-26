@@ -108,6 +108,31 @@ describe('ember-template-lint executable', function() {
       });
     });
 
+    describe('given no path with --filename', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          [
+            '../../../bin/ember-template-lint.js',
+            '--filename',
+            'app/templates/application.hbs',
+            '<',
+            'app/templates/application.hbs',
+          ],
+          {
+            cwd: './test/fixtures/with-errors',
+            shell: true,
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
     describe('given - (stdin) path', function() {
       it('should print errors', function(done) {
         execFile(
