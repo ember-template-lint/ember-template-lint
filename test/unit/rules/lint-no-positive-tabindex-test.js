@@ -14,6 +14,9 @@ generateRuleTests({
     '<span tabindex={{"-1"}}>baz</span>',
     '<span tabindex="{{-1}}">baz</span>',
     '<span tabindex="{{"-1"}}">baz</span>',
+    '<span tabindex="{{if this.show -1}}">baz</span>',
+    '<span tabindex="{{if this.show "-1" "0"}}">baz</span>',
+    '<span tabindex="{{if (not this.show) "-1" "0"}}">baz</span>',
   ],
 
   bad: [
@@ -79,6 +82,50 @@ generateRuleTests({
         message: 'Avoid positive integer values for tabindex.',
         moduleId: 'layout.hbs',
         source: 'tabindex="{{5}}"',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<button tabindex="{{if a 1 -1}}"></button>',
+
+      result: {
+        message: 'Avoid positive integer values for tabindex.',
+        moduleId: 'layout.hbs',
+        source: 'tabindex="{{if a 1 -1}}"',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<button tabindex="{{if a -1 1}}"></button>',
+
+      result: {
+        message: 'Avoid positive integer values for tabindex.',
+        moduleId: 'layout.hbs',
+        source: 'tabindex="{{if a -1 1}}"',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<button tabindex="{{if a 1}}"></button>',
+
+      result: {
+        message: 'Avoid positive integer values for tabindex.',
+        moduleId: 'layout.hbs',
+        source: 'tabindex="{{if a 1}}"',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<button tabindex="{{if (not a) 1}}"></button>',
+
+      result: {
+        message: 'Avoid positive integer values for tabindex.',
+        moduleId: 'layout.hbs',
+        source: 'tabindex="{{if (not a) 1}}"',
         line: 1,
         column: 0,
       },
