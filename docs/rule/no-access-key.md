@@ -20,4 +20,3 @@ This rule **forbids** the following:
 
 ### References
 1. [WebAIM](http://webaim.org/techniques/keyboard/accesskey#spec)
-2. [eslint-plugin-jsx-a11y/no-access-key](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-access-key.md)
