@@ -13,41 +13,41 @@ generateRuleTests({
 
   bad: [
     {
-      template: '<button accessKey="n"></button>',
+      template: '<button accesskey="n"></button>',
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: '<button accessKey="n"></button>',
+        source: '<button accesskey="n"></button>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<button accessKey></button>',
+      template: '<button accesskey></button>',
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: '<button accessKey></button>',
+        source: '<button accesskey></button>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<button accessKey={{some-key}}></button>',
+      template: '<button accesskey={{some-key}}></button>',
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: '<button accessKey={{some-key}}></button>',
+        source: '<button accesskey={{some-key}}></button>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<button accessKey="{{some-key}}"></button>',
+      template: '<button accesskey="{{some-key}}"></button>',
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: '<button accessKey="{{some-key}}"></button>',
+        source: '<button accesskey="{{some-key}}"></button>',
         line: 1,
         column: 0,
       },
