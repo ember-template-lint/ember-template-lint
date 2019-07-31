@@ -17,6 +17,9 @@ generateRuleTests({
     '<button tabindex="{{if this.show -1}}">baz</button>',
     '<button tabindex="{{if this.show "-1" "0"}}">baz</button>',
     '<button tabindex="{{if (not this.show) "-1" "0"}}">baz</button>',
+    '<button tabindex={{if this.show -1}}>baz</button>',
+    '<button tabindex={{if this.show "-1" "0"}}>baz</button>',
+    '<button tabindex={{if (not this.show) "-1" "0"}}>baz</button>',
   ],
 
   bad: [
