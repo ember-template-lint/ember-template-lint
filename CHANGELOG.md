@@ -1,3 +1,23 @@
+## v1.5.0 (2019-07-31)
+
+#### :rocket: Enhancement
+* [#768](https://github.com/ember-template-lint/ember-template-lint/pull/768) Add no-curly-component-invocation rule ([@patocallaghan](https://github.com/patocallaghan))
+
+#### :bug: Bug Fix
+* [#788](https://github.com/ember-template-lint/ember-template-lint/pull/788) Add support for handling `<button tabindex={{if this.foo 0 -1}}><button>` to no-positive-tabindex rule ([@lifeart](https://github.com/lifeart))
+* [#779](https://github.com/ember-template-lint/ember-template-lint/pull/779) Allow <img onload={{action 'foo'}}> in no-invalid-interactive rule ([@joankaradimov](https://github.com/joankaradimov))
+* [#762](https://github.com/ember-template-lint/ember-template-lint/pull/762) Ensure no-outlet-outside-routes allows apps or routes named "components" ([@marcoow](https://github.com/marcoow))
+
+#### :memo: Documentation
+* [#775](https://github.com/ember-template-lint/ember-template-lint/pull/775) Add rule documentation to missing rule to docs/rules.md. ([@bmish](https://github.com/bmish))
+
+#### Committers: 5
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Joan Karadimov ([@joankaradimov](https://github.com/joankaradimov))
+- Marco Otte-Witte ([@marcoow](https://github.com/marcoow))
+- Pat O'Callaghan ([@patocallaghan](https://github.com/patocallaghan))
+
 ## v1.4.0 (2019-07-12)
 
 #### :rocket: Enhancement
