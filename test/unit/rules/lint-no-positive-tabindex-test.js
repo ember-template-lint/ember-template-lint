@@ -10,13 +10,13 @@ generateRuleTests({
   good: [
     '<button tabindex="0"></button>',
     '<button tabindex="-1"></button>',
-    '<span tabindex={{-1}}>baz</span>',
-    '<span tabindex={{"-1"}}>baz</span>',
-    '<span tabindex="{{-1}}">baz</span>',
-    '<span tabindex="{{"-1"}}">baz</span>',
-    '<span tabindex="{{if this.show -1}}">baz</span>',
-    '<span tabindex="{{if this.show "-1" "0"}}">baz</span>',
-    '<span tabindex="{{if (not this.show) "-1" "0"}}">baz</span>',
+    '<button tabindex={{-1}}>baz</button>',
+    '<button tabindex={{"-1"}}>baz</button>',
+    '<button tabindex="{{-1}}">baz</button>',
+    '<button tabindex="{{"-1"}}">baz</button>',
+    '<button tabindex="{{if this.show -1}}">baz</button>',
+    '<button tabindex="{{if this.show "-1" "0"}}">baz</button>',
+    '<button tabindex="{{if (not this.show) "-1" "0"}}">baz</button>',
   ],
 
   bad: [
