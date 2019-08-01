@@ -44,6 +44,55 @@ generateRuleTests({
     {{/unless}}
     </table>
     `,
+    `
+    <table>
+    {{#each foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/each}}
+    </table>
+    `,
+    `
+    <table>
+    {{#each-in foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/each-in}}
+    </table>
+    `,
+    `
+    <table>
+    {{#let foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/let}}
+    </table>
+    `,
+    `
+    <table>
+    {{#with foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/with}}
+    </table>
+    `,
+    `
+    <table>
+    {{#each foo as |bar|}}
+      {{#if bar}}
+        {{#unless baz}}
+          <tfoot>
+            <tr>bar</tr>
+          </tfoot>
+        {{/unless}}
+      {{/if}}
+    {{/each}}
+    </table>
+    `,
 
     // Component with tag:
     '<table>{{some-component tagName="tbody"}}</table>',
@@ -80,6 +129,7 @@ generateRuleTests({
     '<table><tbody><tr><td>Body</td></tr></tbody></table>',
     '<table><tfoot><tr><td>Footer</td></tr></tfoot></table>',
     '<table>' +
+      '{{! this is a comment }}' +
       '<thead>' +
       '<tr><td>Header</td></tr>' +
       '</thead>' +
@@ -222,6 +272,23 @@ generateRuleTests({
       },
     },
     {
+      template: `
+      <table>
+      {{#something foo}}
+        <tbody></tbody>
+      {{/something}}
+      </table>
+      `,
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source:
+          '<table>\n      {{#something foo}}\n        <tbody></tbody>\n      {{/something}}\n      </table>',
+        line: 2,
+        column: 6,
+      },
+    },
+    {
       template: '<table><tr><td>Foo</td></tr></table>',
 
       result: {
@@ -312,6 +379,16 @@ generateRuleTests({
         message,
         moduleId: 'layout.hbs',
         source: '<table><SomeComponent @otherProp="tbody" /></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table>some text</table>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table>some text</table>',
         line: 1,
         column: 0,
       },
