@@ -27,6 +27,8 @@ generateRuleTests({
     `{{#each items as |item|}}
         {{item}}
      {{/each}}`,
+    `{{#-in-element}}Hello{{/-in-element}}`,
+    `{{#in-element}}Hello{{/in-element}}`,
   ],
 
   bad: [
