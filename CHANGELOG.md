@@ -1,3 +1,18 @@
+## v1.5.1 (2019-08-06)
+
+#### :rocket: Enhancement
+* [#790](https://github.com/ember-template-lint/ember-template-lint/pull/790) Add "octane" configuration preset. ([@rwjblue](https://github.com/rwjblue))
+
+#### :bug: Bug Fix
+* [#796](https://github.com/ember-template-lint/ember-template-lint/pull/796) Allow `{{#-in-element}}` and `{{#in-element}}` for `no-curly-component-invocation` rule ([@mydea](https://github.com/mydea))
+* [#791](https://github.com/ember-template-lint/ember-template-lint/pull/791) Ensure table-group rule allows `each`, `each-in`, `let`, and comments ([@mongoose700](https://github.com/mongoose700))
+
+#### Committers: 4
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Francesco Novy ([@mydea](https://github.com/mydea))
+- Michael Peirce ([@mongoose700](https://github.com/mongoose700))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.5.0 (2019-07-31)
 
 #### :rocket: Enhancement
