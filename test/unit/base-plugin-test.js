@@ -130,6 +130,28 @@ describe('base plugin', function() {
         ).to.be.true;
       });
     });
+
+    it('All rules has test files', function() {
+      const testsPath = join(__dirname, '../unit/rules');
+      const ruleFiles = readdirSync(testsPath).filter(name => name.endsWith('-test.js'));
+      const deprecatedRuleFiles = readdirSync(join(testsPath, 'deprecations')).filter(name =>
+        name.endsWith('-test.js')
+      );
+      expectedRules.forEach(ruleFileName => {
+        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
+        expect(
+          ruleFiles.includes(ruleTestFileName),
+          `${ruleTestFileName} exists in tests/unit/rules folder`
+        ).to.be.true;
+      });
+      deprecatedRules.forEach(ruleFileName => {
+        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
+        expect(
+          deprecatedRuleFiles.includes(ruleTestFileName),
+          `${ruleTestFileName} does not exists in tests/unit/rules/deprecations folder`
+        ).to.be.true;
+      });
+    });
   });
 
   describe('parses templates', function() {
