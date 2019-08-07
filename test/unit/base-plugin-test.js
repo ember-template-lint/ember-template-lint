@@ -75,13 +75,10 @@ describe('base plugin', function() {
       exportedRules.forEach(ruleName => {
         let pathName = `./../../lib/rules/lint-${ruleName}`;
 
-        if (!existsSync(join(__dirname, pathName + '.js'))) {
-          if (ruleName.startsWith('deprecated-')) {
-            pathName = `./../../lib/rules/deprecations/lint-${ruleName}`;
-          } else if (ruleName.startsWith('no-')) {
-            pathName = `./../../lib/rules/lint-${ruleName.replace('no-', '')}`;
-          }
+        if (ruleName.startsWith('deprecated-')) {
+          pathName = `./../../lib/rules/deprecations/lint-${ruleName}`;
         }
+
         expect(
           defaultExport[ruleName],
           `"${ruleName}" reexport must be referenced to "${pathName}"`
@@ -108,8 +105,8 @@ describe('base plugin', function() {
     });
 
     it('All files under docs/rule/ have a link from docs/rules.md.', function() {
-      const ruleFiles = readdirSync(join(__dirname, '../../docs/rule')).filter(name =>
-        name.endsWith('.md')
+      const ruleFiles = readdirSync(join(__dirname, '../../docs/rule')).filter(
+        name => name.endsWith('.md') && name !== '_TEMPLATE_.md'
       );
       const deprecatedRuleFiles = readdirSync(
         join(__dirname, '../../docs/rule/deprecations')
