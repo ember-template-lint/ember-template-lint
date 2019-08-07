@@ -16,6 +16,8 @@ generateRuleTests({
     '<div class="{{if foo \'foo\'}}"></div>',
     '{{unrelated-mustache-without-params}}',
     '{{#if foo}}{{else}}{{/if}}',
+    '{{#if foo}}{{else}}{{#unless bar}}{{/unless}}{{/if}}',
+    '{{#if foo}}{{else}}{{unless bar someProperty}}{{/if}}',
     '{{#unless (or foo bar)}}order whiskey{{/unless}}',
     '{{#unless (eq (or foo bar) baz)}}order whiskey{{/unless}}',
     ['{{#unless hamburger}}', '  HOT DOG!', '{{/unless}}'].join('\n'),
@@ -40,6 +42,26 @@ generateRuleTests({
     {
       config: {
         maxHelpers: 2,
+      },
+      template: '{{unless (eq (not foo) bar) baz}}',
+    },
+    {
+      config: {
+        maxHelpers: -1,
+      },
+      template: '{{unless (eq (not foo) bar) baz}}',
+    },
+    {
+      config: {
+        maxHelpers: -1,
+        blacklist: [],
+      },
+      template: '{{unless (eq (not foo) bar) baz}}',
+    },
+    {
+      config: {
+        maxHelpers: -1,
+        blacklist: ['or'],
       },
       template: '{{unless (eq (not foo) bar) baz}}',
     },
@@ -320,6 +342,53 @@ generateRuleTests({
         line: 1,
         column: 27,
       },
+    },
+    {
+      config: {
+        blacklist: ['two'],
+        maxHelpers: -1,
+      },
+      template: [
+        '{{#unless (one (two three) (four five))}}',
+        '  I think I am a brown stick',
+        '{{/unless}}',
+      ].join('\n'),
+
+      result: {
+        message:
+          'Using {{unless}} in combination with other helpers should be avoided. Restricted helper: two',
+        source: '{{unless (... (two ...',
+        line: 1,
+        column: 15,
+      },
+    },
+    {
+      config: {
+        blacklist: ['two', 'four'],
+        maxHelpers: -1,
+      },
+      template: [
+        '{{#unless (one (two three) (four five))}}',
+        '  I think I am a brown stick',
+        '{{/unless}}',
+      ].join('\n'),
+
+      results: [
+        {
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four',
+          source: '{{unless (... (two ...',
+          line: 1,
+          column: 15,
+        },
+        {
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four',
+          source: '{{unless (... (four ...',
+          line: 1,
+          column: 27,
+        },
+      ],
     },
   ],
 });

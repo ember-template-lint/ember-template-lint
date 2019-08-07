@@ -26,6 +26,7 @@ generateRuleTests({
 
     // if ... else if ...
     '{{#if condition}}<img>{{else if condition}}<img>{{/if}}',
+    '{{#if condition}}<img>{{else if (not condition2)}}<img>{{/if}}', // we ignore `if ... else if ...`
     '{{#if (not condition)}}<img>{{else if (not condition2)}}<img>{{/if}}', // we ignore `if ... else if ...`
 
     // if ... else if ... else ...
@@ -47,19 +48,6 @@ generateRuleTests({
     // unless ... else if ... else ...
     '{{#unless condition}}<img>{{else if condition}}<img>{{else}}<img>{{/unless}}',
     '{{#unless (or c1 c2)}}<img>{{else if (or c1 c2)}}<img>{{else}}<img>{{/unless}}',
-
-    // This is valid since we don't want to suggest `unless` directly after an `else`:
-    `{{#if condition}}
-     {{else}}
-       {{! some comment }}
-       {{#if (not condition)}}<img>{{/if}}
-     {{/if}}`,
-
-    // This is valid since we can't yet handle `if` statements directly after an `else`:
-    `{{#if (not condition)}}
-     {{else}}
-       {{#if (not condition)}}<img>{{else}}<img>{{/if}}
-     {{/if}}`,
 
     // ******************************************
     // MustacheStatement
@@ -94,6 +82,14 @@ generateRuleTests({
     // if ... else ...
     '{{input class=(if condition "some-class" "other-class")}}',
     '{{input class=(if (or c1 c2) "some-class" "other-class")}}',
+
+    // unless ...
+    '{{input class=(unless condition "some-class")}}',
+    '{{input class=(unless (or c1 c2) "some-class")}}',
+
+    // unless ... else ...
+    '{{input class=(unless condition "some-class" "other-class")}}',
+    '{{input class=(unless (or c1 c2) "some-class" "other-class")}}',
   ],
 
   bad: [
@@ -178,6 +174,33 @@ generateRuleTests({
           '{{#unless (not condition)}}<img>{{else if (not condition)}}<img>{{else}}<img>{{/unless}}',
         line: 1,
         column: 0,
+      },
+    },
+
+    // Nested inside the body of an `else` block (with preceding comment):
+    {
+      template:
+        '{{#if condition}}{{else}}{{! some comment }}{{#if (not condition)}}<img>{{/if}}{{/if}}',
+
+      result: {
+        message: ERROR_MESSAGE_USE_UNLESS,
+        moduleId: 'layout.hbs',
+        source: '{{#if (not condition)}}<img>{{/if}}',
+        line: 1,
+        column: 44,
+      },
+    },
+
+    // Nested inside the body of an `else` block (without preceding comment):
+    {
+      template: '{{#if condition}}{{else}}{{#if (not condition)}}<img>{{/if}}{{/if}}',
+
+      result: {
+        message: ERROR_MESSAGE_USE_UNLESS,
+        moduleId: 'layout.hbs',
+        source: '{{#if (not condition)}}<img>{{/if}}',
+        line: 1,
+        column: 25,
       },
     },
 

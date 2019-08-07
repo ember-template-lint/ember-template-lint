@@ -5,6 +5,7 @@ const _precompile = require('@glimmer/compiler').precompile;
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
+const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
@@ -47,7 +48,7 @@ describe('base plugin', function() {
   }
 
   function plugin(Rule, name, config) {
-    let plugin = new Rule({ name, config });
+    let plugin = new Rule({ name, config, ruleNames });
 
     return env => {
       plugin.templateEnvironmentData = env;
