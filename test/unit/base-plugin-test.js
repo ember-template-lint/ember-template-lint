@@ -3,6 +3,8 @@
 const expect = require('chai').expect;
 const _precompile = require('@glimmer/compiler').precompile;
 const Rule = require('./../../lib/rules/base');
+const { readdirSync, existsSync, readFileSync } = require('fs');
+const { join } = require('path');
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
@@ -55,6 +57,79 @@ describe('base plugin', function() {
       return { name, visitor };
     };
   }
+
+  describe('rules setup is correct', function() {
+    const files = readdirSync(join(__dirname, '../../lib/rules'));
+    const deprecatedFiles = readdirSync(join(__dirname, '../../lib/rules/deprecations'));
+    const deprecatedRules = deprecatedFiles.filter(fileName => {
+      return fileName.endsWith('.js');
+    });
+    const expectedRules = files.filter(fileName => {
+      return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
+    });
+
+    it('has correct rules reexport', function() {
+      const defaultExport = require('./../../lib/rules');
+      const exportedRules = Object.keys(defaultExport);
+      exportedRules.forEach(ruleName => {
+        let pathName = `./../../lib/rules/lint-${ruleName}`;
+
+        if (!existsSync(join(__dirname, pathName + '.js'))) {
+          if (ruleName.startsWith('deprecated-')) {
+            pathName = `./../../lib/rules/deprecations/lint-${ruleName}`;
+          } else if (ruleName.startsWith('no-')) {
+            pathName = `./../../lib/rules/lint-${ruleName.replace('no-', '')}`;
+          }
+        }
+        expect(
+          defaultExport[ruleName],
+          `"${ruleName}" reexport must be referenced to "${pathName}"`
+        ).to.be.equal(require(pathName));
+      });
+      expect(expectedRules.length + deprecatedRules.length).to.be.equal(exportedRules.length);
+    });
+
+    it('has docs/rule reference for each item', function() {
+      function transformFileName(fileName) {
+        return fileName.replace('lint-', '').replace('.js', '.md');
+      }
+      deprecatedFiles.forEach(ruleFileName => {
+        const docFilePath =
+          join(__dirname, '../../docs/rule/deprecations/') + transformFileName(ruleFileName);
+        expect(existsSync(docFilePath), `${docFilePath} documentation file must exists for rule`).to
+          .be.true;
+      });
+      expectedRules.forEach(ruleFileName => {
+        const docFilePath = join(__dirname, '../../docs/rule/') + transformFileName(ruleFileName);
+        expect(existsSync(docFilePath), `${docFilePath} documentation file must exists for rule`).to
+          .be.true;
+      });
+    });
+
+    it('All files under docs/rule/ have a link from docs/rules.md.', function() {
+      const ruleFiles = readdirSync(join(__dirname, '../../docs/rule')).filter(name =>
+        name.endsWith('.md')
+      );
+      const deprecatedRuleFiles = readdirSync(
+        join(__dirname, '../../docs/rule/deprecations')
+      ).filter(name => name.endsWith('.md'));
+      const allRulesFile = readFileSync(join(__dirname, '../../docs/rules.md'), {
+        encoding: 'utf8',
+      });
+      ruleFiles.forEach(fileName => {
+        expect(
+          allRulesFile.includes(`(rule/${fileName})`),
+          `docs/rules.md has link to rule/${fileName}`
+        ).to.be.true;
+      });
+      deprecatedRuleFiles.forEach(fileName => {
+        expect(
+          allRulesFile.includes(`(rule/deprecations/${fileName})`),
+          `docs/rules.md has link to rule/deprecations/${fileName}`
+        ).to.be.true;
+      });
+    });
+  });
 
   describe('parses templates', function() {
     let visitor = {
