@@ -14,6 +14,7 @@ generateRuleTests({
     '<img aria-hidden="true">',
     '<img alt="">',
     '<img alt>',
+    '<img ...attributes>',
   ],
 
   bad: [
