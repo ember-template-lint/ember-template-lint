@@ -1,3 +1,15 @@
+## v1.5.2 (2019-08-12)
+
+#### :bug: Bug Fix
+* [#801](https://github.com/ember-template-lint/ember-template-lint/pull/801) Don't require `alt` on `<img ...attributes>` ([@chancancode](https://github.com/chancancode))
+
+#### :house: Internal
+* [#798](https://github.com/ember-template-lint/ember-template-lint/pull/798) Ensure that fundamental setup (docs, tests, exports, etc) is correct when adding new rules ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Godfrey Chan ([@chancancode](https://github.com/chancancode))
+
 ## v1.5.1 (2019-08-06)
 
 #### :rocket: Enhancement
