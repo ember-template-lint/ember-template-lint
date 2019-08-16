@@ -4,7 +4,11 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 
 const rule = require('../../../lib/rules/lint-no-childless-elements');
 
-const { ALLOWED_CHILDLESS_TAGS, ERROR_MESSAGE } = rule;
+const { ALLOWED_CHILDLESS_TAGS, ERROR_MESSAGE, BASE_BLOCK_ELEMENT } = rule;
+
+const _renderTagTemplate = tag => {
+  return BASE_BLOCK_ELEMENT.includes(tag) ? `<${tag}></${tag}>` : `<${tag}>`;
+};
 
 generateRuleTests({
   name: 'no-childless-elements',
@@ -14,7 +18,7 @@ generateRuleTests({
   good: [
     ...ALLOWED_CHILDLESS_TAGS.map(blockTag => {
       return {
-        template: `<${blockTag}>`,
+        template: _renderTagTemplate(blockTag),
       };
     }),
     {
@@ -28,7 +32,7 @@ generateRuleTests({
   bad: [
     ...ALLOWED_CHILDLESS_TAGS.map(blockTag => {
       return {
-        template: `<${blockTag}>`,
+        template: _renderTagTemplate(blockTag),
         config: {
           block: ALLOWED_CHILDLESS_TAGS,
         },
@@ -36,7 +40,7 @@ generateRuleTests({
         result: {
           message: ERROR_MESSAGE,
           moduleId: 'layout.hbs',
-          source: `<${blockTag}>`,
+          source: _renderTagTemplate(blockTag),
           line: 1,
           column: 0,
         },
