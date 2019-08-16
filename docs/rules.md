@@ -14,6 +14,7 @@
 * [no-attrs-in-components](rule/no-attrs-in-components.md)
 * [no-bare-strings](rule/no-bare-strings.md)
 * [no-debugger](rule/no-debugger.md)
+* [no-childless-elements](rule/no-childless-elements.md)
 * [no-curly-component-invocation](rule/no-curly-component-invocation.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-element-event-actions](rule/no-element-event-actions.md)
