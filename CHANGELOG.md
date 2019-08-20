@@ -1,3 +1,14 @@
+## v1.5.3 (2019-08-20)
+
+#### :bug: Bug Fix
+* [#805](https://github.com/ember-template-lint/ember-template-lint/pull/805) Update `no-action-modifiers` and `no-element-event-actions` rules to suggest using the `on` modifier ([@bmish](https://github.com/bmish))
+* [#803](https://github.com/ember-template-lint/ember-template-lint/pull/803) Add 'octane' config to export list so it can be used in `.template-lintrc.js` ([@pgengler](https://github.com/pgengler))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Phil Gengler ([@pgengler](https://github.com/pgengler))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v1.5.2 (2019-08-12)
 
 #### :bug: Bug Fix
