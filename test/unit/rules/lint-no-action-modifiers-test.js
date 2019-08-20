@@ -1,6 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const ERROR_MESSAGE = require('../../../lib/rules/lint-no-action-modifiers').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-action-modifiers',
@@ -25,7 +26,7 @@ generateRuleTests({
       template: '<button {{action "foo"}}></button>',
 
       result: {
-        message: '`action` modifiers should not be used (use `onclick` attributes instead).',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<button {{action "foo"}}></button>',
         line: 1,
@@ -36,7 +37,7 @@ generateRuleTests({
       template: '<a href="#" {{action "foo"}}></a>',
 
       result: {
-        message: '`action` modifiers should not be used (use `onclick` attributes instead).',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<a href="#" {{action "foo"}}></a>',
         line: 1,
@@ -48,7 +49,7 @@ generateRuleTests({
       template: '<a href="#" {{action "foo"}}></a>',
 
       result: {
-        message: '`action` modifiers should not be used (use `onclick` attributes instead).',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<a href="#" {{action "foo"}}></a>',
         line: 1,
