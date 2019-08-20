@@ -17,6 +17,7 @@
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "changelog": "lerna-changelog",
+    "lint": "yarn lint:js",
     "lint:js": "eslint .",
     "release": "release-it",
     "test": "mocha"
