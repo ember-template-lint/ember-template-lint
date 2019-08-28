@@ -15,6 +15,7 @@
 * [no-bare-strings](rule/no-bare-strings.md)
 * [no-debugger](rule/no-debugger.md)
 * [no-curly-component-invocation](rule/no-curly-component-invocation.md)
+* [no-class-concat](rule/no-class-concat.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-element-event-actions](rule/no-element-event-actions.md)
 * [no-extra-mut-helper-argument](rule/no-extra-mut-helper-argument.md)
