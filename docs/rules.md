@@ -40,6 +40,7 @@
 * [no-unnecessary-component-helper](rule/no-unnecessary-component-helper.md)
 * [no-unnecessary-concat](rule/no-unnecessary-concat.md)
 * [no-unused-block-params](rule/no-unused-block-params.md)
+* [no-whitespace-for-layout](rule/no-whitespace-for-layout.md)
 * [quotes](rule/quotes.md)
 * [require-iframe-title](rule/require-iframe-title.md)
 * [require-valid-alt-text](rule/require-valid-alt-text.md)
