@@ -6,12 +6,15 @@ module.exports = {
     node: true
   },
   plugins: [
+    'eslint-comments',
     'filenames',
     'node',
     'prettier'
   ],
   extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
   rules: {
+    'eslint-comments/no-unused-disable': 'error',
+
     'filenames/match-regex': ['error', '^[a-z0-9-]+$'], // Kebab-case.
 
     'prettier/prettier': 'error',
