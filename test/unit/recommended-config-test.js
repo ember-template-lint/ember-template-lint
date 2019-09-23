@@ -26,7 +26,7 @@ describe('recommended config', function() {
 
       let linter = new Linter({
         console: mockConsole,
-        config: config,
+        config,
       });
 
       expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).to.deep.equal([]);

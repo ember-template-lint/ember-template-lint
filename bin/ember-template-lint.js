@@ -2,10 +2,10 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var globby = require('globby');
-var Linter = require('../lib/index');
+let fs = require('fs');
+let path = require('path');
+let globby = require('globby');
+let Linter = require('../lib/index');
 const chalk = require('chalk');
 
 function printErrors(errors) {
@@ -58,14 +58,14 @@ function printErrors(errors) {
 }
 
 function lintFile(linter, filePath, moduleId) {
-  var source = fs.readFileSync(filePath, { encoding: 'utf8' });
-  return linter.verify({ source: source, moduleId: moduleId });
+  let source = fs.readFileSync(filePath, { encoding: 'utf8' });
+  return linter.verify({ source, moduleId });
 }
 
 function getRelativeFilePaths() {
-  var fileArgs = process.argv.slice(2).filter(arg => arg.slice(0, 2) !== '--');
+  let fileArgs = process.argv.slice(2).filter(arg => arg.slice(0, 2) !== '--');
 
-  var relativeFilePaths = fileArgs
+  let relativeFilePaths = fileArgs
     .reduce((filePaths, fileArg) => {
       return filePaths.concat(
         globby.sync(fileArg, {
@@ -80,8 +80,8 @@ function getRelativeFilePaths() {
 }
 
 function checkConfigPath() {
-  var configPathIndex = process.argv.indexOf('--config-path');
-  var configPath = null;
+  let configPathIndex = process.argv.indexOf('--config-path');
+  let configPath = null;
   if (configPathIndex > -1) {
     configPath = process.argv[configPathIndex + 1];
   }
@@ -90,8 +90,8 @@ function checkConfigPath() {
 }
 
 function run() {
-  var configPath = checkConfigPath();
-  var linter;
+  let configPath = checkConfigPath();
+  let linter;
   try {
     linter = new Linter({ configPath });
   } catch (e) {
@@ -100,22 +100,27 @@ function run() {
     return process.exit(1);
   }
 
-  var errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
-    var filePath = path.resolve(relativeFilePath);
-    var fileErrors = lintFile(linter, filePath, relativeFilePath.slice(0, -4));
+  let errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
+    let filePath = path.resolve(relativeFilePath);
+    let fileErrors = lintFile(linter, filePath, relativeFilePath.slice(0, -4));
 
     if (
       fileErrors.some(function(err) {
         return err.severity > 1;
       })
-    )
+    ) {
       process.exitCode = 1;
+    }
 
-    if (fileErrors.length) errors[filePath] = fileErrors;
+    if (fileErrors.length) {
+      errors[filePath] = fileErrors;
+    }
     return errors;
   }, {});
 
-  if (Object.keys(errors).length) printErrors(errors);
+  if (Object.keys(errors).length) {
+    printErrors(errors);
+  }
 }
 
 run();

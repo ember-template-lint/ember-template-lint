@@ -83,7 +83,7 @@ describe('public api', function() {
 
       let linter = new Linter({
         console: mockConsole,
-        configPath: configPath,
+        configPath,
       });
 
       expect(linter.config.rules).to.deep.equal(expected.rules);
@@ -119,6 +119,9 @@ describe('public api', function() {
     });
 
     it('accepts a fake console implementation', function() {
+      let expected = 'foo bar widget';
+      let actual;
+
       let linter = new Linter({
         console: {
           log(message) {
@@ -126,8 +129,6 @@ describe('public api', function() {
           },
         },
       });
-      let expected = 'foo bar widget';
-      let actual;
 
       linter.console.log(expected);
       expect(actual).to.equal(expected);
@@ -567,8 +568,8 @@ describe('public api', function() {
         },
       });
 
-      expect(linter.statusForModule('pending', process.cwd() + '/some/path/here')).to.be.ok;
-      expect(linter.statusForModule('pending', process.cwd() + '/foo/bar/baz')).to.be.ok;
+      expect(linter.statusForModule('pending', `${process.cwd()}/some/path/here`)).to.be.ok;
+      expect(linter.statusForModule('pending', `${process.cwd()}/foo/bar/baz`)).to.be.ok;
     });
   });
 

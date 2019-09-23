@@ -5,6 +5,7 @@ const DEPRECATION_URL = require('../../../../lib/rules/deprecations/lint-depreca
   .DEPRECATION_URL;
 
 const message =
+  // eslint-disable-next-line prefer-template
   'The inline form of `view` is deprecated. Please use the `Ember.Component` instead. ' +
   'See the deprecation guide at ' +
   DEPRECATION_URL;
