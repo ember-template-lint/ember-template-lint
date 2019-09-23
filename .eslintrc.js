@@ -11,7 +11,12 @@ module.exports = {
     'node',
     'prettier'
   ],
-  extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:eslint-comments/recommended',
+    'plugin:node/recommended',
+    'prettier'
+  ],
   rules: {
     'eslint-comments/no-unused-disable': 'error',
 
