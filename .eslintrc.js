@@ -5,9 +5,15 @@ module.exports = {
   env: {
     node: true
   },
-  plugins: ['node', 'prettier'],
+  plugins: [
+    'filenames',
+    'node',
+    'prettier'
+  ],
   extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
   rules: {
+    'filenames/match-regex': ['error', '^[a-z0-9-]+$'], // Kebab-case.
+
     'prettier/prettier': 'error',
   },
 
