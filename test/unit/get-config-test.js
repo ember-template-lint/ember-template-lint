@@ -41,7 +41,7 @@ describe('get-config', function() {
     process.chdir(basePath);
 
     let actual = getConfig({
-      configPath: configPath,
+      configPath,
     });
 
     expect(actual.rules).to.deep.equal(expected.rules);

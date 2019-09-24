@@ -2,9 +2,9 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
-const errMsg = function(roleName) {
-  return roleName + ' is an abstract role, and is not a valid value for the role attribute.';
-};
+function errMsg(roleName) {
+  return `${roleName} is an abstract role, and is not a valid value for the role attribute.`;
+}
 
 generateRuleTests({
   name: 'no-abstract-roles',

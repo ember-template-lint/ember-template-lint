@@ -50,6 +50,7 @@ describe('isInteractiveElement', function() {
     testTemplate(template, false);
   });
 
+  // eslint-disable-next-line wrap-iife
   (function() {
     for (let template in interactive) {
       testTemplate(template, true);
@@ -69,6 +70,7 @@ describe('isInteractiveElement', function() {
       });
     });
 
+    // eslint-disable-next-line wrap-iife
     (function() {
       for (let template in interactive) {
         testReason(template, interactive[template]);

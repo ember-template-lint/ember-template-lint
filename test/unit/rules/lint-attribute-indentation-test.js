@@ -195,7 +195,7 @@ generateRuleTests({
         '\n' +
         '    baz=qux))}}',
     },
-    //Angle Bracket Invocation
+    // Angle Bracket Invocation
     {
       config: {
         'process-elements': true,
@@ -213,17 +213,17 @@ generateRuleTests({
         '\n' +
         '</SiteHeader>',
     },
-    //Non Block form one line
+    // Non Block form one line
     '<input disabled>',
 
-    //Non Block with wrong indentation, configuration explicitly off
+    // Non Block with wrong indentation, configuration explicitly off
     {
       config: {
         'process-elements': false,
       },
       template: '<input' + '\n' + 'disabled' + '\n' + '>',
     },
-    //Block form multi line
+    // Block form multi line
     {
       config: {
         'process-elements': true,
@@ -446,7 +446,7 @@ generateRuleTests({
       },
       template: '<div' + '\n' + '  disabled' + '\n' + '/>',
     },
-    //Non Block form multi line
+    // Non Block form multi line
     {
       config: {
         'process-elements': true,
@@ -459,7 +459,7 @@ generateRuleTests({
       },
       template: '<input disabled>',
     },
-    //Non Block form multi line
+    // Non Block form multi line
     {
       config: {
         'process-elements': true,
@@ -490,14 +490,14 @@ generateRuleTests({
         '\n' +
         '>',
     },
-    //Non Block form with no params
+    // Non Block form with no params
     '{{contact-details}}',
-    //Default config with open-invocation(< 80 chars)
-    //positional params
+    // Default config with open-invocation(< 80 chars)
+    // positional params
     '{{contact-details firstName lastName}}',
-    //named params
+    // named params
     '{{contact-details firstName=firstName lastName=lastName}}',
-    //Non Block form more than the default config characters (> 80 chars)
+    // Non Block form more than the default config characters (> 80 chars)
     {
       config: {
         'open-invocation-max-len': 120,
@@ -505,7 +505,7 @@ generateRuleTests({
       template:
         '{{contact-details firstName=firstName lastName=lastName avatarUrl=avatarUrl age=age address=address phoneNo=phoneNo}}',
     },
-    //Open-invocation with multiple lines.
+    // Open-invocation with multiple lines.
     '{{contact-details' +
       '\n' +
       '  firstName=firstName' +
@@ -546,7 +546,7 @@ generateRuleTests({
     // component
     '{{component' + '\n' + '  field' + '\n' + '  action=(action reaction)' + '\n' + '}}',
 
-    //Multiple open-invocations with multiple lines.
+    // Multiple open-invocations with multiple lines.
     '{{contact-details' +
       '\n' +
       '  firstName=firstName' +
@@ -562,9 +562,9 @@ generateRuleTests({
       '  lastName=lastName' +
       '\n' +
       '}}',
-    //with component from hash
+    // with component from hash
     '{{t.body' + '\n' + '  canExpand=true' + '\n' + '}}',
-    //with helper
+    // with helper
     '{{print-debug' +
       '\n' +
       '  foo=(or' +
@@ -578,7 +578,7 @@ generateRuleTests({
       '  baz=baz' +
       '\n' +
       '}}',
-    //with positional helper
+    // with positional helper
     '{{print-debug' +
       '\n' +
       '  (hash' +
@@ -602,20 +602,20 @@ generateRuleTests({
       '\n' +
       '}}',
 
-    //Block form within 80 characters
-    //with positional params
+    // Block form within 80 characters
+    // with positional params
     '{{#contact-details firstName lastName}}' +
       '\n' +
       ' {{contactImage}}' +
       '\n' +
       '{{/contact-details}}',
-    //with named params
+    // with named params
     '{{#contact-details firstName=firstName lastName=lastName}}' +
       '\n' +
       ' {{contactImage}}' +
       '\n' +
       '{{/contact-details}}',
-    //component from hash
+    // component from hash
     '{{#t.body' +
       '\n' +
       '  canExpand=true' +
@@ -627,13 +627,13 @@ generateRuleTests({
       '  {{foo}}' +
       '\n' +
       '{{/t.body}}',
-    //with block params
+    // with block params
     '{{#contact-details firstName=firstName lastName=lastName as |contact|}}' +
       '\n' +
       ' {{contact.fullName}}' +
       '\n' +
       '{{/contact-details}}',
-    //component from positional
+    // component from positional
     '{{#t.body' +
       '\n' +
       '  canExpand=(helper help)' +
@@ -647,7 +647,7 @@ generateRuleTests({
       '  {{foo}}' +
       '\n' +
       '{{/t.body}}',
-    //with indented block params
+    // with indented block params
     '  {{#t.body' +
       '\n' +
       '    canExpand=(helper help)' +
@@ -662,7 +662,7 @@ generateRuleTests({
       '\n' +
       '  {{/t.body}}',
 
-    //Block form with open-invocation more than 80 characters
+    // Block form with open-invocation more than 80 characters
     {
       config: {
         'mustache-open-end': 'last-attribute',
@@ -675,7 +675,7 @@ generateRuleTests({
         '\n' +
         '{{/contact-details}}',
     },
-    //Block form with multiple line invocation
+    // Block form with multiple line invocation
     '{{#contact-details' +
       '\n' +
       '  firstName=firstName' +
@@ -689,7 +689,7 @@ generateRuleTests({
       '  {{fullName}}' +
       '\n' +
       '{{/contact-details}}',
-    //Block form with no params
+    // Block form with no params
     '{{#contact-details' +
       '\n' +
       'as |contact|' +
@@ -1099,7 +1099,7 @@ generateRuleTests({
       ],
     },
     {
-      //Non Block HTML element
+      // Non Block HTML element
       config: {
         'process-elements': true,
       },
@@ -1126,7 +1126,7 @@ generateRuleTests({
       ],
     },
     {
-      //Self closing element
+      // Self closing element
       config: {
         'process-elements': true,
       },
@@ -1329,7 +1329,7 @@ generateRuleTests({
       ],
     },
     {
-      //Non-Block form more than 30 characters
+      // Non-Block form more than 30 characters
       config: {
         'open-invocation-max-len': 30,
       },
@@ -1392,7 +1392,7 @@ generateRuleTests({
       ],
     },
     {
-      //Block form with multiple lines
+      // Block form with multiple lines
       template:
         '{{#contact-details' +
         '\n' +
@@ -1465,7 +1465,7 @@ generateRuleTests({
       ],
     },
     {
-      //Block form (> 80 chars)
+      // Block form (> 80 chars)
       template:
         '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}' +
         '\n' +
@@ -1529,7 +1529,7 @@ generateRuleTests({
       ],
     },
     {
-      //Block form with no params with multiple lines.
+      // Block form with no params with multiple lines.
       template:
         '{{#contact-details' +
         '\n' +
@@ -1860,8 +1860,8 @@ generateRuleTests({
       ],
     },
     {
-      template: `{{#foo bar as |foo|}} 
-    {{foo.bar 
+      template: `{{#foo bar as |foo|}}
+    {{foo.bar
       baz}}{{/foo}}`,
       results: [
         {
@@ -1871,7 +1871,7 @@ generateRuleTests({
           moduleId: 'layout.hbs',
           rule: 'attribute-indentation',
           severity: 2,
-          source: '{{foo.bar \n      baz}}',
+          source: '{{foo.bar\n      baz}}',
         },
       ],
     },

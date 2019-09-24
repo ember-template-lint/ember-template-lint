@@ -13,7 +13,7 @@ describe('base plugin', function() {
       rawSource: template,
       moduleName: 'layout.hbs',
       plugins: {
-        ast: ast,
+        ast,
       },
     });
   }
@@ -174,8 +174,8 @@ describe('base plugin', function() {
     }
 
     function expectSource(config) {
-      var template = config.template;
-      var nodeSources = config.sources;
+      let template = config.template;
+      let nodeSources = config.sources;
 
       it(`can get raw source for \`${template}\``, function() {
         precompile(template);
@@ -350,11 +350,11 @@ describe('base plugin', function() {
   });
 
   describe('scopes instructions', function() {
-    var events;
+    let events;
 
     function getId(node) {
       if (node.attributes) {
-        for (var i = 0; i < node.attributes.length; i++) {
+        for (let i = 0; i < node.attributes.length; i++) {
           if (node.attributes[i].name === 'id') {
             return node.attributes[i].value.chars;
           }
@@ -374,7 +374,7 @@ describe('base plugin', function() {
         }
 
         visitor() {
-          var pluginContext = this;
+          let pluginContext = this;
 
           return {
             ElementNode: {
@@ -424,10 +424,10 @@ describe('base plugin', function() {
     });
 
     function expectEvents(data) {
-      var description = data.desc;
-      var template = data.template;
-      var expectedEvents = data.events;
-      var config = data.config;
+      let description = data.desc;
+      let template = data.template;
+      let expectedEvents = data.events;
+      let config = data.config;
 
       it(description, function() {
         precompile(template, config);

@@ -8,23 +8,23 @@ generateRuleTests({
   config: true,
 
   good: [
-    //MustacheStatement
+    // MustacheStatement
     '{{my-component firstName=firstName lastName=lastName}}',
-    //BlockStatement
+    // BlockStatement
     '{{#my-component firstName=firstName  lastName=lastName as |fullName|}}' +
       ' {{fullName}}' +
       '{{/my-component}}',
-    //Element Node
+    // Element Node
     '<a class="btn">{{btnLabel}}</a>',
-    //SubExpression
+    // SubExpression
     '{{employee-profile employee=(hash firstName=firstName lastName=lastName age=age)}}',
-    //SubExpression within a SubExpression
+    // SubExpression within a SubExpression
     '{{employee-profile employee=(hash fullName=(hash firstName=firstName lastName=lastName) age=age)}}',
   ],
 
   bad: [
     {
-      //MustacheStatement
+      // MustacheStatement
       template: '{{my-component firstName=firstName lastName=lastName firstName=firstName}}',
 
       result: {
@@ -36,7 +36,7 @@ generateRuleTests({
       },
     },
     {
-      //BlockStatement
+      // BlockStatement
       template:
         '{{#my-component firstName=firstName  lastName=lastName firstName=firstName as |fullName|}}' +
         ' {{fullName}}' +
@@ -54,7 +54,7 @@ generateRuleTests({
       },
     },
     {
-      //ElementNode
+      // ElementNode
       template: '<a class="btn" class="btn">{{btnLabel}}</a>',
 
       result: {
@@ -66,7 +66,7 @@ generateRuleTests({
       },
     },
     {
-      //SubExpression
+      // SubExpression
       template:
         '{{employee-profile employee=(hash firstName=firstName lastName=lastName age=age firstName=firstName)}}',
 
@@ -79,7 +79,7 @@ generateRuleTests({
       },
     },
     {
-      //SubExpression within a SubExpression
+      // SubExpression within a SubExpression
       template:
         '{{employee-profile employee=(hash fullName=(hash firstName=firstName lastName=lastName firstName=firstName) age=age)}}',
 
