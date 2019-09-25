@@ -1,6 +1,7 @@
 'use strict';
 
 let Rule = require('../../../../lib/rules/base');
+
 let message = 'The inline form of component is not allowed';
 
 module.exports = class InlineComponent extends Rule {

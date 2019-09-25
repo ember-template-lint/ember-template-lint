@@ -8,12 +8,15 @@ module.exports = {
   plugins: [
     'eslint-comments',
     'filenames',
+    'import',
     'node',
     'prettier'
   ],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
     'plugin:node/recommended',
     'prettier'
   ],
@@ -74,6 +77,23 @@ module.exports = {
 
     'filenames/match-regex': ['error', '^[a-z0-9-]+$'], // Kebab-case.
 
+    // Optional import rules:
+    'import/extensions': 'error',
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-absolute-path': 'error',
+    'import/no-cycle': 'error',
+    'import/no-deprecated': 'error',
+    'import/no-dynamic-require': 'error',
+    'import/no-mutable-exports': 'error',
+    'import/no-named-default': 'error',
+    'import/no-self-import': 'error',
+    'import/no-unassigned-import': 'error',
+    'import/no-unused-modules': 'error',
+    'import/no-useless-path-segments': 'error',
+    'import/no-webpack-loader-syntax': 'error',
+    'import/unambiguous': 'error',
+
     'prettier/prettier': 'error',
   },
 
@@ -82,6 +102,9 @@ module.exports = {
       files: ['test/**/*.js'],
       env: {
         mocha: true,
+      },
+      rules: {
+        'import/no-dynamic-require': 'off'
       }
     }
   ],
