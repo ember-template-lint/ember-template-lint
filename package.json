@@ -46,7 +46,7 @@
     "prettier": "^1.15.3",
     "release-it": "^12.2.1",
     "release-it-lerna-changelog": "^1.0.3",
-    "testem": "^2.0.0"
+    "testem": "^3.0.0"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
