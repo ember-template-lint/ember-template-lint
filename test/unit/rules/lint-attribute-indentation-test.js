@@ -890,6 +890,15 @@ generateRuleTests({
         >
         </form>`,
     },
+    {
+      template: `
+        <div>
+          {{{i18n
+            param=true
+            otherParam=false
+          }}}
+        </div>`,
+    },
   ],
 
   bad: [
