@@ -2,6 +2,7 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 const message = require('../../../lib/rules/lint-table-groups').message;
+const orderingMessage = require('../../../lib/rules/lint-table-groups').orderingMessage;
 
 generateRuleTests({
   name: 'table-groups',
@@ -149,6 +150,7 @@ generateRuleTests({
       '</tbody>' +
       '</table>',
     '<table>\n' + '<tbody>\n' + '</tbody>\n' + '</table>',
+    '<table><colgroup></colgroup><colgroup></colgroup><tbody></tbody></table>',
   ],
 
   bad: [
@@ -389,6 +391,36 @@ generateRuleTests({
         message,
         moduleId: 'layout.hbs',
         source: '<table>some text</table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><tfoot /><thead /></table>',
+      result: {
+        message: orderingMessage,
+        moduleId: 'layout.hbs',
+        source: '<table><tfoot /><thead /></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><tbody /><caption /></table>',
+      result: {
+        message: orderingMessage,
+        moduleId: 'layout.hbs',
+        source: '<table><tbody /><caption /></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><tbody /><colgroup /></table>',
+      result: {
+        message: orderingMessage,
+        moduleId: 'layout.hbs',
+        source: '<table><tbody /><colgroup /></table>',
         line: 1,
         column: 0,
       },
