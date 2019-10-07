@@ -93,43 +93,47 @@ function expandFileGlobs(fileArgs) {
   }, []);
 }
 
-function getRelativeFilePaths() {
-  let fileArgs = process.argv.slice(2).filter(arg => arg.slice(0, 2) !== '--');
-  let relativeFilePaths = fileArgs.length === 0 ? [STDIN] : expandFileGlobs(fileArgs);
-  return Array.from(new Set(relativeFilePaths));
-}
-
-function getArgumentValue(flag) {
-  let flagIndex = process.argv.indexOf(flag);
-  let flagValue = null;
-  if (flagIndex > -1) {
-    flagValue = process.argv[flagIndex + 1];
+function parseArgv(argv) {
+  let arg;
+  let options = { positional: [], named: {} };
+  argvConsumption: while ((arg = argv.shift())) {
+    switch (arg) {
+      case '--config-path':
+        options.named.configPath = argv.shift();
+        break;
+      case '--filename':
+        options.named.filename = argv.shift();
+        break;
+      case '--':
+        options.positional = [...options.positional, ...argv];
+        break argvConsumption;
+      default:
+        options.positional.push(arg);
+    }
   }
-  return flagValue;
-}
-
-function checkConfigPath() {
-  return getArgumentValue('--config-path');
-}
-
-function filePathFromArgs() {
-  return getArgumentValue('--filename') || '';
+  return options;
 }
 
 function run() {
-  let configPath = checkConfigPath();
+  let {
+    named: { configPath, filename: filePathFromArgs = '' },
+    positional: fileArgs,
+  } = parseArgv(process.argv.slice(2));
+
   let linter;
   try {
     linter = new Linter({ configPath });
   } catch (e) {
     console.error(e.message);
-    // eslint-disable-next-line no-process-exit
-    return process.exit(1);
+    return process.exit(1); // eslint-disable-line no-process-exit
   }
 
-  let errors = getRelativeFilePaths().reduce((errors, relativeFilePath) => {
+  let errors = {};
+  let relativeFilePaths = fileArgs.length === 0 ? [STDIN] : expandFileGlobs(fileArgs);
+
+  for (let relativeFilePath of new Set(relativeFilePaths)) {
     let filePath = path.resolve(relativeFilePath);
-    let fileName = relativeFilePath === STDIN ? filePathFromArgs() : relativeFilePath;
+    let fileName = relativeFilePath === STDIN ? filePathFromArgs : relativeFilePath;
     let fileErrors = lintFile(linter, filePath, fileName.slice(0, -4));
 
     if (
@@ -143,8 +147,7 @@ function run() {
     if (fileErrors.length) {
       errors[filePath] = fileErrors;
     }
-    return errors;
-  }, {});
+  }
 
   if (Object.keys(errors).length) {
     printErrors(errors);
