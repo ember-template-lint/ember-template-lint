@@ -139,7 +139,7 @@ describe('ember-template-lint executable', function() {
           'node',
           ['../../../bin/ember-template-lint.js', '-', '<', 'app/templates/application.hbs'],
           {
-            cwd: './test/fixtures/with-errors',
+            cwd: './test/fixtures/stdin-with-errors',
             shell: true,
           },
           function(err, stdout, stderr) {
@@ -163,7 +163,7 @@ describe('ember-template-lint executable', function() {
             'app/templates/application.hbs',
           ],
           {
-            cwd: './test/fixtures/with-errors',
+            cwd: './test/fixtures/stdin-with-errors',
             shell: true,
           },
           function(err, stdout, stderr) {
