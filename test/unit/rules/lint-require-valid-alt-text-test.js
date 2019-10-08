@@ -202,5 +202,16 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template: '<img alt="52" src="b52.jpg">',
+
+      result: {
+        message: 'a number is not valid alt text',
+        moduleId: 'layout.hbs',
+        source: '<img alt="52" src="b52.jpg">',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 });
