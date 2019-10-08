@@ -1,6 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const ERROR_MESSAGE = require('../../../lib/rules/lint-require-valid-alt-text').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'require-valid-alt-text',
@@ -92,6 +93,16 @@ generateRuleTests({
       },
     },
     {
+      template: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
+      result: {
+        message: 'the alt text must not be the same as the image source',
+        moduleId: 'layout.hbs',
+        source: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
       template: '<input type="image">',
 
       result: {
@@ -140,8 +151,7 @@ generateRuleTests({
       template: '<img alt="picture">',
 
       result: {
-        message:
-          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<img alt="picture">',
         line: 1,
@@ -152,8 +162,7 @@ generateRuleTests({
       template: '<img alt="photo">',
 
       result: {
-        message:
-          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<img alt="photo">',
         line: 1,
@@ -164,8 +173,7 @@ generateRuleTests({
       template: '<img alt="image">',
 
       result: {
-        message:
-          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<img alt="image">',
         line: 1,
@@ -176,8 +184,7 @@ generateRuleTests({
       template: '<img alt="  IMAGE ">',
 
       result: {
-        message:
-          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<img alt="  IMAGE ">',
         line: 1,
@@ -188,8 +195,7 @@ generateRuleTests({
       template: '<img alt="  IMAGE {{picture}} {{word}} ">',
 
       result: {
-        message:
-          'Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt attribute.',
+        message: ERROR_MESSAGE,
         moduleId: 'layout.hbs',
         source: '<img alt="  IMAGE {{picture}} {{word}} ">',
         line: 1,
