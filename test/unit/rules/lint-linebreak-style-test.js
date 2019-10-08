@@ -99,6 +99,18 @@ generateRuleTests({
       },
     },
     {
+      config: 'unix',
+      template: '<blah arg="\r\n" />',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'Wrong linebreak used. Expected LF but found CRLF',
+        line: 1,
+        column: 11,
+        source: '\r\n',
+      },
+    },
+    {
       config: 'windows',
       template: '\n',
 

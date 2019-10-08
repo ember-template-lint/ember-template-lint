@@ -102,6 +102,7 @@ generateRuleTests({
       '  {{/baz.content}}',
       '{{/foo-bar}}',
     ].join('\n'),
+    ['{{#if foo}}', '  &nbsp;bar', '{{/if}}'].join('\n'),
   ],
 
   bad: [
@@ -343,12 +344,12 @@ generateRuleTests({
 
       result: {
         message:
-          'Incorrect indentation for `  Good morning\n` beginning at L1:C17. Expected `  Good morning\n` to be at an indentation of 2 but was found at 19.',
+          'Incorrect indentation for `Good morning\n` beginning at L1:C19. Expected `Good morning\n` to be at an indentation of 2 but was found at 19.',
         moduleId: 'layout.hbs',
         source:
           '{{#if isMorning}}  Good morning\n{{else if isAfternoon}}\n  Good afternoon\n{{else}}\n  Good night\n{{/if}}',
         line: 1,
-        column: 17,
+        column: 19,
       },
     },
 
@@ -456,11 +457,11 @@ generateRuleTests({
       results: [
         {
           message:
-            'Incorrect indentation for `    bar\n` beginning at L4:C0. Expected `    bar\n` to be at an indentation of 2 but was found at 4.',
+            'Incorrect indentation for `bar\n` beginning at L4:C4. Expected `bar\n` to be at an indentation of 2 but was found at 4.',
           moduleId: 'layout.hbs',
           source: '{{#if foo}}\n  foo\n{{else}}\n    bar\n{{/if}}',
           line: 4,
-          column: 0,
+          column: 4,
         },
       ],
     },
