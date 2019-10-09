@@ -10,8 +10,8 @@ const chalk = require('chalk');
 
 const STDIN = '/dev/stdin';
 
-function printErrors(errors) {
-  const quiet = process.argv.indexOf('--quiet') !== -1;
+function printErrors(errors, invocationOptions) {
+  let { quiet, json, verbose } = invocationOptions.named;
 
   let errorCount = 0;
   let warningCount = 0;
@@ -30,14 +30,14 @@ function printErrors(errors) {
     errors[filePath] = errorsFiltered.concat(warnings);
   });
 
-  if (process.argv.indexOf('--json') + 1) {
+  if (json) {
     console.log(JSON.stringify(errors, null, 2));
   } else {
     Object.keys(errors).forEach(filePath => {
       let options = {};
       let fileErrors = errors[filePath] || [];
 
-      if (process.argv.indexOf('--verbose') + 1) {
+      if (verbose) {
         options.verbose = true;
       }
 
@@ -121,6 +121,27 @@ function parseArgv(_argv) {
       }
 
       options.named.filename = filename;
+    } else if (arg === '--quiet') {
+      // TODO: add error handling when named args are out of order
+      if (!shouldHandleNamed) {
+        continue;
+      }
+
+      options.named.quiet = true;
+    } else if (arg === '--json') {
+      // TODO: add error handling when named args are out of order
+      if (!shouldHandleNamed) {
+        continue;
+      }
+
+      options.named.json = true;
+    } else if (arg === '--verbose') {
+      // TODO: add error handling when named args are out of order
+      if (!shouldHandleNamed) {
+        continue;
+      }
+
+      options.named.verbose = true;
     } else if (arg === '--') {
       // named arguments are not allowed after `--`
       shouldHandleNamed = false;
@@ -132,10 +153,12 @@ function parseArgv(_argv) {
 }
 
 function run() {
+  let options = parseArgv(process.argv.slice(2));
+
   let {
     named: { configPath, filename: filePathFromArgs = '' },
     positional: fileArgs,
-  } = parseArgv(process.argv.slice(2));
+  } = options;
 
   let linter;
   try {
@@ -168,7 +191,7 @@ function run() {
   }
 
   if (Object.keys(errors).length) {
-    printErrors(errors);
+    printErrors(errors, options);
   }
 }
 

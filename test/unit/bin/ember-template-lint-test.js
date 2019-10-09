@@ -467,6 +467,33 @@ describe('ember-template-lint executable', function() {
       expect(actual).to.deep.equal(expected);
     });
 
+    it('handles --quiet', function() {
+      let argv = ['--quiet'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { quiet: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --verbose', function() {
+      let argv = ['--verbose'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { verbose: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --json', function() {
+      let argv = ['--json'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { json: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
     it('processes a single "--flag value" properly', function() {
       let argv = ['--config-path', 'foo.js'];
 
