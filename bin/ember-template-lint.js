@@ -146,4 +146,13 @@ function run() {
   }
 }
 
-run();
+// exports are for easier unit testing
+module.exports = {
+  _parseArgv: parseArgv,
+  _expandFileGlobs: expandFileGlobs,
+  _printErrors: printErrors,
+};
+
+if (require.main === module) {
+  run();
+}
