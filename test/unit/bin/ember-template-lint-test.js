@@ -7,6 +7,7 @@ const path = require('path');
 describe('ember-template-lint executable', function() {
   describe('basic usage', function() {
     describe('without any parameters', function() {
+      it.skip('should emit help text');
     });
 
     describe('given path to non-existing file', function() {
