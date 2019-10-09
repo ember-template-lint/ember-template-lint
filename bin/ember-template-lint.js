@@ -60,16 +60,7 @@ function printErrors(errors) {
 }
 
 function lintFile(linter, filePath, moduleId) {
-  let source;
-  try {
-    source = rw.readFileSync(filePath, { encoding: 'utf8' });
-  } catch (error) {
-    if (error.code === 'ENXIO') {
-      return [];
-    } else {
-      throw error;
-    }
-  }
+  let source = rw.readFileSync(filePath, { encoding: 'utf8' });
   return linter.verify({ source, moduleId });
 }
 

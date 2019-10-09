@@ -7,14 +7,6 @@ const path = require('path');
 describe('ember-template-lint executable', function() {
   describe('basic usage', function() {
     describe('without any parameters', function() {
-      it('should exit without error and any console output', function(done) {
-        execFile('node', ['./bin/ember-template-lint.js'], function(err, stdout, stderr) {
-          expect(err).to.be.null;
-          expect(stdout).to.be.empty;
-          expect(stderr).to.be.empty;
-          done();
-        });
-      });
     });
 
     describe('given path to non-existing file', function() {
