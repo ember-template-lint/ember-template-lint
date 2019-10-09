@@ -64,24 +64,20 @@ function lintFile(linter, filePath, moduleId) {
   return linter.verify({ source, moduleId });
 }
 
-function expandFileGlobs(fileArgs) {
-  return fileArgs.reduce((filePaths, fileArg) => {
-    let files;
-    if (['-', STDIN].includes(fileArg)) {
-      if (filePaths.includes(STDIN)) {
-        return filePaths;
-      }
-      files = [STDIN];
-    } else {
-      files = globby
-        .sync(fileArg, {
-          ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-          gitignore: true,
-        })
-        .filter(filePath => filePath.slice(-4) === '.hbs');
-    }
-    return filePaths.concat(files);
-  }, []);
+function expandFileGlobs(positional) {
+  let result = new Set();
+
+  positional.forEach(item => {
+    globby
+      .sync(item, {
+        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+        gitignore: true,
+      })
+      .filter(filePath => filePath.slice(-4) === '.hbs')
+      .forEach(filePath => result.add(filePath));
+  });
+
+  return result;
 }
 
 function parseArgv(_argv) {
@@ -157,7 +153,7 @@ function run() {
 
   let {
     named: { configPath, filename: filePathFromArgs = '' },
-    positional: fileArgs,
+    positional,
   } = options;
 
   let linter;
@@ -170,9 +166,15 @@ function run() {
   }
 
   let errors = {};
-  let relativeFilePaths = fileArgs.length === 0 ? [STDIN] : expandFileGlobs(fileArgs);
+  let filesToLint;
 
-  for (let relativeFilePath of new Set(relativeFilePaths)) {
+  if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
+    filesToLint = new Set([STDIN]);
+  } else {
+    filesToLint = expandFileGlobs(positional);
+  }
+
+  for (let relativeFilePath of filesToLint) {
     let filePath = path.resolve(relativeFilePath);
     let fileName = relativeFilePath === STDIN ? filePathFromArgs : relativeFilePath;
     let fileErrors = lintFile(linter, filePath, fileName.slice(0, -4));
