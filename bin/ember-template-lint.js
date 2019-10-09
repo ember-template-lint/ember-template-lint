@@ -84,22 +84,48 @@ function expandFileGlobs(fileArgs) {
   }, []);
 }
 
-function parseArgv(argv) {
-  let arg;
+function parseArgv(_argv) {
+  let argv = _argv.slice();
   let options = { positional: [], named: {} };
-  argvConsumption: while ((arg = argv.shift())) {
-    switch (arg) {
-      case '--config-path':
-        options.named.configPath = argv.shift();
-        break;
-      case '--filename':
-        options.named.filename = argv.shift();
-        break;
-      case '--':
-        options.positional = [...options.positional, ...argv];
-        break argvConsumption;
-      default:
-        options.positional.push(arg);
+
+  let shouldHandleNamed = true;
+
+  while (argv.length > 0) {
+    let arg = argv.shift();
+
+    if (arg.startsWith('--config-path')) {
+      let configPath;
+      if (arg === '--config-path') {
+        configPath = argv.shift();
+      } else if (arg.startsWith('--config-path=')) {
+        configPath = arg.slice(14);
+      }
+
+      // TODO: add error handling when named args are out of order
+      if (!shouldHandleNamed) {
+        continue;
+      }
+
+      options.named.configPath = configPath;
+    } else if (arg.startsWith('--filename')) {
+      let filename;
+      if (arg === '--filename') {
+        filename = argv.shift();
+      } else if (arg.startsWith('--filename=')) {
+        filename = arg.slice(11);
+      }
+
+      // TODO: add error handling when named args are out of order
+      if (!shouldHandleNamed) {
+        continue;
+      }
+
+      options.named.filename = filename;
+    } else if (arg === '--') {
+      // named arguments are not allowed after `--`
+      shouldHandleNamed = false;
+    } else {
+      options.positional.push(arg);
     }
   }
   return options;
