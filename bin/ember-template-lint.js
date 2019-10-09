@@ -2,7 +2,7 @@
 
 'use strict';
 
-const rw = require('rw');
+const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
 const Linter = require('../lib/index');
@@ -60,7 +60,11 @@ function printErrors(errors, invocationOptions) {
 }
 
 function lintFile(linter, filePath, moduleId) {
-  let source = rw.readFileSync(filePath, { encoding: 'utf8' });
+  let toRead = filePath === STDIN ? process.stdin.fd : filePath;
+
+  // TODO: swap to using get-stdin when we can leverage async/await
+  let source = fs.readFileSync(toRead, { encoding: 'utf8' });
+
   return linter.verify({ source, moduleId });
 }
 
