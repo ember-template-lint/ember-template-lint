@@ -116,7 +116,8 @@ function run() {
     linter = new Linter({ configPath });
   } catch (e) {
     console.error(e.message);
-    return process.exit(1); // eslint-disable-line no-process-exit
+    process.exitCode = 1;
+    return;
   }
 
   let errors = {};
