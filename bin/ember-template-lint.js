@@ -2,11 +2,11 @@
 
 'use strict';
 
-let rw = require('rw');
-let path = require('path');
-let globby = require('globby');
-let Linter = require('../lib/index');
-let chalk = require('chalk');
+const rw = require('rw');
+const path = require('path');
+const globby = require('globby');
+const Linter = require('../lib/index');
+const chalk = require('chalk');
 
 const STDIN = '/dev/stdin';
 
