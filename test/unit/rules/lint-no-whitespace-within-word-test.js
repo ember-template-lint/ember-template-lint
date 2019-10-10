@@ -16,7 +16,6 @@ generateRuleTests({
     '<div>Welcome</div>',
   ],
 
-
   bad: [
     {
       template: 'W e l c o m e',
@@ -67,7 +66,7 @@ generateRuleTests({
         line: 1,
         column: 5,
         source: 'W e l c o m e',
-        },
+      },
     },
     {
       template: '<div>Wel c o me</div>',
@@ -76,7 +75,7 @@ generateRuleTests({
         message: ERROR_MESSAGE,
         line: 1,
         column: 5,
-        source: 'Wel c o me'
+        source: 'Wel c o me',
       },
     },
   ],
