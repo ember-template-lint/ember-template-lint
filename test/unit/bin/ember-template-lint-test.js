@@ -577,7 +577,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = {
         named: { configPath: 'foo.js' },
-        positional: ['foo/bar.hbs', 'baz/qux.hbs'],
+        positional: ['foo/bar.hbs', 'baz/qux.hbs', '--filename', 'bar.hbs'],
       };
 
       expect(actual).to.deep.equal(expected);

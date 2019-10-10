@@ -85,70 +85,46 @@ function expandFileGlobs(positional) {
 }
 
 function parseArgv(_argv) {
-  let argv = _argv.slice();
+  let toProcess = _argv.slice();
   let options = { positional: [], named: {} };
 
   let shouldHandleNamed = true;
 
-  while (argv.length > 0) {
-    let arg = argv.shift();
+  while (toProcess.length > 0) {
+    let arg = toProcess.shift();
 
-    if (arg.startsWith('--config-path')) {
-      let configPath;
-      if (arg === '--config-path') {
-        configPath = argv.shift();
-      } else if (arg.startsWith('--config-path=')) {
-        configPath = arg.slice(14);
-      }
-
-      // TODO: add error handling when named args are out of order
-      if (!shouldHandleNamed) {
-        continue;
-      }
-
-      options.named.configPath = configPath;
-    } else if (arg.startsWith('--filename')) {
-      let filename;
-      if (arg === '--filename') {
-        filename = argv.shift();
-      } else if (arg.startsWith('--filename=')) {
-        filename = arg.slice(11);
-      }
-
-      // TODO: add error handling when named args are out of order
-      if (!shouldHandleNamed) {
-        continue;
-      }
-
-      options.named.filename = filename;
-    } else if (arg === '--quiet') {
-      // TODO: add error handling when named args are out of order
-      if (!shouldHandleNamed) {
-        continue;
-      }
-
-      options.named.quiet = true;
-    } else if (arg === '--json') {
-      // TODO: add error handling when named args are out of order
-      if (!shouldHandleNamed) {
-        continue;
-      }
-
-      options.named.json = true;
-    } else if (arg === '--verbose') {
-      // TODO: add error handling when named args are out of order
-      if (!shouldHandleNamed) {
-        continue;
-      }
-
-      options.named.verbose = true;
-    } else if (arg === '--') {
-      // named arguments are not allowed after `--`
-      shouldHandleNamed = false;
-    } else {
+    if (!shouldHandleNamed) {
       options.positional.push(arg);
+    } else {
+      switch (arg) {
+        case '--config-path':
+          options.named.configPath = toProcess.shift();
+          break;
+        case '--filename':
+          options.named.filename = toProcess.shift();
+          break;
+        case '--quiet':
+          options.named.quiet = true;
+          break;
+        case '--json':
+          options.named.json = true;
+          break;
+        case '--verbose':
+          options.named.verbose = true;
+          break;
+        case '--':
+          shouldHandleNamed = false;
+          break;
+        default:
+          if (arg.startsWith('--config-path=') || arg.startsWith('--filename=')) {
+            toProcess.unshift(...arg.split('=', 2));
+          } else {
+            options.positional.push(arg);
+          }
+      }
     }
   }
+
   return options;
 }
 
