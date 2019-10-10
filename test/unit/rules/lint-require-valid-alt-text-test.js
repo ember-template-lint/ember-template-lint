@@ -50,7 +50,7 @@ generateRuleTests({
       template: '<img>',
 
       result: {
-        message: 'img tags must have an alt attribute',
+        message: 'All `<img>` tags must have an alt attribute',
         moduleId: 'layout.hbs',
         source: '<img>',
         line: 1,
@@ -61,7 +61,7 @@ generateRuleTests({
       template: '<img src="zoey.jpg">',
 
       result: {
-        message: 'img tags must have an alt attribute',
+        message: 'All `<img>` tags must have an alt attribute',
         moduleId: 'layout.hbs',
         source: '<img src="zoey.jpg">',
         line: 1,
@@ -73,7 +73,7 @@ generateRuleTests({
 
       result: {
         message:
-          'if the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
+          'If the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
         moduleId: 'layout.hbs',
         source: '<img alt="" src="zoey.jpg">',
         line: 1,
@@ -85,7 +85,7 @@ generateRuleTests({
 
       result: {
         message:
-          'if the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
+          'If the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
         moduleId: 'layout.hbs',
         source: '<img alt src="zoey.jpg">',
         line: 1,
@@ -95,7 +95,7 @@ generateRuleTests({
     {
       template: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
       result: {
-        message: 'the alt text must not be the same as the image source',
+        message: 'The alt text must not be the same as the image source',
         moduleId: 'layout.hbs',
         source: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
         line: 1,
@@ -107,7 +107,7 @@ generateRuleTests({
 
       result: {
         message:
-          '<input> elements with type="image" must have a text alternative through the `alt`, `aria-label`, or `aria-labelledby` attribute.',
+          'All <input> elements with type="image" must have a text alternative through the `alt`, `aria-label`, or `aria-labelledby` attribute.',
         moduleId: 'layout.hbs',
         source: '<input type="image">',
         line: 1,
@@ -206,7 +206,7 @@ generateRuleTests({
       template: '<img alt="52" src="b52.jpg">',
 
       result: {
-        message: 'a number is not valid alt text',
+        message: 'A number is not valid alt text',
         moduleId: 'layout.hbs',
         source: '<img alt="52" src="b52.jpg">',
         line: 1,
