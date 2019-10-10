@@ -17,6 +17,7 @@ generateRuleTests({
     '<form {{action "foo" on="reset"}}></form>',
     '<form onreset={{action "foo"}}></form>',
     '<img onerror={{action "foo"}}>',
+    '<img onload={{action "foo"}}>',
     '<InputSearch @onInput={{action "foo"}} />',
     '<InputSearch @onInput={{action "foo"}}></InputSearch>',
     '{{#with (hash bar=(component "foo")) as |foo|}}<foo.bar @onInput={{action "foo"}}></foo.bar>{{/with}}',

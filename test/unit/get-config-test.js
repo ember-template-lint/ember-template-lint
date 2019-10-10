@@ -41,7 +41,7 @@ describe('get-config', function() {
     process.chdir(basePath);
 
     let actual = getConfig({
-      configPath: configPath,
+      configPath,
     });
 
     expect(actual.rules).to.deep.equal(expected.rules);
@@ -396,5 +396,22 @@ describe('get-config', function() {
     expect(actual.rules, 'make sure the operation would have resulted in a mutated object').to.not
       .be.empty;
     expect(config, 'assert object matches its original clone').to.deep.equal(cloned);
+  });
+
+  it('error thrown when consuming erroneous config', function() {
+    expect(function() {
+      getConfig({
+        config: {
+          plugins: [
+            {
+              name: 'bad',
+              rules: {
+                bad: require('./bad-path'), // eslint-disable-line node/no-missing-require
+              },
+            },
+          ],
+        },
+      });
+    }).to.throw(Error, `Cannot find module './bad-path'`);
   });
 });

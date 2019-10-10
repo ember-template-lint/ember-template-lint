@@ -9,7 +9,11 @@ generateRuleTests({
   name: 'no-whitespace-for-layout',
   config: true,
 
-  good: ['START FINISH', 'START&nbsp;FINISH'],
+  good: [
+    'Start to finish', 
+    'Start&nbsp;to&nbsp;finish',
+    'Start<br>to<br>finish'
+  ],
 
   bad: [
     {

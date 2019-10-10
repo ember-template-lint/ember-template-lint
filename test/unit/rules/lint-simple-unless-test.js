@@ -76,7 +76,7 @@ generateRuleTests({
       template: "{{unless (if (or true))  'Please no'}}",
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
@@ -87,7 +87,7 @@ generateRuleTests({
       template: "{{unless (if true)  'Please no'}}",
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
@@ -98,7 +98,7 @@ generateRuleTests({
       template: "{{unless (and isBad isAwful)  'notBadAndAwful'}}",
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
@@ -226,7 +226,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
@@ -241,7 +241,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (not ...',
         line: 1,
@@ -273,7 +273,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper + ' MaxHelpers: 2',
+        message: `${messages.withHelper} MaxHelpers: 2`,
         moduleId: 'layout.hbs',
         source: '{{unless (... (not-eq ...',
         line: 1,
