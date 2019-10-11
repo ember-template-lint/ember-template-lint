@@ -32,4 +32,5 @@ This rule **allows** the following:
 
 ### Related Rules
 
+* [no-action](no-action.md)
 * [no-action-modifiers](no-action-modifiers.md)
