@@ -46,7 +46,7 @@ This rule uses the heuristic of letter, whitespace character, letter, whitespace
 
 ### Migration
 
-The rule's RegExp-based detection mechanism can be used within a codebase to identify potential instances where in-line whitespace-within-word formatting will result in an F32-related loss of meaningful sequence. Flags / violations largely need to be diagnosed / addressed on a case-by-case basis, but the WCAG-approved vehicle for controlling letter-spacing within a word is CSS styling -- specifically, the implementation of [WCAG Technique C8: Using CSS letter-spacing to control spacing within a word](https://www.w3.org/WAI/WCAG21/Techniques/css/C8).
+Use CSS to add letter-spacing to a word.
 
 ### References
 
