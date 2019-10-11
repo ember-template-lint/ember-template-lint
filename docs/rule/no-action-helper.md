@@ -11,7 +11,7 @@ actions: {
 }
 ```
 
-2.) But also modifiers that setup event handlers?
+2.) But also element modifiers that setup event handlers?
 ```hbs
 <div {{action 'helloWorld'}}></div>
 ```
