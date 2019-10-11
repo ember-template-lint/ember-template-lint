@@ -1,4 +1,4 @@
-## no-action-helper
+## no-action
 
 What's wrong with `{{action}}`?
 
