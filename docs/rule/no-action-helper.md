@@ -45,6 +45,11 @@ We wanted to separate out the different responsibilities here, and the `@action`
 
 This rule **forbids** the following:
 
+
+```hbs
+<button onclick={{action 'foo'}}></button>
+```
+
 ```hbs
 <button {{action 'submit'}}>Submit</button>
 ```
@@ -62,14 +67,6 @@ This rule **forbids** the following:
 ```
 
 This rule **allows** the following:
-
-```hbs
-{{#let (fn this.foo bar) as |action|}}<Component @baz={{action}} />{{/let}}
-```
-
-```hbs
-<MyScope as |action|><Component @baz={{action}} /></MyScope>
-```
 
 ```hbs
 <button {{on "submit" @action}}>Click Me</button>
