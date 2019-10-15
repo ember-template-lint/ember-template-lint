@@ -18,16 +18,6 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@glimmer/compiler@^0.42.0":
-  version "0.42.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/compiler/-/compiler-0.42.2.tgz#505778ab9dc66f65307dfd450e1ae075dfe33581"
-  integrity sha512-/NSp8sAlvRjMwa/4c35/m7W+E5xRohzN0Fwc7t+7rrSYwbZD/B9T5n4oXZjwWrXpGOYaIrzXSGGTbozqbRIIag==
-  dependencies:
-    "@glimmer/interfaces" "^0.42.2"
-    "@glimmer/syntax" "^0.42.2"
-    "@glimmer/util" "^0.42.2"
-    "@glimmer/wire-format" "^0.42.2"
-
 "@glimmer/interfaces@^0.42.2":
   version "0.42.2"
   resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.42.2.tgz#9cf8d6f8f5eee6bfcfa36919ca68ae716e1f78db"
@@ -47,14 +37,6 @@
   version "0.42.2"
   resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.42.2.tgz#9ca1631e42766ea6059f4b49d0bdfb6095aad2c4"
   integrity sha512-Heck0baFSaWDanCYtmOcLeaz7v+rSqI8ovS7twrp2/FWEteb3Ze5sWQ2BEuSAG23L/k/lzVwYM/MY7ZugxBpaA==
-
-"@glimmer/wire-format@^0.42.2":
-  version "0.42.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.42.2.tgz#b95062b594dddeb8bd11cba3a6a0accbfabc9930"
-  integrity sha512-IqUo6mdJ7GRsK7KCyZxrc17ioSg9RBniEnb418ZMQxsV/WBv9NQ359MuClUck2M24z1AOXo4TerUw0U7+pb1/A==
-  dependencies:
-    "@glimmer/interfaces" "^0.42.2"
-    "@glimmer/util" "^0.42.2"
 
 "@iarna/toml@2.2.3":
   version "2.2.3"

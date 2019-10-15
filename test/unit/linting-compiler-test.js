@@ -1,13 +1,13 @@
 'use strict';
 
 const expect = require('chai').expect;
-const _precompile = require('@glimmer/compiler').precompile;
+const _preprocess = require('@glimmer/syntax').preprocess;
 
 describe('template compiler', function() {
   let astPlugins;
 
   function precompile(template) {
-    return _precompile(template, {
+    return _preprocess(template, {
       rawSource: template,
       plugins: {
         ast: astPlugins,
