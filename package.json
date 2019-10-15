@@ -45,8 +45,7 @@
     "mocha-only-detector": "^1.0.0",
     "prettier": "^1.15.3",
     "release-it": "^12.2.1",
-    "release-it-lerna-changelog": "^1.0.3",
-    "testem": "^2.0.0"
+    "release-it-lerna-changelog": "^1.0.3"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
