@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const _precompile = require('@glimmer/compiler').precompile;
+const _preprocess = require('@glimmer/syntax').preprocess;
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
@@ -9,7 +9,7 @@ const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
-    _precompile(template, {
+    _preprocess(template, {
       rawSource: template,
       moduleName: 'layout.hbs',
       plugins: {
