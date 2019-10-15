@@ -32,4 +32,5 @@ The following values are valid configuration:
 
 ### Related Rules
 
+* [no-action](no-action.md)
 * [no-element-event-actions](no-element-event-actions.md)
