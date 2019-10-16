@@ -81,6 +81,7 @@ generateRuleTests({
     `{{@someArg}}`,
     `{{this.someProperty}}`,
     `{{#each items as |item|}}
+       {{item}}
      {{/each}}`,
   ],
 
