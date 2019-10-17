@@ -81,6 +81,7 @@ generateRuleTests({
     `{{@someArg}}`,
     `{{this.someProperty}}`,
     `{{#each items as |item|}}
+       {{item}}
      {{/each}}`,
   ],
 
@@ -111,17 +112,25 @@ generateRuleTests({
         ),
       ],
     },
+    {
+      template: '{{#each items as |item|}} {{item value}} {{/each}}',
+      results: [getErrorResult(generateError('item'), '{{item value}}', 26)],
+    },
+    {
+      template: '{{#each items as |item|}} {{item some=args}} {{/each}}',
+      results: [getErrorResult(generateError('item'), '{{item some=args}}', 26)],
+    },
   ],
 });
 
-function getErrorResult(message, source) {
+function getErrorResult(message, source, column = 0) {
   return {
     rule: 'no-curly-component-invocation',
     severity: 2,
     moduleId: 'layout.hbs',
     message,
     line: 1,
-    column: 0,
+    column,
     source,
   };
 }
