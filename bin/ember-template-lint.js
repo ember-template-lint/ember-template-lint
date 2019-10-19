@@ -135,7 +135,7 @@ function run() {
   let options = parseArgv(process.argv.slice(2));
 
   let {
-    named: { configPath, filename: filePathFromArgs = '', printPending },
+    named: { configPath, filename: filePathFromArgs = '', printPending, json },
     positional,
   } = options;
 
@@ -165,13 +165,9 @@ function run() {
     let fileErrors = lintFile(linter, filePath, moduleId);
 
     if (printPending) {
-      let failingRules = fileErrors.reduce((memo, error) => {
-        if (memo.indexOf(error.rule) === -1) {
-          memo.push(error.rule);
-        }
-
-        return memo;
-      }, []);
+      let failingRules = Array.from(
+        fileErrors.reduce((memo, error) => memo.add(error.rule), new Set())
+      );
 
       if (failingRules.length > 0) {
         filesWithErrors.push({ moduleId, only: failingRules });
@@ -191,11 +187,20 @@ function run() {
     }
   }
 
-  if (printPending && filesWithErrors.length > 0) {
-    console.log(
-      'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
-    );
-    console.log(`pending: ${JSON.stringify(filesWithErrors, null, 2)}`);
+  if (printPending) {
+    let pendingList = JSON.stringify(filesWithErrors, null, 2);
+
+    if (json) {
+      console.log(pendingList);
+    } else {
+      console.log(
+        'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
+      );
+
+      console.log(`pending: ${pendingList}`);
+    }
+
+    return;
   }
 
   if (Object.keys(errors).length) {
