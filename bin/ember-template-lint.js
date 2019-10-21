@@ -112,6 +112,9 @@ function parseArgv(_argv) {
         case '--verbose':
           options.named.verbose = true;
           break;
+        case '--print-pending':
+          options.named.printPending = true;
+          break;
         case '--':
           shouldHandleNamed = false;
           break;
@@ -132,7 +135,7 @@ function run() {
   let options = parseArgv(process.argv.slice(2));
 
   let {
-    named: { configPath, filename: filePathFromArgs = '' },
+    named: { configPath, filename: filePathFromArgs = '', printPending, json },
     positional,
   } = options;
 
@@ -147,6 +150,7 @@ function run() {
 
   let errors = {};
   let filesToLint;
+  let filesWithErrors = [];
 
   if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
     filesToLint = new Set([STDIN]);
@@ -157,7 +161,18 @@ function run() {
   for (let relativeFilePath of filesToLint) {
     let filePath = path.resolve(relativeFilePath);
     let fileName = relativeFilePath === STDIN ? filePathFromArgs : relativeFilePath;
-    let fileErrors = lintFile(linter, filePath, fileName.slice(0, -4));
+    let moduleId = fileName.slice(0, -4);
+    let fileErrors = lintFile(linter, filePath, moduleId);
+
+    if (printPending) {
+      let failingRules = Array.from(
+        fileErrors.reduce((memo, error) => memo.add(error.rule), new Set())
+      );
+
+      if (failingRules.length > 0) {
+        filesWithErrors.push({ moduleId, only: failingRules });
+      }
+    }
 
     if (
       fileErrors.some(function(err) {
@@ -170,6 +185,22 @@ function run() {
     if (fileErrors.length) {
       errors[filePath] = fileErrors;
     }
+  }
+
+  if (printPending) {
+    let pendingList = JSON.stringify(filesWithErrors, null, 2);
+
+    if (json) {
+      console.log(pendingList);
+    } else {
+      console.log(
+        'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
+      );
+
+      console.log(`pending: ${pendingList}`);
+    }
+
+    return;
   }
 
   if (Object.keys(errors).length) {

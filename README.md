@@ -76,6 +76,9 @@ Example usage:
 
 # read from stdin
 ./node_modules/.bin/ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
+
+# print list of formated rules for use with `pending` in config file
+./node_modules/.bin/ember-template-lint app/templates/application.hbs --print-pending
 ```
 
 ### ESLint
@@ -130,7 +133,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
   An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-  * If you are using `ember-cli-template-lint` you can generate this list with: `ember template-lint:print-failing`
+  * You can generate this list with the: `./node_modules/.bin/ember-template-lint * --print-pending`
 * `ignore` -- `string[]|glob[]`
   An array of module id's that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.
 * `plugins` -- `(string|Object)[]`
