@@ -21,6 +21,12 @@ generateRuleTests({
     '<InputSearch @onInput={{action "foo"}} />',
     '<InputSearch @onInput={{action "foo"}}></InputSearch>',
     '{{#with (hash bar=(component "foo")) as |foo|}}<foo.bar @onInput={{action "foo"}}></foo.bar>{{/with}}',
+    '<form {{on "submit" this.send}}></form>',
+    '<form {{on "reset" this.reset}}></form>',
+    {
+      config: { additionalInteractiveTags: ['div'] },
+      template: '<div {{on "click" this.onClick}}></div>',
+    },
     {
       config: { additionalInteractiveTags: ['div'] },
       template: '<div {{action "foo"}}></div>',
@@ -36,6 +42,16 @@ generateRuleTests({
   ],
 
   bad: [
+    {
+      template: '<div {{on "click" this.actionName}}>...</div>',
+
+      result: {
+        message: 'Interaction added to non-interactive element',
+        line: 1,
+        column: 5,
+        source: '<div {{on "click" this.actionName}}>...</div>',
+      },
+    },
     {
       template: '<div {{action "foo"}}></div>',
 
