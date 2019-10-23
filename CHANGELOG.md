@@ -1,3 +1,42 @@
+## v1.6.0 (2019-10-22)
+
+#### :rocket: Enhancement
+* [#862](https://github.com/ember-template-lint/ember-template-lint/pull/862) ✨Add option --print-pending from ember-cli-template-lint ([@TristanToye](https://github.com/TristanToye))
+* [#858](https://github.com/ember-template-lint/ember-template-lint/pull/858) Add `no-action` to `octane` preset configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#853](https://github.com/ember-template-lint/ember-template-lint/pull/853) Add `no-action` rule ([@lifeart](https://github.com/lifeart))
+* [#783](https://github.com/ember-template-lint/ember-template-lint/pull/783) Add support for reading a file to lint from `process.stdin` (e.g `cat some-file.hbs | ember-template-lint`) ([@sukima](https://github.com/sukima))
+
+#### :bug: Bug Fix
+* [#861](https://github.com/ember-template-lint/ember-template-lint/pull/861) Update `no-curly-component-invocation` to allow non-component yielded values to be used with mustaches ([@patocallaghan](https://github.com/patocallaghan))
+* [#849](https://github.com/ember-template-lint/ember-template-lint/pull/849) Improve `require-valid-alt-text` rule to catch additional common failure scenarios ([@MelSumner](https://github.com/MelSumner))
+* [#846](https://github.com/ember-template-lint/ember-template-lint/pull/846) Update `table-groups` to enforce required ordering of table children ([@initram](https://github.com/initram))
+* [#845](https://github.com/ember-template-lint/ember-template-lint/pull/845) Fixed `attribute-indentation` when using triple curlies (non-escaped `MustacheStatement`) ([@initram](https://github.com/initram))
+* [#836](https://github.com/ember-template-lint/ember-template-lint/pull/836) Expose internal errors from erroneous config when consuming it ([@ygongdev](https://github.com/ygongdev))
+
+#### :house: Internal
+* [#859](https://github.com/ember-template-lint/ember-template-lint/pull/859) Remove `testem` setup. ([@rwjblue](https://github.com/rwjblue))
+* [#856](https://github.com/ember-template-lint/ember-template-lint/pull/856) Use @glimmer/syntax directly. ([@rwjblue](https://github.com/rwjblue))
+* [#843](https://github.com/ember-template-lint/ember-template-lint/pull/843) Test interactivity of onload for img tags ([@joankaradimov](https://github.com/joankaradimov))
+* [#832](https://github.com/ember-template-lint/ember-template-lint/pull/832) Add eslint-plugin-import and enable most rules internally ([@bmish](https://github.com/bmish))
+* [#830](https://github.com/ember-template-lint/ember-template-lint/pull/830) Enable optional eslint rules internally ([@bmish](https://github.com/bmish))
+* [#829](https://github.com/ember-template-lint/ember-template-lint/pull/829) Add eslint-plugin-eslint-comments internally ([@bmish](https://github.com/bmish))
+* [#828](https://github.com/ember-template-lint/ember-template-lint/pull/828) Add eslint-plugin-filenames to enforce kebab-case filenames internally ([@bmish](https://github.com/bmish))
+* [#827](https://github.com/ember-template-lint/ember-template-lint/pull/827) Add CI check to ensure yarn.lock is up-to-date ([@bmish](https://github.com/bmish))
+* [#826](https://github.com/ember-template-lint/ember-template-lint/pull/826) Start testing with Node 12 ([@bmish](https://github.com/bmish))
+
+#### Committers: 11
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Devin Weaver ([@sukima](https://github.com/sukima))
+- Joan Karadimov ([@joankaradimov](https://github.com/joankaradimov))
+- Martin Midtgaard ([@initram](https://github.com/initram))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Pat O'Callaghan ([@patocallaghan](https://github.com/patocallaghan))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tristan Toye ([@TristanToye](https://github.com/TristanToye))
+- Yicheng (Jerry) Gong ([@ygongdev](https://github.com/ygongdev))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v1.5.3 (2019-08-20)
 
 #### :bug: Bug Fix

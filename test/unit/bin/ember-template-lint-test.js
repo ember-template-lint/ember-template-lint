@@ -446,6 +446,52 @@ describe('ember-template-lint executable', function() {
         });
       });
     });
+
+    describe('with --print-pending param', function() {
+      it('should print a list of pending modules', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '.', '--print-pending'],
+          {
+            cwd: './test/fixtures/with-errors-and-warnings',
+          },
+          function(err, stdout, stderr) {
+            let expectedOutputData =
+              'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]\n';
+
+            expect(err).to.be.ok;
+            expect(stdout).to.equal(expectedOutputData);
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('with --print-pending and --json params', function() {
+      it('should print json of pending modules', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '.', '--print-pending', '--json'],
+          {
+            cwd: './test/fixtures/with-errors-and-warnings',
+          },
+          function(err, stdout, stderr) {
+            let expectedOutputData = [
+              {
+                moduleId: 'app/templates/application',
+                only: ['no-bare-strings', 'no-html-comments'],
+              },
+            ];
+
+            expect(err).to.be.ok;
+            expect(JSON.parse(stdout)).to.deep.equal(expectedOutputData);
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
   });
 
   describe('parseArgv', function() {
@@ -490,6 +536,15 @@ describe('ember-template-lint executable', function() {
 
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { json: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --print-pending', function() {
+      let argv = ['--print-pending'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { printPending: true }, positional: [] };
 
       expect(actual).to.deep.equal(expected);
     });
