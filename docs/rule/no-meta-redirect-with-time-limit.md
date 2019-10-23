@@ -24,6 +24,7 @@ This rule **allows** the following:
 
 ### References
 
+* [F40: Failure due to using meta redirect with a time limit](https://www.w3.org/WAI/WCAG21/Techniques/failures/F40)
 * [Success Criterion 2.2.1: Timing Adjustable](https://www.w3.org/WAI/WCAG21/Understanding/timing-adjustable)
 * [Success Criterion 2.2.4: Interruptions](https://www.w3.org/WAI/WCAG21/Understanding/interruptions)
 * [Success Criterion 3.2.5: Change on Request](https://www.w3.org/WAI/WCAG21/Understanding/change-on-request)
