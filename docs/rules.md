@@ -12,6 +12,7 @@
 * [no-abstract-roles](rule/no-abstract-roles.md)
 * [no-action-modifiers](rule/no-action-modifiers.md)
 * [no-attrs-in-components](rule/no-attrs-in-components.md)
+* [no-args-paths](rule/no-args-paths.md)
 * [no-bare-strings](rule/no-bare-strings.md)
 * [no-debugger](rule/no-debugger.md)
 * [no-curly-component-invocation](rule/no-curly-component-invocation.md)

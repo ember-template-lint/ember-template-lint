@@ -109,3 +109,7 @@ module.exports = {
   },
 };
 ```
+
+### Related Rules
+
+* [no-args-paths](no-args-paths.md)
