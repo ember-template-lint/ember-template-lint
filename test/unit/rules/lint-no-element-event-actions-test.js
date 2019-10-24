@@ -21,7 +21,7 @@ generateRuleTests({
   bad: [
     {
       template:
-        '<button onclick={{action "myAction"}} onfocus={{action "myAction"}} otherProperty=true></button>',
+        '<button onclick={{action "myAction"}} ONFOCUS={{action "myAction"}} otherProperty=true></button>',
 
       results: [
         {
@@ -32,7 +32,7 @@ generateRuleTests({
         },
         {
           message: ERROR_MESSAGE,
-          source: 'onfocus={{action "myAction"}}',
+          source: 'ONFOCUS={{action "myAction"}}',
           line: 1,
           column: 38,
         },

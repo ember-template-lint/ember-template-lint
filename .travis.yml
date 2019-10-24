@@ -16,7 +16,7 @@ before_install:
   - export PATH=$HOME/.yarn/bin:$PATH
 
 install:
-  - yarn install
+  - yarn install --ignore-engines --frozen-lockfile --non-interactive
 
 script:
   - yarn test
@@ -33,10 +33,13 @@ jobs:
 
     - stage: additional tests
       name: floating dependencies
-      install: yarn install --no-lockfile
+      install: yarn install --no-lockfile --ignore-engines
 
     - name: "Node 6"
       node_js: "6"
 
     - name: "Node 8"
       node_js: "8"
+
+    - name: "Node 12"
+      node_js: "12"

@@ -1,16 +1,19 @@
 'use strict';
 
 const expect = require('chai').expect;
-const _precompile = require('@glimmer/compiler').precompile;
+const _preprocess = require('@glimmer/syntax').preprocess;
 const Rule = require('./../../lib/rules/base');
+const { readdirSync, existsSync, readFileSync } = require('fs');
+const { join } = require('path');
+const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
   function precompileTemplate(template, ast) {
-    _precompile(template, {
+    _preprocess(template, {
       rawSource: template,
       moduleName: 'layout.hbs',
       plugins: {
-        ast: ast,
+        ast,
       },
     });
   }
@@ -45,7 +48,7 @@ describe('base plugin', function() {
   }
 
   function plugin(Rule, name, config) {
-    let plugin = new Rule({ name, config });
+    let plugin = new Rule({ name, config, ruleNames });
 
     return env => {
       plugin.templateEnvironmentData = env;
@@ -55,6 +58,101 @@ describe('base plugin', function() {
       return { name, visitor };
     };
   }
+
+  describe('rules setup is correct', function() {
+    const rulesEntryPath = join(__dirname, '../../lib/rules');
+    const files = readdirSync(rulesEntryPath);
+    const deprecatedFiles = readdirSync(join(rulesEntryPath, 'deprecations'));
+    const deprecatedRules = deprecatedFiles.filter(fileName => {
+      return fileName.endsWith('.js');
+    });
+    const expectedRules = files.filter(fileName => {
+      return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
+    });
+
+    it('has correct rules reexport', function() {
+      const defaultExport = require(rulesEntryPath);
+      const exportedRules = Object.keys(defaultExport);
+      exportedRules.forEach(ruleName => {
+        let pathName = join(rulesEntryPath, `lint-${ruleName}`);
+
+        if (ruleName.startsWith('deprecated-')) {
+          pathName = join(rulesEntryPath, 'deprecations', `lint-${ruleName}`);
+        }
+
+        expect(
+          defaultExport[ruleName],
+          `"${ruleName}" reexport must be referenced to "${pathName}"`
+        ).to.be.equal(require(pathName));
+      });
+      expect(expectedRules.length + deprecatedRules.length).to.be.equal(exportedRules.length);
+    });
+
+    it('has docs/rule reference for each item', function() {
+      function transformFileName(fileName) {
+        return fileName.replace('lint-', '').replace('.js', '.md');
+      }
+      const ruleDocsFolder = join(__dirname, '../../docs/rule');
+      deprecatedFiles.forEach(ruleFileName => {
+        const docFilePath = join(ruleDocsFolder, 'deprecations', transformFileName(ruleFileName));
+        expect(existsSync(docFilePath), `${docFilePath} documentation file must exists for rule`).to
+          .be.true;
+      });
+      expectedRules.forEach(ruleFileName => {
+        const docFilePath = join(ruleDocsFolder, transformFileName(ruleFileName));
+        expect(existsSync(docFilePath), `${docFilePath} documentation file must exists for rule`).to
+          .be.true;
+      });
+    });
+
+    it('All files under docs/rule/ have a link from docs/rules.md.', function() {
+      const docsPath = join(__dirname, '../../docs');
+      const entryPath = join(docsPath, 'rule');
+      const ruleFiles = readdirSync(entryPath).filter(
+        name => name.endsWith('.md') && name !== '_TEMPLATE_.md'
+      );
+      const deprecatedRuleFiles = readdirSync(join(entryPath, 'deprecations')).filter(name =>
+        name.endsWith('.md')
+      );
+      const allRulesFile = readFileSync(join(docsPath, 'rules.md'), {
+        encoding: 'utf8',
+      });
+      ruleFiles.forEach(fileName => {
+        expect(
+          allRulesFile.includes(`(rule/${fileName})`),
+          `docs/rules.md has link to rule/${fileName}`
+        ).to.be.true;
+      });
+      deprecatedRuleFiles.forEach(fileName => {
+        expect(
+          allRulesFile.includes(`(rule/deprecations/${fileName})`),
+          `docs/rules.md has link to rule/deprecations/${fileName}`
+        ).to.be.true;
+      });
+    });
+
+    it('All rules has test files', function() {
+      const testsPath = join(__dirname, '../unit/rules');
+      const ruleFiles = readdirSync(testsPath).filter(name => name.endsWith('-test.js'));
+      const deprecatedRuleFiles = readdirSync(join(testsPath, 'deprecations')).filter(name =>
+        name.endsWith('-test.js')
+      );
+      expectedRules.forEach(ruleFileName => {
+        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
+        expect(
+          ruleFiles.includes(ruleTestFileName),
+          `${ruleTestFileName} exists in tests/unit/rules folder`
+        ).to.be.true;
+      });
+      deprecatedRules.forEach(ruleFileName => {
+        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
+        expect(
+          deprecatedRuleFiles.includes(ruleTestFileName),
+          `${ruleTestFileName} does not exists in tests/unit/rules/deprecations folder`
+        ).to.be.true;
+      });
+    });
+  });
 
   describe('parses templates', function() {
     let visitor = {
@@ -76,8 +174,8 @@ describe('base plugin', function() {
     }
 
     function expectSource(config) {
-      var template = config.template;
-      var nodeSources = config.sources;
+      let template = config.template;
+      let nodeSources = config.sources;
 
       it(`can get raw source for \`${template}\``, function() {
         precompile(template);
@@ -252,11 +350,11 @@ describe('base plugin', function() {
   });
 
   describe('scopes instructions', function() {
-    var events;
+    let events;
 
     function getId(node) {
       if (node.attributes) {
-        for (var i = 0; i < node.attributes.length; i++) {
+        for (let i = 0; i < node.attributes.length; i++) {
           if (node.attributes[i].name === 'id') {
             return node.attributes[i].value.chars;
           }
@@ -276,7 +374,7 @@ describe('base plugin', function() {
         }
 
         visitor() {
-          var pluginContext = this;
+          let pluginContext = this;
 
           return {
             ElementNode: {
@@ -326,10 +424,10 @@ describe('base plugin', function() {
     });
 
     function expectEvents(data) {
-      var description = data.desc;
-      var template = data.template;
-      var expectedEvents = data.events;
-      var config = data.config;
+      let description = data.desc;
+      let template = data.template;
+      let expectedEvents = data.events;
+      let config = data.config;
 
       it(description, function() {
         precompile(template, config);

@@ -1,5 +1,7 @@
 ## img-alt-attributes
 
+**NOTE**: This rule is deprecated in favor of the more comprehensive rule [require-valid-alt-text](./require-valid-alt-text.md).
+
 An `<img>` without an `alt` attribute is essentially invisible to assistive/accessibility technology (i.e. screen readers).
 In order to ensure that screen readers can provide useful information, we need to ensure that all `<img>` elements
 have an `alt` attribute specified.

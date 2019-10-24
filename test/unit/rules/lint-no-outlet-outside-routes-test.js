@@ -14,7 +14,7 @@ generateRuleTests({
     {
       template: '{{outlet}}',
       meta: {
-        moduleId: 'foo/route.hbs',
+        moduleId: 'app/templates/foo/route.hbs',
       },
       result: {
         message,
@@ -27,7 +27,7 @@ generateRuleTests({
     {
       template: '{{outlet}}',
       meta: {
-        moduleId: 'routes/foo.hbs',
+        moduleId: 'app/templates/routes/foo.hbs',
       },
       result: {
         message,
@@ -40,11 +40,11 @@ generateRuleTests({
     {
       template: '{{#outlet}}Why?!{{/outlet}}',
       meta: {
-        moduleId: 'foo/route.hbs',
+        moduleId: 'app/templates/foo/route.hbs',
       },
       result: {
         message,
-        moduleId: 'foo/route.hbs',
+        moduleId: 'app/templates/foo/route.hbs',
         source: '{{#outlet}}Why?!{{/outlet}}',
         line: 1,
         column: 0,
@@ -57,7 +57,7 @@ generateRuleTests({
       },
       result: {
         message,
-        moduleId: 'routes/foo.hbs',
+        moduleId: 'app/templates/routes/foo.hbs',
         source: '{{#outlet}}Why?!{{/outlet}}',
         line: 1,
         column: 0,
@@ -66,12 +66,25 @@ generateRuleTests({
     {
       template: '{{#outlet}}Works because ambiguous{{/outlet}}',
       meta: {
-        moduleId: 'something/foo.hbs',
+        moduleId: 'app/templates/something/foo.hbs',
       },
       result: {
         message,
         moduleId: 'something/foo.hbs',
         source: '{{#outlet}}Works because ambiguous{{/outlet}}',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '{{outlet}}',
+      meta: {
+        moduleId: 'components/templates/application.hbs',
+      },
+      result: {
+        message,
+        moduleId: 'components/templates/application.hbs',
+        source: '{{outlet}}',
         line: 1,
         column: 0,
       },
@@ -82,12 +95,12 @@ generateRuleTests({
       template: '{{outlet}}',
 
       meta: {
-        moduleId: 'components/foo/layout.hbs',
+        moduleId: 'app/templates/components/foo/layout.hbs',
       },
 
       result: {
         message,
-        moduleId: 'components/foo/layout.hbs',
+        moduleId: 'app/templates/components/foo/layout.hbs',
         source: '{{outlet}}',
         line: 1,
         column: 0,
@@ -97,12 +110,27 @@ generateRuleTests({
       template: '{{outlet}}',
 
       meta: {
-        moduleId: 'foo/-mything.hbs',
+        moduleId: 'app/templates/foo/-mything.hbs',
       },
 
       result: {
         message,
-        moduleId: 'foo/-mything.hbs',
+        moduleId: 'app/templates/foo/-mything.hbs',
+        source: '{{outlet}}',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '{{outlet}}',
+
+      meta: {
+        moduleId: 'app/components/foo/layout.hbs',
+      },
+
+      result: {
+        message,
+        moduleId: 'app/components/foo/layout.hbs',
         source: '{{outlet}}',
         line: 1,
         column: 0,

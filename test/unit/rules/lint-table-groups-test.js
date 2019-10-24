@@ -2,6 +2,7 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 const message = require('../../../lib/rules/lint-table-groups').message;
+const orderingMessage = require('../../../lib/rules/lint-table-groups').orderingMessage;
 
 generateRuleTests({
   name: 'table-groups',
@@ -44,15 +45,82 @@ generateRuleTests({
     {{/unless}}
     </table>
     `,
+    `
+    <table>
+    {{#each foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/each}}
+    </table>
+    `,
+    `
+    <table>
+    {{#each-in foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/each-in}}
+    </table>
+    `,
+    `
+    <table>
+    {{#let foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/let}}
+    </table>
+    `,
+    `
+    <table>
+    {{#with foo as |bar|}}
+      <tfoot>
+        <tr>bar</tr>
+      </tfoot>
+    {{/with}}
+    </table>
+    `,
+    `
+    <table>
+    {{#each foo as |bar|}}
+      {{#if bar}}
+        {{#unless baz}}
+          <tfoot>
+            <tr>bar</tr>
+          </tfoot>
+        {{/unless}}
+      {{/if}}
+    {{/each}}
+    </table>
+    `,
+
+    // Component with tag:
     '<table>{{some-component tagName="tbody"}}</table>',
     '<table>{{some-component tagName="thead"}}</table>',
     '<table>{{some-component tagName="tfoot"}}</table>',
+
+    // Block statement component with tag:
+    '<table>{{#some-component tagName="tbody"}}{{/some-component}}</table>',
+    '<table>{{#some-component tagName="thead"}}{{/some-component}}</table>',
+    '<table>{{#some-component tagName="tfoot"}}{{/some-component}}</table>',
+
+    // Component helper with tag:
     '<table>{{component "some-component" tagName="tbody"}}</table>',
     '<table>{{component "some-component" tagName="thead"}}</table>',
     '<table>{{component "some-component" tagName="tfoot"}}</table>',
+
+    // Angle bracket component (self-closing) with tag:
     '<table><SomeComponent @tagName="tbody" /></table>',
     '<table><SomeComponent @tagName="thead" /></table>',
     '<table><SomeComponent @tagName="tfoot" /></table>',
+
+    // Angle bracket component (NOT self-closing) with tag:
+    '<table><SomeComponent @tagName="tbody"></SomeComponent></table>',
+    '<table><SomeComponent @tagName="thead"></SomeComponent></table>',
+    '<table><SomeComponent @tagName="tfoot"></SomeComponent></table>',
+
+    ` <table>{{yield}}</table> `,
     '<table><!-- this --></table>',
     '<table>{{! or this }}</table>',
     '<table> </table>',
@@ -62,6 +130,7 @@ generateRuleTests({
     '<table><tbody><tr><td>Body</td></tr></tbody></table>',
     '<table><tfoot><tr><td>Footer</td></tr></tfoot></table>',
     '<table>' +
+      '{{! this is a comment }}' +
       '<thead>' +
       '<tr><td>Header</td></tr>' +
       '</thead>' +
@@ -81,6 +150,7 @@ generateRuleTests({
       '</tbody>' +
       '</table>',
     '<table>\n' + '<tbody>\n' + '</tbody>\n' + '</table>',
+    '<table><colgroup></colgroup><colgroup></colgroup><tbody></tbody></table>',
   ],
 
   bad: [
@@ -204,6 +274,23 @@ generateRuleTests({
       },
     },
     {
+      template: `
+      <table>
+      {{#something foo}}
+        <tbody></tbody>
+      {{/something}}
+      </table>
+      `,
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source:
+          '<table>\n      {{#something foo}}\n        <tbody></tbody>\n      {{/something}}\n      </table>',
+        line: 2,
+        column: 6,
+      },
+    },
+    {
       template: '<table><tr><td>Foo</td></tr></table>',
 
       result: {
@@ -294,6 +381,46 @@ generateRuleTests({
         message,
         moduleId: 'layout.hbs',
         source: '<table><SomeComponent @otherProp="tbody" /></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table>some text</table>',
+      result: {
+        message,
+        moduleId: 'layout.hbs',
+        source: '<table>some text</table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><tfoot /><thead /></table>',
+      result: {
+        message: orderingMessage,
+        moduleId: 'layout.hbs',
+        source: '<table><tfoot /><thead /></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><tbody /><caption /></table>',
+      result: {
+        message: orderingMessage,
+        moduleId: 'layout.hbs',
+        source: '<table><tbody /><caption /></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<table><tbody /><colgroup /></table>',
+      result: {
+        message: orderingMessage,
+        moduleId: 'layout.hbs',
+        source: '<table><tbody /><colgroup /></table>',
         line: 1,
         column: 0,
       },

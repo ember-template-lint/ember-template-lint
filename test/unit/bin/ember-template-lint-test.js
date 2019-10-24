@@ -3,18 +3,12 @@
 const execFile = require('child_process').execFile;
 const expect = require('chai').expect;
 const path = require('path');
+const BinScript = require('../../../bin/ember-template-lint');
 
 describe('ember-template-lint executable', function() {
   describe('basic usage', function() {
     describe('without any parameters', function() {
-      it('should exit without error and any console output', function(done) {
-        execFile('node', ['./bin/ember-template-lint.js'], function(err, stdout, stderr) {
-          expect(err).to.be.null;
-          expect(stdout).to.be.empty;
-          expect(stderr).to.be.empty;
-          done();
-        });
-      });
+      it.skip('should emit help text');
     });
 
     describe('given path to non-existing file', function() {
@@ -78,6 +72,93 @@ describe('ember-template-lint executable', function() {
           ['../../../bin/ember-template-lint.js', 'app'],
           {
             cwd: './test/fixtures/with-errors',
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('given no path', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '<', 'app/templates/application.hbs'],
+          {
+            cwd: './test/fixtures/with-errors',
+            shell: true,
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('given no path with --filename', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          [
+            '../../../bin/ember-template-lint.js',
+            '--filename',
+            'app/templates/application.hbs',
+            '<',
+            'app/templates/application.hbs',
+          ],
+          {
+            cwd: './test/fixtures/with-errors',
+            shell: true,
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('given - (stdin) path', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '-', '<', 'app/templates/application.hbs'],
+          {
+            cwd: './test/fixtures/stdin-with-errors',
+            shell: true,
+          },
+          function(err, stdout, stderr) {
+            expect(err).to.be.ok;
+            expect(stdout).to.be.ok;
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('given /dev/stdin path', function() {
+      it('should print errors', function(done) {
+        execFile(
+          'node',
+          [
+            '../../../bin/ember-template-lint.js',
+            '/dev/stdin',
+            '<',
+            'app/templates/application.hbs',
+          ],
+          {
+            cwd: './test/fixtures/stdin-with-errors',
+            shell: true,
           },
           function(err, stdout, stderr) {
             expect(err).to.be.ok;
@@ -364,6 +445,197 @@ describe('ember-template-lint executable', function() {
           );
         });
       });
+    });
+
+    describe('with --print-pending param', function() {
+      it('should print a list of pending modules', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '.', '--print-pending'],
+          {
+            cwd: './test/fixtures/with-errors-and-warnings',
+          },
+          function(err, stdout, stderr) {
+            let expectedOutputData =
+              'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]\n';
+
+            expect(err).to.be.ok;
+            expect(stdout).to.equal(expectedOutputData);
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+
+    describe('with --print-pending and --json params', function() {
+      it('should print json of pending modules', function(done) {
+        execFile(
+          'node',
+          ['../../../bin/ember-template-lint.js', '.', '--print-pending', '--json'],
+          {
+            cwd: './test/fixtures/with-errors-and-warnings',
+          },
+          function(err, stdout, stderr) {
+            let expectedOutputData = [
+              {
+                moduleId: 'app/templates/application',
+                only: ['no-bare-strings', 'no-html-comments'],
+              },
+            ];
+
+            expect(err).to.be.ok;
+            expect(JSON.parse(stdout)).to.deep.equal(expectedOutputData);
+            expect(stderr).to.be.empty;
+            done();
+          }
+        );
+      });
+    });
+  });
+
+  describe('parseArgv', function() {
+    it('handles --config-path', function() {
+      let argv = ['--config-path', 'foo.js'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { configPath: 'foo.js' }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --filename', function() {
+      let argv = ['--filename', 'foo.hbs'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { filename: 'foo.hbs' }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --quiet', function() {
+      let argv = ['--quiet'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { quiet: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --verbose', function() {
+      let argv = ['--verbose'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { verbose: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --json', function() {
+      let argv = ['--json'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { json: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('handles --print-pending', function() {
+      let argv = ['--print-pending'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { printPending: true }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('processes a single "--flag value" properly', function() {
+      let argv = ['--config-path', 'foo.js'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { configPath: 'foo.js' }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('processes a multiple "--flag value" properly', function() {
+      let argv = ['--config-path', 'foo.js', '--filename', 'baz.hbs'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { configPath: 'foo.js', filename: 'baz.hbs' }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('processes a single "--flag=value" properly', function() {
+      let argv = ['--config-path=foo.js'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { configPath: 'foo.js' }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('processes multiple "--flag=value" properly', function() {
+      let argv = ['--config-path=foo.js', '--filename=foo.hbs'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { configPath: 'foo.js', filename: 'foo.hbs' }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('processes "--flag=value --other-flag value" properly', function() {
+      let argv = ['--config-path', 'foo.js', '--filename=foo.hbs'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { configPath: 'foo.js', filename: 'foo.hbs' }, positional: [] };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('processes positional arguments', function() {
+      let argv = ['foo/bar.hbs', 'baz/qux.hbs'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = {
+        named: {},
+        positional: ['foo/bar.hbs', 'baz/qux.hbs'],
+      };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('does not add -- to the list of positional arguments', function() {
+      let argv = ['--config-path', 'foo.js', '--', 'foo/bar.hbs', 'baz/qux.hbs'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = {
+        named: { configPath: 'foo.js' },
+        positional: ['foo/bar.hbs', 'baz/qux.hbs'],
+      };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('named arguments are not allowed after `--`', function() {
+      let argv = [
+        '--config-path',
+        'foo.js',
+        '--',
+        'foo/bar.hbs',
+        'baz/qux.hbs',
+        '--filename',
+        'bar.hbs',
+      ];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = {
+        named: { configPath: 'foo.js' },
+        positional: ['foo/bar.hbs', 'baz/qux.hbs', '--filename', 'bar.hbs'],
+      };
+
+      expect(actual).to.deep.equal(expected);
     });
   });
 });

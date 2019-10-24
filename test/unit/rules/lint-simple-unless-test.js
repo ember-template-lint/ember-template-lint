@@ -45,6 +45,26 @@ generateRuleTests({
       },
       template: '{{unless (eq (not foo) bar) baz}}',
     },
+    {
+      config: {
+        maxHelpers: -1,
+      },
+      template: '{{unless (eq (not foo) bar) baz}}',
+    },
+    {
+      config: {
+        maxHelpers: -1,
+        blacklist: [],
+      },
+      template: '{{unless (eq (not foo) bar) baz}}',
+    },
+    {
+      config: {
+        maxHelpers: -1,
+        blacklist: ['or'],
+      },
+      template: '{{unless (eq (not foo) bar) baz}}',
+    },
   ],
 
   bad: [
@@ -56,7 +76,7 @@ generateRuleTests({
       template: "{{unless (if (or true))  'Please no'}}",
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
@@ -67,7 +87,7 @@ generateRuleTests({
       template: "{{unless (if true)  'Please no'}}",
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
@@ -78,7 +98,7 @@ generateRuleTests({
       template: "{{unless (and isBad isAwful)  'notBadAndAwful'}}",
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
@@ -206,7 +226,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
@@ -221,7 +241,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper + ' Allowed helpers: or,eq,not-eq',
+        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
         moduleId: 'layout.hbs',
         source: '{{unless (not ...',
         line: 1,
@@ -253,7 +273,7 @@ generateRuleTests({
       ].join('\n'),
 
       result: {
-        message: messages.withHelper + ' MaxHelpers: 2',
+        message: `${messages.withHelper} MaxHelpers: 2`,
         moduleId: 'layout.hbs',
         source: '{{unless (... (not-eq ...',
         line: 1,
@@ -322,6 +342,53 @@ generateRuleTests({
         line: 1,
         column: 27,
       },
+    },
+    {
+      config: {
+        blacklist: ['two'],
+        maxHelpers: -1,
+      },
+      template: [
+        '{{#unless (one (two three) (four five))}}',
+        '  I think I am a brown stick',
+        '{{/unless}}',
+      ].join('\n'),
+
+      result: {
+        message:
+          'Using {{unless}} in combination with other helpers should be avoided. Restricted helper: two',
+        source: '{{unless (... (two ...',
+        line: 1,
+        column: 15,
+      },
+    },
+    {
+      config: {
+        blacklist: ['two', 'four'],
+        maxHelpers: -1,
+      },
+      template: [
+        '{{#unless (one (two three) (four five))}}',
+        '  I think I am a brown stick',
+        '{{/unless}}',
+      ].join('\n'),
+
+      results: [
+        {
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four',
+          source: '{{unless (... (two ...',
+          line: 1,
+          column: 15,
+        },
+        {
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four',
+          source: '{{unless (... (four ...',
+          line: 1,
+          column: 27,
+        },
+      ],
     },
   ],
 });
