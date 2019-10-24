@@ -1,1 +1,1 @@
-module.exports = { rules: { 'no-shadowed-elements': false } }
+module.exports = { rules: { 'no-shadowed-elements': false } };
