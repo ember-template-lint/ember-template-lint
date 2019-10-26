@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@glimmer/syntax": "^0.42.2",
+    "broccoli-test-helper": "^2.0.0",
     "chalk": "^2.0.0",
     "globby": "^9.0.0",
     "minimatch": "^3.0.4",
@@ -48,7 +49,7 @@
     "release-it-lerna-changelog": "^1.0.3"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
