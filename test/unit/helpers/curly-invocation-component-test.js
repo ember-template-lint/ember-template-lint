@@ -18,6 +18,10 @@ describe('#transformTagName', function() {
     expect(transformTagName('foo@bar-baz')).to.equal('Foo@BarBaz');
     expect(transformTagName('foo/bar-baz')).to.equal('Foo::BarBaz');
     expect(transformTagName('foo/bar-baz/bang')).to.equal('Foo::BarBaz::Bang');
+    expect(transformTagName('foo$bar-bang')).to.equal('Foo$BarBang');
+    expect(transformTagName('foo$bar-bang::baz::foo3bar')).to.equal('Foo$BarBang::Baz::Foo3bar');
+    expect(transformTagName('foo$bar-bang::baz??foo3bar')).to.equal('Foo$BarBang::Baz??Foo3bar');
+    expect(transformTagName('foo$bar-bang::baz/foo3bar')).to.equal('Foo$BarBang::Baz::Foo3bar');
   });
 });
 
