@@ -1,3 +1,15 @@
+## v1.6.1 (2019-10-28)
+
+#### :bug: Bug Fix
+* [#864](https://github.com/ember-template-lint/ember-template-lint/pull/864) Update `no-invalid-interactive` to check for `on` modifier (in addition to `action`). ([@lifeart](https://github.com/lifeart))
+
+#### :house: Internal
+* [#874](https://github.com/ember-template-lint/ember-template-lint/pull/874) test-harness: Make it available for (external) plugins ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
 ## v1.6.0 (2019-10-22)
 
 #### :rocket: Enhancement
