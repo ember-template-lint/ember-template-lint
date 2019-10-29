@@ -29,6 +29,9 @@ generateRuleTests({
      {{/each}}`,
     `{{#-in-element}}Hello{{/-in-element}}`,
     `{{#in-element}}Hello{{/in-element}}`,
+    '<MyComponent @arg={{my-helper this.foobar}} />',
+    '<MyComponent @arg="{{my-helper this.foobar}}" />',
+    '<MyComponent {{my-modifier this.foobar}} />',
   ],
 
   bad: [
