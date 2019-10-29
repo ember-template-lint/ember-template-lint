@@ -36,6 +36,12 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<div>{{bad-code}}</div>',
+      results: [
+        Object.assign(getErrorResult(generateError('bad-code'), '{{bad-code}}'), { column: 5 }),
+      ],
+    },
+    {
       template: '{{bad-code}}',
       results: [getErrorResult(generateError('bad-code'), '{{bad-code}}')],
     },
