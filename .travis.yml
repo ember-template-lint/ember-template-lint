@@ -43,3 +43,6 @@ jobs:
 
     - name: "Node 12"
       node_js: "12"
+
+    - name: "Node 13"
+      node_js: "13"
