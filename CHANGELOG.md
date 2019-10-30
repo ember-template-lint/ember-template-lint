@@ -1,3 +1,17 @@
+## v1.6.2 (2019-10-30)
+
+#### :bug: Bug Fix
+* [#887](https://github.com/ember-template-lint/ember-template-lint/pull/887) Ensure `no-action` does not error when encountering literals (StringLiteral, BooleanLiteral, etc). ([@lifeart](https://github.com/lifeart))
+* [#882](https://github.com/ember-template-lint/ember-template-lint/pull/882) Fix issues when converting dasherized curly component invocation into angle bracket invocation ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+
+#### :memo: Documentation
+* [#877](https://github.com/ember-template-lint/ember-template-lint/pull/877) Document requirement on Node.js >= 6 ([@bmish](https://github.com/bmish))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Suchita Doshi ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+
 ## v1.6.1 (2019-10-28)
 
 #### :bug: Bug Fix
