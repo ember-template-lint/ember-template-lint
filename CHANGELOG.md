@@ -1,3 +1,14 @@
+## v1.7.0 (2019-10-31)
+
+#### :rocket: Enhancement
+* [#848](https://github.com/ember-template-lint/ember-template-lint/pull/848) Add `no-whitespace-within-word` rule ([@MelSumner](https://github.com/MelSumner))
+* [#868](https://github.com/ember-template-lint/ember-template-lint/pull/868) Add `no-meta-redirect-with-time-limit` rule ([@MelSumner](https://github.com/MelSumner))
+* [#819](https://github.com/ember-template-lint/ember-template-lint/pull/819) Added `no-whitespace-for-layout` rule ([@MelSumner](https://github.com/MelSumner))
+
+#### Committers: 2
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v1.6.2 (2019-10-30)
 
 #### :bug: Bug Fix
