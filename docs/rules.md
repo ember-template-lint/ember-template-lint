@@ -43,6 +43,7 @@
 * [no-unnecessary-concat](rule/no-unnecessary-concat.md)
 * [no-unused-block-params](rule/no-unused-block-params.md)
 * [no-whitespace-for-layout](rule/no-whitespace-for-layout.md)
+* [no-whitespace-within-word](rule/no-whitespace-within-word.md)
 * [quotes](rule/quotes.md)
 * [require-iframe-title](rule/require-iframe-title.md)
 * [require-valid-alt-text](rule/require-valid-alt-text.md)
