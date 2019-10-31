@@ -360,6 +360,66 @@ describe('public api', function() {
     });
   });
 
+  describe('.ts and .js files linting support (inline-templates)', function() {
+    let basePath = path.join(fixturePath, 'js-ts-inline-templates');
+    let linter;
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js'),
+      });
+    });
+
+    it('able to lint .js', function() {
+      let templatePath = path.join(basePath, 'app', 'foo.js');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          message:
+            'Do not use `action` as (action ...). Instead, use the `on` modifier and `fn` helper.',
+          moduleId: templatePath,
+          line: 3,
+          column: 36,
+          source: "(action 'boo')",
+          rule: 'no-action',
+          severity: 2,
+        },
+      ];
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath,
+      });
+
+      expect(result).to.deep.equal(expected);
+    });
+
+    it('able to lint .ts', function() {
+      let templatePath = path.join(basePath, 'app', 'boo.ts');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          message:
+            'Do not use `action` as (action ...). Instead, use the `on` modifier and `fn` helper.',
+          moduleId: templatePath,
+          line: 3,
+          column: 36,
+          source: "(action 'boo')",
+          rule: 'no-action',
+          severity: 2,
+        },
+      ];
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath,
+      });
+
+      expect(result).to.deep.equal(expected);
+    });
+  });
+
   describe('Linter using plugins', function() {
     let basePath = path.join(fixturePath, 'with-plugins');
     let linter;

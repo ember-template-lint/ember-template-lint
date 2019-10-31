@@ -25,6 +25,7 @@
   "dependencies": {
     "@glimmer/syntax": "^0.42.2",
     "chalk": "^2.0.0",
+    "extract-tagged-template-literals": "^1.0.3",
     "globby": "^9.0.0",
     "minimatch": "^3.0.4",
     "resolve": "^1.1.3",

@@ -77,7 +77,12 @@ function expandFileGlobs(positional) {
         ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
         gitignore: true,
       })
-      .filter(filePath => filePath.slice(-4) === '.hbs')
+      .filter(
+        filePath =>
+          filePath.slice(-4) === '.hbs' ||
+          filePath.slice(-3) === '.js' ||
+          filePath.slice(-3) === '.ts'
+      )
       .forEach(filePath => result.add(filePath));
   });
 
@@ -161,7 +166,7 @@ function run() {
   for (let relativeFilePath of filesToLint) {
     let filePath = path.resolve(relativeFilePath);
     let fileName = relativeFilePath === STDIN ? filePathFromArgs : relativeFilePath;
-    let moduleId = fileName.slice(0, -4);
+    let moduleId = fileName.slice(0, fileName.lastIndexOf('.'));
     let fileErrors = lintFile(linter, filePath, moduleId);
 
     if (printPending) {
