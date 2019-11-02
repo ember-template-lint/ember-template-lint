@@ -412,6 +412,6 @@ describe('get-config', function() {
           ],
         },
       });
-    }).to.throw(Error, `Cannot find module './bad-path'`);
+    }).to.throw(Error, "Cannot find module './bad-path'");
   });
 });

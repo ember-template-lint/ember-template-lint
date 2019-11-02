@@ -120,7 +120,7 @@ generateRuleTests({
     '<table><SomeComponent @tagName="thead"></SomeComponent></table>',
     '<table><SomeComponent @tagName="tfoot"></SomeComponent></table>',
 
-    ` <table>{{yield}}</table> `,
+    ' <table>{{yield}}</table> ',
     '<table><!-- this --></table>',
     '<table>{{! or this }}</table>',
     '<table> </table>',
