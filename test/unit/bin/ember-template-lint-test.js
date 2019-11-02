@@ -393,6 +393,54 @@ describe('ember-template-lint executable', function() {
     });
 
     describe('with --config-path param', function() {
+      describe('able to run only limited subset of rules', function() {
+        it('should skip disabled rules from subset', function(done) {
+          execFile(
+            'node',
+            [
+              '../../../bin/ember-template-lint.js',
+              '.',
+              '--config-path',
+              '../rules-subset-disabled/temp-templatelint-rc.js',
+            ],
+            {
+              cwd: './test/fixtures/rules-subset-disabled',
+            },
+            function(err, stdout, stderr) {
+              expect(err).to.be.null;
+              expect(stdout).to.be.empty;
+              expect(stderr).to.be.empty;
+              done();
+            }
+          );
+        });
+        it('should load only one rule and print error message', function(done) {
+          execFile(
+            'node',
+            [
+              '../../../bin/ember-template-lint.js',
+              '.',
+              '--config-path',
+              '../rules-subset/temp-templatelint-rc.js',
+            ],
+            {
+              cwd: './test/fixtures/rules-subset',
+            },
+            function(err, stdout, stderr) {
+              expect(err).to.be.ok;
+              expect(stdout.split('\n')).to.deep.equal([
+                path.resolve('./test/fixtures/rules-subset/template.hbs'),
+                '  2:4  error  Ambiguous element used (`div`)  no-shadowed-elements',
+                '',
+                '✖ 1 problems (1 errors, 0 warnings)',
+                '',
+              ]);
+              expect(stderr).to.be.empty;
+              done();
+            }
+          );
+        });
+      });
       describe('given a directory with errors and a lintrc with rules', function() {
         it('should print properly formatted error messages', function(done) {
           execFile(
