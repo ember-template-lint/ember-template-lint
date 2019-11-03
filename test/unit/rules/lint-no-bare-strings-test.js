@@ -32,6 +32,7 @@ generateRuleTests({
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
     '(),.&+-=*/#%!?:[]{}',
+    '&lpar;&rpar;&comma;&period;&amp;&nbsp;',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
 
