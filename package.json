@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@glimmer/syntax": "^0.43.0",
-    "chalk": "^2.0.0",
+    "chalk": "^2.4.2",
     "globby": "^9.0.0",
     "minimatch": "^3.0.4",
     "resolve": "^1.1.3",
