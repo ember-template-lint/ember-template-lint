@@ -1,3 +1,11 @@
+## v1.8.1 (2019-11-04)
+
+#### :bug: Bug Fix
+* [#902](https://github.com/ember-template-lint/ember-template-lint/pull/902) Do not validate indentation within `<pre>`,`<script>`, or `<style>`. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 1
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.8.0 (2019-11-04)
 
 #### :rocket: Enhancement
