@@ -1,3 +1,25 @@
+## v1.8.0 (2019-11-04)
+
+#### :rocket: Enhancement
+* [#850](https://github.com/ember-template-lint/ember-template-lint/pull/850) Changed parser mode to 'codemod' ([@initram](https://github.com/initram))
+* [#893](https://github.com/ember-template-lint/ember-template-lint/pull/893) Add `no-args-paths` to the `octane` preset ([@lifeart](https://github.com/lifeart))
+* [#865](https://github.com/ember-template-lint/ember-template-lint/pull/865) Add new `no-args-paths` rule. ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#884](https://github.com/ember-template-lint/ember-template-lint/pull/884) Fix `no-curly-component-invocation` to not warn about invocations within an existing angle bracket invocation ([@lifeart](https://github.com/lifeart))
+* [#870](https://github.com/ember-template-lint/ember-template-lint/pull/870) Fix issue preventing running a subset of rules ([@lifeart](https://github.com/lifeart))
+
+#### :house: Internal
+* [#896](https://github.com/ember-template-lint/ember-template-lint/pull/896) Pass `moduleName` and `rawSource` to `Rule` upon creation. ([@rwjblue](https://github.com/rwjblue))
+* [#892](https://github.com/ember-template-lint/ember-template-lint/pull/892) Remove reliance on `preprocess` (from `@glimmer/syntax`) ability to accept an array of AST plugins ([@rwjblue](https://github.com/rwjblue))
+* [#890](https://github.com/ember-template-lint/ember-template-lint/pull/890) Remove TransformDotComponentInvocation. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 4
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Martin Midtgaard ([@initram](https://github.com/initram))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.7.0 (2019-10-31)
 
 #### :rocket: Enhancement
