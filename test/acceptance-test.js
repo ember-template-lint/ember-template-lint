@@ -471,7 +471,7 @@ describe('public api', function() {
           moduleId: templatePath,
           line: 2,
           column: 2,
-          source: '{{{myVar}}}',
+          source: '{{{this.myVar}}}',
           rule: 'no-triple-curlies',
           severity: 2,
         },
