@@ -4,41 +4,77 @@ const path = require('path');
 const expect = require('chai').expect;
 const getConfig = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
+const { createTempDir } = require('broccoli-test-helper');
 
-const fixturePath = path.join(__dirname, '..', 'fixtures');
 const initialCWD = process.cwd();
 
 describe('get-config', function() {
-  afterEach(function() {
+  let project = null;
+  beforeEach(async function() {
+    project = await createTempDir();
+    process.chdir(project.path());
+  });
+  afterEach(async function() {
     process.chdir(initialCWD);
+    await project.dispose();
   });
 
   it('if config is provided, it is returned', function() {
-    let basePath = path.join(fixturePath, 'config-in-root');
-    let expected = require(path.join(basePath, '.template-lintrc'));
-
+    let expected = {
+      rules: {
+        foo: 'bar',
+        baz: 'derp',
+      },
+    };
+    project.write({
+      '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+      app: {
+        templates: {
+          'application.hbs': '',
+        },
+      },
+    });
     let actual = getConfig({ config: expected });
-
     expect(actual.rules).to.deep.equal(expected.rules);
   });
 
   it('uses .template-lintrc.js in cwd if present', function() {
-    let basePath = path.join(fixturePath, 'config-in-root');
-    let expected = require(path.join(basePath, '.template-lintrc'));
-
-    process.chdir(basePath);
-
+    let expected = {
+      rules: {
+        foo: 'bar',
+        baz: 'derp',
+      },
+    };
+    project.write({
+      '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+      app: {
+        templates: {
+          'application.hbs': '',
+        },
+      },
+    });
     let actual = getConfig({});
 
     expect(actual.rules).to.deep.equal(expected.rules);
   });
 
   it('uses .template-lintrc in provided configPath', function() {
-    let basePath = path.join(fixturePath, 'config-in-root');
-    let configPath = path.join(basePath, '.template-lintrc.js');
-    let expected = require(configPath);
+    let configPath = path.join(project.path(), '.template-lintrc.js');
 
-    process.chdir(basePath);
+    let expected = {
+      rules: {
+        foo: 'bar',
+        baz: 'derp',
+      },
+    };
+    project.write({
+      '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+      app: {
+        templates: {
+          'application.hbs': '',
+        },
+      },
+    });
 
     let actual = getConfig({
       configPath,
