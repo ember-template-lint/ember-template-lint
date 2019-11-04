@@ -1,3 +1,21 @@
+## v2.0.0-beta.1 (2019-11-04)
+
+#### :boom: Breaking Change
+* [#899](https://github.com/ember-template-lint/ember-template-lint/pull/899) Update recommended config ([@rwjblue](https://github.com/rwjblue))
+* [#844](https://github.com/ember-template-lint/ember-template-lint/pull/844) Remove HTML comment config ([@initram](https://github.com/initram))
+* [#885](https://github.com/ember-template-lint/ember-template-lint/pull/885) Drop support for NodeJs v6 and v11 ([@dcyriller](https://github.com/dcyriller))
+
+#### :rocket: Enhancement
+* [#873](https://github.com/ember-template-lint/ember-template-lint/pull/873) Leverage ember-template-recast ([@dcyriller](https://github.com/dcyriller))
+
+#### :house: Internal
+* [#898](https://github.com/ember-template-lint/ember-template-lint/pull/898) Update dependencies to latest (requiring Node 8+). ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Martin Midtgaard ([@initram](https://github.com/initram))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.8.0 (2019-11-04)
 
 #### :rocket: Enhancement
