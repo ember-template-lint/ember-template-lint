@@ -105,6 +105,8 @@ generateRuleTests({
       '{{/foo-bar}}',
     ].join('\n'),
     ['{{#if foo}}', '  &nbsp;bar', '{{/if}}'].join('\n'),
+    '<pre>\nsome text</pre>',
+    '<pre>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </pre>',
   ],
 
   bad: [
