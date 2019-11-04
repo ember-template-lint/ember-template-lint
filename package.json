@@ -23,7 +23,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@glimmer/syntax": "^0.43.0",
+    "ember-template-recast": "^3.2.8",
     "chalk": "^2.4.2",
     "globby": "^10.0.1",
     "minimatch": "^3.0.4",

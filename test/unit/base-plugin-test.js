@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const { traverse, preprocess } = require('@glimmer/syntax');
+const { parse, transform } = require('ember-template-recast');
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
@@ -9,7 +9,7 @@ const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
   function runRules(template, rules) {
-    let ast = preprocess(template);
+    let ast = parse(template);
 
     for (let ruleConfig of rules) {
       let { Rule } = ruleConfig;
@@ -20,7 +20,7 @@ describe('base plugin', function() {
 
       let rule = new Rule(options);
 
-      traverse(ast, rule.getVisitor());
+      transform(ast, () => rule.getVisitor());
     }
   }
 
