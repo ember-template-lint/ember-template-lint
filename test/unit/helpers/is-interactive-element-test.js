@@ -1,13 +1,13 @@
 'use strict';
 
 const expect = require('chai').expect;
-const preprocess = require('@glimmer/syntax').preprocess;
+const { parse } = require('ember-template-recast');
 const isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
 describe('isInteractiveElement', function() {
   function testTemplate(template, expectedValue) {
     it(`isInteractiveElement(\`${template}\` should be ${expectedValue}`, function() {
-      let ast = preprocess(template);
+      let ast = parse(template);
 
       let interactive = isInteractiveElement(ast.body[0]);
 
@@ -17,7 +17,7 @@ describe('isInteractiveElement', function() {
 
   function testReason(template, expectedReason) {
     it(`isInteractiveElement.reason(\`${template}\` should be \`${expectedReason}\``, function() {
-      let ast = preprocess(template);
+      let ast = parse(template);
 
       let reason = isInteractiveElement.reason(ast.body[0]);
 
@@ -59,7 +59,7 @@ describe('isInteractiveElement', function() {
 
   describe('reason', function() {
     function test(template) {
-      let ast = preprocess(template);
+      let ast = parse(template);
 
       return isInteractiveElement.reason(ast.body[0]);
     }

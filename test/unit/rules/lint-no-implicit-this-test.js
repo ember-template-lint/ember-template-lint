@@ -80,16 +80,6 @@ generateRuleTests({
       },
     },
     {
-      template: '{{book.author argument=true}}',
-      result: {
-        message: message('book.author'),
-        moduleId: 'layout.hbs',
-        source: 'book.author',
-        line: 1,
-        column: 2,
-      },
-    },
-    {
       template: '{{helper book}}',
       result: {
         message: message('book'),

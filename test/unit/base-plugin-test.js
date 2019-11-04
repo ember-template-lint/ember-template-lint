@@ -1,21 +1,27 @@
 'use strict';
 
 const expect = require('chai').expect;
-const _preprocess = require('@glimmer/syntax').preprocess;
+const { parse, transform } = require('ember-template-recast');
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
-  function precompileTemplate(template, ast) {
-    _preprocess(template, {
-      rawSource: template,
-      moduleName: 'layout.hbs',
-      plugins: {
-        ast,
-      },
-    });
+  function runRules(template, rules) {
+    let ast = parse(template);
+
+    for (let ruleConfig of rules) {
+      let { Rule } = ruleConfig;
+      let options = Object.assign({}, ruleConfig, {
+        moduleName: 'layout.hbs',
+        rawSource: template,
+      });
+
+      let rule = new Rule(options);
+
+      transform(ast, () => rule.getVisitor());
+    }
   }
 
   let messages, config;
@@ -48,15 +54,7 @@ describe('base plugin', function() {
   }
 
   function plugin(Rule, name, config) {
-    let plugin = new Rule({ name, config, ruleNames });
-
-    return env => {
-      plugin.templateEnvironmentData = env;
-
-      let visitor = plugin.getVisitor();
-
-      return { name, visitor };
-    };
+    return { Rule, name, config, ruleNames };
   }
 
   describe('rules setup is correct', function() {
@@ -169,16 +167,12 @@ describe('base plugin', function() {
       },
     };
 
-    function precompile(template) {
-      precompileTemplate(template, [plugin(buildPlugin(visitor), 'fake', config)]);
-    }
-
     function expectSource(config) {
       let template = config.template;
       let nodeSources = config.sources;
 
       it(`can get raw source for \`${template}\``, function() {
-        precompile(template);
+        runRules(template, [plugin(buildPlugin(visitor), 'fake', config)]);
 
         expect(messages).to.deep.equal(nodeSources);
       });
@@ -211,36 +205,34 @@ describe('base plugin', function() {
       },
     };
 
-    function precompile(template) {
-      precompileTemplate(template, [plugin(buildPlugin(visitor), 'fake', config)]);
-    }
-
     it('calls the "Program" node type', function() {
-      precompile('<div>Foo</div>');
+      runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
 
       expect(wasCalled).to.be.true;
     });
   });
 
   describe('parses instructions', function() {
-    function precompile(template) {
+    function processTemplate(template) {
       let Rule = buildPlugin({
         MustacheCommentStatement(node) {
           this.process(node);
         },
       });
+
       Rule.prototype.log = function(result) {
         messages.push(result.message);
       };
       Rule.prototype.process = function(node) {
         config = this._processInstructionNode(node);
       };
-      precompileTemplate(template, [plugin(Rule, 'fake', 'foo')]);
+
+      runRules(template, [plugin(Rule, 'fake', 'foo')]);
     }
 
     function expectConfig(instruction, expectedConfig) {
       it(`can parse \`${instruction}\``, function() {
-        precompile(`{{! ${instruction} }}`);
+        processTemplate(`{{! ${instruction} }}`);
         expect(config).to.deep.equal(expectedConfig);
         expect(messages).to.deep.equal([]);
       });
@@ -297,7 +289,7 @@ describe('base plugin', function() {
 
     // Errors
     it('logs an error when it encounters an unknown rule name', function() {
-      precompile(
+      processTemplate(
         [
           '{{! template-lint-enable notarule }}',
           '{{! template-lint-disable fake norme meneither }}',
@@ -313,14 +305,14 @@ describe('base plugin', function() {
     });
 
     it("logs an error when it can't parse a configure instruction's JSON", function() {
-      precompile('{{! template-lint-configure fake { not: "json" ] }}');
+      processTemplate('{{! template-lint-configure fake { not: "json" ] }}');
       expect(messages).to.deep.equal([
         'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON',
       ]);
     });
 
     it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function() {
-      precompile(
+      processTemplate(
         [
           '{{! template-lint-bloober fake }}',
           '{{! template-lint- fake }}',
@@ -335,7 +327,7 @@ describe('base plugin', function() {
     });
 
     it('only logs syntax errors once across all rules', function() {
-      precompileTemplate(
+      runRules(
         '{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}',
         [
           plugin(buildPlugin({}), 'fake1'),
@@ -410,12 +402,12 @@ describe('base plugin', function() {
       return FakeRule;
     }
 
-    function precompile(template, config) {
+    function processTemplate(template, config) {
       if (config === undefined) {
         config = true;
       }
 
-      precompileTemplate(template, [plugin(buildPlugin(), 'fake', config)]);
+      runRules(template, [plugin(buildPlugin(), 'fake', config)]);
     }
 
     beforeEach(function() {
@@ -430,7 +422,7 @@ describe('base plugin', function() {
       let config = data.config;
 
       it(description, function() {
-        precompile(template, config);
+        processTemplate(template, config);
         expect(events).to.deep.equal(expectedEvents);
         expect(messages).to.deep.equal([]);
       });

@@ -36,7 +36,20 @@ generateRuleTests({
     'style={{foo}}',
     'style="{{foo}} {{bar}}"',
     'style',
-    'style=""',
     'style="color:blue;margin-left:30px;"',
-  ].map(mapBadStyleExampleToTestRule),
+  ]
+    .map(mapBadStyleExampleToTestRule)
+    .concat([
+      {
+        template: '<div style=""></div>',
+
+        result: {
+          message: 'elements cannot have inline styles',
+          moduleId: 'layout.hbs',
+          source: 'style',
+          line: 1,
+          column: 5,
+        },
+      },
+    ]),
 });

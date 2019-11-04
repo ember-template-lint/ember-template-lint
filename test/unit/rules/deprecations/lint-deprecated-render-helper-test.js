@@ -23,12 +23,12 @@ generateRuleTests({
 
   bad: [
     {
-      template: `{{render 'ken-griffey'}}`,
+      template: "{{render 'ken-griffey'}}",
 
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: `{{render 'ken-griffey'}}`,
+        source: "{{render 'ken-griffey'}}",
         line: 1,
         column: 0,
         fix: {
@@ -37,12 +37,12 @@ generateRuleTests({
       },
     },
     {
-      template: `{{render 'baseball-player' pitcher}}`,
+      template: "{{render 'baseball-player' pitcher}}",
 
       result: {
         message,
         moduleId: 'layout.hbs',
-        source: `{{render 'baseball-player' pitcher}}`,
+        source: "{{render 'baseball-player' pitcher}}",
         line: 1,
         column: 0,
         fix: {

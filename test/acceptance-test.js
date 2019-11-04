@@ -519,21 +519,21 @@ describe('public api', function() {
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
         {
-          message: 'Usage of triple curly brackets is unsafe',
-          moduleId: templatePath,
-          line: 2,
-          column: 2,
-          source: '{{{myVar}}}',
-          rule: 'no-triple-curlies',
-          severity: 2,
-        },
-        {
           message: 'The inline form of component is not allowed',
           moduleId: templatePath,
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
           rule: 'inline-component',
+          severity: 2,
+        },
+        {
+          message: 'Usage of triple curly brackets is unsafe',
+          moduleId: templatePath,
+          line: 2,
+          column: 2,
+          source: '{{{this.myVar}}}',
+          rule: 'no-triple-curlies',
           severity: 2,
         },
       ];

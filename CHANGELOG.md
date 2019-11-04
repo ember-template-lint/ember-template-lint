@@ -1,3 +1,80 @@
+## v2.0.0-beta.1 (2019-11-04)
+
+#### :boom: Breaking Change
+* [#899](https://github.com/ember-template-lint/ember-template-lint/pull/899) Update recommended config ([@rwjblue](https://github.com/rwjblue))
+* [#844](https://github.com/ember-template-lint/ember-template-lint/pull/844) Remove HTML comment config ([@initram](https://github.com/initram))
+* [#885](https://github.com/ember-template-lint/ember-template-lint/pull/885) Drop support for NodeJs v6 and v11 ([@dcyriller](https://github.com/dcyriller))
+
+#### :rocket: Enhancement
+* [#873](https://github.com/ember-template-lint/ember-template-lint/pull/873) Leverage ember-template-recast ([@dcyriller](https://github.com/dcyriller))
+
+#### :house: Internal
+* [#898](https://github.com/ember-template-lint/ember-template-lint/pull/898) Update dependencies to latest (requiring Node 8+). ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Martin Midtgaard ([@initram](https://github.com/initram))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+## v1.8.0 (2019-11-04)
+
+#### :rocket: Enhancement
+* [#850](https://github.com/ember-template-lint/ember-template-lint/pull/850) Changed parser mode to 'codemod' ([@initram](https://github.com/initram))
+* [#893](https://github.com/ember-template-lint/ember-template-lint/pull/893) Add `no-args-paths` to the `octane` preset ([@lifeart](https://github.com/lifeart))
+* [#865](https://github.com/ember-template-lint/ember-template-lint/pull/865) Add new `no-args-paths` rule. ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#884](https://github.com/ember-template-lint/ember-template-lint/pull/884) Fix `no-curly-component-invocation` to not warn about invocations within an existing angle bracket invocation ([@lifeart](https://github.com/lifeart))
+* [#870](https://github.com/ember-template-lint/ember-template-lint/pull/870) Fix issue preventing running a subset of rules ([@lifeart](https://github.com/lifeart))
+
+#### :house: Internal
+* [#896](https://github.com/ember-template-lint/ember-template-lint/pull/896) Pass `moduleName` and `rawSource` to `Rule` upon creation. ([@rwjblue](https://github.com/rwjblue))
+* [#892](https://github.com/ember-template-lint/ember-template-lint/pull/892) Remove reliance on `preprocess` (from `@glimmer/syntax`) ability to accept an array of AST plugins ([@rwjblue](https://github.com/rwjblue))
+* [#890](https://github.com/ember-template-lint/ember-template-lint/pull/890) Remove TransformDotComponentInvocation. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 4
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Martin Midtgaard ([@initram](https://github.com/initram))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+## v1.7.0 (2019-10-31)
+
+#### :rocket: Enhancement
+* [#848](https://github.com/ember-template-lint/ember-template-lint/pull/848) Add `no-whitespace-within-word` rule ([@MelSumner](https://github.com/MelSumner))
+* [#868](https://github.com/ember-template-lint/ember-template-lint/pull/868) Add `no-meta-redirect-with-time-limit` rule ([@MelSumner](https://github.com/MelSumner))
+* [#819](https://github.com/ember-template-lint/ember-template-lint/pull/819) Added `no-whitespace-for-layout` rule ([@MelSumner](https://github.com/MelSumner))
+
+#### Committers: 2
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+## v1.6.2 (2019-10-30)
+
+#### :bug: Bug Fix
+* [#887](https://github.com/ember-template-lint/ember-template-lint/pull/887) Ensure `no-action` does not error when encountering literals (StringLiteral, BooleanLiteral, etc). ([@lifeart](https://github.com/lifeart))
+* [#882](https://github.com/ember-template-lint/ember-template-lint/pull/882) Fix issues when converting dasherized curly component invocation into angle bracket invocation ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+
+#### :memo: Documentation
+* [#877](https://github.com/ember-template-lint/ember-template-lint/pull/877) Document requirement on Node.js >= 6 ([@bmish](https://github.com/bmish))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Suchita Doshi ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+
+## v1.6.1 (2019-10-28)
+
+#### :bug: Bug Fix
+* [#864](https://github.com/ember-template-lint/ember-template-lint/pull/864) Update `no-invalid-interactive` to check for `on` modifier (in addition to `action`). ([@lifeart](https://github.com/lifeart))
+
+#### :house: Internal
+* [#874](https://github.com/ember-template-lint/ember-template-lint/pull/874) test-harness: Make it available for (external) plugins ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
 ## v1.6.0 (2019-10-22)
 
 #### :rocket: Enhancement

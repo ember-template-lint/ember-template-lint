@@ -13,6 +13,12 @@ generateRuleTests({
     '<MyScope as |action|><Component @baz={{action}} /></MyScope>',
     '<button {{on "submit" @action}}>Click Me</button>',
     '<button {{on "submit" this.action}}>Click Me</button>',
+    // check for scope.getLocalName working for primitives and locals #881
+    '<PButton @naked={{true}} />',
+    '<PButton @naked={{undefined}} />',
+    '<PButton @naked={{null}} />',
+    '<PButton @naked={{this}} />',
+    '<PButton @naked={{"action"}} />',
   ],
 
   bad: [

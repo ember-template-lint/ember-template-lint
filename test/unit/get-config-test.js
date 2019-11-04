@@ -90,7 +90,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['block-indentation']).to.equal(true);
+    expect(actual.rules['no-debugger']).to.equal(true);
   });
 
   it('can extend and override a default configuration', function() {
@@ -293,7 +293,7 @@ describe('get-config', function() {
 
     expect(message).to.be.not.ok;
     expect(actual.rules['foo-bar']).to.equal(true);
-    expect(actual.rules['block-indentation']).to.equal(true);
+    expect(actual.rules['no-debugger']).to.equal(true);
   });
 
   it('handles circular reference in config', function() {
@@ -448,6 +448,6 @@ describe('get-config', function() {
           ],
         },
       });
-    }).to.throw(Error, `Cannot find module './bad-path'`);
+    }).to.throw(Error, "Cannot find module './bad-path'");
   });
 });

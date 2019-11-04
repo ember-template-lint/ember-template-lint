@@ -22,16 +22,25 @@ generateRuleTests({
     '<Nested::GoodCode @someProperty={{-50}} @someProperty={{"-50"}} @someProperty={{true}} />',
     '{{some-valid-helper param}}',
     '{{some/valid-nested-helper param}}',
-    `{{@someArg}}`,
-    `{{this.someProperty}}`,
+    '{{@someArg}}',
+    '{{this.someProperty}}',
     `{{#each items as |item|}}
         {{item}}
      {{/each}}`,
-    `{{#-in-element}}Hello{{/-in-element}}`,
-    `{{#in-element}}Hello{{/in-element}}`,
+    '{{#-in-element}}Hello{{/-in-element}}',
+    '{{#in-element}}Hello{{/in-element}}',
+    '<MyComponent @arg={{my-helper this.foobar}} />',
+    '<MyComponent @arg="{{my-helper this.foobar}}" />',
+    '<MyComponent {{my-modifier this.foobar}} />',
   ],
 
   bad: [
+    {
+      template: '<div>{{bad-code}}</div>',
+      results: [
+        Object.assign(getErrorResult(generateError('bad-code'), '{{bad-code}}'), { column: 5 }),
+      ],
+    },
     {
       template: '{{bad-code}}',
       results: [getErrorResult(generateError('bad-code'), '{{bad-code}}')],
@@ -78,8 +87,8 @@ generateRuleTests({
     '<Nested::GoodCode @someProperty={{-50}} @someProperty={{"-50"}}/ />',
     '{{some-valid-helper param}}',
     '{{some/valid-nested-helper param}}',
-    `{{@someArg}}`,
-    `{{this.someProperty}}`,
+    '{{@someArg}}',
+    '{{this.someProperty}}',
     `{{#each items as |item|}}
        {{item}}
      {{/each}}`,
