@@ -37,7 +37,7 @@ describe('public api', function() {
   describe('Linter.prototype.loadConfig', function() {
     it('throws an error if the config file has an error on parsing', function() {
       project.write({
-        '.template-lintrc.js': `throw Error('error happening during config loading');\n`,
+        '.template-lintrc.js': "throw Error('error happening during config loading');\n",
       });
       expect(() => {
         new Linter({
@@ -178,22 +178,25 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter.prototype.verify', async function() {
-    project = await createTempDir();
-    let basePath = project.path();
+  describe('Linter.prototype.verify', function() {
+    let basePath = null;
     let linter;
     let expected = {
       rules: {
         'bare-strings': true,
       },
     };
-    project.write({
-      '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
-      app: {
-        templates: {
-          'application.hbs': `<h2>Here too!!</h2>\n<div>Bare strings are bad...</div>\n`,
+    before(async function() {
+      project = await createTempDir();
+      basePath = project.path();
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '<h2>Here too!!</h2>\n<div>Bare strings are bad...</div>\n',
+          },
         },
-      },
+      });
     });
 
     this.afterAll(async function() {
