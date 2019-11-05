@@ -106,7 +106,16 @@ generateRuleTests({
     ].join('\n'),
     ['{{#if foo}}', '  &nbsp;bar', '{{/if}}'].join('\n'),
     '<pre>\nsome text</pre>',
+    '<script>\nsome text</script>',
+    '<template>\nsome text</template>',
+    '<textarea>\nsome text</textarea>',
+    '<textarea> \n<div>\nsome text   \n \n </div></textarea>',
+    '<style>\nsome text</style>',
     '<pre>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </pre>',
+    '<script>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </script>',
+    '<template>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </template>',
+    '<style>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </style>',
+    '<textarea>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </textarea>',
   ],
 
   bad: [
