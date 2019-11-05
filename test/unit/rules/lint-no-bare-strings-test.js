@@ -47,15 +47,7 @@ generateRuleTests({
     '&lpar;&rpar;&comma;&period;&amp;&nbsp;',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
-    '<script> fdff sf sf f </script>',
-    '<style> fdff sf sf f </style>',
-    '<pre> fdff sf sf f </pre>',
-    '<template> fdff sf sf f </template>',
-    '<script> fdff sf sf <div> aaa </div> f </script>',
-    '<style> fdff sf sf <div> aaa </div> f </style>',
-    '<pre> fdff sf sf <div> aaa </div> f </pre>',
-    '<template> fdff sf sf <div> aaa </div> f </template>',
-    '<textarea> this is an input</textarea>',
+
     // placeholder is a <input> specific attribute
     '<div placeholder="wat?"></div>',
 
