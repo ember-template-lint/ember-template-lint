@@ -29,6 +29,18 @@ generateRuleTests({
       config: ['/', '"'],
       template: '{{t "foo"}} / "{{name}}"',
     },
+    {
+      config: ['&', '&times;', '4', '3=12'],
+      template: '4 &times; 3=12',
+    },
+    {
+      config: ['&', '&times;', 'Tom', 'Jerry'],
+      template: 'Tom & Jerry',
+    },
+    {
+      config: ['&', '&times;'],
+      template: '& &times;',
+    },
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
     '(),.&+-=*/#%!?:[]{}',
