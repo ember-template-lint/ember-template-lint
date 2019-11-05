@@ -29,13 +29,33 @@ generateRuleTests({
       config: ['/', '"'],
       template: '{{t "foo"}} / "{{name}}"',
     },
+    {
+      config: ['&', '&times;', '4', '3=12'],
+      template: '4 &times; 3=12',
+    },
+    {
+      config: ['&', '&times;', 'Tom', 'Jerry'],
+      template: 'Tom & Jerry',
+    },
+    {
+      config: ['&', '&times;'],
+      template: '& &times;',
+    },
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
     '(),.&+-=*/#%!?:[]{}',
     '&lpar;&rpar;&comma;&period;&amp;&nbsp;',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
-
+    '<script> fdff sf sf f </script>',
+    '<style> fdff sf sf f </style>',
+    '<pre> fdff sf sf f </pre>',
+    '<template> fdff sf sf f </template>',
+    '<script> fdff sf sf <div> aaa </div> f </script>',
+    '<style> fdff sf sf <div> aaa </div> f </style>',
+    '<pre> fdff sf sf <div> aaa </div> f </pre>',
+    '<template> fdff sf sf <div> aaa </div> f </template>',
+    '<textarea> this is an input</textarea>',
     // placeholder is a <input> specific attribute
     '<div placeholder="wat?"></div>',
 
