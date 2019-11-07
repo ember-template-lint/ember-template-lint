@@ -31,6 +31,12 @@ generateRuleTests({
     '(component SOME_COMPONENT_NAME)',
     '(component "my-component")',
 
+    // Curly inline usage in an angle bracket component:
+    '<Foo @bar={{component SOME_COMPONENT_NAME}} />',
+    '<Foo @bar={{component "my-component"}} />',
+    '<Foo @bar={{component SOME_COMPONENT_NAME}}></Foo>',
+    '<Foo @bar={{component "my-component"}}></Foo>',
+
     // Component names of the form `addon-name@component-name` are exempt:
     "{{component 'addon-name@component-name'}}",
     "{{#component 'addon-name@component-name'}}{{/component}}",
