@@ -37,6 +37,9 @@ generateRuleTests({
     '<Foo @bar={{component SOME_COMPONENT_NAME}}></Foo>',
     '<Foo @bar={{component "my-component"}}></Foo>',
 
+    // Static arguments in angle bracket components don't crash the rule:
+    '<Foo @arg="foo" />',
+
     // Component names of the form `addon-name@component-name` are exempt:
     "{{component 'addon-name@component-name'}}",
     "{{#component 'addon-name@component-name'}}{{/component}}",
