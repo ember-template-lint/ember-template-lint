@@ -39,6 +39,11 @@ generateRuleTests({
 
     // Static arguments in angle bracket components don't crash the rule:
     '<Foo @arg="foo" />',
+    '<Foo class="foo" />',
+    '<Foo data-test-bar="foo" />',
+
+    // `if` expressions are allowed
+    '<Foo @arg={{if this.user.isAdmin "admin"}}/>',
 
     // Component names of the form `addon-name@component-name` are exempt:
     "{{component 'addon-name@component-name'}}",
