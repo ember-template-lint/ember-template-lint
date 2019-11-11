@@ -24,6 +24,13 @@ generateRuleTests({
       config: 'unix',
       template: 'testing\nthis',
     },
+    {
+      meta: {
+        editorConfig: { end_of_line: 'crlf' },
+      },
+      config: 'unix',
+      template: 'testing\r\nthis',
+    },
   ],
 
   bad: [
