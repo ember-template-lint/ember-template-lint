@@ -78,5 +78,17 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template:
+        '<Foo @arg={{component "allowed-component"}}>{{component "forbidden-component"}}</Foo>',
+
+      result: {
+        message: ERROR_MESSAGE,
+        moduleId: 'layout.hbs',
+        source: '{{component "forbidden-component"}}',
+        line: 1,
+        column: 44,
+      },
+    },
   ],
 });
