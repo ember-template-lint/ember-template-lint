@@ -8,6 +8,12 @@ generateRuleTests({
   config: 2,
 
   good: [
+    {
+      template: '<div>\n' + '    <p>Hi!</p>\n' + '</div>',
+      meta: {
+        editorConfig: { indent_size: 4 },
+      },
+    },
     ['  this is fine'].join('\n'),
     ['<h1>Header</h1>', '<div>', '  \\{{example}}', '</div>'].join('\n'),
     ['<div>', '  \\{{example}}', '</div>'].join('\n'),
@@ -83,7 +89,6 @@ generateRuleTests({
     },
     {
       config: 'tab',
-
       template: '' + '<div>\n' + '\t<p>Hi!</p>\n' + '</div>',
     },
     '{{! template-lint-disable no-bare-strings }}',

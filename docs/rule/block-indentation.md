@@ -39,6 +39,8 @@ The following values are valid configuration:
   * numeric -- the number of spaces to require for indentation
   * "tab" -- To indicate tab style indentation (1 char)
 
+If `.editorconfig` file present, rule configuration will be inherit from it.
+
 ### Related Rules
 
   * [attribute-indentation](attribute-indentation.md)
