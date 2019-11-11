@@ -42,8 +42,11 @@ generateRuleTests({
     '<Foo class="foo" />',
     '<Foo data-test-bar="foo" />',
 
-    // `if` expressions are allowed
-    '<Foo @arg={{if this.user.isAdmin "admin"}}/>',
+    // `if` expressions without `(component)` are allowed:
+    '<Foo @arg={{if this.user.isAdmin "admin"}} />',
+
+    // `if` expression with `(component)` are allowed:
+    '<Foo @arg={{if this.user.isAdmin (component "my-component")}} />',
 
     // Component names of the form `addon-name@component-name` are exempt:
     "{{component 'addon-name@component-name'}}",
