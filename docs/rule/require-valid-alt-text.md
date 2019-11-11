@@ -14,7 +14,7 @@ The content of an `alt` attribute is used to calculate the machine-readable labe
 
 If it's not a meaningful image, it should have an empty alt attribute value and have the role of presentation or none.
 
-`img` alt attribute does not contain the word image, picture, or photo. Screenreaders already announce `img` elements as an image. There is no need to use words such as *image*, *photo*, and/or *picture*.
+`img` alt attribute does not contain the word image, picture, or photo. Screenreaders already announce `img` elements as an image. There is no need to use words such as *image*, *photo*, *logo*, *spacer*, and/or *picture*.
 
 Numbers are not considered valid alt text, and this rule disallows using only numbers in alt text.
 
@@ -24,6 +24,7 @@ This rule **forbids** the following:
 ```hbs
 <img src="rwjblue.png">
 <img src="foo" alt="Photo of foo being weird." />
+<img src="foo" alt="YourCompany logo" />
 <img src="bar" alt="Image of me at a bar!" />
 <img src="baz" alt="Picture of baz fixing a bug." />
 <img src="b52.jpg" alt="52" />
@@ -33,6 +34,7 @@ This rule **allows** the following:
 
 ```hbs
 <img src="rwjblue.png" alt="A man standing in front of a room of people, giving a presentation about Ember.">
+<img src="foo" alt="YourCompany Home Page" />
 <img src="bar" aria-hidden alt="Picture of me taking a photo of an image" /> // Will pass because it is hidden.
 <img src="baz" alt="Baz taking a {{photo}}" /> // This is valid since photo is a variable name.
 <img src="b52.jpg" alt="b52 bomber jet" />
