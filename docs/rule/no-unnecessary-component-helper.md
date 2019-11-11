@@ -27,6 +27,7 @@ This rule **allows** the following:
 
 ```hbs
 {{my-component close=(component "link-to" "index")}}
+<MyComponent @close={{component "link-to" "index"}} />
 ```
 
 ### References
