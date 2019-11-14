@@ -23,7 +23,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "ember-template-recast": "^3.2.8",
     "globby": "^10.0.1",
     "micromatch": "^4.0.2",
