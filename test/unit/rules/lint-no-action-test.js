@@ -14,6 +14,7 @@ generateRuleTests({
     '<button {{on "submit" @action}}>Click Me</button>',
     '<button {{on "submit" this.action}}>Click Me</button>',
     // check for scope.getLocalName working for primitives and locals #881
+    '<PButton @naked={{42}} />',
     '<PButton @naked={{true}} />',
     '<PButton @naked={{undefined}} />',
     '<PButton @naked={{null}} />',

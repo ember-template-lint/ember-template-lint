@@ -31,6 +31,23 @@ generateRuleTests({
     '(component SOME_COMPONENT_NAME)',
     '(component "my-component")',
 
+    // Curly inline usage in an angle bracket component:
+    '<Foo @bar={{component SOME_COMPONENT_NAME}} />',
+    '<Foo @bar={{component "my-component"}} />',
+    '<Foo @bar={{component SOME_COMPONENT_NAME}}></Foo>',
+    '<Foo @bar={{component "my-component"}}></Foo>',
+
+    // Static arguments in angle bracket components don't crash the rule:
+    '<Foo @arg="foo" />',
+    '<Foo class="foo" />',
+    '<Foo data-test-bar="foo" />',
+
+    // `if` expressions without `(component)` are allowed:
+    '<Foo @arg={{if this.user.isAdmin "admin"}} />',
+
+    // `if` expression with `(component)` are allowed:
+    '<Foo @arg={{if this.user.isAdmin (component "my-component")}} />',
+
     // Component names of the form `addon-name@component-name` are exempt:
     "{{component 'addon-name@component-name'}}",
     "{{#component 'addon-name@component-name'}}{{/component}}",
@@ -59,6 +76,18 @@ generateRuleTests({
         source: '{{#component "my-component-name"}}{{/component}}',
         line: 1,
         column: 0,
+      },
+    },
+    {
+      template:
+        '<Foo @arg={{component "allowed-component"}}>{{component "forbidden-component"}}</Foo>',
+
+      result: {
+        message: ERROR_MESSAGE,
+        moduleId: 'layout.hbs',
+        source: '{{component "forbidden-component"}}',
+        line: 1,
+        column: 44,
       },
     },
   ],
