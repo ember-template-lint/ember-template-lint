@@ -9,6 +9,7 @@ generateRuleTests({
 
   good: [
     '{{t "howdy"}}',
+    '<CustomInput @type={{"range"}} />',
     {
       config: [''],
       template: '\n {{translate "greeting"}}',
@@ -109,6 +110,16 @@ generateRuleTests({
   ],
 
   bad: [
+    {
+      template: '<p>{{"Hello!"}}</p>',
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'Non-translated string used',
+        line: 1,
+        column: 3,
+        source: 'Hello!',
+      },
+    },
     {
       template: '\n howdy',
 
