@@ -1,4 +1,4 @@
-## v1.8.2 (2019-11-17)
+## v2.0.0-beta.2 (2019-11-17)
 
 #### :boom: Breaking Change
 * [#918](https://github.com/ember-template-lint/ember-template-lint/pull/918) Use `.editorconfig` to choose default value for `block-indentation` ([@lifeart](https://github.com/lifeart))
