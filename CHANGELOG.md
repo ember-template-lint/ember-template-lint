@@ -1,3 +1,48 @@
+## v1.8.2 (2019-11-17)
+
+#### :boom: Breaking Change
+* [#918](https://github.com/ember-template-lint/ember-template-lint/pull/918) Use `.editorconfig` to choose default value for `block-indentation` ([@lifeart](https://github.com/lifeart))
+* [#919](https://github.com/ember-template-lint/ember-template-lint/pull/919) Use `.editorconfig` to choose default value for `linebreak-style` ([@lifeart](https://github.com/lifeart))
+
+#### :rocket: Enhancement
+* [#918](https://github.com/ember-template-lint/ember-template-lint/pull/918) Use `.editorconfig` to choose default value for `block-indentation` ([@lifeart](https://github.com/lifeart))
+* [#919](https://github.com/ember-template-lint/ember-template-lint/pull/919) Use `.editorconfig` to choose default value for `linebreak-style` ([@lifeart](https://github.com/lifeart))
+* [#906](https://github.com/ember-template-lint/ember-template-lint/pull/906) Add utility function to allow reading from `.editorconfig` ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#920](https://github.com/ember-template-lint/ember-template-lint/pull/920) Ensure `no-bare-strings` consider literals in mustaches (e.g. `{{"foo"}}`) ([@lifeart](https://github.com/lifeart))
+* [#923](https://github.com/ember-template-lint/ember-template-lint/pull/923) Allow `getLocalName` to work with number literals ([@alexlafroscia](https://github.com/alexlafroscia))
+* [#913](https://github.com/ember-template-lint/ember-template-lint/pull/913) Update `no-unnecessary-component-helper` rule to allow the `component` helper as an angle bracket component argument ([@buschtoens](https://github.com/buschtoens))
+* [#908](https://github.com/ember-template-lint/ember-template-lint/pull/908) Update `no-bare-strings` to ignore contents within elements that are not translated (e.g. `<script>`,`<style>`, and `<pre>`). ([@lifeart](https://github.com/lifeart))
+* [#905](https://github.com/ember-template-lint/ember-template-lint/pull/905) Ensure configuration ordering does not matter with `no-bare-strings` ([@lifeart](https://github.com/lifeart))
+* [#904](https://github.com/ember-template-lint/ember-template-lint/pull/904) Update `block-indentation` to ignore children of `<template>` and `<textarea>` ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#911](https://github.com/ember-template-lint/ember-template-lint/pull/911) Update documentation for `require-valid-alt-text` to clarify that `logo` and `spacer` are forbidden words ([@gojefferson](https://github.com/gojefferson))
+
+#### :house: Internal
+* [#876](https://github.com/ember-template-lint/ember-template-lint/pull/876) Begin migrating tests to inline fixtures (via `broccoli-test-helper`) ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 5
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Alex LaFroscia ([@alexlafroscia](https://github.com/alexlafroscia))
+- Jan Buschtöns ([@buschtoens](https://github.com/buschtoens))
+- Jeff Kerr ([@gojefferson](https://github.com/gojefferson))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
+## v1.8.1 (2019-11-04)
+
+#### :boom: Breaking Change
+* [#900](https://github.com/ember-template-lint/ember-template-lint/pull/900) Remove deprecated rule `img-alt-attributes` (replaced by `require-valid-alt-text`) ([@bmish](https://github.com/bmish))
+
+#### :bug: Bug Fix
+* [#902](https://github.com/ember-template-lint/ember-template-lint/pull/902) Do not validate indentation within `<pre>`,`<script>`, or `<style>`. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v2.0.0-beta.1 (2019-11-04)
 
 #### :boom: Breaking Change
