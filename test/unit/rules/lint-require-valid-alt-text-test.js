@@ -22,6 +22,8 @@ generateRuleTests({
     '<img alt="name {{picture}}">',
     '<img aria-hidden="true">',
     '<img alt="{{picture}}">',
+    '<img alt="" role="none">',
+    '<img alt="" role="presentation',
 
     '<input type="image" alt="some-alt">',
     '<input type="image" aria-labelledby="some-alt">',
