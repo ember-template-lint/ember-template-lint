@@ -167,6 +167,66 @@ describe('public api', function() {
     });
   });
 
+  // TODO: extract this module in a file
+  // most of the tests will be here
+  // (incl. BOM)
+  describe('Linter.prototype.verifyAndFix', function() {
+    let basePath = null;
+    let linter;
+    let expected = {
+      rules: {
+        quotes: 'double',
+      },
+    };
+
+    beforeAll(async function() {
+      project = await createTempDir();
+      basePath = project.path();
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': "<input class='mb4'>",
+          },
+        },
+      });
+    });
+
+    this.afterAll(async function() {
+      await project.dispose();
+    });
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js'),
+      });
+    });
+
+    it('returns an array of issues with the provided template', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          column: 7,
+          line: 1,
+          message: 'you must use double quotes in templates',
+          moduleId: templatePath,
+          rule: 'quotes',
+          severity: 2,
+          source: "class='mb4'",
+        },
+      ];
+
+      let result = linter.verifyAndFix({
+        source: templateContents,
+        moduleId: templatePath,
+      });
+
+      expect(result).toEqual(expected);
+    });
+  });
+
   describe('Linter.prototype.verify', function() {
     let basePath = null;
     let linter;
