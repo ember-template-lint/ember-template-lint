@@ -36,7 +36,6 @@ This rule **allows** the following:
 
 ### References
 
-* [HTML Semantic Elements](https://html.spec.whatwg.org/#semantics-2)
 * [HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 * [WAI-ARIA presentation(role)](https://www.w3.org/TR/wai-aria/#presentation)
 * [Failure of Success Criterion 1.3.1 due to the use of role presentation on content which conveys semantic information](https://www.w3.org/WAI/WCAG21/Techniques/failures/F92)
