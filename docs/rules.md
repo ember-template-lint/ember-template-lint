@@ -26,6 +26,7 @@
 * [no-input-block](rule/no-input-block.md)
 * [no-input-tagname](rule/no-input-tagname.md)
 * [no-invalid-interactive](rule/no-invalid-interactive.md)
+* [no-invalid-role](rule/no-invalid-role.md)
 * [no-log](rule/no-log.md)
 * [no-meta-redirect-with-time-limit](rule/no-meta-redirect-with-time-limit.md)
 * [no-negated-condition](rule/no-negated-condition.md)
@@ -59,3 +60,7 @@
 * [deprecated-each-syntax](rule/deprecations/deprecated-each-syntax.md)
 * [deprecated-inline-view-helper](rule/deprecations/deprecated-inline-view-helper.md)
 * [deprecated-render-helper](rule/deprecations/deprecated-render-helper.md)
+ 
+## New Rules 
+ 
+
