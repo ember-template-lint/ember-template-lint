@@ -1,10 +1,10 @@
 ## no-invalid-role
 
-Use of the presentation role for content which should convey semantic information may prevent the user from understanding that content.
+This rule checks for invalid element/role combinations.
 
-Currently, this rule checks semantic HTML elements for the presence of `role="none"` or `role="presentation"`. Elements that are permitted to explicitly have these role values are `<div>`, `<img>`, `<span>` and `<svg>`.
+Current list of checks:
 
-This rule may be expanded in the future to check for other invalid element/role combinations.
+1. Use of the presentation role for content which should convey semantic information may prevent the user from understanding that content. This rule checks semantic HTML elements for the presence of `role="none"` or `role="presentation"`. Elements that are permitted to explicitly have these role values are `<div>`, `<img>`, `<span>` and `<svg>`.
 
 ### Examples
 
