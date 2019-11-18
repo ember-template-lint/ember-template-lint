@@ -213,5 +213,27 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
+      result: {
+        message:
+          'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
+        moduleId: 'layout.hbs',
+        source: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
+      result: {
+        message:
+          'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
+        moduleId: 'layout.hbs',
+        source: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 });
