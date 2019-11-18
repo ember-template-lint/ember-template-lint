@@ -252,7 +252,7 @@ describe('public api', function() {
       });
     });
 
-    it('returns an array of issues with the provided template', function() {
+    it('returns whether the source has been fixed + an array of remaining issues with the provided template', function() {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -272,7 +272,8 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).toEqual(expected);
+      expect(result.messages).toEqual(expected);
+      expect(result.isFixed).toEqual(false);
     });
   });
 
