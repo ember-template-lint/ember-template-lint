@@ -103,6 +103,9 @@ function parseArgv(_argv) {
         case '--filename':
           options.named.filename = toProcess.shift();
           break;
+        case '--fix':
+          options.named.fix = true;
+          break;
         case '--quiet':
           options.named.quiet = true;
           break;
