@@ -116,7 +116,13 @@ function run() {
 
     if (printPending) {
       let failingRules = Array.from(
-        fileErrors.reduce((memo, error) => memo.add(error.rule), new Set())
+        fileErrors.reduce((memo, error) => {
+          if (error.rule) {
+            memo.add(error.rule);
+          }
+
+          return memo;
+        }, new Set())
       );
 
       if (failingRules.length > 0) {
