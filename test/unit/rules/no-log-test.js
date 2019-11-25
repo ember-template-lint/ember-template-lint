@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/lint-no-log').message;
+const message = require('../../../lib/rules/no-log').message;
 
 generateRuleTests({
   name: 'no-log',

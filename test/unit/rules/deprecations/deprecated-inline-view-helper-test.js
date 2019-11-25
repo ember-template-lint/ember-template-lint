@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../../helpers/rule-test-harness');
-const DEPRECATION_URL = require('../../../../lib/rules/deprecations/lint-deprecated-inline-view-helper')
+const DEPRECATION_URL = require('../../../../lib/rules/deprecations/deprecated-inline-view-helper')
   .DEPRECATION_URL;
 
 const message =

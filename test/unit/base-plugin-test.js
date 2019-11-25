@@ -72,10 +72,10 @@ describe('base plugin', function() {
       const defaultExport = require(rulesEntryPath);
       const exportedRules = Object.keys(defaultExport);
       exportedRules.forEach(ruleName => {
-        let pathName = join(rulesEntryPath, `lint-${ruleName}`);
+        let pathName = join(rulesEntryPath, `${ruleName}`);
 
         if (ruleName.startsWith('deprecated-')) {
-          pathName = join(rulesEntryPath, 'deprecations', `lint-${ruleName}`);
+          pathName = join(rulesEntryPath, 'deprecations', `${ruleName}`);
         }
 
         expect(
@@ -88,7 +88,7 @@ describe('base plugin', function() {
 
     it('has docs/rule reference for each item', function() {
       function transformFileName(fileName) {
-        return fileName.replace('lint-', '').replace('.js', '.md');
+        return fileName.replace('.js', '.md');
       }
       const ruleDocsFolder = join(__dirname, '../../docs/rule');
       deprecatedFiles.forEach(ruleFileName => {
