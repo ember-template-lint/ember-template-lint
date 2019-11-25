@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'no-meta-redirect-with-time-limit',
+  name: 'no-invalid-meta',
 
   config: true,
 

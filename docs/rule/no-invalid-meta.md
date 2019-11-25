@@ -1,8 +1,11 @@
-## (no-meta-redirect-with-time-limit)
+## (no-invalid-meta)
 
-Sometimes a page automatically redirects to a different page. When this happens after a timed delay, it is an unexpected change of context that may interrupt the user. Redirects without timed delays are okay, but pleasae consider a server-side method for redirecting instead (method will vary based on your server type).
+Sometimes a page automatically redirects to a different page. When this happens after a timed delay, it is an unexpected change of context that may interrupt the user. Redirects without timed delays are okay, but please consider a server-side method for redirecting instead (method will vary based on your server type).
 
-This rule checks for the meta tag with a redirect; if it exists, it checks for a timed delay greater than 0. If it is a refresh, it will have no redirect; in those cases, the timed delay should be greater than 72,000 seconds.
+This rule checks for these meta tag issues:
+
+- a meta with a redirect- if it exists, it checks for a timed delay greater than 0.
+- a meta with a timed refresh- the timed delay should be greater than 72,000 seconds.
 
 ### Examples
 
