@@ -1,7 +1,6 @@
 ## no-index-component-invocation
 
-We propose to allow `index`
-files inside a directory to have the equivalent semantics. Components and Component Templates can be structured as `app/components/foo-bar/index.js` and
+Components and Component Templates can be structured as `app/components/foo-bar/index.js` and
 `app/components/foo-bar/index.hbs`. This allows additional files related to the
 component (such as a `README.md` file) to be co-located on the filesystem.
 
