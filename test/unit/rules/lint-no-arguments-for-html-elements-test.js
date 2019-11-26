@@ -22,6 +22,9 @@ generateRuleTests({
     '<@foo.bar @name="2" />',
     '<@foo @name="2" />',
     '<foo.some.name @name="1"/>',
+    '<div name="@value"></div>',
+    '<div name=\'@value\'></div>',
+    '<div name=`@value`></div>',
   ],
 
   bad: [
