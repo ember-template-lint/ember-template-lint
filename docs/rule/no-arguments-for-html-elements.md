@@ -1,6 +1,9 @@
 ## no-arguments-for-html-elements
 
-For case like
+
+Angle bracket components use the `@argument` style and that's why users are more likely to start making this mistake.
+
+For case like:
 
 ```hbs
 <option @value="1" />
