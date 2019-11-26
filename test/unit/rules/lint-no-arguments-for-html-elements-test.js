@@ -1,12 +1,11 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/lint-no-arguments-for-html-elements')
-  .ERROR_MESSAGE;
-const ERROR_MESSAGE_2 = require('../../../lib/rules/lint-no-arguments-for-html-elements')
-  .ERROR_MESSAGE_2;
-const ERROR_MESSAGE_3 = require('../../../lib/rules/lint-no-arguments-for-html-elements')
-  .ERROR_MESSAGE_3;
+const {
+  ERROR_MESSAGE,
+  ERROR_MESSAGE_2,
+  ERROR_MESSAGE_3,
+} = require('../../../lib/rules/lint-no-arguments-for-html-elements');
 
 generateRuleTests({
   name: 'no-arguments-for-html-elements',
