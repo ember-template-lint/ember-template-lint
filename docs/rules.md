@@ -47,6 +47,7 @@
 * [no-whitespace-for-layout](rule/no-whitespace-for-layout.md)
 * [no-whitespace-within-word](rule/no-whitespace-within-word.md)
 * [quotes](rule/quotes.md)
+* [require-button-type](rule/require-button-type.md)
 * [require-iframe-title](rule/require-iframe-title.md)
 * [require-valid-alt-text](rule/require-valid-alt-text.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
