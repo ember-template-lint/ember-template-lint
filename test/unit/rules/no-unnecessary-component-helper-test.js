@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const rule = require('../../../lib/rules/lint-no-unnecessary-component-helper');
+const rule = require('../../../lib/rules/no-unnecessary-component-helper');
 
 const { ERROR_MESSAGE } = rule;
 

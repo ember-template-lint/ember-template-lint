@@ -3,7 +3,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/lint-no-whitespace-for-layout').ERROR_MESSAGE;
+const ERROR_MESSAGE = require('../../../lib/rules/no-whitespace-for-layout').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-whitespace-for-layout',

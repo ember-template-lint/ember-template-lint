@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const messages = require('../../../lib/rules/lint-simple-unless').messages;
+const messages = require('../../../lib/rules/simple-unless').messages;
 
 generateRuleTests({
   name: 'simple-unless',

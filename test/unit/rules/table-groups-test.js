@@ -1,8 +1,8 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/lint-table-groups').message;
-const orderingMessage = require('../../../lib/rules/lint-table-groups').orderingMessage;
+const message = require('../../../lib/rules/table-groups').message;
+const orderingMessage = require('../../../lib/rules/table-groups').orderingMessage;
 
 generateRuleTests({
   name: 'table-groups',

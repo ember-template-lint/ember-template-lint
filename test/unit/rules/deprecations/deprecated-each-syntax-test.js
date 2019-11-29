@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../../helpers/rule-test-harness');
-const DEPRECATION_URL = require('../../../../lib/rules/deprecations/lint-deprecated-each-syntax')
+const DEPRECATION_URL = require('../../../../lib/rules/deprecations/deprecated-each-syntax')
   .DEPRECATION_URL;
 
 const message = `Deprecated {{#each}} usage. See the deprecation guide at ${DEPRECATION_URL}`;
