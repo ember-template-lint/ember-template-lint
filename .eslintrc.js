@@ -100,6 +100,12 @@ module.exports = {
 
   overrides: [
     {
+      files: ['bin/**/*.js'],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+    {
       files: ['test/**/*.js'],
       env: {
         mocha: true,
