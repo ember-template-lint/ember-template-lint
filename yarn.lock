@@ -1214,15 +1214,10 @@ espree@^6.1.2:
     acorn-jsx "^5.1.0"
     eslint-visitor-keys "^1.1.0"
 
-esprima@^4.0.0, esprima@^4.0.1:
+esprima@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
   integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
-
-esprimaq@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/esprimaq/-/esprimaq-0.0.1.tgz#3ea3a41f55ba0ab98fc3564c875818bd890aa2a3"
-  integrity sha1-PqOkH1W6CrmPw1ZMh1gYvYkKoqM=
 
 esquery@^1.0.1:
   version "1.0.1"
@@ -1607,7 +1602,7 @@ glob@7.1.3:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4:
+glob@^7.0.0, glob@^7.1.3, glob@^7.1.4:
   version "7.1.6"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
   integrity sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
@@ -2600,15 +2595,6 @@ mkdirp@0.5.1, mkdirp@^0.5.1:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
-
-mocha-only-detector@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/mocha-only-detector/-/mocha-only-detector-1.0.1.tgz#a60392d253653fb3da77d783ed96aec8eaa7293e"
-  integrity sha512-lTnCIwmL5xKS4dWa+vlYfTOwioG1Vot5KUE5bD1jvwCHGmJUk71g9QHuy1B99r52Mih2cFQmLWlfeOyFXVqRxw==
-  dependencies:
-    esprima "^4.0.1"
-    esprimaq "^0.0.1"
-    glob "^7.1.2"
 
 mocha@^6.0.0:
   version "6.2.2"
