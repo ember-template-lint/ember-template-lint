@@ -32,6 +32,10 @@ generateRuleTests({
     '<MyComponent @arg={{my-helper this.foobar}} />',
     '<MyComponent @arg="{{my-helper this.foobar}}" />',
     '<MyComponent {{my-modifier this.foobar}} />',
+    '{{svg-jar "status"}}',
+    '{{t "some.translation.key"}}',
+    '{{model.selectedTransfersCount}}',
+    '{{request.note}}',
   ],
 
   bad: [
@@ -67,6 +71,10 @@ generateRuleTests({
         ),
       ],
     },
+    {
+      template: '{{#foo bar}}baz{{/foo}}',
+      results: [getErrorResult(generateError('foo'), '{{#foo bar}}baz{{/foo}}')],
+    },
   ],
 });
 
@@ -92,6 +100,7 @@ generateRuleTests({
     `{{#each items as |item|}}
        {{item}}
      {{/each}}`,
+    '{{#each items as |item|}}{{item value}}{{/each}}',
   ],
 
   bad: [
@@ -120,10 +129,6 @@ generateRuleTests({
           '{{#heading size="1"}}Disallowed heading component{{/heading}}'
         ),
       ],
-    },
-    {
-      template: '{{#each items as |item|}} {{item value}} {{/each}}',
-      results: [getErrorResult(generateError('item'), '{{item value}}', 26)],
     },
     {
       template: '{{#each items as |item|}} {{item some=args}} {{/each}}',
