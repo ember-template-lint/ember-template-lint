@@ -44,4 +44,8 @@ This rule **allows** the following:
 
 ### Migration
 
-* create explicit component APIs for these events (e.g. `@click` -> `@onClick`)
+- create explicit component APIs for these events (e.g. `@click` -> `@onClick`)
+
+### References
+
+- https://api.emberjs.com/ember/release/classes/Component#event-handler-methods
