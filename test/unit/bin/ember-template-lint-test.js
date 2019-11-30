@@ -14,8 +14,8 @@ describe('ember-template-lint executable', function() {
     describe('given path to non-existing file', function() {
       it('should exit without error and any console output', function() {
         let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', 'app/templates/application-1.hbs'],
+          '../../../bin/ember-template-lint.js',
+          ['app/templates/application-1.hbs'],
           {
             cwd: './test/fixtures/with-errors',
             reject: false,
@@ -31,8 +31,8 @@ describe('ember-template-lint executable', function() {
     describe('given path to single file with errors', function() {
       it('should print errors', function() {
         let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', 'app/templates/application.hbs'],
+          '../../../bin/ember-template-lint.js',
+          ['app/templates/application.hbs'],
           {
             cwd: './test/fixtures/with-errors',
             reject: false,
@@ -47,14 +47,10 @@ describe('ember-template-lint executable', function() {
 
     describe('given wildcard path resolving to single file', function() {
       it('should print errors', function() {
-        let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', 'app/templates/*'],
-          {
-            cwd: './test/fixtures/with-errors',
-            reject: false,
-          }
-        );
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['app/templates/*'], {
+          cwd: './test/fixtures/with-errors',
+          reject: false,
+        });
 
         expect(result.code).to.equal(1);
         expect(result.stdout).to.be.ok;
@@ -64,7 +60,7 @@ describe('ember-template-lint executable', function() {
 
     describe('given directory path', function() {
       it('should print errors', function() {
-        let result = execa.sync('node', ['../../../bin/ember-template-lint.js', 'app'], {
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['app'], {
           cwd: './test/fixtures/with-errors',
           reject: false,
         });
@@ -78,8 +74,8 @@ describe('ember-template-lint executable', function() {
     describe('given no path', function() {
       it('should print errors', function() {
         let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', '<', 'app/templates/application.hbs'],
+          '../../../bin/ember-template-lint.js',
+          ['<', 'app/templates/application.hbs'],
           {
             cwd: './test/fixtures/with-errors',
             reject: false,
@@ -96,14 +92,8 @@ describe('ember-template-lint executable', function() {
     describe('given no path with --filename', function() {
       it('should print errors', function() {
         let result = execa.sync(
-          'node',
-          [
-            '../../../bin/ember-template-lint.js',
-            '--filename',
-            'app/templates/application.hbs',
-            '<',
-            'app/templates/application.hbs',
-          ],
+          '../../../bin/ember-template-lint.js',
+          ['--filename', 'app/templates/application.hbs', '<', 'app/templates/application.hbs'],
           {
             cwd: './test/fixtures/with-errors',
             reject: false,
@@ -120,8 +110,8 @@ describe('ember-template-lint executable', function() {
     describe('given - (stdin) path', function() {
       it('should print errors', function() {
         let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', '-', '<', 'app/templates/application.hbs'],
+          '../../../bin/ember-template-lint.js',
+          ['-', '<', 'app/templates/application.hbs'],
           {
             cwd: './test/fixtures/stdin-with-errors',
             reject: false,
@@ -138,13 +128,8 @@ describe('ember-template-lint executable', function() {
     describe('given /dev/stdin path', function() {
       it('should print errors', function() {
         let result = execa.sync(
-          'node',
-          [
-            '../../../bin/ember-template-lint.js',
-            '/dev/stdin',
-            '<',
-            'app/templates/application.hbs',
-          ],
+          '../../../bin/ember-template-lint.js',
+          ['/dev/stdin', '<', 'app/templates/application.hbs'],
           {
             cwd: './test/fixtures/stdin-with-errors',
             reject: false,
@@ -161,8 +146,8 @@ describe('ember-template-lint executable', function() {
     describe('given path to single file without errors', function() {
       it('should exit without error and any console output', function() {
         let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', 'app/templates/application.hbs'],
+          '../../../bin/ember-template-lint.js',
+          ['app/templates/application.hbs'],
           {
             cwd: './test/fixtures/without-errors',
             reject: false,
@@ -179,7 +164,7 @@ describe('ember-template-lint executable', function() {
   describe('errors and warnings formatting', function() {
     describe('without --json param', function() {
       it('should print properly formatted error messages', function() {
-        let result = execa.sync('node', ['../../../bin/ember-template-lint.js', '.'], {
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.'], {
           cwd: './test/fixtures/with-errors',
           reject: false,
         });
@@ -197,7 +182,7 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should print properly formatted error and warning messages', function() {
-        let result = execa.sync('node', ['../../../bin/ember-template-lint.js', '.'], {
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.'], {
           cwd: './test/fixtures/with-errors-and-warnings',
           reject: false,
         });
@@ -218,7 +203,7 @@ describe('ember-template-lint executable', function() {
 
     describe('with --quiet param', function() {
       it('should print properly formatted error messages, omitting any warnings', function() {
-        let result = execa.sync('node', ['../../../bin/ember-template-lint.js', '.', '--quiet'], {
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.', '--quiet'], {
           cwd: './test/fixtures/with-errors-and-warnings',
           reject: false,
         });
@@ -236,7 +221,7 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should exit without error and any console output', function() {
-        let result = execa.sync('node', ['../../../bin/ember-template-lint.js', '.', '--quiet'], {
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.', '--quiet'], {
           cwd: './test/fixtures/with-warnings',
           reject: false,
         });
@@ -249,7 +234,7 @@ describe('ember-template-lint executable', function() {
 
     describe('with --json param', function() {
       it('should print valid JSON string with errors', function() {
-        let result = execa.sync('node', ['../../../bin/ember-template-lint.js', '.', '--json'], {
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.', '--json'], {
           cwd: './test/fixtures/with-errors',
           reject: false,
         });
@@ -287,14 +272,10 @@ describe('ember-template-lint executable', function() {
 
     describe('with --json param and --quiet', function() {
       it('should print valid JSON string with errors, omitting warnings', function() {
-        let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', '.', '--json', '--quiet'],
-          {
-            cwd: './test/fixtures/with-errors-and-warnings',
-            reject: false,
-          }
-        );
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.', '--json', '--quiet'], {
+          cwd: './test/fixtures/with-errors-and-warnings',
+          reject: false,
+        });
 
         let fullTemplateFilePath = path.resolve(
           './test/fixtures/with-errors-and-warnings/app/templates/application.hbs'
@@ -327,14 +308,10 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should exit without error and empty errors array', function() {
-        let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', '.', '--json', '--quiet'],
-          {
-            cwd: './test/fixtures/with-warnings',
-            reject: false,
-          }
-        );
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.', '--json', '--quiet'], {
+          cwd: './test/fixtures/with-warnings',
+          reject: false,
+        });
 
         let fullTemplateFilePath = path.resolve(
           './test/fixtures/with-warnings/app/templates/application.hbs'
@@ -352,13 +329,8 @@ describe('ember-template-lint executable', function() {
       describe('able to run only limited subset of rules', function() {
         it('should skip disabled rules from subset', function() {
           let result = execa.sync(
-            'node',
-            [
-              '../../../bin/ember-template-lint.js',
-              '.',
-              '--config-path',
-              '../rules-subset-disabled/temp-templatelint-rc.js',
-            ],
+            '../../../bin/ember-template-lint.js',
+            ['.', '--config-path', '../rules-subset-disabled/temp-templatelint-rc.js'],
             {
               cwd: './test/fixtures/rules-subset-disabled',
               reject: false,
@@ -372,13 +344,8 @@ describe('ember-template-lint executable', function() {
 
         it('should load only one rule and print error message', function() {
           let result = execa.sync(
-            'node',
-            [
-              '../../../bin/ember-template-lint.js',
-              '.',
-              '--config-path',
-              '../rules-subset/temp-templatelint-rc.js',
-            ],
+            '../../../bin/ember-template-lint.js',
+            ['.', '--config-path', '../rules-subset/temp-templatelint-rc.js'],
             {
               cwd: './test/fixtures/rules-subset',
               reject: false,
@@ -400,13 +367,8 @@ describe('ember-template-lint executable', function() {
       describe('given a directory with errors and a lintrc with rules', function() {
         it('should print properly formatted error messages', function() {
           let result = execa.sync(
-            'node',
-            [
-              '../../../bin/ember-template-lint.js',
-              '.',
-              '--config-path',
-              '../with-errors/.template-lintrc',
-            ],
+            '../../../bin/ember-template-lint.js',
+            ['.', '--config-path', '../with-errors/.template-lintrc'],
             {
               cwd: './test/fixtures/without-errors',
               reject: false,
@@ -429,13 +391,8 @@ describe('ember-template-lint executable', function() {
       describe('given a directory with errors but a lintrc without any rules', function() {
         it('should exit without error and any console output', function() {
           let result = execa.sync(
-            'node',
-            [
-              '../../../bin/ember-template-lint.js',
-              '.',
-              '--config-path',
-              '../without-errors/.template-lintrc',
-            ],
+            '../../../bin/ember-template-lint.js',
+            ['.', '--config-path', '../without-errors/.template-lintrc'],
             {
               cwd: './test/fixtures/with-errors',
               reject: false,
@@ -451,14 +408,10 @@ describe('ember-template-lint executable', function() {
 
     describe('with --print-pending param', function() {
       it('should print a list of pending modules', function() {
-        let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', '.', '--print-pending'],
-          {
-            cwd: './test/fixtures/with-errors-and-warnings',
-            reject: false,
-          }
-        );
+        let result = execa.sync('../../../bin/ember-template-lint.js', ['.', '--print-pending'], {
+          cwd: './test/fixtures/with-errors-and-warnings',
+          reject: false,
+        });
 
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]\n';
@@ -472,8 +425,8 @@ describe('ember-template-lint executable', function() {
     describe('with --print-pending and --json params', function() {
       it('should print json of pending modules', function() {
         let result = execa.sync(
-          'node',
-          ['../../../bin/ember-template-lint.js', '.', '--print-pending', '--json'],
+          '../../../bin/ember-template-lint.js',
+          ['.', '--print-pending', '--json'],
           {
             cwd: './test/fixtures/with-errors-and-warnings',
             reject: false,
