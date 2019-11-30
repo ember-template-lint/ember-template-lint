@@ -451,21 +451,4 @@ describe('get-config', function() {
       .be.empty;
     expect(config, 'assert object matches its original clone').to.deep.equal(cloned);
   });
-
-  it('error thrown when consuming erroneous config', function() {
-    expect(function() {
-      getConfig({
-        config: {
-          plugins: [
-            {
-              name: 'bad',
-              rules: {
-                bad: require('./bad-path'), // eslint-disable-line node/no-missing-require
-              },
-            },
-          ],
-        },
-      });
-    }).to.throw(Error, "Cannot find module './bad-path'");
-  });
 });
