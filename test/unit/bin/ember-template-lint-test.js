@@ -8,7 +8,7 @@ const BinScript = require('../../../bin/ember-template-lint');
 describe('ember-template-lint executable', function() {
   describe('basic usage', function() {
     describe('without any parameters', function() {
-      it.skip('should emit help text');
+      it.skip('should emit help text', function() {});
     });
 
     describe('given path to non-existing file', function() {
