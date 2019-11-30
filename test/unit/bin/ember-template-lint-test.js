@@ -127,6 +127,17 @@ describe('ember-template-lint executable', function() {
   });
 
   describe('errors and warnings formatting', function() {
+    let oldValue;
+
+    beforeEach(function() {
+      oldValue = process.env.GITHUB_ACTIONS;
+      delete process.env.GITHUB_ACTIONS;
+    });
+
+    afterEach(function() {
+      process.env.GITHUB_ACTIONS = oldValue;
+    });
+
     describe('without --json param', function() {
       it('should print properly formatted error messages', function() {
         let result = run(['.'], {
@@ -377,6 +388,41 @@ describe('ember-template-lint executable', function() {
 
         expect(result.code).toEqual(1);
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('with GITHUB_ACTIONS env var', function() {
+      let oldValue;
+
+      beforeEach(function() {
+        oldValue = process.env.GITHUB_ACTIONS;
+        process.env.GITHUB_ACTIONS = 'true';
+      });
+
+      afterEach(function() {
+        process.env.GITHUB_ACTIONS = oldValue;
+      });
+
+      it('should print GitHub Actions annotations', function() {
+        let filePath = path.resolve('./test/fixtures/with-errors/app/templates/application.hbs');
+
+        let result = run(['.'], {
+          cwd: './test/fixtures/with-errors',
+          env: { GITHUB_ACTIONS: 'true' },
+        });
+
+        expect(result.code).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
+          filePath,
+          '  1:4  error  Non-translated string used  no-bare-strings',
+          '  2:5  error  Non-translated string used  no-bare-strings',
+          '',
+          '✖ 2 problems (2 errors, 0 warnings)',
+          `::error file=${filePath},line=1,col=4::Non-translated string used`,
+          `::error file=${filePath},line=2,col=5::Non-translated string used`,
+          '',
+        ]);
         expect(result.stderr).toBeFalsy();
       });
     });
