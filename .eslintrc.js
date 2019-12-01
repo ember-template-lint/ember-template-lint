@@ -108,7 +108,7 @@ module.exports = {
     {
       files: ['test/**/*.js'],
       env: {
-        mocha: true,
+        jest: true,
       },
       rules: {
         'import/no-dynamic-require': 'off'

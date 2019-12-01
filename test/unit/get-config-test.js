@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const expect = require('chai').expect;
 const getConfig = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 
@@ -19,7 +18,7 @@ describe('get-config', function() {
 
     let actual = getConfig({ config: expected });
 
-    expect(actual.rules).to.deep.equal(expected.rules);
+    expect(actual.rules).toEqual(expected.rules);
   });
 
   it('uses .template-lintrc.js in cwd if present', function() {
@@ -30,7 +29,7 @@ describe('get-config', function() {
 
     let actual = getConfig({});
 
-    expect(actual.rules).to.deep.equal(expected.rules);
+    expect(actual.rules).toEqual(expected.rules);
   });
 
   it('uses .template-lintrc in provided configPath', function() {
@@ -44,7 +43,7 @@ describe('get-config', function() {
       configPath,
     });
 
-    expect(actual.rules).to.deep.equal(expected.rules);
+    expect(actual.rules).toEqual(expected.rules);
   });
 
   it('can specify that it extends a default configuration', function() {
@@ -54,7 +53,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['block-indentation']).to.equal(true);
+    expect(actual.rules['block-indentation']).toBe(true);
   });
 
   it('can extend and override a default configuration', function() {
@@ -69,8 +68,8 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['block-indentation']).to.equal(4);
-    expect(actual.rules['block-indentation']).to.not.equal(expected.rules['block-indentation']);
+    expect(actual.rules['block-indentation']).toEqual(4);
+    expect(actual.rules['block-indentation']).not.toEqual(expected.rules['block-indentation']);
   });
 
   it('migrates rules in the config root into `rules` property', function() {
@@ -81,7 +80,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['no-bare-strings']).to.be.false;
+    expect(actual.rules['no-bare-strings']).toBe(false);
   });
 
   it('rules in the config root trigger a deprecation', function() {
@@ -98,7 +97,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).to.match(/Rule configuration has been moved/);
+    expect(message).toMatch(/Rule configuration has been moved/);
   });
 
   it('warns for unknown rules', function() {
@@ -117,7 +116,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).to.match(/Invalid rule configuration found/);
+    expect(message).toMatch(/Invalid rule configuration found/);
   });
 
   it('warns for unknown extends', function() {
@@ -134,7 +133,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).to.match(/Cannot find configuration for extends/);
+    expect(message).toMatch(/Cannot find configuration for extends/);
   });
 
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
@@ -157,7 +156,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['no-action']).to.be.false;
+    expect(actual.rules['no-action']).toBe(false);
   });
 
   it('extending multiple configurations merges all rules', function() {
@@ -185,7 +184,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules).to.deep.equal({
+    expect(actual.rules).toEqual({
       'no-action': false,
       'require-valid-alt-text': true,
     });
@@ -218,8 +217,8 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).to.not.be.ok;
-    expect(actual.rules['no-bare-strings']).to.be.false;
+    expect(message).toBeFalsy();
+    expect(actual.rules['no-bare-strings']).toBe(false);
   });
 
   it('throw exception when plugin path is incorrect', function() {
@@ -231,7 +230,7 @@ describe('get-config', function() {
           plugins: [wrongPluginPath],
         },
       });
-    }).to.throw;
+    }).toThrow();
   });
 
   it('validates non-default loaded rules', function() {
@@ -259,8 +258,8 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).to.not.be.ok;
-    expect(actual.loadedRules['foo-bar']).to.equal('plugin-function-placeholder');
+    expect(message).toBeFalsy();
+    expect(actual.loadedRules['foo-bar']).toEqual('plugin-function-placeholder');
   });
 
   it('can chain extends and load rules across chained plugins', function() {
@@ -309,9 +308,9 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).to.be.not.ok;
-    expect(actual.rules['foo-bar']).to.equal(true);
-    expect(actual.rules['block-indentation']).to.equal(true);
+    expect(message).toBeFalsy();
+    expect(actual.rules['foo-bar']).toBe(true);
+    expect(actual.rules['block-indentation']).toBe(true);
   });
 
   it('handles circular reference in config', function() {
@@ -349,8 +348,8 @@ describe('get-config', function() {
       config,
     });
 
-    expect(message).to.be.not.ok;
-    expect(actual.rules['foo-bar']).to.equal(true);
+    expect(message).toBeFalsy();
+    expect(actual.rules['foo-bar']).toBe(true);
   });
 
   it('handles circular reference in plugin', function() {
@@ -390,8 +389,8 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).to.be.not.ok;
-    expect(actual.rules['foo-bar']).to.equal(true);
+    expect(message).toBeFalsy();
+    expect(actual.rules['foo-bar']).toBe(true);
   });
 
   it('getting config is idempotent', function() {
@@ -431,9 +430,9 @@ describe('get-config', function() {
     });
     let secondPassJSON = JSON.stringify(secondPass);
 
-    expect(firstPassJSON).to.equal(secondPassJSON);
-    expect(firstMessage).to.not.be.ok;
-    expect(secondMessage).to.not.be.ok;
+    expect(firstPassJSON).toEqual(secondPassJSON);
+    expect(firstMessage).toBeFalsy();
+    expect(secondMessage).toBeFalsy();
   });
 
   it('does not mutate the config', function() {
@@ -447,8 +446,7 @@ describe('get-config', function() {
 
     let actual = getConfig(config);
 
-    expect(actual.rules, 'make sure the operation would have resulted in a mutated object').to.not
-      .be.empty;
-    expect(config, 'assert object matches its original clone').to.deep.equal(cloned);
+    expect(Object.keys(actual.rules).length).toBeTruthy();
+    expect(config).toEqual(cloned);
   });
 });
