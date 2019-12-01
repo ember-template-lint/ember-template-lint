@@ -173,6 +173,60 @@ describe('get-config', function() {
     expect(message).to.match(/Cannot find configuration for extends/);
   });
 
+  it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
+    let actual = getConfig({
+      config: {
+        extends: ['recommended', 'myplugin:recommended'],
+
+        plugins: [
+          {
+            name: 'myplugin',
+            configurations: {
+              recommended: {
+                rules: {
+                  'no-action': false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+
+    expect(actual.rules['no-action']).to.be.false;
+  });
+
+  it('extending multiple configurations merges all rules', function() {
+    let actual = getConfig({
+      config: {
+        extends: ['myplugin:first', 'myplugin:second'],
+
+        plugins: [
+          {
+            name: 'myplugin',
+            configurations: {
+              first: {
+                rules: {
+                  'no-action': false,
+                },
+              },
+              second: {
+                rules: {
+                  'require-valid-alt-text': true,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+
+    expect(actual.rules).to.deep.equal({
+      'no-action': false,
+      'require-valid-alt-text': true,
+    });
+  });
+
   it('can specify plugin without rules', function() {
     let message;
     let actual = getConfig({

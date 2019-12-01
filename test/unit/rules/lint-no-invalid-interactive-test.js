@@ -39,6 +39,7 @@ generateRuleTests({
       config: { additionalInteractiveTags: ['img'] },
       template: '<img onerror={{action "foo"}}>',
     },
+    '<img {{on "load" this.onLoad}} {{on "error" this.onError}}>',
   ],
 
   bad: [
