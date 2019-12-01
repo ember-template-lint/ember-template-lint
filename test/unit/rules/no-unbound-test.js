@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/lint-no-unbound').message;
+const message = require('../../../lib/rules/no-unbound').message;
 
 generateRuleTests({
   name: 'no-unbound',

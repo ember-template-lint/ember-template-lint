@@ -2,7 +2,7 @@
 
 const generateRuleTests = require('../../../helpers/rule-test-harness');
 
-const message = require('../../../../lib/rules/deprecations/lint-deprecated-render-helper').message;
+const message = require('../../../../lib/rules/deprecations/deprecated-render-helper').message;
 
 generateRuleTests({
   name: 'deprecated-render-helper',

@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/lint-no-outlet-outside-routes').message;
+const message = require('../../../lib/rules/no-outlet-outside-routes').message;
 
 generateRuleTests({
   name: 'no-outlet-outside-routes',

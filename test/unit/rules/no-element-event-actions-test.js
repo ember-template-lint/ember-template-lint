@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/lint-no-element-event-actions').ERROR_MESSAGE;
+const ERROR_MESSAGE = require('../../../lib/rules/no-element-event-actions').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-element-event-actions',

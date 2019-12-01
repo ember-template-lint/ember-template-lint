@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const { ERROR_MESSAGE } = require('../../../lib/rules/lint-require-button-type');
+const { ERROR_MESSAGE } = require('../../../lib/rules/require-button-type');
 
 generateRuleTests({
   name: 'require-button-type',

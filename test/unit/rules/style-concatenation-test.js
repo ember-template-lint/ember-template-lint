@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/lint-style-concatenation').ERROR_MESSAGE;
+const ERROR_MESSAGE = require('../../../lib/rules/style-concatenation').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'style-concatenation',
