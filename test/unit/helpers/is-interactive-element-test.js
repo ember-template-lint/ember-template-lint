@@ -1,6 +1,5 @@
 'use strict';
 
-const expect = require('chai').expect;
 const { parse } = require('ember-template-recast');
 const isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
@@ -11,7 +10,7 @@ describe('isInteractiveElement', function() {
 
       let interactive = isInteractiveElement(ast.body[0]);
 
-      expect(interactive).to.equal(expectedValue);
+      expect(interactive).toEqual(expectedValue);
     });
   }
 
@@ -21,7 +20,7 @@ describe('isInteractiveElement', function() {
 
       let reason = isInteractiveElement.reason(ast.body[0]);
 
-      expect(reason).to.equal(expectedReason);
+      expect(reason).toEqual(expectedReason);
     });
   }
 
@@ -66,7 +65,7 @@ describe('isInteractiveElement', function() {
 
     nonInteractive.forEach(function(template) {
       it(`${template} should have a reason of \`null\``, function() {
-        expect(test(template)).to.be.null;
+        expect(test(template)).toBe(null);
       });
     });
 

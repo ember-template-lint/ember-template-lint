@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const expect = require('chai').expect;
 const EditorConfigResolver = require('../../lib/get-editor-config');
 const { createTempDir } = require('broccoli-test-helper');
 
@@ -61,7 +60,7 @@ trim_trailing_whitespace = false
       `,
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData(filePath)).to.deep.equal({
+    expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({
       charset: 'utf-8',
       end_of_line: 'lf',
       indent_size: 12,
@@ -79,7 +78,7 @@ trim_trailing_whitespace = false
       'app.hbs': '',
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData(filePath)).to.deep.equal({});
+    expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({});
   });
 
   it('able to merge different editor config files', function() {
@@ -102,7 +101,7 @@ indent_size = 5
 `,
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData(filePath)).to.deep.equal({
+    expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({
       indent_size: 5,
       indent_style: 'space',
       insert_final_newline: true,
@@ -128,7 +127,7 @@ insert_final_newline = true
 `,
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData(filePath)).to.deep.equal({
+    expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({
       indent_size: 5,
       indent_style: 'space',
       insert_final_newline: true,
@@ -147,7 +146,7 @@ indent_style = space
 `,
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData('src/app.hbs')).to.deep.equal({
+    expect(new EditorConfigResolver().getEditorConfigData('src/app.hbs')).toEqual({
       indent_style: 'space',
     });
   });
@@ -172,7 +171,7 @@ insert_final_newline = true
 
     expect(
       new EditorConfigResolver().getEditorConfigData(filePath, { config: '.newline' })
-    ).to.deep.equal({
+    ).toEqual({
       indent_size: 5,
       indent_style: 'space',
       insert_final_newline: true,
@@ -192,7 +191,7 @@ indent_size = 5
 `,
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData(filePath)).to.deep.equal({
+    expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({
       indent_size: 5,
       indent_style: 'space',
       tab_width: 5,
@@ -211,7 +210,7 @@ indent_size = 5
 `,
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData(filePath)).to.deep.equal({});
+    expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({});
   });
 
   it('allow specify custom editorconfig for file', function() {
@@ -265,7 +264,7 @@ trim_trailing_whitespace = false
       `,
     });
 
-    expect(new EditorConfigResolver().getEditorConfigData(filePath)).to.deep.equal({
+    expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({
       charset: 'utf-8',
       end_of_line: 'lf',
       indent_size: 14,
