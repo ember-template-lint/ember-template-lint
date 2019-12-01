@@ -1,7 +1,6 @@
 'use strict';
 
 const execa = require('execa');
-const expect = require('chai').expect;
 const path = require('path');
 const BinScript = require('../../../bin/ember-template-lint');
 
@@ -17,9 +16,9 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors',
         });
 
-        expect(result.code).to.equal(0, 'exits without error');
-        expect(result.stdout).to.be.empty;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(0, 'exits without error');
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -29,9 +28,9 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors',
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.be.ok;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -41,9 +40,9 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors',
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.be.ok;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -53,9 +52,9 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors',
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.be.ok;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -66,9 +65,9 @@ describe('ember-template-lint executable', function() {
           shell: true,
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.be.ok;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -82,9 +81,9 @@ describe('ember-template-lint executable', function() {
           }
         );
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.be.ok;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -95,9 +94,9 @@ describe('ember-template-lint executable', function() {
           shell: true,
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.be.ok;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -108,9 +107,9 @@ describe('ember-template-lint executable', function() {
           shell: true,
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.be.ok;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -120,9 +119,9 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/without-errors',
         });
 
-        expect(result.code).to.equal(0);
-        expect(result.stdout).to.be.empty;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
       });
     });
   });
@@ -134,8 +133,8 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors',
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout.split('\n')).to.deep.equal([
+        expect(result.code).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
           path.resolve('./test/fixtures/with-errors/app/templates/application.hbs'),
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  2:5  error  Non-translated string used  no-bare-strings',
@@ -143,7 +142,7 @@ describe('ember-template-lint executable', function() {
           '✖ 2 problems (2 errors, 0 warnings)',
           '',
         ]);
-        expect(result.stderr).to.be.empty;
+        expect(result.stderr).toBeFalsy();
       });
 
       it('should print properly formatted error and warning messages', function() {
@@ -151,8 +150,8 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors-and-warnings',
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout.split('\n')).to.deep.equal([
+        expect(result.code).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
           path.resolve('./test/fixtures/with-errors-and-warnings/app/templates/application.hbs'),
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  2:5  error  Non-translated string used  no-bare-strings',
@@ -161,7 +160,7 @@ describe('ember-template-lint executable', function() {
           '✖ 3 problems (2 errors, 1 warnings)',
           '',
         ]);
-        expect(result.stderr).to.be.empty;
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -171,8 +170,8 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors-and-warnings',
         });
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout.split('\n')).to.deep.equal([
+        expect(result.code).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
           path.resolve('./test/fixtures/with-errors-and-warnings/app/templates/application.hbs'),
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  2:5  error  Non-translated string used  no-bare-strings',
@@ -180,7 +179,7 @@ describe('ember-template-lint executable', function() {
           '✖ 2 problems (2 errors, 0 warnings)',
           '',
         ]);
-        expect(result.stderr).to.be.empty;
+        expect(result.stderr).toBeFalsy();
       });
 
       it('should exit without error and any console output', function() {
@@ -188,9 +187,9 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-warnings',
         });
 
-        expect(result.code).to.equal(0);
-        expect(result.stdout).to.be.empty;
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -225,9 +224,9 @@ describe('ember-template-lint executable', function() {
           },
         ];
 
-        expect(result.code).to.equal(1);
-        expect(JSON.parse(result.stdout)).to.deep.equal(expectedOutputData);
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -262,9 +261,9 @@ describe('ember-template-lint executable', function() {
           },
         ];
 
-        expect(result.code).to.equal(1);
-        expect(JSON.parse(result.stdout)).to.deep.equal(expectedOutputData);
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
       });
 
       it('should exit without error and empty errors array', function() {
@@ -278,9 +277,9 @@ describe('ember-template-lint executable', function() {
         let expectedOutputData = {};
         expectedOutputData[fullTemplateFilePath] = [];
 
-        expect(result.code).to.equal(0);
-        expect(JSON.parse(result.stdout)).to.deep.equal(expectedOutputData);
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(0);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -294,9 +293,9 @@ describe('ember-template-lint executable', function() {
             }
           );
 
-          expect(result.code).to.equal(0);
-          expect(result.stdout).to.be.empty;
-          expect(result.stderr).to.be.empty;
+          expect(result.code).toEqual(0);
+          expect(result.stdout).toBeFalsy();
+          expect(result.stderr).toBeFalsy();
         });
 
         it('should load only one rule and print error message', function() {
@@ -304,15 +303,15 @@ describe('ember-template-lint executable', function() {
             cwd: './test/fixtures/rules-subset',
           });
 
-          expect(result.code).to.equal(1);
-          expect(result.stdout.split('\n')).to.deep.equal([
+          expect(result.code).toEqual(1);
+          expect(result.stdout.split('\n')).toEqual([
             path.resolve('./test/fixtures/rules-subset/template.hbs'),
             '  2:4  error  Ambiguous element used (`div`)  no-shadowed-elements',
             '',
             '✖ 1 problems (1 errors, 0 warnings)',
             '',
           ]);
-          expect(result.stderr).to.be.empty;
+          expect(result.stderr).toBeFalsy();
         });
       });
 
@@ -322,8 +321,8 @@ describe('ember-template-lint executable', function() {
             cwd: './test/fixtures/without-errors',
           });
 
-          expect(result.code).to.equal(1);
-          expect(result.stdout.split('\n')).to.deep.equal([
+          expect(result.code).toEqual(1);
+          expect(result.stdout.split('\n')).toEqual([
             path.resolve('./test/fixtures/without-errors/app/templates/application.hbs'),
             '  1:4  error  Non-translated string used  no-bare-strings',
             '  2:5  error  Non-translated string used  no-bare-strings',
@@ -331,7 +330,7 @@ describe('ember-template-lint executable', function() {
             '✖ 2 problems (2 errors, 0 warnings)',
             '',
           ]);
-          expect(result.stderr).to.be.empty;
+          expect(result.stderr).toBeFalsy();
         });
       });
 
@@ -341,9 +340,9 @@ describe('ember-template-lint executable', function() {
             cwd: './test/fixtures/with-errors',
           });
 
-          expect(result.code).to.equal(0);
-          expect(result.stdout).to.be.empty;
-          expect(result.stderr).to.be.empty;
+          expect(result.code).toEqual(0);
+          expect(result.stdout).toBeFalsy();
+          expect(result.stderr).toBeFalsy();
         });
       });
     });
@@ -357,9 +356,9 @@ describe('ember-template-lint executable', function() {
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]\n';
 
-        expect(result.code).to.equal(1);
-        expect(result.stdout).to.equal(expectedOutputData);
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -376,9 +375,9 @@ describe('ember-template-lint executable', function() {
           },
         ];
 
-        expect(result.code).to.equal(1);
-        expect(JSON.parse(result.stdout)).to.deep.equal(expectedOutputData);
-        expect(result.stderr).to.be.empty;
+        expect(result.code).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
       });
     });
   });
@@ -390,7 +389,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { configPath: 'foo.js' }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('handles --filename', function() {
@@ -399,7 +398,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { filename: 'foo.hbs' }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('handles --quiet', function() {
@@ -408,7 +407,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { quiet: true }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('handles --verbose', function() {
@@ -417,7 +416,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { verbose: true }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('handles --json', function() {
@@ -426,7 +425,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { json: true }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('handles --print-pending', function() {
@@ -435,7 +434,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { printPending: true }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('processes a single "--flag value" properly', function() {
@@ -444,7 +443,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { configPath: 'foo.js' }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('processes a multiple "--flag value" properly', function() {
@@ -453,7 +452,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { configPath: 'foo.js', filename: 'baz.hbs' }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('processes a single "--flag=value" properly', function() {
@@ -462,7 +461,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { configPath: 'foo.js' }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('processes multiple "--flag=value" properly', function() {
@@ -471,7 +470,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { configPath: 'foo.js', filename: 'foo.hbs' }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('processes "--flag=value --other-flag value" properly', function() {
@@ -480,7 +479,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { configPath: 'foo.js', filename: 'foo.hbs' }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('processes positional arguments', function() {
@@ -492,7 +491,7 @@ describe('ember-template-lint executable', function() {
         positional: ['foo/bar.hbs', 'baz/qux.hbs'],
       };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('does not add -- to the list of positional arguments', function() {
@@ -504,7 +503,7 @@ describe('ember-template-lint executable', function() {
         positional: ['foo/bar.hbs', 'baz/qux.hbs'],
       };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('named arguments are not allowed after `--`', function() {
@@ -524,7 +523,7 @@ describe('ember-template-lint executable', function() {
         positional: ['foo/bar.hbs', 'baz/qux.hbs', '--filename', 'bar.hbs'],
       };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
   });
 });

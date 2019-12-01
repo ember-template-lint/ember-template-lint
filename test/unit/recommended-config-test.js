@@ -1,7 +1,6 @@
 'use strict';
 
 const Linter = require('../../lib/index');
-const expect = require('chai').expect;
 const stripIndent = require('common-tags').stripIndent;
 
 describe('recommended config', function() {
@@ -29,7 +28,7 @@ describe('recommended config', function() {
         config,
       });
 
-      expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).to.deep.equal([]);
+      expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).toEqual([]);
     });
   }
 
