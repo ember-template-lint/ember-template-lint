@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const { parse, transform } = require('ember-template-recast');
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
-const { join } = require('path');
+const { join, parse: parsePath } = require('path');
 const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
@@ -56,6 +56,21 @@ describe('base plugin', function() {
   function plugin(Rule, name, config) {
     return { Rule, name, config, ruleNames };
   }
+
+  it('all presets correctly reexported', function() {
+    const presetsPath = join(__dirname, '../../lib/config');
+
+    const files = readdirSync(presetsPath);
+    const presetFiles = files
+      .map(it => parsePath(it))
+      .filter(it => it.ext === '.js' && it.name !== 'index')
+      .map(it => it.name);
+
+    const exportedPresets = require(join(presetsPath, 'index.js'));
+    const exportedPresetNames = Object.keys(exportedPresets);
+
+    expect(exportedPresetNames).to.deep.equal(presetFiles);
+  });
 
   describe('rules setup is correct', function() {
     const rulesEntryPath = join(__dirname, '../../lib/rules');

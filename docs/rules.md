@@ -33,6 +33,7 @@
 * [no-obsolete-elements](rule/no-obsolete-elements.md)
 * [no-outlet-outside-routes](rule/no-outlet-outside-routes.md)
 * [no-partial](rule/no-partial.md)
+* [no-passed-in-event-handlers](rule/no-passed-in-event-handlers.md)
 * [no-positive-tabindex](rule/no-positive-tabindex.md)
 * [no-quoteless-attributes](rule/no-quoteless-attributes.md)
 * [no-shadowed-elements](rule/no-shadowed-elements.md)
