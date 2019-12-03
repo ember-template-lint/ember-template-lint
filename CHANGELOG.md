@@ -1,3 +1,53 @@
+## v1.8.2 (2019-11-17)
+
+#### :bug: Bug Fix
+* [#920](https://github.com/ember-template-lint/ember-template-lint/pull/920) Ensure `no-bare-strings` consider literals in mustaches (e.g. `{{"foo"}}`) ([@lifeart](https://github.com/lifeart))
+* [#923](https://github.com/ember-template-lint/ember-template-lint/pull/923) Allow `getLocalName` to work with number literals ([@alexlafroscia](https://github.com/alexlafroscia))
+* [#913](https://github.com/ember-template-lint/ember-template-lint/pull/913) Update `no-unnecessary-component-helper` rule to allow the `component` helper as an angle bracket component argument ([@buschtoens](https://github.com/buschtoens))
+* [#908](https://github.com/ember-template-lint/ember-template-lint/pull/908) Update `no-bare-strings` to ignore contents within elements that are not translated (e.g. `<script>`,`<style>`, and `<pre>`). ([@lifeart](https://github.com/lifeart))
+* [#905](https://github.com/ember-template-lint/ember-template-lint/pull/905) Ensure configuration ordering does not matter with `no-bare-strings` ([@lifeart](https://github.com/lifeart))
+* [#904](https://github.com/ember-template-lint/ember-template-lint/pull/904) Update `block-indentation` to ignore children of `<template>` and `<textarea>` ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#911](https://github.com/ember-template-lint/ember-template-lint/pull/911) Update documentation for `require-valid-alt-text` to clarify that `logo` and `spacer` are forbidden words ([@gojefferson](https://github.com/gojefferson))
+
+#### Committers: 5
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Alex LaFroscia ([@alexlafroscia](https://github.com/alexlafroscia))
+- Jan Buschtöns ([@buschtoens](https://github.com/buschtoens))
+- Jeff Kerr ([@gojefferson](https://github.com/gojefferson))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+## v1.8.1 (2019-11-04)
+
+#### :bug: Bug Fix
+* [#902](https://github.com/ember-template-lint/ember-template-lint/pull/902) Do not validate indentation within `<pre>`,`<script>`, or `<style>`. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 1
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+## v1.8.0 (2019-11-04)
+
+#### :rocket: Enhancement
+* [#850](https://github.com/ember-template-lint/ember-template-lint/pull/850) Changed parser mode to 'codemod' ([@initram](https://github.com/initram))
+* [#893](https://github.com/ember-template-lint/ember-template-lint/pull/893) Add `no-args-paths` to the `octane` preset ([@lifeart](https://github.com/lifeart))
+* [#865](https://github.com/ember-template-lint/ember-template-lint/pull/865) Add new `no-args-paths` rule. ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#884](https://github.com/ember-template-lint/ember-template-lint/pull/884) Fix `no-curly-component-invocation` to not warn about invocations within an existing angle bracket invocation ([@lifeart](https://github.com/lifeart))
+* [#870](https://github.com/ember-template-lint/ember-template-lint/pull/870) Fix issue preventing running a subset of rules ([@lifeart](https://github.com/lifeart))
+
+#### :house: Internal
+* [#896](https://github.com/ember-template-lint/ember-template-lint/pull/896) Pass `moduleName` and `rawSource` to `Rule` upon creation. ([@rwjblue](https://github.com/rwjblue))
+* [#892](https://github.com/ember-template-lint/ember-template-lint/pull/892) Remove reliance on `preprocess` (from `@glimmer/syntax`) ability to accept an array of AST plugins ([@rwjblue](https://github.com/rwjblue))
+* [#890](https://github.com/ember-template-lint/ember-template-lint/pull/890) Remove TransformDotComponentInvocation. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 4
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Martin Midtgaard ([@initram](https://github.com/initram))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.7.0 (2019-10-31)
 
 #### :rocket: Enhancement

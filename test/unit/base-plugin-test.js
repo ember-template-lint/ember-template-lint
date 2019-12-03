@@ -1,21 +1,26 @@
 'use strict';
 
-const expect = require('chai').expect;
-const _preprocess = require('@glimmer/syntax').preprocess;
+const { traverse, preprocess } = require('@glimmer/syntax');
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
-const { join } = require('path');
+const { join, parse } = require('path');
 const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
-  function precompileTemplate(template, ast) {
-    _preprocess(template, {
-      rawSource: template,
-      moduleName: 'layout.hbs',
-      plugins: {
-        ast,
-      },
-    });
+  function runRules(template, rules) {
+    let ast = preprocess(template);
+
+    for (let ruleConfig of rules) {
+      let { Rule } = ruleConfig;
+      let options = Object.assign({}, ruleConfig, {
+        moduleName: 'layout.hbs',
+        rawSource: template,
+      });
+
+      let rule = new Rule(options);
+
+      traverse(ast, rule.getVisitor());
+    }
   }
 
   let messages, config;
@@ -48,16 +53,23 @@ describe('base plugin', function() {
   }
 
   function plugin(Rule, name, config) {
-    let plugin = new Rule({ name, config, ruleNames });
-
-    return env => {
-      plugin.templateEnvironmentData = env;
-
-      let visitor = plugin.getVisitor();
-
-      return { name, visitor };
-    };
+    return { Rule, name, config, ruleNames };
   }
+
+  it('all presets correctly reexported', function() {
+    const presetsPath = join(__dirname, '../../lib/config');
+
+    const files = readdirSync(presetsPath);
+    const presetFiles = files
+      .map(it => parse(it))
+      .filter(it => it.ext === '.js' && it.name !== 'index')
+      .map(it => it.name);
+
+    const exportedPresets = require(join(presetsPath, 'index.js'));
+    const exportedPresetNames = Object.keys(exportedPresets);
+
+    expect(exportedPresetNames).toEqual(presetFiles);
+  });
 
   describe('rules setup is correct', function() {
     const rulesEntryPath = join(__dirname, '../../lib/rules');
@@ -74,34 +86,29 @@ describe('base plugin', function() {
       const defaultExport = require(rulesEntryPath);
       const exportedRules = Object.keys(defaultExport);
       exportedRules.forEach(ruleName => {
-        let pathName = join(rulesEntryPath, `lint-${ruleName}`);
+        let pathName = join(rulesEntryPath, `${ruleName}`);
 
         if (ruleName.startsWith('deprecated-')) {
-          pathName = join(rulesEntryPath, 'deprecations', `lint-${ruleName}`);
+          pathName = join(rulesEntryPath, 'deprecations', `${ruleName}`);
         }
 
-        expect(
-          defaultExport[ruleName],
-          `"${ruleName}" reexport must be referenced to "${pathName}"`
-        ).to.be.equal(require(pathName));
+        expect(defaultExport[ruleName]).toEqual(require(pathName));
       });
-      expect(expectedRules.length + deprecatedRules.length).to.be.equal(exportedRules.length);
+      expect(expectedRules.length + deprecatedRules.length).toEqual(exportedRules.length);
     });
 
     it('has docs/rule reference for each item', function() {
       function transformFileName(fileName) {
-        return fileName.replace('lint-', '').replace('.js', '.md');
+        return fileName.replace('.js', '.md');
       }
       const ruleDocsFolder = join(__dirname, '../../docs/rule');
       deprecatedFiles.forEach(ruleFileName => {
         const docFilePath = join(ruleDocsFolder, 'deprecations', transformFileName(ruleFileName));
-        expect(existsSync(docFilePath), `${docFilePath} documentation file must exists for rule`).to
-          .be.true;
+        expect(existsSync(docFilePath)).toBe(true);
       });
       expectedRules.forEach(ruleFileName => {
         const docFilePath = join(ruleDocsFolder, transformFileName(ruleFileName));
-        expect(existsSync(docFilePath), `${docFilePath} documentation file must exists for rule`).to
-          .be.true;
+        expect(existsSync(docFilePath)).toBe(true);
       });
     });
 
@@ -118,16 +125,10 @@ describe('base plugin', function() {
         encoding: 'utf8',
       });
       ruleFiles.forEach(fileName => {
-        expect(
-          allRulesFile.includes(`(rule/${fileName})`),
-          `docs/rules.md has link to rule/${fileName}`
-        ).to.be.true;
+        expect(allRulesFile.includes(`(rule/${fileName})`)).toBe(true);
       });
       deprecatedRuleFiles.forEach(fileName => {
-        expect(
-          allRulesFile.includes(`(rule/deprecations/${fileName})`),
-          `docs/rules.md has link to rule/deprecations/${fileName}`
-        ).to.be.true;
+        expect(allRulesFile.includes(`(rule/deprecations/${fileName})`)).toBe(true);
       });
     });
 
@@ -139,17 +140,11 @@ describe('base plugin', function() {
       );
       expectedRules.forEach(ruleFileName => {
         const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
-        expect(
-          ruleFiles.includes(ruleTestFileName),
-          `${ruleTestFileName} exists in tests/unit/rules folder`
-        ).to.be.true;
+        expect(ruleFiles.includes(ruleTestFileName)).toBe(true);
       });
       deprecatedRules.forEach(ruleFileName => {
         const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
-        expect(
-          deprecatedRuleFiles.includes(ruleTestFileName),
-          `${ruleTestFileName} does not exists in tests/unit/rules/deprecations folder`
-        ).to.be.true;
+        expect(deprecatedRuleFiles.includes(ruleTestFileName)).toBe(true);
       });
     });
   });
@@ -169,18 +164,14 @@ describe('base plugin', function() {
       },
     };
 
-    function precompile(template) {
-      precompileTemplate(template, [plugin(buildPlugin(visitor), 'fake', config)]);
-    }
-
     function expectSource(config) {
       let template = config.template;
       let nodeSources = config.sources;
 
       it(`can get raw source for \`${template}\``, function() {
-        precompile(template);
+        runRules(template, [plugin(buildPlugin(visitor), 'fake', config)]);
 
-        expect(messages).to.deep.equal(nodeSources);
+        expect(messages).toEqual(nodeSources);
       });
     }
 
@@ -211,38 +202,36 @@ describe('base plugin', function() {
       },
     };
 
-    function precompile(template) {
-      precompileTemplate(template, [plugin(buildPlugin(visitor), 'fake', config)]);
-    }
-
     it('calls the "Program" node type', function() {
-      precompile('<div>Foo</div>');
+      runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
 
-      expect(wasCalled).to.be.true;
+      expect(wasCalled).toBe(true);
     });
   });
 
   describe('parses instructions', function() {
-    function precompile(template) {
+    function processTemplate(template) {
       let Rule = buildPlugin({
         MustacheCommentStatement(node) {
           this.process(node);
         },
       });
+
       Rule.prototype.log = function(result) {
         messages.push(result.message);
       };
       Rule.prototype.process = function(node) {
         config = this._processInstructionNode(node);
       };
-      precompileTemplate(template, [plugin(Rule, 'fake', 'foo')]);
+
+      runRules(template, [plugin(Rule, 'fake', 'foo')]);
     }
 
     function expectConfig(instruction, expectedConfig) {
       it(`can parse \`${instruction}\``, function() {
-        precompile(`{{! ${instruction} }}`);
-        expect(config).to.deep.equal(expectedConfig);
-        expect(messages).to.deep.equal([]);
+        processTemplate(`{{! ${instruction} }}`);
+        expect(config).toEqual(expectedConfig);
+        expect(messages).toEqual([]);
       });
     }
 
@@ -297,14 +286,14 @@ describe('base plugin', function() {
 
     // Errors
     it('logs an error when it encounters an unknown rule name', function() {
-      precompile(
+      processTemplate(
         [
           '{{! template-lint-enable notarule }}',
           '{{! template-lint-disable fake norme meneither }}',
           '{{! template-lint-configure nope false }}',
         ].join('\n')
       );
-      expect(messages).to.deep.equal([
+      expect(messages).toEqual([
         'unrecognized rule name `notarule` in template-lint-enable instruction',
         'unrecognized rule name `norme` in template-lint-disable instruction',
         'unrecognized rule name `meneither` in template-lint-disable instruction',
@@ -313,21 +302,21 @@ describe('base plugin', function() {
     });
 
     it("logs an error when it can't parse a configure instruction's JSON", function() {
-      precompile('{{! template-lint-configure fake { not: "json" ] }}');
-      expect(messages).to.deep.equal([
+      processTemplate('{{! template-lint-configure fake { not: "json" ] }}');
+      expect(messages).toEqual([
         'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON',
       ]);
     });
 
     it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function() {
-      precompile(
+      processTemplate(
         [
           '{{! template-lint-bloober fake }}',
           '{{! template-lint- fake }}',
           '{{! template-lint fake }}',
         ].join('\n')
       );
-      expect(messages).to.deep.equal([
+      expect(messages).toEqual([
         'unrecognized template-lint instruction: `template-lint-bloober`',
         'unrecognized template-lint instruction: `template-lint-`',
         'unrecognized template-lint instruction: `template-lint`',
@@ -335,7 +324,7 @@ describe('base plugin', function() {
     });
 
     it('only logs syntax errors once across all rules', function() {
-      precompileTemplate(
+      runRules(
         '{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}',
         [
           plugin(buildPlugin({}), 'fake1'),
@@ -345,7 +334,7 @@ describe('base plugin', function() {
           plugin(buildPlugin({}), 'fake5'),
         ]
       );
-      expect(messages).to.have.lengthOf(3);
+      expect(messages).toHaveLength(3);
     });
   });
 
@@ -410,12 +399,12 @@ describe('base plugin', function() {
       return FakeRule;
     }
 
-    function precompile(template, config) {
+    function processTemplate(template, config) {
       if (config === undefined) {
         config = true;
       }
 
-      precompileTemplate(template, [plugin(buildPlugin(), 'fake', config)]);
+      runRules(template, [plugin(buildPlugin(), 'fake', config)]);
     }
 
     beforeEach(function() {
@@ -430,9 +419,9 @@ describe('base plugin', function() {
       let config = data.config;
 
       it(description, function() {
-        precompile(template, config);
-        expect(events).to.deep.equal(expectedEvents);
-        expect(messages).to.deep.equal([]);
+        processTemplate(template, config);
+        expect(events).toEqual(expectedEvents);
+        expect(messages).toEqual([]);
       });
     }
 
