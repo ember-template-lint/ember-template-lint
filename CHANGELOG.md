@@ -1,3 +1,15 @@
+## v2.0.0-beta.3 (2019-12-04)
+
+This release includes all the changes that went into v1.9.0.
+
+#### :house: Internal
+* [#941](https://github.com/ember-template-lint/ember-template-lint/pull/941) Leverage static class fields for  SEVERITY constants ([@dcyriller](https://github.com/dcyriller))
+* [#933](https://github.com/ember-template-lint/ember-template-lint/pull/933) Linter class: Use named severity ([@dcyriller](https://github.com/dcyriller))
+* [#932](https://github.com/ember-template-lint/ember-template-lint/pull/932) Move main linter engine to stand alone file. ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 1
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
 ## v2.0.0-beta.2 (2019-11-17)
 
 #### :boom: Breaking Change
