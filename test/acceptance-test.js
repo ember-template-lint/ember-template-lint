@@ -3,7 +3,6 @@
 const path = require('path');
 const fs = require('fs');
 const Linter = require('../lib/index');
-const expect = require('chai').expect;
 const chalk = require('chalk');
 
 const fixturePath = path.join(__dirname, 'fixtures');
@@ -38,7 +37,7 @@ describe('public api', function() {
         new Linter({
           console: mockConsole,
         });
-      }).to.throw(/error happening during config loading/);
+      }).toThrow(/error happening during config loading/);
     });
 
     it('uses an empty set of rules if no .template-lintrc is present', function() {
@@ -46,7 +45,7 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).to.deep.equal({});
+      expect(linter.config.rules).toEqual({});
     });
 
     it('uses provided config', function() {
@@ -58,7 +57,7 @@ describe('public api', function() {
         config: expected,
       });
 
-      expect(linter.config.rules).to.deep.equal(expected.rules);
+      expect(linter.config.rules).toEqual(expected.rules);
     });
 
     it('uses .template-lintrc.js in cwd if present', function() {
@@ -71,7 +70,7 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).to.deep.equal(expected.rules);
+      expect(linter.config.rules).toEqual(expected.rules);
     });
 
     it('uses .template-lintrc in provided configPath', function() {
@@ -86,7 +85,7 @@ describe('public api', function() {
         configPath,
       });
 
-      expect(linter.config.rules).to.deep.equal(expected.rules);
+      expect(linter.config.rules).toEqual(expected.rules);
     });
 
     it('breaks if the specified configPath does not exist', function() {
@@ -95,9 +94,7 @@ describe('public api', function() {
           console: mockConsole,
           configPath: 'does/not/exist',
         });
-      }).to.throw(
-        'The configuration file specified (does/not/exist) could not be found. Aborting.'
-      );
+      }).toThrow('The configuration file specified (does/not/exist) could not be found. Aborting.');
     });
 
     it('with deprecated rule config', function() {
@@ -109,13 +106,13 @@ describe('public api', function() {
         config: expected,
       });
 
-      expect(linter.config.rules).to.deep.equal({ 'no-bare-strings': true });
+      expect(linter.config.rules).toEqual({ 'no-bare-strings': true });
     });
   });
 
   describe('Linter.prototype.constructor', function() {
     it('should be able to instantiate without options', function() {
-      expect(new Linter()).to.be.ok;
+      expect(new Linter()).toBeTruthy();
     });
 
     it('accepts a fake console implementation', function() {
@@ -131,7 +128,7 @@ describe('public api', function() {
       });
 
       linter.console.log(expected);
-      expect(actual).to.equal(expected);
+      expect(actual).toEqual(expected);
     });
   });
 
@@ -175,7 +172,7 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).to.deep.equal(expected);
+      expect(result).toEqual(expected);
     });
 
     it('returns a "fatal" result object if an error occurs during parsing', function() {
@@ -184,7 +181,7 @@ describe('public api', function() {
         source: template,
       });
 
-      expect(result[0].fatal).to.be.true;
+      expect(result[0].fatal).toBe(true);
     });
 
     it('defaults all messages to warning severity level when module listed in pending', function() {
@@ -212,7 +209,7 @@ describe('public api', function() {
         severity: 1,
       };
 
-      expect(result).to.deep.equal([expected]);
+      expect(result).toEqual([expected]);
     });
 
     it('does not exclude errors when other rules are marked as pending', function() {
@@ -240,7 +237,7 @@ describe('public api', function() {
         severity: 2,
       };
 
-      expect(result).to.deep.equal([expected]);
+      expect(result).toEqual([expected]);
     });
 
     it('triggers warnings when specific rule is marked as pending', function() {
@@ -270,7 +267,7 @@ describe('public api', function() {
         severity: 1,
       };
 
-      expect(result).to.deep.equal([expected]);
+      expect(result).toEqual([expected]);
     });
 
     it('module listed via moduleId in pending passes an error results', function() {
@@ -295,7 +292,7 @@ describe('public api', function() {
         severity: 2,
       };
 
-      expect(result).to.deep.equal([expected]);
+      expect(result).toEqual([expected]);
     });
 
     it('module listed as object via rule exclusion in pending passes an error results', function() {
@@ -320,7 +317,7 @@ describe('public api', function() {
         severity: 2,
       };
 
-      expect(result).to.deep.equal([expected]);
+      expect(result).toEqual([expected]);
     });
 
     it('does not include errors when marked as ignored', function() {
@@ -338,7 +335,7 @@ describe('public api', function() {
         moduleId: 'some/path/here',
       });
 
-      expect(result).to.deep.equal([]);
+      expect(result).toEqual([]);
     });
 
     it('does not include errors when marked as ignored using glob', function() {
@@ -356,7 +353,7 @@ describe('public api', function() {
         moduleId: 'some/path/here',
       });
 
-      expect(result).to.deep.equal([]);
+      expect(result).toEqual([]);
     });
   });
 
@@ -391,7 +388,7 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).to.deep.equal(expected);
+      expect(result).toEqual(expected);
     });
 
     it('allow you to disable plugin rules inline', function() {
@@ -404,7 +401,7 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).to.deep.equal(expected);
+      expect(result).toEqual(expected);
     });
   });
 
@@ -439,7 +436,7 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).to.deep.equal(expected);
+      expect(result).toEqual(expected);
     });
   });
   describe('Linter using plugin with multiple extends', function() {
@@ -482,7 +479,7 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).to.deep.equal(expected);
+      expect(result).toEqual(expected);
     });
   });
 
@@ -517,7 +514,7 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).to.deep.equal(expected);
+      expect(result).toEqual(expected);
     });
   });
 
@@ -542,7 +539,7 @@ describe('public api', function() {
         moduleId: templatePath,
       });
 
-      expect(result).to.deep.equal(expected);
+      expect(result).toEqual(expected);
     });
   });
 
@@ -555,9 +552,9 @@ describe('public api', function() {
         },
       });
 
-      expect(linter.statusForModule('pending', 'some/path/here')).to.be.ok;
-      expect(linter.statusForModule('pending', 'foo/bar/baz')).to.be.ok;
-      expect(linter.statusForModule('pending', 'some/other/path')).to.not.be.ok;
+      expect(linter.statusForModule('pending', 'some/path/here')).toBeTruthy();
+      expect(linter.statusForModule('pending', 'foo/bar/baz')).toBeTruthy();
+      expect(linter.statusForModule('pending', 'some/other/path')).toBeFalsy();
     });
 
     it('matches with absolute paths for modules', function() {
@@ -568,8 +565,8 @@ describe('public api', function() {
         },
       });
 
-      expect(linter.statusForModule('pending', `${process.cwd()}/some/path/here`)).to.be.ok;
-      expect(linter.statusForModule('pending', `${process.cwd()}/foo/bar/baz`)).to.be.ok;
+      expect(linter.statusForModule('pending', `${process.cwd()}/some/path/here`)).toBeTruthy();
+      expect(linter.statusForModule('pending', `${process.cwd()}/foo/bar/baz`)).toBeTruthy();
     });
   });
 
@@ -583,7 +580,7 @@ describe('public api', function() {
         { rule: 'some rule', message: 'some message' },
       ]);
 
-      expect(result).to.equal('file/path\n' + '  -:-  error  some message  some rule\n');
+      expect(result).toEqual('file/path\n' + '  -:-  error  some message  some rule\n');
     });
 
     it('formats error with rule, message, line and column numbers even when they are "falsey"', function() {
@@ -591,7 +588,7 @@ describe('public api', function() {
         { rule: 'some rule', message: 'some message', line: 1, column: 0 },
       ]);
 
-      expect(result).to.equal('file/path\n' + '  1:0  error  some message  some rule\n');
+      expect(result).toEqual('file/path\n' + '  1:0  error  some message  some rule\n');
     });
 
     it('formats error with rule, message, line and column numbers', function() {
@@ -599,7 +596,7 @@ describe('public api', function() {
         { rule: 'some rule', message: 'some message', line: 11, column: 12 },
       ]);
 
-      expect(result).to.equal('file/path\n' + '  11:12  error  some message  some rule\n');
+      expect(result).toEqual('file/path\n' + '  11:12  error  some message  some rule\n');
     });
 
     it('formats error with rule, message, source', function() {
@@ -609,7 +606,7 @@ describe('public api', function() {
         { verbose: true }
       );
 
-      expect(result).to.equal(
+      expect(result).toEqual(
         'file/path\n' + '  -:-  error  some message  some rule\n' + 'some source\n'
       );
     });
@@ -625,7 +622,7 @@ describe('public api', function() {
         },
       ]);
 
-      expect(result).to.equal(
+      expect(result).toEqual(
         'file/path\n' +
           '  11:12  error  some message  some rule\n' +
           '  -:-  error  some message2  some rule2\n'
@@ -635,7 +632,7 @@ describe('public api', function() {
     it('formats empty errors', function() {
       let result = Linter.errorsToMessages('file/path', []);
 
-      expect(result).to.equal('');
+      expect(result).toEqual('');
     });
   });
 });
