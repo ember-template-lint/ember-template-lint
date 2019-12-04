@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const rule = require('../../../lib/rules/lint-no-invalid-role');
+const rule = require('../../../lib/rules/no-invalid-role');
 
 const ERROR_MESSAGE_INVALID_ROLE = rule.ERROR_MESSAGE_INVALID_ROLE;
 
