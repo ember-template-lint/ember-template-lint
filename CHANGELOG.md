@@ -30,19 +30,6 @@
 - Jeff Kerr ([@gojefferson](https://github.com/gojefferson))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
-
-## v1.8.1 (2019-11-04)
-
-#### :boom: Breaking Change
-* [#900](https://github.com/ember-template-lint/ember-template-lint/pull/900) Remove deprecated rule `img-alt-attributes` (replaced by `require-valid-alt-text`) ([@bmish](https://github.com/bmish))
-
-#### :bug: Bug Fix
-* [#902](https://github.com/ember-template-lint/ember-template-lint/pull/902) Do not validate indentation within `<pre>`,`<script>`, or `<style>`. ([@rwjblue](https://github.com/rwjblue))
-
-#### Committers: 2
-- Bryan Mishkin ([@bmish](https://github.com/bmish))
-- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
-
 ## v2.0.0-beta.1 (2019-11-04)
 
 #### :boom: Breaking Change
@@ -60,6 +47,36 @@
 - Cyrille David ([@dcyriller](https://github.com/dcyriller))
 - Martin Midtgaard ([@initram](https://github.com/initram))
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+## v1.9.0 (2019-12-04)
+
+#### :rocket: Enhancement
+* [#971](https://github.com/ember-template-lint/ember-template-lint/pull/971) no-curly-component-invocation: Do not warn for MustacheStatements with positional arguments ([@Turbo87](https://github.com/Turbo87))
+* [#964](https://github.com/ember-template-lint/ember-template-lint/pull/964) Implement `no-passed-in-event-handlers` rule ([@Turbo87](https://github.com/Turbo87))
+* [#950](https://github.com/ember-template-lint/ember-template-lint/pull/950) Implement `require-button-type` rule ([@Turbo87](https://github.com/Turbo87))
+* [#951](https://github.com/ember-template-lint/ember-template-lint/pull/951) Implement `no-multiple-empty-lines` rule ([@Turbo87](https://github.com/Turbo87))
+
+#### :bug: Bug Fix
+* [#944](https://github.com/ember-template-lint/ember-template-lint/pull/944) Fix `no-invalid-interactive` to allow `{{on "load"...}}` and `{{on "error"...}}` for `<img>` ([@lifeart](https://github.com/lifeart))
+
+#### :house: Internal
+* [#972](https://github.com/ember-template-lint/ember-template-lint/pull/972) Replace `chai` with Jest assertions ([@Turbo87](https://github.com/Turbo87))
+* [#973](https://github.com/ember-template-lint/ember-template-lint/pull/973) Remove TravisCI configuration file ([@Turbo87](https://github.com/Turbo87))
+* [#952](https://github.com/ember-template-lint/ember-template-lint/pull/952) Add GitHub Actions CI workflow ([@Turbo87](https://github.com/Turbo87))
+* [#968](https://github.com/ember-template-lint/ember-template-lint/pull/968) Replace Mocha with Jest ([@Turbo87](https://github.com/Turbo87))
+* [#970](https://github.com/ember-template-lint/ember-template-lint/pull/970) Remove unused `mocha-only-detector` dev dependency ([@Turbo87](https://github.com/Turbo87))
+* [#959](https://github.com/ember-template-lint/ember-template-lint/pull/959) Add validation that all files in `lib/config/` have been reexported in `lib/config/index.js` ([@lifeart](https://github.com/lifeart))
+* [#967](https://github.com/ember-template-lint/ember-template-lint/pull/967) test/bin: Use `execa` to run CLI for tests ([@Turbo87](https://github.com/Turbo87))
+* [#965](https://github.com/ember-template-lint/ember-template-lint/pull/965) Improve ESLint setup ([@Turbo87](https://github.com/Turbo87))
+* [#963](https://github.com/ember-template-lint/ember-template-lint/pull/963) Update lockfile ([@Turbo87](https://github.com/Turbo87))
+* [#957](https://github.com/ember-template-lint/ember-template-lint/pull/957) removed the `lint-` prefix and updated related files so tests pass ([@MelSumner](https://github.com/MelSumner))
+* [#947](https://github.com/ember-template-lint/ember-template-lint/pull/947) Add tests confirming extending multiple configs works properly. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 4
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
 
 ## v1.8.2 (2019-11-17)
 
