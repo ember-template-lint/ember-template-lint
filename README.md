@@ -240,8 +240,8 @@ A few ideas for where to take this in the future:
 ### Installation
 
 * `git clone` this repository
-* `npm install`
+* `yarn`
 
 ### Running Tests
 
-* `npm test`
+* `yarn test`
