@@ -1,6 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const { parseConfig } = require('../../../lib/rules/no-multiple-empty-lines');
 
 generateRuleTests({
   name: 'no-multiple-empty-lines',
@@ -60,4 +61,20 @@ generateRuleTests({
       },
     },
   ],
+});
+
+describe('no-multiple-empty-lines', () => {
+  describe('parseConfig', () => {
+    const TESTS = [
+      [undefined, {}],
+      [{ max: 1 }, { max: 1 }],
+      [{ max: 2 }, { max: 2 }],
+    ];
+
+    for (let [input, expected] of TESTS) {
+      test(`${input} -> ${expected}`, () => {
+        expect(parseConfig(input)).toEqual(expected);
+      });
+    }
+  });
 });
