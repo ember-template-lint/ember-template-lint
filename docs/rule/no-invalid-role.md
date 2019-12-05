@@ -4,7 +4,7 @@ This rule checks for invalid element/role combinations.
 
 Current list of checks:
 
-1. Use of the presentation role for content which should convey semantic information may prevent the user from understanding that content. This rule checks semantic HTML elements for the presence of `role="none"` or `role="presentation"`. Elements that are permitted to explicitly have these role values are `<div>`, `<img>`, `<span>` and `<svg>`.
+1. Use of the presentation role for content which should convey semantic information may prevent the user from understanding that content. This rule checks semantic HTML elements for the presence of `role="none"` or `role="presentation"` and compares it to the list of disallowed elements. It should not effect custom elements.
 
 ### Examples
 

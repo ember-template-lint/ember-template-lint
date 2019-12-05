@@ -22,6 +22,7 @@ generateRuleTests({
     '<span role="presentation"></span>',
     '<svg role="none"></svg>',
     '<svg role="presentation"></svg>',
+    '<custom-component role="none"></custom-component>',
   ],
 
   bad: [
