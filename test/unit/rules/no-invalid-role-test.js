@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 const rule = require('../../../lib/rules/no-invalid-role');
 
-const ERROR_MESSAGE_INVALID_ROLE = rule.ERROR_MESSAGE_INVALID_ROLE;
+const { createErrorMessage } = rule;
 
 generateRuleTests({
   name: 'no-invalid-role',
@@ -29,7 +29,7 @@ generateRuleTests({
     {
       template: '<ul role="presentation"></ul>',
       result: {
-        message: ERROR_MESSAGE_INVALID_ROLE('ul'),
+        message: createErrorMessage('ul'),
         moduleId: 'layout.hbs',
         source: '<ul role="presentation"></ul>',
         line: 1,
@@ -39,7 +39,7 @@ generateRuleTests({
     {
       template: '<table role="presentation"></table>',
       result: {
-        message: ERROR_MESSAGE_INVALID_ROLE('table'),
+        message: createErrorMessage('table'),
         moduleId: 'layout.hbs',
         source: '<table role="presentation"></table>',
         line: 1,
@@ -49,7 +49,7 @@ generateRuleTests({
     {
       template: '<table role="none"></table>',
       result: {
-        message: ERROR_MESSAGE_INVALID_ROLE('table'),
+        message: createErrorMessage('table'),
         moduleId: 'layout.hbs',
         source: '<table role="none"></table>',
         line: 1,
