@@ -127,16 +127,7 @@ describe('ember-template-lint executable', function() {
   });
 
   describe('errors and warnings formatting', function() {
-    let oldValue;
-
-    beforeEach(function() {
-      oldValue = process.env.GITHUB_ACTIONS;
-      delete process.env.GITHUB_ACTIONS;
-    });
-
-    afterEach(function() {
-      process.env.GITHUB_ACTIONS = oldValue;
-    });
+    setupEnvVar('GITHUB_ACTIONS', null);
 
     describe('without --json param', function() {
       it('should print properly formatted error messages', function() {
@@ -393,16 +384,7 @@ describe('ember-template-lint executable', function() {
     });
 
     describe('with GITHUB_ACTIONS env var', function() {
-      let oldValue;
-
-      beforeEach(function() {
-        oldValue = process.env.GITHUB_ACTIONS;
-        process.env.GITHUB_ACTIONS = 'true';
-      });
-
-      afterEach(function() {
-        process.env.GITHUB_ACTIONS = oldValue;
-      });
+      setupEnvVar('GITHUB_ACTIONS', 'true');
 
       it('should print GitHub Actions annotations', function() {
         let filePath = path.resolve('./test/fixtures/with-errors/app/templates/application.hbs');
@@ -577,4 +559,26 @@ describe('ember-template-lint executable', function() {
 function run(args, options) {
   options.reject = false;
   return execa.sync('../../../bin/ember-template-lint.js', args, options);
+}
+
+function setupEnvVar(name, value) {
+  let oldValue;
+
+  beforeEach(function() {
+    oldValue = name in process.env ? process.env[name] : null;
+
+    if (value === null) {
+      delete process.env[name];
+    } else {
+      process.env[name] = value;
+    }
+  });
+
+  afterEach(function() {
+    if (oldValue === null) {
+      delete process.env[name];
+    } else {
+      process.env[name] = oldValue;
+    }
+  });
 }
