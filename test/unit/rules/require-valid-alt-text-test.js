@@ -22,6 +22,8 @@ generateRuleTests({
     '<img alt="name {{picture}}">',
     '<img aria-hidden="true">',
     '<img alt="{{picture}}">',
+    '<img alt="" role="none">',
+    '<img alt="" role="presentation',
 
     '<input type="image" alt="some-alt">',
     '<input type="image" aria-labelledby="some-alt">',
@@ -209,6 +211,28 @@ generateRuleTests({
         message: 'A number is not valid alt text',
         moduleId: 'layout.hbs',
         source: '<img alt="52" src="b52.jpg">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
+      result: {
+        message:
+          'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
+        moduleId: 'layout.hbs',
+        source: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
+      result: {
+        message:
+          'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
+        moduleId: 'layout.hbs',
+        source: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
         line: 1,
         column: 0,
       },

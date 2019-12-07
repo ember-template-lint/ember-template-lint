@@ -60,6 +60,25 @@ This release includes all the changes that went into v1.9.0.
 - Martin Midtgaard ([@initram](https://github.com/initram))
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
+
+## v1.10.0 (2019-12-07)
+
+#### :rocket: Enhancement
+* [#966](https://github.com/ember-template-lint/ember-template-lint/pull/966) Report errors as GitHub Actions Annotations ([@Turbo87](https://github.com/Turbo87))
+* [#930](https://github.com/ember-template-lint/ember-template-lint/pull/930) Updated `require-valid-alt-text` to ensure `<img ... role="presentation">` or `<img ... role="none">` **must** have an empty `alt` attribute ([@MelSumner](https://github.com/MelSumner))
+* [#980](https://github.com/ember-template-lint/ember-template-lint/pull/980) Add `no-invalid-role` rule ([@MelSumner](https://github.com/MelSumner))
+
+#### :bug: Bug Fix
+* [#986](https://github.com/ember-template-lint/ember-template-lint/pull/986) no-multiple-empty-lines: Fix `parseConfig()` implementation ([@Turbo87](https://github.com/Turbo87))
+
+#### :house: Internal
+* [#979](https://github.com/ember-template-lint/ember-template-lint/pull/979) Update `.npmignore` file ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 2
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+
 ## v1.9.0 (2019-12-04)
 
 #### :rocket: Enhancement

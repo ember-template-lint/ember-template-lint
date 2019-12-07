@@ -209,6 +209,8 @@ function run() {
   if (Object.keys(errors).length) {
     printErrors(errors, options);
   }
+
+  linter.reportGitHubActionAnnotations(errors);
 }
 
 // exports are for easier unit testing

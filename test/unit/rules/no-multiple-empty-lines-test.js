@@ -1,9 +1,12 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const { parseConfig, CONFIG_ERROR_MESSAGE } = require('../../../lib/rules/no-multiple-empty-lines');
 
 generateRuleTests({
   name: 'no-multiple-empty-lines',
+
+  config: true,
 
   good: [
     '<div>foo</div><div>bar</div>',
@@ -60,4 +63,29 @@ generateRuleTests({
       },
     },
   ],
+});
+
+describe('no-multiple-empty-lines', () => {
+  describe('parseConfig', () => {
+    const TESTS = [
+      [true, { max: 1 }],
+      [{ max: 1 }, { max: 1 }],
+      [{ max: 2 }, { max: 2 }],
+      [{ max: 42, foo: 'bar' }, { max: 42 }],
+    ];
+
+    for (let [input, expected] of TESTS) {
+      test(`${JSON.stringify(input)} -> ${JSON.stringify(expected)}`, () => {
+        expect(parseConfig(input)).toEqual(expected);
+      });
+    }
+
+    const FAILURE_TESTS = [undefined, false, {}, { foo: 'bar' }, { max: 'foo' }];
+
+    for (let input of FAILURE_TESTS) {
+      test(`${JSON.stringify(input)} -> Error`, () => {
+        expect(() => parseConfig(input)).toThrow(CONFIG_ERROR_MESSAGE);
+      });
+    }
+  });
 });

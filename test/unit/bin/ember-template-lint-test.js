@@ -127,6 +127,8 @@ describe('ember-template-lint executable', function() {
   });
 
   describe('errors and warnings formatting', function() {
+    setupEnvVar('GITHUB_ACTIONS', null);
+
     describe('without --json param', function() {
       it('should print properly formatted error messages', function() {
         let result = run(['.'], {
@@ -380,6 +382,32 @@ describe('ember-template-lint executable', function() {
         expect(result.stderr).toBeFalsy();
       });
     });
+
+    describe('with GITHUB_ACTIONS env var', function() {
+      setupEnvVar('GITHUB_ACTIONS', 'true');
+
+      it('should print GitHub Actions annotations', function() {
+        let filePath = path.resolve('./test/fixtures/with-errors/app/templates/application.hbs');
+
+        let result = run(['.'], {
+          cwd: './test/fixtures/with-errors',
+          env: { GITHUB_ACTIONS: 'true' },
+        });
+
+        expect(result.code).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
+          filePath,
+          '  1:4  error  Non-translated string used  no-bare-strings',
+          '  2:5  error  Non-translated string used  no-bare-strings',
+          '',
+          '✖ 2 problems (2 errors, 0 warnings)',
+          `::error file=${filePath},line=1,col=4::Non-translated string used`,
+          `::error file=${filePath},line=2,col=5::Non-translated string used`,
+          '',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+    });
   });
 
   describe('parseArgv', function() {
@@ -407,7 +435,7 @@ describe('ember-template-lint executable', function() {
       let actual = BinScript._parseArgv(argv);
       let expected = { named: { fix: true }, positional: [] };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     it('handles --quiet', function() {
@@ -540,4 +568,26 @@ describe('ember-template-lint executable', function() {
 function run(args, options) {
   options.reject = false;
   return execa.sync('../../../bin/ember-template-lint.js', args, options);
+}
+
+function setupEnvVar(name, value) {
+  let oldValue;
+
+  beforeEach(function() {
+    oldValue = name in process.env ? process.env[name] : null;
+
+    if (value === null) {
+      delete process.env[name];
+    } else {
+      process.env[name] = value;
+    }
+  });
+
+  afterEach(function() {
+    if (oldValue === null) {
+      delete process.env[name];
+    } else {
+      process.env[name] = oldValue;
+    }
+  });
 }
