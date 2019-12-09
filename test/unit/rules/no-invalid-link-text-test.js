@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'new-rule-name',
+  name: 'no-invalid-link-text',
 
   config: true,
 
@@ -11,11 +11,11 @@ generateRuleTests({
 
   bad: [
     {
-      template: '<a href="https://myurl.com>click here</a>',
+      template: '<a href="https://myurl.com">click here</a>',
       result: {
-        message: 'Anchor Elements should have descriptive link text',
+        message: 'Links should have descriptive text',
         moduleId: 'layout.hbs',
-        source: '<a href="https://myurl.com>click here</a>',
+        source: '<a href="https://myurl.com">click here</a>',
         line: 1,
         column: 0,
       },
