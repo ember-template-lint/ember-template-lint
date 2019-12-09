@@ -25,7 +25,7 @@ Uncaught (in promise) TypeError: func is not a function
     at VM.next
 ```
 
-This is creepy and untracable (for end-users).
+This is untraceable for end-users.
 This linting rule determines if it is a component or not and emits an error if argument is assigned to a lower-case element without the same block name and without dots in notation.
 
 This rule will also emit an error for these other conditions: 
