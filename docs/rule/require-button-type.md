@@ -2,7 +2,7 @@
 
 This rule requires all `<button>` elements to have a valid `type` attribute.
 
-By default, the `type` attribute of `<button>` elements is `submit`. This can
+By default, the `type` attribute of `<button>` elements is `submit` when inside of a `<form>` element. This can
 be very confusing, when a button component is developed in isolation without
 `type="button"`, and when inside a `<form>` element it suddenly starts to
 submit the form.
