@@ -3,30 +3,22 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-
   name: 'new-rule-name',
 
   config: true,
 
-  good: [
-    'passingTest00',
-    'passing Test01'
-  ],
-
+  good: ['<a href="https://myurl.com">Click here to read more about this amazing adventure</a>'],
 
   bad: [
-  
     {
-      template: 'FailingTest00',
+      template: '<a href="https://myurl.com>click here</a>',
       result: {
+        message: 'Anchor Elements should have descriptive link text',
         moduleId: 'layout.hbs',
-        message: 'Error Message to Report',
+        source: '<a href="https://myurl.com>click here</a>',
         line: 1,
         column: 0,
-        source: 'FailingTest00',
       },
     },
-
-  ]
-  
+  ],
 });

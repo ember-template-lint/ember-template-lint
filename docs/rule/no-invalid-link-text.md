@@ -13,24 +13,18 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-{{link-to}}more{{/link-to}}
+<a href={{link}}>more</a>
 ```
 
 This rule **allows** the following:
 
 ```hbs
-<LinkTo>Click here to read more about plastics in the ocean</LinkTo>
+<LinkTo>Click here to read more about common accessibility failures</LinkTo>
 ```
 
 ```hbs
-{{link-to}}Read more about semantic html{{/link-to}}
+<a href={{link}}>Read more about semantic html</a>
 ```
-
-### Configuration
-
-* object -- containing the following properties:
-  * string -- `parameterName1` -- description of parameter including the possible values and default value
-  * boolean -- `parameterName2` -- description of parameter including the possible values and default value
 
 ### References
 
