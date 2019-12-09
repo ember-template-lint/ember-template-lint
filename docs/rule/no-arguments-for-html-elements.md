@@ -28,7 +28,11 @@ Uncaught (in promise) TypeError: func is not a function
 This is creepy and untracable (for end-users).
 Using this linting rule we can guess (is it component or not) and emit error if argument assigned to lowercased element without same block name and without dots in notation.
 
-This rule also emit error if we trying to specify "path-like" string as attribute argument.
+This rule will also emit an error for these other conditions: 
+
+- trying to specify "path-like" string as attribute argument
+- trying to use an HTML element with block params
+
 
 ### Examples
 
