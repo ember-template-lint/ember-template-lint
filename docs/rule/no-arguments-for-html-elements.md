@@ -29,7 +29,6 @@ This is creepy and untracable (for end-users).
 Using this linting rule we can guess (is it component or not) and emit error if argument assigned to lowercased element without same block name and without dots in notation.
 
 This rule also emit error if we trying to specify "path-like" string as attribute argument.
-Also, error will be thrown if we trying to use HTML element with block-params.
 
 ### Examples
 
