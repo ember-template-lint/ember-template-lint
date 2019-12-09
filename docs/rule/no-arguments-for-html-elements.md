@@ -26,7 +26,7 @@ Uncaught (in promise) TypeError: func is not a function
 ```
 
 This is creepy and untracable (for end-users).
-Using this linting rule we can guess (is it component or not) and emit error if argument assigned to lowercased element without same block name and without dots in notation.
+This linting rule determines if it is a component or not and emits an error if argument is assigned to a lower-case element without the same block name and without dots in notation.
 
 This rule will also emit an error for these other conditions: 
 
