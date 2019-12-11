@@ -27,7 +27,6 @@ A minor release may break your lint build in some cases.
 A major release is likely to break your lint build.
 
 * Support for an old Node version is dropped.
-* Support for on old ember-template-lint version is dropped.
 * An existing rule is changed in it reporting more errors.
 * An existing rule is removed.
 * An existing option of a rule is removed.
