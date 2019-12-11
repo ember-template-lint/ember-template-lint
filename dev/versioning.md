@@ -34,7 +34,7 @@ A major release is likely to break your lint build.
 ## Config Files
 
 ### Patch or Minor Release
-A patch release should not break your lint build.
+A patch or minor release should not break your lint build.
 
 * Removing a rule
 * Making a rule less restrictive
