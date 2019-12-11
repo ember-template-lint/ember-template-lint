@@ -6,8 +6,10 @@ This rule checks for these meta tag issues:
 - a meta with a timed refresh- the timed delay should be greater than 72,000 seconds.
 - a meta that locks orientation to landscape or portrait view
 
+### Redirects & Refresh
 Sometimes a page automatically redirects to a different page. When this happens after a timed delay, it is an unexpected change of context that may interrupt the user. Redirects without timed delays are okay, but please consider a server-side method for redirecting instead (method will vary based on your server type).
 
+### Orientation Lock
 When content is presented with a restriction to a specific orientation, users must orient their devices to view the content in the orientation that the author imposed. Some users have their devices mounted in a fixed orientation (e.g. on the arm of a power wheelchair), and if the content cannot be viewed in that orientation it creates problems for the user.
 
 ### Examples
