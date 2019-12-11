@@ -43,6 +43,6 @@ A patch or minor release should not break your lint build.
 
 A major release is likely to break your lint build.
 
-* adding new rules in a config set
-* changing a value to the config rules (i.e., changing something that is currently `false` to `true`)
+* Adding new rules in a config set
+* Making a rule more restrictive
 
