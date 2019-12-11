@@ -35,6 +35,8 @@ A major release is likely to break your lint build.
 
 ## Config Files
 
+For dynamically generated config files such as `a11y-strict` and `all`, the config will change as needed for any release and therefore cannot be covered by a semver guarantee.
+
 ### Patch or Minor Release
 A patch or minor release should not break your lint build.
 
