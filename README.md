@@ -231,7 +231,7 @@ It is possible to share a config (`extends`) or plugin (custom rules) across pro
 
 ## Semantic Versioning Policy
 
-The semver policy for this addon can be read here: [semver policy](https://github.com/ember-template-lint/dev/versioning.md).
+The semver policy for this addon can be read here: [semver policy](dev/versioning.md).
 
 ## Contributing
 
