@@ -1,6 +1,10 @@
 # Semantic Versioning Policy
 
-## Patch Release
+We are separating the policy in two- as related to **rules** and as related to **config** files. 
+
+## Related to Rules 
+
+### Patch Release
 
 A patch release should not break your lint build.
 
@@ -27,4 +31,19 @@ A major release is likely to break your lint build.
 * An existing rule is changed in it reporting more errors.
 * An existing rule is removed.
 * An existing option of a rule is removed.
-* An existing config is updated.
+
+## Config Files
+
+### Patch or Minor Release
+A patch release should not break your lint build.
+
+* Removing a rule
+* Making a rule less restrictive
+
+### Major Release
+
+A major release is likely to break your lint build.
+
+* adding new rules in a config set
+* changing a value to the config rules (i.e., changing something that is currently `false` to `true`)
+
