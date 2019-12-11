@@ -1,6 +1,8 @@
 # Semantic Versioning Policy
 
-We are separating the policy in two- as related to **rules** and as related to **config** files. 
+`ember-template-lint` follows [semantic versioning](http://semver.org/) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy).
+
+For clarity, we define semver policy for this addon in two parts- as related to **rules** and as related to **config** files. 
 
 ## Related to Rules 
 
