@@ -27,6 +27,7 @@
 * [no-input-tagname](rule/no-input-tagname.md)
 * [no-invalid-interactive](rule/no-invalid-interactive.md)
 * [no-invalid-link-text](rule/no-invalid-link-text.md)
+* [no-invalid-meta](rule/no-invalid-meta.md)
 * [no-invalid-role](rule/no-invalid-role.md)
 * [no-log](rule/no-log.md)
 * [no-meta-redirect-with-time-limit](rule/no-meta-redirect-with-time-limit.md)
