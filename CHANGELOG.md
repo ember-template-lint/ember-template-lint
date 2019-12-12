@@ -61,6 +61,18 @@ This release includes all the changes that went into v1.9.0.
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
 
+## v1.11.0 (2019-12-12)
+
+#### :rocket: Enhancement
+* [#997](https://github.com/ember-template-lint/ember-template-lint/pull/997) Add `require-button-type` to octane configuration ([@rwjblue](https://github.com/rwjblue))
+* [#996](https://github.com/ember-template-lint/ember-template-lint/pull/996) Add `no-invalid-link-text` and `no-invalid-meta` to octane configuration. ([@MelSumner](https://github.com/MelSumner))
+* [#988](https://github.com/ember-template-lint/ember-template-lint/pull/988) Add rule `no-invalid-link-text` ([@MelSumner](https://github.com/MelSumner))
+* [#910](https://github.com/ember-template-lint/ember-template-lint/pull/910) Add `no-invalid-meta` rule ([@MelSumner](https://github.com/MelSumner))
+
+#### Committers: 2
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.10.0 (2019-12-07)
 
 #### :rocket: Enhancement

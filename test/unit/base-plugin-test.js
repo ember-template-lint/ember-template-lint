@@ -197,12 +197,12 @@ describe('base plugin', function() {
     let wasCalled;
 
     let visitor = {
-      Program() {
+      Template() {
         wasCalled = true;
       },
     };
 
-    it('calls the "Program" node type', function() {
+    it('calls the "Template" node type', function() {
       runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
 
       expect(wasCalled).toBe(true);
