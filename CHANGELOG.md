@@ -1,3 +1,8 @@
+* Ensure `no-invalid-meta` does not error on non-meta elements. (#998) (bb575fe)
+* Ensure `no-invalid-meta` does not error on non-meta elements. (8e97b96)
+* Use `Template` and `Block` nodes instead of `Program` fallback (#994) (f5e8b42)
+* Use `Template` and `Block` nodes instead of `Program` fallback (44d4cbc)
+
 ## v1.11.0 (2019-12-12)
 
 #### :rocket: Enhancement
