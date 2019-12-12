@@ -1,5 +1,7 @@
 ## (no-meta-redirect-with-time-limit)
 
+**NOTE**: This rule is deprecated in favor of the more comprehensive rule [no-invalid-meta](./no-invalid-meta.md).
+
 Sometimes a page automatically redirects to a different page. When this happens after a timed delay, it is an unexpected change of context that may interrupt the user. Redirects without timed delays are okay, but pleasae consider a server-side method for redirecting instead (method will vary based on your server type).
 
 This rule checks for the meta tag with a redirect; if it exists, it checks for a timed delay greater than 0.
