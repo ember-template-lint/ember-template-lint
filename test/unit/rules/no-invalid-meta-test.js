@@ -11,6 +11,8 @@ generateRuleTests({
     '<meta http-equiv="refresh" content="0; url=http://www.example.com">',
     '<meta http-equiv="refresh" content="72001">',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = yes">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable= yes">',
   ],
 
   bad: [
@@ -45,6 +47,28 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: '<meta name="viewport" content="user-scalable=no">',
+      },
+    },
+    {
+      template: '<meta name="viewport" content="user-scalable = no">',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'a meta viewport should not restrict user-scalable',
+        line: 1,
+        column: 0,
+        source: '<meta name="viewport" content="user-scalable = no">',
+      },
+    },
+    {
+      template: '<meta name="viewport" content="user-scalable= no">',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'a meta viewport should not restrict user-scalable',
+        line: 1,
+        column: 0,
+        source: '<meta name="viewport" content="user-scalable= no">',
       },
     },
     {
