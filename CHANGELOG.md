@@ -60,7 +60,6 @@ This release includes all the changes that went into v1.9.0.
 - Martin Midtgaard ([@initram](https://github.com/initram))
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
-
 ## v1.11.0 (2019-12-12)
 
 #### :rocket: Enhancement
