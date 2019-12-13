@@ -9,7 +9,13 @@ generateRuleTests({
   name: 'no-whitespace-for-layout',
   config: true,
 
-  good: ['Start to finish', 'Start&nbsp;to&nbsp;finish', 'Start<br>to<br>finish'],
+  good: [
+    'Start to finish',
+    'Start&nbsp;to&nbsp;finish',
+    'Start<br>to<br>finish',
+    '<div>\n  example\n</div>',
+    '<div\n  foo="bar"\n  baz="qux"\n>\n  example\n</div>',
+  ],
 
   bad: [
     {
