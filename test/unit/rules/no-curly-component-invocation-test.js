@@ -29,6 +29,7 @@ generateRuleTests({
      {{/each}}`,
     '{{#-in-element}}Hello{{/-in-element}}',
     '{{#in-element}}Hello{{/in-element}}',
+    '{{#some-component foo="bar"}}foo{{else}}bar{{/some-component}}',
     '<MyComponent @arg={{my-helper this.foobar}} />',
     '<MyComponent @arg="{{my-helper this.foobar}}" />',
     '<MyComponent {{my-modifier this.foobar}} />',
@@ -36,6 +37,7 @@ generateRuleTests({
     '{{t "some.translation.key"}}',
     '{{model.selectedTransfersCount}}',
     '{{request.note}}',
+    '{{#animated-if condition}}foo{{/animated-if}}',
   ],
 
   bad: [
@@ -70,10 +72,6 @@ generateRuleTests({
           '{{#heading size="1"}}Disallowed heading component{{/heading}}'
         ),
       ],
-    },
-    {
-      template: '{{#foo bar}}baz{{/foo}}',
-      results: [getErrorResult(generateError('foo'), '{{#foo bar}}baz{{/foo}}')],
     },
   ],
 });

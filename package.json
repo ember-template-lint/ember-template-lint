@@ -3,13 +3,13 @@
   "version": "2.0.0-beta.3",
   "description": "Lint your templates.",
   "keywords": [],
-  "homepage": "https://github.com/rwjblue/ember-template-lint",
+  "homepage": "https://github.com/ember-template-lint/ember-template-lint",
   "bugs": {
-    "url": "https://github.com/rwjblue/ember-template-lint/issues"
+    "url": "https://github.com/ember-template-lint/ember-template-lint/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/rwjblue/ember-template-lint.git"
+    "url": "git+ssh://git@github.com/ember-template-lint/ember-template-lint.git"
   },
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",

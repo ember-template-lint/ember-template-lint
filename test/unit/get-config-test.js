@@ -3,6 +3,7 @@
 const path = require('path');
 const getConfig = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
+const buildFakeConsole = require('../helpers/console');
 const { createTempDir } = require('broccoli-test-helper');
 
 const initialCWD = process.cwd();
@@ -110,7 +111,7 @@ describe('get-config', function() {
 
   it('migrates rules in the config root into `rules` property', function() {
     let actual = getConfig({
-      console: { log() {} },
+      console: buildFakeConsole(),
       config: {
         'no-bare-strings': false,
       },
@@ -120,31 +121,23 @@ describe('get-config', function() {
   });
 
   it('rules in the config root trigger a deprecation', function() {
-    let message;
-    getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
+    let console = buildFakeConsole();
 
+    getConfig({
+      console,
       config: {
         'no-bare-strings': true,
       },
     });
 
-    expect(message).toMatch(/Rule configuration has been moved/);
+    expect(console.stdout).toMatch(/Rule configuration has been moved/);
   });
 
   it('warns for unknown rules', function() {
-    let message;
-    getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
+    let console = buildFakeConsole();
 
+    getConfig({
+      console,
       config: {
         rules: {
           blammo: true,
@@ -152,24 +145,20 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).toMatch(/Invalid rule configuration found/);
+    expect(console.stdout).toMatch(/Invalid rule configuration found/);
   });
 
   it('warns for unknown extends', function() {
-    let message;
-    getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
+    let console = buildFakeConsole();
 
+    getConfig({
+      console,
       config: {
         extends: ['recommended', 'plugin1:wrong-extend'],
       },
     });
 
-    expect(message).toMatch(/Cannot find configuration for extends/);
+    expect(console.stdout).toMatch(/Cannot find configuration for extends/);
   });
 
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
@@ -227,14 +216,10 @@ describe('get-config', function() {
   });
 
   it('can specify plugin without rules', function() {
-    let message;
-    let actual = getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
+    let console = buildFakeConsole();
 
+    let actual = getConfig({
+      console,
       config: {
         extends: 'myplugin:basic-configuration',
 
@@ -253,7 +238,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).toBeFalsy();
+    expect(console.stdout).toBeFalsy();
     expect(actual.rules['no-bare-strings']).toBe(false);
   });
 
@@ -270,13 +255,10 @@ describe('get-config', function() {
   });
 
   it('validates non-default loaded rules', function() {
-    let message;
+    let console = buildFakeConsole();
+
     let actual = getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
+      console,
 
       config: {
         rules: {
@@ -294,18 +276,15 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).toBeFalsy();
+    expect(console.stdout).toBeFalsy();
     expect(actual.loadedRules['foo-bar']).toEqual('plugin-function-placeholder');
   });
 
   it('can chain extends and load rules across chained plugins', function() {
-    let message;
+    let console = buildFakeConsole();
+
     let actual = getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
+      console,
 
       config: {
         extends: 'plugin1:recommended',
@@ -344,14 +323,12 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).toBeFalsy();
+    expect(console.stdout).toBeFalsy();
     expect(actual.rules['foo-bar']).toBe(true);
     expect(actual.rules['no-debugger']).toBe(true);
   });
 
   it('handles circular reference in config', function() {
-    let message;
-
     let config = {
       extends: 'plugin1:recommended',
 
@@ -374,23 +351,17 @@ describe('get-config', function() {
 
     config.plugins[0].configurations.recommended = config;
 
+    let console = buildFakeConsole();
     let actual = getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
-
+      console,
       config,
     });
 
-    expect(message).toBeFalsy();
+    expect(console.stdout).toBeFalsy();
     expect(actual.rules['foo-bar']).toBe(true);
   });
 
   it('handles circular reference in plugin', function() {
-    let message;
-
     let plugin = {
       name: 'plugin1',
 
@@ -411,12 +382,9 @@ describe('get-config', function() {
 
     plugin.configurations.recommended.plugins = [plugin];
 
+    let console = buildFakeConsole();
     let actual = getConfig({
-      console: {
-        log(_message) {
-          message = _message;
-        },
-      },
+      console,
 
       config: {
         extends: 'plugin1:recommended',
@@ -425,20 +393,14 @@ describe('get-config', function() {
       },
     });
 
-    expect(message).toBeFalsy();
+    expect(console.stdout).toBeFalsy();
     expect(actual.rules['foo-bar']).toBe(true);
   });
 
   it('getting config is idempotent', function() {
-    let firstMessage;
-    let secondMessage;
+    let console = buildFakeConsole();
     let firstPass = getConfig({
-      console: {
-        log(_message) {
-          firstMessage = _message;
-        },
-      },
-
+      console,
       config: {
         rules: {
           'foo-bar': true,
@@ -456,19 +418,13 @@ describe('get-config', function() {
     });
     let firstPassJSON = JSON.stringify(firstPass);
     let secondPass = getConfig({
-      console: {
-        log(_message) {
-          secondMessage = _message;
-        },
-      },
-
+      console,
       config: firstPass,
     });
     let secondPassJSON = JSON.stringify(secondPass);
 
     expect(firstPassJSON).toEqual(secondPassJSON);
-    expect(firstMessage).toBeFalsy();
-    expect(secondMessage).toBeFalsy();
+    expect(console.stdout).toBeFalsy();
   });
 
   it('does not mutate the config', function() {

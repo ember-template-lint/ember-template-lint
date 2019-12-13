@@ -1,3 +1,5 @@
+# Changelog
+
 ## v2.0.0-beta.3 (2019-12-04)
 
 This release includes all the changes that went into v1.9.0.
@@ -59,6 +61,44 @@ This release includes all the changes that went into v1.9.0.
 - Cyrille David ([@dcyriller](https://github.com/dcyriller))
 - Martin Midtgaard ([@initram](https://github.com/initram))
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+## v1.12.0 (2019-12-13)
+
+#### :rocket: Enhancement
+* [#1010](https://github.com/ember-template-lint/ember-template-lint/pull/1010) Add `no-yield-only` rule ([@Turbo87](https://github.com/Turbo87))
+* [#1001](https://github.com/ember-template-lint/ember-template-lint/pull/1001) Show "Definition for rule XXX was not found" error message ([@Turbo87](https://github.com/Turbo87))
+
+#### :bug: Bug Fix
+* [#1009](https://github.com/ember-template-lint/ember-template-lint/pull/1009) Ensure `require-valid-alt-text` does not flag `<img ...attributes>`. ([@rwjblue](https://github.com/rwjblue))
+* [#1006](https://github.com/ember-template-lint/ember-template-lint/pull/1006) no-curly-component-invocation: Ignore *all* curly invocations with positional arguments ([@Turbo87](https://github.com/Turbo87))
+* [#1005](https://github.com/ember-template-lint/ember-template-lint/pull/1005) no-curly-component-invocation: Ignore block invocations with inverse blocks ([@Turbo87](https://github.com/Turbo87))
+* [#1002](https://github.com/ember-template-lint/ember-template-lint/pull/1002) no-whitespace-for-layout: Ignore whitespace at the start and end of the line ([@Turbo87](https://github.com/Turbo87))
+
+#### :memo: Documentation
+* [#977](https://github.com/ember-template-lint/ember-template-lint/pull/977) Update `README.md` to include a reference to our Semantic Versioning policy ([@MelSumner](https://github.com/MelSumner))
+* [#1000](https://github.com/ember-template-lint/ember-template-lint/pull/1000) package.json: Fix repository URLs ([@Turbo87](https://github.com/Turbo87))
+* [#999](https://github.com/ember-template-lint/ember-template-lint/pull/999) Fix Changelog ([@Turbo87](https://github.com/Turbo87))
+
+#### :house: Internal
+* [#1008](https://github.com/ember-template-lint/ember-template-lint/pull/1008) Extract `Printer` classes ([@Turbo87](https://github.com/Turbo87))
+* [#1007](https://github.com/ember-template-lint/ember-template-lint/pull/1007) Extract `FakeConsole` class to simplify testing code ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 3
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+## v1.11.1 (2019-12-12)
+
+#### :bug: Bug Fix
+* [#998](https://github.com/ember-template-lint/ember-template-lint/pull/998) Ensure `no-invalid-meta` does not error on non-meta elements. ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#994](https://github.com/ember-template-lint/ember-template-lint/pull/994) Use `Template` and `Block` nodes instead of `Program` fallback ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
 
 ## v1.11.0 (2019-12-12)
 
