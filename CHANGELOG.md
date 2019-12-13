@@ -1,7 +1,16 @@
-* Ensure `no-invalid-meta` does not error on non-meta elements. (#998) (bb575fe)
-* Ensure `no-invalid-meta` does not error on non-meta elements. (8e97b96)
-* Use `Template` and `Block` nodes instead of `Program` fallback (#994) (f5e8b42)
-* Use `Template` and `Block` nodes instead of `Program` fallback (44d4cbc)
+# Changelog
+
+## v1.11.1 (2019-12-12)
+
+#### :bug: Bug Fix
+* [#998](https://github.com/ember-template-lint/ember-template-lint/pull/998) Ensure `no-invalid-meta` does not error on non-meta elements. ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#994](https://github.com/ember-template-lint/ember-template-lint/pull/994) Use `Template` and `Block` nodes instead of `Program` fallback ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
 
 ## v1.11.0 (2019-12-12)
 
