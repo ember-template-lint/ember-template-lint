@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0-beta.4 (2019-12-13)
+
+This release includes all the changes that went into v1.10.0 - v1.12.0.
+
 ## v2.0.0-beta.3 (2019-12-04)
 
 This release includes all the changes that went into v1.9.0.
