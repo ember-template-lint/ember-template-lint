@@ -355,6 +355,29 @@ describe('public api', function() {
 
       expect(result).toEqual([]);
     });
+
+    it('shows a "rule not found" error if a rule defintion is not found"', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'missing-rule': true },
+        },
+      });
+
+      let template = '';
+      let result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here',
+      });
+
+      expect(result).toEqual([
+        {
+          message: "Definition for rule 'missing-rule' was not found",
+          moduleId: 'some/path/here',
+          severity: 2,
+        },
+      ]);
+    });
   });
 
   describe('Linter using plugins', function() {
