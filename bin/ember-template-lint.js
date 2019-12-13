@@ -59,6 +59,9 @@ function parseArgv(_argv) {
         case '--json':
           options.named.json = true;
           break;
+        case '--junit':
+          options.named.junit = true;
+          break;
         case '--verbose':
           options.named.verbose = true;
           break;
