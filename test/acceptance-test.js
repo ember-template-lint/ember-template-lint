@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const Linter = require('../lib/index');
 const buildFakeConsole = require('./helpers/console');
+const chalk = require('chalk');
 
 const fixturePath = path.join(__dirname, 'fixtures');
 const initialCWD = process.cwd();
@@ -580,6 +581,72 @@ describe('public api', function() {
 
       expect(linter.statusForModule('pending', `${process.cwd()}/some/path/here`)).toBeTruthy();
       expect(linter.statusForModule('pending', `${process.cwd()}/foo/bar/baz`)).toBeTruthy();
+    });
+  });
+
+  describe('Linter.errorsToMessages', function() {
+    beforeEach(() => {
+      chalk.enabled = false;
+    });
+
+    it('formats error with rule, message and moduleId', function() {
+      let result = Linter.errorsToMessages('file/path', [
+        { rule: 'some rule', message: 'some message' },
+      ]);
+
+      expect(result).toEqual('file/path\n' + '  -:-  error  some message  some rule\n');
+    });
+
+    it('formats error with rule, message, line and column numbers even when they are "falsey"', function() {
+      let result = Linter.errorsToMessages('file/path', [
+        { rule: 'some rule', message: 'some message', line: 1, column: 0 },
+      ]);
+
+      expect(result).toEqual('file/path\n' + '  1:0  error  some message  some rule\n');
+    });
+
+    it('formats error with rule, message, line and column numbers', function() {
+      let result = Linter.errorsToMessages('file/path', [
+        { rule: 'some rule', message: 'some message', line: 11, column: 12 },
+      ]);
+
+      expect(result).toEqual('file/path\n' + '  11:12  error  some message  some rule\n');
+    });
+
+    it('formats error with rule, message, source', function() {
+      let result = Linter.errorsToMessages(
+        'file/path',
+        [{ rule: 'some rule', message: 'some message', source: 'some source' }],
+        { verbose: true }
+      );
+
+      expect(result).toEqual(
+        'file/path\n' + '  -:-  error  some message  some rule\n' + 'some source\n'
+      );
+    });
+
+    it('formats more than one error', function() {
+      let result = Linter.errorsToMessages('file/path', [
+        { rule: 'some rule', message: 'some message', line: 11, column: 12 },
+        {
+          rule: 'some rule2',
+          message: 'some message2',
+          moduleId: 'some moduleId2',
+          source: 'some source2',
+        },
+      ]);
+
+      expect(result).toEqual(
+        'file/path\n' +
+          '  11:12  error  some message  some rule\n' +
+          '  -:-  error  some message2  some rule2\n'
+      );
+    });
+
+    it('formats empty errors', function() {
+      let result = Linter.errorsToMessages('file/path', []);
+
+      expect(result).toEqual('');
     });
   });
 });
