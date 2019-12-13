@@ -36,6 +36,7 @@ generateRuleTests({
     '{{t "some.translation.key"}}',
     '{{model.selectedTransfersCount}}',
     '{{request.note}}',
+    '{{#animated-if condition}}foo{{/animated-if}}',
   ],
 
   bad: [
@@ -70,10 +71,6 @@ generateRuleTests({
           '{{#heading size="1"}}Disallowed heading component{{/heading}}'
         ),
       ],
-    },
-    {
-      template: '{{#foo bar}}baz{{/foo}}',
-      results: [getErrorResult(generateError('foo'), '{{#foo bar}}baz{{/foo}}')],
     },
   ],
 });
