@@ -6,58 +6,8 @@ const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
 const Linter = require('../lib/index');
-const chalk = require('chalk');
 
 const STDIN = '/dev/stdin';
-
-function printErrors(errors, invocationOptions) {
-  let { quiet, json, verbose } = invocationOptions.named;
-
-  let errorCount = 0;
-  let warningCount = 0;
-
-  Object.keys(errors).forEach(filePath => {
-    let fileErrors = errors[filePath] || [];
-
-    let errorsFiltered = fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY);
-    let warnings = quiet
-      ? []
-      : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
-
-    errorCount += errorsFiltered.length;
-    warningCount += warnings.length;
-
-    errors[filePath] = errorsFiltered.concat(warnings);
-  });
-
-  if (json) {
-    console.log(JSON.stringify(errors, null, 2));
-  } else {
-    Object.keys(errors).forEach(filePath => {
-      let options = {};
-      let fileErrors = errors[filePath] || [];
-
-      if (verbose) {
-        options.verbose = true;
-      }
-
-      const messages = Linter.errorsToMessages(filePath, fileErrors, options);
-      if (messages !== '') {
-        console.log(messages);
-      }
-    });
-
-    const count = errorCount + warningCount;
-
-    if (count > 0) {
-      console.log(
-        chalk.red(
-          chalk.bold(`✖ ${count} problems (${errorCount} errors, ${warningCount} warnings)`)
-        )
-      );
-    }
-  }
-}
 
 function lintFile(linter, filePath, moduleId) {
   let toRead = filePath === STDIN ? process.stdin.fd : filePath;
@@ -203,18 +153,29 @@ function run() {
     return;
   }
 
-  if (Object.keys(errors).length) {
-    printErrors(errors, options);
-  }
+  let filePaths = Object.keys(errors);
+  if (filePaths.length) {
+    for (let filePath of filePaths) {
+      let fileErrors = errors[filePath] || [];
 
-  linter.reportGitHubActionAnnotations(errors);
+      let errorsFiltered = fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY);
+      let warnings = options.named.quiet
+        ? []
+        : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
+
+      errors[filePath] = errorsFiltered.concat(warnings);
+    }
+
+    let Printer = require('../lib/printers/default');
+    let printer = new Printer(options.named);
+    printer.print(errors);
+  }
 }
 
 // exports are for easier unit testing
 module.exports = {
   _parseArgv: parseArgv,
   _expandFileGlobs: expandFileGlobs,
-  _printErrors: printErrors,
 };
 
 if (require.main === module) {
