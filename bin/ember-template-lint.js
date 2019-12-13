@@ -153,19 +153,7 @@ function run() {
     return;
   }
 
-  let filePaths = Object.keys(errors);
-  if (filePaths.length) {
-    for (let filePath of filePaths) {
-      let fileErrors = errors[filePath] || [];
-
-      let errorsFiltered = fileErrors.filter(error => error.severity === Linter.ERROR_SEVERITY);
-      let warnings = options.named.quiet
-        ? []
-        : fileErrors.filter(error => error.severity === Linter.WARNING_SEVERITY);
-
-      errors[filePath] = errorsFiltered.concat(warnings);
-    }
-
+  if (Object.keys(errors).length) {
     let Printer = require('../lib/printers/default');
     let printer = new Printer(options.named);
     printer.print(errors);
