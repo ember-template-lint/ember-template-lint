@@ -1,3 +1,13 @@
+# Changelog
+
+## v1.12.1 (2019-12-13)
+
+#### :bug: Bug Fix
+* [#1013](https://github.com/ember-template-lint/ember-template-lint/pull/1013) Fix missing `Linter.errorsToMessages()` API for ember-cli-template-lint ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 1
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
 ## v1.12.0 (2019-12-13)
 
 #### :rocket: Enhancement
@@ -23,8 +33,6 @@
 - Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 - Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
-
-# Changelog
 
 ## v1.11.1 (2019-12-12)
 
