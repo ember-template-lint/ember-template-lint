@@ -43,6 +43,7 @@ var results = linter.verify({ source: template, moduleId: 'template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
+
 * `rule` - The name of the rule that triggered this warning/error.
 * `message` - The message that should be output.
 * `line` - The line on which the error occurred.
@@ -227,6 +228,10 @@ You can define and use your own custom rules using the plugin system. See [plugi
 ### Sharing configs
 
 It is possible to share a config (`extends`) or plugin (custom rules) across projects. See [ember-template-lint-plugin-peopleconnect](https://github.com/peopleconnectus/ember-template-lint-plugin-peopleconnect) for an example.
+
+## Semantic Versioning Policy
+
+The semver policy for this addon can be read here: [semver policy](dev/versioning.md).
 
 ## Contributing
 
