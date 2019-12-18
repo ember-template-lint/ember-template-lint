@@ -218,17 +218,26 @@ describe('public api', function() {
         moduleId: 'some/path/here',
       });
 
-      let expected = {
-        message: 'Non-translated string used',
-        moduleId: 'some/path/here',
-        line: 1,
-        column: 5,
-        source: 'bare string',
-        rule: 'no-bare-strings',
-        severity: 2,
-      };
+      let expected = [
+        {
+          message: 'Non-translated string used',
+          moduleId: 'some/path/here',
+          line: 1,
+          column: 5,
+          source: 'bare string',
+          rule: 'no-bare-strings',
+          severity: 2,
+        },
+        {
+          message:
+            'Pending module (`some/path/here`) passes `block-indentation` rule. Please remove `block-indentation` from pending rules list.',
+          moduleId: 'some/path/here',
+          rule: 'invalid-pending-module-rule',
+          severity: 2,
+        },
+      ];
 
-      expect(result).toEqual([expected]);
+      expect(result).toEqual(expected);
     });
 
     it('triggers warnings when specific rule is marked as pending', function() {
@@ -311,6 +320,43 @@ describe('public api', function() {
       };
 
       expect(result).toEqual([expected]);
+    });
+
+    it('triggers error if pending rule is passing', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'no-bare-strings': true, 'no-html-comments': true },
+          pending: [{ moduleId: 'some/path/here', only: ['no-bare-strings', 'no-html-comments'] }],
+        },
+      });
+
+      let template = '<div>Bare strings are bad</div>';
+      let result = linter.verify({
+        source: template,
+        moduleId: 'some/path/here',
+      });
+
+      let expected = [
+        {
+          column: 5,
+          line: 1,
+          message: 'Non-translated string used',
+          moduleId: 'some/path/here',
+          rule: 'no-bare-strings',
+          severity: 1,
+          source: 'Bare strings are bad',
+        },
+        {
+          message:
+            'Pending module (`some/path/here`) passes `no-html-comments` rule. Please remove `no-html-comments` from pending rules list.',
+          moduleId: 'some/path/here',
+          rule: 'invalid-pending-module-rule',
+          severity: 2,
+        },
+      ];
+
+      expect(result).toEqual(expected);
     });
 
     it('does not include errors when marked as ignored', function() {
