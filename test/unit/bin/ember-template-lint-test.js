@@ -363,23 +363,17 @@ describe('ember-template-lint executable', function() {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should ignore existing pending modules have no lint errors', function(done) {
-        execFile(
-          'node',
-          ['../../../bin/ember-template-lint.js', '.', '--print-pending'],
-          {
-            cwd: './test/fixtures/with-passing-pending-modules',
-          },
-          function(err, stdout, stderr) {
-            let expectedOutputData =
-              'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: []\n';
+      it('should ignore existing pending modules that have no lint errors', function() {
+        let result = run(['.', '--print-pending'], {
+          cwd: './test/fixtures/with-passing-pending-modules',
+        });
 
-            expect(err).to.be.ok;
-            expect(stdout).to.equal(expectedOutputData);
-            expect(stderr).to.be.empty;
-            done();
-          }
-        );
+        let expectedOutputData =
+          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: []\n';
+
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
       });
     });
 
