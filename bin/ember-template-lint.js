@@ -117,7 +117,7 @@ function run() {
     if (printPending) {
       let failingRules = Array.from(
         fileErrors.reduce((memo, error) => {
-          if (error.rule) {
+          if (error.rule !== 'invalid-pending-module') {
             memo.add(error.rule);
           }
 
