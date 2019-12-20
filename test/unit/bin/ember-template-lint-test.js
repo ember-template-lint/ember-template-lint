@@ -375,6 +375,19 @@ describe('ember-template-lint executable', function() {
         expect(result.stdout).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
+
+      it('should ignore existing pending modules that have partially passing rules', function() {
+        let result = run(['.', '--print-pending'], {
+          cwd: './test/fixtures/with-partially-passing-pending-modules',
+        });
+
+        let expectedOutputData =
+          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings"\n    ]\n  }\n]\n';
+
+        expect(result.code).toEqual(1);
+        expect(result.stdout).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
     });
 
     describe('with --print-pending and --json params', function() {
