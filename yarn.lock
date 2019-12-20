@@ -26,25 +26,25 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@glimmer/interfaces@^0.43.0":
-  version "0.43.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.43.0.tgz#a7a38c2476f87d68d6dc894840df17bc8b92de33"
-  integrity sha512-rWu6WHVo6tuFFOKOSJWAWsFfXZgkdnKDnvhl3tAb20njW/0uBZ2nx7GZ3lImvBeG0HoxyzYA7pD299ps03TemA==
+"@glimmer/interfaces@^0.44.0":
+  version "0.44.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.44.0.tgz#0896204815f05fd8907b5703cbaee9d1b9edf5d3"
+  integrity sha512-O1VBrB1uhWh/XpBRaMbT5zncZiJJNTAqe0rnhRr4JicrlmNoIC4/5ADRgDORj5oBxuENjuZ+6UTul3WCOHETiw==
 
-"@glimmer/syntax@^0.43.0":
-  version "0.43.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.43.0.tgz#d6e30c857c575eeac25b3f7ffab2cfee43685726"
-  integrity sha512-qJqzcbF9lgdLE5A1rCwTs0CLnblNK95Y6MMLNsvJEJA7j1Gx50ySoUZ5HTk86Z5auhDgvInhuufyGtdojSIMSg==
+"@glimmer/syntax@^0.44.0":
+  version "0.44.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.44.0.tgz#66a4d0a5047becb210259e7678b6efa9c14dbc6f"
+  integrity sha512-B/kLng2z9Cf/7jbfY7p50Q/3ouUouVT5jBgGVVTJJHvtCbrNszdMj3XY0v3hLxB83TASXf1dwJh3CNni82JnOQ==
   dependencies:
-    "@glimmer/interfaces" "^0.43.0"
-    "@glimmer/util" "^0.43.0"
-    handlebars "^4.0.13"
+    "@glimmer/interfaces" "^0.44.0"
+    "@glimmer/util" "^0.44.0"
+    handlebars "^4.5.1"
     simple-html-tokenizer "^0.5.8"
 
-"@glimmer/util@^0.43.0":
-  version "0.43.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.43.0.tgz#dd28cd1a233c25427032437b9050c6fa6d098e2c"
-  integrity sha512-RtjHU8/rhysOugu+Q0j6dQ3G67J4h45tQgKPEwVPxu8P+hqijqnz/lBLxTdVg/1zKmlqUkyngTr8H4Jpg2yF/g==
+"@glimmer/util@^0.44.0":
+  version "0.44.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.44.0.tgz#45df98d73812440206ae7bda87cfe04aaae21ed9"
+  integrity sha512-duAsm30uVK9jSysElCbLyU6QQYO2X9iLDLBIBUcCqck9qN1o3tK2qWiHbGK5d6g8E2AJ4H88UrfElkyaJlGrwg==
 
 "@iarna/toml@2.2.3":
   version "2.2.3"
@@ -1460,12 +1460,12 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-ember-template-recast@^3.2.8:
-  version "3.2.8"
-  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-3.2.8.tgz#f51bf0c812e0cd13004ac117a44d1833e6d760fe"
-  integrity sha512-uALCv0hv66gbRR68LtroAsGIyUuXTluiIwFzjirB6ShlgGkQq/uQfB/Yx/YbzxKVaotLSVMWFsQHX/ik5Y6pLg==
+ember-template-recast@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-3.3.1.tgz#9727be63151107a365f52b5ed72beb10522c4a2c"
+  integrity sha512-dybd47ph+dX/6LlKEhunDXAxrMmngI8o34lPIJK7QqVqBsNupg9LGI0qWOegphPB9lfSR9jaqysdX2EN/G+bTA==
   dependencies:
-    "@glimmer/syntax" "^0.43.0"
+    "@glimmer/syntax" "^0.44.0"
     async-promise-queue "^1.0.5"
     colors "^1.3.3"
     commander "^3.0.0"
@@ -1473,7 +1473,7 @@ ember-template-recast@^3.2.8:
     ora "^4.0.2"
     slash "^3.0.0"
     tmp "^0.1.0"
-    workerpool "^5.0.1"
+    workerpool "^5.0.2"
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -2441,7 +2441,7 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-handlebars@^4.0.11, handlebars@^4.0.13:
+handlebars@^4.0.11:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.5.1.tgz#8a01c382c180272260d07f2d1aa3ae745715c7ba"
   integrity sha512-C29UoFzHe9yM61lOsIlCE5/mQVGrnIOrOq7maQl76L7tYPCgC1og0Ajt6uWnX4ZTxBPnjw+CUvawphwCfJgUnA==
@@ -2452,7 +2452,7 @@ handlebars@^4.0.11, handlebars@^4.0.13:
   optionalDependencies:
     uglify-js "^3.1.4"
 
-handlebars@^4.0.3:
+handlebars@^4.0.3, handlebars@^4.5.1:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.5.3.tgz#5cf75bd8714f7605713511a56be7c349becb0482"
   integrity sha512-3yPecJoJHK/4c6aZhSvxOyG4vJKDshV36VHp0iVCDVh7o9w2vwi3NSnL2MMPj3YdduqaBcu7cGbggJQM0br9xA==
@@ -6339,10 +6339,10 @@ wordwrap@~0.0.2:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
   integrity sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
 
-workerpool@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-5.0.1.tgz#bbafa774066c0f43dfce947ec20403d7fb87b519"
-  integrity sha512-Q9CGaz2zLdFIyr+VKct6bYQAMzeGy7XWSw9pDGLfPuU56Cg+iWflqjFGUqMqv3iMuS8EaXQTgH0qxaPi6AuhAA==
+workerpool@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-5.0.2.tgz#8fd8f6c7250710b9c3143d5f7494db3b6633ce6e"
+  integrity sha512-RsXfHGFzbqrfrExTN1TyZobWXCN6+vbn9B1CsZ5zQ2ASA2kQaYONCGOAT88Ew+kNSaRq/XmApRC/HRSv9Z98Ng==
 
 wrap-ansi@^2.0.0:
   version "2.1.0"
