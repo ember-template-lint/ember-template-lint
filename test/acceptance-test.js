@@ -277,6 +277,7 @@ describe('public api', function() {
       });
 
       let expected = {
+        rule: 'invalid-pending-module',
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         moduleId: 'some/path/here',
@@ -302,6 +303,7 @@ describe('public api', function() {
       });
 
       let expected = {
+        rule: 'invalid-pending-module',
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         moduleId: 'some/path/here',
