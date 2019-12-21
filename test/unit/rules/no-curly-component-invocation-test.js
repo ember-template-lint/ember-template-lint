@@ -19,6 +19,15 @@ const SHARED_GOOD = [
   `{{#each items as |item|}}
      {{item}}
    {{/each}}`,
+  '{{#-in-element}}Hello{{/-in-element}}',
+  '{{#in-element}}Hello{{/in-element}}',
+  '{{#some-component foo="bar"}}foo{{else}}bar{{/some-component}}',
+  '<MyComponent @arg={{my-helper this.foobar}} />',
+  '<MyComponent @arg="{{my-helper this.foobar}}" />',
+  '<MyComponent {{my-modifier this.foobar}} />',
+  '{{svg-jar "status"}}',
+  '{{t "some.translation.key"}}',
+  '{{#animated-if condition}}foo{{/animated-if}}',
 ];
 
 const SHARED_BAD = [
@@ -54,20 +63,7 @@ generateRuleTests({
     disallow: ['heading'],
   },
 
-  good: [
-    ...SHARED_GOOD,
-    '{{#-in-element}}Hello{{/-in-element}}',
-    '{{#in-element}}Hello{{/in-element}}',
-    '{{#some-component foo="bar"}}foo{{else}}bar{{/some-component}}',
-    '<MyComponent @arg={{my-helper this.foobar}} />',
-    '<MyComponent @arg="{{my-helper this.foobar}}" />',
-    '<MyComponent {{my-modifier this.foobar}} />',
-    '{{svg-jar "status"}}',
-    '{{t "some.translation.key"}}',
-    '{{model.selectedTransfersCount}}',
-    '{{request.note}}',
-    '{{#animated-if condition}}foo{{/animated-if}}',
-  ],
+  good: [...SHARED_GOOD, '{{model.selectedTransfersCount}}', '{{request.note}}'],
 
   bad: [
     ...SHARED_BAD,
