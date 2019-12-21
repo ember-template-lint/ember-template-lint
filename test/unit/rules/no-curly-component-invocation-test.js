@@ -28,6 +28,9 @@ const SHARED_GOOD = [
   '{{svg-jar "status"}}',
   '{{t "some.translation.key"}}',
   '{{#animated-if condition}}foo{{/animated-if}}',
+  '{{model.selectedTransfersCount}}',
+  '{{request.note}}',
+  '{{42}}',
 ];
 
 const SHARED_BAD = [
@@ -63,7 +66,7 @@ generateRuleTests({
     disallow: ['heading'],
   },
 
-  good: [...SHARED_GOOD, '{{model.selectedTransfersCount}}', '{{request.note}}'],
+  good: [...SHARED_GOOD],
 
   bad: [
     ...SHARED_BAD,
