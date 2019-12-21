@@ -7,6 +7,20 @@ function generateError(name) {
 }
 
 const SHARED_GOOD = [
+  '{{foo}}',
+  '{{#each items as |item|}}{{item}}{{/each}}',
+  '{{foo.bar}}',
+  '{{42}}',
+  '{{true}}',
+  '{{undefined}}',
+  '{{"foo-bar"}}',
+  '{{foo bar}}',
+  '<div {{foo}} />',
+  '<Foo @bar={{baz}} />',
+  '{{#foo bar}}{{/foo}}',
+  '{{#foo}}bar{{else}}baz{{/foo}}',
+
+  // real world examples
   '<GoodCode />',
   '<GoodCode></GoodCode>',
   '{{if someProperty "yay"}}',
@@ -16,11 +30,8 @@ const SHARED_GOOD = [
   '{{some/valid-nested-helper param}}',
   '{{@someArg}}',
   '{{this.someProperty}}',
-  `{{#each items as |item|}}
-     {{item}}
-   {{/each}}`,
-  '{{#-in-element}}Hello{{/-in-element}}',
-  '{{#in-element}}Hello{{/in-element}}',
+  '{{#-in-element destinationElement}}Hello{{/-in-element}}',
+  '{{#in-element destinationElement}}Hello{{/in-element}}',
   '{{#some-component foo="bar"}}foo{{else}}bar{{/some-component}}',
   '<MyComponent @arg={{my-helper this.foobar}} />',
   '<MyComponent @arg="{{my-helper this.foobar}}" />',
@@ -35,25 +46,93 @@ const SHARED_GOOD = [
 
 const SHARED_BAD = [
   {
-    template: '{{nested/bad-code}}',
-    results: [getErrorResult(generateError('nested/bad-code'), '{{nested/bad-code}}')],
-  },
-  {
-    template: '{{heading size="1" text="Disallowed heading component"}}',
+    template: '{{foo-bar}}',
     results: [
-      getErrorResult(
-        generateError('heading'),
-        '{{heading size="1" text="Disallowed heading component"}}'
-      ),
+      {
+        message: generateError('foo-bar'),
+        line: 1,
+        column: 0,
+        source: '{{foo-bar}}',
+      },
     ],
   },
   {
+    template: '{{nested/component}}',
+    results: [
+      {
+        message: generateError('nested/component'),
+        line: 1,
+        column: 0,
+        source: '{{nested/component}}',
+      },
+    ],
+  },
+  {
+    template: '{{foo-bar bar=baz}}',
+    results: [
+      {
+        message: generateError('foo-bar'),
+        line: 1,
+        column: 0,
+        source: '{{foo-bar bar=baz}}',
+      },
+    ],
+  },
+  {
+    template: '{{link-to "bar" "foo"}}',
+    results: [
+      {
+        message: generateError('link-to'),
+        line: 1,
+        column: 0,
+        source: '{{link-to "bar" "foo"}}',
+      },
+    ],
+  },
+  {
+    template: '{{#link-to "foo"}}bar{{/link-to}}',
+    results: [
+      {
+        message: generateError('link-to'),
+        line: 1,
+        column: 0,
+        source: '{{#link-to "foo"}}bar{{/link-to}}',
+      },
+    ],
+  },
+  {
+    template: '{{input type="text" value=this.model.name}}',
+    results: [
+      {
+        message: generateError('input'),
+        line: 1,
+        column: 0,
+        source: '{{input type="text" value=this.model.name}}',
+      },
+    ],
+  },
+  {
+    template: '{{textarea value=this.model.body}}',
+    results: [
+      {
+        message: generateError('textarea'),
+        line: 1,
+        column: 0,
+        source: '{{textarea value=this.model.body}}',
+      },
+    ],
+  },
+
+  // real world examples
+  {
     template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
     results: [
-      getErrorResult(
-        generateError('heading'),
-        '{{#heading size="1"}}Disallowed heading component{{/heading}}'
-      ),
+      {
+        message: generateError('heading'),
+        line: 1,
+        column: 0,
+        source: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
+      },
     ],
   },
 ];
@@ -61,23 +140,43 @@ const SHARED_BAD = [
 generateRuleTests({
   name: 'no-curly-component-invocation',
 
+  config: true,
+
+  good: [...SHARED_GOOD],
+  bad: [...SHARED_BAD],
+});
+
+generateRuleTests({
+  name: 'no-curly-component-invocation',
+
   config: {
-    allow: ['some-valid-helper', 'some/valid-nested-helper'],
-    disallow: ['heading'],
+    requireDash: false,
   },
 
   good: [...SHARED_GOOD],
+  bad: [...SHARED_BAD],
+});
 
+generateRuleTests({
+  name: 'no-curly-component-invocation',
+
+  config: {
+    disallow: ['disallowed'],
+    requireDash: false,
+  },
+
+  good: [...SHARED_GOOD, '{{#each items as |disallowed|}}{{disallowed}}{{/each}}'],
   bad: [
     ...SHARED_BAD,
     {
-      template: '{{bad-code}}',
-      results: [getErrorResult(generateError('bad-code'), '{{bad-code}}')],
-    },
-    {
-      template: '<div>{{bad-code}}</div>',
+      template: '{{disallowed}}',
       results: [
-        Object.assign(getErrorResult(generateError('bad-code'), '{{bad-code}}'), { column: 5 }),
+        {
+          message: generateError('disallowed'),
+          line: 1,
+          column: 0,
+          source: '{{disallowed}}',
+        },
       ],
     },
   ],
@@ -87,34 +186,21 @@ generateRuleTests({
   name: 'no-curly-component-invocation',
 
   config: {
-    allow: ['some-valid-helper', 'some/valid-nested-helper'],
-    disallow: ['heading'],
+    allow: ['aaa-bbb', 'aaa/bbb'],
     requireDash: false,
   },
 
-  good: [...SHARED_GOOD, '{{#each items as |item|}}{{item value}}{{/each}}'],
-
-  bad: [
-    ...SHARED_BAD,
-    {
-      template: '{{box}}',
-      results: [getErrorResult(generateError('box'), '{{box}}')],
-    },
-    {
-      template: '{{#each items as |item|}} {{item some=args}} {{/each}}',
-      results: [getErrorResult(generateError('item'), '{{item some=args}}', 26)],
-    },
-  ],
+  good: [...SHARED_GOOD, '{{aaa-bbb}}', '{{aaa/bbb}}', '{{aaa-bbb bar=baz}}'],
+  bad: [...SHARED_BAD],
 });
 
-function getErrorResult(message, source, column = 0) {
-  return {
-    rule: 'no-curly-component-invocation',
-    severity: 2,
-    moduleId: 'layout.hbs',
-    message,
-    line: 1,
-    column,
-    source,
-  };
-}
+generateRuleTests({
+  name: 'no-curly-component-invocation',
+
+  config: {
+    requireDash: true,
+  },
+
+  good: [...SHARED_GOOD, '{{foo bar=baz}}'],
+  bad: [...SHARED_BAD],
+});

@@ -12,37 +12,49 @@ look like they could be component invocations.
 
 ### Examples
 
-This rule **forbids** the following:
+- `{{foo}}` ✅
+  (simple mustache without `-` in the path is likely to be a property; unless in `disallow` list and not a scoped variable)
 
-```hbs
-{{bad-code}}
-{{#bad-code}}{{/bad-code}}
-{{nested/bad-code}}
-{{#nested/bad-code}}{{/nested/bad-code}}
-```
+- `{{foo.bar}}` ✅
+  (simple mustache with nested path is likely to be a nested property)
 
-This rule **allows** the following:
+- `{{foo-bar}}` ❌ (angle brackets: `<FooBar />`)
+  (simple mustache with `-` in the path is more likely a component than a property or helper; unless in `allow` list)
 
-```hbs
-<GoodCode />
-<GoodCode></GoodCode>
-<Nested::GoodCode />
-<Nested::GoodCode></Nested::GoodCode>
-```
+- `{{nested/component}}` ❌ (angle brackets: `<Nested::Component />`)
+  (simple mustache with `/` in the path is more likely a component than a property or helper; unless in `allow` list)
 
-```hbs
-{{! whitelisted helpers}}
-{{some-valid-helper param}}
-{{some/some-valid-helper param}}
-```
+- `{{42}}` ✅
+  (literal value mustaches)
 
-```hbs
-{{! in-built helpers}}
-{{if someProperty "yay"}}
-{{#each items as |item|}}
-  {{item}}
-{{/each}}
-```
+- `{{foo bar}}` ✅
+  (mustache with positional parameters can't be converted to angle brackets syntax)
+
+- `{{foo bar=baz}}` ❌ (angle brackets: `<Foo @bar={{baz}} />`)
+  (mustache with only named parameters is likely a component; unless in `allow` list)
+
+  Setting `requireDash: true` lets `{{foo bar=baz}}` pass, but `{{foo-bar bar=baz}}` fails
+
+- `<div {{foo}} />` ✅
+  (mustache is a modifier)
+
+- `<Foo @bar={{baz}} />` ✅
+  (mustache is an argument or attribute)
+
+- `{{#foo}}{{/foo}}` ❌ (angle brackets: `<Foo></Foo>`)
+  (block mustache is considered a component unless it has positional parameters, an inverse block, or is in `allow` list)
+
+- `{{#foo bar}}{{/foo}}` ✅
+  (block mustache with positional parameters can't be converted to angle brackets syntax)
+
+- `{{#foo}}bar{{else}}baz{{/foo}}` ✅
+  (block mustache with inverse block can't be converted to angle brackets syntax)
+
+- `{{link-to "bar" "foo"}}` ❌ (angle brackets: `<LinkTo @route="foo">bar</LinkTo>`)
+  (inline form of the built-in `link-to` component)
+
+- `{{#link-to "foo"}}bar{{/link-to}}` ❌ (angle brackets: `<LinkTo @route="foo">bar</LinkTo>`)
+  (block form of the built-in `link-to` component)
 
 ### Migration
 
