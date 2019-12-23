@@ -80,6 +80,17 @@ const SHARED_BAD = [
     ],
   },
   {
+    template: '{{foo.bar bar=baz}}',
+    results: [
+      {
+        message: generateError('foo.bar'),
+        line: 1,
+        column: 0,
+        source: '{{foo.bar bar=baz}}',
+      },
+    ],
+  },
+  {
     template: '{{link-to "bar" "foo"}}',
     results: [
       {
@@ -191,7 +202,13 @@ generateRuleTests({
     requireDash: false,
   },
 
-  good: [...SHARED_GOOD, '{{aaa-bbb}}', '{{aaa/bbb}}', '{{aaa-bbb bar=baz}}'],
+  good: [
+    ...SHARED_GOOD,
+    '{{aaa-bbb}}',
+    '{{aaa/bbb}}',
+    '{{aaa-bbb bar=baz}}',
+    '{{#aaa-bbb bar=baz}}{{/aaa-bbb}}',
+  ],
   bad: [...SHARED_BAD],
 });
 
