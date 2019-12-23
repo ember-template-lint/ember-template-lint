@@ -1,5 +1,6 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
+const { parseConfig } = require('../../../lib/rules/no-curly-component-invocation');
 
 function generateError(name) {
   let angleBracketName = transformTagName(name);
@@ -203,4 +204,32 @@ generateRuleTests({
 
   good: [...SHARED_GOOD, '{{foo bar=baz}}'],
   bad: [...SHARED_BAD],
+});
+
+describe('no-curly-component-invocation', () => {
+  describe('parseConfig', () => {
+    const TESTS = [
+      [true, { allow: [], disallow: [], requireDash: true }],
+      [{ allow: ['foo'] }, { allow: ['foo'], disallow: [], requireDash: true }],
+      [{ requireDash: false }, { allow: [], disallow: [], requireDash: false }],
+      [
+        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false },
+        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false },
+      ],
+    ];
+
+    for (let [input, expected] of TESTS) {
+      test(`${JSON.stringify(input)} -> ${JSON.stringify(expected)}`, () => {
+        expect(parseConfig(input)).toEqual(expected);
+      });
+    }
+
+    const FAILURE_TESTS = [undefined, null, false, 'error'];
+
+    for (let input of FAILURE_TESTS) {
+      test(`${JSON.stringify(input)} -> Error`, () => {
+        expect(() => parseConfig(input)).toThrow();
+      });
+    }
+  });
 });
