@@ -27,6 +27,17 @@ const SHARED_GOOD = [
   '{{#foo bar}}{{/foo}}',
   '{{#foo}}bar{{else}}baz{{/foo}}',
 
+  // single-word no-arguments built-ins
+  '{{array}}',
+  '{{concat}}',
+  '{{debugger}}',
+  '{{has-block}}',
+  '{{has-block-params}}',
+  '{{hasBlock}}',
+  '{{hash}}',
+  '{{outlet}}',
+  '{{yield}}',
+
   // real world examples
   '<GoodCode />',
   '<GoodCode></GoodCode>',
