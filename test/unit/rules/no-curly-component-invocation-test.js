@@ -7,10 +7,15 @@ function generateError(name) {
   return `You are using the component {{${name}}} with curly component syntax. You should use <${angleBracketName}> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['${name}'] }\`.`;
 }
 
-const SHARED_GOOD = [
+const SHARED_MOSTLY_GOOD = [
   '{{foo}}',
-  '{{#each items as |item|}}{{item}}{{/each}}',
   '{{foo.bar}}',
+  '{{model.selectedTransfersCount}}',
+  '{{request.note}}',
+];
+
+const SHARED_GOOD = [
+  '{{#each items as |item|}}{{item}}{{/each}}',
   '{{42}}',
   '{{true}}',
   '{{undefined}}',
@@ -40,9 +45,6 @@ const SHARED_GOOD = [
   '{{svg-jar "status"}}',
   '{{t "some.translation.key"}}',
   '{{#animated-if condition}}foo{{/animated-if}}',
-  '{{model.selectedTransfersCount}}',
-  '{{request.note}}',
-  '{{42}}',
 ];
 
 const SHARED_BAD = [
@@ -154,7 +156,7 @@ generateRuleTests({
 
   config: true,
 
-  good: [...SHARED_GOOD],
+  good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD],
   bad: [...SHARED_BAD],
 });
 
@@ -165,7 +167,7 @@ generateRuleTests({
     requireDash: false,
   },
 
-  good: [...SHARED_GOOD],
+  good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD],
   bad: [...SHARED_BAD],
 });
 
@@ -177,7 +179,11 @@ generateRuleTests({
     requireDash: false,
   },
 
-  good: [...SHARED_GOOD, '{{#each items as |disallowed|}}{{disallowed}}{{/each}}'],
+  good: [
+    ...SHARED_MOSTLY_GOOD,
+    ...SHARED_GOOD,
+    '{{#each items as |disallowed|}}{{disallowed}}{{/each}}',
+  ],
   bad: [
     ...SHARED_BAD,
     {
@@ -203,6 +209,7 @@ generateRuleTests({
   },
 
   good: [
+    ...SHARED_MOSTLY_GOOD,
     ...SHARED_GOOD,
     '{{aaa-bbb}}',
     '{{aaa/bbb}}',
@@ -219,19 +226,64 @@ generateRuleTests({
     requireDash: true,
   },
 
-  good: [...SHARED_GOOD, '{{foo bar=baz}}'],
+  good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD, '{{foo bar=baz}}'],
   bad: [...SHARED_BAD],
+});
+
+generateRuleTests({
+  name: 'no-curly-component-invocation',
+
+  config: {
+    noImplicitThis: true,
+  },
+
+  good: [...SHARED_GOOD],
+  bad: [
+    ...SHARED_BAD,
+    {
+      template: '{{foo}}',
+      results: [
+        {
+          message: generateError('foo'),
+          line: 1,
+          column: 0,
+          source: '{{foo}}',
+        },
+      ],
+    },
+    {
+      template: '{{foo.bar}}',
+      results: [
+        {
+          message: generateError('foo.bar'),
+          line: 1,
+          column: 0,
+          source: '{{foo.bar}}',
+        },
+      ],
+    },
+  ],
 });
 
 describe('no-curly-component-invocation', () => {
   describe('parseConfig', () => {
     const TESTS = [
-      [true, { allow: [], disallow: [], requireDash: true }],
-      [{ allow: ['foo'] }, { allow: ['foo'], disallow: [], requireDash: true }],
-      [{ requireDash: false }, { allow: [], disallow: [], requireDash: false }],
+      [true, { allow: [], disallow: [], requireDash: true, noImplicitThis: false }],
+      [
+        { allow: ['foo'] },
+        { allow: ['foo'], disallow: [], requireDash: true, noImplicitThis: false },
+      ],
+      [
+        { requireDash: false },
+        { allow: [], disallow: [], requireDash: false, noImplicitThis: false },
+      ],
+      [
+        { noImplicitThis: true },
+        { allow: [], disallow: [], requireDash: true, noImplicitThis: true },
+      ],
       [
         { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false },
-        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false },
+        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false, noImplicitThis: false },
       ],
     ];
 
