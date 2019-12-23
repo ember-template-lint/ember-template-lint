@@ -16,6 +16,7 @@ const SHARED_MOSTLY_GOOD = [
 
 const SHARED_GOOD = [
   '{{#each items as |item|}}{{item}}{{/each}}',
+  '{{#each items as |item|}}{{item.foo}}{{/each}}',
   '{{42}}',
   '{{true}}',
   '{{undefined}}',
@@ -25,6 +26,17 @@ const SHARED_GOOD = [
   '<Foo @bar={{baz}} />',
   '{{#foo bar}}{{/foo}}',
   '{{#foo}}bar{{else}}baz{{/foo}}',
+
+  // single-word no-arguments built-ins
+  '{{array}}',
+  '{{concat}}',
+  '{{debugger}}',
+  '{{has-block}}',
+  '{{has-block-params}}',
+  '{{hasBlock}}',
+  '{{hash}}',
+  '{{outlet}}',
+  '{{yield}}',
 
   // real world examples
   '<GoodCode />',
