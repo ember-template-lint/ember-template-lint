@@ -1,3 +1,14 @@
+# Changelog
+
+## v1.12.3 (2019-12-23)
+
+#### :bug: Bug Fix
+* [#1032](https://github.com/ember-template-lint/ember-template-lint/pull/1032) no-curly-component-invocation: Ignore built-ins and fix nested key scoped variable scenario ([@Turbo87](https://github.com/Turbo87))
+* [#1031](https://github.com/ember-template-lint/ember-template-lint/pull/1031) no-passed-in-event-handlers: Ignore built-in `input` and `textarea` components ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 1
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
 ## v1.12.2 (2019-12-23)
 
 #### :bug: Bug Fix
@@ -16,8 +27,6 @@
 - Katie Gengler ([@kategengler](https://github.com/kategengler))
 - Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
-# Changelog
 
 ## v1.12.1 (2019-12-13)
 
