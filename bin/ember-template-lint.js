@@ -2,12 +2,17 @@
 
 'use strict';
 
+const stripBom = require('strip-bom');
 const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
 const Linter = require('../lib/index');
 
 const STDIN = '/dev/stdin';
+
+function isFixed(source, output) {
+  return stripBom(source) !== output;
+}
 
 function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
   // TODO: swap to using get-stdin when we can leverage async/await
@@ -16,6 +21,9 @@ function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
 
   if (shouldFix) {
     let result = linter.verifyAndFix(options);
+    if (isFixed(options.source, result.output)) {
+      fs.writeFileSync(filePath, result.output);
+    }
 
     return result.messages;
   } else {
