@@ -118,8 +118,15 @@ function run() {
     let fileErrors = lintFile(linter, filePath, moduleId);
 
     if (printPending) {
+      const ignoredPendingRules = ['invalid-pending-module', 'invalid-pending-module-rule'];
       let failingRules = Array.from(
-        fileErrors.reduce((memo, error) => memo.add(error.rule), new Set())
+        fileErrors.reduce((memo, error) => {
+          if (!ignoredPendingRules.includes(error.rule)) {
+            memo.add(error.rule);
+          }
+
+          return memo;
+        }, new Set())
       );
 
       if (failingRules.length > 0) {

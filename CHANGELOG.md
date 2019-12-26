@@ -66,6 +66,42 @@ This release includes all the changes that went into v1.9.0.
 - Martin Midtgaard ([@initram](https://github.com/initram))
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
+## v1.12.3 (2019-12-23)
+
+#### :bug: Bug Fix
+* [#1032](https://github.com/ember-template-lint/ember-template-lint/pull/1032) no-curly-component-invocation: Ignore built-ins and fix nested key scoped variable scenario ([@Turbo87](https://github.com/Turbo87))
+* [#1031](https://github.com/ember-template-lint/ember-template-lint/pull/1031) no-passed-in-event-handlers: Ignore built-in `input` and `textarea` components ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 1
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+## v1.12.2 (2019-12-23)
+
+#### :bug: Bug Fix
+* [#1027](https://github.com/ember-template-lint/ember-template-lint/pull/1027) Refactor `no-curly-component-invocation` to reduce the occurrences of false positives ([@Turbo87](https://github.com/Turbo87))
+* [#1019](https://github.com/ember-template-lint/ember-template-lint/pull/1019) Adding error when individual pending rules are passing ([@gmurphey](https://github.com/gmurphey))
+* [#954](https://github.com/ember-template-lint/ember-template-lint/pull/954) Update `--print-pending` logic to ignore existing pending modules that have no linting errors ([@gmurphey](https://github.com/gmurphey))
+
+#### :memo: Documentation
+* [#1016](https://github.com/ember-template-lint/ember-template-lint/pull/1016) Correct name of class ([@kategengler](https://github.com/kategengler))
+
+#### :house: Internal
+* [#1011](https://github.com/ember-template-lint/ember-template-lint/pull/1011) Add test cases for `{{!-- template-lint-disable --}}` comments ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 4
+- Garrett Murphey ([@gmurphey](https://github.com/gmurphey))
+- Katie Gengler ([@kategengler](https://github.com/kategengler))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+## v1.12.1 (2019-12-13)
+
+#### :bug: Bug Fix
+* [#1013](https://github.com/ember-template-lint/ember-template-lint/pull/1013) Fix missing `Linter.errorsToMessages()` API for ember-cli-template-lint ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 1
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
 ## v1.12.0 (2019-12-13)
 
 #### :rocket: Enhancement
