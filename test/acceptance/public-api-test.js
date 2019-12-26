@@ -2,11 +2,11 @@
 
 const path = require('path');
 const fs = require('fs');
-const Linter = require('../lib/index');
-const buildFakeConsole = require('./helpers/console');
+const Linter = require('../../lib/index');
+const buildFakeConsole = require('./../helpers/console');
 const chalk = require('chalk');
 
-const fixturePath = path.join(__dirname, 'fixtures');
+const fixturePath = path.join(__dirname, '..', '/fixtures');
 const initialCWD = process.cwd();
 
 describe('public api', function() {
