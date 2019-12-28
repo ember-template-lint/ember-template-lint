@@ -2,7 +2,6 @@
 
 const execa = require('execa');
 const path = require('path');
-const BinScript = require('../../bin/ember-template-lint');
 
 describe('ember-template-lint executable', function() {
   describe('basic usage', function() {
