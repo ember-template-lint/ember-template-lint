@@ -1,6 +1,5 @@
 'use strict';
 
-const execa = require('execa');
 const BinScript = require('../../bin/ember-template-lint');
 
 describe('ember-template-lint executable', function() {
