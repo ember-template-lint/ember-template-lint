@@ -26,7 +26,7 @@ To install ember-template-lint
 npm install --save-dev ember-template-lint
 ```
 
-Node.js `8 || 10 || 12` (at the time of writting LTS) or `13` (latest) is required.
+Node.js `10 || 12 || 13` is required.
 
 ## Usage
 
