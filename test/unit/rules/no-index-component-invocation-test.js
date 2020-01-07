@@ -10,13 +10,17 @@ generateRuleTests({
     '<Foo::Bar />',
     '<Foo::IndexItem />',
     '<Foo::MyIndex />',
+    '<Foo::MyIndex></Foo::MyIndex>',
     '{{foo/index-item}}',
     '{{foo/my-index}}',
     '{{foo/bar}}',
+    '{{#foo/bar}}{{/foo/bar}}',
     '{{component "foo/bar"}}',
     '{{component "foo/my-index"}}',
     '{{component "foo/index-item"}}',
+    '{{#component "foo/index-item"}}{{/component}}',
   ],
+
   bad: [
     {
       template: '{{foo/index}}',
@@ -25,6 +29,33 @@ generateRuleTests({
         source: 'foo/index',
         line: 1,
         column: 2,
+      },
+    },
+    {
+      template: '{{component "foo/index"}}',
+      result: {
+        message: 'Replace `{{component "foo/index" ...` to `{{component "foo" ...`',
+        source: '"foo/index"',
+        line: 1,
+        column: 12,
+      },
+    },
+    {
+      template: '{{#foo/index}}{{/foo/index}}',
+      result: {
+        message: 'Replace `{{#foo/index ...` to `{{#foo ...`',
+        source: 'foo/index',
+        line: 1,
+        column: 3,
+      },
+    },
+    {
+      template: '{{#component "foo/index"}}{{/component}}',
+      result: {
+        message: 'Replace `{{#component "foo/index" ...` to `{{#component "foo" ...`',
+        source: '"foo/index"',
+        line: 1,
+        column: 13,
       },
     },
     {
