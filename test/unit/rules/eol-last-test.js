@@ -7,12 +7,14 @@ generateRuleTests({
 
   good: [
     {
+      config: 'editorconfig',
       template: 'test\n',
       meta: {
         editorConfig: { insert_final_newline: true },
       },
     },
     {
+      config: 'editorconfig',
       template: 'test',
       meta: {
         editorConfig: { insert_final_newline: false },
@@ -63,7 +65,7 @@ generateRuleTests({
       },
     },
     {
-      config: true,
+      config: 'editorconfig',
       template: 'test',
 
       meta: {
@@ -79,7 +81,7 @@ generateRuleTests({
       },
     },
     {
-      config: true,
+      config: 'editorconfig',
       template: 'test\n',
 
       meta: {
@@ -123,7 +125,7 @@ generateRuleTests({
     },
 
     {
-      config: true,
+      config: 'editorconfig',
       template: 'test',
       meta: {
         editorConfig: {},
@@ -133,7 +135,18 @@ generateRuleTests({
         fatal: true,
         moduleId: 'layout.hbs',
         message:
-          'allows setting the configuration to `true`, _only_ when an `.editorconfig` file with the `insert_final_newline` setting exists',
+          'allows setting the configuration to `"editorconfig"`, _only_ when an `.editorconfig` file with the `insert_final_newline` setting exists',
+      },
+    },
+
+    {
+      config: true,
+      template: 'test',
+
+      result: {
+        fatal: true,
+        moduleId: 'layout.hbs',
+        message: 'You specified `true`',
       },
     },
   ],
