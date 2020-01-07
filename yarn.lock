@@ -18,25 +18,29 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@glimmer/interfaces@^0.45.2":
-  version "0.45.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.45.2.tgz#aa2e9f15394400cc73eb36a9bdabc6b43ecddd7a"
-  integrity sha512-NTkThTKeXx4hcYyN/pmvOyKaO3BUExagKWmn79amdqoVGWx8aMNHh5XxUYz1OriRX8YFI6tUWwdc/KPIykTEhA==
+"@glimmer/interfaces@^0.45.3":
+  version "0.45.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.45.3.tgz#9a54b6cc3f9d5887fc26c39750fd180d9dc650c0"
+  integrity sha512-RsjpflPimJUgkJwzhKWhu/CJ8HdRwqBFcSNPL9Fu8cElE1DyERdcqJbSCfw7pkFornVrhoU8gTNxzo24ly1H3g==
+  dependencies:
+    "@simple-dom/interface" "^1.4.0"
 
 "@glimmer/syntax@^0.45.0":
-  version "0.45.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.45.2.tgz#c56d49ceb32fdf5d31373d3b0df581fd5083751f"
-  integrity sha512-5kRmZRyxeHT22henBYxWgZSE0bHAwLiGGsdEfgTtILmQEYHesEsz52/LxfA7/vGlgVyCNTgs6CMAQjkFbFWgcg==
+  version "0.45.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.45.3.tgz#298c1eff98661726eb8df0806a241e7b43ac662b"
+  integrity sha512-olTpMV4FiF7ylLYWTHzlNGiirQvCPGSVFDtohDcrNgHVkXwYYpaCF6QUgsHQMPCrY2Zu2Ohqv4PpZo1cJXY0ug==
   dependencies:
-    "@glimmer/interfaces" "^0.45.2"
-    "@glimmer/util" "^0.45.2"
+    "@glimmer/interfaces" "^0.45.3"
+    "@glimmer/util" "^0.45.3"
     handlebars "^4.5.1"
     simple-html-tokenizer "^0.5.8"
 
-"@glimmer/util@^0.45.2":
-  version "0.45.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.45.2.tgz#309a95d7206ab50d00b2a30ed29fe901e7822fb6"
-  integrity sha512-tyllbUByKUXWkXDiIvgbZ71x29r5g37tngI3COl6AdyBO9zVXHq2R2tFteRVL+LkVtETT9f7hcnF9hg5rSZe3w==
+"@glimmer/util@^0.45.3":
+  version "0.45.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.45.3.tgz#da902da3c5e36a8dfc79c9993718044d88eacc76"
+  integrity sha512-2lf+f3ND5OiKIFbjeHMq/1me0xymqAanvJoVjxHMd//s74o6GVsjFUSVx7FJ53E8VE2gmtdL4m/Yz5smAJHD4A==
+  dependencies:
+    "@simple-dom/interface" "^1.4.0"
 
 "@iarna/toml@2.2.3":
   version "2.2.3"
@@ -133,6 +137,11 @@
   integrity sha512-StASIL2lgT3TRjxv17z9pAqbnI7HGu9DrJlg3sEBFfCLaMEqp+O3IQPUF6EZtQ4xkAu2ml6kMBBCtGxjvmtmuQ==
   dependencies:
     "@types/node" ">= 8"
+
+"@simple-dom/interface@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@simple-dom/interface/-/interface-1.4.0.tgz#e8feea579232017f89b0138e2726facda6fbb71f"
+  integrity sha512-l5qumKFWU0S+4ZzMaLXFU8tQZsicHEMEyAxI5kDFGhJsRqDwe0a7/iPA/GdxlGyDKseQQAgIz5kzU7eXTrlSpA==
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
