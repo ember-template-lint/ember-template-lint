@@ -1,3 +1,21 @@
+## v1.13.0 (2020-01-07)
+
+#### :rocket: Enhancement
+* [#895](https://github.com/ember-template-lint/ember-template-lint/pull/895) Add `no-index-component-invocation` rule ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#1040](https://github.com/ember-template-lint/ember-template-lint/pull/1040) Fix link to recommended config ([@kategengler](https://github.com/kategengler))
+
+#### :house: Internal
+* [#1042](https://github.com/ember-template-lint/ember-template-lint/pull/1042) Refactor test-harness ([@dcyriller](https://github.com/dcyriller))
+* [#1036](https://github.com/ember-template-lint/ember-template-lint/pull/1036) Group acceptance tests in test/acceptance folder ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 4
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Katie Gengler ([@kategengler](https://github.com/kategengler))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 # Changelog
 
 ## v1.12.3 (2019-12-23)
