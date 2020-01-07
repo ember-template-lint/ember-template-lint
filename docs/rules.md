@@ -29,7 +29,6 @@
 * [no-invalid-meta](rule/no-invalid-meta.md)
 * [no-invalid-role](rule/no-invalid-role.md)
 * [no-log](rule/no-log.md)
-* [no-meta-redirect-with-time-limit](rule/no-meta-redirect-with-time-limit.md)
 * [no-multiple-empty-lines](rule/no-multiple-empty-lines.md)
 * [no-negated-condition](rule/no-negated-condition.md)
 * [no-nested-interactive](rule/no-nested-interactive.md)
