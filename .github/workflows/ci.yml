@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - next
       - 'v*'
   pull_request: {}
   schedule:
