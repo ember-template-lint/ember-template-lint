@@ -40,7 +40,6 @@
 * [no-positive-tabindex](rule/no-positive-tabindex.md)
 * [no-quoteless-attributes](rule/no-quoteless-attributes.md)
 * [no-shadowed-elements](rule/no-shadowed-elements.md)
-* [no-trailing-dot-in-path-expression](rule/no-trailing-dot-in-path-expression.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
 * [no-unbound](rule/no-unbound.md)
