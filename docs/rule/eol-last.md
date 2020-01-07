@@ -19,7 +19,10 @@ or this (with newline at end):
 
 The following values are valid configuration:
 
-  * string -- "always" enforces that files end with a newline, "never" enforces that files do not end with a newline
+  * boolean -- `true` for inferring to require or disallow final newlines based your projects `.editorconfig` settings (via `insert_final_newline`)',
+  * string',
+    * "always" - enforces that files end with a newline',
+    * "never" - enforces that files do not end with a newline',
 
 ### Related Rules
 
