@@ -21,6 +21,7 @@
 * [no-extra-mut-helper-argument](rule/no-extra-mut-helper-argument.md)
 * [no-html-comments](rule/no-html-comments.md)
 * [no-implicit-this](rule/no-implicit-this.md)
+* [no-index-component-invocation](rule/no-index-component-invocation.md)
 * [no-inline-styles](rule/no-inline-styles.md)
 * [no-input-block](rule/no-input-block.md)
 * [no-input-tagname](rule/no-input-tagname.md)
