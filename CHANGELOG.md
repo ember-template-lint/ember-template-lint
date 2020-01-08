@@ -16,8 +16,6 @@
 - Katie Gengler ([@kategengler](https://github.com/kategengler))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
-# Changelog
-
 ## v1.12.3 (2019-12-23)
 
 #### :bug: Bug Fix
