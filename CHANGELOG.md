@@ -16,8 +16,6 @@
 - Katie Gengler ([@kategengler](https://github.com/kategengler))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
-# Changelog
-
 ## v2.0.0-beta.4 (2019-12-13)
 
 This release includes all the changes that went into v1.10.0 - v1.12.0.
