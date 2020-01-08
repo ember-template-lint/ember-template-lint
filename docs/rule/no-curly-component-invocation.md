@@ -72,10 +72,13 @@ look like they could be component invocations.
 
 ### Configuration
 
+- boolean -- if `true`, default configuration is applied
+  (`noImplicitThis: false`, `requireDash: true`), see below for details
+
 - object -- containing the following properties:
   - boolean -- `noImplicitThis` -- if `true`, the rule considers all simple
     curly invocations without positional or named arguments as components unless
-    they are prefixed with `this.` or `@` 
+    they are prefixed with `this.` or `@`
     (default: `false`)
   - boolean -- `requireDash` -- if `true`, the rule only considers curly
     invocations with a `-` character as potential component invocations
