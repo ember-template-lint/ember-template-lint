@@ -12,7 +12,7 @@ generateRuleTests({
     '{{!--comment here--}}',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
-    '{{! template-lint-disable html-comments }}<!-- lol -->',
+    '{{! template-lint-disable no-html-comments }}<!-- lol -->',
   ],
 
   bad: [
