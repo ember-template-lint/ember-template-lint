@@ -1,5 +1,6 @@
 module.exports = {
   rules: {
-    'no-bare-strings': false
-  }
+    'eol-last': 'editorconfig',
+    'no-bare-strings': false,
+  },
 };
