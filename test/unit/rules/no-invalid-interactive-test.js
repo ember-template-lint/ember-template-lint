@@ -14,7 +14,9 @@ generateRuleTests({
     '<li><button {{action "foo"}}></button></li>',
     '<form {{action "foo" on="submit"}}></form>',
     '<form onsubmit={{action "foo"}}></form>',
+    '<form onchange={{action "foo"}}></form>',
     '<form {{action "foo" on="reset"}}></form>',
+    '<form {{action "foo" on="change"}}></form>',
     '<form onreset={{action "foo"}}></form>',
     '<img onerror={{action "foo"}}>',
     '<img onload={{action "foo"}}>',
@@ -23,6 +25,7 @@ generateRuleTests({
     '{{#with (hash bar=(component "foo")) as |foo|}}<foo.bar @onInput={{action "foo"}}></foo.bar>{{/with}}',
     '<form {{on "submit" this.send}}></form>',
     '<form {{on "reset" this.reset}}></form>',
+    '<form {{on "change" this.change}}></form>',
     {
       config: { additionalInteractiveTags: ['div'] },
       template: '<div {{on "click" this.onClick}}></div>',
