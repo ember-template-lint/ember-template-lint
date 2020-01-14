@@ -11,7 +11,7 @@ For example, given the rule [`no-bare-strings`](docs/rule/no-bare-strings.md) is
 in violation:
 
 ```hbs
-{{! app/components/my-thing/template.hbs }}
+{{!-- app/components/my-thing/template.hbs  --}}
 <div>A bare string</div>
 ```
 
@@ -152,30 +152,30 @@ It is also possible to disable specific rules (or all rules) in a template itsel
 
 ```hbs
 <!-- disable all rules -->
-{{! template-lint-disable }}
+{{!-- template-lint-disable  --}}
 
 <!-- disable no-bare-strings -->
-{{! template-lint-disable no-bare-strings }}
+{{!-- template-lint-disable no-bare-strings  --}}
 
 <!-- disable no-bare-strings and no-triple-curlies -->
-{{! template-lint-disable no-bare-strings no-triple-curlies }}
+{{!-- template-lint-disable no-bare-strings no-triple-curlies  --}}
 
 <!-- enable all rules -->
-{{! template-lint-enable }}
+{{!-- template-lint-enable  --}}
 
 <!-- enable no-bare-strings -->
-{{! template-lint-enable no-bare-strings }}
+{{!-- template-lint-enable no-bare-strings  --}}
 
 <!-- enable no-bare-strings and no-triple-curlies -->
-{{! template-lint-enable no-bare-strings no-triple-curlies }}
+{{!-- template-lint-enable no-bare-strings no-triple-curlies  --}}
 ```
 
 and to configure rules in the template:
 
 ```hbs
-{{! template-lint-configure no-bare-strings ["ZOMG THIS IS ALLOWED!!!!"] }}
+{{!-- template-lint-configure no-bare-strings ["ZOMG THIS IS ALLOWED!!!!"]  --}}
 
-{{! template-lint-configure no-bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]} }}
+{{!-- template-lint-configure no-bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]}  --}}
 ```
 
 The configure instruction can only configure a single rule, and the configuration value must be valid JSON that parses into a configuration for that rule.
@@ -188,7 +188,7 @@ An instruction will apply to all later siblings and their descendants:
 <!-- disable for <p> and <span> and their contents, but not for <div> or <hr> -->
 <div>
   <hr>
-  {{! template-lint-disable }}
+  {{!-- template-lint-disable  --}}
   <p>
     <span>Hello!</span>
   </p>
@@ -201,7 +201,7 @@ An in-element instruction will apply to only that element:
 <!-- enable for <p>, but not for <div>, <hr> or <span> -->
 <div>
   <hr>
-  <p {{! template-lint-enable }}>
+  <p {{!-- template-lint-enable  --}}>
     <span>Hello!</span>
   </p>
 </div>
@@ -213,13 +213,13 @@ An in-element instruction with the `-tree` suffix will apply to that element and
 <!-- configure for <p>, <span> and their contents, but not for <div> or <hr> -->
 <div>
   <hr>
-  <p {{! template-lint-configure-tree block-indentation "tab" }}>
+  <p {{!-- template-lint-configure-tree block-indentation "tab"  --}}>
     <span>Hello!</span>
   </p>
 </div>
 ```
 
-Note that enabling a rule (`{{! template-lint-enable }}`) that has been configured in-template (`{{! template-lint-configure }}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{! template-lint-enable }}` instruction.
+Note that enabling a rule (`{{!-- template-lint-enable --}}`) that has been configured in-template (`{{!-- template-lint-configure --}}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{!-- template-lint-enable --}}` instruction.
 
 ### Defining your own rules
 

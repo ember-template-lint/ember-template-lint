@@ -54,7 +54,7 @@ If you have a component with one of the table groups specified as its `tagName`,
 
 ```hbs
 <table>
-  {{! template-lint-disable table-groups }}
+  {{!-- template-lint-disable table-groups  --}}
   {{some-component-with-tagName-tbody}}
 </table>
 ```
