@@ -395,7 +395,7 @@ describe('public api', function() {
       expect(result).toEqual([]);
     });
 
-    it('shows a "rule not found" error if a rule defintion is not found"', function() {
+    it('shows a "rule not found" error if a rule definition is not found"', function() {
       linter = new Linter({
         console: mockConsole,
         config: {

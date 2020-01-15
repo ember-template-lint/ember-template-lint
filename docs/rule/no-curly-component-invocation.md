@@ -1,6 +1,6 @@
 ## no-curly-component-invocation
 
-There are two ways to invoke a component in a template: curly compoment syntax
+There are two ways to invoke a component in a template: curly component syntax
 (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The
 difference between them is syntactical. You should favour angle bracket syntax
 as it improves readability of templates, i.e. disambiguates components from
