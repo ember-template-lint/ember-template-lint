@@ -10,13 +10,13 @@ Common solutions are to use an `{{if}}` block, or refactor potentially confusing
 This rule **forbids** the following:
 
 ``` hbs
-{{! `unless` condition has a template helper }}
+{{!-- `unless` condition has a template helper  --}}
 
 {{unless (if true) "This is not recommended"}}
 ```
 
 ``` hbs
-{{! `unless` statement has an `else` block }}
+{{!-- `unless` statement has an `else` block  --}}
 
 {{#unless bandwagoner}}
   Go Niners!
@@ -26,7 +26,7 @@ This rule **forbids** the following:
 ```
 
 ``` hbs
-{{! conditional statement has an `else unless` block }}
+{{!-- conditional statement has an `else unless` block  --}}
 
 {{#if condition}}
   Hello

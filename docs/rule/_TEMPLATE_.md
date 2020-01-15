@@ -9,21 +9,21 @@
 This rule **forbids** the following:
 
 ```hbs
-{{! Example 1 }}
+{{!-- Example 1  --}}
 ```
 
 ```hbs
-{{! Example 2 }}
+{{!-- Example 2  --}}
 ```
 
 This rule **allows** the following:
 
 ```hbs
-{{! Example 1 }}
+{{!-- Example 1  --}}
 ```
 
 ```hbs
-{{! Example 2 }}
+{{!-- Example 2  --}}
 ```
 
 ### Migration

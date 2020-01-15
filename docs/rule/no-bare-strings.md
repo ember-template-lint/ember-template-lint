@@ -11,7 +11,7 @@ This rule **forbids** the following:
 This rule **allows** the following:
 
 ``` html
-{{! ember-intl example }}
+{{!-- ember-intl example  --}}
 <h2>{{t 'photos.banner' numPhotos=model.photos.length}}</h2>
 ```
 

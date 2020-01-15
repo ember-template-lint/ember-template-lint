@@ -8,7 +8,7 @@ Some ember shops try to put some guard-rails on the length of templates for the 
   potentially make the code harder to reason about: splitting up a single
   logical unit into multiple files simply because it is "long" roughly means that
   to find where some HTML snippet is you have to solve a murder mystery. So while
-  this check is helpful to help with sanity-checking, `{{! template-lint-disable template-length }}`
+  this check is helpful to help with sanity-checking, `{{!-- template-lint-disable template-length  --}}`
   might be the right answer if a long template does in fact represent a logical unit.
 
 - Templates that are extremely short might be better off inlined into the

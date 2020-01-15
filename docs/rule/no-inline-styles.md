@@ -15,7 +15,7 @@ This rule **allows** the following:
 ```
 
 ```hbs
-{{! only allowed when `allowDynamicStyles` is enabled }}
+{{!-- only allowed when `allowDynamicStyles` is enabled  --}}
 <div style={{html-safe (concat "background-image: url(" url ")")}}></div>
 ```
 

@@ -34,7 +34,7 @@ This rule **allows** the following:
 ```hbs
 <div style={{background-image url}}>
 
-{{! Presumably, `background-image` is a helper which returns an `htmlSafe` style string. }}
+{{!-- Presumably, `background-image` is a helper which returns an `htmlSafe` style string.  --}}
 ```
 
 ```hbs

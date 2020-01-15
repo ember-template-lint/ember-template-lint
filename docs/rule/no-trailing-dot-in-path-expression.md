@@ -5,7 +5,7 @@ This rule doesn't allow trailing dot(s) on a path expression. Since the trailing
 For instance:
 
 ```hbs
-{{! application.hbs }}
+{{!-- application.hbs  --}}
 
 <span class={{if contact. 'bg-success'}}>{{contact.name}}</span>
 ```
@@ -13,7 +13,7 @@ For instance:
 is interpreted as
 
 ```hbs
-{{! application.hbs }}
+{{!-- application.hbs  --}}
 
 <span class={{if contact . 'bg-success'}}>{{contact.name}}</span>
 ```
