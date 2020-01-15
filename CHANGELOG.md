@@ -659,8 +659,8 @@ This release includes all the changes that went into v1.9.0.
 - Correct naming of `no-attrs-in-components` rule (deprecating `no-attr-in-components`).
 - Add line/column information to fatal / parsing errors.
 - Deprecate `no-trailing-dot-in-path-expression` rule (it is now directly enforced by Glimmer itself).
-- Update `invocation-blacklist` rule to accomodate angle bracket invocation.
-- Update `no-unused-block-param` rule to accomodate angle bracket invocation.
+- Update `invocation-blacklist` rule to accommodate angle bracket invocation.
+- Update `no-unused-block-param` rule to accommodate angle bracket invocation.
 - Add `Plugin.prototype.isLocal` to test if a given node is derived from a block param.
 - Add ability to configure the indentation level for `attribute-indentation` rule.
 
@@ -1195,8 +1195,8 @@ All other rules with errors in the `foo/bar/baz` template would still be reporte
 
 ## v0.5.4
 
-- Move rule configuration into `rules` property inside `.tempalte-lintrc.js`. Configuration in the root is still supported,
-  but triggers a deprecation warning. Migration should be very straigtforward.
+- Move rule configuration into `rules` property inside `.template-lintrc.js`. Configuration in the root is still supported,
+  but triggers a deprecation warning. Migration should be very straightforward.
 
   Before:
 

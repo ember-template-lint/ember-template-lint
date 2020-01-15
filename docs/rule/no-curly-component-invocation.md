@@ -1,6 +1,6 @@
 ## no-curly-component-invocation
 
-There are two ways to invoke a component in a template: curly compoment syntax
+There are two ways to invoke a component in a template: curly component syntax
 (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The
 difference between them is syntactical. You should favour angle bracket syntax
 as it improves readability of templates, i.e. disambiguates components from
@@ -75,7 +75,7 @@ look like they could be component invocations.
 - object -- containing the following properties:
   - boolean -- `noImplicitThis` -- if `true`, the rule considers all simple
     curly invocations without positional or named arguments as components unless
-    they are prefixed with `this.` or `@` 
+    they are prefixed with `this.` or `@`
     (default: `false`)
   - boolean -- `requireDash` -- if `true`, the rule only considers curly
     invocations with a `-` character as potential component invocations
