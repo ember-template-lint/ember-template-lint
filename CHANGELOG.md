@@ -1,3 +1,17 @@
+## v1.13.1 (2020-01-15)
+
+#### :bug: Bug Fix
+* [#1071](https://github.com/ember-template-lint/ember-template-lint/pull/1071) Update `no-invalid-interactive` to allow `change` event with `<form>` elements ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#1076](https://github.com/ember-template-lint/ember-template-lint/pull/1076) Normalize handlebars comments to {{!-- syntax ([@locks](https://github.com/locks))
+* [#1068](https://github.com/ember-template-lint/ember-template-lint/pull/1068) no-curly-component-invocation: Document default config ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Ricardo Mendes ([@locks](https://github.com/locks))
+
 ## v1.13.0 (2020-01-07)
 
 #### :rocket: Enhancement
