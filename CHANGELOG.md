@@ -1,3 +1,49 @@
+## v2.0.0-beta.5 (2020-01-15)
+
+This release includes all the changes that went into v1.12.1 - v1.13.1.
+
+#### :boom: Breaking Change
+* [#1067](https://github.com/ember-template-lint/ember-template-lint/pull/1067) Remove deprecated `templateEnvironmentData` rule property ([@bmish](https://github.com/bmish))
+* [#1060](https://github.com/ember-template-lint/ember-template-lint/pull/1060) Add more rules to `stylistic` config ([@bmish](https://github.com/bmish))
+* [#1061](https://github.com/ember-template-lint/ember-template-lint/pull/1061) Remove deprecated rule `no-trailing-dot-in-path-expression` ([@bmish](https://github.com/bmish))
+* [#1059](https://github.com/ember-template-lint/ember-template-lint/pull/1059) Add `no-index-component-invocation` to `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1053](https://github.com/ember-template-lint/ember-template-lint/pull/1053) Add `no-invalid-role` and `no-negated-condition` rules to `recommended` preset ([@bmish](https://github.com/bmish))
+* [#1052](https://github.com/ember-template-lint/ember-template-lint/pull/1052) Change `allowDynamicStyles` option to default to true in `no-inline-styles` rule ([@bmish](https://github.com/bmish))
+* [#1055](https://github.com/ember-template-lint/ember-template-lint/pull/1055) Remove deprecated array config for `no-nested-interactive` rule ([@bmish](https://github.com/bmish))
+* [#1054](https://github.com/ember-template-lint/ember-template-lint/pull/1054) Remove deprecated rule `no-meta-redirect-with-time-limit` which was replaced by `no-invalid-meta` ([@bmish](https://github.com/bmish))
+* [#1047](https://github.com/ember-template-lint/ember-template-lint/pull/1047) Add `no-args-path`, `no-invalid-link-text`, `no-invalid-meta`, `require-button-type` into `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1023](https://github.com/ember-template-lint/ember-template-lint/pull/1023) Drop NodeJs v8 support ([@dcyriller](https://github.com/dcyriller))
+
+#### :rocket: Enhancement
+* [#1060](https://github.com/ember-template-lint/ember-template-lint/pull/1060) Add more rules to `stylistic` config ([@bmish](https://github.com/bmish))
+* [#1062](https://github.com/ember-template-lint/ember-template-lint/pull/1062) Add support for detecting `eol-last` from `.editorconfig` ([@rwjblue](https://github.com/rwjblue))
+* [#1059](https://github.com/ember-template-lint/ember-template-lint/pull/1059) Add `no-index-component-invocation` to `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1053](https://github.com/ember-template-lint/ember-template-lint/pull/1053) Add `no-invalid-role` and `no-negated-condition` rules to `recommended` preset ([@bmish](https://github.com/bmish))
+* [#1052](https://github.com/ember-template-lint/ember-template-lint/pull/1052) Change `allowDynamicStyles` option to default to true in `no-inline-styles` rule ([@bmish](https://github.com/bmish))
+* [#1048](https://github.com/ember-template-lint/ember-template-lint/pull/1048) Add `stylistic` configuration ([@bmish](https://github.com/bmish))
+* [#1047](https://github.com/ember-template-lint/ember-template-lint/pull/1047) Add `no-args-path`, `no-invalid-link-text`, `no-invalid-meta`, `require-button-type` into `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1045](https://github.com/ember-template-lint/ember-template-lint/pull/1045) Remove no-implicit-this from `recommended` config. ([@rwjblue](https://github.com/rwjblue))
+
+#### :bug: Bug Fix
+* [#1051](https://github.com/ember-template-lint/ember-template-lint/pull/1051) Fix configuration of `quotes` rule in `stylistic` preset ([@bmish](https://github.com/bmish))
+* [#1049](https://github.com/ember-template-lint/ember-template-lint/pull/1049) Bring `no-implicit-this` back into the `octane` config ([@rwjblue](https://github.com/rwjblue))
+
+#### :memo: Documentation
+* [#1050](https://github.com/ember-template-lint/ember-template-lint/pull/1050) Add presets list to README ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1067](https://github.com/ember-template-lint/ember-template-lint/pull/1067) Remove deprecated `templateEnvironmentData` rule property ([@bmish](https://github.com/bmish))
+* [#1061](https://github.com/ember-template-lint/ember-template-lint/pull/1061) Remove deprecated rule `no-trailing-dot-in-path-expression` ([@bmish](https://github.com/bmish))
+* [#1055](https://github.com/ember-template-lint/ember-template-lint/pull/1055) Remove deprecated array config for `no-nested-interactive` rule ([@bmish](https://github.com/bmish))
+* [#1054](https://github.com/ember-template-lint/ember-template-lint/pull/1054) Remove deprecated rule `no-meta-redirect-with-time-limit` which was replaced by `no-invalid-meta` ([@bmish](https://github.com/bmish))
+* [#1046](https://github.com/ember-template-lint/ember-template-lint/pull/1046) Update `octane` config to extend from `recommended`. ([@rwjblue](https://github.com/rwjblue))
+* [#1023](https://github.com/ember-template-lint/ember-template-lint/pull/1023) Drop NodeJs v8 support ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.13.1 (2020-01-15)
 
 #### :bug: Bug Fix
