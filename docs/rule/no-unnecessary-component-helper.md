@@ -17,7 +17,7 @@ This rule **allows** the following:
 ```
 
 ```hbs
-{{! the `component` helper is needed to invoke this }}
+{{!-- the `component` helper is needed to invoke this  --}}
 {{component "addon-name@component-name"}}
 ```
 

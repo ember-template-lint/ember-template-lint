@@ -12,7 +12,7 @@ or this (with newline at end):
 
 ```hbs
 <div>test</div>
-{{! newline would be here }}
+{{!-- newline would be here  --}}
 ```
 
 ### Configuration
