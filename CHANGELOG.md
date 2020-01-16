@@ -650,23 +650,23 @@
 
 ## 0.8.15
 
-- add whitelist to simple-unless [#356](https://github.com/rwjblue/ember-template-lint/pull/356)
-- add no-partial rule [#369](https://github.com/rwjblue/ember-template-lint/pull/369)
-- unused-block-params: Disable rule when partial is used in scope [#368](https://github.com/rwjblue/ember-template-lint/pull/368)
-- Remove unused `lodash` dependency [#367](https://github.com/rwjblue/ember-template-lint/pull/367)
-- add no-unnecessary-concat rule [#365](https://github.com/rwjblue/ember-template-lint/pull/365)
-- update @glimmer/compiler to version 0.32.3 [#362](https://github.com/rwjblue/ember-template-lint/pull/362)
-- Remove explicit `@glimmer/syntax` dependency [#363](https://github.com/rwjblue/ember-template-lint/pull/363)
-- add no-outlet-outside-routes rule [#359](https://github.com/rwjblue/ember-template-lint/pull/359)
-- add no-input-block and no-input-tagname rules [#361](https://github.com/rwjblue/ember-template-lint/pull/361)
-- add no-unbound rule [#360](https://github.com/rwjblue/ember-template-lint/pull/360)
-- fix attribute-indentation) [#358](https://github.com/rwjblue/ember-template-lint/pull/358)
-- fix eol-last [#344](https://github.com/rwjblue/ember-template-lint/pull/344)
-- fix attribute-indentation [#334](https://github.com/rwjblue/ember-template-lint/pull/334)
-- Allow form elements to have reset actions [#355](https://github.com/rwjblue/ember-template-lint/pull/355)
-- No trailing dot(s) in a path expression [#342](https://github.com/rwjblue/ember-template-lint/pull/342)
-- Allow sharing and extending configs [#322](https://github.com/rwjblue/ember-template-lint/pull/322)
-- table-groups improvements [#335](https://github.com/rwjblue/ember-template-lint/pull/335)
+- add whitelist to simple-unless [#356](https://github.com/ember-template-lint/ember-template-lint/pull/356)
+- add no-partial rule [#369](https://github.com/ember-template-lint/ember-template-lint/pull/369)
+- unused-block-params: Disable rule when partial is used in scope [#368](https://github.com/ember-template-lint/ember-template-lint/pull/368)
+- Remove unused `lodash` dependency [#367](https://github.com/ember-template-lint/ember-template-lint/pull/367)
+- add no-unnecessary-concat rule [#365](https://github.com/ember-template-lint/ember-template-lint/pull/365)
+- update @glimmer/compiler to version 0.32.3 [#362](https://github.com/ember-template-lint/ember-template-lint/pull/362)
+- Remove explicit `@glimmer/syntax` dependency [#363](https://github.com/ember-template-lint/ember-template-lint/pull/363)
+- add no-outlet-outside-routes rule [#359](https://github.com/ember-template-lint/ember-template-lint/pull/359)
+- add no-input-block and no-input-tagname rules [#361](https://github.com/ember-template-lint/ember-template-lint/pull/361)
+- add no-unbound rule [#360](https://github.com/ember-template-lint/ember-template-lint/pull/360)
+- fix attribute-indentation) [#358](https://github.com/ember-template-lint/ember-template-lint/pull/358)
+- fix eol-last [#344](https://github.com/ember-template-lint/ember-template-lint/pull/344)
+- fix attribute-indentation [#334](https://github.com/ember-template-lint/ember-template-lint/pull/334)
+- Allow form elements to have reset actions [#355](https://github.com/ember-template-lint/ember-template-lint/pull/355)
+- No trailing dot(s) in a path expression [#342](https://github.com/ember-template-lint/ember-template-lint/pull/342)
+- Allow sharing and extending configs [#322](https://github.com/ember-template-lint/ember-template-lint/pull/322)
+- table-groups improvements [#335](https://github.com/ember-template-lint/ember-template-lint/pull/335)
 
 ## 0.8.14
 
@@ -690,7 +690,7 @@ or:
 {{my-helper 'hello there'}}
 ```
 
-You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/quotes.md).
+You can read more about the rule [in the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/quotes.md).
 
 ## 0.8.12
 
@@ -718,7 +718,7 @@ Good:
 //
 ```
 
-You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/no-trailing-spaces.md).
+You can read more about the rule [in the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-trailing-spaces.md).
 
 - Add new `eol-last` rule. Examples:
 
@@ -735,7 +735,7 @@ or:
 
 ```
 
-You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/eol-last.md).
+You can read more about the rule [in the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/eol-last.md).
 
 ## 0.8.9
 
@@ -782,7 +782,7 @@ Instead, you should write your table as:
 </table>
 ```
 
-You can read more about the rule [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/table-groups.md).
+You can read more about the rule [in the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/table-groups.md).
 
 ## 0.8.7
 
@@ -794,7 +794,7 @@ You can read more about the rule [in the documentation](https://github.com/rwjbl
 
 ## 0.8.5
 
-- Add new `template-length` rule. When enabled, this rule restricts the total number of lines in a template file to the configured number. You can read more about the rule (and configuration) [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/template-length.md).
+- Add new `template-length` rule. When enabled, this rule restricts the total number of lines in a template file to the configured number. You can read more about the rule (and configuration) [in the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/template-length.md).
 
 ## 0.8.4
 
@@ -839,7 +839,7 @@ derp="qux"
   derp="qux"}}
 ```
 
-You can read more about the rule (and configuration) [in the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/attribute-indentation.md).
+You can read more about the rule (and configuration) [in the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/attribute-indentation.md).
 
 
 ## 0.8.3
@@ -850,8 +850,8 @@ You can read more about the rule (and configuration) [in the documentation](http
 
 ## 0.8.2
 
-- Add new rule `no-duplicate-attributes` to prevent duplicating the same attributes in a single mustache/block/element. Read the [documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/no-duplicate-attributes.md) for more details.
-- Add new rule `linkbreak-style` to ensure all templates use the same style of linebreaks throughout the template. Read the [documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/rule/linebreak-style.md) for more details.
+- Add new rule `no-duplicate-attributes` to prevent duplicating the same attributes in a single mustache/block/element. Read the [documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-duplicate-attributes.md) for more details.
+- Add new rule `linkbreak-style` to ensure all templates use the same style of linebreaks throughout the template. Read the [documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/linebreak-style.md) for more details.
 
 ## 0.8.1
 
@@ -881,8 +881,8 @@ You can read more about the rule (and configuration) [in the documentation](http
 
 ## 0.7.0
 
-- Add support for user supplied rules and configuration. Please review [the documentation](https://github.com/rwjblue/ember-template-lint/blob/master/docs/plugins.md) for more details.
-- Add `ember-template-lint` command line script. This enable much easier running of the linter from the command line, editor plugins, etc. Supports `--json` flag to enable easier consumption by tools. See [documentation](https://github.com/rwjblue/ember-template-lint#cli-executable) for more details.
+- Add support for user supplied rules and configuration. Please review [the documentation](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/plugins.md) for more details.
+- Add `ember-template-lint` command line script. This enable much easier running of the linter from the command line, editor plugins, etc. Supports `--json` flag to enable easier consumption by tools. See [documentation](https://github.com/ember-template-lint/ember-template-lint#cli-executable) for more details.
 - Allow `rel=noreferrer` to satisfy the `link-rel-noopener` rule.
 - Add `inline-styles` rule, which forbids using the `style` attribute in HTML elements.
 - Drop support for Node < 4.
@@ -910,7 +910,7 @@ You can read more about the rule (and configuration) [in the documentation](http
 - Add `simple-unless` to the recommended configuration.
 - Allow `<form onsubmit={{action 'foo'}}></form>` from the `invalid-interactive` rule.
 - Remove `deprecated-each-syntax` from `recommended` config.
-- Add configurable option to `link-rel-noopener` to require **both** `noopener` and `noreferrer`. See the [documentation](https://github.com/rwjblue/ember-template-lint#link-rel-noopener) for more details.
+- Add configurable option to `link-rel-noopener` to require **both** `noopener` and `noreferrer`. See the [documentation](https://github.com/ember-template-lint/ember-template-lint#link-rel-noopener) for more details.
 - Update to leverage ES2015 features that are supported in Node 4.
 - Added `no-log` and `no-debugger` rules. These rules forbid usage of `{{log}}` and `{{debugger}` helpers, which should be used only for local debugging and never checked in.
 - Fix issues around templates including a [Byte Order Mark](https://en.wikipedia.org/wiki/Byte_order_mark).
@@ -1049,7 +1049,7 @@ You can read more about the rule (and configuration) [in the documentation](http
   - Specifically handle the various edge cases of having `<label><input></label>`.
   - Prevent multiple interactive elements inside of a `<label>`.
 - Fix bugs with the `invalid-indentation` around escaped mustaches and raw blocks.
-- Add `invalid-interactive` rule ([full documentation](https://github.com/rwjblue/ember-template-lint#invalid-interactive)).
+- Add `invalid-interactive` rule ([full documentation](https://github.com/ember-template-lint/ember-template-lint#invalid-interactive)).
   Adding interactivity to an element that is not naturally interactive content leads to a very poor experience for
   users of assistive technology (i.e. screen readers). In order to ensure that screen readers can provide useful information
   to their users, we should add an appropriate `role` attribute when the underlying element would not have made that
@@ -1067,7 +1067,7 @@ You can read more about the rule (and configuration) [in the documentation](http
 <div role="button" {{action "foo"}}></div>
 ```
 
-- Add `img-alt-attributes` rule ([full documentation](https://github.com/rwjblue/ember-template-lint#img-alt-attributes)).
+- Add `img-alt-attributes` rule ([full documentation](https://github.com/ember-template-lint/ember-template-lint#img-alt-attributes)).
   An `<img>` without an `alt` attribute is essentially invisible to assistive technology (i.e. screen readers).
   In order to ensure that screen readers can provide useful information, we need to ensure that all `<img>` elements
   have an `alt` specified. See [WCAG Suggestion H37](https://www.w3.org/TR/WCAG20-TECHS/H37.html).
@@ -1134,7 +1134,7 @@ All other rules with errors in the `foo/bar/baz` template would still be reporte
 
 ## v0.5.6
 
-- Remove `bare-strings` from `recommended` configuration. See [#27](https://github.com/rwjblue/ember-template-lint/pull/27) for more details.
+- Remove `bare-strings` from `recommended` configuration. See [#27](https://github.com/ember-template-lint/ember-template-lint/pull/27) for more details.
 
 ## v0.5.5
 
