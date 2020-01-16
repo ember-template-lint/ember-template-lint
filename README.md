@@ -92,6 +92,13 @@ ember-template-lint into your normal eslint workflow.
 
 ## Configuration
 
+### Presets
+
+Name   | Description |
+|:-----|:------------|
+| [recommended](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/recommended.js) | enables the recommended rules |
+| [octane](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
+
 ### Project Wide
 
 You can turn on specific rules by toggling them in a
