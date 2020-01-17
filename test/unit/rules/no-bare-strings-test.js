@@ -101,11 +101,11 @@ generateRuleTests({
       template: '<input placeholder="{{foo}}X">',
     },
 
-    '{{! template-lint-disable bare-strings}}LOL{{! template-lint-enable bare-strings}}',
+    '{{! template-lint-disable no-bare-strings}}LOL{{! template-lint-enable no-bare-strings}}',
 
-    `{{!-- template-lint-disable bare-strings --}}
+    `{{!-- template-lint-disable no-bare-strings --}}
 <i class="material-icons">folder_open</i>
-{{!-- template-lint-enable bare-strings --}}`,
+{{!-- template-lint-enable no-bare-strings --}}`,
     '<div data-test-foo-bar></div>',
   ],
 

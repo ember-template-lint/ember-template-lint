@@ -129,7 +129,7 @@ describe('public api', function() {
     it('with deprecated rule config', function() {
       let expected = {
         rules: {
-          'bare-strings': true,
+          'no-bare-strings': true,
         },
       };
       project.write({
@@ -172,7 +172,7 @@ describe('public api', function() {
     let linter;
     let expected = {
       rules: {
-        'bare-strings': true,
+        'no-bare-strings': true,
       },
     };
 
