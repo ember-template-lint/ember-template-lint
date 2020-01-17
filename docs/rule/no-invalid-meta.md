@@ -45,6 +45,7 @@ This rule **allows** the following:
 
 ### References
 
+* [HTML meta tag doc](https://www.w3schools.com/tags/tag_meta.asp)
 * [F40: Failure due to using meta redirect with a time limit](https://www.w3.org/WAI/WCAG21/Techniques/failures/F40)
 * [F41: Failure due to using meta refresh to reload the page](https://www.w3.org/WAI/WCAG21/Techniques/failures/F41)
 * [Success Criterion 2.2.1: Timing Adjustable](https://www.w3.org/WAI/WCAG21/Understanding/timing-adjustable)

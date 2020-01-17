@@ -8,11 +8,15 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<meta>',
+    '<meta charset="UTF-8">',
     '<meta http-equiv="refresh" content="0; url=http://www.example.com">',
     '<meta http-equiv="refresh" content="72001">',
+    '<meta http-equiv={{httpEquiv}} content={{content}}>',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = yes">',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable= yes">',
+    '<meta name={{name}} content={{content}}>',
 
     // doesn't error on unrelated elements
     '<div></div>',
