@@ -1,3 +1,15 @@
+## v1.13.2 (2020-01-18)
+
+#### :bug: Bug Fix
+* [#1087](https://github.com/ember-template-lint/ember-template-lint/pull/1087) Fix crash from missing `content` attribute in `no-invalid-meta` rule ([@bmish](https://github.com/bmish))
+
+#### :memo: Documentation
+* [#1083](https://github.com/ember-template-lint/ember-template-lint/pull/1083) Add presets list to README ([@bmish](https://github.com/bmish))
+* [#1081](https://github.com/ember-template-lint/ember-template-lint/pull/1081) Fix some spelling mistakes ([@bmish](https://github.com/bmish))
+
+#### Committers: 1
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+
 ## v1.13.1 (2020-01-15)
 
 #### :bug: Bug Fix
