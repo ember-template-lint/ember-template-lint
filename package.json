@@ -23,7 +23,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@glimmer/syntax": "^0.45.0",
+    "@glimmer/syntax": "^0.47.0",
     "chalk": "^2.0.0",
     "globby": "^9.0.0",
     "minimatch": "^3.0.4",
