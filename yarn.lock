@@ -18,27 +18,27 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@glimmer/interfaces@^0.45.3":
-  version "0.45.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.45.3.tgz#9a54b6cc3f9d5887fc26c39750fd180d9dc650c0"
-  integrity sha512-RsjpflPimJUgkJwzhKWhu/CJ8HdRwqBFcSNPL9Fu8cElE1DyERdcqJbSCfw7pkFornVrhoU8gTNxzo24ly1H3g==
+"@glimmer/interfaces@^0.47.0":
+  version "0.47.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.47.0.tgz#2ac3c624fc9e39bb124f056108ec396ba9d62dcc"
+  integrity sha512-inLQGO0037SDohK4um6zDbdc195DpBOVPUQiycT1yQT+hTcOkArii0X8K0XBIJQSxAwx3xTkRPcCQZTml1U8vA==
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
-"@glimmer/syntax@^0.45.0":
-  version "0.45.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.45.3.tgz#298c1eff98661726eb8df0806a241e7b43ac662b"
-  integrity sha512-olTpMV4FiF7ylLYWTHzlNGiirQvCPGSVFDtohDcrNgHVkXwYYpaCF6QUgsHQMPCrY2Zu2Ohqv4PpZo1cJXY0ug==
+"@glimmer/syntax@^0.47.0":
+  version "0.47.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.47.0.tgz#ef4c9b97ec5586a84260e80ca4f2c9e53ab97ed5"
+  integrity sha512-cZF22xKsDbgx3FOwptVkXa9FHO9X9O8YYPwGlU8OXHfcrnhwZIrsIDC3LA1nOgkG9MgH1C+gPnpAOFogfrLIVg==
   dependencies:
-    "@glimmer/interfaces" "^0.45.3"
-    "@glimmer/util" "^0.45.3"
+    "@glimmer/interfaces" "^0.47.0"
+    "@glimmer/util" "^0.47.0"
     handlebars "^4.5.1"
     simple-html-tokenizer "^0.5.8"
 
-"@glimmer/util@^0.45.3":
-  version "0.45.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.45.3.tgz#da902da3c5e36a8dfc79c9993718044d88eacc76"
-  integrity sha512-2lf+f3ND5OiKIFbjeHMq/1me0xymqAanvJoVjxHMd//s74o6GVsjFUSVx7FJ53E8VE2gmtdL4m/Yz5smAJHD4A==
+"@glimmer/util@^0.47.0":
+  version "0.47.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.47.0.tgz#0dcf2ebfd225c9d740971fa1c9e5bfac4941c355"
+  integrity sha512-GZzwpaSBAoo9t4zMvNugHjE5tOYy6qWNF/Ce++n43A7c1M2Fmt0yfAdB1NHtqPRHU3SYFh3zVR32g87Ft92cnA==
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
