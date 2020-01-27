@@ -34,7 +34,7 @@ Sample plugin object:
   // Define rules for this plugin. Each path should map to a plugin rule
   rules: {
     'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
-    'another-custom-rule': require('.lib/template-lint-rules/another-custom-rule')
+    'another-custom-rule': require('./lib/template-lint-rules/another-custom-rule')
   },
 
   // Define configurations for this plugin that can be extended by the base configuration
