@@ -25,5 +25,3 @@ This rule **allows** the following:
 ### References
 
 * https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html
-* (link to relevant function spec goes here)
-* (link to relevant guide goes here)
