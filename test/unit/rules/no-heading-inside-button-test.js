@@ -71,5 +71,15 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template: '<div role="button"><h6></h6></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        moduleId: 'layout.hbs',
+        source: '<div role="button"><h6></h6></div>',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 });
