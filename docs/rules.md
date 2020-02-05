@@ -20,6 +20,7 @@
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-element-event-actions](rule/no-element-event-actions.md)
 * [no-extra-mut-helper-argument](rule/no-extra-mut-helper-argument.md)
+* [no-heading-inside-button](rule/no-heading-inside-button.md)
 * [no-html-comments](rule/no-html-comments.md)
 * [no-implicit-this](rule/no-implicit-this.md)
 * [no-index-component-invocation](rule/no-index-component-invocation.md)
