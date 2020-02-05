@@ -251,8 +251,14 @@ A few ideas for where to take this in the future:
 ### Installation
 
 * `git clone` this repository
-* `npm install`
+* `yarn install`
+
+### Creating A New Rule
+
+* `yarn new rule-name` once you're inside this repository's directory
 
 ### Running Tests
 
-* `npm test`
+* `yarn test`
+OR
+* `yarn test rule-name`

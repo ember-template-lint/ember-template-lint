@@ -100,7 +100,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['bin/**/*.js'],
+      files: ['bin/**/*.js', 'dev/new-rule/index.js'],
       rules: {
         'no-console': 'off',
       },
@@ -113,6 +113,6 @@ module.exports = {
       rules: {
         'import/no-dynamic-require': 'off'
       }
-    }
+    },
   ],
 };
