@@ -54,6 +54,7 @@
 * [quotes](rule/quotes.md)
 * [require-button-type](rule/require-button-type.md)
 * [require-iframe-title](rule/require-iframe-title.md)
+* [require-input-label](rule/require-input-label.md)
 * [require-valid-alt-text](rule/require-valid-alt-text.md)
 * [self-closing-void-elements](rule/self-closing-void-elements.md)
 * [simple-unless](rule/simple-unless.md)
