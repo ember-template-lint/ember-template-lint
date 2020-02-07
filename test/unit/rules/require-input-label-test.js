@@ -13,6 +13,7 @@ generateRuleTests({
     '<label><input />LabelText</label>',
     '<label>LabelText<Input /></label>',
     '<label><Input />LabelText</label>',
+    '<label><div><input /></div></label>', // technically okay, hopefully no one does this though
     '<input id="probablyHasLabel" />', // it's likely to have an associated label if it has an id attribute
     '<input aria-label={{labelText}} />',
     '<input aria-labelledby="someIdValue" />',
