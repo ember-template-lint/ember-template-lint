@@ -46,6 +46,7 @@ generateRuleTests({
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
     '(),.&+-=*/#%!?:[]{}',
     '&lpar;&rpar;&comma;&period;&amp;&nbsp;',
+    '&mdash;&ndash;',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
     '<script> fdff sf sf f </script>',
