@@ -8,7 +8,12 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<button></button>', '<button><span></span></button>', '<button><div></div></button>'],
+  good: [
+    '<button></button>',
+    '<button><span></span></button>',
+    '<button><div></div></button>',
+    '<div></div>',
+  ],
 
   bad: [
     {
