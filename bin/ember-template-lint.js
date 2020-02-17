@@ -4,8 +4,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const globby = require('globby');
 const Linter = require('../lib/index');
+const expandFileGlobs = require('../lib/helpers/expand-file-globs');
 
 const STDIN = '/dev/stdin';
 
@@ -15,23 +15,7 @@ function lintFile(linter, filePath, moduleId) {
   // TODO: swap to using get-stdin when we can leverage async/await
   let source = fs.readFileSync(toRead, { encoding: 'utf8' });
 
-  return linter.verify({ source, moduleId });
-}
-
-function expandFileGlobs(positional) {
-  let result = new Set();
-
-  positional.forEach(item => {
-    globby
-      .sync(item, {
-        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-        gitignore: true,
-      })
-      .filter(filePath => filePath.slice(-4) === '.hbs')
-      .forEach(filePath => result.add(filePath));
-  });
-
-  return result;
+  return linter.verify({ source, moduleId, filePath });
 }
 
 function parseArgv(_argv) {

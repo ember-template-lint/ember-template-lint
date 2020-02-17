@@ -140,7 +140,10 @@ describe('ember-template-lint executable', function() {
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  2:5  error  Non-translated string used  no-bare-strings',
           '',
-          '✖ 2 problems (2 errors, 0 warnings)',
+          path.resolve('./test/fixtures/with-errors/app/templates/components/foo.hbs'),
+          "  1:2  error  Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.  no-implicit-this",
+          '',
+          '✖ 3 problems (3 errors, 0 warnings)',
           '',
         ]);
         expect(result.stderr).toBeFalsy();
@@ -200,11 +203,14 @@ describe('ember-template-lint executable', function() {
           cwd: './test/fixtures/with-errors',
         });
 
-        let fullTemplateFilePath = path.resolve(
+        let fullApplicationTemplateFilePath = path.resolve(
           './test/fixtures/with-errors/app/templates/application.hbs'
         );
+        let fullFooTemplateFilePath = path.resolve(
+          './test/fixtures/with-errors/app/templates/components/foo.hbs'
+        );
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [
+        expectedOutputData[fullApplicationTemplateFilePath] = [
           {
             column: 4,
             line: 1,
@@ -222,6 +228,18 @@ describe('ember-template-lint executable', function() {
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Bare strings are bad...',
+          },
+        ];
+        expectedOutputData[fullFooTemplateFilePath] = [
+          {
+            column: 2,
+            line: 1,
+            message:
+              "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
+            moduleId: 'app/templates/components/foo',
+            rule: 'no-implicit-this',
+            severity: 2,
+            source: 'fooData',
           },
         ];
 
@@ -412,7 +430,12 @@ describe('ember-template-lint executable', function() {
       setupEnvVar('GITHUB_ACTIONS', 'true');
 
       it('should print GitHub Actions annotations', function() {
-        let filePath = path.resolve('./test/fixtures/with-errors/app/templates/application.hbs');
+        let applicationFilePath = path.resolve(
+          './test/fixtures/with-errors/app/templates/application.hbs'
+        );
+        let fooFilePath = path.resolve(
+          './test/fixtures/with-errors/app/templates/components/foo.hbs'
+        );
 
         let result = run(['.'], {
           cwd: './test/fixtures/with-errors',
@@ -421,13 +444,17 @@ describe('ember-template-lint executable', function() {
 
         expect(result.code).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          filePath,
+          applicationFilePath,
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  2:5  error  Non-translated string used  no-bare-strings',
           '',
-          '✖ 2 problems (2 errors, 0 warnings)',
-          `::error file=${filePath},line=1,col=4::Non-translated string used`,
-          `::error file=${filePath},line=2,col=5::Non-translated string used`,
+          fooFilePath,
+          "  1:2  error  Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.  no-implicit-this",
+          '',
+          '✖ 3 problems (3 errors, 0 warnings)',
+          `::error file=${applicationFilePath},line=1,col=4::Non-translated string used`,
+          `::error file=${applicationFilePath},line=2,col=5::Non-translated string used`,
+          `::error file=${fooFilePath},line=1,col=2::Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.`,
           '',
         ]);
         expect(result.stderr).toBeFalsy();
