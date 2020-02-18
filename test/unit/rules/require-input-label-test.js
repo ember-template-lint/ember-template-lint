@@ -18,6 +18,7 @@ generateRuleTests({
     '<input aria-label={{labelText}} />',
     '<input aria-labelledby="someIdValue" />',
     '<div></div>',
+    '<input ...attributes/>', // we are unable to correctly determine if this has a label or not, so we have to allow it
   ],
 
   bad: [
@@ -39,6 +40,16 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: '<input />',
+      },
+    },
+    {
+      template: '<input title="some title value" />',
+      result: {
+        moduleId: 'layout.hbs',
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<input title="some title value" />',
       },
     },
   ],
