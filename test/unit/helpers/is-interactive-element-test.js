@@ -40,6 +40,7 @@ describe('isInteractiveElement', function() {
     '<div tabindex=1></div>': 'an element with the `tabindex` attribute',
     '<label></label>': '<label>',
     '<div role="button"></div>': 'an element with `role="button"`',
+    '<div role="tablist"></div>': 'an element with `role="tablist"`',
     '<div role="textbox"></div>': 'an element with `role="textbox"`',
     '<video controls></video>': 'an <video> element with the `controls` attribute',
     '<audio controls></audio>': 'an <audio> element with the `controls` attribute',
