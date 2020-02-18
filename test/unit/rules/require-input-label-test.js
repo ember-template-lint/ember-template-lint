@@ -17,6 +17,7 @@ generateRuleTests({
     '<input id="probablyHasLabel" />', // it's likely to have an associated label if it has an id attribute
     '<input aria-label={{labelText}} />',
     '<input aria-labelledby="someIdValue" />',
+    '<div></div>',
   ],
 
   bad: [
@@ -27,6 +28,16 @@ generateRuleTests({
         message: ERROR_MESSAGE,
         line: 1,
         column: 5,
+        source: '<input />',
+      },
+    },
+    {
+      template: '<input />',
+      result: {
+        moduleId: 'layout.hbs',
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
         source: '<input />',
       },
     },

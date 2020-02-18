@@ -15,7 +15,7 @@ This rule **forbids** the following:
 This rule **allows** the following:
 
 ```hbs
-<label><input /></label>
+<label>Some Label Text<input /></label>
 ```
 
 ```hbs
