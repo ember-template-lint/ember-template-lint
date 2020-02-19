@@ -263,12 +263,23 @@ describe('public api', function() {
         rules: {
           'no-bare-strings': true,
         },
+        overrides: [
+          {
+            files: ['**/templates/**/*.hbs'],
+            rules: {
+              'no-implicit-this': true,
+            },
+          },
+        ],
       });
 
       project.write({
         app: {
           templates: {
             'application.hbs': '<h2>Here too!!</h2>\n<div>Bare strings are bad...</div>\n',
+            components: {
+              'foo.hbs': '{{fooData}}',
+            },
           },
         },
       });
@@ -341,6 +352,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -371,6 +383,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       let expected = [
@@ -397,6 +410,104 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
+    it('Works with overrides - base case', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath.slice(0, -4),
+        filePath: templatePath,
+      });
+
+      let expected = [
+        {
+          column: 2,
+          line: 1,
+          message:
+            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
+          moduleId: templatePath.slice(0, -4),
+          rule: 'no-implicit-this',
+          severity: 2,
+          source: 'fooData',
+        },
+      ];
+
+      expect(result).toEqual(expected);
+    });
+
+    it('Works with overrides with custom warning severity', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          overrides: [
+            {
+              files: ['**/components/**'],
+              rules: {
+                'no-implicit-this': true,
+              },
+              severity: 1,
+            },
+          ],
+        },
+      });
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath.slice(0, -4),
+        filePath: templatePath,
+      });
+
+      let expected = [
+        {
+          column: 2,
+          line: 1,
+          message:
+            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
+          moduleId: templatePath.slice(0, -4),
+          rule: 'no-implicit-this',
+          severity: 1,
+          source: 'fooData',
+        },
+      ];
+
+      expect(result).toEqual(expected);
+    });
+
+    it('Should not trigger the lint error over custom overrides', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: {
+            'no-implicit-this': true,
+          },
+          overrides: [
+            {
+              files: ['**/components/**'],
+              rules: {
+                'no-implicit-this': false,
+              },
+              severity: 1,
+            },
+          ],
+        },
+      });
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath.slice(0, -4),
+        filePath: templatePath,
+      });
+
+      expect(result).toEqual([]);
+    });
+
     it('triggers warnings when specific rule is marked as pending', function() {
       linter = new Linter({
         console: mockConsole,
@@ -412,6 +523,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -443,6 +555,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -471,6 +584,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -499,6 +613,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       let expected = [
@@ -539,6 +654,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       expect(result).toEqual([]);
@@ -558,6 +674,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       expect(result).toEqual([]);
@@ -576,6 +693,7 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
+        filePath: 'some/path/here.hbs',
       });
 
       expect(result).toEqual([
