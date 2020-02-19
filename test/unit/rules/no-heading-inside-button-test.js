@@ -13,6 +13,7 @@ generateRuleTests({
     '<button><span></span></button>',
     '<button><div></div></button>',
     '<div></div>',
+    '<div><h1></h1></div>',
   ],
 
   bad: [
