@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "ember-template-recast": "^4.0.1",
+    "ember-template-recast": "^4.1.0",
     "globby": "^11.0.0",
     "micromatch": "^4.0.2",
     "minimatch": "^3.0.4",

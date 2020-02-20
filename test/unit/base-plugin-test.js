@@ -186,7 +186,7 @@ describe('base plugin', function() {
         '<div>\n  <div data-foo="blerp">\n    Wheee!\n  </div>\n</div>',
         '\n  ',
         '<div data-foo="blerp">\n    Wheee!\n  </div>',
-        '"blerp"',
+        'blerp',
         '\n    Wheee!\n  ',
         '\n',
       ],
