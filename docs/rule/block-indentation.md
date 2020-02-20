@@ -38,6 +38,9 @@ The following values are valid configuration:
   * boolean -- `true` indicates a 2 space indent, `false` indicates that the rule is disabled.
   * numeric -- the number of spaces to require for indentation
   * "tab" -- To indicate tab style indentation (1 char)
+  * object -- An object with the following keys:
+     * `indentation: <numeric>` - number of spaces to indent (defaults to 2)
+     * `ignoreComments: <boolean>` - skip indentation for comments (defaults to `false`)
 
 ### Related Rules
 
