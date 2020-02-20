@@ -37,6 +37,7 @@ const SHARED_GOOD = [
   '{{hash}}',
   '{{outlet}}',
   '{{yield}}',
+  '{{yield to="inverse"}}',
 
   // real world examples
   '<GoodCode />',

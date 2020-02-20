@@ -44,6 +44,42 @@ This release includes all the changes that went into v1.12.1 - v1.13.1.
 - Cyrille David ([@dcyriller](https://github.com/dcyriller))
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
+## v1.14.0 (2020-02-20)
+
+#### :rocket: Enhancement
+* [#1078](https://github.com/ember-template-lint/ember-template-lint/pull/1078) Add `modifier-name-case` rule ([@mansona](https://github.com/mansona))
+
+#### :bug: Bug Fix
+* [#1108](https://github.com/ember-template-lint/ember-template-lint/pull/1108) Update `no-bare-strings` rule to allow `&ndash;` ([@jrjohnson](https://github.com/jrjohnson))
+* [#1090](https://github.com/ember-template-lint/ember-template-lint/pull/1090) Update `no-curly-component-invocation` rule to ignore all usages of the `yield` helper ([@wagenet](https://github.com/wagenet))
+
+#### :memo: Documentation
+* [#1094](https://github.com/ember-template-lint/ember-template-lint/pull/1094) docs/plugins: Fix typo ([@Turbo87](https://github.com/Turbo87))
+
+#### :house: Internal
+* [#1121](https://github.com/ember-template-lint/ember-template-lint/pull/1121) Update dependencies to latest allowed versions. ([@rwjblue](https://github.com/rwjblue))
+* [#1107](https://github.com/ember-template-lint/ember-template-lint/pull/1107) Simplify a few rules by using the `path` visitor argument ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 6
+- Chris Manson ([@mansona](https://github.com/mansona))
+- Jonathan Johnson ([@jrjohnson](https://github.com/jrjohnson))
+- Peter Wagenet ([@wagenet](https://github.com/wagenet))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+## v1.13.2 (2020-01-18)
+
+#### :bug: Bug Fix
+* [#1087](https://github.com/ember-template-lint/ember-template-lint/pull/1087) Fix crash from missing `content` attribute in `no-invalid-meta` rule ([@bmish](https://github.com/bmish))
+
+#### :memo: Documentation
+* [#1083](https://github.com/ember-template-lint/ember-template-lint/pull/1083) Add presets list to README ([@bmish](https://github.com/bmish))
+* [#1081](https://github.com/ember-template-lint/ember-template-lint/pull/1081) Fix some spelling mistakes ([@bmish](https://github.com/bmish))
+
+#### Committers: 1
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+
 ## v1.13.1 (2020-01-15)
 
 #### :bug: Bug Fix
