@@ -152,6 +152,12 @@ generateRuleTests({
       config: {
         ignoreComments: true,
       },
+      template: ['<div>', '{{! Comment }}foo', '</div>'].join('\n'),
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
       template: '<div>foo</div>{{! Comment }}',
     },
     {
@@ -688,6 +694,24 @@ generateRuleTests({
           rule: 'block-indentation',
           severity: 2,
           source: '<div>\n{{! Comment }}\n</div>',
+        },
+      ],
+    },
+    {
+      template: ['<div>', 'test{{! Comment }}', '</div>'].join('\n'),
+      config: {
+        ignoreComments: true,
+      },
+      results: [
+        {
+          column: 0,
+          line: 1,
+          message:
+            'Incorrect indentation for `test` beginning at L1:C0. Expected `test` to be at an indentation of 2 but was found at 0.',
+          moduleId: 'layout.hbs',
+          rule: 'block-indentation',
+          severity: 2,
+          source: ['<div>', 'test{{! Comment }}', '</div>'].join('\n'),
         },
       ],
     },
