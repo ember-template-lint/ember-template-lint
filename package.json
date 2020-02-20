@@ -23,11 +23,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@glimmer/syntax": "^0.47.0",
-    "chalk": "^2.0.0",
-    "globby": "^9.0.0",
+    "@glimmer/syntax": "^0.47.9",
+    "chalk": "^2.4.2",
+    "globby": "^9.2.0",
     "minimatch": "^3.0.4",
-    "resolve": "^1.1.3",
+    "resolve": "^1.15.1",
     "strip-bom": "^3.0.0"
   },
   "devDependencies": {
