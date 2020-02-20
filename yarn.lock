@@ -1575,10 +1575,10 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-ember-template-recast@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-4.0.1.tgz#20f86106bc990a505f5993f434a8d386abdb3175"
-  integrity sha512-0ZdNL2CotrwBf3kW8etxurupxiUPtwnwp8bIADEHmPRSd729SIb5qiw6p1aCgEtsj64Fa9kNNQUePCdgZDWAJQ==
+ember-template-recast@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-4.1.0.tgz#7d72fc40c56d7d0f3fa34b50a67608ff7e595faa"
+  integrity sha512-BSusv6T9N+toxTzzTQgRpKn4OFce8AFsuJ6tf6N9/YSAAJ63nSBKtXkAoFKSHBET6DgzFEjSe3F0ChCDtYMHWg==
   dependencies:
     "@glimmer/syntax" "^0.47.9"
     async-promise-queue "^1.0.5"
