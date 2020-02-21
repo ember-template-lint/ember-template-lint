@@ -35,7 +35,7 @@ as
         line: 1,
         column: 0,
         message:
-          'Unexpected block usage. "<Foo |a>" Missing " as " keyword before block symbol "|". Missing second (closing) "|" block symbol.',
+          'Unexpected block usage in "<Foo |a>". Missing " as " keyword before block symbol "|". Missing second (closing) "|" block symbol.',
         source: '<Foo |a>',
       },
     },
@@ -46,7 +46,7 @@ as
         line: 1,
         column: 0,
         message:
-          'Unexpected block usage. "<Foo |a|>" Missing " as " keyword before block symbol "|".',
+          'Unexpected block usage in "<Foo |a|>". Missing " as " keyword before block symbol "|".',
         source: '<Foo |a|>',
       },
     },
@@ -57,7 +57,7 @@ as
         line: 1,
         column: 0,
         message:
-          'Unexpected block usage. "<Foo a|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol after " as " keyword.',
+          'Unexpected block usage in "<Foo a|>". Missing " as " keyword before block symbol "|". Missing "|" block symbol after " as " keyword.',
         source: '<Foo a|>',
       },
     },
