@@ -27,6 +27,7 @@
 * [no-inline-styles](rule/no-inline-styles.md)
 * [no-input-block](rule/no-input-block.md)
 * [no-input-tagname](rule/no-input-tagname.md)
+* [no-invalid-block-param-definition](rule/no-invalid-block-param-definition.md)
 * [no-invalid-interactive](rule/no-invalid-interactive.md)
 * [no-invalid-link-text](rule/no-invalid-link-text.md)
 * [no-invalid-meta](rule/no-invalid-meta.md)

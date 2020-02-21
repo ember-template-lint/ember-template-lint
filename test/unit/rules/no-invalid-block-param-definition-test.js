@@ -1,7 +1,6 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-invalid-block-param-definition').message;
 
 generateRuleTests({
   name: 'no-invalid-block-param-definition',
