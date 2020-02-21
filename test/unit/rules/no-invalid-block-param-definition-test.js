@@ -12,14 +12,36 @@ generateRuleTests({
 
   bad: [
     {
-      template: '<MyComponent as |a|>{{foo}}</MyComponent>',
-
+      template: '<Foo |a></Foo>',
       result: {
-        message: message('MyComponent', []),
         moduleId: 'layout.hbs',
-        source: '<MyComponent as |foo|>{{foo}}</MyComponent>',
         line: 1,
         column: 0,
+        message:
+          'Unexpected block usage. "<Foo ... as |param1 param2|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol.',
+        source: '<Foo |a>',
+      },
+    },
+    {
+      template: '<Foo |a|></Foo>',
+      result: {
+        moduleId: 'layout.hbs',
+        line: 1,
+        column: 0,
+        message:
+          'Unexpected block usage. "<Foo ... as |param1 param2|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol.',
+        source: '<Foo |a|>',
+      },
+    },
+    {
+      template: '<Foo a|></Foo>',
+      result: {
+        moduleId: 'layout.hbs',
+        line: 1,
+        column: 0,
+        message:
+          'Unexpected block usage. "<Foo ... as |param1 param2|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol.',
+        source: '<Foo a|>',
       },
     },
   ],
