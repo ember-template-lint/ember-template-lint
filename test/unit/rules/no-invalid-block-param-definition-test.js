@@ -40,6 +40,17 @@ as
       },
     },
     {
+      template: '<Foo | a></Foo>',
+      result: {
+        moduleId: 'layout.hbs',
+        line: 1,
+        column: 0,
+        message:
+          'Unexpected block usage in "<Foo | a>". Missing " as " keyword before block symbol "|".',
+        source: '<Foo | a>',
+      },
+    },
+    {
       template: '<Foo |a|></Foo>',
       result: {
         moduleId: 'layout.hbs',
@@ -51,6 +62,28 @@ as
       },
     },
     {
+      template: '<Foo | a |></Foo>',
+      result: {
+        moduleId: 'layout.hbs',
+        line: 1,
+        column: 0,
+        message:
+          'Unexpected block usage in "<Foo | a |>". Missing " as " keyword before block symbol "|".',
+        source: '<Foo | a |>',
+      },
+    },
+    {
+      template: '<Foo | a |></Foo>',
+      result: {
+        moduleId: 'layout.hbs',
+        line: 1,
+        column: 0,
+        message:
+          'Unexpected block usage in "<Foo | a |>". Missing " as " keyword before block symbol "|".',
+        source: '<Foo | a |>',
+      },
+    },
+    {
       template: '<Foo a|></Foo>',
       result: {
         moduleId: 'layout.hbs',
@@ -59,6 +92,17 @@ as
         message:
           'Unexpected block usage in "<Foo a|>". Missing " as " keyword before block symbol "|". Missing "|" block symbol after " as " keyword.',
         source: '<Foo a|>',
+      },
+    },
+    {
+      template: '<Foo a |></Foo>',
+      result: {
+        moduleId: 'layout.hbs',
+        line: 1,
+        column: 0,
+        message:
+          'Unexpected block usage in "<Foo a |>". Missing " as " keyword before block symbol "|".',
+        source: '<Foo a |>',
       },
     },
   ],
