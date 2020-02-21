@@ -42,6 +42,14 @@ generateRuleTests({
       config: { additionalInteractiveTags: ['img'] },
       template: '<img onerror={{action "foo"}}>',
     },
+    {
+      config: { ignoredTags: ['div'] },
+      template: '<div {{on "click" this.actionName}}>...</div>',
+    },
+    {
+      config: { ignoredTags: ['div'] },
+      template: '<div onclick={{action "foo"}}></div>',
+    },
     '<img {{on "load" this.onLoad}} {{on "error" this.onError}}>',
   ],
 
