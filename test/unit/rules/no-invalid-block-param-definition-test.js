@@ -7,7 +7,25 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<MyComponent as |foo|>{{foo}}</MyComponent>'],
+  good: [
+    '<MyComponent as |foo|>{{foo}}</MyComponent>',
+    `<FooBar 
+as |boo|>{{boo}}</FooBar>
+`,
+    `<FooBar 
+as | boo |>{{boo}}</FooBar>
+`,
+    `<FooBar 
+as 
+|boo|
+>{{boo}}</FooBar>
+`,
+    `<FooBar 
+as 
+| boo |
+  >{{boo}}</FooBar>
+`,
+  ],
 
   bad: [
     {
@@ -17,7 +35,7 @@ generateRuleTests({
         line: 1,
         column: 0,
         message:
-          'Unexpected block usage. "<Foo ... as |param1 param2|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol.',
+          'Unexpected block usage. "<Foo |a>" Missing " as " keyword before block symbol "|". Missing second (closing) "|" block symbol.',
         source: '<Foo |a>',
       },
     },
@@ -28,7 +46,7 @@ generateRuleTests({
         line: 1,
         column: 0,
         message:
-          'Unexpected block usage. "<Foo ... as |param1 param2|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol.',
+          'Unexpected block usage. "<Foo |a|>" Missing " as " keyword before block symbol "|".',
         source: '<Foo |a|>',
       },
     },
@@ -39,7 +57,7 @@ generateRuleTests({
         line: 1,
         column: 0,
         message:
-          'Unexpected block usage. "<Foo ... as |param1 param2|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol.',
+          'Unexpected block usage. "<Foo a|>" Missing " as " keyword before block symbol "|". Missing "|" block symbol after " as " keyword.',
         source: '<Foo a|>',
       },
     },
