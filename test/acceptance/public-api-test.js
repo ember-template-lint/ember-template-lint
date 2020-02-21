@@ -175,7 +175,7 @@ describe('public api', function() {
     let linter;
     let expected = {
       rules: {
-        quotes: 'double',
+        'require-button-type': true,
       },
     };
 
@@ -186,7 +186,7 @@ describe('public api', function() {
         '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
         app: {
           templates: {
-            'application.hbs': "<input class='mb4'>",
+            'application.hbs': '<button>push</button>',
           },
         },
       });
@@ -206,25 +206,15 @@ describe('public api', function() {
     it('returns whether the source has been fixed + an array of remaining issues with the provided template', function() {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      let expected = [
-        {
-          column: 7,
-          line: 1,
-          message: 'you must use double quotes in templates',
-          moduleId: templatePath,
-          rule: 'quotes',
-          severity: 2,
-          source: "class='mb4'",
-        },
-      ];
 
       let result = linter.verifyAndFix({
         source: templateContents,
         moduleId: templatePath,
       });
 
-      expect(result.messages).toEqual(expected);
-      expect(result.isFixed).toEqual(false);
+      expect(result.output).toEqual('<button type="button">push</button>');
+      expect(result.messages).toEqual([]);
+      expect(result.isFixed).toEqual(true);
     });
   });
 
