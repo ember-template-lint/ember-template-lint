@@ -42,7 +42,7 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "execa": "^1.0.0",
+    "execa": "^4.0.0",
     "jest": "^25.1.0",
     "lerna-changelog": "^1.0.0",
     "markdownlint-cli": "^0.22.0",
