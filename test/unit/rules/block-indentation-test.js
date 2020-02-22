@@ -5,7 +5,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'block-indentation',
 
-  config: 2,
+  config: true,
 
   good: [
     {
@@ -85,7 +85,7 @@ generateRuleTests({
     {
       config: 4,
 
-      template: '' + '<div>\n' + '    <p>Hi!</p>\n' + '</div>',
+      template: '' + '<div>\n' + '    <p>LOLOL!</p>\n' + '</div>',
     },
     {
       config: 'tab',
