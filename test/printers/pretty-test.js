@@ -3,7 +3,7 @@ const Printer = require('../../lib/printers/pretty');
 
 describe('Linter.errorsToMessages', function() {
   beforeEach(() => {
-    chalk.enabled = false;
+    chalk.level = 0;
   });
 
   it('formats error with rule, message and moduleId', function() {
