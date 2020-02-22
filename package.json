@@ -17,11 +17,12 @@
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "changelog": "lerna-changelog",
-    "lint": "yarn lint:js && yarn lint:docs",
+    "lint": "npm-run-all lint:* --continue-on-error",
     "lint:docs": "markdownlint '**/*.md' -i CHANGELOG.md -i LICENSE.md -i node_modules",
     "lint:js": "eslint . --cache",
     "release": "release-it",
-    "test": "jest"
+    "test": "npm-run-all lint:* test:*",
+    "test:jest": "jest"
   },
   "dependencies": {
     "chalk": "^3.0.0",
@@ -46,6 +47,7 @@
     "jest": "^25.1.0",
     "lerna-changelog": "^1.0.0",
     "markdownlint-cli": "^0.22.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "release-it": "^12.6.1",
     "release-it-lerna-changelog": "^1.0.3"

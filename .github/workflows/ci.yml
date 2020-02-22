@@ -35,8 +35,6 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile
 
-      - run: yarn lint:js
-
       - run: yarn test
 
   nodeX:
