@@ -43,7 +43,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.0.1",
     "execa": "^1.0.0",
-    "jest": "^23.6.0",
+    "jest": "^25.1.0",
     "lerna-changelog": "^1.0.0",
     "markdownlint-cli": "^0.22.0",
     "prettier": "^1.15.3",
