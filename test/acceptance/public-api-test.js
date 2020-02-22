@@ -117,6 +117,55 @@ describe('public api', function() {
       expect(linter.config.rules).toEqual(expected.rules);
     });
 
+    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function() {
+      let expected = {
+        rules: {
+          foo: 'bar',
+          baz: 'derp',
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '',
+          },
+        },
+      });
+
+      process.chdir(path.join(process.cwd(), 'app', 'templates'));
+      let linter = new Linter({
+        console: mockConsole,
+      });
+
+      expect(linter.config.rules).toEqual(expected.rules);
+    });
+
+    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function() {
+      let expected = {
+        rules: {
+          foo: 'bar',
+          baz: 'derp',
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify({ rules: { boo: 'baz' } })};`,
+        app: {
+          '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+          templates: {
+            'application.hbs': '',
+          },
+        },
+      });
+
+      process.chdir(path.join(process.cwd(), 'app', 'templates'));
+      let linter = new Linter({
+        console: mockConsole,
+      });
+
+      expect(linter.config.rules).toEqual(expected.rules);
+    });
+
     it('breaks if the specified configPath does not exist', function() {
       expect(() => {
         new Linter({
