@@ -1,10 +1,12 @@
-## no-unused-block-params
+# no-unused-block-params
 
 This rule forbids unused block parameters except when they are needed to access a later parameter.
 
+## Examples
+
 This rule **forbids** the following (unused parameters):
 
-``` hbs
+```hbs
 {{#each users as |user index|}}
   {{user.name}}
 {{/each}}
@@ -14,13 +16,13 @@ This rule **allows** the following:
 
 Allowed (used parameters):
 
-``` hbs
+```hbs
 {{#each users as |user|}}
   {{user.name}}
 {{/each}}
 ```
 
-``` hbs
+```hbs
 {{#each users as |user index|}}
   {{index}} {{user.name}}
 {{/each}}
@@ -28,7 +30,7 @@ Allowed (used parameters):
 
 Allowed (later parameter used):
 
-``` hbs
+```hbs
 {{#each users as |user index|}}
   {{index}}
 {{/each}}

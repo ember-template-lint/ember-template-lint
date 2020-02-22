@@ -1,4 +1,4 @@
-## style-concatenation
+# style-concatenation
 
 Ember has a runtime warning that says:
 
@@ -10,6 +10,8 @@ Common cases which do not propagate `htmlSafe` include:
 
 * Implied string concatenation using quotes
 * The `concat` helper
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -41,13 +43,13 @@ This rule **allows** the following:
 <div style={{html-safe (concat knownSafeStyle1 ";" knownSafeStyle2)}}>
 ```
 
-### References
+## References
 
 * See the [Binding Style Attributes](https://emberjs.com/deprecations/v1.x/#toc_binding-style-attributes) Ember deprecation documentation
 * See the [documentation](https://www.emberjs.com/api/ember/release/functions/@ember%2Ftemplate/htmlSafe) for Ember's `htmlSafe` function
 * See the [documentation](https://www.emberjs.com/api/ember/release/classes/Ember.Templates.helpers/methods/concat?anchor=concat) for Ember's `concat` handlebars template helper
 * See the [documentation](https://github.com/romulomachado/ember-cli-string-helpers#html-safe) for the `html-safe` handlebars template helper from the `ember-cli-string-helpers` addon
 
-### Related Rules
+## Related Rules
 
 * [no-inline-styles](no-inline-styles.md)

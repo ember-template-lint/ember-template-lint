@@ -1,4 +1,4 @@
-## table-groups
+# table-groups
 
 It is best practice to group table rows into one of:
 
@@ -7,6 +7,8 @@ It is best practice to group table rows into one of:
 * `tfoot`
 
 This helps avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
+
+## Examples
 
 This rule **forbids** the following:
 

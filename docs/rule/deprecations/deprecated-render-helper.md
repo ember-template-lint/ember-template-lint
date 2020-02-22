@@ -1,6 +1,8 @@
-## deprecated-render-helper
+# deprecated-render-helper
 
 In Ember 2.6 and newer, support for using the `{{render}}` helper has been deprecated.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -18,6 +20,6 @@ This rule **allows** the following:
 {{saul-goodman model=model}}
 ```
 
-### References
+## References
 
 * More information is available at the [Deprecation Guide](https://emberjs.com/deprecations/v2.x/#toc_code-render-code-helper).

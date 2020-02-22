@@ -121,6 +121,112 @@ generateRuleTests({
     '<template>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </template>',
     '<style>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </style>',
     '<textarea>\n{{#foo}}\n {{#baz}}  hi!\n   {{derp}}{{/baz}}{{/foo}}\n </textarea>',
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: ['<div>', '<!-- Comment -->', '{{! Comment }}', '</div>'].join('\n'),
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: [
+        '{{#if foo}}',
+        '<!-- Comment -->',
+        '  {{foo}}',
+        '{{else}}',
+        '  {{bar}}',
+        '{{! Comment }}',
+        '{{/if}}',
+      ].join('\n'),
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: '{{! Comment }}<div>foo</div>',
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: '<div>{{! Comment }}</div>',
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: ['<div>', '{{! Comment }}foo', '</div>'].join('\n'),
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: '<div>foo</div>{{! Comment }}',
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: '<!-- Comment --><div>foo</div>',
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: '<div><!-- Comment --></div>',
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: '<div>foo</div><!-- Comment -->',
+    },
+    {
+      config: {
+        ignoreComments: true,
+      },
+      template: [
+        '{{#if foo}}',
+        '<!-- Comment -->',
+        '  <!-- Comment -->',
+        '  {{#each bar as |baz|}}',
+        '{{! Comment }}',
+        '    {{#each baz as |a|}}',
+        '       {{! Comment }}',
+        '       {{a}}',
+        '<!-- Comment -->',
+        '    {{/each}}',
+        '{{! Comment }}',
+        '  {{/each}}',
+        '<!-- Comment -->',
+        '{{! Comment }}',
+        '{{else}}',
+        ' {{! Comment }}',
+        '{{/if}}',
+      ].join('\n'),
+    },
+    {
+      config: {
+        ignoreComments: false,
+      },
+      template: ['<div>', '  <!-- Comment -->', '  {{! Comment }}', '</div>'].join('\n'),
+    },
+    {
+      config: {
+        ignoreComments: false,
+      },
+      template: [
+        '{{#if foo}}',
+        '  <!-- Comment -->',
+        '  {{foo}}',
+        '{{else}}',
+        '  {{bar}}',
+        '  {{! Comment }}',
+        '{{/if}}',
+      ].join('\n'),
+    },
   ],
 
   bad: [
@@ -563,6 +669,54 @@ generateRuleTests({
           severity: 2,
           source:
             '{{#foo bar as |foobar|}}\n   {{#foobar.baz}}{{/foobar.baz}}\n   {{foobar.baz}}\n{{/foo}}',
+        },
+      ],
+    },
+    {
+      template: ['<div>', '<!-- Comment -->', '</div>'].join('\n'),
+      results: [
+        {
+          column: 0,
+          line: 2,
+          message:
+            'Incorrect indentation for `<!-- Comment -->` beginning at L2:C0. Expected `<!-- Comment -->` to be at an indentation of 2 but was found at 0.',
+          moduleId: 'layout.hbs',
+          rule: 'block-indentation',
+          severity: 2,
+          source: '<div>\n<!-- Comment -->\n</div>',
+        },
+      ],
+    },
+    {
+      template: ['<div>', '{{! Comment }}', '</div>'].join('\n'),
+      results: [
+        {
+          column: 0,
+          line: 2,
+          message:
+            'Incorrect indentation for `{{! Comment }}` beginning at L2:C0. Expected `{{! Comment }}` to be at an indentation of 2 but was found at 0.',
+          moduleId: 'layout.hbs',
+          rule: 'block-indentation',
+          severity: 2,
+          source: '<div>\n{{! Comment }}\n</div>',
+        },
+      ],
+    },
+    {
+      template: ['<div>', 'test{{! Comment }}', '</div>'].join('\n'),
+      config: {
+        ignoreComments: true,
+      },
+      results: [
+        {
+          column: 0,
+          line: 1,
+          message:
+            'Incorrect indentation for `test` beginning at L1:C0. Expected `test` to be at an indentation of 2 but was found at 0.',
+          moduleId: 'layout.hbs',
+          rule: 'block-indentation',
+          severity: 2,
+          source: ['<div>', 'test{{! Comment }}', '</div>'].join('\n'),
         },
       ],
     },

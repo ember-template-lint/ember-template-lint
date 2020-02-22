@@ -1,4 +1,4 @@
-## no-negated-condition
+# no-negated-condition
 
 It can be hard to reason about negated conditions:
 
@@ -10,6 +10,8 @@ Negated conditions can often be avoided or simplified by:
 * Flipping `if (not condition) ... else ...` to `if .... else ...`
 * Replacing `if (not condition)` with `unless`
 * Replacing `unless (not condition)` with `if`
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -75,10 +77,10 @@ And similar examples with non-block forms like:
 {{input class=(if condition "some-class" "other-class")}}
 ```
 
-### Related Rules
+## Related Rules
 
 * [simple-unless](simple-unless.md)
 
-### References
+## References
 
 * [no-negated-condition](https://eslint.org/docs/rules/no-negated-condition) from eslint

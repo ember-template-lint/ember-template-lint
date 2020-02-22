@@ -3,9 +3,7 @@
 [![npm version](https://badge.fury.io/js/ember-template-lint.svg)](https://badge.fury.io/js/ember-template-lint)
 [![Build Status](https://travis-ci.org/ember-template-lint/ember-template-lint.svg?branch=master)](https://travis-ci.org/ember-template-lint/ember-template-lint)
 
-ember-template-lint will lint your template and return error results. This is commonly
-used through ember-cli-template-lint which adds failing lint tests for consuming ember-cli
-applications.
+ember-template-lint will lint your template and return error results.
 
 For example, given the rule [`no-bare-strings`](docs/rule/no-bare-strings.md) is enabled, this template would be
 in violation:
@@ -22,7 +20,7 @@ the `no-bare-strings` rule found an error.
 
 To install ember-template-lint
 
-```
+```shell
 npm install --save-dev ember-template-lint
 ```
 

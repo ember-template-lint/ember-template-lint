@@ -2,9 +2,9 @@
 
 `ember-template-lint` follows [semantic versioning](http://semver.org/) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy).
 
-For clarity, we define semver policy for this addon in two parts- as related to **rules** and as related to **config** files. 
+For clarity, we define semver policy for this addon in two parts- as related to **rules** and as related to **config** files.
 
-## Related to Rules 
+## Related to Rules
 
 ### Patch Release
 
@@ -35,14 +35,14 @@ A major release is likely to break your lint build.
 
 ## Config Files
 
-
 ### Patch or Minor Release
+
 A patch or minor release should not break your lint build.
 
 * Removing a rule
 * Making a rule less restrictive
 
-### Major Release
+### Major Releases
 
 A major release is likely to break your lint build.
 

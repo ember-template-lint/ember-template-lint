@@ -1,10 +1,11 @@
-## no-action
+# no-action
 
 What's wrong with `{{action}}`?
 
 "Action" is an overloaded term in Ember parlance. Actions are:
 
 1.) Methods on the `actions` hash
+
 ```js
 actions: {
   helloWorld() {}
@@ -12,16 +13,19 @@ actions: {
 ```
 
 2.) But also element modifiers that setup event handlers?
+
 ```hbs
 <div {{action 'helloWorld'}}></div>
 ```
 
 3.) Oh, and they are partial applied functions too:
+
 ```hbs
 {{some-component onClick=(action 'addNumbers' 1 2 3)}}
 ```
 
 4.) Also, they usually receive strings, but can also receive functions?
+
 ```hbs
 <div {{action this.someMethod}}></div>
 ```
@@ -41,10 +45,9 @@ Actions have served many different purposes over the years, and this makes them 
 
 We wanted to separate out the different responsibilities here, and the `@action` decorator was the first part of the puzzle, and the other two pieces are the `{{fn}}` helper and `{{on}}` modifier.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
-
 
 ```hbs
 <button onclick={{action 'foo'}}></button>
@@ -76,7 +79,7 @@ This rule **allows** the following:
 <button {{on "submit" this.action}}>Click Me</button>
 ```
 
-### Migration
+## Migration
 
 ```hbs
 <select onchange={{action this.updateSelection this.options}}>
@@ -85,6 +88,7 @@ This rule **allows** the following:
   {{/each}}
 </select>
 ```
+
 to
 
 ```hbs
@@ -95,12 +99,12 @@ to
 </select>
 ```
 
-### Related Rules
+## Related Rules
 
 * [no-action-modifiers](no-action-modifiers.md)
 * [no-element-event-actions](no-element-event-actions.md)
 
-### References
+## References
 
 * [Ember Octane Update: What's up with `@action`?](https://www.pzuraq.com/ember-octane-update-action/)
 * [RFC-471 `on` modifier](https://github.com/emberjs/rfcs/blob/master/text/0471-on-modifier.md)
