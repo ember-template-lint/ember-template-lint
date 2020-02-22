@@ -4,7 +4,6 @@ Releases are mostly automated using
 [release-it](https://github.com/release-it/release-it/) and
 [lerna-changelog](https://github.com/lerna/lerna-changelog/).
 
-
 ## Preparation
 
 Since the majority of the actual release process is automated, the primary
@@ -25,12 +24,11 @@ When reviewing merged PR's the labels to be used are:
 * internal - Used for internal changes that still require a mention in the
   changelog/release notes.
 
-
-## Release
+## Commands
 
 Once the prep work is completed, the actual release is straight forward:
 
-```
+```shell
 yarn install
 yarn release
 ```

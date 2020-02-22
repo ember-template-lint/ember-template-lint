@@ -1,8 +1,8 @@
-## no-unnecessary-component-helper
+# no-unnecessary-component-helper
 
 The `component` template helper can be used to dynamically pick the component being rendered based on the provided property. But if the component name is passed as a string because it's already known, then the component should be invoked directly, instead of using the `component` helper.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
@@ -30,7 +30,7 @@ This rule **allows** the following:
 <MyComponent @close={{component "link-to" "index"}} />
 ```
 
-### References
+## References
 
 * [component helper guide](https://guides.emberjs.com/release/components/defining-a-component/#toc_dynamically-rendering-a-component)
 * [component helper spec](https://www.emberjs.com/api/ember/release/classes/Ember.Templates.helpers/methods/component?anchor=component)

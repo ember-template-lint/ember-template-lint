@@ -1,6 +1,8 @@
-## link-href-attributes
+# link-href-attributes
 
 It's common to treat anchor tags as buttons. However, this is typically considered bad practice, as an anchor tag without an `href` is unfocusable which breaks accessibility.
+
+## Examples
 
 This rule **forbids** the following:
 

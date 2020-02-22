@@ -836,7 +836,7 @@ You can read more about the rule [in the documentation](https://github.com/ember
 
 - Add new `attribute-indentation` rule.  Examples:
 
-``` hbs
+```hbs
 {{! good }}
 
 {{foo-bar baz="bat" derp="qux"}}
@@ -858,7 +858,7 @@ as |foo|}}
 {{/foo-bar}}
 ```
 
-``` hbs
+```hbs
 {{! bad }}
 
 {{foo-bar baz="bat"

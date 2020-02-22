@@ -1,6 +1,8 @@
-## no-inline-styles
+# no-inline-styles
 
 Inline styles are not the best practice because they are hard to maintain and usually make the overall size of the project bigger. This rule forbids inline styles. Use CSS classes instead.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -19,14 +21,14 @@ This rule **allows** the following:
 <div style={{html-safe (concat "background-image: url(" url ")")}}></div>
 ```
 
-### Configuration
+## Configuration
 
  The following values are valid configuration:
 
-  * boolean - `true` to enable / `false` to disable
-  * object -- An object with the following keys:
-    * `allowDynamicStyles` -- Whether dynamically-generated inline styles should be allowed (defaults to `false`)
+* boolean - `true` to enable / `false` to disable
+* object -- An object with the following keys:
+  * `allowDynamicStyles` -- Whether dynamically-generated inline styles should be allowed (defaults to `false`)
 
-### Related Rules
+## Related Rules
 
 * [style-concatenation](style-concatenation.md)

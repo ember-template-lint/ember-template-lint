@@ -1,4 +1,4 @@
-## (no-meta-redirect-with-time-limit)
+# no-meta-redirect-with-time-limit
 
 **NOTE**: This rule is deprecated in favor of the more comprehensive rule [no-invalid-meta](./no-invalid-meta.md).
 
@@ -6,7 +6,7 @@ Sometimes a page automatically redirects to a different page. When this happens 
 
 This rule checks for the meta tag with a redirect; if it exists, it checks for a timed delay greater than 0.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
@@ -20,11 +20,11 @@ This rule **allows** the following:
 <meta http-equiv="refresh" content="0; url=http://www.example.com" />
 ```
 
-### Migration
+## Migration
 
 * To fix, reduce the timed delay to zero, or use the appropriate server-side redirect method for your server type.
 
-### References
+## References
 
 * [F40: Failure due to using meta redirect with a time limit](https://www.w3.org/WAI/WCAG21/Techniques/failures/F40)
 * [Success Criterion 2.2.1: Timing Adjustable](https://www.w3.org/WAI/WCAG21/Understanding/timing-adjustable)

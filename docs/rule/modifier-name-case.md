@@ -1,4 +1,4 @@
-## modifier-name-case
+# modifier-name-case
 
 It is currently possible to invoke a modifier with multiple words in its name
 using camelCase: `{{didInsert}}` or using dasherized-case: `{{did-insert}}`.
@@ -8,7 +8,7 @@ codebase.
 This rule enforces that you will always use the dasherized-case form of the
 modifier invocation.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
