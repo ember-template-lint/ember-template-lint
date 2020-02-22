@@ -1,8 +1,8 @@
-## no-invalid-block-param-definition
+# no-invalid-block-param-definition
 
 There are a few common failure scenarios when using angle bracket components that use block parameters. This rule attempts to identify these pitfalls.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
