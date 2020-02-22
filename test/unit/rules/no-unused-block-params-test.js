@@ -19,6 +19,13 @@ generateRuleTests({
       '{{index}}: {{life}}' +
       '{{/each}}' +
       '{{/each}}',
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        <MyOtherComponent .... @param={{param}} />
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
     '{{#each cats as |cat|}}{{#meow-meow cat as |cat|}}{{cat}}{{/meow-meow}}{{/each}}',
     '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
     '{{#with (component "foo-bar") as |FooBar|}}<FooBar />{{/with}}',
