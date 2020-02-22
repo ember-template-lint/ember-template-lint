@@ -91,5 +91,43 @@ generateRuleTests({
           '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">',
       },
     },
+
+    {
+      template: '<meta name="viewport">',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message:
+          'a meta content attribute must be defined if the name or the http-equiv attribute is defined',
+        line: 1,
+        column: 0,
+        source: '<meta name="viewport">',
+      },
+    },
+    {
+      template: '<meta http-equiv="refresh">',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message:
+          'a meta content attribute must be defined if the name or the http-equiv attribute is defined',
+        line: 1,
+        column: 0,
+        source: '<meta http-equiv="refresh">',
+      },
+    },
+
+    {
+      template: '<meta content="72001">',
+
+      result: {
+        moduleId: 'layout.hbs',
+        message:
+          'a meta content attribute cannot be defined if neither the name nor the http-equiv attributes are defined',
+        line: 1,
+        column: 0,
+        source: '<meta content="72001">',
+      },
+    },
   ],
 });

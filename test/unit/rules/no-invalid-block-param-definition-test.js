@@ -9,19 +9,19 @@ generateRuleTests({
 
   good: [
     '<MyComponent as |foo|>{{foo}}</MyComponent>',
-    `<FooBar 
+    `<FooBar
 as |boo|>{{boo}}</FooBar>
 `,
-    `<FooBar 
+    `<FooBar
 as | boo |>{{boo}}</FooBar>
 `,
-    `<FooBar 
-as 
+    `<FooBar
+as
 |boo|
 >{{boo}}</FooBar>
 `,
-    `<FooBar 
-as 
+    `<FooBar
+as
 | boo |
   >{{boo}}</FooBar>
 `,

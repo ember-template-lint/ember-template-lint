@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "1.14.0",
+  "version": "2.0.0-beta.5",
   "description": "Lint your templates.",
   "keywords": [],
   "homepage": "https://github.com/ember-template-lint/ember-template-lint",
@@ -24,14 +24,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "@glimmer/syntax": "^0.47.9",
     "chalk": "^2.4.2",
-    "globby": "^9.2.0",
-    "minimatch": "^3.0.4",
+    "ember-template-recast": "^4.1.0",
+    "find-up": "^4.1.0",
+    "globby": "^11.0.0",
+    "micromatch": "^4.0.2",
     "resolve": "^1.15.1",
-    "strip-bom": "^3.0.0"
+    "strip-bom": "^4.0.0"
   },
   "devDependencies": {
+    "broccoli-test-helper": "^2.0.0",
     "common-tags": "^1.8.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
@@ -49,7 +51,7 @@
     "release-it-lerna-changelog": "^1.0.3"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "10.* || >= 12.*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

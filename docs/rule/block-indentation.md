@@ -44,6 +44,8 @@ The following values are valid configuration:
   * `indentation: <numeric>` - number of spaces to indent (defaults to 2)
   * `ignoreComments: <boolean>` - skip indentation for comments (defaults to `false`)
 
+If `.editorconfig` file present, rule configuration will be inherit from it.
+
 ## Related Rules
 
 * [attribute-indentation](attribute-indentation.md)

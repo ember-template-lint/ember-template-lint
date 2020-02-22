@@ -5,9 +5,15 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'block-indentation',
 
-  config: 2,
+  config: true,
 
   good: [
+    {
+      template: '<div>\n' + '    <p>Hi!</p>\n' + '</div>',
+      meta: {
+        editorConfig: { indent_size: 4 },
+      },
+    },
     ['  this is fine'].join('\n'),
     ['<h1>Header</h1>', '<div>', '  \\{{example}}', '</div>'].join('\n'),
     ['<div>', '  \\{{example}}', '</div>'].join('\n'),
@@ -79,11 +85,10 @@ generateRuleTests({
     {
       config: 4,
 
-      template: '' + '<div>\n' + '    <p>Hi!</p>\n' + '</div>',
+      template: '' + '<div>\n' + '    <p>LOLOL!</p>\n' + '</div>',
     },
     {
       config: 'tab',
-
       template: '' + '<div>\n' + '\t<p>Hi!</p>\n' + '</div>',
     },
     '{{! template-lint-disable no-bare-strings }}',

@@ -4,26 +4,32 @@ const path = require('path');
 const fs = require('fs');
 const Linter = require('../../lib/index');
 const buildFakeConsole = require('./../helpers/console');
+const { createTempDir } = require('broccoli-test-helper');
 const chalk = require('chalk');
 
 const fixturePath = path.join(__dirname, '..', '/fixtures');
 const initialCWD = process.cwd();
 
 describe('public api', function() {
+  let project = null;
+
   let mockConsole;
-  beforeEach(function() {
+  beforeEach(async function() {
     mockConsole = buildFakeConsole();
+    project = await createTempDir();
+    process.chdir(project.path());
   });
 
-  afterEach(function() {
+  afterEach(async function() {
     process.chdir(initialCWD);
+    await project.dispose();
   });
 
   describe('Linter.prototype.loadConfig', function() {
     it('throws an error if the config file has an error on parsing', function() {
-      let basePath = path.join(fixturePath, 'config-with-parse-error');
-      process.chdir(basePath);
-
+      project.write({
+        '.template-lintrc.js': "throw Error('error happening during config loading');\n",
+      });
       expect(() => {
         new Linter({
           console: mockConsole,
@@ -40,8 +46,20 @@ describe('public api', function() {
     });
 
     it('uses provided config', function() {
-      let basePath = path.join(fixturePath, 'config-in-root');
-      let expected = require(path.join(basePath, '.template-lintrc'));
+      let expected = {
+        rules: {
+          foo: 'bar',
+          baz: 'derp',
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '',
+          },
+        },
+      });
 
       let linter = new Linter({
         console: mockConsole,
@@ -52,10 +70,20 @@ describe('public api', function() {
     });
 
     it('uses .template-lintrc.js in cwd if present', function() {
-      let basePath = path.join(fixturePath, 'config-in-root');
-      let expected = require(path.join(basePath, '.template-lintrc'));
-
-      process.chdir(basePath);
+      let expected = {
+        rules: {
+          foo: 'bar',
+          baz: 'derp',
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '',
+          },
+        },
+      });
 
       let linter = new Linter({
         console: mockConsole,
@@ -65,15 +93,74 @@ describe('public api', function() {
     });
 
     it('uses .template-lintrc in provided configPath', function() {
-      let basePath = path.join(fixturePath, 'config-in-root');
-      let configPath = path.join(basePath, '.template-lintrc.js');
-      let expected = require(configPath);
-
-      process.chdir(basePath);
+      let configPath = path.join(project.path(), '.template-lintrc.js');
+      let expected = {
+        rules: {
+          foo: 'bar',
+          baz: 'derp',
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '',
+          },
+        },
+      });
 
       let linter = new Linter({
         console: mockConsole,
         configPath,
+      });
+
+      expect(linter.config.rules).toEqual(expected.rules);
+    });
+
+    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function() {
+      let expected = {
+        rules: {
+          foo: 'bar',
+          baz: 'derp',
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '',
+          },
+        },
+      });
+
+      process.chdir(path.join(process.cwd(), 'app', 'templates'));
+      let linter = new Linter({
+        console: mockConsole,
+      });
+
+      expect(linter.config.rules).toEqual(expected.rules);
+    });
+
+    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function() {
+      let expected = {
+        rules: {
+          foo: 'bar',
+          baz: 'derp',
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify({ rules: { boo: 'baz' } })};`,
+        app: {
+          '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+          templates: {
+            'application.hbs': '',
+          },
+        },
+      });
+
+      process.chdir(path.join(process.cwd(), 'app', 'templates'));
+      let linter = new Linter({
+        console: mockConsole,
       });
 
       expect(linter.config.rules).toEqual(expected.rules);
@@ -89,8 +176,14 @@ describe('public api', function() {
     });
 
     it('with deprecated rule config', function() {
-      let basePath = path.join(fixturePath, 'deprecated-rule-config');
-      let expected = require(path.join(basePath, '.template-lintrc'));
+      let expected = {
+        rules: {
+          'no-bare-strings': true,
+        },
+      };
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+      });
 
       let linter = new Linter({
         console: mockConsole,
@@ -124,8 +217,30 @@ describe('public api', function() {
   });
 
   describe('Linter.prototype.verify', function() {
-    let basePath = path.join(fixturePath, 'with-errors');
+    let basePath = null;
     let linter;
+    let expected = {
+      rules: {
+        'no-bare-strings': true,
+      },
+    };
+
+    beforeAll(async function() {
+      project = await createTempDir();
+      basePath = project.path();
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '<h2>Here too!!</h2>\n<div>Bare strings are bad...</div>\n',
+          },
+        },
+      });
+    });
+
+    this.afterAll(async function() {
+      await project.dispose();
+    });
 
     beforeEach(function() {
       linter = new Linter({
@@ -530,7 +645,7 @@ describe('public api', function() {
           moduleId: templatePath,
           line: 2,
           column: 2,
-          source: '{{{myVar}}}',
+          source: '{{{this.myVar}}}',
           rule: 'no-triple-curlies',
           severity: 2,
         },

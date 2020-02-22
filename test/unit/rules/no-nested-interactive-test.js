@@ -1,8 +1,6 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ARRAY_DEPRECATION_MESSAGE = require('../../../lib/rules/no-nested-interactive')
-  .ARRAY_DEPRECATION_MESSAGE;
 
 generateRuleTests({
   name: 'no-nested-interactive',
@@ -228,41 +226,6 @@ generateRuleTests({
         source: '<label for="foo">\n  <div id="foo" tabindex=-1></div>\n  <input>\n</label>',
         line: 3,
         column: 2,
-      },
-    },
-
-    // deprecated
-    {
-      config: ['button'],
-      template: '<button><input></button>',
-
-      result: {
-        message: ARRAY_DEPRECATION_MESSAGE,
-        source: '["button"]',
-        moduleId: null,
-        severity: 1,
-      },
-    },
-    {
-      config: ['tabindex'],
-      template: '<button><div tabindex=-1></div></button>',
-
-      result: {
-        message: ARRAY_DEPRECATION_MESSAGE,
-        source: '["tabindex"]',
-        moduleId: null,
-        severity: 1,
-      },
-    },
-    {
-      config: ['usemap'],
-      template: '<button><img usemap=""></button>',
-
-      result: {
-        message: ARRAY_DEPRECATION_MESSAGE,
-        source: '["usemap"]',
-        moduleId: null,
-        severity: 1,
       },
     },
   ],

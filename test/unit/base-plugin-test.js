@@ -1,14 +1,14 @@
 'use strict';
 
-const { traverse, preprocess } = require('@glimmer/syntax');
+const { parse, transform } = require('ember-template-recast');
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
-const { join, parse } = require('path');
+const { join, parse: parsePath } = require('path');
 const ruleNames = Object.keys(require('../../lib/rules'));
 
 describe('base plugin', function() {
   function runRules(template, rules) {
-    let ast = preprocess(template);
+    let ast = parse(template);
 
     for (let ruleConfig of rules) {
       let { Rule } = ruleConfig;
@@ -19,7 +19,7 @@ describe('base plugin', function() {
 
       let rule = new Rule(options);
 
-      traverse(ast, rule.getVisitor());
+      transform(ast, () => rule.getVisitor());
     }
   }
 
@@ -61,7 +61,7 @@ describe('base plugin', function() {
 
     const files = readdirSync(presetsPath);
     const presetFiles = files
-      .map(it => parse(it))
+      .map(it => parsePath(it))
       .filter(it => it.ext === '.js' && it.name !== 'index')
       .map(it => it.name);
 
@@ -186,7 +186,7 @@ describe('base plugin', function() {
         '<div>\n  <div data-foo="blerp">\n    Wheee!\n  </div>\n</div>',
         '\n  ',
         '<div data-foo="blerp">\n    Wheee!\n  </div>',
-        '"blerp"',
+        'blerp',
         '\n    Wheee!\n  ',
         '\n',
       ],

@@ -22,6 +22,15 @@ describe('ember-template-lint executable', function() {
       expect(actual).toEqual(expected);
     });
 
+    it('handles --fix', function() {
+      let argv = ['--fix'];
+
+      let actual = BinScript._parseArgv(argv);
+      let expected = { named: { fix: true }, positional: [] };
+
+      expect(actual).toEqual(expected);
+    });
+
     it('handles --quiet', function() {
       let argv = ['--quiet'];
 

@@ -16,6 +16,12 @@ function mapBadStyleExampleToTestRule(inlineStyle) {
   };
 }
 
+function mapBadStyleExampleToTestRuleWithConfig(inlineStyle, config) {
+  const testCase = mapBadStyleExampleToTestRule(inlineStyle);
+  testCase.config = config;
+  return testCase;
+}
+
 generateRuleTests({
   name: 'no-inline-styles',
 
@@ -25,18 +31,18 @@ generateRuleTests({
     '<div></div>',
     '<span></span>',
     '<ul class="dummy"></ul>',
-    {
-      config: { allowDynamicStyles: true },
-      template: '<div style={{html-safe (concat "background-image: url(" url ")")}}></div>',
-    },
+    '<div style={{foo}}></div>',
+    '<div style={{html-safe (concat "background-image: url(" url ")")}}></div>',
   ],
 
   bad: [
-    'style="width: 100px"',
-    'style={{foo}}',
-    'style="{{foo}} {{bar}}"',
-    'style',
-    'style=""',
-    'style="color:blue;margin-left:30px;"',
-  ].map(mapBadStyleExampleToTestRule),
+    ...[
+      'style="width: 100px"',
+      'style="{{foo}} {{bar}}"',
+      'style',
+      'style=""',
+      'style="color:blue;margin-left:30px;"',
+    ].map(mapBadStyleExampleToTestRule),
+    mapBadStyleExampleToTestRuleWithConfig('style={{foo}}', { allowDynamicStyles: false }),
+  ],
 });

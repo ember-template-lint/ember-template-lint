@@ -5,6 +5,8 @@ This rule checks for these meta tag issues:
 - a meta with a redirect- if it exists, it checks for a timed delay greater than 0.
 - a meta with a timed refresh- the timed delay should be greater than 72,000 seconds.
 - a meta that locks orientation to landscape or portrait view
+- a meta with a content attribute when neither the name nor http-equiv attributes are present
+- a meta without a content attribute when either the name or http-equiv attributes are present
 
 ## Redirects & Refresh
 

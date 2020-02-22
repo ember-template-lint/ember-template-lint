@@ -1,3 +1,49 @@
+## v2.0.0-beta.5 (2020-01-15)
+
+This release includes all the changes that went into v1.12.1 - v1.13.1.
+
+#### :boom: Breaking Change
+* [#1067](https://github.com/ember-template-lint/ember-template-lint/pull/1067) Remove deprecated `templateEnvironmentData` rule property ([@bmish](https://github.com/bmish))
+* [#1060](https://github.com/ember-template-lint/ember-template-lint/pull/1060) Add more rules to `stylistic` config ([@bmish](https://github.com/bmish))
+* [#1061](https://github.com/ember-template-lint/ember-template-lint/pull/1061) Remove deprecated rule `no-trailing-dot-in-path-expression` ([@bmish](https://github.com/bmish))
+* [#1059](https://github.com/ember-template-lint/ember-template-lint/pull/1059) Add `no-index-component-invocation` to `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1053](https://github.com/ember-template-lint/ember-template-lint/pull/1053) Add `no-invalid-role` and `no-negated-condition` rules to `recommended` preset ([@bmish](https://github.com/bmish))
+* [#1052](https://github.com/ember-template-lint/ember-template-lint/pull/1052) Change `allowDynamicStyles` option to default to true in `no-inline-styles` rule ([@bmish](https://github.com/bmish))
+* [#1055](https://github.com/ember-template-lint/ember-template-lint/pull/1055) Remove deprecated array config for `no-nested-interactive` rule ([@bmish](https://github.com/bmish))
+* [#1054](https://github.com/ember-template-lint/ember-template-lint/pull/1054) Remove deprecated rule `no-meta-redirect-with-time-limit` which was replaced by `no-invalid-meta` ([@bmish](https://github.com/bmish))
+* [#1047](https://github.com/ember-template-lint/ember-template-lint/pull/1047) Add `no-args-path`, `no-invalid-link-text`, `no-invalid-meta`, `require-button-type` into `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1023](https://github.com/ember-template-lint/ember-template-lint/pull/1023) Drop NodeJs v8 support ([@dcyriller](https://github.com/dcyriller))
+
+#### :rocket: Enhancement
+* [#1060](https://github.com/ember-template-lint/ember-template-lint/pull/1060) Add more rules to `stylistic` config ([@bmish](https://github.com/bmish))
+* [#1062](https://github.com/ember-template-lint/ember-template-lint/pull/1062) Add support for detecting `eol-last` from `.editorconfig` ([@rwjblue](https://github.com/rwjblue))
+* [#1059](https://github.com/ember-template-lint/ember-template-lint/pull/1059) Add `no-index-component-invocation` to `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1053](https://github.com/ember-template-lint/ember-template-lint/pull/1053) Add `no-invalid-role` and `no-negated-condition` rules to `recommended` preset ([@bmish](https://github.com/bmish))
+* [#1052](https://github.com/ember-template-lint/ember-template-lint/pull/1052) Change `allowDynamicStyles` option to default to true in `no-inline-styles` rule ([@bmish](https://github.com/bmish))
+* [#1048](https://github.com/ember-template-lint/ember-template-lint/pull/1048) Add `stylistic` configuration ([@bmish](https://github.com/bmish))
+* [#1047](https://github.com/ember-template-lint/ember-template-lint/pull/1047) Add `no-args-path`, `no-invalid-link-text`, `no-invalid-meta`, `require-button-type` into `recommended` configuration. ([@rwjblue](https://github.com/rwjblue))
+* [#1045](https://github.com/ember-template-lint/ember-template-lint/pull/1045) Remove no-implicit-this from `recommended` config. ([@rwjblue](https://github.com/rwjblue))
+
+#### :bug: Bug Fix
+* [#1051](https://github.com/ember-template-lint/ember-template-lint/pull/1051) Fix configuration of `quotes` rule in `stylistic` preset ([@bmish](https://github.com/bmish))
+* [#1049](https://github.com/ember-template-lint/ember-template-lint/pull/1049) Bring `no-implicit-this` back into the `octane` config ([@rwjblue](https://github.com/rwjblue))
+
+#### :memo: Documentation
+* [#1050](https://github.com/ember-template-lint/ember-template-lint/pull/1050) Add presets list to README ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1067](https://github.com/ember-template-lint/ember-template-lint/pull/1067) Remove deprecated `templateEnvironmentData` rule property ([@bmish](https://github.com/bmish))
+* [#1061](https://github.com/ember-template-lint/ember-template-lint/pull/1061) Remove deprecated rule `no-trailing-dot-in-path-expression` ([@bmish](https://github.com/bmish))
+* [#1055](https://github.com/ember-template-lint/ember-template-lint/pull/1055) Remove deprecated array config for `no-nested-interactive` rule ([@bmish](https://github.com/bmish))
+* [#1054](https://github.com/ember-template-lint/ember-template-lint/pull/1054) Remove deprecated rule `no-meta-redirect-with-time-limit` which was replaced by `no-invalid-meta` ([@bmish](https://github.com/bmish))
+* [#1046](https://github.com/ember-template-lint/ember-template-lint/pull/1046) Update `octane` config to extend from `recommended`. ([@rwjblue](https://github.com/rwjblue))
+* [#1023](https://github.com/ember-template-lint/ember-template-lint/pull/1023) Drop NodeJs v8 support ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v1.14.0 (2020-02-20)
 
 #### :rocket: Enhancement
@@ -65,6 +111,72 @@
 - Cyrille David ([@dcyriller](https://github.com/dcyriller))
 - Katie Gengler ([@kategengler](https://github.com/kategengler))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+## v2.0.0-beta.4 (2019-12-13)
+
+This release includes all the changes that went into v1.10.0 - v1.12.0.
+
+## v2.0.0-beta.3 (2019-12-04)
+
+This release includes all the changes that went into v1.9.0.
+
+#### :house: Internal
+* [#941](https://github.com/ember-template-lint/ember-template-lint/pull/941) Leverage static class fields for  SEVERITY constants ([@dcyriller](https://github.com/dcyriller))
+* [#933](https://github.com/ember-template-lint/ember-template-lint/pull/933) Linter class: Use named severity ([@dcyriller](https://github.com/dcyriller))
+* [#932](https://github.com/ember-template-lint/ember-template-lint/pull/932) Move main linter engine to stand alone file. ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 1
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
+## v2.0.0-beta.2 (2019-11-17)
+
+#### :boom: Breaking Change
+* [#918](https://github.com/ember-template-lint/ember-template-lint/pull/918) Use `.editorconfig` to choose default value for `block-indentation` ([@lifeart](https://github.com/lifeart))
+* [#919](https://github.com/ember-template-lint/ember-template-lint/pull/919) Use `.editorconfig` to choose default value for `linebreak-style` ([@lifeart](https://github.com/lifeart))
+
+#### :rocket: Enhancement
+* [#918](https://github.com/ember-template-lint/ember-template-lint/pull/918) Use `.editorconfig` to choose default value for `block-indentation` ([@lifeart](https://github.com/lifeart))
+* [#919](https://github.com/ember-template-lint/ember-template-lint/pull/919) Use `.editorconfig` to choose default value for `linebreak-style` ([@lifeart](https://github.com/lifeart))
+* [#906](https://github.com/ember-template-lint/ember-template-lint/pull/906) Add utility function to allow reading from `.editorconfig` ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#920](https://github.com/ember-template-lint/ember-template-lint/pull/920) Ensure `no-bare-strings` consider literals in mustaches (e.g. `{{"foo"}}`) ([@lifeart](https://github.com/lifeart))
+* [#923](https://github.com/ember-template-lint/ember-template-lint/pull/923) Allow `getLocalName` to work with number literals ([@alexlafroscia](https://github.com/alexlafroscia))
+* [#913](https://github.com/ember-template-lint/ember-template-lint/pull/913) Update `no-unnecessary-component-helper` rule to allow the `component` helper as an angle bracket component argument ([@buschtoens](https://github.com/buschtoens))
+* [#908](https://github.com/ember-template-lint/ember-template-lint/pull/908) Update `no-bare-strings` to ignore contents within elements that are not translated (e.g. `<script>`,`<style>`, and `<pre>`). ([@lifeart](https://github.com/lifeart))
+* [#905](https://github.com/ember-template-lint/ember-template-lint/pull/905) Ensure configuration ordering does not matter with `no-bare-strings` ([@lifeart](https://github.com/lifeart))
+* [#904](https://github.com/ember-template-lint/ember-template-lint/pull/904) Update `block-indentation` to ignore children of `<template>` and `<textarea>` ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#911](https://github.com/ember-template-lint/ember-template-lint/pull/911) Update documentation for `require-valid-alt-text` to clarify that `logo` and `spacer` are forbidden words ([@gojefferson](https://github.com/gojefferson))
+
+#### :house: Internal
+* [#876](https://github.com/ember-template-lint/ember-template-lint/pull/876) Begin migrating tests to inline fixtures (via `broccoli-test-helper`) ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 5
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Alex LaFroscia ([@alexlafroscia](https://github.com/alexlafroscia))
+- Jan Buschtöns ([@buschtoens](https://github.com/buschtoens))
+- Jeff Kerr ([@gojefferson](https://github.com/gojefferson))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+## v2.0.0-beta.1 (2019-11-04)
+
+#### :boom: Breaking Change
+* [#899](https://github.com/ember-template-lint/ember-template-lint/pull/899) Update recommended config ([@rwjblue](https://github.com/rwjblue))
+* [#844](https://github.com/ember-template-lint/ember-template-lint/pull/844) Remove HTML comment config ([@initram](https://github.com/initram))
+* [#885](https://github.com/ember-template-lint/ember-template-lint/pull/885) Drop support for NodeJs v6 and v11 ([@dcyriller](https://github.com/dcyriller))
+
+#### :rocket: Enhancement
+* [#873](https://github.com/ember-template-lint/ember-template-lint/pull/873) Leverage ember-template-recast ([@dcyriller](https://github.com/dcyriller))
+
+#### :house: Internal
+* [#898](https://github.com/ember-template-lint/ember-template-lint/pull/898) Update dependencies to latest (requiring Node 8+). ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Martin Midtgaard ([@initram](https://github.com/initram))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
 ## v1.12.3 (2019-12-23)
 

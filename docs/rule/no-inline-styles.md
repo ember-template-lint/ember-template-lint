@@ -17,7 +17,7 @@ This rule **allows** the following:
 ```
 
 ```hbs
-{{!-- only allowed when `allowDynamicStyles` is enabled  --}}
+{{!-- allowed when `allowDynamicStyles` is enabled  --}}
 <div style={{html-safe (concat "background-image: url(" url ")")}}></div>
 ```
 
@@ -27,7 +27,7 @@ This rule **allows** the following:
 
 * boolean - `true` to enable / `false` to disable
 * object -- An object with the following keys:
-  * `allowDynamicStyles` -- Whether dynamically-generated inline styles should be allowed (defaults to `false`)
+  * `allowDynamicStyles` -- Whether dynamically-generated inline styles should be allowed (defaults to `true`)
 
 ## Related Rules
 
