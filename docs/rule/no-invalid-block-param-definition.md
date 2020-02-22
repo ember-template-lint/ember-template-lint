@@ -1,6 +1,6 @@
 ## no-invalid-block-param-definition
 
-Glimmer parser eats warn about incorrect Angle Component block definition. This behaviour may confuse developers and produce tricky bugs.
+There are a few common failure scenarios when using angle bracket components that use block parameters. This rule attempts to identify these pitfalls.
 
 ### Examples
 
