@@ -26,6 +26,27 @@ generateRuleTests({
       {{! template-lint-enable }}
     </MyComponent>
     `,
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        {{foo-bar param}}
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        {{param}}
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        {{foo-bar prop=param}}
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
     '{{#each cats as |cat|}}{{#meow-meow cat as |cat|}}{{cat}}{{/meow-meow}}{{/each}}',
     '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
     '{{#with (component "foo-bar") as |FooBar|}}<FooBar />{{/with}}',
