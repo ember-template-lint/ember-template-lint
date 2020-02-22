@@ -1,6 +1,8 @@
-## no-input-block
+# no-input-block
 
 Use of the block form of the handlebars `input` helper will result in an error at runtime.
+
+## Examples
 
 This rule **forbids** the following:
 

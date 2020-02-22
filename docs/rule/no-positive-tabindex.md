@@ -1,10 +1,12 @@
-## no-positive-tabindex
+# no-positive-tabindex
 
-### `<* tabindex>`
+## `<* tabindex>`
 
 Avoid positive tabIndex property values to synchronize the flow of the page with keyboard tab order.
 
 This rule takes no arguments.
+
+## Examples
 
 This rule **allows** the following:
 
@@ -24,7 +26,8 @@ This rule **forbids** the following:
 <span tabindex="2">never really sure what goes after baz</span>
 ```
 
-### References
+## References
+
 1. [AX_FOCUS_03](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_focus_03)
 1. [w3.org/TR/wai-aria-practices/#kbd_general_between](https://www.w3.org/TR/wai-aria-practices/#kbd_general_between)
 1. [w3.org/TR/2009/WD-wai-aria-practices-20090224/#focus_tabindex](https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/#focus_tabindex)

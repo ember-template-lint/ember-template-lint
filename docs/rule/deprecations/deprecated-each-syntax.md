@@ -1,7 +1,9 @@
-## deprecated-each-syntax
+# deprecated-each-syntax
 
 In Ember 2.0, support for using the `in` form of the `{{#each}}` helper
 has been removed.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -19,6 +21,6 @@ This rule **allows** the following:
 {{/each}}
 ```
 
-### References
+## References
 
 * More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code).

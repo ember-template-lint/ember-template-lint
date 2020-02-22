@@ -1,4 +1,4 @@
-## require-valid-alt-text
+# require-valid-alt-text
 
 Enforce that all elements that require alternative text have meaningful information to relay back to the end user. This is a critical component of accessibility for screenreader users in order for them to understand the content's purpose on the page. By default, this rule checks for alternative text on the following elements: `<img>`, `<area>`, `<input type="image">`, and `<object>`.
 
@@ -6,7 +6,7 @@ Enforce `img` alt attribute does not contain the word image, picture, or photo. 
 
 This rule **forbids** the following:
 
-### `<img>`
+## `<img>`
 
 An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string. If it is an empty string, the `<img>` element tag must also have `role="presentation"` or `role="none"`.
 
@@ -41,7 +41,7 @@ This rule **allows** the following:
 <img src="foo" alt="" role="presentation"> // This is valid because it has a role of presentation.
 ```
 
-### `<object>`
+## `<object>`
 
 Add alternative text to all embedded `<object>` elements using either inner text, setting the `title` prop, or using the `aria-label` or `aria-labelledby` props.
 
@@ -59,7 +59,7 @@ This rule **allows** the following:
 <object width="128" height="256" aria-labelledby="id-12345"></object>
 ```
 
-### `<input type="image">`
+## `<input type="image">`
 
 All `<input type="image">` elements must have a non-empty `alt` prop set with a meaningful description of the image or have the `aria-label` or `aria-labelledby` props set.
 
@@ -75,7 +75,7 @@ This rule **allows** the following:
 <input type="image" alt="Select image to upload">
 ```
 
-### `<area>`
+## `<area>`
 
 All clickable `<area>` elements within an image map have an `alt`, `aria-label` or `aria-labelledby` prop that describes the purpose of the link.
 
@@ -91,7 +91,7 @@ This rule **allows** the following:
 <area shape="poly" coords="113,24,211,0" href="inform.html" alt="Inform">
 ```
 
-### References
+## References
 
 * [WCAG Technique- using alt attributes on img elements](https://www.w3.org/TR/WCAG20-TECHS/H37.html)
 * [WCAG Criterion 1.1.1 - Non-text Content](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)

@@ -1,4 +1,4 @@
-## no-yield-only
+# no-yield-only
 
 Templates that only contain a single `{{yield}}` instruction are not required
 and increase the total template payload size.
@@ -6,7 +6,7 @@ and increase the total template payload size.
 This rule warns about templates that only contain a single `{{yield}}`
 instruction.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
@@ -15,7 +15,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-  
+
    {{yield}}
 
 
@@ -31,10 +31,10 @@ This rule **allows** the following:
 <div>{{yield}}</div>
 ```
 
-### Migration
+## Migration
 
 * delete all files that are flagged by this rule
 
-### References
+## References
 
-* https://github.com/ember-template-lint/ember-template-lint/issues/29
+* <https://github.com/ember-template-lint/ember-template-lint/issues/29>

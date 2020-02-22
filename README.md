@@ -20,7 +20,7 @@ the `no-bare-strings` rule found an error.
 
 To install ember-template-lint
 
-```
+```shell
 npm install --save-dev ember-template-lint
 ```
 

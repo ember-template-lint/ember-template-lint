@@ -1,4 +1,4 @@
-## quotes
+# quotes
 
 Enforce the consistent use of either double or single quotes.
 
@@ -16,12 +16,12 @@ or:
 {{my-helper 'hello there'}}
 ```
 
-### Configuration
+## Configuration
 
 The following values are valid configuration:
 
-  * string -- "double" requires the use of double quotes wherever possible, "single" requires the use of single quotes wherever possible
+* string -- "double" requires the use of double quotes wherever possible, "single" requires the use of single quotes wherever possible
 
-### Related Rules
+## Related Rules
 
 * [quotes](https://eslint.org/docs/rules/quotes) from eslint
