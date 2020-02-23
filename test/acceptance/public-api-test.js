@@ -447,9 +447,48 @@ describe('public api', function() {
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': true,
+                'no-implicit-this': 'warn',
               },
-              severity: 1,
+            },
+          ],
+        },
+      });
+
+      let result = linter.verify({
+        source: templateContents,
+        moduleId: templatePath.slice(0, -4),
+        filePath: templatePath,
+      });
+
+      let expected = [
+        {
+          column: 2,
+          line: 1,
+          message:
+            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
+          moduleId: templatePath.slice(0, -4),
+          rule: 'no-implicit-this',
+          severity: 1,
+          source: 'fooData',
+        },
+      ];
+
+      expect(result).toEqual(expected);
+    });
+
+    it('Works with overrides with custom warning severity object', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          overrides: [
+            {
+              files: ['**/components/**'],
+              rules: {
+                'no-implicit-this': { severity: 'warn' },
+              },
             },
           ],
         },
