@@ -92,11 +92,11 @@ ember-template-lint into your normal eslint workflow.
 
 ### Presets
 
-| Name                                                                                                            | Description                                                                                                                                                                                                                                                                          |
-| :-------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [recommended](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
-| [octane](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/octane.js)           | extends the `recommended` preset by enabling Ember Octane rules                                                                                                                                                                                                                      |
-| [stylistic](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
+Name   | Description |
+|:-----|:------------|
+| [recommended](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/recommended.js) | enables the recommended rules |
+| [octane](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
+| [stylistic](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/stylistic.js) | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ### Project Wide
 
