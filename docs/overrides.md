@@ -1,4 +1,4 @@
-## Overrides support
+# Overrides support
 
 You can tell the linter to override certain aspects for individual files or entire directories with the `overrides` option.
 
@@ -12,10 +12,10 @@ This option takes an array of objects where each object would support 2 keys:
 - `files`: Array of glob patterns (that would either match the exact modules or glob-match multiple modules)
 - `rules`: An object of lint rules that the user wants to override for the specific files
 
-* **module** -- `'app/templates/exceptional-page'`
-* **glob** -- `'app/templates/components/odd-ones/**'`
+- **module** -- `'app/templates/exceptional-page'`
+- **glob** -- `'app/templates/components/odd-ones/**'`
 
-### Sample configuration
+## Sample configuration
 
 ```javascript
 'use strict';

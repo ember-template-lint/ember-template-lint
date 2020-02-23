@@ -170,6 +170,7 @@ Eg:
    }
 }
 ```
+
 _Note: If your rule has a custom config, and you want to define the severity level, then you would need to define the custom config under the `config` key_
 
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).

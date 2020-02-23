@@ -150,7 +150,6 @@ describe('ember-template-lint executable', function() {
           "  1:2  error  Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.  no-implicit-this",
           '',
           '✖ 3 problems (3 errors, 0 warnings)',
-          '',
         ]);
         expect(result.stderr).toBeFalsy();
       });
@@ -535,7 +534,6 @@ describe('ember-template-lint executable', function() {
           `::error file=${applicationFilePath},line=1,col=4::Non-translated string used`,
           `::error file=${applicationFilePath},line=2,col=5::Non-translated string used`,
           `::error file=${fooFilePath},line=1,col=2::Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.`,
-          '',
         ]);
         expect(result.stderr).toBeFalsy();
       });
