@@ -22,7 +22,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '{{yield}}',
         line: 1,
         column: 0,
@@ -33,7 +32,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '{{yield}}',
         line: 1,
         column: 5,
@@ -44,7 +42,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '{{yield}}',
         line: 2,
         column: 2,

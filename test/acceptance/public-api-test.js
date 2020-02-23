@@ -262,7 +262,8 @@ describe('public api', function() {
           column: 7,
           line: 1,
           message: 'you must use double quotes in templates',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           rule: 'quotes',
           severity: 2,
           source: "class='mb4'",
@@ -271,7 +272,8 @@ describe('public api', function() {
 
       let result = linter.verifyAndFix({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result.messages).toEqual(expected);
@@ -318,7 +320,8 @@ describe('public api', function() {
       let expected = [
         {
           message: 'Non-translated string used',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: 'Here too!!',
@@ -327,7 +330,8 @@ describe('public api', function() {
         },
         {
           message: 'Non-translated string used',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           line: 2,
           column: 5,
           source: 'Bare strings are bad...',
@@ -338,7 +342,8 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -365,11 +370,13 @@ describe('public api', function() {
       let template = '<div>bare string</div>';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
       let expected = {
         message: 'Non-translated string used',
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
         line: 1,
         column: 5,
@@ -393,12 +400,14 @@ describe('public api', function() {
       let template = '<div>bare string</div>';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
       let expected = [
         {
           message: 'Non-translated string used',
+          filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
           line: 1,
           column: 5,
@@ -409,6 +418,7 @@ describe('public api', function() {
         {
           message:
             'Pending module (`some/path/here`) passes `block-indentation` rule. Please remove `block-indentation` from pending rules list.',
+          filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
@@ -431,12 +441,14 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
       let expected = {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
         line: 2,
         column: 0,
@@ -460,6 +472,7 @@ describe('public api', function() {
       let template = '<div></div>';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
@@ -467,6 +480,7 @@ describe('public api', function() {
         rule: 'invalid-pending-module',
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
         severity: 2,
       };
@@ -486,6 +500,7 @@ describe('public api', function() {
       let template = '<div></div>';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
@@ -493,6 +508,7 @@ describe('public api', function() {
         rule: 'invalid-pending-module',
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
         severity: 2,
       };
@@ -512,6 +528,7 @@ describe('public api', function() {
       let template = '<div>Bare strings are bad</div>';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
@@ -520,6 +537,7 @@ describe('public api', function() {
           column: 5,
           line: 1,
           message: 'Non-translated string used',
+          filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
           rule: 'no-bare-strings',
           severity: 1,
@@ -528,6 +546,7 @@ describe('public api', function() {
         {
           message:
             'Pending module (`some/path/here`) passes `no-html-comments` rule. Please remove `no-html-comments` from pending rules list.',
+          filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
@@ -549,6 +568,7 @@ describe('public api', function() {
       let template = '<div>bare string</div>';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
@@ -567,6 +587,7 @@ describe('public api', function() {
       let template = '<div>bare string</div>';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
@@ -584,12 +605,14 @@ describe('public api', function() {
       let template = '';
       let result = linter.verify({
         source: template,
+        filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
       });
 
       expect(result).toEqual([
         {
           message: "Definition for rule 'missing-rule' was not found",
+          filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
           severity: 2,
         },
@@ -614,7 +637,8 @@ describe('public api', function() {
       let expected = [
         {
           message: 'The inline form of component is not allowed',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -625,7 +649,8 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -638,7 +663,8 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -662,7 +688,8 @@ describe('public api', function() {
       let expected = [
         {
           message: 'The inline form of component is not allowed',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -673,7 +700,8 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -696,7 +724,8 @@ describe('public api', function() {
       let expected = [
         {
           message: 'The inline form of component is not allowed',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -705,7 +734,8 @@ describe('public api', function() {
         },
         {
           message: 'Usage of triple curly brackets is unsafe',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           line: 2,
           column: 2,
           source: '{{{this.myVar}}}',
@@ -716,7 +746,8 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -740,7 +771,8 @@ describe('public api', function() {
       let expected = [
         {
           message: 'The inline form of component is not allowed',
-          moduleId: templatePath,
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -751,7 +783,8 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -776,7 +809,8 @@ describe('public api', function() {
 
       let result = linter.verify({
         source: templateContents,
-        moduleId: templatePath,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);

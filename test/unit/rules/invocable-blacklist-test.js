@@ -36,7 +36,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{foo}}',
         line: 1,
         column: 0,
@@ -47,7 +46,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '<Foo />'",
-        moduleId: 'layout.hbs',
         source: '<Foo />',
         line: 1,
         column: 0,
@@ -58,7 +56,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{foo foo=bar}}',
         line: 1,
         column: 0,
@@ -69,7 +66,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{foo foo=(baz)}}',
         line: 1,
         column: 0,
@@ -80,7 +76,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{#foo}}{{/foo}}',
         line: 1,
         column: 0,
@@ -91,7 +86,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{#foo foo=bar}}{{/foo}}',
         line: 1,
         column: 0,
@@ -102,7 +96,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{#foo foo=(baz)}}{{/foo}}',
         line: 1,
         column: 0,
@@ -113,7 +106,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{component "foo"}}',
         line: 1,
         column: 0,
@@ -124,7 +116,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{component "foo" foo=bar}}',
         line: 1,
         column: 0,
@@ -135,7 +126,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{component "foo" foo=(baz)}}',
         line: 1,
         column: 0,
@@ -146,7 +136,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{#component "foo"}}{{/component}}',
         line: 1,
         column: 0,
@@ -157,7 +146,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{#component "foo" foo=bar}}{{/component}}',
         line: 1,
         column: 0,
@@ -168,7 +156,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '{{#component "foo" foo=(baz)}}{{/component}}',
         line: 1,
         column: 0,
@@ -179,7 +166,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '(component "foo")',
         line: 1,
         column: 8,
@@ -190,7 +176,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '(component "foo" foo=bar)',
         line: 1,
         column: 8,
@@ -201,7 +186,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '(component "foo" foo=(baz))',
         line: 1,
         column: 8,
@@ -212,7 +196,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '(foo (baz) bar)',
         line: 1,
         column: 13,
@@ -223,7 +206,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '(foo)',
         line: 1,
         column: 24,
@@ -234,7 +216,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '(foo)',
         line: 1,
         column: 28,
@@ -245,7 +226,6 @@ generateRuleTests({
 
       result: {
         message: "Cannot use blacklisted helper or component '{{foo}}'",
-        moduleId: 'layout.hbs',
         source: '(foo)',
         line: 1,
         column: 27,
@@ -260,7 +240,6 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        moduleId: 'layout.hbs',
         message: 'You specified `"sometimes"`',
       },
     },
@@ -270,7 +249,6 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        moduleId: 'layout.hbs',
         message: 'You specified `true`',
       },
     },
@@ -280,7 +258,6 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        moduleId: 'layout.hbs',
         message: 'You specified `{}`',
       },
     },

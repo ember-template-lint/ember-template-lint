@@ -29,7 +29,6 @@ generateRuleTests({
 
       result: {
         message: "Duplicate attribute 'firstName' found in the MustacheStatement.",
-        moduleId: 'layout.hbs',
         source: '{{my-component firstName=firstName lastName=lastName firstName=firstName}}',
         line: 1,
         column: 53,
@@ -44,7 +43,6 @@ generateRuleTests({
 
       result: {
         message: "Duplicate attribute 'firstName' found in the BlockStatement.",
-        moduleId: 'layout.hbs',
         source:
           '{{#my-component firstName=firstName  lastName=lastName firstName=firstName as |fullName|}}' +
           ' {{fullName}}' +
@@ -59,7 +57,6 @@ generateRuleTests({
 
       result: {
         message: "Duplicate attribute 'class' found in the Element.",
-        moduleId: 'layout.hbs',
         source: '<a class="btn" class="btn">{{btnLabel}}</a>',
         line: 1,
         column: 15,
@@ -72,7 +69,6 @@ generateRuleTests({
 
       result: {
         message: "Duplicate attribute 'firstName' found in the SubExpression.",
-        moduleId: 'layout.hbs',
         source: '(hash firstName=firstName lastName=lastName age=age firstName=firstName)',
         line: 1,
         column: 80,
@@ -85,7 +81,6 @@ generateRuleTests({
 
       result: {
         message: "Duplicate attribute 'firstName' found in the SubExpression.",
-        moduleId: 'layout.hbs',
         source: '(hash firstName=firstName lastName=lastName firstName=firstName)',
         line: 1,
         column: 87,

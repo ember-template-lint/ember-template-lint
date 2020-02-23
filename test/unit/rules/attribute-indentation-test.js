@@ -921,7 +921,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L5:C9. Expected '<div>' to be at L6:C0.",
           line: 5,
@@ -931,7 +930,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L4:C9. Expected '{{action}}' to be at L5:C2.",
           line: 4,
@@ -963,7 +961,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L7:C0. Expected '<div>' to be at L6:C9.",
           line: 7,
@@ -973,7 +970,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{action}}' beginning at L5:C2. Expected '{{action}}' to be at L4:C9.",
           line: 5,
@@ -1006,7 +1002,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{my-component}}' beginning at L8:C0. Expected '{{my-component}}' to be at L7:C13.",
           line: 8,
@@ -1040,7 +1035,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{my-component}}' beginning at L8:C0. Expected '{{my-component}}' to be at L7:C13.",
           line: 8,
@@ -1072,7 +1066,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{my-component}}' beginning at L7:C13. Expected '{{my-component}}' to be at L8:C0.",
           line: 7,
@@ -1091,7 +1084,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<input>' beginning at L4:C0. Expected '<input>' to be at L3:C9.",
           line: 4,
@@ -1109,7 +1101,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<input>' beginning at L3:C9. Expected '<input>' to be at L4:C0.",
           line: 3,
@@ -1128,7 +1119,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C7. Expected 'disabled' to be at L2:C2.",
           line: 1,
@@ -1138,7 +1128,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<input>' beginning at L2:C0. Expected '<input>' to be at L3:C0.",
           line: 2,
@@ -1157,7 +1146,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C5. Expected 'disabled' to be at L2:C2.",
           line: 1,
@@ -1167,7 +1155,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L2:C0. Expected '<div>' to be at L3:C0.",
           line: 2,
@@ -1187,7 +1174,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C7. Expected 'disabled' to be at L2:C2.",
           line: 1,
@@ -1198,7 +1184,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'type' beginning at L1:C16. Expected 'type' to be at L3:C2.",
           line: 1,
@@ -1209,7 +1194,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'value' beginning at L1:C28. Expected 'value' to be at L4:C2.",
           line: 1,
@@ -1220,7 +1204,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'class' beginning at L1:C40. Expected 'class' to be at L5:C2.",
           line: 1,
@@ -1231,7 +1214,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'id' beginning at L1:C72. Expected 'id' to be at L6:C2.",
           line: 1,
@@ -1242,7 +1224,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<input>' beginning at L1:C86. Expected '<input>' to be at L7:C0.",
           line: 1,
@@ -1280,7 +1261,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close tag '</a>' for element '<a>' beginning at L10:C3. Expected '</a>' to be at L10:C0.",
           line: 10,
@@ -1300,7 +1280,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'href' beginning at L1:C3. Expected 'href' to be at L2:C2.",
           line: 1,
@@ -1311,7 +1290,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'class' beginning at L1:C34. Expected 'class' to be at L3:C2.",
           line: 1,
@@ -1322,7 +1300,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'rel' beginning at L1:C60. Expected 'rel' to be at L4:C2.",
           line: 1,
@@ -1333,7 +1310,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'target' beginning at L1:C75. Expected 'target' to be at L5:C2.",
           line: 1,
@@ -1344,7 +1320,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<a>' beginning at L1:C90. Expected '<a>' to be at L6:C0.",
           line: 1,
@@ -1355,7 +1330,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close tag '</a>' for element '<a>' beginning at L1:C99. Expected '</a>' to be at L1:C0.",
           line: 1,
@@ -1377,7 +1351,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of attribute 'firstName' beginning at L1:C18. Expected 'firstName' to be at L2:C2.",
-          moduleId: 'layout.hbs',
           source: '{{contact-details firstName=firstName lastName=lastName}}',
         },
         {
@@ -1385,7 +1358,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of attribute 'lastName' beginning at L1:C38. Expected 'lastName' to be at L3:C2.",
-          moduleId: 'layout.hbs',
           source: '{{contact-details firstName=firstName lastName=lastName}}',
         },
         {
@@ -1393,7 +1365,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L1:C55. Expected '{{contact-details}}' to be at L4:C0.",
-          moduleId: 'layout.hbs',
           source: '{{contact-details firstName=firstName lastName=lastName}}',
         },
       ],
@@ -1420,7 +1391,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close tag '</a>' for element '<a>' beginning at L7:C9. Expected '</a>' to be at L8:C0.",
           line: 7,
@@ -1445,7 +1415,6 @@ generateRuleTests({
           line: 2,
           message:
             "Incorrect indentation of attribute 'firstName' beginning at L2:C1. Expected 'firstName' to be at L2:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}',
         },
@@ -1454,7 +1423,6 @@ generateRuleTests({
           line: 2,
           message:
             "Incorrect indentation of attribute 'lastName' beginning at L2:C21. Expected 'lastName' to be at L3:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}',
         },
@@ -1463,7 +1431,6 @@ generateRuleTests({
           line: 2,
           message:
             "Incorrect indentation of block params 'as |contact|}}' beginning at L2:C38. Expecting the block params to be at L3:C0.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}',
         },
@@ -1472,7 +1439,6 @@ generateRuleTests({
           line: 2,
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L2:C51. Expected '{{contact-details}}' to be at L4:C0.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details\n firstName=firstName lastName=lastName as |contact|}}\n {{contact.fullName}}\n{{/contact-details}}',
         },
@@ -1495,7 +1461,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L4:C13. Expected '{{contact-details}}' to be at L5:C0.",
           line: 4,
@@ -1519,7 +1484,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of attribute 'firstName' beginning at L1:C19. Expected 'firstName' to be at L2:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}',
         },
@@ -1528,7 +1492,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of attribute 'lastName' beginning at L1:C39. Expected 'lastName' to be at L3:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}',
         },
@@ -1537,7 +1500,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of attribute 'age' beginning at L1:C57. Expected 'age' to be at L4:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}',
         },
@@ -1546,7 +1508,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of attribute 'avatar' beginning at L1:C65. Expected 'avatar' to be at L5:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}',
         },
@@ -1555,7 +1516,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of block params 'as |contact|}}' beginning at L1:C78. Expecting the block params to be at L2:C0.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}',
         },
@@ -1564,7 +1524,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L1:C91. Expected '{{contact-details}}' to be at L3:C0.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details firstName=firstName lastName=lastName age=age avatar=avatar as |contact|}}\n  {{fullName}}\n{{/contact-details}}',
         },
@@ -1588,7 +1547,6 @@ generateRuleTests({
           line: 4,
           message:
             "Incorrect indentation of block params 'as |contact|}}' beginning at L4:C0. Expecting the block params to be at L2:C0.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details\n\n\nas |contact|}}\n  {{contact.fullName}}\n{{/contact-details}}',
         },
@@ -1597,7 +1555,6 @@ generateRuleTests({
           line: 4,
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L4:C12. Expected '{{contact-details}}' to be at L3:C0.",
-          moduleId: 'layout.hbs',
           source:
             '{{#contact-details\n\n\nas |contact|}}\n  {{contact.fullName}}\n{{/contact-details}}',
         },
@@ -1616,7 +1573,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of positional param 'or' beginning at L1:C5. Expected 'or' to be at L2:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}',
         },
@@ -1625,7 +1581,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of positional param 'Logging Out...' beginning at L1:C57. Expected 'Logging Out...' to be at L3:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}',
         },
@@ -1634,7 +1589,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of positional param 'Log Out' beginning at L1:C74. Expected 'Log Out' to be at L4:C2.",
-          moduleId: 'layout.hbs',
           source:
             '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}',
         },
@@ -1643,7 +1597,6 @@ generateRuleTests({
           line: 1,
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{if}}' beginning at L1:C83. Expected '{{if}}' to be at L5:C0.",
-          moduleId: 'layout.hbs',
           source:
             '{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}',
         },
@@ -1656,7 +1609,6 @@ generateRuleTests({
         rule: 'attribute-indentation',
         message:
           "Incorrect indentation of attribute 'baz' beginning at L2:C0. Expected 'baz' to be at L2:C2.",
-        moduleId: 'layout.hbs',
         source: '{{foo-bar\nbaz=true\n}}',
         line: 2,
         column: 0,
@@ -1669,7 +1621,6 @@ generateRuleTests({
         rule: 'attribute-indentation',
         message:
           "Incorrect indentation of attribute 'baz' beginning at L2:C0. Expected 'baz' to be at L2:C2.",
-        moduleId: 'layout.hbs',
         source: '{{#foo-bar\nbaz=true\n}}\n{{/foo-bar}}',
         line: 2,
         column: 0,
@@ -1704,7 +1655,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L2:C16. Expected '<div>' to be at L3:C0.",
           line: 2,
@@ -1715,7 +1665,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L7:C21. Expected '{{contact-details}}' to be at L8:C0.",
           line: 7,
@@ -1758,7 +1707,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L3:C0. Expected '<div>' to be at L2:C16.",
           line: 3,
@@ -1769,7 +1717,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L9:C0. Expected '{{contact-details}}' to be at L8:C0.",
           line: 9,
@@ -1810,7 +1757,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L2:C16. Expected '<div>' to be at L3:C0.",
           line: 2,
@@ -1821,7 +1767,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L8:C0. Expected '{{contact-details}}' to be at L7:C0.",
           line: 8,
@@ -1862,7 +1807,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L3:C0. Expected '<div>' to be at L2:C16.",
           line: 3,
@@ -1873,7 +1817,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L8:C21. Expected '{{contact-details}}' to be at L9:C0.",
           line: 8,
@@ -1894,7 +1837,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of htmlAttribute 'class' beginning at L4:C8. Expected 'class' to be at L3:C8.",
           line: 4,
@@ -1905,7 +1847,6 @@ generateRuleTests({
         {
           rule: 'attribute-indentation',
           severity: 2,
-          moduleId: 'layout.hbs',
           message:
             "Incorrect indentation of element modifier 'action' beginning at L3:C8. Expected 'action' to be at L4:C8.",
           line: 3,
@@ -1925,7 +1866,6 @@ generateRuleTests({
           line: 3,
           message:
             "Incorrect indentation of close curly braces '}}' for the component '{{foo.bar}}' beginning at L3:C9. Expected '{{foo.bar}}' to be at L4:C4.",
-          moduleId: 'layout.hbs',
           rule: 'attribute-indentation',
           severity: 2,
           source: '{{foo.bar\n      baz}}',

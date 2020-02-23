@@ -27,7 +27,6 @@ generateRuleTests({
       template: '<meta http-equiv="refresh" content="1; url=http://www.example.com">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'a meta redirect should not have a delay value greater than zero',
         line: 1,
         column: 0,
@@ -38,7 +37,6 @@ generateRuleTests({
       template: '<meta http-equiv="refresh" content="71999">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'a meta refresh should have a delay greater than 72000 seconds',
         line: 1,
         column: 0,
@@ -49,7 +47,6 @@ generateRuleTests({
       template: '<meta name="viewport" content="user-scalable=no">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'a meta viewport should not restrict user-scalable',
         line: 1,
         column: 0,
@@ -60,7 +57,6 @@ generateRuleTests({
       template: '<meta name="viewport" content="user-scalable = no">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'a meta viewport should not restrict user-scalable',
         line: 1,
         column: 0,
@@ -71,7 +67,6 @@ generateRuleTests({
       template: '<meta name="viewport" content="user-scalable= no">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'a meta viewport should not restrict user-scalable',
         line: 1,
         column: 0,
@@ -83,7 +78,6 @@ generateRuleTests({
         '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'a meta viewport should not set a maximum scale on content',
         line: 1,
         column: 0,
@@ -96,7 +90,6 @@ generateRuleTests({
       template: '<meta name="viewport">',
 
       result: {
-        moduleId: 'layout.hbs',
         message:
           'a meta content attribute must be defined if the name or the http-equiv attribute is defined',
         line: 1,
@@ -108,7 +101,6 @@ generateRuleTests({
       template: '<meta http-equiv="refresh">',
 
       result: {
-        moduleId: 'layout.hbs',
         message:
           'a meta content attribute must be defined if the name or the http-equiv attribute is defined',
         line: 1,
@@ -121,7 +113,6 @@ generateRuleTests({
       template: '<meta content="72001">',
 
       result: {
-        moduleId: 'layout.hbs',
         message:
           'a meta content attribute cannot be defined if neither the name nor the http-equiv attributes are defined',
         line: 1,

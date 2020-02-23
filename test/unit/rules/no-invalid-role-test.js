@@ -32,7 +32,6 @@ generateRuleTests({
       template: '<ul role="presentation"></ul>',
       result: {
         message: createErrorMessage('ul'),
-        moduleId: 'layout.hbs',
         source: '<ul role="presentation"></ul>',
         line: 1,
         column: 0,
@@ -42,7 +41,6 @@ generateRuleTests({
       template: '<table role="presentation"></table>',
       result: {
         message: createErrorMessage('table'),
-        moduleId: 'layout.hbs',
         source: '<table role="presentation"></table>',
         line: 1,
         column: 0,
@@ -52,7 +50,6 @@ generateRuleTests({
       template: '<table role="none"></table>',
       result: {
         message: createErrorMessage('table'),
-        moduleId: 'layout.hbs',
         source: '<table role="none"></table>',
         line: 1,
         column: 0,

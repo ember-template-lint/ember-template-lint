@@ -23,7 +23,6 @@ generateRuleTests({
       template: `<${element}></${element}>`,
       result: {
         message: ERROR_MESSAGE_OBSOLETE_ELEMENT(element),
-        moduleId: 'layout.hbs',
         source: `<${element}></${element}>`,
         line: 1,
         column: 0,

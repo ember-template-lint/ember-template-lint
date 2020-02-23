@@ -31,7 +31,6 @@ as
     {
       template: '<Foo |a></Foo>',
       result: {
-        moduleId: 'layout.hbs',
         line: 1,
         column: 0,
         message:
@@ -42,7 +41,6 @@ as
     {
       template: '<Foo | a></Foo>',
       result: {
-        moduleId: 'layout.hbs',
         line: 1,
         column: 0,
         message:
@@ -53,7 +51,6 @@ as
     {
       template: '<Foo |a|></Foo>',
       result: {
-        moduleId: 'layout.hbs',
         line: 1,
         column: 0,
         message:
@@ -64,7 +61,6 @@ as
     {
       template: '<Foo | a |></Foo>',
       result: {
-        moduleId: 'layout.hbs',
         line: 1,
         column: 0,
         message:
@@ -75,7 +71,6 @@ as
     {
       template: '<Foo | a |></Foo>',
       result: {
-        moduleId: 'layout.hbs',
         line: 1,
         column: 0,
         message:
@@ -86,7 +81,6 @@ as
     {
       template: '<Foo a|></Foo>',
       result: {
-        moduleId: 'layout.hbs',
         line: 1,
         column: 0,
         message:
@@ -97,7 +91,6 @@ as
     {
       template: '<Foo a |></Foo>',
       result: {
-        moduleId: 'layout.hbs',
         line: 1,
         column: 0,
         message:

@@ -16,7 +16,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{debugger}}',
         line: 1,
         column: 0,
@@ -27,7 +26,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{debugger}}',
         line: 1,
         column: 0,
@@ -38,7 +36,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#debugger}}Invalid!{{/debugger}}',
         line: 1,
         column: 0,

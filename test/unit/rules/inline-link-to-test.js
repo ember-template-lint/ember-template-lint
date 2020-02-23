@@ -19,7 +19,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: "{{link-to 'Link text' 'routeName'}}",
         line: 1,
         column: 0,
@@ -30,7 +29,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: "{{link-to 'Link text' 'routeName' one two}}",
         line: 1,
         column: 0,

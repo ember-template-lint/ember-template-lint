@@ -38,7 +38,6 @@ generateRuleTests({
       template: "{{component 'test'}}",
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'you must use double quotes in templates',
         line: 1,
         column: 12,
@@ -50,7 +49,6 @@ generateRuleTests({
       template: "{{hello x='test'}}",
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'you must use double quotes in templates',
         line: 1,
         column: 10,
@@ -62,7 +60,6 @@ generateRuleTests({
       template: "<input type='checkbox'>",
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'you must use double quotes in templates',
         line: 1,
         column: 7,
@@ -74,7 +71,6 @@ generateRuleTests({
       template: '{{component "test"}}',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'you must use single quotes in templates',
         line: 1,
         column: 12,
@@ -86,7 +82,6 @@ generateRuleTests({
       template: '{{hello x="test"}}',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'you must use single quotes in templates',
         line: 1,
         column: 10,
@@ -98,7 +93,6 @@ generateRuleTests({
       template: '<input type="checkbox">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'you must use single quotes in templates',
         line: 1,
         column: 7,
@@ -114,7 +108,6 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        moduleId: 'layout.hbs',
         message: 'You specified `"sometimes"`',
       },
     },
@@ -124,7 +117,6 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        moduleId: 'layout.hbs',
         message: 'You specified `true`',
       },
     },

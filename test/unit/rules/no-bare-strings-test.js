@@ -114,7 +114,6 @@ generateRuleTests({
     {
       template: '<p>{{"Hello!"}}</p>',
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used',
         line: 1,
         column: 3,
@@ -125,7 +124,6 @@ generateRuleTests({
       template: '\n howdy',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used',
         line: 1,
         column: 0,
@@ -136,7 +134,6 @@ generateRuleTests({
       template: '<div>\n  1234\n</div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used',
         line: 1,
         column: 5,
@@ -148,7 +145,6 @@ generateRuleTests({
       template: '<a title="hahaha trolol"></a>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `title` attribute',
         line: 1,
         column: 3,
@@ -160,7 +156,6 @@ generateRuleTests({
       template: '<input placeholder="trolol">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
         column: 7,
@@ -172,7 +167,6 @@ generateRuleTests({
       template: '<input placeholder="{{foo}}hahaha trolol">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
         column: 7,
@@ -184,7 +178,6 @@ generateRuleTests({
       template: '<div role="contentinfo" aria-label="Contact, Policies and Legal"></div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `aria-label` attribute',
         line: 1,
         column: 24,
@@ -196,7 +189,6 @@ generateRuleTests({
       template: '<div contenteditable role="searchbox" aria-placeholder="Search for things"></div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `aria-placeholder` attribute',
         line: 1,
         column: 38,
@@ -208,7 +200,6 @@ generateRuleTests({
       template: '<div role="region" aria-roledescription="slide"></div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `aria-roledescription` attribute',
         line: 1,
         column: 19,
@@ -221,7 +212,6 @@ generateRuleTests({
         '<div role="slider" aria-valuetext="Off" tabindex="0" aria-valuemin="0" aria-valuenow="0" aria-valuemax="3"></div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `aria-valuetext` attribute',
         line: 1,
         column: 19,
@@ -234,7 +224,6 @@ generateRuleTests({
       template: '<div data-foo="derpy"></div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `data-foo` attribute',
         line: 1,
         column: 5,
@@ -247,7 +236,6 @@ generateRuleTests({
       template: '<img data-alt="some alternate here">',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Non-translated string used in `data-alt` attribute',
         line: 1,
         column: 5,
@@ -260,14 +248,12 @@ generateRuleTests({
       template: '<div>Bady\n  <input placeholder="trolol">\n</div>',
       results: [
         {
-          moduleId: 'layout.hbs',
           message: 'Non-translated string used',
           line: 1,
           column: 5,
           source: 'Bady\n  ',
         },
         {
-          moduleId: 'layout.hbs',
           message: 'Non-translated string used in `placeholder` attribute',
           line: 2,
           column: 9,

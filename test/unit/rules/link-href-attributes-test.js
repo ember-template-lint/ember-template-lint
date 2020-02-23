@@ -20,7 +20,6 @@ generateRuleTests({
       template: '<a></a>',
       result: {
         message: 'a tags must have an href attribute',
-        moduleId: 'layout.hbs',
         source: '<a></a>',
         line: 1,
         column: 0,

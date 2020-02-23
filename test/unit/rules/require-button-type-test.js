@@ -30,7 +30,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<button/>',
         line: 1,
         column: 0,
@@ -41,7 +40,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<button>label</button>',
         line: 1,
         column: 0,
@@ -52,7 +50,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<button type="" />',
         line: 1,
         column: 0,
@@ -63,7 +60,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<button type="foo" />',
         line: 1,
         column: 0,
@@ -74,7 +70,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<button type=42 />',
         line: 1,
         column: 0,
