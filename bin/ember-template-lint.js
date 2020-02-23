@@ -9,12 +9,10 @@ const Linter = require('../lib/index');
 
 const STDIN = '/dev/stdin';
 
-function lintFile(linter, filePath, moduleId, shouldFix) {
-  let toRead = filePath === STDIN ? process.stdin.fd : filePath;
-
+function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
   // TODO: swap to using get-stdin when we can leverage async/await
   let source = fs.readFileSync(toRead, { encoding: 'utf8' });
-  let options = { source, moduleId };
+  let options = { source, filePath, moduleId };
 
   if (shouldFix) {
     let result = linter.verifyAndFix(options);
@@ -119,10 +117,11 @@ function run() {
   }
 
   for (let relativeFilePath of filesToLint) {
-    let filePath = path.resolve(relativeFilePath);
-    let fileName = relativeFilePath === STDIN ? filePathFromArgs : relativeFilePath;
-    let moduleId = fileName.slice(0, -4);
-    let fileErrors = lintFile(linter, filePath, moduleId, fix);
+    let resolvedFilePath = path.resolve(relativeFilePath);
+    let toRead = resolvedFilePath === STDIN ? process.stdin.fd : resolvedFilePath;
+    let filePath = resolvedFilePath === STDIN ? filePathFromArgs : relativeFilePath;
+    let moduleId = filePath.slice(0, -4);
+    let fileErrors = lintFile(linter, filePath, toRead, moduleId, fix);
 
     if (printPending) {
       const ignoredPendingRules = ['invalid-pending-module', 'invalid-pending-module-rule'];
@@ -150,7 +149,7 @@ function run() {
     }
 
     if (fileErrors.length) {
-      errors[filePath] = fileErrors;
+      errors[resolvedFilePath] = fileErrors;
     }
   }
 

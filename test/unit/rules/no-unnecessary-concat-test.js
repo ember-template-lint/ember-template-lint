@@ -15,7 +15,6 @@ generateRuleTests({
 
       result: {
         message: 'Unnecessary string concatenation. Use {{clazz}} instead of "{{clazz}}".',
-        moduleId: 'layout.hbs',
         source: '"{{clazz}}"',
         line: 1,
         column: 11,
@@ -27,7 +26,6 @@ generateRuleTests({
       results: [
         {
           message: 'Unnecessary string concatenation. Use {{url}} instead of "{{url}}".',
-          moduleId: 'layout.hbs',
           source: '"{{url}}"',
           line: 1,
           column: 9,
@@ -35,7 +33,6 @@ generateRuleTests({
         {
           message:
             'Unnecessary string concatenation. Use {{t "alternate-text"}} instead of "{{t "alternate-text"}}".',
-          moduleId: 'layout.hbs',
           source: '"{{t "alternate-text"}}"',
           line: 1,
           column: 23,

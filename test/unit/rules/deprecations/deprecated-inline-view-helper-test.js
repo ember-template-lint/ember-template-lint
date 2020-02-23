@@ -32,7 +32,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: "{{view 'awful-fishsticks'}}",
         line: 1,
         column: 0,
@@ -46,7 +45,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{view.bad-fishsticks}}',
         line: 1,
         column: 0,
@@ -60,7 +58,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{view.terrible.fishsticks}}',
         line: 1,
         column: 0,
@@ -74,7 +71,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{foo-bar baz=view.qux.qaz}}',
         line: 1,
         column: 19,
@@ -88,7 +84,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<div data-foo={{view.hallo}}></div>',
         line: 1,
         column: 0,
@@ -102,7 +97,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#foo-bar derp=view.whoops}}{{/foo-bar}}',
         line: 1,
         column: 11,

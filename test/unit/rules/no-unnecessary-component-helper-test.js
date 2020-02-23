@@ -60,7 +60,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '{{component "my-component-name"}}',
         line: 1,
         column: 0,
@@ -72,7 +71,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '{{#component "my-component-name"}}{{/component}}',
         line: 1,
         column: 0,
@@ -84,7 +82,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '{{component "forbidden-component"}}',
         line: 1,
         column: 44,

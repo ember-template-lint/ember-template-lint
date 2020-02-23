@@ -20,7 +20,6 @@ generateRuleTests({
 
       result: {
         message: 'Usage of triple curly brackets is unsafe',
-        moduleId: 'layout.hbs',
         source: '{{{foo}}}',
         line: 2,
         column: 1,

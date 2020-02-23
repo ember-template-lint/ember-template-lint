@@ -23,7 +23,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#each post in posts}}',
         line: 1,
         column: 0,
@@ -37,7 +36,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#each posts}}',
         line: 1,
         column: 0,

@@ -19,7 +19,6 @@ generateRuleTests({
       template: '<a href="https://myurl.com">click here</a>',
       result: {
         message: 'Links should have descriptive text',
-        moduleId: 'layout.hbs',
         source: '<a href="https://myurl.com">click here</a>',
         line: 1,
         column: 0,
@@ -29,7 +28,6 @@ generateRuleTests({
       template: '<LinkTo>click here</LinkTo>',
       result: {
         message: 'Links should have descriptive text',
-        moduleId: 'layout.hbs',
         source: '<LinkTo>click here</LinkTo>',
         line: 1,
         column: 0,
@@ -39,7 +37,6 @@ generateRuleTests({
       template: '{{#link-to}}click here{{/link-to}}',
       result: {
         message: 'Links should have descriptive text',
-        moduleId: 'layout.hbs',
         source: '{{#link-to}}click here{{/link-to}}',
         line: 1,
         column: 0,

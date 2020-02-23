@@ -38,7 +38,6 @@ generateRuleTests({
       template: 'something\ngoes\r\n',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 2,
         column: 4,
@@ -50,7 +49,6 @@ generateRuleTests({
       template: '\r\n',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 0,
@@ -62,7 +60,6 @@ generateRuleTests({
       template: '{{#if test}}\r\n{{/if}}',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 12,
@@ -74,7 +71,6 @@ generateRuleTests({
       template: '{{blah}}\r\n{{blah}}',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 8,
@@ -86,7 +82,6 @@ generateRuleTests({
       template: '{{blah}}\r\n',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 8,
@@ -98,7 +93,6 @@ generateRuleTests({
       template: '{{blah arg="\r\n"}}',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 12,
@@ -110,7 +104,6 @@ generateRuleTests({
       template: '<blah arg="\r\n" />',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected LF but found CRLF',
         line: 1,
         column: 11,
@@ -122,7 +115,6 @@ generateRuleTests({
       template: '\n',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Wrong linebreak used. Expected CRLF but found LF',
         line: 1,
         column: 0,

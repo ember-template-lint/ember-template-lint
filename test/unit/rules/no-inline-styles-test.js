@@ -8,7 +8,6 @@ function mapBadStyleExampleToTestRule(inlineStyle) {
 
     result: {
       message: 'elements cannot have inline styles',
-      moduleId: 'layout.hbs',
       source: inlineStyle,
       line: 1,
       column: 5,

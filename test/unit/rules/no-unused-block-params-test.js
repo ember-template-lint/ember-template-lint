@@ -32,7 +32,6 @@ generateRuleTests({
 
       result: {
         message: "'cat' is defined but never used",
-        moduleId: 'layout.hbs',
         source: 'Dogs',
         line: 1,
         column: 23,
@@ -42,7 +41,6 @@ generateRuleTests({
       template: '{{#each cats as |cat index|}}{{cat}}{{/each}}',
       result: {
         message: "'index' is defined but never used",
-        moduleId: 'layout.hbs',
         source: '{{cat}}',
         line: 1,
         column: 29,
@@ -57,7 +55,6 @@ generateRuleTests({
         '{{/each}}',
       result: {
         message: "'index' is defined but never used",
-        moduleId: 'layout.hbs',
         source: '{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}',
         line: 1,
         column: 29,
@@ -71,7 +68,6 @@ generateRuleTests({
         '{{/each}}',
       result: {
         message: "'life' is defined but never used",
-        moduleId: 'layout.hbs',
         source: 'Life',
         line: 1,
         column: 75,

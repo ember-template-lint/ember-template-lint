@@ -16,7 +16,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#input}}{{/input}}',
         line: 1,
         column: 0,

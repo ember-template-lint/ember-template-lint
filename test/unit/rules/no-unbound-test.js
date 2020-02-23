@@ -16,7 +16,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{unbound foo}}',
         line: 1,
         column: 0,
@@ -27,7 +26,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '(unbound foo)',
         line: 1,
         column: 15,

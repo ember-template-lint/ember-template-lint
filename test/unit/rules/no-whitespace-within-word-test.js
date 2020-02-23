@@ -21,7 +21,6 @@ generateRuleTests({
       template: 'W e l c o m e',
 
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
@@ -31,7 +30,6 @@ generateRuleTests({
     {
       template: 'W&nbsp;e&nbsp;l&nbsp;c&nbsp;o&nbsp;m&nbsp;e',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
@@ -41,7 +39,6 @@ generateRuleTests({
     {
       template: 'Wel c o me',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
@@ -51,7 +48,6 @@ generateRuleTests({
     {
       template: 'Wel&nbsp;c&emsp;o&nbsp;me',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
@@ -61,7 +57,6 @@ generateRuleTests({
     {
       template: '<div>W e l c o m e</div>',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 5,
@@ -71,7 +66,6 @@ generateRuleTests({
     {
       template: '<div>Wel c o me</div>',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 5,

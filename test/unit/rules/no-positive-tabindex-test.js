@@ -28,7 +28,6 @@ generateRuleTests({
 
       result: {
         message: 'Tabindex values must be negative numeric.',
-        moduleId: 'layout.hbs',
         source: 'tabindex={{someProperty}}',
         line: 1,
         column: 0,
@@ -39,7 +38,6 @@ generateRuleTests({
 
       result: {
         message: 'Avoid positive integer values for tabindex.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="1"',
         line: 1,
         column: 0,
@@ -50,7 +48,6 @@ generateRuleTests({
 
       result: {
         message: 'Tabindex values must be negative numeric.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="text"',
         line: 1,
         column: 0,
@@ -61,7 +58,6 @@ generateRuleTests({
 
       result: {
         message: 'Tabindex values must be negative numeric.',
-        moduleId: 'layout.hbs',
         source: 'tabindex={{true}}',
         line: 1,
         column: 0,
@@ -72,7 +68,6 @@ generateRuleTests({
 
       result: {
         message: 'Tabindex values must be negative numeric.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="{{false}}"',
         line: 1,
         column: 0,
@@ -83,7 +78,6 @@ generateRuleTests({
 
       result: {
         message: 'Avoid positive integer values for tabindex.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="{{5}}"',
         line: 1,
         column: 0,
@@ -94,7 +88,6 @@ generateRuleTests({
 
       result: {
         message: 'Avoid positive integer values for tabindex.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="{{if a 1 -1}}"',
         line: 1,
         column: 0,
@@ -105,7 +98,6 @@ generateRuleTests({
 
       result: {
         message: 'Avoid positive integer values for tabindex.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="{{if a -1 1}}"',
         line: 1,
         column: 0,
@@ -116,7 +108,6 @@ generateRuleTests({
 
       result: {
         message: 'Avoid positive integer values for tabindex.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="{{if a 1}}"',
         line: 1,
         column: 0,
@@ -127,7 +118,6 @@ generateRuleTests({
 
       result: {
         message: 'Avoid positive integer values for tabindex.',
-        moduleId: 'layout.hbs',
         source: 'tabindex="{{if (not a) 1}}"',
         line: 1,
         column: 0,
