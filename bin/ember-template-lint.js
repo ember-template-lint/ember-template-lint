@@ -14,9 +14,15 @@ function lintFile(linter, filePath, moduleId, shouldFix) {
 
   // TODO: swap to using get-stdin when we can leverage async/await
   let source = fs.readFileSync(toRead, { encoding: 'utf8' });
+  let options = { source, moduleId };
 
-  let result = linter.verifyAndFix({ source, moduleId, shouldFix });
-  return result.messages;
+  if (shouldFix) {
+    let result = linter.verifyAndFix(options);
+
+    return result.messages;
+  } else {
+    return linter.verify(options);
+  }
 }
 
 function expandFileGlobs(positional) {

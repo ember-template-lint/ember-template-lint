@@ -222,17 +222,19 @@ describe('public api', function() {
   describe('Linter.prototype.verifyAndFix', function() {
     let basePath = null;
     let linter;
-    let expected = {
-      rules: {
-        quotes: 'double',
-      },
-    };
 
     beforeAll(async function() {
       project = await createTempDir();
       basePath = project.path();
+
+      let linterConfig = {
+        rules: {
+          quotes: 'double',
+        },
+      };
+
       project.write({
-        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(linterConfig)};`,
         app: {
           templates: {
             'application.hbs': "<input class='mb4'>",
@@ -241,7 +243,7 @@ describe('public api', function() {
       });
     });
 
-    this.afterAll(async function() {
+    afterAll(async function() {
       await project.dispose();
     });
 
