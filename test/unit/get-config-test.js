@@ -1,84 +1,80 @@
 'use strict';
 
-const path = require('path');
 const getConfig = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 const buildFakeConsole = require('../helpers/console');
-const { createTempDir } = require('broccoli-test-helper');
-
-const initialCWD = process.cwd();
+const Project = require('../helpers/fake-project');
 
 describe('get-config', function() {
   let project = null;
-  beforeEach(async function() {
-    project = await createTempDir();
-    process.chdir(project.path());
+
+  beforeEach(function() {
+    project = new Project();
   });
+
   afterEach(async function() {
-    process.chdir(initialCWD);
     await project.dispose();
   });
 
-  it('if config is provided, it is returned', function() {
-    let expected = {
+  it('if config is provided directly, it is used', function() {
+    let config = {
       rules: {
         foo: 'bar',
         baz: 'derp',
       },
     };
-    project.write({
-      '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
-      app: {
-        templates: {
-          'application.hbs': '',
-        },
-      },
-    });
-    let actual = getConfig({ config: expected });
+
+    // clone to ensure we are not mutating
+    let expected = JSON.parse(JSON.stringify(config));
+
+    let actual = getConfig({ config });
     expect(actual.rules).toEqual(expected.rules);
   });
 
   it('uses .template-lintrc.js in cwd if present', function() {
-    let expected = {
+    let config = {
       rules: {
         foo: 'bar',
         baz: 'derp',
       },
     };
-    project.write({
-      '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
-      app: {
-        templates: {
-          'application.hbs': '',
-        },
-      },
-    });
+    // clone to ensure we are not mutating
+    let expected = JSON.parse(JSON.stringify(config));
+
+    project.setConfig(expected);
+    project.chdir();
+
     let actual = getConfig({});
 
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('uses .template-lintrc in provided configPath', function() {
-    let configPath = path.join(project.path(), '.template-lintrc.js');
-
+  it('uses the specified configPath from cwd', function() {
     let expected = {
       rules: {
         foo: 'bar',
         baz: 'derp',
       },
     };
-    project.write({
-      '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
-      app: {
-        templates: {
-          'application.hbs': '',
-        },
-      },
-    });
+    project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
+    project.chdir();
 
-    let actual = getConfig({
-      configPath,
-    });
+    let actual = getConfig({ configPath: 'some-other-path.js' });
+
+    expect(actual.rules).toEqual(expected.rules);
+  });
+
+  it('uses the specified configPath outside of cwd', function() {
+    let expected = {
+      rules: {
+        foo: 'bar',
+        baz: 'derp',
+      },
+    };
+    project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
+    project.writeSync();
+
+    let actual = getConfig({ configPath: project.path('some-other-path.js') });
 
     expect(actual.rules).toEqual(expected.rules);
   });

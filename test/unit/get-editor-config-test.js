@@ -1,24 +1,22 @@
 'use strict';
 
-const path = require('path');
 const EditorConfigResolver = require('../../lib/get-editor-config');
-const { createTempDir } = require('broccoli-test-helper');
-
-const initialCWD = process.cwd();
+const Project = require('../helpers/fake-project');
 
 describe('get-editor-config', function() {
   let project = null;
-  beforeEach(async function() {
-    project = await createTempDir();
-    process.chdir(project.path());
+
+  beforeEach(function() {
+    project = new Project();
+    project.chdir();
   });
+
   afterEach(async function() {
-    process.chdir(initialCWD);
     await project.dispose();
   });
 
   it('able to read and add info from .editorconfig file if exists', function() {
-    let filePath = path.join(project.path(), 'app.hbs');
+    let filePath = project.path('app.hbs');
 
     project.write({
       'app.hbs': '',
@@ -72,7 +70,7 @@ trim_trailing_whitespace = false
   });
 
   it('return empty object if no config found', function() {
-    let filePath = path.join(project.path(), 'app.hbs');
+    let filePath = project.path('app.hbs');
 
     project.write({
       'app.hbs': '',
@@ -82,7 +80,7 @@ trim_trailing_whitespace = false
   });
 
   it('able to merge different editor config files', function() {
-    let filePath = path.join(project.path(), 'app', 'app.hbs');
+    let filePath = project.path('app/app.hbs');
 
     project.write({
       app: {
@@ -110,7 +108,7 @@ indent_size = 5
   });
 
   it('able to merge different config sections', function() {
-    let filePath = path.join(project.path(), 'app.hbs');
+    let filePath = project.path('app.hbs');
 
     project.write({
       'app.hbs': '',
@@ -152,7 +150,7 @@ indent_style = space
   });
 
   it('able to resolve config with custom name', function() {
-    let filePath = path.join(project.path(), 'app.hbs');
+    let filePath = project.path('app.hbs');
 
     project.write({
       'app.hbs': '',
@@ -180,14 +178,14 @@ insert_final_newline = true
   });
 
   it('return default values if no hbs in editor config', function() {
-    let filePath = path.join(project.path(), 'app.hbs');
+    let filePath = project.path('app.hbs');
 
     project.write({
       'app.hbs': '',
       '.editorconfig': `
 [*]
 indent_style = space
-indent_size = 5      
+indent_size = 5
 `,
     });
 
@@ -199,14 +197,14 @@ indent_size = 5
   });
 
   it('return empty object if editor config not relevant', function() {
-    let filePath = path.join(project.path(), 'app.hbs');
+    let filePath = project.path('app.hbs');
 
     project.write({
       'app.hbs': '',
       '.editorconfig': `
 [*.css]
 indent_style = space
-indent_size = 5      
+indent_size = 5
 `,
     });
 
@@ -214,7 +212,7 @@ indent_size = 5
   });
 
   it('allow specify custom editorconfig for file', function() {
-    let filePath = path.join(project.path(), 'items/app.hbs');
+    let filePath = project.path('items/app.hbs');
 
     project.write({
       'app.hbs': '',
