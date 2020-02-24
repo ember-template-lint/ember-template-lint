@@ -1,7 +1,7 @@
 # ember-template-lint
 
 [![npm version](https://badge.fury.io/js/ember-template-lint.svg)](https://badge.fury.io/js/ember-template-lint)
-[![Build Status](https://travis-ci.org/ember-template-lint/ember-template-lint.svg?branch=master)](https://travis-ci.org/ember-template-lint/ember-template-lint)
+[![Build Status](https://github.com/ember-template-lint/ember-template-lint/workflows/CI/badge.svg)](https://github.com/ember-template-lint/ember-template-lint/actions?query=workflow%3ACI)
 
 ember-template-lint will lint your template and return error results.
 
