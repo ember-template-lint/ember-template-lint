@@ -248,6 +248,7 @@ describe('ember-template-lint executable', function() {
         expectedOutputData[fullFooTemplateFilePath] = [
           {
             column: 2,
+            filePath: 'app/templates/components/foo.hbs',
             line: 1,
             message:
               "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",

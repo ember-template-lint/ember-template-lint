@@ -352,7 +352,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -383,7 +382,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       let expected = [
@@ -423,6 +421,7 @@ describe('public api', function() {
       let expected = [
         {
           column: 2,
+          filePath: templatePath,
           line: 1,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
@@ -463,6 +462,7 @@ describe('public api', function() {
       let expected = [
         {
           column: 2,
+          filePath: templatePath,
           line: 1,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
@@ -504,6 +504,7 @@ describe('public api', function() {
         {
           column: 2,
           line: 1,
+          filePath: templatePath,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
           moduleId: templatePath.slice(0, -4),
@@ -562,7 +563,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -594,7 +594,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -623,7 +622,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       let expected = {
@@ -652,7 +650,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       let expected = [
@@ -693,7 +690,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       expect(result).toEqual([]);
@@ -713,7 +709,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       expect(result).toEqual([]);
@@ -732,7 +727,6 @@ describe('public api', function() {
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
-        filePath: 'some/path/here.hbs',
       });
 
       expect(result).toEqual([
