@@ -6,8 +6,8 @@ const FixturifyProject = require('fixturify-project');
 const ROOT = process.cwd();
 
 module.exports = class FakeProject extends FixturifyProject {
-  constructor() {
-    super('fake-project');
+  constructor(name = 'fake-project', ...args) {
+    super(name, ...args);
   }
 
   setConfig(config) {
