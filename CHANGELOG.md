@@ -1,3 +1,21 @@
+## v2.0.1 (2020-02-24)
+
+#### :rocket: Enhancement
+* [#935](https://github.com/ember-template-lint/ember-template-lint/pull/935) Implement more plumbing for `--fix` support (add `Linter.prototype.verifyAndFix`) ([@dcyriller](https://github.com/dcyriller))
+
+#### :bug: Bug Fix
+* [#1153](https://github.com/ember-template-lint/ember-template-lint/pull/1153) Ensure plugins are resolved relative to config file location. ([@rwjblue](https://github.com/rwjblue))
+* [#1072](https://github.com/ember-template-lint/ember-template-lint/pull/1072) Ensure `editorconfig` integration always uses the real file path not module name (add's new `filePath` property for rules to access). ([@bobisjan](https://github.com/bobisjan))
+
+#### :house: Internal
+* [#1151](https://github.com/ember-template-lint/ember-template-lint/pull/1151) Add internal `fixturify-project` based test helper. ([@rwjblue](https://github.com/rwjblue))
+* [#1148](https://github.com/ember-template-lint/ember-template-lint/pull/1148) Use npm-run-all to run multiple scripts. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Jan Bobisud ([@bobisjan](https://github.com/bobisjan))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
 ## v2.0.0 (2020-02-22)
 
 #### :boom: Breaking Change

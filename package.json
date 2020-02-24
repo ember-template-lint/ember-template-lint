@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Lint your templates.",
   "keywords": [],
   "homepage": "https://github.com/ember-template-lint/ember-template-lint",
