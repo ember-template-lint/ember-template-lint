@@ -409,7 +409,7 @@ describe('public api', function() {
     });
 
     it('Works with overrides - base case', function() {
-      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
       let result = linter.verify({
@@ -436,7 +436,7 @@ describe('public api', function() {
     });
 
     it('Works with overrides with custom warning severity', function() {
-      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
       linter = new Linter({
@@ -477,7 +477,7 @@ describe('public api', function() {
     });
 
     it('Works with overrides with custom warning severity object', function() {
-      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
       linter = new Linter({
@@ -518,7 +518,7 @@ describe('public api', function() {
     });
 
     it('Should not trigger the lint error over custom overrides', function() {
-      let templatePath = path.join(basePath, 'app', 'templates', 'components', 'foo.hbs');
+      let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
       linter = new Linter({
