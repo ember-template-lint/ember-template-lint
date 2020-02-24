@@ -4,6 +4,7 @@ const getConfig = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 const buildFakeConsole = require('../helpers/console');
 const Project = require('../helpers/fake-project');
+const { stripIndent } = require('common-tags');
 
 describe('get-config', function() {
   let project = null;
@@ -155,6 +156,40 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toMatch(/Cannot find configuration for extends/);
+  });
+
+  it('resolves plugins by string', function() {
+    let console = buildFakeConsole();
+
+    project.setConfig({
+      extends: ['my-awesome-thing:stylistic'],
+      plugins: ['my-awesome-thing'],
+    });
+
+    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+      dep.files['index.js'] = stripIndent`
+        module.exports = {
+          name: 'my-awesome-thing',
+
+          configurations: {
+            stylistic: {
+              rules: {
+                quotes: 'single',
+              }
+            }
+          }
+        };
+      `;
+    });
+
+    project.chdir();
+
+    let actual = getConfig({
+      console,
+    });
+
+    expect(console.stdout).toEqual('');
+    expect(actual.rules['quotes']).toBe('single');
   });
 
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
