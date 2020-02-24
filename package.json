@@ -34,7 +34,6 @@
     "strip-bom": "^4.0.0"
   },
   "devDependencies": {
-    "broccoli-test-helper": "^2.0.0",
     "common-tags": "^1.8.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
@@ -44,6 +43,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "execa": "^4.0.0",
+    "fixturify-project": "^2.1.0",
     "jest": "^25.1.0",
     "lerna-changelog": "^1.0.0",
     "markdownlint-cli": "^0.22.0",
