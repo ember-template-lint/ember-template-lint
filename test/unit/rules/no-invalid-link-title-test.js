@@ -34,23 +34,5 @@ generateRuleTests({
         column: 0,
       },
     },
-    {
-      template: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
-      result: {
-        message: 'Title attribute values should not be the same as the link text.',
-        source: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
-        line: 1,
-        column: 0,
-      },
-    },
-    {
-      template: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
-      result: {
-        message: 'Title attribute values should not be the same as the link text.',
-        source: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
-        line: 1,
-        column: 0,
-      },
-    },
   ],
 });
