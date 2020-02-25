@@ -35,9 +35,27 @@ let pathRuleNew = path.join(pathRoot, 'lib', 'rules', newRuleName + '.js');
 let pathTestNew = path.join(pathRoot, 'test', 'unit', 'rules', newRuleName + '-test.js');
 let docListAppend = '\n* [' + newRuleName + '](rule/' + newRuleName + '.md)';
 
-fs.copyFileSync(pathDocTemplate, pathDocNew);
-fs.copyFileSync(pathRuleTemplate, pathRuleNew);
+function createNewRuleFile(newRuleName, pathRuleTemplate, pathRuleNew) {
+  // read in the template rule file (as a string)
+  let originalContent = fs.readFileSync(pathRuleTemplate, { encoding: 'utf8' });
+  // un-dasherize the input from the CLI(rule name)
+  let newRuleClassArray = newRuleName.split('-');
+  let newRuleClassArrayCaps = newRuleClassArray.map(element =>
+    element.replace(element.charAt(0), element.charAt(0).toUpperCase())
+  );
+  let newRuleClassName = newRuleClassArrayCaps.join('');
+  // search the rule file for the placeholder class name & replace it with the new class name
+  let outputContent = originalContent.replace('PlaceholderForRuleClass', newRuleClassName);
+  // write the modified template text to the rule file
+  fs.writeFileSync(pathRuleNew, outputContent);
+}
+createNewRuleFile(newRuleName, pathRuleTemplate, pathRuleNew);
+
+// create the new rule test file
 fs.copyFileSync(pathTestTemplate, pathTestNew);
+// create the new rule doc file
+fs.copyFileSync(pathDocTemplate, pathDocNew);
+// adds the new rule doc file to the rule list in the docs
 fs.appendFileSync(pathDocList, docListAppend);
 
 // Feature: inserts new rule information into the rule list for immediate use
