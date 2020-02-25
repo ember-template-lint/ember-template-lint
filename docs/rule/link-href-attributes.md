@@ -4,7 +4,13 @@ It's common to treat anchor tags as buttons. However, this is a bad practice! Th
 
 One of the differences between `<a>` elements and `<button>` elements is how they work- the `<button>` can be triggered by either the `SPACEBAR` or the `ENTER` key, while the `<a>` is only triggered by the `ENTER` key. This is important to know, so you can provide appropriately for users who rely UI elements to work in a consistent way.
 
-Wherever possible, a link should look like a link, and a button should look like a button. However, the underlying HTML markup and base functionality are more important here (if one has to choose).
+Instead of using a link, attach the action to the `<button>` element:
+
+```hbs
+<button type="button" {{on 'click' this.submit}}>Submit</button>
+```
+
+Wherever possible, a link should look like a link, and a button should look like a button. However, if one must choose, the underlying HTML markup and base functionality are more important. In these cases, adding a CSS class with the styling desired may be acceptable.
 
 ## Examples
 
