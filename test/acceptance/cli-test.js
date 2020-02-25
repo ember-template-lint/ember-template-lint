@@ -1,10 +1,20 @@
 'use strict';
 
 const execa = require('execa');
-const path = require('path');
+const Project = require('../helpers/fake-project');
 
 describe('ember-template-lint executable', function() {
   setupEnvVar('FORCE_COLOR', '0');
+  // Fake project
+  let project;
+  beforeEach(function() {
+    project = new Project();
+    project.chdir();
+  });
+
+  afterEach(async function() {
+    await project.dispose();
+  });
 
   describe('basic usage', function() {
     describe('without any parameters', function() {
@@ -13,9 +23,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given path to non-existing file', function() {
       it('should exit without error and any console output', function() {
-        let result = run(['app/templates/application-1.hbs'], {
-          cwd: './test/fixtures/with-errors',
-        });
+        setProjectConfigForErrors();
+        let result = run(['app/templates/application-1.hbs']);
 
         expect(result.exitCode).toEqual(0, 'exits without error');
         expect(result.stdout).toBeFalsy();
@@ -25,9 +34,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given path to single file with errors', function() {
       it('should print errors', function() {
-        let result = run(['app/templates/application.hbs'], {
-          cwd: './test/fixtures/with-errors',
-        });
+        setProjectConfigForErrors();
+        let result = run(['app/templates/application.hbs']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
@@ -37,9 +45,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given wildcard path resolving to single file', function() {
       it('should print errors', function() {
-        let result = run(['app/templates/*'], {
-          cwd: './test/fixtures/with-errors',
-        });
+        setProjectConfigForErrors();
+        let result = run(['app/templates/*']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
@@ -49,9 +56,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given directory path', function() {
       it('should print errors', function() {
-        let result = run(['app'], {
-          cwd: './test/fixtures/with-errors',
-        });
+        setProjectConfigForErrors();
+        let result = run(['app']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
@@ -61,8 +67,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given no path', function() {
       it('should print errors', function() {
+        setProjectConfigForErrors();
         let result = run(['<', 'app/templates/application.hbs'], {
-          cwd: './test/fixtures/with-errors',
           shell: true,
         });
 
@@ -74,10 +80,10 @@ describe('ember-template-lint executable', function() {
 
     describe('given no path with --filename', function() {
       it('should print errors', function() {
+        setProjectConfigForErrors();
         let result = run(
           ['--filename', 'app/templates/application.hbs', '<', 'app/templates/application.hbs'],
           {
-            cwd: './test/fixtures/with-errors',
             shell: true,
           }
         );
@@ -90,8 +96,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given - (stdin) path', function() {
       it('should print errors', function() {
+        setProjectConfigForErrors();
         let result = run(['-', '<', 'app/templates/application.hbs'], {
-          cwd: './test/fixtures/stdin-with-errors',
           shell: true,
         });
 
@@ -103,8 +109,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given /dev/stdin path', function() {
       it('should print errors', function() {
+        setProjectConfigForErrors();
         let result = run(['/dev/stdin', '<', 'app/templates/application.hbs'], {
-          cwd: './test/fixtures/stdin-with-errors',
           shell: true,
         });
 
@@ -116,9 +122,8 @@ describe('ember-template-lint executable', function() {
 
     describe('given path to single file without errors', function() {
       it('should exit without error and any console output', function() {
-        let result = run(['app/templates/application.hbs'], {
-          cwd: './test/fixtures/without-errors',
-        });
+        setProjectConfigWithoutErrors();
+        let result = run(['app/templates/application.hbs']);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -132,15 +137,14 @@ describe('ember-template-lint executable', function() {
 
     describe('without --json param', function() {
       it('should print properly formatted error messages', function() {
-        let result = run(['.'], {
-          cwd: './test/fixtures/with-errors',
-        });
+        setProjectConfigForErrors();
+        let result = run(['.']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          path.resolve('./test/fixtures/with-errors/app/templates/application.hbs'),
+          project.path('app/templates/application.hbs'),
           '  1:4  error  Non-translated string used  no-bare-strings',
-          '  2:5  error  Non-translated string used  no-bare-strings',
+          '  1:25  error  Non-translated string used  no-bare-strings',
           '',
           '✖ 2 problems (2 errors, 0 warnings)',
         ]);
@@ -148,16 +152,15 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should print properly formatted error and warning messages', function() {
-        let result = run(['.'], {
-          cwd: './test/fixtures/with-errors-and-warnings',
-        });
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          path.resolve('./test/fixtures/with-errors-and-warnings/app/templates/application.hbs'),
+          project.path('app/templates/application.hbs'),
           '  1:4  error  Non-translated string used  no-bare-strings',
-          '  2:5  error  Non-translated string used  no-bare-strings',
-          '  3:0  warning  HTML comment detected  no-html-comments',
+          '  1:24  error  Non-translated string used  no-bare-strings',
+          '  1:53  warning  HTML comment detected  no-html-comments',
           '',
           '✖ 3 problems (2 errors, 1 warnings)',
         ]);
@@ -167,15 +170,14 @@ describe('ember-template-lint executable', function() {
 
     describe('with --quiet param', function() {
       it('should print properly formatted error messages, omitting any warnings', function() {
-        let result = run(['.', '--quiet'], {
-          cwd: './test/fixtures/with-errors-and-warnings',
-        });
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.', '--quiet']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          path.resolve('./test/fixtures/with-errors-and-warnings/app/templates/application.hbs'),
+          project.path('app/templates/application.hbs'),
           '  1:4  error  Non-translated string used  no-bare-strings',
-          '  2:5  error  Non-translated string used  no-bare-strings',
+          '  1:24  error  Non-translated string used  no-bare-strings',
           '',
           '✖ 2 problems (2 errors, 0 warnings)',
         ]);
@@ -183,9 +185,26 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should exit without error and any console output', function() {
-        let result = run(['.', '--quiet'], {
-          cwd: './test/fixtures/with-warnings',
+        project.setConfig({
+          rules: {
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
         });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+        let result = run(['.', '--quiet']);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -195,13 +214,10 @@ describe('ember-template-lint executable', function() {
 
     describe('with --json param', function() {
       it('should print valid JSON string with errors', function() {
-        let result = run(['.', '--json'], {
-          cwd: './test/fixtures/with-errors',
-        });
+        setProjectConfigForErrors();
+        let result = run(['.', '--json']);
 
-        let fullTemplateFilePath = path.resolve(
-          './test/fixtures/with-errors/app/templates/application.hbs'
-        );
+        let fullTemplateFilePath = project.path('app/templates/application.hbs');
         let expectedOutputData = {};
         expectedOutputData[fullTemplateFilePath] = [
           {
@@ -215,8 +231,8 @@ describe('ember-template-lint executable', function() {
             source: 'Here too!!',
           },
           {
-            column: 5,
-            line: 2,
+            column: 25,
+            line: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
             moduleId: 'app/templates/application',
@@ -234,13 +250,10 @@ describe('ember-template-lint executable', function() {
 
     describe('with --json param and --quiet', function() {
       it('should print valid JSON string with errors, omitting warnings', function() {
-        let result = run(['.', '--json', '--quiet'], {
-          cwd: './test/fixtures/with-errors-and-warnings',
-        });
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.', '--json', '--quiet']);
 
-        let fullTemplateFilePath = path.resolve(
-          './test/fixtures/with-errors-and-warnings/app/templates/application.hbs'
-        );
+        let fullTemplateFilePath = project.path('app/templates/application.hbs');
         let expectedOutputData = {};
         expectedOutputData[fullTemplateFilePath] = [
           {
@@ -254,8 +267,8 @@ describe('ember-template-lint executable', function() {
             source: 'Here too!!',
           },
           {
-            column: 5,
-            line: 2,
+            column: 24,
+            line: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
             moduleId: 'app/templates/application',
@@ -271,13 +284,28 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should exit without error and empty errors array', function() {
-        let result = run(['.', '--json', '--quiet'], {
-          cwd: './test/fixtures/with-warnings',
+        project.setConfig({
+          rules: {
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
         });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+        let result = run(['.', '--json', '--quiet']);
 
-        let fullTemplateFilePath = path.resolve(
-          './test/fixtures/with-warnings/app/templates/application.hbs'
-        );
+        let fullTemplateFilePath = project.path('app/templates/application.hbs');
         let expectedOutputData = {};
         expectedOutputData[fullTemplateFilePath] = [];
 
@@ -290,12 +318,12 @@ describe('ember-template-lint executable', function() {
     describe('with --config-path param', function() {
       describe('able to run only limited subset of rules', function() {
         it('should skip disabled rules from subset', function() {
-          let result = run(
-            ['.', '--config-path', '../rules-subset-disabled/temp-templatelint-rc.js'],
-            {
-              cwd: './test/fixtures/rules-subset-disabled',
-            }
-          );
+          project.write({
+            'temp-templatelint-rc.js':
+              'module.exports = { rules: { "no-shadowed-elements": false } };',
+            'application.hbs': '{{#let "foo" as |div|}}<div>boo</div>{{/let}}',
+          });
+          let result = run(['.', '--config-path', 'temp-templatelint-rc.js']);
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toBeFalsy();
@@ -303,14 +331,17 @@ describe('ember-template-lint executable', function() {
         });
 
         it('should load only one rule and print error message', function() {
-          let result = run(['.', '--config-path', '../rules-subset/temp-templatelint-rc.js'], {
-            cwd: './test/fixtures/rules-subset',
+          project.write({
+            'temp-templatelint-rc.js':
+              'module.exports = { rules: { "no-shadowed-elements": true } };',
+            'template.hbs': '{{#let "foo" as |div|}}<div>boo</div>{{/let}}',
           });
+          let result = run(['.', '--config-path', 'temp-templatelint-rc.js']);
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
-            path.resolve('./test/fixtures/rules-subset/template.hbs'),
-            '  2:4  error  Ambiguous element used (`div`)  no-shadowed-elements',
+            project.path('template.hbs'),
+            '  1:23  error  Ambiguous element used (`div`)  no-shadowed-elements',
             '',
             '✖ 1 problems (1 errors, 0 warnings)',
           ]);
@@ -320,15 +351,23 @@ describe('ember-template-lint executable', function() {
 
       describe('given a directory with errors and a lintrc with rules', function() {
         it('should print properly formatted error messages', function() {
-          let result = run(['.', '--config-path', '../with-errors/.template-lintrc'], {
-            cwd: './test/fixtures/without-errors',
-          });
+          setProjectConfigWithoutErrors();
+
+          let overrideConfig = {
+            rules: {
+              'no-bare-strings': true,
+            },
+          };
+          project.files['other-file.js'] = `module.exports = ${JSON.stringify(overrideConfig)};`;
+          project.writeSync();
+
+          let result = run(['.', '--config-path', project.path('other-file.js')]);
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
-            path.resolve('./test/fixtures/without-errors/app/templates/application.hbs'),
+            project.path('app/templates/application.hbs'),
             '  1:4  error  Non-translated string used  no-bare-strings',
-            '  2:5  error  Non-translated string used  no-bare-strings',
+            '  1:39  error  Non-translated string used  no-bare-strings',
             '',
             '✖ 2 problems (2 errors, 0 warnings)',
           ]);
@@ -338,9 +377,17 @@ describe('ember-template-lint executable', function() {
 
       describe('given a directory with errors but a lintrc without any rules', function() {
         it('should exit without error and any console output', function() {
-          let result = run(['.', '--config-path', '../without-errors/.template-lintrc'], {
-            cwd: './test/fixtures/with-errors',
-          });
+          setProjectConfigForErrors();
+
+          let overrideConfig = {
+            rules: {
+              'no-bare-strings': false,
+            },
+          };
+          project.files['other-file.js'] = `module.exports = ${JSON.stringify(overrideConfig)};`;
+          project.writeSync();
+
+          let result = run(['.', '--config-path', project.path('other-file.js')]);
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toBeFalsy();
@@ -351,9 +398,9 @@ describe('ember-template-lint executable', function() {
 
     describe('with --print-pending param', function() {
       it('should print a list of pending modules', function() {
-        let result = run(['.', '--print-pending'], {
-          cwd: './test/fixtures/with-errors-and-warnings',
-        });
+        setProjectConfigForErrorsAndWarning();
+
+        let result = run(['.', '--print-pending']);
 
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]';
@@ -364,9 +411,28 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should ignore existing pending modules that have no lint errors', function() {
-        let result = run(['.', '--print-pending'], {
-          cwd: './test/fixtures/with-passing-pending-modules',
+        project.setConfig({
+          rules: {
+            'no-html-comments': false,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
         });
+
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = run(['.', '--print-pending']);
 
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: []';
@@ -377,9 +443,26 @@ describe('ember-template-lint executable', function() {
       });
 
       it('should ignore existing pending modules that have partially passing rules', function() {
-        let result = run(['.', '--print-pending'], {
-          cwd: './test/fixtures/with-partially-passing-pending-modules',
+        project.setConfig({
+          rules: {
+            'no-html-comments': true,
+            'no-bare-strings': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments', 'no-bare-strings'],
+            },
+          ],
         });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        let result = run(['.', '--print-pending']);
 
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings"\n    ]\n  }\n]';
@@ -392,9 +475,9 @@ describe('ember-template-lint executable', function() {
 
     describe('with --print-pending and --json params', function() {
       it('should print json of pending modules', function() {
-        let result = run(['.', '--print-pending', '--json'], {
-          cwd: './test/fixtures/with-errors-and-warnings',
-        });
+        setProjectConfigForErrorsAndWarning();
+
+        let result = run(['.', '--print-pending', '--json']);
 
         let expectedOutputData = [
           {
@@ -413,10 +496,11 @@ describe('ember-template-lint executable', function() {
       setupEnvVar('GITHUB_ACTIONS', 'true');
 
       it('should print GitHub Actions annotations', function() {
-        let filePath = path.resolve('./test/fixtures/with-errors/app/templates/application.hbs');
+        setProjectConfigForErrors();
+
+        let filePath = project.path('app/templates/application.hbs');
 
         let result = run(['.'], {
-          cwd: './test/fixtures/with-errors',
           env: { GITHUB_ACTIONS: 'true' },
         });
 
@@ -424,22 +508,81 @@ describe('ember-template-lint executable', function() {
         expect(result.stdout.split('\n')).toEqual([
           filePath,
           '  1:4  error  Non-translated string used  no-bare-strings',
-          '  2:5  error  Non-translated string used  no-bare-strings',
+          '  1:25  error  Non-translated string used  no-bare-strings',
           '',
           '✖ 2 problems (2 errors, 0 warnings)',
           `::error file=${filePath},line=1,col=4::Non-translated string used`,
-          `::error file=${filePath},line=2,col=5::Non-translated string used`,
+          `::error file=${filePath},line=1,col=25::Non-translated string used`,
         ]);
         expect(result.stderr).toBeFalsy();
       });
     });
   });
-});
 
-function run(args, options) {
-  options.reject = false;
-  return execa.sync('../../../bin/ember-template-lint.js', args, options);
-}
+  // set specific project configuration for test cases.
+  function setProjectConfigForErrors() {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+      },
+    });
+
+    project.write({
+      app: {
+        templates: {
+          'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+          components: {
+            'foo.hbs': '{{fooData}}',
+          },
+        },
+      },
+    });
+  }
+
+  function setProjectConfigWithoutErrors() {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': false,
+      },
+    });
+
+    project.write({
+      app: {
+        templates: {
+          'application.hbs': '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
+        },
+      },
+    });
+  }
+
+  function setProjectConfigForErrorsAndWarning() {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': true,
+      },
+      pending: [
+        {
+          moduleId: 'app/templates/application',
+          only: ['no-html-comments'],
+        },
+      ],
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+        },
+      },
+    });
+  }
+  function run(args, options = {}) {
+    options.reject = false;
+    options.cwd = options.cwd || project.path('.');
+    return execa.sync(require.resolve('../../bin/ember-template-lint.js'), args, options);
+  }
+});
 
 function setupEnvVar(name, value) {
   let oldValue;
