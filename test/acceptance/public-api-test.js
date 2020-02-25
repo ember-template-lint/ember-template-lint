@@ -446,7 +446,7 @@ describe('public api', function() {
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': 'warn',
+                'no-implicit-this': true,
               },
             },
           ],
@@ -468,7 +468,7 @@ describe('public api', function() {
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
           moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
-          severity: 1,
+          severity: 2,
           source: 'fooData',
         },
       ];
@@ -487,7 +487,7 @@ describe('public api', function() {
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': { severity: 'warn' },
+                'no-implicit-this': true,
               },
             },
           ],
@@ -509,7 +509,7 @@ describe('public api', function() {
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
           moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
-          severity: 1,
+          severity: 2,
           source: 'fooData',
         },
       ];
@@ -533,7 +533,6 @@ describe('public api', function() {
               rules: {
                 'no-implicit-this': false,
               },
-              severity: 1,
             },
           ],
         },

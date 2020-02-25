@@ -22,45 +22,21 @@ This option takes an array of objects where each object would support 2 keys:
 
 module.exports = {
   extends: 'recommended',
+  rules: {
+    'no-implicit-this': true,
+  }
   overrides: [
     {
       files: ['**/item-description/**/templates/components/**/*.hbs'],
       rules: {
-        'no-implicit-this': 'warn',
+        'no-implicit-this': false,
         'no-bare-strings': true,
       },
     },
     {
       files: ['**/item-main/**/templates/components/**/*.hbs'],
       rules: {
-        'no-input-block': 'error',
-      },
-    },
-  ],
-};
-```
-
-```javascript
-'use strict';
-
-module.exports = {
-  extends: 'recommended',
-  rules: {
-    'no-bare-strings': true,
-  },
-  overrides: [
-    {
-      files: ['**/item-description/**/templates/components/**/*.hbs'],
-      rules: {
-        'no-implicit-this': {
-          severity: 'warn',
-          config: {
-            allow: ['fooData'],
-          },
-        },
-        'no-bare-strings': {
-          severity: 'off'
-        },
+        'no-input-block': true,
       },
     },
   ],

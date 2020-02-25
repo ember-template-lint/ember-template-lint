@@ -42,13 +42,13 @@ var results = linter.verify({ source: template, moduleId: 'template.hbs' });
 
 `results` will be an array of objects which have the following properties:
 
-- `rule` - The name of the rule that triggered this warning/error.
-- `message` - The message that should be output.
-- `line` - The line on which the error occurred.
-- `column` - The column on which the error occurred.
-- `moduleId` - The module path for the file containing the error.
-- `source` - The source that caused the error.
-- `fix` - An object describing how to fix the error.
+* `rule` - The name of the rule that triggered this warning/error.
+* `message` - The message that should be output.
+* `line` - The line on which the error occurred.
+* `column` - The column on which the error occurred.
+* `moduleId` - The module path for the file containing the error.
+* `source` - The source that caused the error.
+* `fix` - An object describing how to fix the error.
 
 ### CLI executable
 
@@ -134,44 +134,23 @@ module.exports = {
 
 The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
 
-- `rules` -- `Object`
+* `rules` -- `Object`
   This is an object containing rule specific configuration (see details for each rule below).
-- `extends` -- `string|string[]`
+* `extends` -- `string|string[]`
   Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).
-- `pending` -- `string[]`
+* `pending` -- `string[]`
   An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-  - You can generate this list with the: `./node_modules/.bin/ember-template-lint * --print-pending`
-- `ignore` -- `string[]|glob[]`
+  * You can generate this list with the: `./node_modules/.bin/ember-template-lint * --print-pending`
+* `ignore` -- `string[]|glob[]`
   An array of module id's that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.
-- `plugins` -- `(string|Object)[]`
+* `plugins` -- `(string|Object)[]`
   An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
-- `overrides` -- `Array`
-  An array of overrides that would allow overriding of specific rules, severity for user specified files/folders. See [overrides documentation](docs/overrides.md) for more details.
+* `overrides` -- `Array`
+  An array of overrides that would allow overriding of specific rules for user specified files/folders. See [overrides documentation](docs/overrides.md) for more details.
 
 ## Rules
-
-Each rule can have its own severity level which can be a string or could be a part of the object along with the rule specific configuration.
-Supported severity levels are `off`, `warn`, `error`.
-You can define a severity level directly on the rule:
-Eg: `'no-bare-strings': 'warn'`
-OR
-If your rule has a custom configuration, and you want to define the severity level you would need to add the `severity` key to the rule object.
-Eg:
-
-```js
-{
-   "no-implicit-this": {
-      "severity": "warn",
-      "config": {
-         "allow": [ "fooData" ]
-      }
-   }
-}
-```
-
-_Note: If your rule has a custom config, and you want to define the severity level, then you would need to define the custom config under the `config` key_
 
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
@@ -266,16 +245,16 @@ The semver policy for this addon can be read here: [semver policy](dev/versionin
 
 A few ideas for where to take this in the future:
 
-- The list of rules should be configurable
-- This addon should use a test printer shared with jshint, eslint and jscs addons
-- A command-line version of the linter should be provided so IDEs and editors
+* The list of rules should be configurable
+* This addon should use a test printer shared with jshint, eslint and jscs addons
+* A command-line version of the linter should be provided so IDEs and editors
   can provide feedback to devs during development
 
 ### Installation
 
-- `git clone` this repository
-- `npm install`
+* `git clone` this repository
+* `npm install`
 
 ### Running Tests
 
-- `npm test`
+* `npm test`

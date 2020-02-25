@@ -1,6 +1,6 @@
 'use strict';
 
-const getConfig = require('../../lib/get-config');
+const { getConfig, getRulesConfig } = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 const buildFakeConsole = require('../helpers/console');
 const Project = require('../helpers/fake-project');
@@ -471,5 +471,67 @@ describe('get-config', function() {
 
     expect(Object.keys(actual.rules).length).toBeTruthy();
     expect(config).toEqual(cloned);
+  });
+});
+
+describe('get-rules-config', function() {
+  let project = null;
+
+  beforeEach(function() {
+    project = new Project();
+  });
+
+  afterEach(async function() {
+    await project.dispose();
+  });
+
+  it('Merges the overrides rules with existing rules config', function() {
+    let config = {
+      rules: {
+        foo: 'bar',
+        baz: 'derp',
+      },
+      overrides: [
+        {
+          files: ['**/templates/**/*.hbs'],
+          rules: {
+            baz: 'bang',
+          },
+        },
+      ],
+    };
+
+    // clone to ensure we are not mutating
+    let expected = {
+      foo: 'bar',
+      baz: 'bang',
+    };
+
+    let actual = getRulesConfig(config, 'app/templates/foo.hbs');
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('Returns the config if overrides is empty/not present', function() {
+    let config = {
+      rules: {
+        foo: 'bar',
+        baz: 'derp',
+      },
+      overrides: [],
+    };
+
+    // clone to ensure we are not mutating
+    let expected = JSON.parse(JSON.stringify(config));
+
+    let actual = getRulesConfig(config, 'app/templates/foo.hbs');
+
+    expect(actual).toEqual(expected.rules);
+
+    delete config.overrides;
+
+    actual = getRulesConfig(config, 'app/templates/foo.hbs');
+
+    expect(actual).toEqual(expected.rules);
   });
 });
