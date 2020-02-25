@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-<<<<<<< HEAD
 const chalk = require('chalk');
 
 function usage() {
@@ -12,9 +11,6 @@ function usage() {
   3. a new doc file will be created
   4. the rule will be appended to the list of rules in the index
   5. the doc will be appended to the list of docs in the doc index
-=======
-const chalk = require ('chalk');
->>>>>>> fbc5ba1... added chalk to cli message
 
   Example usage: 
   --------------
