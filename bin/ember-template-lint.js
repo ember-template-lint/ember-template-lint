@@ -29,7 +29,7 @@ function expandFileGlobs(positional) {
   positional.forEach(item => {
     globby
       .sync(item, {
-        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**', '**/dev/new-rule/**'],
+        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
         gitignore: true,
       })
       .filter(filePath => filePath.slice(-4) === '.hbs')
