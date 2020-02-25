@@ -3,11 +3,11 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 // TODO Change template to `real-rule-name`
-const ERROR_MESSAGE = require('../../../lib/rules/my-new-rule').ERROR_MESSAGE;
+const ERROR_MESSAGE = require('../../../lib/rules/placeholder-for-dasherized-rule').ERROR_MESSAGE;
 
 generateRuleTests({
   // TODO Change template to `real-rule-name`
-  name: 'my-new-rule',
+  name: 'placeholder-for-dasherized-rule',
 
   config: true,
 

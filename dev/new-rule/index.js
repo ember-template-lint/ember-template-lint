@@ -16,7 +16,6 @@ function usage() {
   --------------
   Templates use the rule name \`my-new-rule\`, so this example
   creates a functioning/immediately testable rule
-  # /path/to/ember-template-lint
   $ yarn new my-new-rule
   $ yarn test my-new-rule
   `);
