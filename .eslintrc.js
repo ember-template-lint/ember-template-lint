@@ -103,6 +103,7 @@ module.exports = {
       files: ['bin/**/*.js', 'dev/new-rule/index.js'],
       rules: {
         'no-console': 'off',
+        'no-unsupported-features': 'off',
       },
     },
     {
