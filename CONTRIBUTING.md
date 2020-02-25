@@ -17,7 +17,7 @@ If you are opening an issue to request a new feature, please provide:
 1. A detailed description of the feature you would like to add, and include the reason(s) for it.
 2. Include references to standards or other docs as you are able.
 
-## Working on the Addon
+## Working on the Package
 
 ```bash
 # clone the latest ember-template-lint from github:
@@ -41,7 +41,7 @@ For the linter, there are a few options:
 
 1. Lint everything at once -  `yarn lint`
 2. Lint just the docs - `yarn lint:docs .` (to automatically fix issues, run `yarn lint:docs . --fix`)
-3. Lint just the js files - `yarn eslint .` (to automatically fix issues, run `yarn eslint . --fix`)
+3. Lint just the js files - `yarn lint:js` (to automatically fix issues, run `yarn lint:js --fix`)
 
 To test:
 
