@@ -20,7 +20,6 @@ generateRuleTests({
       template: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
       result: {
         message: 'Title attribute values should not be the same as the link text.',
-        moduleId: 'layout.hbs',
         source: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
         line: 1,
         column: 0,
@@ -30,7 +29,6 @@ generateRuleTests({
       template: '<LinkTo title="quickstart">Quickstart</LinkTo>',
       result: {
         message: 'Title attribute values should not be the same as the link text.',
-        moduleId: 'layout.hbs',
         source: '<LinkTo title="quickstart">Quickstart</LinkTo>',
         line: 1,
         column: 0,
