@@ -386,6 +386,99 @@ describe('public api', function() {
       expect(result[0].fatal).toBe(true);
     });
 
+    it('triggers warnings severity is set to warn', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'block-indentation': 'warn' },
+        },
+      });
+
+      let template = ['<div>', '<p></p>', '</div>'].join('\n');
+
+      let result = linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+      });
+
+      let expected = {
+        message:
+          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+        line: 2,
+        column: 0,
+        source: '<div>\n<p></p>\n</div>',
+        rule: 'block-indentation',
+        severity: 1,
+      };
+
+      expect(result).toEqual([expected]);
+    });
+
+    it('allows custom severity level for rules along with custom config', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'no-implicit-this': { severity: 'warn', config: { allow: ['fooData'] } } },
+        },
+      });
+
+      let template = ['<div>', '{{fooData}}{{barData}}', '</div>'].join('\n');
+
+      let result = linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+      });
+
+      let expected = {
+        message:
+          "Ambiguous path 'barData' is not allowed. Use '@barData' if it is a named argument or 'this.barData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['barData'] }.",
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+        line: 2,
+        column: 13,
+        source: 'barData',
+        rule: 'no-implicit-this',
+        severity: 1,
+      };
+
+      expect(result).toEqual([expected]);
+    });
+
+    it('allows custom severity defined in the object without rule config', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'block-indentation': { severity: 'warn' } },
+        },
+      });
+
+      let template = ['<div>', '<p></p>', '</div>'].join('\n');
+
+      let result = linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+      });
+
+      let expected = {
+        message:
+          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+        line: 2,
+        column: 0,
+        source: '<div>\n<p></p>\n</div>',
+        rule: 'block-indentation',
+        severity: 1,
+      };
+
+      expect(result).toEqual([expected]);
+    });
+
     it('defaults all messages to warning severity level when module listed in pending', function() {
       linter = new Linter({
         console: mockConsole,

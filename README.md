@@ -152,6 +152,27 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 
 ## Rules
 
+Each rule can have its own severity level which can be a string or could be a part of the object along with the rule specific configuration.
+Supported severity levels are `off`, `warn`, `error`.
+You can define a severity level directly on the rule:
+Eg: `'no-bare-strings': 'warn'`
+OR
+If your rule has a custom configuration, and you want to define the severity level you would need to add the `severity` key to the rule object.
+Eg:
+
+```js
+{
+   "no-implicit-this": {
+      "severity": "warn",
+      "config": {
+         "allow": [ "fooData" ]
+      }
+   }
+}
+```
+
+_Note: If your rule has a custom config, and you want to define the severity level, then you would need to define the custom config under the `config` key_
+
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
 ### Per Template File
