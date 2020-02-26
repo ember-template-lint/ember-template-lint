@@ -44,9 +44,9 @@ This rule **allows** the following:
 
 ### Migration
 
-* the simplest fix is to add an aria-label to the input element. 
-* the most robust fix is to add an associated label element and use CSS to visually hide the label while still making it available to screen readers.
-* wrapping the input element in a label element is also allowed; however this is less flexible for styling purposes, so use with awareness. 
+* the recommended fix is to add an associated label element.
+* another option is to add an aria-label to the input element. 
+* wrapping the input element in a label element is also allowed; however this is less flexible for styling purposes, so use with awareness.
 
 ### References
 
