@@ -29,6 +29,7 @@
 * [no-invalid-block-param-definition](rule/no-invalid-block-param-definition.md)
 * [no-invalid-interactive](rule/no-invalid-interactive.md)
 * [no-invalid-link-text](rule/no-invalid-link-text.md)
+* [no-invalid-link-title](rule/no-invalid-link-title.md)
 * [no-invalid-meta](rule/no-invalid-meta.md)
 * [no-invalid-role](rule/no-invalid-role.md)
 * [no-log](rule/no-log.md)
