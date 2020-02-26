@@ -5,7 +5,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'invocable-blacklist',
 
-  config: ['foo', 'bar'],
+  config: ['error', ['foo', 'bar']],
 
   good: [
     '{{baz}}',

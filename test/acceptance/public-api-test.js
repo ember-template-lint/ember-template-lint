@@ -421,7 +421,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-implicit-this': { severity: 'warn', config: { allow: ['fooData'] } } },
+          rules: { 'no-implicit-this': ['warn', { allow: ['fooData'] }] },
         },
       });
 
@@ -442,37 +442,6 @@ describe('public api', function() {
         column: 13,
         source: 'barData',
         rule: 'no-implicit-this',
-        severity: 1,
-      };
-
-      expect(result).toEqual([expected]);
-    });
-
-    it('allows custom severity defined in the object without rule config', function() {
-      linter = new Linter({
-        console: mockConsole,
-        config: {
-          rules: { 'block-indentation': { severity: 'warn' } },
-        },
-      });
-
-      let template = ['<div>', '<p></p>', '</div>'].join('\n');
-
-      let result = linter.verify({
-        source: template,
-        filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
-      });
-
-      let expected = {
-        message:
-          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
-        filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
-        line: 2,
-        column: 0,
-        source: '<div>\n<p></p>\n</div>',
-        rule: 'block-indentation',
         severity: 1,
       };
 

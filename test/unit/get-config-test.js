@@ -32,6 +32,76 @@ describe('get-config', function() {
     expect(actual.rules).toEqual(expected.rules);
   });
 
+  it('it supports severity level', function() {
+    let expected = {
+      rules: {
+        foo: { config: true, severity: 1 },
+        baz: 'derp',
+      },
+    };
+
+    let actual = getProjectConfig({
+      config: {
+        rules: {
+          foo: 'warn',
+          baz: 'derp',
+        },
+      },
+    });
+    expect(actual.rules).toEqual(expected.rules);
+  });
+
+  it('it supports severity level with custom configuration', function() {
+    let expected = {
+      rules: {
+        foo: { config: { allow: [1, 2, 3] }, severity: 1 },
+        baz: 'derp',
+      },
+    };
+
+    let actual = getProjectConfig({
+      config: {
+        rules: {
+          foo: ['warn', { allow: [1, 2, 3] }],
+          baz: 'derp',
+        },
+      },
+    });
+    expect(actual.rules).toEqual(expected.rules);
+  });
+
+  it('errors out for unknown severity', function() {
+    let console = buildFakeConsole();
+
+    expect(() => {
+      getProjectConfig({
+        console,
+        config: {
+          rules: {
+            foo: ['blah', 1],
+          },
+        },
+      });
+    }).toThrow(/Severity can only be "off", "warn", or "error"/);
+  });
+
+  it('errors out for invalid rule config', function() {
+    let console = buildFakeConsole();
+
+    expect(() => {
+      getProjectConfig({
+        console,
+        config: {
+          rules: {
+            foo: ['blah', 1, 'baz'],
+          },
+        },
+      });
+    }).toThrow(
+      /Severity and custom rule config are the only two values allowed in the rule config array./
+    );
+  });
+
   it('uses .template-lintrc.js in cwd if present', function() {
     let config = {
       rules: {
