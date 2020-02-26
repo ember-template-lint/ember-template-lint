@@ -157,21 +157,14 @@ Supported severity levels are `off`, `warn`, `error`.
 You can define a severity level directly on the rule:
 Eg: `'no-bare-strings': 'warn'`
 OR
-If your rule has a custom configuration, and you want to define the severity level you would need to add the `severity` key to the rule object.
+If your rule has a custom configuration, and you want to define the severity level you would need to add the `severity` as the first element of the array.
 Eg:
 
 ```js
 {
-   "no-implicit-this": {
-      "severity": "warn",
-      "config": {
-         "allow": [ "fooData" ]
-      }
-   }
+   "no-implicit-this": ['warn', { "allow": [ "fooData" ] }
 }
 ```
-
-_Note: If your rule has a custom config, and you want to define the severity level, then you would need to define the custom config under the `config` key_
 
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 

@@ -59,7 +59,10 @@ describe('public api', function() {
         config: expected,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses .template-lintrc.js in cwd if present', function() {
@@ -76,17 +79,22 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses .template-lintrc in provided configPath', function() {
-      let expected = {
+      let someOtherPathConfig = {
         rules: {
           foo: 'bar',
           baz: 'derp',
         },
       };
-      project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
+      project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
+        someOtherPathConfig
+      )};`;
       project.writeSync();
 
       let linter = new Linter({
@@ -94,7 +102,10 @@ describe('public api', function() {
         configPath: project.path('some-other-path.js'),
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function() {
@@ -120,11 +131,14 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function() {
-      let expected = {
+      let appPathConfig = {
         rules: {
           foo: 'bar',
           baz: 'derp',
@@ -134,7 +148,7 @@ describe('public api', function() {
       project.write({
         '.template-lintrc.js': `module.exports = ${JSON.stringify({ rules: { boo: 'baz' } })};`,
         app: {
-          '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+          '.template-lintrc.js': `module.exports = ${JSON.stringify(appPathConfig)};`,
           templates: {
             'application.hbs': '',
           },
@@ -147,7 +161,10 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('breaks if the specified configPath does not exist', function() {
@@ -172,7 +189,7 @@ describe('public api', function() {
         config: expected,
       });
 
-      expect(linter.config.rules).toEqual({ 'no-bare-strings': true });
+      expect(linter.config.rules).toEqual({ 'no-bare-strings': { config: true, severity: 2 } });
     });
   });
 
@@ -386,7 +403,7 @@ describe('public api', function() {
       expect(result[0].fatal).toBe(true);
     });
 
-    it('triggers warnings severity is set to warn', function() {
+    it('triggers warnings when severity is set to warn', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
