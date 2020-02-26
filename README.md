@@ -109,9 +109,9 @@ module.exports = {
   extends: 'recommended',
 
   rules: {
-    'no-bare-strings': true,
-  },
-};
+    'no-bare-strings': true
+  }
+}
 ```
 
 This extends from the builtin recommended configuration ([lib/config/recommended.js](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/recommended.js)),
@@ -125,8 +125,8 @@ some "bare strings" that are allowed you might have:
 ```javascript
 module.exports = {
   rules: {
-    'no-bare-strings': ['ZOMG THIS IS ALLOWED!!!!'],
-  },
+    'no-bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
+  }
 };
 ```
 

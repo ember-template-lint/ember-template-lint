@@ -1,6 +1,6 @@
 'use strict';
 
-const { getConfig, getRulesConfig } = require('../../lib/get-config');
+const { getProjectConfig, getConfigForFile } = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 const buildFakeConsole = require('../helpers/console');
 const Project = require('../helpers/fake-project');
@@ -28,7 +28,7 @@ describe('get-config', function() {
     // clone to ensure we are not mutating
     let expected = JSON.parse(JSON.stringify(config));
 
-    let actual = getConfig({ config });
+    let actual = getProjectConfig({ config });
     expect(actual.rules).toEqual(expected.rules);
   });
 
@@ -45,7 +45,7 @@ describe('get-config', function() {
     project.setConfig(expected);
     project.chdir();
 
-    let actual = getConfig({});
+    let actual = getProjectConfig({});
 
     expect(actual.rules).toEqual(expected.rules);
   });
@@ -60,7 +60,7 @@ describe('get-config', function() {
     project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
     project.chdir();
 
-    let actual = getConfig({ configPath: 'some-other-path.js' });
+    let actual = getProjectConfig({ configPath: 'some-other-path.js' });
 
     expect(actual.rules).toEqual(expected.rules);
   });
@@ -75,13 +75,13 @@ describe('get-config', function() {
     project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
     project.writeSync();
 
-    let actual = getConfig({ configPath: project.path('some-other-path.js') });
+    let actual = getProjectConfig({ configPath: project.path('some-other-path.js') });
 
     expect(actual.rules).toEqual(expected.rules);
   });
 
   it('can specify that it extends a default configuration', function() {
-    let actual = getConfig({
+    let actual = getProjectConfig({
       config: {
         extends: 'recommended',
       },
@@ -93,7 +93,7 @@ describe('get-config', function() {
   it('can extend and override a default configuration', function() {
     let expected = recommendedConfig;
 
-    let actual = getConfig({
+    let actual = getProjectConfig({
       config: {
         extends: 'recommended',
         rules: {
@@ -107,7 +107,7 @@ describe('get-config', function() {
   });
 
   it('migrates rules in the config root into `rules` property', function() {
-    let actual = getConfig({
+    let actual = getProjectConfig({
       console: buildFakeConsole(),
       config: {
         'no-bare-strings': false,
@@ -120,7 +120,7 @@ describe('get-config', function() {
   it('rules in the config root trigger a deprecation', function() {
     let console = buildFakeConsole();
 
-    getConfig({
+    getProjectConfig({
       console,
       config: {
         'no-bare-strings': true,
@@ -133,7 +133,7 @@ describe('get-config', function() {
   it('warns for unknown rules', function() {
     let console = buildFakeConsole();
 
-    getConfig({
+    getProjectConfig({
       console,
       config: {
         rules: {
@@ -148,7 +148,7 @@ describe('get-config', function() {
   it('warns for unknown extends', function() {
     let console = buildFakeConsole();
 
-    getConfig({
+    getProjectConfig({
       console,
       config: {
         extends: ['recommended', 'plugin1:wrong-extend'],
@@ -184,7 +184,7 @@ describe('get-config', function() {
 
     project.chdir();
 
-    let actual = getConfig({
+    let actual = getProjectConfig({
       console,
     });
 
@@ -193,7 +193,7 @@ describe('get-config', function() {
   });
 
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
-    let actual = getConfig({
+    let actual = getProjectConfig({
       config: {
         extends: ['recommended', 'myplugin:recommended'],
 
@@ -216,7 +216,7 @@ describe('get-config', function() {
   });
 
   it('extending multiple configurations merges all rules', function() {
-    let actual = getConfig({
+    let actual = getProjectConfig({
       config: {
         extends: ['myplugin:first', 'myplugin:second'],
 
@@ -249,7 +249,7 @@ describe('get-config', function() {
   it('can specify plugin without rules', function() {
     let console = buildFakeConsole();
 
-    let actual = getConfig({
+    let actual = getProjectConfig({
       console,
       config: {
         extends: 'myplugin:basic-configuration',
@@ -277,7 +277,7 @@ describe('get-config', function() {
     let wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
     expect(function() {
-      getConfig({
+      getProjectConfig({
         config: {
           plugins: [wrongPluginPath],
         },
@@ -288,7 +288,7 @@ describe('get-config', function() {
   it('validates non-default loaded rules', function() {
     let console = buildFakeConsole();
 
-    let actual = getConfig({
+    let actual = getProjectConfig({
       console,
 
       config: {
@@ -314,7 +314,7 @@ describe('get-config', function() {
   it('can chain extends and load rules across chained plugins', function() {
     let console = buildFakeConsole();
 
-    let actual = getConfig({
+    let actual = getProjectConfig({
       console,
 
       config: {
@@ -383,7 +383,7 @@ describe('get-config', function() {
     config.plugins[0].configurations.recommended = config;
 
     let console = buildFakeConsole();
-    let actual = getConfig({
+    let actual = getProjectConfig({
       console,
       config,
     });
@@ -414,7 +414,7 @@ describe('get-config', function() {
     plugin.configurations.recommended.plugins = [plugin];
 
     let console = buildFakeConsole();
-    let actual = getConfig({
+    let actual = getProjectConfig({
       console,
 
       config: {
@@ -430,7 +430,7 @@ describe('get-config', function() {
 
   it('getting config is idempotent', function() {
     let console = buildFakeConsole();
-    let firstPass = getConfig({
+    let firstPass = getProjectConfig({
       console,
       config: {
         rules: {
@@ -448,7 +448,7 @@ describe('get-config', function() {
       },
     });
     let firstPassJSON = JSON.stringify(firstPass);
-    let secondPass = getConfig({
+    let secondPass = getProjectConfig({
       console,
       config: firstPass,
     });
@@ -467,7 +467,7 @@ describe('get-config', function() {
 
     let cloned = JSON.parse(JSON.stringify(config));
 
-    let actual = getConfig(config);
+    let actual = getProjectConfig(config);
 
     expect(Object.keys(actual.rules).length).toBeTruthy();
     expect(config).toEqual(cloned);
@@ -501,18 +501,16 @@ describe('get-rules-config', function() {
       ],
     };
 
-    // clone to ensure we are not mutating
-    let expected = {
+    let expectedRule = {
       foo: 'bar',
       baz: 'bang',
     };
+    let actual = getConfigForFile(config, 'app/templates/foo.hbs');
 
-    let actual = getRulesConfig(config, 'app/templates/foo.hbs');
-
-    expect(actual).toEqual(expected);
+    expect(actual.rules).toEqual(expectedRule);
   });
 
-  it('Returns the config if overrides is empty/not present', function() {
+  it('Returns the correct rules config if overrides is empty/not present', function() {
     let config = {
       rules: {
         foo: 'bar',
@@ -524,14 +522,14 @@ describe('get-rules-config', function() {
     // clone to ensure we are not mutating
     let expected = JSON.parse(JSON.stringify(config));
 
-    let actual = getRulesConfig(config, 'app/templates/foo.hbs');
+    let actual = getConfigForFile(config, 'app/templates/foo.hbs');
 
-    expect(actual).toEqual(expected.rules);
+    expect(actual.rules).toEqual(expected.rules);
 
     delete config.overrides;
 
-    actual = getRulesConfig(config, 'app/templates/foo.hbs');
+    actual = getConfigForFile(config, 'app/templates/foo.hbs');
 
-    expect(actual).toEqual(expected.rules);
+    expect(actual.rules).toEqual(expected.rules);
   });
 });
