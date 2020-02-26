@@ -26,18 +26,22 @@ describe('base plugin', function() {
 
     for (let ruleConfig of rules) {
       let { Rule } = ruleConfig;
-      let options = Object.assign({}, ruleConfig, {
-        filePath: 'layout.hbs',
-        moduleId: 'layout',
-        moduleName: 'layout',
-        rawSource: template,
-        ruleNames,
-      });
+      let options = Object.assign(
+        {},
+        {
+          filePath: 'layout.hbs',
+          moduleId: 'layout',
+          moduleName: 'layout',
+          rawSource: template,
+          ruleNames,
+        },
+        ruleConfig
+      );
 
       options.configResolver = Object.assign({}, ruleConfig.configResolver, {
         editorConfig: () => {
           if (!options.filePath) {
-            //return {};
+            return {};
           }
 
           return editorConfigResolver.getEditorConfigData(options.filePath);
@@ -96,6 +100,30 @@ describe('base plugin', function() {
     const exportedPresetNames = Object.keys(exportedPresets);
 
     expect(exportedPresetNames).toEqual(presetFiles);
+  });
+
+  describe('rule APIs', function() {
+    it('can access editorConfig', function() {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this.editorConfig.insert_final_newline).toBe(false);
+        }
+      }
+
+      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
+    });
+
+    it('does not error when accessing editorConfig when no filePath is passed', function() {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this.editorConfig.insert_final_newline).toBe(undefined);
+        }
+      }
+
+      runRules('foo', [
+        { Rule: AwesomeRule, name: 'awesome-rule', config: true, filePath: undefined },
+      ]);
+    });
   });
 
   describe('rules setup is correct', function() {
