@@ -20,6 +20,7 @@
     "lint": "npm-run-all lint:* --continue-on-error",
     "lint:docs": "markdownlint '**/*.md' -i CHANGELOG.md -i LICENSE.md -i node_modules",
     "lint:js": "eslint . --cache",
+    "new": "node dev/new-rule/index.js",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
     "test:jest": "jest"
