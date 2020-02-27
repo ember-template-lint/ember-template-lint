@@ -1,53 +1,53 @@
-# (rule name goes here)
+# TODO: rule-name-goes-here
 
-(context about the problem goes here)
+TODO: context about the problem goes here
 
-(what the rule does goes here)
+TODO: what the rule does goes here
 
 ## Examples
 
 This rule **forbids** the following:
 
 ```hbs
-{{!-- Example 1  --}}
+{{!-- TODO: Example 1  --}}
 ```
 
 ```hbs
-{{!-- Example 2  --}}
+{{!-- TODO: Example 2  --}}
 ```
 
 This rule **allows** the following:
 
 ```hbs
-{{!-- Example 1  --}}
+{{!-- TODO: Example 1  --}}
 ```
 
 ```hbs
-{{!-- Example 2  --}}
+{{!-- TODO: Example 2  --}}
 ```
 
 ## Migration
 
-(suggest any fast/automated techniques for fixing violations in a large codebase)
+TODO: suggest any fast/automated techniques for fixing violations in a large codebase
 
-* suggestion on how to fix violations using find-and-replace / regexp
-* suggestion on how to fix violations using a codemod
+* TODO: suggestion on how to fix violations using find-and-replace / regexp
+* TODO: suggestion on how to fix violations using a codemod
 
 ## Configuration
 
-(exclude this section if the rule has no extra configuration)
+TODO: exclude this section if the rule has no extra configuration
 
 * object -- containing the following properties:
-  * string -- `parameterName1` -- description of parameter including the possible values and default value
-  * boolean -- `parameterName2` -- description of parameter including the possible values and default value
+  * string -- `parameterName1` -- TODO: description of parameter including the possible values and default value
+  * boolean -- `parameterName2` -- TODO: description of parameter including the possible values and default value
 
 ## Related Rules
 
-* [related-rule-name1](related-rule-name1.md)
-* [related-rule-name2](related-rule-name2.md)
+* [TODO-related-rule-name1](related-rule-name1.md)
+* [TODO-related-rule-name2](related-rule-name2.md)
 
 ## References
 
-* (link to relevant documentation goes here)
-* (link to relevant function spec goes here)
-* (link to relevant guide goes here)
+* TODO: link to relevant documentation goes here
+* TODO: link to relevant function spec goes here
+* TODO: link to relevant guide goes here
