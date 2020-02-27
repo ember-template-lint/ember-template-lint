@@ -3,6 +3,10 @@
 const Rule = require('../../lib/rules/base');
 const generateRuleTests = require('../helpers/rule-test-harness');
 
+function verifyWithExternalSnapshot(results) {
+  expect(results).toMatchSnapshot();
+}
+
 describe('rule public api', function() {
   describe('general test harness support', function() {
     generateRuleTests({
@@ -61,6 +65,31 @@ describe('rule public api', function() {
             message: 'Do not use any HTML elements!',
             source: '<div></div>',
           },
+        },
+        {
+          name: 'can use verifyResults directly (with inline snapshots)',
+          template: '<div></div>',
+          verifyResults(results) {
+            expect(results).toMatchInlineSnapshot(`
+              Array [
+                Object {
+                  "column": 0,
+                  "filePath": "layout.hbs",
+                  "line": 1,
+                  "message": "Do not use any HTML elements!",
+                  "moduleId": "layout",
+                  "rule": "no-elements",
+                  "severity": 2,
+                  "source": "<div></div>",
+                },
+              ]
+            `);
+          },
+        },
+        {
+          name: 'can use verifyResults directly (with external snapshots)',
+          template: '<div></div>',
+          verifyResults: verifyWithExternalSnapshot,
         },
       ],
     });
