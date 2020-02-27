@@ -7,7 +7,8 @@ module.exports = function(options) {
     Object.assign({}, options, {
       groupMethodBefore: beforeEach,
       groupingMethod: describe,
-      testMethod: it,
+      testMethod: test,
+      focusMethod: test.only,
     })
   );
 };
