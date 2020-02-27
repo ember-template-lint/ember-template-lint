@@ -58,12 +58,14 @@ function parseArgv(_argv) {
       },
     },
     '--filename': {
+      desc: 'Used to indicate the filename to be assumed for contents from STDIN',
       parse(options, toProcess) {
         options.named.filename = toProcess.shift();
       },
     },
     '--fix': {
-      parse(options, toProcess) {
+      desc: 'Fix any errors that are reported as fixable',
+      parse(options) {
         options.named.fix = true;
       },
     },
@@ -89,6 +91,20 @@ function parseArgv(_argv) {
 
   let shouldHandleNamed = true;
 
+  const helpTexts = Object.keys(optionDefinition).map(key => {
+    const { params = '', desc = '' } = optionDefinition[key];
+
+    const paramAndArgs = `  ${key} ${params}`;
+    return desc ? paramAndArgs + ' '.repeat(30 - paramAndArgs.length) + desc : paramAndArgs;
+  });
+  const helpOutput = ['Usage for ember-template-lint:', ...helpTexts].join('\n');
+
+  if (toProcess.length === 0) {
+    console.log(helpOutput);
+    /* eslint-disable-next-line no-process-exit */
+    process.exit(1);
+  }
+
   while (toProcess.length > 0) {
     let arg = toProcess.shift();
 
@@ -100,16 +116,7 @@ function parseArgv(_argv) {
       } else {
         switch (arg) {
           case '--help': {
-            const helpTexts = Object.keys(optionDefinition).map(key => {
-              const { params = '', desc = '' } = optionDefinition[key];
-
-              const paramAndArgs = `  ${key} ${params}`;
-              return desc
-                ? paramAndArgs + ' '.repeat(30 - paramAndArgs.length) + desc
-                : paramAndArgs;
-            });
-
-            console.log(['Help for ember-template-lint', ...helpTexts].join('\n'));
+            console.log(helpOutput);
             /* eslint-disable-next-line no-process-exit */
             process.exit(0);
           }
