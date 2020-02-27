@@ -1709,9 +1709,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 ember-template-recast@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-4.1.0.tgz#7d72fc40c56d7d0f3fa34b50a67608ff7e595faa"
-  integrity sha512-BSusv6T9N+toxTzzTQgRpKn4OFce8AFsuJ6tf6N9/YSAAJ63nSBKtXkAoFKSHBET6DgzFEjSe3F0ChCDtYMHWg==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-4.1.1.tgz#25dca7a460a3c9a4777945efd56ecdfbc2c40739"
+  integrity sha512-NbSlDestTX3GdGgcC1ohgmvJyhTrOQdDrs7XD3s6Lmr71LVfm9lhFovC8YbAII29+FA0S6GKNXs6POQ/soUDkA==
   dependencies:
     "@glimmer/syntax" "^0.47.9"
     async-promise-queue "^1.0.5"
