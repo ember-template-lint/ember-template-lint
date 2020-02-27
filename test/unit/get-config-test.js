@@ -474,7 +474,7 @@ describe('get-config', function() {
   });
 });
 
-describe('get-rules-config', function() {
+describe('getConfigForFile', function() {
   let project = null;
 
   beforeEach(function() {
@@ -531,5 +531,38 @@ describe('get-rules-config', function() {
     actual = getConfigForFile(config, 'app/templates/foo.hbs');
 
     expect(actual.rules).toEqual(expected.rules);
+  });
+
+  it('Merges the overrides rules from multiple overrides with existing rules config', function() {
+    let config = {
+      rules: {
+        qux: 'blobber',
+        foo: 'bar',
+        baz: 'derp',
+      },
+      overrides: [
+        {
+          files: ['**/templates/**/*.hbs'],
+          rules: {
+            baz: 'bang',
+          },
+        },
+        {
+          files: ['**/foo.hbs'],
+          rules: {
+            foo: 'zomg',
+          },
+        },
+      ],
+    };
+
+    let expectedRule = {
+      qux: 'blobber',
+      foo: 'zomg',
+      baz: 'bang',
+    };
+    let actual = getConfigForFile(config, 'app/templates/foo.hbs');
+
+    expect(actual.rules).toEqual(expectedRule);
   });
 });
