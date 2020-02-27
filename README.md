@@ -94,9 +94,9 @@ ember-template-lint into your normal eslint workflow.
 
 Name   | Description |
 |:-----|:------------|
-| [recommended](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/recommended.js) | enables the recommended rules |
-| [octane](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
-| [stylistic](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/stylistic.js) | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
+| [recommended](lib/config/recommended.js) | enables the recommended rules |
+| [octane](lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
+| [stylistic](lib/config/stylistic.js) | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ### Project Wide
 
@@ -114,7 +114,7 @@ module.exports = {
 }
 ```
 
-This extends from the builtin recommended configuration ([lib/config/recommended.js](https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/config/recommended.js)),
+This extends from the builtin recommended configuration ([lib/config/recommended.js](lib/config/recommended.js)),
 and also enables the `no-bare-strings` rule (see [here](docs/rule/no-bare-strings.md)).
 
 Using this mechanism allows you to extend from the builtin, and modify specific rules as needed.
