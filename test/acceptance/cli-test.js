@@ -18,7 +18,39 @@ describe('ember-template-lint executable', function() {
 
   describe('basic usage', function() {
     describe('without any parameters', function() {
-      it.skip('should emit help text', function() {});
+      it('should emit help text', function() {
+        let result = run([]);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Usage for ember-template-lint:
+            --config-path <config_path> Define a custom config path
+            --quiet                     Ignore warnings and only show errors
+            --filename                  Used to indicate the filename to be assumed for contents from STDIN
+            --fix                       Fix any errors that are reported as fixable
+            --json                      Format output as json
+            --verbose                   Output errors with source description
+            --print-pending             Print list of formated rules for use with \`pending\` in config file"
+        `);
+      });
+    });
+
+    describe('with --help', function() {
+      it('should emit help text', function() {
+        let result = run(['--help']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Usage for ember-template-lint:
+            --config-path <config_path> Define a custom config path
+            --quiet                     Ignore warnings and only show errors
+            --filename                  Used to indicate the filename to be assumed for contents from STDIN
+            --fix                       Fix any errors that are reported as fixable
+            --json                      Format output as json
+            --verbose                   Output errors with source description
+            --print-pending             Print list of formated rules for use with \`pending\` in config file"
+        `);
+      });
     });
 
     describe('given path to non-existing file', function() {

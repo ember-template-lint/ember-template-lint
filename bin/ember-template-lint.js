@@ -43,7 +43,67 @@ function parseArgv(_argv) {
   let toProcess = _argv.slice();
   let options = { positional: [], named: {} };
 
+  const optionDefinition = {
+    '--config-path': {
+      params: '<config_path>',
+      desc: 'Define a custom config path',
+      parse(options, toProcess) {
+        options.named.configPath = toProcess.shift();
+      },
+    },
+    '--quiet': {
+      desc: 'Ignore warnings and only show errors',
+      parse(options) {
+        options.named.quiet = true;
+      },
+    },
+    '--filename': {
+      desc: 'Used to indicate the filename to be assumed for contents from STDIN',
+      parse(options, toProcess) {
+        options.named.filename = toProcess.shift();
+      },
+    },
+    '--fix': {
+      desc: 'Fix any errors that are reported as fixable',
+      parse(options) {
+        options.named.fix = true;
+      },
+    },
+    '--json': {
+      desc: 'Format output as json',
+      parse(options) {
+        options.named.json = true;
+      },
+    },
+    '--verbose': {
+      desc: 'Output errors with source description',
+      parse(options) {
+        options.named.verbose = true;
+      },
+    },
+    '--print-pending': {
+      desc: 'Print list of formated rules for use with `pending` in config file',
+      parse(options) {
+        options.named.printPending = true;
+      },
+    },
+  };
+
   let shouldHandleNamed = true;
+
+  const helpTexts = Object.keys(optionDefinition).map(key => {
+    const { params = '', desc = '' } = optionDefinition[key];
+
+    const paramAndArgs = `  ${key} ${params}`;
+    return desc ? paramAndArgs + ' '.repeat(30 - paramAndArgs.length) + desc : paramAndArgs;
+  });
+  const helpOutput = ['Usage for ember-template-lint:', ...helpTexts].join('\n');
+
+  if (toProcess.length === 0) {
+    console.log(helpOutput);
+    /* eslint-disable-next-line no-process-exit */
+    process.exit(1);
+  }
 
   while (toProcess.length > 0) {
     let arg = toProcess.shift();
@@ -51,37 +111,27 @@ function parseArgv(_argv) {
     if (!shouldHandleNamed) {
       options.positional.push(arg);
     } else {
-      switch (arg) {
-        case '--config-path':
-          options.named.configPath = toProcess.shift();
-          break;
-        case '--filename':
-          options.named.filename = toProcess.shift();
-          break;
-        case '--fix':
-          options.named.fix = true;
-          break;
-        case '--quiet':
-          options.named.quiet = true;
-          break;
-        case '--json':
-          options.named.json = true;
-          break;
-        case '--verbose':
-          options.named.verbose = true;
-          break;
-        case '--print-pending':
-          options.named.printPending = true;
-          break;
-        case '--':
-          shouldHandleNamed = false;
-          break;
-        default:
-          if (arg.startsWith('--config-path=') || arg.startsWith('--filename=')) {
-            toProcess.unshift(...arg.split('=', 2));
-          } else {
-            options.positional.push(arg);
+      if (optionDefinition[arg]) {
+        optionDefinition[arg].parse(options, toProcess);
+      } else {
+        switch (arg) {
+          case '--help': {
+            console.log(helpOutput);
+            /* eslint-disable-next-line no-process-exit */
+            process.exit(0);
           }
+          case '--': {
+            shouldHandleNamed = false;
+            break;
+          }
+          default: {
+            if (arg.startsWith('--config-path=') || arg.startsWith('--filename=')) {
+              toProcess.unshift(...arg.split('=', 2));
+            } else {
+              options.positional.push(arg);
+            }
+          }
+        }
       }
     }
   }
