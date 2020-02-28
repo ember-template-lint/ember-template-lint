@@ -63,7 +63,7 @@ function createNewRuleDocFile(newRuleName) {
   let pathDocTemplate = path.join(pathTemplates, 'doc.md');
   let pathDocNew = path.join(pathRoot, 'docs', 'rule', `${newRuleName}.md`);
   let orgContent = fs.readFileSync(pathDocTemplate, { encoding: 'utf8' });
-  let placeholderDocTemplate = '(rule name goes here)';
+  let placeholderDocTemplate = '(TODO: rule name goes here)';
   let outContent = orgContent.replace(placeholderDocTemplate, newRuleName);
   fs.writeFileSync(pathDocNew, outContent);
   console.log(
