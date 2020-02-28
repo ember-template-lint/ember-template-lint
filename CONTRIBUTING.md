@@ -34,6 +34,17 @@ If you are opening an issue to request a new feature, please provide:
 
 ```
 
+### Creating a New Rule
+
+```bash
+# create a new rule
+- yarn new rule-name
+
+# test rule
+- yarn test:jest rule-name
+
+```
+
 ### Supported Commands
 
 When working on the linter, you'll need to lint and test your work.
