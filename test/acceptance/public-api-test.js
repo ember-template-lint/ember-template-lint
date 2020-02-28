@@ -179,7 +179,7 @@ describe('public api', function() {
     it('with deprecated rule config', function() {
       let expected = {
         rules: {
-          'no-bare-strings': true,
+          'no-bare-strings': 'error',
         },
       };
       project.setConfig(expected);
@@ -221,8 +221,8 @@ describe('public api', function() {
     beforeEach(function() {
       project.setConfig({
         rules: {
-          quotes: 'double',
-          'require-button-type': true,
+          quotes: ['error', 'double'],
+          'require-button-type': 'error',
         },
       });
 
@@ -326,13 +326,13 @@ describe('public api', function() {
     beforeEach(function() {
       project.setConfig({
         rules: {
-          'no-bare-strings': true,
+          'no-bare-strings': 'error',
         },
         overrides: [
           {
             files: ['**/templates/**/*.hbs'],
             rules: {
-              'no-implicit-this': true,
+              'no-implicit-this': 'error',
             },
           },
         ],
@@ -469,7 +469,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true },
+          rules: { 'no-bare-strings': 'error' },
           pending: ['some/path/here'],
         },
       });
@@ -499,7 +499,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['block-indentation'] }],
         },
       });
@@ -573,7 +573,7 @@ describe('public api', function() {
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': true,
+                'no-implicit-this': 'error',
               },
             },
           ],
@@ -603,6 +603,62 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
+    it('Works for older syntax without custom severity', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: {
+            'invocable-blacklist': ['foo', 'bar'],
+            'no-implicit-this': { allow: ['baz'] },
+            'no-bare-strings': true,
+          },
+        },
+      });
+
+      let template = '<div>bare string {{foo}} {{baz}}</div>';
+      let result = linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+      });
+
+      let expected = [
+        {
+          rule: 'invocable-blacklist',
+          severity: 2,
+          filePath: 'some/path/here.hbs',
+          moduleId: 'some/path/here',
+          message: "Cannot use blacklisted helper or component '{{foo}}'",
+          line: 1,
+          column: 17,
+          source: '{{foo}}',
+        },
+        {
+          rule: 'no-implicit-this',
+          severity: 2,
+          filePath: 'some/path/here.hbs',
+          moduleId: 'some/path/here',
+          message:
+            "Ambiguous path 'foo' is not allowed. Use '@foo' if it is a named argument or 'this.foo' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['foo'] }.",
+          line: 1,
+          column: 19,
+          source: 'foo',
+        },
+        {
+          rule: 'no-bare-strings',
+          severity: 2,
+          filePath: 'some/path/here.hbs',
+          moduleId: 'some/path/here',
+          message: 'Non-translated string used',
+          line: 1,
+          column: 5,
+          source: 'bare string ',
+        },
+      ];
+
+      expect(result).toEqual(expected);
+    });
+
     it('Works with overrides with custom warning severity object', function() {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
@@ -614,7 +670,7 @@ describe('public api', function() {
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': true,
+                'no-implicit-this': 'error',
               },
             },
           ],
@@ -652,13 +708,13 @@ describe('public api', function() {
         console: mockConsole,
         config: {
           rules: {
-            'no-implicit-this': true,
+            'no-implicit-this': 'error',
           },
           overrides: [
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': false,
+                'no-implicit-this': 'off',
               },
             },
           ],
@@ -678,7 +734,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['block-indentation'] }],
         },
       });
@@ -710,7 +766,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true },
+          rules: { 'no-bare-strings': 'error' },
           pending: ['some/path/here'],
         },
       });
@@ -738,7 +794,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true },
+          rules: { 'no-bare-strings': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['no-bare-strings'] }],
         },
       });
@@ -766,7 +822,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'no-html-comments': true },
+          rules: { 'no-bare-strings': 'error', 'no-html-comments': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['no-bare-strings', 'no-html-comments'] }],
         },
       });
@@ -806,7 +862,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           ignore: ['some/path/here'],
         },
       });
@@ -825,7 +881,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           ignore: ['some/path/*'],
         },
       });
@@ -844,7 +900,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'missing-rule': true },
+          rules: { 'missing-rule': 'error' },
         },
       });
 

@@ -56,6 +56,10 @@ describe('get-config', function() {
       rules: {
         foo: { config: { allow: [1, 2, 3] }, severity: 1 },
         baz: { config: 'derp', severity: 2 },
+        'some-rule': { severity: 2, config: 'lol' },
+        'other-thing': { severity: 2, config: ['wat', 'is', 'this'] },
+        'hmm-thing-here': { severity: 2, config: { zomg: 'lol' } },
+        'another-thing-there': { severity: 0, config: false },
       },
     };
 
@@ -64,6 +68,10 @@ describe('get-config', function() {
         rules: {
           foo: ['warn', { allow: [1, 2, 3] }],
           baz: 'derp',
+          'some-rule': 'lol',
+          'other-thing': ['wat', 'is', 'this'],
+          'hmm-thing-here': { zomg: 'lol' },
+          'another-thing-there': 'off',
         },
       },
     });

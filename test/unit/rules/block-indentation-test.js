@@ -5,7 +5,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'block-indentation',
 
-  config: true,
+  config: 'error',
 
   good: [
     {
