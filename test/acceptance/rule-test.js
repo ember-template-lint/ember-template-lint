@@ -94,4 +94,67 @@ describe('rule public api', function() {
       ],
     });
   });
+
+  describe('mode === fix', function() {
+    generateRuleTests({
+      plugins: [
+        {
+          name: 'fix-test',
+          rules: {
+            'can-fix': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    if (node.tag !== 'MySpecialThing') {
+                      return;
+                    }
+
+                    if (this.mode === 'fix') {
+                      node.tag = 'EvenBettererThing';
+                    } else {
+                      this.log({
+                        isFixable: true,
+                        message: 'Do not use MySpecialThing',
+                        line: node.loc && node.loc.start.line,
+                        column: node.loc && node.loc.start.column,
+                        source: this.sourceForNode(node),
+                      });
+                    }
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'can-fix',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          result: {
+            column: 0,
+            line: 1,
+            isFixable: true,
+            message: 'Do not use MySpecialThing',
+            source: '<MySpecialThing/>',
+          },
+          fixedTemplate: '<EvenBettererThing/>',
+        },
+        {
+          template: '<MySpecialThing>contents here</MySpecialThing>',
+          result: {
+            column: 0,
+            line: 1,
+            isFixable: true,
+            message: 'Do not use MySpecialThing',
+            source: '<MySpecialThing>contents here</MySpecialThing>',
+          },
+          fixedTemplate: '<EvenBettererThing>contents here</EvenBettererThing>',
+        },
+      ],
+    });
+  });
 });
