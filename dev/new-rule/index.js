@@ -16,7 +16,7 @@ function usage() {
   4. the rule will be appended to the list of rules in the index (you have to put it in the correct order)
   5. the doc will be appended to the list of docs in the doc index (you have to put it in the correct order)
 
-  Example usage: 
+  Example usage:
   --------------
   Templates use the rule name \`my-new-rule\`, so this example
   creates a functioning/immediately testable rule
@@ -28,7 +28,7 @@ function usage() {
 // Some basics that we'll need
 const pathUtil = __dirname;
 const pathTemplates = path.join(pathUtil, 'templates');
-const pathRoot = path.join(pathUtil, '../..');
+const pathRoot = path.join(pathUtil, '..', '..');
 
 function createNewRuleFile(newRuleName) {
   // Create rule file
