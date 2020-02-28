@@ -84,7 +84,7 @@ function appendDocListFile(newRuleName) {
     chalk.cyan(
       `4. Success! ${chalk.yellow(
         `${newRuleName}.md`
-      )} was appended to ${pathDocList}: please be sure to alpha sort the list before making a commit!`
+      )} was appended to ${pathDocList}: please be sure to alphabetically sort the list before making a commit!`
     )
   );
 }
