@@ -1,3 +1,35 @@
+## v2.1.0 (2020-02-28)
+
+#### :rocket: Enhancement
+* [#1158](https://github.com/ember-template-lint/ember-template-lint/pull/1158) Introduce rule visitor based fixing support. ([@rwjblue](https://github.com/rwjblue))
+* [#1174](https://github.com/ember-template-lint/ember-template-lint/pull/1174) Add test harness features (naming test cases, snapshot support, etc). ([@rwjblue](https://github.com/rwjblue))
+* [#1169](https://github.com/ember-template-lint/ember-template-lint/pull/1169) Add support to `test.only` in the test harness. ([@rwjblue](https://github.com/rwjblue))
+* [#1074](https://github.com/ember-template-lint/ember-template-lint/pull/1074) feat(cli-option): Add --help option and configurable option parsing ([@velrest](https://github.com/velrest))
+* [#1102](https://github.com/ember-template-lint/ember-template-lint/pull/1102) Add new rule: `no-heading-inside-button` ([@MelSumner](https://github.com/MelSumner))
+* [#1105](https://github.com/ember-template-lint/ember-template-lint/pull/1105) Add new rule: `require-input-label` ([@MelSumner](https://github.com/MelSumner))
+* [#1120](https://github.com/ember-template-lint/ember-template-lint/pull/1120) Add new rule: `no-invalid-link-title` ([@MelSumner](https://github.com/MelSumner))
+
+#### :bug: Bug Fix
+* [#1167](https://github.com/ember-template-lint/ember-template-lint/pull/1167) Ensure accessing `this.editorConfig` in a rule instance does not error. ([@rwjblue](https://github.com/rwjblue))
+
+#### :memo: Documentation
+* [#1159](https://github.com/ember-template-lint/ember-template-lint/pull/1159) Rewrite documentation for `link-href-attributes` rule to explain motivation and migration ([@MelSumner](https://github.com/MelSumner))
+* [#1154](https://github.com/ember-template-lint/ember-template-lint/pull/1154) Fix CI badge in README ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#1177](https://github.com/ember-template-lint/ember-template-lint/pull/1177) Add `new` command for generating a new rule from CLI ([@MelSumner](https://github.com/MelSumner))
+* [#1173](https://github.com/ember-template-lint/ember-template-lint/pull/1173) Update minimum version of ember-template-recast to 4.1.1. ([@rwjblue](https://github.com/rwjblue))
+* [#1166](https://github.com/ember-template-lint/ember-template-lint/pull/1166) Refactor `cli-test.js` to remove usage of fixtures in favor of using `fixturify-project` ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+* [#1157](https://github.com/ember-template-lint/ember-template-lint/pull/1157) Refactor rule logging to track results locally. ([@rwjblue](https://github.com/rwjblue))
+* [#1156](https://github.com/ember-template-lint/ember-template-lint/pull/1156) Extract `Linter.prototype.buildRule` internal helper method to build rule instances. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Jonas Cosandey ([@velrest](https://github.com/velrest))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Suchita Doshi ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+
 ## v2.0.1 (2020-02-24)
 
 #### :rocket: Enhancement
