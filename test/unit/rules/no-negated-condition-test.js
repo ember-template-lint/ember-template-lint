@@ -103,7 +103,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
-        moduleId: 'layout.hbs',
         source: '{{#if (not condition)}}<img>{{/if}}',
         line: 1,
         column: 0,
@@ -116,7 +115,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_FLIP_IF,
-        moduleId: 'layout.hbs',
         source: '{{#if (not condition)}}<img>{{else}}<img>{{/if}}',
         line: 1,
         column: 0,
@@ -129,7 +127,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source: '{{#unless (not condition)}}<img>{{/unless}}',
         line: 1,
         column: 0,
@@ -142,7 +139,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source: '{{#unless (not condition)}}<img>{{else}}<img>{{/unless}}',
         line: 1,
         column: 0,
@@ -155,7 +151,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source: '{{#unless (not condition)}}<img>{{else if (not condition)}}<img>{{/unless}}',
         line: 1,
         column: 0,
@@ -169,7 +164,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source:
           '{{#unless (not condition)}}<img>{{else if (not condition)}}<img>{{else}}<img>{{/unless}}',
         line: 1,
@@ -184,7 +178,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
-        moduleId: 'layout.hbs',
         source: '{{#if (not condition)}}<img>{{/if}}',
         line: 1,
         column: 44,
@@ -197,7 +190,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
-        moduleId: 'layout.hbs',
         source: '{{#if (not condition)}}<img>{{/if}}',
         line: 1,
         column: 25,
@@ -214,7 +206,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
-        moduleId: 'layout.hbs',
         source: '{{if (not condition) "some-class"}}',
         line: 1,
         column: 11,
@@ -227,7 +218,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_FLIP_IF,
-        moduleId: 'layout.hbs',
         source: '{{if (not condition) "some-class" "other-class"}}',
         line: 1,
         column: 11,
@@ -240,7 +230,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source: '{{unless (not condition) "some-class"}}',
         line: 1,
         column: 11,
@@ -253,7 +242,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source: '{{unless (not condition) "some-class" "other-class"}}',
         line: 1,
         column: 11,
@@ -270,7 +258,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
-        moduleId: 'layout.hbs',
         source: '(if (not condition) "some-class")',
         line: 1,
         column: 14,
@@ -283,7 +270,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_FLIP_IF,
-        moduleId: 'layout.hbs',
         source: '(if (not condition) "some-class" "other-class")',
         line: 1,
         column: 14,
@@ -296,7 +282,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source: '(unless (not condition) "some-class")',
         line: 1,
         column: 14,
@@ -309,7 +294,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        moduleId: 'layout.hbs',
         source: '(unless (not condition) "some-class" "other-class")',
         line: 1,
         column: 14,

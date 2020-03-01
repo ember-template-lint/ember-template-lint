@@ -1,4 +1,4 @@
-## no-quoteless-attributes
+# no-quoteless-attributes
 
 In HTML, all attribute values are considered strings, regardless of whether they are quoted or not.
 
@@ -20,6 +20,8 @@ In this case, the simple _presence_ of the `disabled` attribute means that the `
 This is just _one_ (of many) cases where the default "string" based parsing of attributes in HTML can trip folks up.
 
 This rule attempts to make this situation _slightly_ better by at least ensuring that all attribute values are quoted. This obviously doesn't fix the :troll:y nature of HTML here but it does ensure that you still **see** the quotes (which should hopefully help remind you that these are strings and not values).
+
+## Examples
 
 This rule **forbids** the following (note that `someValue` could have been intended either as a string or expression):
 

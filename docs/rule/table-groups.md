@@ -1,4 +1,4 @@
-## table-groups
+# table-groups
 
 It is best practice to group table rows into one of:
 
@@ -7,6 +7,8 @@ It is best practice to group table rows into one of:
 * `tfoot`
 
 This helps avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -54,7 +56,7 @@ If you have a component with one of the table groups specified as its `tagName`,
 
 ```hbs
 <table>
-  {{! template-lint-disable table-groups }}
+  {{!-- template-lint-disable table-groups  --}}
   {{some-component-with-tagName-tbody}}
 </table>
 ```

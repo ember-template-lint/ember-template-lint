@@ -1,25 +1,56 @@
 'use strict';
 
-const { traverse, preprocess } = require('@glimmer/syntax');
+const { parse, transform } = require('ember-template-recast');
 const Rule = require('./../../lib/rules/base');
 const { readdirSync, existsSync, readFileSync } = require('fs');
-const { join, parse } = require('path');
+const { join, parse: parsePath } = require('path');
 const ruleNames = Object.keys(require('../../lib/rules'));
+const Project = require('../helpers/fake-project');
+const EditorConfigResolver = require('../../lib/get-editor-config');
 
 describe('base plugin', function() {
+  let project, editorConfigResolver;
+  beforeEach(() => {
+    project = Project.defaultSetup();
+
+    editorConfigResolver = new EditorConfigResolver();
+    editorConfigResolver.resolveEditorConfigFiles();
+  });
+
+  afterEach(async () => {
+    await project.dispose();
+  });
+
   function runRules(template, rules) {
-    let ast = preprocess(template);
+    let ast = parse(template);
 
     for (let ruleConfig of rules) {
       let { Rule } = ruleConfig;
-      let options = Object.assign({}, ruleConfig, {
-        moduleName: 'layout.hbs',
-        rawSource: template,
+      let options = Object.assign(
+        {},
+        {
+          filePath: 'layout.hbs',
+          moduleId: 'layout',
+          moduleName: 'layout',
+          rawSource: template,
+          ruleNames,
+        },
+        ruleConfig
+      );
+
+      options.configResolver = Object.assign({}, ruleConfig.configResolver, {
+        editorConfig: () => {
+          if (!options.filePath) {
+            return {};
+          }
+
+          return editorConfigResolver.getEditorConfigData(options.filePath);
+        },
       });
 
       let rule = new Rule(options);
 
-      traverse(ast, rule.getVisitor());
+      transform(ast, () => rule.getVisitor());
     }
   }
 
@@ -53,7 +84,7 @@ describe('base plugin', function() {
   }
 
   function plugin(Rule, name, config) {
-    return { Rule, name, config, ruleNames };
+    return { Rule, name, config };
   }
 
   it('all presets correctly reexported', function() {
@@ -61,7 +92,7 @@ describe('base plugin', function() {
 
     const files = readdirSync(presetsPath);
     const presetFiles = files
-      .map(it => parse(it))
+      .map(it => parsePath(it))
       .filter(it => it.ext === '.js' && it.name !== 'index')
       .map(it => it.name);
 
@@ -69,6 +100,30 @@ describe('base plugin', function() {
     const exportedPresetNames = Object.keys(exportedPresets);
 
     expect(exportedPresetNames).toEqual(presetFiles);
+  });
+
+  describe('rule APIs', function() {
+    it('can access editorConfig', function() {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this.editorConfig.insert_final_newline).toBe(false);
+        }
+      }
+
+      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
+    });
+
+    it('does not error when accessing editorConfig when no filePath is passed', function() {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this.editorConfig.insert_final_newline).toBe(undefined);
+        }
+      }
+
+      runRules('foo', [
+        { Rule: AwesomeRule, name: 'awesome-rule', config: true, filePath: undefined },
+      ]);
+    });
   });
 
   describe('rules setup is correct', function() {
@@ -186,7 +241,7 @@ describe('base plugin', function() {
         '<div>\n  <div data-foo="blerp">\n    Wheee!\n  </div>\n</div>',
         '\n  ',
         '<div data-foo="blerp">\n    Wheee!\n  </div>',
-        '"blerp"',
+        'blerp',
         '\n    Wheee!\n  ',
         '\n',
       ],
@@ -197,12 +252,12 @@ describe('base plugin', function() {
     let wasCalled;
 
     let visitor = {
-      Program() {
+      Template() {
         wasCalled = true;
       },
     };
 
-    it('calls the "Program" node type', function() {
+    it('calls the "Template" node type', function() {
       runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
 
       expect(wasCalled).toBe(true);

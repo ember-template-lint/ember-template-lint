@@ -1,6 +1,8 @@
-## no-extra-mut-helper-argument
+# no-extra-mut-helper-argument
 
 A common mistake when using the Ember handlebars template `mut(attr)` helper is to pass an extra `value` parameter to it when only `attr` should be passed. Instead, the `value` should be passed outside of `mut`.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -14,6 +16,6 @@ This rule **allows** the following:
 {{my-component click=(action (mut isClicked) true)}}
 ```
 
-### References
+## References
 
 * See the [documentation](https://emberjs.com/api/ember/release/classes/Ember.Templates.helpers/methods/mut?anchor=mut) for the Ember handlebars template `mut` helper

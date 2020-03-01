@@ -61,7 +61,6 @@ generateRuleTests({
 
       result: {
         message: 'links with target="_blank" must have rel="noopener"',
-        moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank"></a>',
         line: 1,
         column: 0,
@@ -72,7 +71,6 @@ generateRuleTests({
 
       result: {
         message: 'links with target="_blank" must have rel="noopener"',
-        moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
         line: 1,
         column: 0,
@@ -85,7 +83,6 @@ generateRuleTests({
       result: {
         message:
           'links with target="_blank" must have rel="noopener noreferrer" or rel="noreferrer noopener"',
-        moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="noopener"></a>',
         line: 1,
         column: 0,
@@ -98,7 +95,6 @@ generateRuleTests({
       result: {
         message:
           'links with target="_blank" must have rel="noopener noreferrer" or rel="noreferrer noopener"',
-        moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
         line: 1,
         column: 0,
@@ -111,7 +107,6 @@ generateRuleTests({
       result: {
         message:
           'links with target="_blank" must have rel="noopener noreferrer" or rel="noreferrer noopener"',
-        moduleId: 'layout.hbs',
         source: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
         line: 1,
         column: 0,

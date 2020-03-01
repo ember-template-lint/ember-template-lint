@@ -1,6 +1,8 @@
-## no-duplicate-attributes
+# no-duplicate-attributes
 
 This rule forbids multiple attributes passed to a Component, Helper, or an ElementNode with the same name.
+
+## Examples
 
 This rule **forbids** the following:
 

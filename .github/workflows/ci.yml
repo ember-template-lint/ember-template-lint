@@ -4,21 +4,22 @@ on:
   push:
     branches:
       - master
+      - next
       - 'v*'
   pull_request: {}
   schedule:
     - cron:  '0 3 * * *' # daily, at 3am
 
 jobs:
-  node10:
-    name: Node 10.x
+  node12:
+    name: Node 12.x
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10.x
+          node-version: 12.x
 
       - name: get yarn cache dir
         id: yarn-cache
@@ -27,14 +28,12 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-node-10.x-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-node-12.x-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
       - name: install dependencies
         run: yarn install --frozen-lockfile
-
-      - run: yarn lint:js
 
       - run: yarn test
 
@@ -43,12 +42,12 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    needs: [node10]
+    needs: [node12]
 
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [6.x, 8.x, 12.x]
+        node-version: [10.x, 13.x]
 
     steps:
       - uses: actions/checkout@v1
@@ -77,13 +76,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    needs: [node10]
+    needs: [node12]
 
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10.x
+          node-version: 12.x
 
       - name: get yarn cache dir
         id: yarn-cache

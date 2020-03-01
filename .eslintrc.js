@@ -106,6 +106,12 @@ module.exports = {
       },
     },
     {
+      files: ['lib/rules/**/*.js'],
+      rules: {
+        'filenames/match-exported': ['error', 'kebab'],
+      }
+    },
+    {
       files: ['test/**/*.js'],
       env: {
         jest: true,

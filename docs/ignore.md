@@ -1,4 +1,4 @@
-## Ignore support
+# Ignore support
 
 You can tell the linter to ignore individual files or entire directories with the `ignore` option.
 
@@ -7,7 +7,7 @@ The ignore option takes an array of strings that either match exact modules or g
 * **module** -- `'app/templates/exceptional-page'`
 * **glob** -- `'app/templates/components/odd-ones/**'`
 
-### Sample configuration
+## Sample configuration
 
 ```javascript
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
 };
 ```
 
-### Why are patterns duplicated?
+## Why patterns are duplicated
 
 You may have noticed in the sample configuration that the four patterns are actually two patterns repeated with different prefixes.
 

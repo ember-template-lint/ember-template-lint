@@ -27,7 +27,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: "{{render 'ken-griffey'}}",
         line: 1,
         column: 0,
@@ -41,7 +40,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: "{{render 'baseball-player' pitcher}}",
         line: 1,
         column: 0,

@@ -1,115 +1,95 @@
-## Use angle bracket syntax for components
+# no-curly-component-invocation
 
-### Rule name: `no-curly-component-invocation`
+There are two ways to invoke a component in a template: curly component syntax
+(`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The
+difference between them is syntactical. You should favour angle bracket syntax
+as it improves readability of templates, i.e. disambiguates components from
+helpers, and is also the future direction Ember is going with the Octane
+Edition.
 
-There are two ways to invoke a component in a template: curly compoment syntax (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The difference between them is syntactical. You should favour angle bracket syntax as it improves readability of templates, i.e. disambiguates components from helpers, and is also the future direction Ember is going with the Octane Edition.
+This rule checks all the curly braces in your app and warns about those that
+look like they could be component invocations.
 
-#### Bad
+## Examples
 
-```hbs
-{{bad-code}}
-{{#bad-code}}{{/bad-code}}
-{{nested/bad-code}}
-{{#nested/bad-code}}{{/nested/bad-code}}
-```
+- `{{foo}}` ✅
+  (simple mustache without `-` in the path is likely to be a property; unless
+  `noImplicitThis` is set or in `disallow` list and not a scoped variable)
 
-#### Good
+- `{{foo.bar}}` ✅
+  (simple mustache with nested path is likely to be a nested property; unless
+  `noImplicitThis` is set)
 
-```hbs
-<GoodCode />
-<GoodCode></GoodCode>
-<Nested::GoodCode />
-<Nested::GoodCode></Nested::GoodCode>
+- `{{foo-bar}}` ❌ (angle brackets: `<FooBar />`)
+  (simple mustache with `-` in the path is more likely a component than a
+  property or helper; unless in `allow` list)
 
-{{! whitelisted helpers}}
-{{some-valid-helper param}}
-{{some/some-valid-helper param}}
+- `{{nested/component}}` ❌ (angle brackets: `<Nested::Component />`)
+  (simple mustache with `/` in the path is more likely a component than a
+  property or helper; unless in `allow` list)
 
-{{! in-built helpers}}
-{{if someProperty "yay"}}
-{{#each items as |item|}}
-  {{item}}
-{{/each}}
-```
+- `{{42}}` ✅
+  (literal value mustaches)
+
+- `{{foo bar}}` ✅
+  (mustache with positional parameters can't be converted to angle brackets
+  syntax)
+
+- `{{foo bar=baz}}` ❌ (angle brackets: `<Foo @bar={{baz}} />`)
+  (mustache with only named parameters is likely a component; unless in
+  `allow` list)
+
+  Setting `requireDash: true` lets `{{foo bar=baz}}` pass, but
+  `{{foo-bar bar=baz}}` fails
+
+- `<div {{foo}} />` ✅
+  (mustache is a modifier)
+
+- `<Foo @bar={{baz}} />` ✅
+  (mustache is an argument or attribute)
+
+- `{{#foo}}{{/foo}}` ❌ (angle brackets: `<Foo></Foo>`)
+  (block mustache is considered a component unless it has positional
+  parameters, an inverse block, or is in `allow` list)
+
+- `{{#foo bar}}{{/foo}}` ✅
+  (block mustache with positional parameters can't be converted to angle
+  brackets syntax)
+
+- `{{#foo}}bar{{else}}baz{{/foo}}` ✅
+  (block mustache with inverse block can't be converted to angle
+  brackets syntax)
+
+- `{{link-to "bar" "foo"}}` ❌ (angle brackets: `<LinkTo @route="foo">bar</LinkTo>`)
+  (inline form of the built-in `link-to` component)
+
+- `{{#link-to "foo"}}bar{{/link-to}}` ❌ (angle brackets: `<LinkTo @route="foo">bar</LinkTo>`)
+  (block form of the built-in `link-to` component)
+
+## Migration
+
+- use <https://github.com/ember-codemods/ember-angle-brackets-codemod>
 
 ## Configuration
-### Whitelisting helpers
-To be able to differentiate between components and helpers used within curlies, e.g. `{{my-helper}}`, you can add a whitelist of all your known helpers to this rule's configuration. To do this add the following to your `.template-lintrc.js` which enables your rule.
 
-```js
-module.exports = {
-  rules: {
-    'no-curly-component-invocation': {
-        allow: [
-        'some-random-helper',
-        'another-helper',
-      ],
-    },
-  },
-};
-```
+- boolean -- if `true`, default configuration is applied
+  (`noImplicitThis: false`, `requireDash: true`), see below for details
 
-To get a list of of all the helpers in your app run the following code in your browser's Developer Tools Console when your app has loaded:
+- object -- containing the following properties:
+  - boolean -- `noImplicitThis` -- if `true`, the rule considers all simple
+    curly invocations without positional or named arguments as components unless
+    they are prefixed with `this.` or `@`
+    (default: `false`)
+  - boolean -- `requireDash` -- if `true`, the rule only considers curly
+    invocations with a `-` character as potential component invocations
+    (default: `true`)
+  - array -- `allow` -- a list of curly invocation paths that are known to
+    **not** be component invocations
+  - array -- `disallow` -- a list of curly invocation paths that are known to
+    be component invocations
 
-``` js
-var componentLikeHelpers = Object.keys(require.entries)
-  .filter(name => name.includes('/helpers/'))
-  .map(name => {
-    let path = name.split('/helpers/');
-    return path.pop();
-  })
-  .filter(name => !name.includes('/'))
-  .uniq();
+## References
 
-copy(JSON.stringify(componentLikeHelpers));
-```
-
-Hat tip to @lifeart for [this code](https://github.com/lifeart/ember-ast-hot-load#how-to-use-this-addon).
-
-### Blacklisting components without dashes
-Since Ember 3.10 components have not required dashes in their name, e.g. `{{datepicker}}`. To help the linter throw an error on these curly component invocations, which it would otherwise have thought to be a helper or property, you can explicitly add it to the `disallow` section of the rule's config. Any curly statements matching an entry in `disallow` will throw a lint error.
-
-```js
-module.exports = {
-  rules: {
-    'no-curly-component-invocation': {
-        disallow: [
-        'heading',
-        'datepicker',
-      ],
-    },
-  },
-};
-```
-
-To get a list of of all the components in your app which don't have dashes in their name run the following code in your browser's Developer Tools Console when your app has loaded:
-
-``` js
-var componentsWithoutDashes = Object.keys(require.entries)
-  .filter(name => name.includes('/components/'))
-  .filter(name => !name.includes('-'))
-  .map(name => {
-    let path = name.split('/components/');
-    return path.pop();
-  })
-  .uniq();
-
-copy(JSON.stringify(componentsWithoutDashes));
-```
-
-### Matching on components without dashes in their name
-Before Ember 3.10 components were required to have at least one dash, `-`, in their name. By default this rule assumes that all components have `-` in their name. If you'd like to change this behaviour to match all curly invocations, even those without dashes then set the `requireDash` option to `false`.
-
-```js
-module.exports = {
-  rules: {
-    'no-curly-component-invocation': {
-        requireDash: false,
-    },
-  },
-};
-```
-
-### Related Rules
-
-* [no-args-paths](no-args-paths.md)
+- [RFC #311](https://github.com/emberjs/rfcs/pull/311) (Angle Bracket Syntax)
+- [RFC #457](https://github.com/emberjs/rfcs/pull/457) (Nested Components)
+- [RFC #459](https://github.com/emberjs/rfcs/pull/459) (Angle Bracket Syntax for built-in components)

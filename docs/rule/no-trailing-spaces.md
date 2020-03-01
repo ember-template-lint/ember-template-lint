@@ -1,6 +1,8 @@
-## no-trailing-spaces
+# no-trailing-spaces
 
 Disallow trailing whitespace at the end of lines.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -16,6 +18,6 @@ This rule **allows** the following:
 //
 ```
 
-### Related Rules
+## Related Rules
 
 * [no-trailing-spaces](https://eslint.org/docs/rules/no-trailing-spaces) from eslint

@@ -1,7 +1,9 @@
-## no-shadowed-elements
+# no-shadowed-elements
 
 This rule prevents ambiguity in situations where a yielded block param which starts with a lower case letter is also
 used within the block itself as an element name.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -10,6 +12,7 @@ This rule **forbids** the following:
   <div></div>
 </FooBar>
 ```
+
 This rule **allows** the following:
 
 ```hbs

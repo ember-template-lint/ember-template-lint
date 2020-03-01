@@ -172,7 +172,6 @@ generateRuleTests({
         column: 6,
         line: 2,
         message: 'Tables must have a table group (thead, tbody or tfoot).',
-        moduleId: 'layout.hbs',
         source:
           '<table>\n      {{#if showCaption}}\n        <thead>Some Name</thead>\n      {{/if}}\n      {{#if foo}}\n        <span>12</span>\n      {{else}}\n        <p>text</p>\n      {{/if}}\n      <colgroup></colgroup>\n      </table>',
       },
@@ -195,7 +194,6 @@ generateRuleTests({
         column: 6,
         line: 2,
         message: 'Tables must have a table group (thead, tbody or tfoot).',
-        moduleId: 'layout.hbs',
         source:
           '<table>\n      {{#if showCaption}}\n        <div>Some Name</div>\n      {{/if}}\n      {{#if foo}}\n        <span>12</span>\n      {{else}}\n        <p>text</p>\n      {{/if}}\n      <colgroup></colgroup>\n      </table>',
       },
@@ -211,7 +209,6 @@ generateRuleTests({
       `,
       result: {
         message,
-        moduleId: 'layout.hbs',
         source:
           '<table>\n      {{#if foo}}\n        {{else}}\n        <div></div>\n      {{/if}}\n      </table>',
         line: 2,
@@ -230,7 +227,6 @@ generateRuleTests({
       `,
       result: {
         message,
-        moduleId: 'layout.hbs',
         source:
           '<table>\n      {{#unless foo}}\n        <div>\n          <tr></tr>\n        </div>\n      {{/unless}}\n      </table>',
         line: 2,
@@ -249,7 +245,6 @@ generateRuleTests({
       `,
       result: {
         message,
-        moduleId: 'layout.hbs',
         source:
           '<table>\n      {{#if foo}}\n        <div>\n          <tr></tr>\n        </div>\n      {{/if}}\n      </table>',
         line: 2,
@@ -266,7 +261,6 @@ generateRuleTests({
       `,
       result: {
         message,
-        moduleId: 'layout.hbs',
         source:
           '<table>\n      {{#unless foo}}\n        {{some-component}}\n      {{/unless}}\n      </table>',
         line: 2,
@@ -283,7 +277,6 @@ generateRuleTests({
       `,
       result: {
         message,
-        moduleId: 'layout.hbs',
         source:
           '<table>\n      {{#something foo}}\n        <tbody></tbody>\n      {{/something}}\n      </table>',
         line: 2,
@@ -295,7 +288,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table><tr><td>Foo</td></tr></table>',
         line: 1,
         column: 0,
@@ -306,7 +298,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table>{{some-component}}</table>',
         line: 1,
         column: 0,
@@ -317,7 +308,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
         line: 1,
         column: 0,
@@ -328,7 +318,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table>' + '<tr></tr>' + '<tbody><tr><td>Foo</td></tr></tbody>' + '</table>',
         line: 1,
         column: 0,
@@ -339,7 +328,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table> whitespace<thead></thead></table>',
         line: 1,
         column: 0,
@@ -349,7 +337,6 @@ generateRuleTests({
       template: '<table>{{some-component tagName="div"}}</table>',
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table>{{some-component tagName="div"}}</table>',
         line: 1,
         column: 0,
@@ -359,7 +346,6 @@ generateRuleTests({
       template: '<table>{{some-component otherProp="tbody"}}</table>',
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table>{{some-component otherProp="tbody"}}</table>',
         line: 1,
         column: 0,
@@ -369,7 +355,6 @@ generateRuleTests({
       template: '<table><SomeComponent @tagName="div" /></table>',
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table><SomeComponent @tagName="div" /></table>',
         line: 1,
         column: 0,
@@ -379,7 +364,6 @@ generateRuleTests({
       template: '<table><SomeComponent @otherProp="tbody" /></table>',
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table><SomeComponent @otherProp="tbody" /></table>',
         line: 1,
         column: 0,
@@ -389,7 +373,6 @@ generateRuleTests({
       template: '<table>some text</table>',
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '<table>some text</table>',
         line: 1,
         column: 0,
@@ -399,7 +382,6 @@ generateRuleTests({
       template: '<table><tfoot /><thead /></table>',
       result: {
         message: orderingMessage,
-        moduleId: 'layout.hbs',
         source: '<table><tfoot /><thead /></table>',
         line: 1,
         column: 0,
@@ -409,7 +391,6 @@ generateRuleTests({
       template: '<table><tbody /><caption /></table>',
       result: {
         message: orderingMessage,
-        moduleId: 'layout.hbs',
         source: '<table><tbody /><caption /></table>',
         line: 1,
         column: 0,
@@ -419,7 +400,6 @@ generateRuleTests({
       template: '<table><tbody /><colgroup /></table>',
       result: {
         message: orderingMessage,
-        moduleId: 'layout.hbs',
         source: '<table><tbody /><colgroup /></table>',
         line: 1,
         column: 0,

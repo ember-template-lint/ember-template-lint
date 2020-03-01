@@ -1,4 +1,4 @@
-## require-button-type
+# require-button-type
 
 This rule requires all `<button>` elements to have a valid `type` attribute.
 
@@ -6,6 +6,8 @@ By default, the `type` attribute of `<button>` elements is `submit`. This can
 be very confusing, when a button component is developed in isolation without
 `type="button"`, and when inside a `<form>` element it suddenly starts to
 submit the form.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -23,6 +25,6 @@ This rule **allows** the following:
 <button type="reset">Hello World!</button>
 ```
 
-### References
+## References
 
 * Red [HTML spec - the button element](https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type)

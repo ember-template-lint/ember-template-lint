@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rule public api general test harness support no-elements can use verifyResults directly (with external snapshots): logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Do not use any HTML elements!",
+    "moduleId": "layout",
+    "rule": "no-elements",
+    "severity": 2,
+    "source": "<div></div>",
+  },
+]
+`;

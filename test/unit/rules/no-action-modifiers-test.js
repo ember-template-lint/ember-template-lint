@@ -27,7 +27,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<button {{action "foo"}}></button>',
         line: 1,
         column: 8,
@@ -38,7 +37,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<a href="#" {{action "foo"}}></a>',
         line: 1,
         column: 12,
@@ -50,7 +48,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<a href="#" {{action "foo"}}></a>',
         line: 1,
         column: 12,

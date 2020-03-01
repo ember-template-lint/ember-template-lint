@@ -15,6 +15,8 @@ generateRuleTests({
     '<Foo @touch={{this.handleClick}} />',
     '<Foo @random="foo" />',
     '<Foo @random={{true}} />',
+    '<Input @click={{this.handleClick}} />',
+    '<Textarea @click={{this.handleClick}} />',
 
     '{{foo}}',
     '{{foo onClick=this.handleClick}}',
@@ -23,6 +25,8 @@ generateRuleTests({
     '{{foo touch=this.handleClick}}',
     '{{foo random="foo"}}',
     '{{foo random=true}}',
+    '{{input click=this.handleClick}}',
+    '{{textarea click=this.handleClick}}',
   ],
   bad: [
     {

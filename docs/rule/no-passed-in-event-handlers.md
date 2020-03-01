@@ -1,4 +1,4 @@
-## no-passed-in-event-handlers
+# no-passed-in-event-handlers
 
 It is possible to pass e.g. `@click` to an Ember component to override the
 default `click` event handler. For tagless components this will trigger an
@@ -8,7 +8,7 @@ components it will not work out of the box, like in Ember components, either.
 This rule scans potential component invocations for these patterns and flags
 them as issues.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
@@ -42,10 +42,10 @@ This rule **allows** the following:
 {{foo onClick=this.handleClick}}
 ```
 
-### Migration
+## Migration
 
 - create explicit component APIs for these events (e.g. `@click` -> `@onClick`)
 
-### References
+## References
 
-- https://api.emberjs.com/ember/release/classes/Component#event-handler-methods
+- <https://api.emberjs.com/ember/release/classes/Component#event-handler-methods>

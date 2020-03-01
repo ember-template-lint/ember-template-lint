@@ -77,7 +77,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
         column: 9,
@@ -88,7 +87,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
         column: 9,
@@ -99,7 +97,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
         column: 9,
@@ -116,7 +113,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 3,
         column: 0,
@@ -127,7 +123,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 2,
         column: 0,
@@ -144,7 +139,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 2,
         column: 0,
@@ -161,7 +155,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else if goHawks}}',
         line: 3,
         column: 0,
@@ -180,7 +173,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else if goPats}}',
         line: 3,
         column: 0,
@@ -199,7 +191,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else if goBengals}}',
         line: 3,
         column: 0,
@@ -212,7 +203,6 @@ generateRuleTests({
 
       result: {
         message: messages.asElseUnlessBlock,
-        moduleId: 'layout.hbs',
         source: '{{else unless ...',
         line: 3,
         column: 0,
@@ -227,7 +217,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
         column: 10,
@@ -242,7 +231,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (not ...',
         line: 1,
         column: 10,
@@ -259,7 +247,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 3,
         column: 0,
@@ -274,7 +261,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} MaxHelpers: 2`,
-        moduleId: 'layout.hbs',
         source: '{{unless (... (not-eq ...',
         line: 1,
         column: 27,

@@ -1,6 +1,8 @@
-## inline-link-to
+# inline-link-to
 
 Ember's `link-to` component has both an inline form and a block form. This rule forbids the inline form.
+
+## Examples
 
 This rule **forbids** the following (inline form):
 

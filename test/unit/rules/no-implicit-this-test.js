@@ -53,7 +53,6 @@ generateRuleTests({
       template: '{{book}}',
       result: {
         message: message('book'),
-        moduleId: 'layout.hbs',
         source: 'book',
         line: 1,
         column: 2,
@@ -63,7 +62,6 @@ generateRuleTests({
       template: '{{book-details}}',
       result: {
         message: message('book-details'),
-        moduleId: 'layout.hbs',
         source: 'book-details',
         line: 1,
         column: 2,
@@ -73,7 +71,6 @@ generateRuleTests({
       template: '{{book.author}}',
       result: {
         message: message('book.author'),
-        moduleId: 'layout.hbs',
         source: 'book.author',
         line: 1,
         column: 2,
@@ -83,7 +80,6 @@ generateRuleTests({
       template: '{{helper book}}',
       result: {
         message: message('book'),
-        moduleId: 'layout.hbs',
         source: 'book',
         line: 1,
         column: 9,
@@ -93,7 +89,6 @@ generateRuleTests({
       template: '{{#helper book}}{{/helper}}',
       result: {
         message: message('book'),
-        moduleId: 'layout.hbs',
         source: 'book',
         line: 1,
         column: 10,

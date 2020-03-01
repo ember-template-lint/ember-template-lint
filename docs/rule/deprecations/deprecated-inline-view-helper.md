@@ -1,6 +1,8 @@
-## deprecated-inline-view-helper
+# deprecated-inline-view-helper
 
 In Ember 1.12, support for invoking the inline View helper was deprecated.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -28,6 +30,6 @@ This rule **allows** the following:
 <div foo={{bar}}></div>
 ```
 
-### References
+## References
 
 * More information is available at the [Deprecation Guide](http://emberjs.com/deprecations/v1.x/#toc_ember-view).

@@ -1,8 +1,8 @@
-## no-implicit-this
+# no-implicit-this
 
 This rule aides in the migration path for [emberjs/rfcs#308](https://github.com/emberjs/rfcs/pull/308).
 
-### Motivation
+## Motivation
 
 Currently, the way to access properties on a components class is `{{greeting}}`
 from a template. This works because the component class is one of the objects
@@ -13,7 +13,7 @@ ambiguous, as it could be referring to a local variable (block param), a helper
 with no arguments, a closed over component, or a property on the component
 class.
 
-#### Exemplar
+## Exemplar
 
 Consider the following example where the ambiguity can cause issues:
 
@@ -88,11 +88,11 @@ know about fallback resolution rules. This makes common features like ["Go To
 Definition"](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition)
 much easier to implement since we have semantics that mean "property on class".
 
-### Configuration
+## Configuration
 
  The following values are valid configuration:
 
-  * boolean - `true` to enable / `false` to disable
-  * object -- An object with the following keys:
-    * `allow` -- An array of component / helper names for that may be called
-      without arguments (string or regular expression)
+* boolean - `true` to enable / `false` to disable
+* object -- An object with the following keys:
+  * `allow` -- An array of component / helper names for that may be called
+    without arguments (string or regular expression)
