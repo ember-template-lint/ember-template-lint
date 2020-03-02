@@ -1119,33 +1119,6 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter.prototype.statusForModule', function() {
-    it('returns true when the provided moduleId is listed in `pending`', function() {
-      let linter = new Linter({
-        console: mockConsole,
-        config: {
-          pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-        },
-      });
-
-      expect(linter.statusForModule('pending', 'some/path/here')).toBeTruthy();
-      expect(linter.statusForModule('pending', 'foo/bar/baz')).toBeTruthy();
-      expect(linter.statusForModule('pending', 'some/other/path')).toBeFalsy();
-    });
-
-    it('matches with absolute paths for modules', function() {
-      let linter = new Linter({
-        console: mockConsole,
-        config: {
-          pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-        },
-      });
-
-      expect(linter.statusForModule('pending', `${process.cwd()}/some/path/here`)).toBeTruthy();
-      expect(linter.statusForModule('pending', `${process.cwd()}/foo/bar/baz`)).toBeTruthy();
-    });
-  });
-
   describe('Linter.errorsToMessages', function() {
     beforeEach(() => {
       chalk.level = 0;

@@ -198,6 +198,11 @@ and to configure rules in the template:
 {{!-- template-lint-configure no-bare-strings ["ZOMG THIS IS ALLOWED!!!!"]  --}}
 
 {{!-- template-lint-configure no-bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]}  --}}
+
+{{!-- template-lint-configure no-bare-strings ["warn", ["ZOMG THIS IS ALLOWED!!!!"]]  --}}
+
+{{!-- template-lint-configure no-bare-strings "warn"  --}}
+
 ```
 
 The configure instruction can only configure a single rule, and the configuration value must be valid JSON that parses into a configuration for that rule.

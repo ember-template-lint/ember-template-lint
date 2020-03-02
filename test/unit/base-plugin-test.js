@@ -2,6 +2,7 @@
 
 const { parse, transform } = require('ember-template-recast');
 const Rule = require('./../../lib/rules/base');
+const { determineRuleConfig } = require('./../../lib/get-config');
 const { readdirSync, existsSync, readFileSync } = require('fs');
 const { join, parse: parsePath } = require('path');
 const ruleNames = Object.keys(require('../../lib/rules'));
@@ -408,7 +409,7 @@ describe('base plugin', function() {
     }
 
     function addEvent(event, node, plugin) {
-      events.push([event, getId(node), plugin.config]);
+      events.push([event, getId(node), determineRuleConfig(plugin.config).config]);
     }
 
     function buildPlugin() {
@@ -490,6 +491,42 @@ describe('base plugin', function() {
         ['element/enter:children', 'id1', 'foo'],
         ['element/exit:children', 'id1', 'foo'],
         ['element/exit', 'id1', 'foo'],
+      ],
+    });
+
+    expectEvents({
+      desc: 'uses config correctly with custom severity',
+      template: [
+        '<div id="id1">',
+        '  {{! template-lint-configure fake "off" }}',
+        '  <span id="id2">',
+        '    {{! template-lint-configure fake ["warn", ["bar", "baz"]] }}',
+        '    <b id="id3"/>',
+        '  </span>',
+        '</div>',
+        '<i id="id4"></i>',
+      ].join('\n'),
+      events: [
+        ['element/enter', 'id1', true],
+        ['element/enter:children', 'id1', true],
+        ['comment/enter', '', true],
+        ['comment/exit', '', false],
+        ['element/enter', 'id2', false],
+        ['element/enter:children', 'id2', false],
+        ['comment/enter', '', false],
+        ['comment/exit', '', ['bar', 'baz']],
+        ['element/enter', 'id3', ['bar', 'baz']],
+        ['element/enter:children', 'id3', ['bar', 'baz']],
+        ['element/exit:children', 'id3', ['bar', 'baz']],
+        ['element/exit', 'id3', ['bar', 'baz']],
+        ['element/exit:children', 'id2', false],
+        ['element/exit', 'id2', false],
+        ['element/exit:children', 'id1', true],
+        ['element/exit', 'id1', true],
+        ['element/enter', 'id4', true],
+        ['element/enter:children', 'id4', true],
+        ['element/exit:children', 'id4', true],
+        ['element/exit', 'id4', true],
       ],
     });
 
