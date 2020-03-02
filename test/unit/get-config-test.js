@@ -261,6 +261,56 @@ describe('get-config', function() {
     expect(actual.rules['quotes']).toBe('single');
   });
 
+  it('favors foo plugin over ember-template-lint-plugin-foo', function() {
+    let console = buildFakeConsole();
+
+    project.setConfig({
+      extends: ['my-awesome-thing:stylistic'],
+      plugins: ['my-awesome-thing'],
+    });
+
+    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+      dep.files['index.js'] = stripIndent`
+        module.exports = {
+          name: 'my-awesome-thing',
+
+          configurations: {
+            stylistic: {
+              rules: {
+                quotes: 'double',
+              }
+            }
+          }
+        };
+      `;
+    });
+
+    project.addDevDependency('ember-template-lint-plugin-my-awesome-thing', '0.0.0', dep => {
+      dep.files['index.js'] = stripIndent`
+        module.exports = {
+          name: 'my-awesome-thing',
+
+          configurations: {
+            stylistic: {
+              rules: {
+                quotes: 'single',
+              }
+            }
+          }
+        };
+      `;
+    });
+
+    project.chdir();
+
+    let actual = getProjectConfig({
+      console,
+    });
+
+    expect(console.stdout).toEqual('');
+    expect(actual.rules['quotes']).toBe('double');
+  });
+
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
     let actual = getProjectConfig({
       config: {
