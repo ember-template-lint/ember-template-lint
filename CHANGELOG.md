@@ -1,3 +1,25 @@
+## v2.2.0 (2020-03-02)
+
+#### :rocket: Enhancement
+* [#1190](https://github.com/ember-template-lint/ember-template-lint/pull/1190) Ensure BOM is preserved when using `--fix`. ([@rwjblue](https://github.com/rwjblue))
+* [#1185](https://github.com/ember-template-lint/ember-template-lint/pull/1185) Add message about running `--fix` to console output when fixable errors have ocurred. ([@rwjblue](https://github.com/rwjblue))
+* [#1183](https://github.com/ember-template-lint/ember-template-lint/pull/1183) --fix: Write output to fs ([@dcyriller](https://github.com/dcyriller))
+* [#1178](https://github.com/ember-template-lint/ember-template-lint/pull/1178) require-button-type: Implement `fix` mode ([@Turbo87](https://github.com/Turbo87))
+
+#### :bug: Bug Fix
+* [#1189](https://github.com/ember-template-lint/ember-template-lint/pull/1189) Ensure resolvable plugins work when the config is not resolved. ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#1188](https://github.com/ember-template-lint/ember-template-lint/pull/1188) Ensure `yarn new` emits the expected TODO format ([@MelSumner](https://github.com/MelSumner))
+* [#1181](https://github.com/ember-template-lint/ember-template-lint/pull/1181) Ensure the exported class name matches the rule name ([@bmish](https://github.com/bmish))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
 ## v2.1.0 (2020-02-28)
 
 #### :rocket: Enhancement
