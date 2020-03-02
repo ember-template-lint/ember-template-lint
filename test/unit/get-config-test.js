@@ -192,6 +192,41 @@ describe('get-config', function() {
     expect(actual.rules['quotes']).toBe('single');
   });
 
+  it('resolves plugins by string when using specified config (not resolved project config)', function() {
+    let console = buildFakeConsole();
+
+    project.setConfig();
+
+    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+      dep.files['index.js'] = stripIndent`
+        module.exports = {
+          name: 'my-awesome-thing',
+
+          configurations: {
+            stylistic: {
+              rules: {
+                quotes: 'single',
+              }
+            }
+          }
+        };
+      `;
+    });
+
+    project.chdir();
+
+    let actual = getProjectConfig({
+      console,
+      config: {
+        extends: ['my-awesome-thing:stylistic'],
+        plugins: ['my-awesome-thing'],
+      },
+    });
+
+    expect(console.stdout).toEqual('');
+    expect(actual.rules['quotes']).toBe('single');
+  });
+
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
     let actual = getProjectConfig({
       config: {
