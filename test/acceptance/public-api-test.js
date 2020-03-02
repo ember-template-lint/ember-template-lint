@@ -198,9 +198,6 @@ describe('public api', function() {
     });
   });
 
-  // TODO: extract this module in a file
-  // most of the tests will be here
-  // (incl. BOM)
   describe('Linter.prototype.verifyAndFix', function() {
     let linter;
 
@@ -208,6 +205,7 @@ describe('public api', function() {
       project.setConfig({
         rules: {
           quotes: 'double',
+          'require-button-type': true,
         },
       });
 
@@ -215,6 +213,7 @@ describe('public api', function() {
         app: {
           templates: {
             'application.hbs': "<input class='mb4'>",
+            'other.hbs': '<button>LOL, Click me!</button>',
           },
         },
       });
@@ -252,7 +251,56 @@ describe('public api', function() {
       });
 
       expect(result.messages).toEqual(expected);
+      expect(result.output).toEqual(templateContents);
       expect(result.isFixed).toEqual(false);
+    });
+
+    it('includes updated output when fixable', function() {
+      let templateContents = '<button>LOL, Click me!</button>';
+
+      project.write({
+        app: {
+          templates: {
+            'other.hbs': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.hbs');
+
+      let result = linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual('<button type="button">LOL, Click me!</button>');
+      expect(result.isFixed).toEqual(true);
+    });
+
+    it('updated output includes byte order mark if input source includes it', function() {
+      let templateContents = '\uFEFF<button>LOL, Click me!</button>';
+
+      project.write({
+        app: {
+          templates: {
+            'other.hbs': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.hbs');
+
+      let result = linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual('\uFEFF<button type="button">LOL, Click me!</button>');
+      expect(result.isFixed).toEqual(true);
     });
   });
 
