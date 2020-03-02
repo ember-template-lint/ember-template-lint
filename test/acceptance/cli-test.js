@@ -1,4 +1,5 @@
 'use strict';
+const { readFileSync } = require('fs');
 
 const execa = require('execa');
 const Project = require('../helpers/fake-project');
@@ -548,6 +549,26 @@ describe('ember-template-lint executable', function() {
         ]);
         expect(result.stderr).toBeFalsy();
       });
+    });
+  });
+
+  describe('--fix usage', function() {
+    it('should write fixed file to fs', function() {
+      let config = { rules: { 'require-button-type': true } };
+      project.setConfig(config);
+      project.write({ 'require-button-type.hbs': '<button>Klikk</button>' });
+
+      let result = run(['.', '--fix']);
+
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout).toBeFalsy();
+      expect(result.stderr).toBeFalsy();
+
+      let fileContents = readFileSync(`${project.path()}/require-button-type.hbs`, {
+        encoding: 'utf8',
+      });
+
+      expect(fileContents).toEqual('<button type="button">Klikk</button>');
     });
   });
 

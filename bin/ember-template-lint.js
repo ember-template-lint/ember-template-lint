@@ -15,9 +15,12 @@ function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
   let options = { source, filePath, moduleId };
 
   if (shouldFix) {
-    let result = linter.verifyAndFix(options);
+    let { isFixed, output, messages } = linter.verifyAndFix(options);
+    if (isFixed) {
+      fs.writeFileSync(filePath, output);
+    }
 
-    return result.messages;
+    return messages;
   } else {
     return linter.verify(options);
   }
