@@ -9,7 +9,7 @@ describe('ember-template-lint executable', function() {
   // Fake project
   let project;
   beforeEach(function() {
-    project = new Project();
+    project = Project.defaultSetup();
     project.chdir();
   });
 
@@ -199,6 +199,35 @@ describe('ember-template-lint executable', function() {
         ]);
         expect(result.stderr).toBeFalsy();
       });
+
+      it('should include information about available fixes', function() {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
+
+        project.write({
+          app: {
+            components: {
+              'click-me-button.hbs': '<button>Click me!</button>',
+            },
+          },
+        });
+
+        let result = run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+
+        expect(result.stdout.split('\n')).toEqual([
+          project.path('app/components/click-me-button.hbs'),
+          '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
+          '',
+          '✖ 1 problems (1 errors, 0 warnings)',
+          '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
     });
 
     describe('with --quiet param', function() {
@@ -272,6 +301,44 @@ describe('ember-template-lint executable', function() {
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Bare strings are bad...',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should include information about fixing', function() {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
+
+        project.write({
+          app: {
+            components: {
+              'click-me-button.hbs': '<button>Click me!</button>',
+            },
+          },
+        });
+
+        let result = run(['.', '--json']);
+
+        let fullTemplateFilePath = project.path('app/components/click-me-button.hbs');
+        let expectedOutputData = {};
+        expectedOutputData[fullTemplateFilePath] = [
+          {
+            column: 0,
+            line: 1,
+            isFixable: true,
+            message: 'All `<button>` elements should have a valid `type` attribute',
+            filePath: 'app/components/click-me-button.hbs',
+            moduleId: 'app/components/click-me-button',
+            rule: 'require-button-type',
+            severity: 2,
+            source: '<button>Click me!</button>',
           },
         ];
 
