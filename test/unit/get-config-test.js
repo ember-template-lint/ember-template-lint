@@ -311,6 +311,18 @@ describe('get-config', function() {
     expect(actual.rules['quotes']).toBe('double');
   });
 
+  it('throws exception when neither foo nor ember-template-lint-plugin-foo is found', function() {
+    let nonExistentPlugin = 'foo';
+
+    expect(function() {
+      getProjectConfig({
+        config: {
+          plugins: [nonExistentPlugin],
+        },
+      });
+    }).toThrow();
+  });
+
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
     let actual = getProjectConfig({
       config: {
