@@ -175,7 +175,7 @@ describe('ember-template-lint executable', function() {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          project.path('app/templates/application.hbs'),
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:25  error  Non-translated string used  no-bare-strings',
           '',
@@ -190,7 +190,7 @@ describe('ember-template-lint executable', function() {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          project.path('app/templates/application.hbs'),
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:24  error  Non-translated string used  no-bare-strings',
           '  1:53  warning  HTML comment detected  no-html-comments',
@@ -220,7 +220,7 @@ describe('ember-template-lint executable', function() {
         expect(result.exitCode).toEqual(1);
 
         expect(result.stdout.split('\n')).toEqual([
-          project.path('app/components/click-me-button.hbs'),
+          'app/components/click-me-button.hbs',
           '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
           '',
           '✖ 1 problems (1 errors, 0 warnings)',
@@ -237,7 +237,7 @@ describe('ember-template-lint executable', function() {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          project.path('app/templates/application.hbs'),
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:24  error  Non-translated string used  no-bare-strings',
           '',
@@ -279,9 +279,8 @@ describe('ember-template-lint executable', function() {
         setProjectConfigForErrors();
         let result = run(['.', '--json']);
 
-        let fullTemplateFilePath = project.path('app/templates/application.hbs');
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [
+        expectedOutputData['app/templates/application.hbs'] = [
           {
             column: 4,
             line: 1,
@@ -326,9 +325,8 @@ describe('ember-template-lint executable', function() {
 
         let result = run(['.', '--json']);
 
-        let fullTemplateFilePath = project.path('app/components/click-me-button.hbs');
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [
+        expectedOutputData['app/components/click-me-button.hbs'] = [
           {
             column: 0,
             line: 1,
@@ -353,9 +351,8 @@ describe('ember-template-lint executable', function() {
         setProjectConfigForErrorsAndWarning();
         let result = run(['.', '--json', '--quiet']);
 
-        let fullTemplateFilePath = project.path('app/templates/application.hbs');
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [
+        expectedOutputData['app/templates/application.hbs'] = [
           {
             column: 4,
             line: 1,
@@ -405,9 +402,8 @@ describe('ember-template-lint executable', function() {
         });
         let result = run(['.', '--json', '--quiet']);
 
-        let fullTemplateFilePath = project.path('app/templates/application.hbs');
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [];
+        expectedOutputData['app/templates/application.hbs'] = [];
 
         expect(result.exitCode).toEqual(0);
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
@@ -440,7 +436,7 @@ describe('ember-template-lint executable', function() {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
-            project.path('template.hbs'),
+            'template.hbs',
             '  1:23  error  Ambiguous element used (`div`)  no-shadowed-elements',
             '',
             '✖ 1 problems (1 errors, 0 warnings)',
@@ -465,7 +461,7 @@ describe('ember-template-lint executable', function() {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
-            project.path('app/templates/application.hbs'),
+            'app/templates/application.hbs',
             '  1:4  error  Non-translated string used  no-bare-strings',
             '  1:39  error  Non-translated string used  no-bare-strings',
             '',
@@ -505,7 +501,6 @@ describe('ember-template-lint executable', function() {
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]';
 
-        expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
@@ -537,7 +532,6 @@ describe('ember-template-lint executable', function() {
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: []';
 
-        expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
@@ -567,7 +561,6 @@ describe('ember-template-lint executable', function() {
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings"\n    ]\n  }\n]';
 
-        expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
@@ -586,7 +579,6 @@ describe('ember-template-lint executable', function() {
           },
         ];
 
-        expect(result.exitCode).toEqual(1);
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
@@ -598,21 +590,19 @@ describe('ember-template-lint executable', function() {
       it('should print GitHub Actions annotations', function() {
         setProjectConfigForErrors();
 
-        let filePath = project.path('app/templates/application.hbs');
-
         let result = run(['.'], {
           env: { GITHUB_ACTIONS: 'true' },
         });
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          filePath,
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:25  error  Non-translated string used  no-bare-strings',
           '',
           '✖ 2 problems (2 errors, 0 warnings)',
-          `::error file=${filePath},line=1,col=4::Non-translated string used`,
-          `::error file=${filePath},line=1,col=25::Non-translated string used`,
+          '::error file=app/templates/application.hbs,line=1,col=4::Non-translated string used',
+          '::error file=app/templates/application.hbs,line=1,col=25::Non-translated string used',
         ]);
         expect(result.stderr).toBeFalsy();
       });
@@ -631,7 +621,7 @@ describe('ember-template-lint executable', function() {
       expect(result.stdout).toBeFalsy();
       expect(result.stderr).toBeFalsy();
 
-      let fileContents = readFileSync(`${project.path()}/require-button-type.hbs`, {
+      let fileContents = readFileSync(project.path('require-button-type.hbs'), {
         encoding: 'utf8',
       });
 

@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
 const Linter = require('../lib/index');
+const processResults = require('../lib/helpers/process-results');
 
 const STDIN = '/dev/stdin';
 
@@ -142,11 +143,41 @@ function parseArgv(_argv) {
   return options;
 }
 
+const PENDING_RULES = ['invalid-pending-module', 'invalid-pending-module-rule'];
+function printPending(results, options) {
+  let pendingList = [];
+  for (let filePath in results.files) {
+    let fileResults = results.files[filePath];
+    let failingRules = fileResults.messages.reduce((memo, error) => {
+      if (!PENDING_RULES.includes(error.rule)) {
+        memo.add(error.rule);
+      }
+
+      return memo;
+    }, new Set());
+
+    if (failingRules.size > 0) {
+      pendingList.push({ moduleId: filePath.slice(0, -4), only: Array.from(failingRules) });
+    }
+  }
+  let pendingListString = JSON.stringify(pendingList, null, 2);
+
+  if (options.named.json) {
+    console.log(pendingListString);
+  } else {
+    console.log(
+      'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
+    );
+
+    console.log(`pending: ${pendingListString}`);
+  }
+}
+
 function run() {
   let options = parseArgv(process.argv.slice(2));
 
   let {
-    named: { configPath, filename: filePathFromArgs = '', fix, printPending, json },
+    named: { configPath, filename: filePathFromArgs = '', fix },
     positional,
   } = options;
 
@@ -159,73 +190,37 @@ function run() {
     return;
   }
 
-  let errors = {};
   let filesToLint;
-  let filesWithErrors = [];
-
   if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
     filesToLint = new Set([STDIN]);
   } else {
     filesToLint = expandFileGlobs(positional);
   }
 
+  let resultsAccumulator = [];
   for (let relativeFilePath of filesToLint) {
     let resolvedFilePath = path.resolve(relativeFilePath);
     let toRead = resolvedFilePath === STDIN ? process.stdin.fd : resolvedFilePath;
     let filePath = resolvedFilePath === STDIN ? filePathFromArgs : relativeFilePath;
     let moduleId = filePath.slice(0, -4);
-    let fileErrors = lintFile(linter, filePath, toRead, moduleId, fix);
+    let messages = lintFile(linter, filePath, toRead, moduleId, fix);
 
-    if (printPending) {
-      const ignoredPendingRules = ['invalid-pending-module', 'invalid-pending-module-rule'];
-      let failingRules = Array.from(
-        fileErrors.reduce((memo, error) => {
-          if (!ignoredPendingRules.includes(error.rule)) {
-            memo.add(error.rule);
-          }
-
-          return memo;
-        }, new Set())
-      );
-
-      if (failingRules.length > 0) {
-        filesWithErrors.push({ moduleId, only: failingRules });
-      }
-    }
-
-    if (
-      fileErrors.some(function(err) {
-        return err.severity > 1;
-      })
-    ) {
-      process.exitCode = 1;
-    }
-
-    if (fileErrors.length) {
-      errors[resolvedFilePath] = fileErrors;
-    }
+    resultsAccumulator.push(...messages);
   }
 
-  if (printPending) {
-    let pendingList = JSON.stringify(filesWithErrors, null, 2);
-
-    if (json) {
-      console.log(pendingList);
-    } else {
-      console.log(
-        'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
-      );
-
-      console.log(`pending: ${pendingList}`);
-    }
-
-    return;
+  let results = processResults(resultsAccumulator);
+  if (results.errorCount > 0) {
+    process.exitCode = 1;
   }
 
-  if (Object.keys(errors).length) {
-    let Printer = require('../lib/printers/default');
-    let printer = new Printer(options.named);
-    printer.print(errors);
+  if (options.named.printPending) {
+    return printPending(results, options);
+  } else {
+    if (results.errorCount || results.warningCount) {
+      let Printer = require('../lib/printers/default');
+      let printer = new Printer(options.named);
+      printer.print(results);
+    }
   }
 }
 
