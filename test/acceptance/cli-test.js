@@ -568,7 +568,7 @@ describe('ember-template-lint executable', function() {
         encoding: 'utf8',
       });
 
-      expect(fileContents).toEqual('<button>Klikk</button>');
+      expect(fileContents).toEqual('<button type="button">Klikk</button>');
     });
   });
 
