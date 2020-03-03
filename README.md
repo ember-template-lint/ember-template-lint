@@ -152,7 +152,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 
 ## Rules
 
-Each rule can have its own severity level which can be a string or could be a part of the object along with the rule specific configuration.
+Each rule can have its own severity level which can be a string or could be the first element of the array that contains the custom rule configuration.
 Supported severity levels are `off`, `warn`, `error`.
 You can define a severity level directly on the rule:
 Eg: `'no-bare-strings': 'warn'`
