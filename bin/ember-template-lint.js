@@ -44,103 +44,51 @@ function expandFileGlobs(positional) {
 }
 
 function parseArgv(_argv) {
-  let toProcess = _argv.slice();
-  let options = { positional: [], named: {} };
+  let parser = require('yargs')
+    .scriptName('ember-template-lint')
+    .usage('$0 [options] [files..]')
+    .options({
+      'config-path': {
+        describe: 'Define a custom config path',
+        default: '.template-lintrc.js',
+        type: 'string',
+      },
+      quiet: {
+        describe: 'Ignore warnings and only show errors',
+        boolean: true,
+      },
+      filename: {
+        describe: 'Used to indicate the filename to be assumed for contents from STDIN',
+        type: 'string',
+      },
+      fix: {
+        describe: 'Fix any errors that are reported as fixable',
+        boolean: true,
+        default: false,
+      },
+      json: {
+        describe: 'Format output as json',
+      },
+      verbose: {
+        describe: 'Output errors with source description',
+        boolean: true,
+      },
+      'print-pending': {
+        describe: 'Print list of formated rules for use with `pending` in config file',
+        boolean: true,
+      },
+    })
+    .help()
+    .version();
 
-  const optionDefinition = {
-    '--config-path': {
-      params: '<config_path>',
-      desc: 'Define a custom config path',
-      parse(options, toProcess) {
-        options.named.configPath = toProcess.shift();
-      },
-    },
-    '--quiet': {
-      desc: 'Ignore warnings and only show errors',
-      parse(options) {
-        options.named.quiet = true;
-      },
-    },
-    '--filename': {
-      desc: 'Used to indicate the filename to be assumed for contents from STDIN',
-      parse(options, toProcess) {
-        options.named.filename = toProcess.shift();
-      },
-    },
-    '--fix': {
-      desc: 'Fix any errors that are reported as fixable',
-      parse(options) {
-        options.named.fix = true;
-      },
-    },
-    '--json': {
-      desc: 'Format output as json',
-      parse(options) {
-        options.named.json = true;
-      },
-    },
-    '--verbose': {
-      desc: 'Output errors with source description',
-      parse(options) {
-        options.named.verbose = true;
-      },
-    },
-    '--print-pending': {
-      desc: 'Print list of formated rules for use with `pending` in config file',
-      parse(options) {
-        options.named.printPending = true;
-      },
-    },
-  };
+  if (_argv.length === 0) {
+    parser.showHelp();
+    parser.exit(1);
+  } else {
+    let options = parser.parse(_argv);
 
-  let shouldHandleNamed = true;
-
-  const helpTexts = Object.keys(optionDefinition).map(key => {
-    const { params = '', desc = '' } = optionDefinition[key];
-
-    const paramAndArgs = `  ${key} ${params}`;
-    return desc ? paramAndArgs + ' '.repeat(30 - paramAndArgs.length) + desc : paramAndArgs;
-  });
-  const helpOutput = ['Usage for ember-template-lint:', ...helpTexts].join('\n');
-
-  if (toProcess.length === 0) {
-    console.log(helpOutput);
-    /* eslint-disable-next-line no-process-exit */
-    process.exit(1);
+    return options;
   }
-
-  while (toProcess.length > 0) {
-    let arg = toProcess.shift();
-
-    if (!shouldHandleNamed) {
-      options.positional.push(arg);
-    } else {
-      if (optionDefinition[arg]) {
-        optionDefinition[arg].parse(options, toProcess);
-      } else {
-        switch (arg) {
-          case '--help': {
-            console.log(helpOutput);
-            /* eslint-disable-next-line no-process-exit */
-            process.exit(0);
-          }
-          case '--': {
-            shouldHandleNamed = false;
-            break;
-          }
-          default: {
-            if (arg.startsWith('--config-path=') || arg.startsWith('--filename=')) {
-              toProcess.unshift(...arg.split('=', 2));
-            } else {
-              options.positional.push(arg);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return options;
 }
 
 const PENDING_RULES = ['invalid-pending-module', 'invalid-pending-module-rule'];
@@ -162,7 +110,7 @@ function printPending(results, options) {
   }
   let pendingListString = JSON.stringify(pendingList, null, 2);
 
-  if (options.named.json) {
+  if (options.json) {
     console.log(pendingListString);
   } else {
     console.log(
@@ -175,15 +123,11 @@ function printPending(results, options) {
 
 function run() {
   let options = parseArgv(process.argv.slice(2));
-
-  let {
-    named: { configPath, filename: filePathFromArgs = '', fix },
-    positional,
-  } = options;
+  let positional = options._;
 
   let linter;
   try {
-    linter = new Linter({ configPath });
+    linter = new Linter({ configPath: options.configPath });
   } catch (e) {
     console.error(e.message);
     process.exitCode = 1;
@@ -201,9 +145,9 @@ function run() {
   for (let relativeFilePath of filesToLint) {
     let resolvedFilePath = path.resolve(relativeFilePath);
     let toRead = resolvedFilePath === STDIN ? process.stdin.fd : resolvedFilePath;
-    let filePath = resolvedFilePath === STDIN ? filePathFromArgs : relativeFilePath;
+    let filePath = resolvedFilePath === STDIN ? options.filename || '' : relativeFilePath;
     let moduleId = filePath.slice(0, -4);
-    let messages = lintFile(linter, filePath, toRead, moduleId, fix);
+    let messages = lintFile(linter, filePath, toRead, moduleId, options.fix);
 
     resultsAccumulator.push(...messages);
   }
@@ -213,12 +157,12 @@ function run() {
     process.exitCode = 1;
   }
 
-  if (options.named.printPending) {
+  if (options.printPending) {
     return printPending(results, options);
   } else {
     if (results.errorCount || results.warningCount) {
       let Printer = require('../lib/printers/default');
-      let printer = new Printer(options.named);
+      let printer = new Printer(options);
       printer.print(results);
     }
   }

@@ -5,7 +5,9 @@ const execa = require('execa');
 const Project = require('../helpers/fake-project');
 
 describe('ember-template-lint executable', function() {
+  setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
+
   // Fake project
   let project;
   beforeEach(function() {
@@ -23,15 +25,23 @@ describe('ember-template-lint executable', function() {
         let result = run([]);
 
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "Usage for ember-template-lint:
-            --config-path <config_path> Define a custom config path
-            --quiet                     Ignore warnings and only show errors
-            --filename                  Used to indicate the filename to be assumed for contents from STDIN
-            --fix                       Fix any errors that are reported as fixable
-            --json                      Format output as json
-            --verbose                   Output errors with source description
-            --print-pending             Print list of formated rules for use with \`pending\` in config file"
+        expect(result.stderr).toMatchInlineSnapshot(`
+          "ember-template-lint [options] [files..]
+
+          Options:
+            --config-path    Define a custom config path
+                                                 [string] [default: \\".template-lintrc.js\\"]
+            --quiet          Ignore warnings and only show errors                [boolean]
+            --filename       Used to indicate the filename to be assumed for contents from
+                             STDIN                                                [string]
+            --fix            Fix any errors that are reported as fixable
+                                                                [boolean] [default: false]
+            --json           Format output as json
+            --verbose        Output errors with source description               [boolean]
+            --print-pending  Print list of formated rules for use with \`pending\` in config
+                             file                                                [boolean]
+            --help           Show help                                           [boolean]
+            --version        Show version number                                 [boolean]"
         `);
       });
     });
@@ -42,14 +52,22 @@ describe('ember-template-lint executable', function() {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "Usage for ember-template-lint:
-            --config-path <config_path> Define a custom config path
-            --quiet                     Ignore warnings and only show errors
-            --filename                  Used to indicate the filename to be assumed for contents from STDIN
-            --fix                       Fix any errors that are reported as fixable
-            --json                      Format output as json
-            --verbose                   Output errors with source description
-            --print-pending             Print list of formated rules for use with \`pending\` in config file"
+          "ember-template-lint [options] [files..]
+
+          Options:
+            --config-path    Define a custom config path
+                                                 [string] [default: \\".template-lintrc.js\\"]
+            --quiet          Ignore warnings and only show errors                [boolean]
+            --filename       Used to indicate the filename to be assumed for contents from
+                             STDIN                                                [string]
+            --fix            Fix any errors that are reported as fixable
+                                                                [boolean] [default: false]
+            --json           Format output as json
+            --verbose        Output errors with source description               [boolean]
+            --print-pending  Print list of formated rules for use with \`pending\` in config
+                             file                                                [boolean]
+            --help           Show help                                           [boolean]
+            --version        Show version number                                 [boolean]"
         `);
       });
     });
@@ -93,7 +111,13 @@ describe('ember-template-lint executable', function() {
         let result = run(['app']);
 
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -106,8 +130,25 @@ describe('ember-template-lint executable', function() {
         });
 
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
-        expect(result.stderr).toBeFalsy();
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`
+"ember-template-lint [options] [files..]
+
+Options:
+  --config-path    Define a custom config path
+                                       [string] [default: \\".template-lintrc.js\\"]
+  --quiet          Ignore warnings and only show errors                [boolean]
+  --filename       Used to indicate the filename to be assumed for contents from
+                   STDIN                                                [string]
+  --fix            Fix any errors that are reported as fixable
+                                                      [boolean] [default: false]
+  --json           Format output as json
+  --verbose        Output errors with source description               [boolean]
+  --print-pending  Print list of formated rules for use with \`pending\` in config
+                   file                                                [boolean]
+  --help           Show help                                           [boolean]
+  --version        Show version number                                 [boolean]"
+`);
       });
     });
 
@@ -166,8 +207,6 @@ describe('ember-template-lint executable', function() {
   });
 
   describe('errors and warnings formatting', function() {
-    setupEnvVar('GITHUB_ACTIONS', null);
-
     describe('without --json param', function() {
       it('should print properly formatted error messages', function() {
         setProjectConfigForErrors();
