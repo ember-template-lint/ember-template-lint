@@ -338,7 +338,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toBe('single');
+    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
   it('favors foo plugin over ember-template-lint-plugin-foo', function() {
@@ -388,7 +388,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toBe('double');
+    expect(actual.rules['quotes']).toEqual({ config: 'double', severity: 2 });
   });
 
   it('throws exception when neither foo nor ember-template-lint-plugin-foo is found', function() {
