@@ -152,6 +152,20 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 
 ## Rules
 
+Each rule can have its own severity level which can be a string or could be the first element of the array that contains the custom rule configuration.
+Supported severity levels are `off`, `warn`, `error`.
+You can define a severity level directly on the rule:
+Eg: `'no-bare-strings': 'warn'`
+OR
+If your rule has a custom configuration, and you want to define the severity level you would need to add the `severity` as the first element of the array.
+Eg:
+
+```js
+{
+   "no-implicit-this": ['warn', { "allow": [ "fooData" ] }
+}
+```
+
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
 ### Per Template File
@@ -184,6 +198,11 @@ and to configure rules in the template:
 {{!-- template-lint-configure no-bare-strings ["ZOMG THIS IS ALLOWED!!!!"]  --}}
 
 {{!-- template-lint-configure no-bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]}  --}}
+
+{{!-- template-lint-configure no-bare-strings ["warn", ["ZOMG THIS IS ALLOWED!!!!"]]  --}}
+
+{{!-- template-lint-configure no-bare-strings "warn"  --}}
+
 ```
 
 The configure instruction can only configure a single rule, and the configuration value must be valid JSON that parses into a configuration for that rule.

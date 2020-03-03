@@ -1,6 +1,6 @@
 'use strict';
 
-const { getProjectConfig, getConfigForFile } = require('../../lib/get-config');
+const { getProjectConfig, getConfigForFile, determineRuleConfig } = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 const buildFakeConsole = require('../helpers/console');
 const Project = require('../helpers/fake-project');
@@ -25,10 +25,77 @@ describe('get-config', function() {
       },
     };
 
-    // clone to ensure we are not mutating
-    let expected = JSON.parse(JSON.stringify(config));
-
     let actual = getProjectConfig({ config });
+    expect(actual.rules).toEqual({
+      foo: { config: 'bar', severity: 2 },
+      baz: { config: 'derp', severity: 2 },
+    });
+  });
+
+  it('it supports severity level', function() {
+    let expected = {
+      rules: {
+        foo: { config: true, severity: 1 },
+        baz: { config: 'derp', severity: 2 },
+      },
+    };
+
+    let actual = getProjectConfig({
+      config: {
+        rules: {
+          foo: 'warn',
+          baz: 'derp',
+        },
+      },
+    });
+    expect(actual.rules).toEqual(expected.rules);
+  });
+
+  it('shows rules being "upgraded" to the new syntax when the config is in the old syntax', function() {
+    let actual = getProjectConfig({
+      config: {
+        rules: {
+          foo: true,
+          baz: 'derp',
+          biz: ['random', 'data'],
+        },
+      },
+    });
+
+    let expected = {
+      rules: {
+        foo: { config: true, severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+        biz: { config: ['random', 'data'], severity: 2 },
+      },
+    };
+    expect(actual.rules).toEqual(expected.rules);
+  });
+
+  it('it supports severity level with custom configuration', function() {
+    let expected = {
+      rules: {
+        foo: { config: { allow: [1, 2, 3] }, severity: 1 },
+        baz: { config: 'derp', severity: 2 },
+        'some-rule': { severity: 2, config: 'lol' },
+        'other-thing': { severity: 2, config: ['wat', 'is', 'this'] },
+        'hmm-thing-here': { severity: 2, config: { zomg: 'lol' } },
+        'another-thing-there': { severity: 0, config: false },
+      },
+    };
+
+    let actual = getProjectConfig({
+      config: {
+        rules: {
+          foo: ['warn', { allow: [1, 2, 3] }],
+          baz: 'derp',
+          'some-rule': 'lol',
+          'other-thing': ['wat', 'is', 'this'],
+          'hmm-thing-here': { zomg: 'lol' },
+          'another-thing-there': 'off',
+        },
+      },
+    });
     expect(actual.rules).toEqual(expected.rules);
   });
 
@@ -47,37 +114,50 @@ describe('get-config', function() {
 
     let actual = getProjectConfig({});
 
-    expect(actual.rules).toEqual(expected.rules);
+    expect(actual.rules).toEqual({
+      foo: { config: 'bar', severity: 2 },
+      baz: { config: 'derp', severity: 2 },
+    });
   });
 
   it('uses the specified configPath from cwd', function() {
-    let expected = {
+    let someOtherPathConfig = {
       rules: {
         foo: 'bar',
         baz: 'derp',
       },
     };
-    project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
+    project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
+      someOtherPathConfig
+    )};`;
     project.chdir();
 
     let actual = getProjectConfig({ configPath: 'some-other-path.js' });
 
-    expect(actual.rules).toEqual(expected.rules);
+    expect(actual.rules).toEqual({
+      foo: { config: 'bar', severity: 2 },
+      baz: { config: 'derp', severity: 2 },
+    });
   });
 
   it('uses the specified configPath outside of cwd', function() {
-    let expected = {
+    let someOtherPathConfig = {
       rules: {
         foo: 'bar',
         baz: 'derp',
       },
     };
-    project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
+    project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
+      someOtherPathConfig
+    )};`;
     project.writeSync();
 
     let actual = getProjectConfig({ configPath: project.path('some-other-path.js') });
 
-    expect(actual.rules).toEqual(expected.rules);
+    expect(actual.rules).toEqual({
+      foo: { config: 'bar', severity: 2 },
+      baz: { config: 'derp', severity: 2 },
+    });
   });
 
   it('can specify that it extends a default configuration', function() {
@@ -87,7 +167,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['no-debugger']).toBe(true);
+    expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
   });
 
   it('can extend and override a default configuration', function() {
@@ -102,7 +182,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['block-indentation']).toEqual(4);
+    expect(actual.rules['block-indentation']).toEqual({ config: 4, severity: 2 });
     expect(actual.rules['block-indentation']).not.toEqual(expected.rules['block-indentation']);
   });
 
@@ -114,7 +194,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['no-bare-strings']).toBe(false);
+    expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
   });
 
   it('rules in the config root trigger a deprecation', function() {
@@ -189,7 +269,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toBe('single');
+    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
   it('resolves plugins by string when using specified config (not resolved project config)', function() {
@@ -205,7 +285,7 @@ describe('get-config', function() {
           configurations: {
             stylistic: {
               rules: {
-                quotes: 'single',
+                quotes: ['error','single'],
               }
             }
           }
@@ -224,7 +304,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toBe('single');
+    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
   it('resolves plugins by string, adding ember-template-lint-plugin prefix', function() {
@@ -258,7 +338,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toBe('single');
+    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
   it('favors foo plugin over ember-template-lint-plugin-foo', function() {
@@ -308,7 +388,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toBe('double');
+    expect(actual.rules['quotes']).toEqual({ config: 'double', severity: 2 });
   });
 
   it('throws exception when neither foo nor ember-template-lint-plugin-foo is found', function() {
@@ -343,7 +423,7 @@ describe('get-config', function() {
       },
     });
 
-    expect(actual.rules['no-action']).toBe(false);
+    expect(actual.rules['no-action']).toEqual({ config: false, severity: 0 });
   });
 
   it('extending multiple configurations merges all rules', function() {
@@ -372,8 +452,8 @@ describe('get-config', function() {
     });
 
     expect(actual.rules).toEqual({
-      'no-action': false,
-      'require-valid-alt-text': true,
+      'no-action': { config: false, severity: 0 },
+      'require-valid-alt-text': { config: true, severity: 2 },
     });
   });
 
@@ -401,7 +481,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toBeFalsy();
-    expect(actual.rules['no-bare-strings']).toBe(false);
+    expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
   });
 
   it('throw exception when plugin path is incorrect', function() {
@@ -486,8 +566,8 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toBeFalsy();
-    expect(actual.rules['foo-bar']).toBe(true);
-    expect(actual.rules['no-debugger']).toBe(true);
+    expect(actual.rules['foo-bar']).toEqual({ config: true, severity: 2 });
+    expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
   });
 
   it('handles circular reference in config', function() {
@@ -520,7 +600,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toBeFalsy();
-    expect(actual.rules['foo-bar']).toBe(true);
+    expect(actual.rules['foo-bar']).toEqual({ config: true, severity: 2 });
   });
 
   it('handles circular reference in plugin', function() {
@@ -556,7 +636,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toBeFalsy();
-    expect(actual.rules['foo-bar']).toBe(true);
+    expect(actual.rules['foo-bar']).toEqual({ config: true, severity: 2 });
   });
 
   it('getting config is idempotent', function() {
@@ -605,17 +685,24 @@ describe('get-config', function() {
   });
 });
 
+describe('determineRuleConfig', function() {
+  it('returns config and severity for a given rule config', function() {
+    let config = {
+      foo: 'bar',
+      bang: 'warn',
+      derp: ['warn', [1, 2, 3]],
+      biz: ['random', 'data'],
+      baz: true,
+    };
+    expect(determineRuleConfig(config.foo)).toEqual({ config: 'bar', severity: 2 });
+    expect(determineRuleConfig(config.bang)).toEqual({ config: true, severity: 1 });
+    expect(determineRuleConfig(config.derp)).toEqual({ config: [1, 2, 3], severity: 1 });
+    expect(determineRuleConfig(config.biz)).toEqual({ config: ['random', 'data'], severity: 2 });
+    expect(determineRuleConfig(config.baz)).toEqual({ config: true, severity: 2 });
+  });
+});
+
 describe('getConfigForFile', function() {
-  let project = null;
-
-  beforeEach(function() {
-    project = new Project();
-  });
-
-  afterEach(async function() {
-    await project.dispose();
-  });
-
   it('Merges the overrides rules with existing rules config', function() {
     let config = {
       rules: {
@@ -636,7 +723,7 @@ describe('getConfigForFile', function() {
       foo: 'bar',
       baz: 'bang',
     };
-    let actual = getConfigForFile(config, 'app/templates/foo.hbs');
+    let actual = getConfigForFile(config, { filePath: 'app/templates/foo.hbs' });
 
     expect(actual.rules).toEqual(expectedRule);
   });
@@ -692,8 +779,30 @@ describe('getConfigForFile', function() {
       foo: 'zomg',
       baz: 'bang',
     };
-    let actual = getConfigForFile(config, 'app/templates/foo.hbs');
+    let actual = getConfigForFile(config, { filePath: 'app/templates/foo.hbs' });
 
     expect(actual.rules).toEqual(expectedRule);
+  });
+
+  it('returns the correct pendingStatus when the provided moduleId is listed in `pending`', function() {
+    let config = {
+      pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
+    };
+
+    expect(getConfigForFile(config, { moduleId: 'some/path/here' }).pendingStatus).toBeTruthy();
+    expect(getConfigForFile(config, { moduleId: 'foo/bar/baz' }).pendingStatus).toBeTruthy();
+    expect(getConfigForFile(config, { moduleId: 'some/other/path' }).pendingStatus).toBeFalsy();
+  });
+
+  it('matches with absolute paths for modules', function() {
+    let config = {
+      pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
+    };
+    expect(
+      getConfigForFile(config, { moduleId: `${process.cwd()}/some/path/here` }).pendingStatus
+    ).toBeTruthy();
+    expect(
+      getConfigForFile(config, { moduleId: `${process.cwd()}/foo/bar/baz` }).pendingStatus
+    ).toBeTruthy();
   });
 });

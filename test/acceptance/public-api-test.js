@@ -59,7 +59,10 @@ describe('public api', function() {
         config: expected,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses .template-lintrc.js in cwd if present', function() {
@@ -76,17 +79,22 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses .template-lintrc in provided configPath', function() {
-      let expected = {
+      let someOtherPathConfig = {
         rules: {
           foo: 'bar',
           baz: 'derp',
         },
       };
-      project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(expected)};`;
+      project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
+        someOtherPathConfig
+      )};`;
       project.writeSync();
 
       let linter = new Linter({
@@ -94,7 +102,10 @@ describe('public api', function() {
         configPath: project.path('some-other-path.js'),
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function() {
@@ -120,11 +131,14 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function() {
-      let expected = {
+      let appPathConfig = {
         rules: {
           foo: 'bar',
           baz: 'derp',
@@ -134,7 +148,7 @@ describe('public api', function() {
       project.write({
         '.template-lintrc.js': `module.exports = ${JSON.stringify({ rules: { boo: 'baz' } })};`,
         app: {
-          '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+          '.template-lintrc.js': `module.exports = ${JSON.stringify(appPathConfig)};`,
           templates: {
             'application.hbs': '',
           },
@@ -147,7 +161,10 @@ describe('public api', function() {
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual(expected.rules);
+      expect(linter.config.rules).toEqual({
+        foo: { config: 'bar', severity: 2 },
+        baz: { config: 'derp', severity: 2 },
+      });
     });
 
     it('breaks if the specified configPath does not exist', function() {
@@ -162,7 +179,7 @@ describe('public api', function() {
     it('with deprecated rule config', function() {
       let expected = {
         rules: {
-          'no-bare-strings': true,
+          'no-bare-strings': 'error',
         },
       };
       project.setConfig(expected);
@@ -172,7 +189,7 @@ describe('public api', function() {
         config: expected,
       });
 
-      expect(linter.config.rules).toEqual({ 'no-bare-strings': true });
+      expect(linter.config.rules).toEqual({ 'no-bare-strings': { config: true, severity: 2 } });
     });
   });
 
@@ -204,8 +221,8 @@ describe('public api', function() {
     beforeEach(function() {
       project.setConfig({
         rules: {
-          quotes: 'double',
-          'require-button-type': true,
+          quotes: ['error', 'double'],
+          'require-button-type': 'error',
         },
       });
 
@@ -309,13 +326,13 @@ describe('public api', function() {
     beforeEach(function() {
       project.setConfig({
         rules: {
-          'no-bare-strings': true,
+          'no-bare-strings': 'error',
         },
         overrides: [
           {
             files: ['**/templates/**/*.hbs'],
             rules: {
-              'no-implicit-this': true,
+              'no-implicit-this': 'error',
             },
           },
         ],
@@ -386,11 +403,73 @@ describe('public api', function() {
       expect(result[0].fatal).toBe(true);
     });
 
+    it('triggers warnings when severity is set to warn', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'block-indentation': 'warn' },
+        },
+      });
+
+      let template = ['<div>', '<p></p>', '</div>'].join('\n');
+
+      let result = linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+      });
+
+      let expected = {
+        message:
+          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+        line: 2,
+        column: 0,
+        source: '<div>\n<p></p>\n</div>',
+        rule: 'block-indentation',
+        severity: 1,
+      };
+
+      expect(result).toEqual([expected]);
+    });
+
+    it('allows custom severity level for rules along with custom config', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'no-implicit-this': ['warn', { allow: ['fooData'] }] },
+        },
+      });
+
+      let template = ['<div>', '{{fooData}}{{barData}}', '</div>'].join('\n');
+
+      let result = linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+      });
+
+      let expected = {
+        message:
+          "Ambiguous path 'barData' is not allowed. Use '@barData' if it is a named argument or 'this.barData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['barData'] }.",
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+        line: 2,
+        column: 13,
+        source: 'barData',
+        rule: 'no-implicit-this',
+        severity: 1,
+      };
+
+      expect(result).toEqual([expected]);
+    });
+
     it('defaults all messages to warning severity level when module listed in pending', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true },
+          rules: { 'no-bare-strings': 'error' },
           pending: ['some/path/here'],
         },
       });
@@ -420,7 +499,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['block-indentation'] }],
         },
       });
@@ -494,7 +573,7 @@ describe('public api', function() {
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': true,
+                'no-implicit-this': 'error',
               },
             },
           ],
@@ -524,6 +603,62 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
+    it('Works for older syntax without custom severity', function() {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: {
+            'invocable-blacklist': ['foo', 'bar'],
+            'no-implicit-this': { allow: ['baz'] },
+            'no-bare-strings': true,
+          },
+        },
+      });
+
+      let template = '<div>bare string {{foo}} {{baz}}</div>';
+      let result = linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+        moduleId: 'some/path/here',
+      });
+
+      let expected = [
+        {
+          rule: 'invocable-blacklist',
+          severity: 2,
+          filePath: 'some/path/here.hbs',
+          moduleId: 'some/path/here',
+          message: "Cannot use blacklisted helper or component '{{foo}}'",
+          line: 1,
+          column: 17,
+          source: '{{foo}}',
+        },
+        {
+          rule: 'no-implicit-this',
+          severity: 2,
+          filePath: 'some/path/here.hbs',
+          moduleId: 'some/path/here',
+          message:
+            "Ambiguous path 'foo' is not allowed. Use '@foo' if it is a named argument or 'this.foo' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['foo'] }.",
+          line: 1,
+          column: 19,
+          source: 'foo',
+        },
+        {
+          rule: 'no-bare-strings',
+          severity: 2,
+          filePath: 'some/path/here.hbs',
+          moduleId: 'some/path/here',
+          message: 'Non-translated string used',
+          line: 1,
+          column: 5,
+          source: 'bare string ',
+        },
+      ];
+
+      expect(result).toEqual(expected);
+    });
+
     it('Works with overrides with custom warning severity object', function() {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
@@ -535,7 +670,7 @@ describe('public api', function() {
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': true,
+                'no-implicit-this': 'error',
               },
             },
           ],
@@ -573,13 +708,13 @@ describe('public api', function() {
         console: mockConsole,
         config: {
           rules: {
-            'no-implicit-this': true,
+            'no-implicit-this': 'error',
           },
           overrides: [
             {
               files: ['**/components/**'],
               rules: {
-                'no-implicit-this': false,
+                'no-implicit-this': 'off',
               },
             },
           ],
@@ -599,7 +734,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['block-indentation'] }],
         },
       });
@@ -631,7 +766,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true },
+          rules: { 'no-bare-strings': 'error' },
           pending: ['some/path/here'],
         },
       });
@@ -659,7 +794,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true },
+          rules: { 'no-bare-strings': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['no-bare-strings'] }],
         },
       });
@@ -687,7 +822,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'no-html-comments': true },
+          rules: { 'no-bare-strings': 'error', 'no-html-comments': 'error' },
           pending: [{ moduleId: 'some/path/here', only: ['no-bare-strings', 'no-html-comments'] }],
         },
       });
@@ -727,7 +862,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           ignore: ['some/path/here'],
         },
       });
@@ -746,7 +881,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'no-bare-strings': true, 'block-indentation': true },
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           ignore: ['some/path/*'],
         },
       });
@@ -765,7 +900,7 @@ describe('public api', function() {
       linter = new Linter({
         console: mockConsole,
         config: {
-          rules: { 'missing-rule': true },
+          rules: { 'missing-rule': 'error' },
         },
       });
 
@@ -981,33 +1116,6 @@ describe('public api', function() {
       });
 
       expect(result).toEqual(expected);
-    });
-  });
-
-  describe('Linter.prototype.statusForModule', function() {
-    it('returns true when the provided moduleId is listed in `pending`', function() {
-      let linter = new Linter({
-        console: mockConsole,
-        config: {
-          pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-        },
-      });
-
-      expect(linter.statusForModule('pending', 'some/path/here')).toBeTruthy();
-      expect(linter.statusForModule('pending', 'foo/bar/baz')).toBeTruthy();
-      expect(linter.statusForModule('pending', 'some/other/path')).toBeFalsy();
-    });
-
-    it('matches with absolute paths for modules', function() {
-      let linter = new Linter({
-        console: mockConsole,
-        config: {
-          pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-        },
-      });
-
-      expect(linter.statusForModule('pending', `${process.cwd()}/some/path/here`)).toBeTruthy();
-      expect(linter.statusForModule('pending', `${process.cwd()}/foo/bar/baz`)).toBeTruthy();
     });
   });
 
