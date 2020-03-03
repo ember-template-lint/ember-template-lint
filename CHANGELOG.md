@@ -73,6 +73,8 @@
 
 ## v2.0.0 (2020-02-22)
 
+See the [migration guide](docs/migration/v2.md) for this release.
+
 #### :boom: Breaking Change
 * [#1067](https://github.com/ember-template-lint/ember-template-lint/pull/1067) Remove deprecated `templateEnvironmentData` rule property ([@bmish](https://github.com/bmish))
 * [#1060](https://github.com/ember-template-lint/ember-template-lint/pull/1060) Add more rules to `stylistic` config ([@bmish](https://github.com/bmish))
