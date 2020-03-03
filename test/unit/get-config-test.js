@@ -285,7 +285,7 @@ describe('get-config', function() {
           configurations: {
             stylistic: {
               rules: {
-                quotes: 'single',
+                quotes: ['error','single'],
               }
             }
           }
@@ -304,7 +304,7 @@ describe('get-config', function() {
     });
 
     expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toBe('single');
+    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
   it('resolves plugins by string, adding ember-template-lint-plugin prefix', function() {
