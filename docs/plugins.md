@@ -52,7 +52,7 @@ Sample plugin object:
 
 In order to enable a plugin, you must add it to the `plugins` key in your configuration file.
 
-`plugins` accepts an array of either plugin objects or strings to be passed to `require` which resolve to plugin objects.
+`plugins` accepts an array of either plugin objects or strings to be passed to `require` which resolve to plugin objects. The string can either be a module name to resolve to or if it follows `ember-template-lint-plugin-*` pattern, the suffix.
 
 ```javascript
 // .template-lintrc.js
@@ -70,6 +70,7 @@ module.exports = {
     // Define a plugin that is exported elsewhere (i.e. a third-party plugin)
     './plugins/some-local-plugin',
     'some-npm-package/third-party-plugin',
+    'foo', // where npm package is ember-template-lint-plugin-foo
   ],
 
   extends: [
