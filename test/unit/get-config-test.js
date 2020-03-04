@@ -399,18 +399,41 @@ describe('get-config', function() {
       expect(console.stdout).toEqual('');
       expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
     });
-  });
 
-  it('throws exception when neither foo nor ember-template-lint-plugin-foo is found', function() {
-    let nonExistentPlugin = 'foo';
+    it('shows a warning when foo is not a template-lint plugin', function() {
+      let console = buildFakeConsole();
 
-    expect(function() {
-      getProjectConfig({
-        config: {
-          plugins: [nonExistentPlugin],
-        },
+      project.setConfig({
+        extends: ['foo:stylistic'],
+        plugins: ['foo'],
       });
-    }).toThrow();
+
+      project.addDevDependency('foo', '0.0.0', dep => {
+        dep.files['index.js'] = stripIndent`
+        module.exports = {
+          description: 'This is not a template-lint-plugin 🤭'
+        };
+      `;
+      });
+
+      project.chdir();
+
+      getProjectConfig({ console });
+
+      expect(console.stdout).toMatch('Plugin (foo) has not defined the plugin `name` property');
+    });
+
+    it('throws exception when neither foo nor ember-template-lint-plugin-foo is found', function() {
+      let nonExistentPlugin = 'foo';
+
+      expect(function() {
+        getProjectConfig({
+          config: {
+            plugins: [nonExistentPlugin],
+          },
+        });
+      }).toThrow();
+    });
   });
 
   it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
