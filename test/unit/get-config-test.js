@@ -243,14 +243,14 @@ describe('get-config', function() {
       let console = buildFakeConsole();
 
       project.setConfig({
-        extends: ['my-awesome-thing:stylistic'],
-        plugins: ['my-awesome-thing'],
+        extends: ['foo:stylistic'],
+        plugins: ['foo'],
       });
 
-      project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+      project.addDevDependency('foo', '0.0.0', dep => {
         dep.files['index.js'] = stripIndent`
         module.exports = {
-          name: 'my-awesome-thing',
+          name: 'foo',
 
           configurations: {
             stylistic: {
@@ -278,10 +278,10 @@ describe('get-config', function() {
 
       project.setConfig();
 
-      project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+      project.addDevDependency('foo', '0.0.0', dep => {
         dep.files['index.js'] = stripIndent`
         module.exports = {
-          name: 'my-awesome-thing',
+          name: 'foo',
 
           configurations: {
             stylistic: {
@@ -299,8 +299,8 @@ describe('get-config', function() {
       let actual = getProjectConfig({
         console,
         config: {
-          extends: ['my-awesome-thing:stylistic'],
-          plugins: ['my-awesome-thing'],
+          extends: ['foo:stylistic'],
+          plugins: ['foo'],
         },
       });
 
@@ -312,14 +312,14 @@ describe('get-config', function() {
       let console = buildFakeConsole();
 
       project.setConfig({
-        extends: ['my-awesome-thing:stylistic'],
-        plugins: ['my-awesome-thing'],
+        extends: ['foo:stylistic'],
+        plugins: ['foo'],
       });
 
-      project.addDevDependency('ember-template-lint-plugin-my-awesome-thing', '0.0.0', dep => {
+      project.addDevDependency('ember-template-lint-plugin-foo', '0.0.0', dep => {
         dep.files['index.js'] = stripIndent`
         module.exports = {
-          name: 'my-awesome-thing',
+          name: 'foo',
 
           configurations: {
             stylistic: {
@@ -346,14 +346,14 @@ describe('get-config', function() {
       let console = buildFakeConsole();
 
       project.setConfig({
-        extends: ['my-awesome-thing:stylistic'],
-        plugins: ['my-awesome-thing'],
+        extends: ['foo:stylistic'],
+        plugins: ['foo'],
       });
 
-      project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+      project.addDevDependency('foo', '0.0.0', dep => {
         dep.files['index.js'] = stripIndent`
         module.exports = {
-          name: 'my-awesome-thing',
+          name: 'foo',
 
           configurations: {
             stylistic: {
@@ -366,10 +366,10 @@ describe('get-config', function() {
       `;
       });
 
-      project.addDevDependency('ember-template-lint-plugin-my-awesome-thing', '0.0.0', dep => {
+      project.addDevDependency('ember-template-lint-plugin-foo', '0.0.0', dep => {
         dep.files['index.js'] = stripIndent`
         module.exports = {
-          name: 'my-awesome-thing',
+          name: 'foo',
 
           configurations: {
             stylistic: {
