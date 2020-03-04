@@ -1,3 +1,23 @@
+## v2.3.0 (2020-03-04)
+
+#### :rocket: Enhancement
+* [#1179](https://github.com/ember-template-lint/ember-template-lint/pull/1179) inline-link-to: Implement `fix` mode ([@Turbo87](https://github.com/Turbo87))
+* [#1160](https://github.com/ember-template-lint/ember-template-lint/pull/1160) Add severity support (off, warn, error) to rule configuration (via both `.template-lintrc.js` and inline configuration). ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+
+#### :memo: Documentation
+* [#1195](https://github.com/ember-template-lint/ember-template-lint/pull/1195) Add v2 migration guide ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1196](https://github.com/ember-template-lint/ember-template-lint/pull/1196) Migrate to `yargs` for argument parsing. ([@rwjblue](https://github.com/rwjblue))
+* [#1191](https://github.com/ember-template-lint/ember-template-lint/pull/1191) Refactor printers. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Suchita Doshi ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
 ## v2.2.0 (2020-03-02)
 
 #### :rocket: Enhancement
