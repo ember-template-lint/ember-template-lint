@@ -350,7 +350,7 @@ describe('get-config', function() {
       expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
     });
 
-    it('favors foo plugin over ember-template-lint-plugin-foo', function() {
+    it('favors ember-template-lint-plugin-foo plugin over foo', function() {
       let console = buildFakeConsole();
 
       project.setConfig({
@@ -397,7 +397,7 @@ describe('get-config', function() {
       });
 
       expect(console.stdout).toEqual('');
-      expect(actual.rules['quotes']).toEqual({ config: 'double', severity: 2 });
+      expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
     });
   });
 
