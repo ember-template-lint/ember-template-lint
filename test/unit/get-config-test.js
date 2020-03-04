@@ -238,16 +238,17 @@ describe('get-config', function() {
     expect(console.stdout).toMatch(/Cannot find configuration for extends/);
   });
 
-  it('resolves plugins by string', function() {
-    let console = buildFakeConsole();
+  describe('requirePlugin', function() {
+    it('resolves plugins by string', function() {
+      let console = buildFakeConsole();
 
-    project.setConfig({
-      extends: ['my-awesome-thing:stylistic'],
-      plugins: ['my-awesome-thing'],
-    });
+      project.setConfig({
+        extends: ['my-awesome-thing:stylistic'],
+        plugins: ['my-awesome-thing'],
+      });
 
-    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
-      dep.files['index.js'] = stripIndent`
+      project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+        dep.files['index.js'] = stripIndent`
         module.exports = {
           name: 'my-awesome-thing',
 
@@ -260,25 +261,25 @@ describe('get-config', function() {
           }
         };
       `;
+      });
+
+      project.chdir();
+
+      let actual = getProjectConfig({
+        console,
+      });
+
+      expect(console.stdout).toEqual('');
+      expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
     });
 
-    project.chdir();
+    it('resolves plugins by string when using specified config (not resolved project config)', function() {
+      let console = buildFakeConsole();
 
-    let actual = getProjectConfig({
-      console,
-    });
+      project.setConfig();
 
-    expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
-  });
-
-  it('resolves plugins by string when using specified config (not resolved project config)', function() {
-    let console = buildFakeConsole();
-
-    project.setConfig();
-
-    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
-      dep.files['index.js'] = stripIndent`
+      project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+        dep.files['index.js'] = stripIndent`
         module.exports = {
           name: 'my-awesome-thing',
 
@@ -291,32 +292,32 @@ describe('get-config', function() {
           }
         };
       `;
+      });
+
+      project.chdir();
+
+      let actual = getProjectConfig({
+        console,
+        config: {
+          extends: ['my-awesome-thing:stylistic'],
+          plugins: ['my-awesome-thing'],
+        },
+      });
+
+      expect(console.stdout).toEqual('');
+      expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
     });
 
-    project.chdir();
+    it('resolves plugins by string, adding ember-template-lint-plugin prefix', function() {
+      let console = buildFakeConsole();
 
-    let actual = getProjectConfig({
-      console,
-      config: {
+      project.setConfig({
         extends: ['my-awesome-thing:stylistic'],
         plugins: ['my-awesome-thing'],
-      },
-    });
+      });
 
-    expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
-  });
-
-  it('resolves plugins by string, adding ember-template-lint-plugin prefix', function() {
-    let console = buildFakeConsole();
-
-    project.setConfig({
-      extends: ['my-awesome-thing:stylistic'],
-      plugins: ['my-awesome-thing'],
-    });
-
-    project.addDevDependency('ember-template-lint-plugin-my-awesome-thing', '0.0.0', dep => {
-      dep.files['index.js'] = stripIndent`
+      project.addDevDependency('ember-template-lint-plugin-my-awesome-thing', '0.0.0', dep => {
+        dep.files['index.js'] = stripIndent`
         module.exports = {
           name: 'my-awesome-thing',
 
@@ -329,28 +330,28 @@ describe('get-config', function() {
           }
         };
       `;
+      });
+
+      project.chdir();
+
+      let actual = getProjectConfig({
+        console,
+      });
+
+      expect(console.stdout).toEqual('');
+      expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
     });
 
-    project.chdir();
+    it('favors foo plugin over ember-template-lint-plugin-foo', function() {
+      let console = buildFakeConsole();
 
-    let actual = getProjectConfig({
-      console,
-    });
+      project.setConfig({
+        extends: ['my-awesome-thing:stylistic'],
+        plugins: ['my-awesome-thing'],
+      });
 
-    expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
-  });
-
-  it('favors foo plugin over ember-template-lint-plugin-foo', function() {
-    let console = buildFakeConsole();
-
-    project.setConfig({
-      extends: ['my-awesome-thing:stylistic'],
-      plugins: ['my-awesome-thing'],
-    });
-
-    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
-      dep.files['index.js'] = stripIndent`
+      project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+        dep.files['index.js'] = stripIndent`
         module.exports = {
           name: 'my-awesome-thing',
 
@@ -363,10 +364,10 @@ describe('get-config', function() {
           }
         };
       `;
-    });
+      });
 
-    project.addDevDependency('ember-template-lint-plugin-my-awesome-thing', '0.0.0', dep => {
-      dep.files['index.js'] = stripIndent`
+      project.addDevDependency('ember-template-lint-plugin-my-awesome-thing', '0.0.0', dep => {
+        dep.files['index.js'] = stripIndent`
         module.exports = {
           name: 'my-awesome-thing',
 
@@ -379,16 +380,17 @@ describe('get-config', function() {
           }
         };
       `;
+      });
+
+      project.chdir();
+
+      let actual = getProjectConfig({
+        console,
+      });
+
+      expect(console.stdout).toEqual('');
+      expect(actual.rules['quotes']).toEqual({ config: 'double', severity: 2 });
     });
-
-    project.chdir();
-
-    let actual = getProjectConfig({
-      console,
-    });
-
-    expect(console.stdout).toEqual('');
-    expect(actual.rules['quotes']).toEqual({ config: 'double', severity: 2 });
   });
 
   it('throws exception when neither foo nor ember-template-lint-plugin-foo is found', function() {
