@@ -316,6 +316,14 @@ describe('get-config', function() {
         plugins: ['foo'],
       });
 
+      project.addDevDependency('foo', '0.0.0', dep => {
+        dep.files['index.js'] = stripIndent`
+        module.exports = {
+          description: 'This is not a template-lint-plugin 🤭'
+        };
+      `;
+      });
+
       project.addDevDependency('ember-template-lint-plugin-foo', '0.0.0', dep => {
         dep.files['index.js'] = stripIndent`
         module.exports = {
