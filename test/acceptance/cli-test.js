@@ -29,20 +29,22 @@ describe('ember-template-lint executable', function() {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path              Define a custom config path
+            --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --quiet                    Ignore warnings and only show errors      [boolean]
-            --filename                 Used to indicate the filename to be assumed for
-                                       contents from STDIN                        [string]
-            --fix                      Fix any errors that are reported as fixable
+            --quiet           Ignore warnings and only show errors               [boolean]
+            --filename        Used to indicate the filename to be assumed for contents
+                              from STDIN                                          [string]
+            --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json                     Format output as json
-            --verbose                  Output errors with source description     [boolean]
-            --print-pending            Print list of formated rules for use with \`pending\`
-                                       in config file                            [boolean]
-            --disable-ignore-patterns  Disable default ignore patterns           [boolean]
-            --help                     Show help                                 [boolean]
-            --version                  Show version number                       [boolean]"
+            --json            Format output as json
+            --verbose         Output errors with source description              [boolean]
+            --print-pending   Print list of formated rules for use with \`pending\` in
+                              config file                                        [boolean]
+            --ignore-pattern  Specify custom ignore pattern (can be disabled with
+                              --no-ignore-pattern)
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            --help            Show help                                          [boolean]
+            --version         Show version number                                [boolean]"
         `);
       });
     });
@@ -56,20 +58,22 @@ describe('ember-template-lint executable', function() {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path              Define a custom config path
+            --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --quiet                    Ignore warnings and only show errors      [boolean]
-            --filename                 Used to indicate the filename to be assumed for
-                                       contents from STDIN                        [string]
-            --fix                      Fix any errors that are reported as fixable
+            --quiet           Ignore warnings and only show errors               [boolean]
+            --filename        Used to indicate the filename to be assumed for contents
+                              from STDIN                                          [string]
+            --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json                     Format output as json
-            --verbose                  Output errors with source description     [boolean]
-            --print-pending            Print list of formated rules for use with \`pending\`
-                                       in config file                            [boolean]
-            --disable-ignore-patterns  Disable default ignore patterns           [boolean]
-            --help                     Show help                                 [boolean]
-            --version                  Show version number                       [boolean]"
+            --json            Format output as json
+            --verbose         Output errors with source description              [boolean]
+            --print-pending   Print list of formated rules for use with \`pending\` in
+                              config file                                        [boolean]
+            --ignore-pattern  Specify custom ignore pattern (can be disabled with
+                              --no-ignore-pattern)
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            --help            Show help                                          [boolean]
+            --version         Show version number                                [boolean]"
         `);
       });
     });
@@ -137,20 +141,22 @@ describe('ember-template-lint executable', function() {
 "ember-template-lint [options] [files..]
 
 Options:
-  --config-path              Define a custom config path
+  --config-path     Define a custom config path
                                        [string] [default: \\".template-lintrc.js\\"]
-  --quiet                    Ignore warnings and only show errors      [boolean]
-  --filename                 Used to indicate the filename to be assumed for
-                             contents from STDIN                        [string]
-  --fix                      Fix any errors that are reported as fixable
+  --quiet           Ignore warnings and only show errors               [boolean]
+  --filename        Used to indicate the filename to be assumed for contents
+                    from STDIN                                          [string]
+  --fix             Fix any errors that are reported as fixable
                                                       [boolean] [default: false]
-  --json                     Format output as json
-  --verbose                  Output errors with source description     [boolean]
-  --print-pending            Print list of formated rules for use with \`pending\`
-                             in config file                            [boolean]
-  --disable-ignore-patterns  Disable default ignore patterns           [boolean]
-  --help                     Show help                                 [boolean]
-  --version                  Show version number                       [boolean]"
+  --json            Format output as json
+  --verbose         Output errors with source description              [boolean]
+  --print-pending   Print list of formated rules for use with \`pending\` in
+                    config file                                        [boolean]
+  --ignore-pattern  Specify custom ignore pattern (can be disabled with
+                    --no-ignore-pattern)
+              [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+  --help            Show help                                          [boolean]
+  --version         Show version number                                [boolean]"
 `);
       });
     });
@@ -316,7 +322,7 @@ Options:
       });
     });
 
-    describe('with/without --disable-ignore-patterns', function() {
+    describe('with/without --ignore-pattern', function() {
       it('should respect dirs ignored by default', function() {
         project.setConfig({
           rules: {
@@ -340,6 +346,29 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
+      it('should allow to pass custom ignore pattern', function() {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            foo: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = run(['app/**/*', '--ignore-pattern', '"**/foo/**"', '"**/bar/**"']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(result.stderr).toBeFalsy();
+      });
+
       it('should allow to disable dirs ignored by default', function() {
         project.setConfig({
           rules: {
@@ -356,7 +385,7 @@ Options:
           },
         });
 
-        let result = run(['app/**/*', '--disable-ignore-patterns']);
+        let result = run(['app/**/*', '--no-ignore-pattern']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(

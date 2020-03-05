@@ -27,18 +27,13 @@ function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
   }
 }
 
-function expandFileGlobs(
-  positional,
-  globOptions = {
-    ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-    gitignore: true,
-  }
-) {
+function expandFileGlobs(positional, ignorePattern) {
   let result = new Set();
 
   positional.forEach(item => {
     globby
-      .sync(item, globOptions)
+      // `--no-ignore-pattern` results in `ignorePattern === [false]`
+      .sync(item, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
       .filter(filePath => filePath.slice(-4) === '.hbs')
       .forEach(filePath => result.add(filePath));
   });
@@ -80,9 +75,10 @@ function parseArgv(_argv) {
         describe: 'Print list of formated rules for use with `pending` in config file',
         boolean: true,
       },
-      'disable-ignore-patterns': {
-        describe: 'Disable default ignore patterns',
-        boolean: true,
+      'ignore-pattern': {
+        describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
+        type: 'array',
+        default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
       },
     })
     .help()
@@ -144,7 +140,7 @@ function run() {
   if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
     filesToLint = new Set([STDIN]);
   } else {
-    filesToLint = expandFileGlobs(positional, options.disableIgnorePatterns ? {} : undefined);
+    filesToLint = expandFileGlobs(positional, options.ignorePattern);
   }
 
   let resultsAccumulator = [];
