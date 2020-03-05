@@ -27,15 +27,18 @@ function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
   }
 }
 
-function expandFileGlobs(positional) {
+function expandFileGlobs(
+  positional,
+  globOptions = {
+    ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+    gitignore: true,
+  }
+) {
   let result = new Set();
 
   positional.forEach(item => {
     globby
-      .sync(item, {
-        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-        gitignore: true,
-      })
+      .sync(item, globOptions)
       .filter(filePath => filePath.slice(-4) === '.hbs')
       .forEach(filePath => result.add(filePath));
   });
@@ -77,6 +80,10 @@ function parseArgv(_argv) {
         describe: 'Print list of formated rules for use with `pending` in config file',
         boolean: true,
       },
+      'disable-ignore-patterns': {
+        describe: 'Disable default ignore patterns',
+        boolean: true,
+      },
     })
     .help()
     .version();
@@ -86,7 +93,6 @@ function parseArgv(_argv) {
     parser.exit(1);
   } else {
     let options = parser.parse(_argv);
-
     return options;
   }
 }
@@ -138,7 +144,7 @@ function run() {
   if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
     filesToLint = new Set([STDIN]);
   } else {
-    filesToLint = expandFileGlobs(positional);
+    filesToLint = expandFileGlobs(positional, options.disableIgnorePatterns ? {} : undefined);
   }
 
   let resultsAccumulator = [];

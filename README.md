@@ -80,6 +80,9 @@ Example usage:
 
 # print list of formated rules for use with `pending` in config file
 ./node_modules/.bin/ember-template-lint app/templates/application.hbs --print-pending
+
+# do not ignore `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
+./node_modules/.bin/ember-template-lint /tmp/template.hbs --disable-ignore-patterns
 ```
 
 ### ESLint
