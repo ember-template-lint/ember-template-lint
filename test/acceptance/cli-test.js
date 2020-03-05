@@ -359,10 +359,47 @@ Options:
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            bar: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
           },
         });
 
         let result = run(['app/**/*', '--ignore-pattern', '"**/foo/**"', '"**/bar/**"']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should allow to pass custom ignore pattern (via multiple args)', function() {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            foo: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+            bar: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = run([
+          'app/**/*',
+          '--ignore-pattern',
+          '"**/foo/**"',
+          '--ignore-pattern',
+          '"**/bar/**"',
+        ]);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
