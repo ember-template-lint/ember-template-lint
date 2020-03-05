@@ -318,7 +318,20 @@ Options:
 
     describe('with/without --disable-ignore-patterns', function() {
       it('should respect dirs ignored by default', function() {
-        setProjectConfigForErrorsWithIgnoredDir();
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            dist: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
 
         let result = run(['app/**/*']);
 
@@ -328,7 +341,20 @@ Options:
       });
 
       it('should allow to disable dirs ignored by default', function() {
-        setProjectConfigForErrorsWithIgnoredDir();
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            dist: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
 
         let result = run(['app/**/*', '--disable-ignore-patterns']);
 
@@ -732,29 +758,6 @@ Options:
       app: {
         templates: {
           'application.hbs': '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
-        },
-      },
-    });
-  }
-
-  function setProjectConfigForErrorsWithIgnoredDir() {
-    project.setConfig({
-      rules: {
-        'no-bare-strings': true,
-        'no-html-comments': true,
-      },
-      pending: [
-        {
-          moduleId: 'app/templates/application',
-          only: ['no-html-comments'],
-        },
-      ],
-    });
-    project.write({
-      app: {
-        dist: {
-          'application.hbs':
-            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
         },
       },
     });
