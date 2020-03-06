@@ -269,11 +269,4 @@ A few ideas for where to take this in the future:
 * A command-line version of the linter should be provided so IDEs and editors
   can provide feedback to devs during development
 
-### Installation
-
-* `git clone` this repository
-* `npm install`
-
-### Running Tests
-
-* `npm test`
+See the [Contributing Guidelines](CONTRIBUTING.md) for information on how to help out.
