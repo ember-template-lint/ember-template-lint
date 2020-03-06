@@ -84,6 +84,10 @@ function parseArgv(_argv) {
     .help()
     .version();
 
+  parser.parserConfiguration({
+    'greedy-arrays': false,
+  });
+
   if (_argv.length === 0) {
     parser.showHelp();
     parser.exit(1);
