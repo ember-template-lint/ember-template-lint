@@ -1,3 +1,15 @@
+## v2.4.0 (2020-03-08)
+
+#### :rocket: Enhancement
+* [#1200](https://github.com/ember-template-lint/ember-template-lint/pull/1200) Add `--ignore-pattern` and `--no-ignore-pattern` command line flags ([@kangax](https://github.com/kangax))
+
+#### :memo: Documentation
+* [#1202](https://github.com/ember-template-lint/ember-template-lint/pull/1202) Update contributing info in README ([@pablobm](https://github.com/pablobm))
+
+#### Committers: 2
+- Juriy Zaytsev ([@kangax](https://github.com/kangax))
+- Pablo Brasero ([@pablobm](https://github.com/pablobm))
+
 ## v2.3.0 (2020-03-04)
 
 #### :rocket: Enhancement
