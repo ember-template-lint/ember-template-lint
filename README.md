@@ -82,7 +82,7 @@ Example usage:
 ./node_modules/.bin/ember-template-lint app/templates/application.hbs --print-pending
 
 # specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
-./node_modules/.bin/ember-template-lint /tmp/template.hbs --ignore-pattern "**/foo/**" "**/bar/**"
+./node_modules/.bin/ember-template-lint /tmp/template.hbs --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
 
 # disable ignore pattern entirely
 ./node_modules/.bin/ember-template-lint /tmp/template.hbs --no-ignore-pattern
