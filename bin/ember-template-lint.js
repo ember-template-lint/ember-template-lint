@@ -27,15 +27,13 @@ function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
   }
 }
 
-function expandFileGlobs(positional) {
+function expandFileGlobs(positional, ignorePattern) {
   let result = new Set();
 
   positional.forEach(item => {
     globby
-      .sync(item, {
-        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-        gitignore: true,
-      })
+      // `--no-ignore-pattern` results in `ignorePattern === [false]`
+      .sync(item, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
       .filter(filePath => filePath.slice(-4) === '.hbs')
       .forEach(filePath => result.add(filePath));
   });
@@ -77,16 +75,24 @@ function parseArgv(_argv) {
         describe: 'Print list of formated rules for use with `pending` in config file',
         boolean: true,
       },
+      'ignore-pattern': {
+        describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
+        type: 'array',
+        default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+      },
     })
     .help()
     .version();
+
+  parser.parserConfiguration({
+    'greedy-arrays': false,
+  });
 
   if (_argv.length === 0) {
     parser.showHelp();
     parser.exit(1);
   } else {
     let options = parser.parse(_argv);
-
     return options;
   }
 }
@@ -138,7 +144,7 @@ function run() {
   if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
     filesToLint = new Set([STDIN]);
   } else {
-    filesToLint = expandFileGlobs(positional);
+    filesToLint = expandFileGlobs(positional, options.ignorePattern);
   }
 
   let resultsAccumulator = [];
