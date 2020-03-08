@@ -3,8 +3,9 @@
 const path = require('path');
 
 const FixturifyProject = require('fixturify-project');
+const { getCwd } = require('./../../lib/get-config');
 
-const ROOT = process.cwd();
+const ROOT = getCwd();
 
 // this is the default .editorconfig file for new ember-cli apps, taken from:
 // https://github.com/ember-cli/ember-new-output/blob/stable/.editorconfig

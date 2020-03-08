@@ -1,5 +1,7 @@
 const ModuleStatusCache = require('../../../lib/-private/module-status-cache');
 
+const { getCwd } = require('./../../lib/get-config');
+
 describe('ModuleStatusCache', function () {
   it('Merges the overrides rules with existing rules config', function () {
     let config = {
@@ -113,11 +115,11 @@ describe('ModuleStatusCache', function () {
 
     let moduleStatusCache = new ModuleStatusCache(config);
     expect(
-      moduleStatusCache.getConfigForFile({ moduleId: `${process.cwd()}/some/path/here` })
+      moduleStatusCache.getConfigForFile({ moduleId: `${getCwd()}/some/path/here` })
         .pendingStatus
     ).toBeTruthy();
     expect(
-      moduleStatusCache.getConfigForFile({ moduleId: `${process.cwd()}/foo/bar/baz` }).pendingStatus
+      moduleStatusCache.getConfigForFile({ moduleId: `${getCwd()}/foo/bar/baz` }).pendingStatus
     ).toBeTruthy();
   });
 });
