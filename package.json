@@ -32,7 +32,7 @@
     "globby": "^11.0.0",
     "micromatch": "^4.0.2",
     "resolve": "^1.15.1",
-    "yargs": "^15.1.0"
+    "yargs": "^15.3.0"
   },
   "devDependencies": {
     "common-tags": "^1.8.0",
