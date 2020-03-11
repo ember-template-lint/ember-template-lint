@@ -1,4 +1,4 @@
-## element-attributes-order
+# element-attributes-order
 
 Element attributes must be ordered as:
 
@@ -8,7 +8,7 @@ Element attributes must be ordered as:
 * ...attributes
 * ?attributes
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
