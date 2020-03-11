@@ -57,7 +57,7 @@ generateRuleTests({
     {
       template: '<div ...attributes {{did-render this.someAction}}></div>',
       result: {
-        message: 'Splattributes ...attributes  must go after modifiers',
+        message: 'Splattributes ...attributes must go after modifiers',
         moduleId: 'layout',
         source: '...attributes',
         line: 1,
