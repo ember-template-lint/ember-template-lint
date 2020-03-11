@@ -1,4 +1,4 @@
-# TODO: no-duplicate-id
+# no-duplicate-id
 
 Valid HTML requires that `id` attribute values are unique.
 
