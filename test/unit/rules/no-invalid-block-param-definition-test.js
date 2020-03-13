@@ -33,8 +33,7 @@ as
   </MyComponent>
 </div>
 `,
-    `
-<MyComponent as |boo|>
+    `<MyComponent as |boo|>
   <MyComponent>
     {{#each this.foo as |bar|}}
       {{bar}}{{boo}}
