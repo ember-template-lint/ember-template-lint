@@ -25,8 +25,7 @@ as
 | boo |
   >{{boo}}</FooBar>
 `,
-    `
-<div>
+    `<div>
   <MyComponent>
     {{#each this.foo as |bar|}}
       {{bar}}
