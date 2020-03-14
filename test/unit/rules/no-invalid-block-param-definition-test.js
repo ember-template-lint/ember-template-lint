@@ -25,6 +25,24 @@ as
 | boo |
   >{{boo}}</FooBar>
 `,
+    `<div>
+  <MyComponent>
+    {{#each this.foo as |bar|}}
+      {{bar}}
+    {{/each}}
+  </MyComponent>
+</div>
+`,
+    `<MyComponent as |boo|>
+  <MyComponent>
+    {{#each this.foo as |bar|}}
+      {{bar}}{{boo}}
+    {{else}}
+      {{foo}}
+    {{/each}}
+  </MyComponent>
+</MyComponent>
+`,
   ],
 
   bad: [
