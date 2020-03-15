@@ -2608,12 +2608,7 @@ html-escaper@^2.0.0:
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.0.tgz#71e87f931de3fe09e56661ab9a29aadec707b491"
   integrity sha512-a4u9BeERWGu/S8JiWEAQcdrg9v4QArtP9keViQjGMdff20fBdd8waotXaNmODqBe6uZ3Nafi7K/ho4gCQHV3Ig==
 
-http-cache-semantics@^4.0.0:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.0.4.tgz#13eeb612424bb113d52172c28a13109c46fa85d7"
-  integrity sha512-Z2EICWNJou7Tr9Bd2M2UqDJq3A9F2ePG9w3lIpjoyuSyXFP9QbniJVu3XQYytuw5ebmG7dXSXO9PgAjJG8DDKA==
-
-http-cache-semantics@^4.0.3:
+http-cache-semantics@^4.0.0, http-cache-semantics@^4.0.3:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
   integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
@@ -4833,10 +4828,10 @@ release-it-lerna-changelog@^2.0.0:
     release-it "^13.0.2"
     tmp "^0.1.0"
 
-release-it@^13.0.2, release-it@^13.1.0:
-  version "13.1.0"
-  resolved "https://registry.yarnpkg.com/release-it/-/release-it-13.1.0.tgz#c6777aaf06c59fedae4984a4c72bcc759ad14fbb"
-  integrity sha512-VcNP0QiYlEpDRN6ktoGb/WVoBm6F4H0qGHygRT3gtpmw3nnD74ATNLHTTvGHnhMqxjN1zG/neyVhobx2HmILEA==
+release-it@^13.0.2, release-it@^13.1.1:
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/release-it/-/release-it-13.1.1.tgz#64c9e84cf1049f6261e95ab1427849c61ffd9137"
+  integrity sha512-3JrbRMkUnup+PGtTR78MBjfrgEDd1UBJtW0eZF4MQRMvhv2am1VyYzz5i7Vv1xkomsaxhy06gZVjVFAa+Qn4JA==
   dependencies:
     "@iarna/toml" "2.2.3"
     "@octokit/rest" "17.1.0"
