@@ -13,7 +13,7 @@ ambiguous, as it could be referring to a local variable (block param), a helper
 with no arguments, a closed over component, or a property on the component
 class.
 
-## Exemplar
+## Examples
 
 Consider the following example where the ambiguity can cause issues:
 

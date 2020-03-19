@@ -2,6 +2,8 @@
 
 Require or disallow newline at the end of files.
 
+## Examples
+
 Enforce either (without newline at end):
 
 ```hbs

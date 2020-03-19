@@ -15,7 +15,7 @@ The HTML attribute `role` must never have the following values:
 * `widget`
 * `window`
 
-## `<* role>`
+## Examples
 
 This rule **forbids** the following:
 

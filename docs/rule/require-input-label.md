@@ -1,4 +1,4 @@
-# require-valid-label
+# require-input-label
 
 Users with assistive technology need `<input>` elements to have associated labels. It's so essential for users that failure to provide an associated label for an `<input>` element will cause failure of **three** different WCAG success criteria: [1.3.1, Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html), [3.3.2, Labels or Instructions](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html), and [4.1.2, Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html). It is also associated with common failure [#68: Failure of Success Criterion 4.1.2 due to a user interface control not having a programmatically determined name](https://www.w3.org/WAI/WCAG21/Techniques/failures/F68).
 
