@@ -9,10 +9,8 @@ generateRuleTests({
 
   config: true,
 
-  // TODO update with a good example that should pass
   good: ['{foo}', '{{foo}}', '{{{foo}}}'],
 
-  // TODO update with tests that should fail
   bad: [
     {
       template: 'foo}}',
