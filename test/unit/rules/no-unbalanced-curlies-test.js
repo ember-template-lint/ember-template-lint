@@ -10,18 +10,44 @@ generateRuleTests({
   config: true,
 
   // TODO update with a good example that should pass
-  good: ['passingTest00'],
+  good: ['{foo}', '{{foo}}', '{{{foo}}}'],
 
   // TODO update with tests that should fail
   bad: [
     {
-      template: 'FailingTest00 -- contains DisallowedText',
+      template: 'foo}}',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
-        column: 0,
-        source: 'FailingTest00 -- contains DisallowedText',
+        column: 3,
+        source: 'foo}}',
+      },
+    },
+    {
+      template: '{foo}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 4,
+        source: '{foo}}',
+      },
+    },
+    {
+      template: 'foo}}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 3,
+        source: 'foo}}}',
+      },
+    },
+    {
+      template: '{foo}}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 4,
+        source: '{foo}}}',
       },
     },
   ],
