@@ -2,6 +2,8 @@
 
 Enforce the consistent use of either double or single quotes.
 
+## Examples
+
 Enforce either:
 
 ```hbs

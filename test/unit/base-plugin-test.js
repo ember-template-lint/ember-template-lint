@@ -131,12 +131,16 @@ describe('base plugin', function() {
     const rulesEntryPath = join(__dirname, '../../lib/rules');
     const files = readdirSync(rulesEntryPath);
     const deprecatedFiles = readdirSync(join(rulesEntryPath, 'deprecations'));
-    const deprecatedRules = deprecatedFiles.filter(fileName => {
-      return fileName.endsWith('.js');
-    });
-    const expectedRules = files.filter(fileName => {
-      return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
-    });
+    const deprecatedRules = deprecatedFiles
+      .filter(fileName => {
+        return fileName.endsWith('.js');
+      })
+      .map(fileName => fileName.replace('.js', ''));
+    const expectedRules = files
+      .filter(fileName => {
+        return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
+      })
+      .map(fileName => fileName.replace('.js', ''));
 
     it('has correct rules reexport', function() {
       const defaultExport = require(rulesEntryPath);
@@ -154,16 +158,15 @@ describe('base plugin', function() {
     });
 
     it('has docs/rule reference for each item', function() {
-      function transformFileName(fileName) {
-        return fileName.replace('.js', '.md');
-      }
       const ruleDocsFolder = join(__dirname, '../../docs/rule');
-      deprecatedFiles.forEach(ruleFileName => {
-        const docFilePath = join(ruleDocsFolder, 'deprecations', transformFileName(ruleFileName));
+      deprecatedRules.forEach(ruleName => {
+        const docFileName = `${ruleName}.md`;
+        const docFilePath = join(ruleDocsFolder, 'deprecations', docFileName);
         expect(existsSync(docFilePath)).toBe(true);
       });
-      expectedRules.forEach(ruleFileName => {
-        const docFilePath = join(ruleDocsFolder, transformFileName(ruleFileName));
+      expectedRules.forEach(ruleName => {
+        const docFileName = `${ruleName}.md`;
+        const docFilePath = join(ruleDocsFolder, docFileName);
         expect(existsSync(docFilePath)).toBe(true);
       });
     });
@@ -195,12 +198,30 @@ describe('base plugin', function() {
         name.endsWith('-test.js')
       );
       expectedRules.forEach(ruleFileName => {
-        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
+        const ruleTestFileName = `${ruleFileName}-test.js`;
         expect(ruleFiles.includes(ruleTestFileName)).toBe(true);
       });
       deprecatedRules.forEach(ruleFileName => {
-        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
+        const ruleTestFileName = `${ruleFileName}-test.js`;
         expect(deprecatedRuleFiles.includes(ruleTestFileName)).toBe(true);
+      });
+    });
+
+    it('should have the right contents (title, examples) for each rule documentation file', function() {
+      deprecatedRules.forEach(ruleName => {
+        const path = join(__dirname, '..', '..', 'docs', 'rule', 'deprecations', `${ruleName}.md`);
+        const file = readFileSync(path, 'utf8');
+
+        expect(file).toContain(`# ${ruleName}`); // Title header.
+        expect(file).toContain('## Examples'); // Examples section header.
+      });
+
+      expectedRules.forEach(ruleName => {
+        const path = join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
+        const file = readFileSync(path, 'utf8');
+
+        expect(file).toContain(`# ${ruleName}`); // Title header.
+        expect(file).toContain('## Examples'); // Examples section header.
       });
     });
   });

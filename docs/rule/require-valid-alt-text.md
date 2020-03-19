@@ -4,9 +4,11 @@ Enforce that all elements that require alternative text have meaningful informat
 
 Enforce `img` alt attribute does not contain the word image, picture, or photo. Screen readers already announce `img` elements as an image. There is no need to use words such as *image*, *photo*, and/or *picture*. The rule will first check if `aria-hidden` is true to determine whether to enforce the rule. If the image is hidden, then rule will always succeed.
 
+## Examples
+
 This rule **forbids** the following:
 
-## `<img>`
+### `<img>`
 
 An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string. If it is an empty string, the `<img>` element tag must also have `role="presentation"` or `role="none"`.
 
@@ -41,7 +43,7 @@ This rule **allows** the following:
 <img src="foo" alt="" role="presentation"> // This is valid because it has a role of presentation.
 ```
 
-## `<object>`
+### `<object>`
 
 Add alternative text to all embedded `<object>` elements using either inner text, setting the `title` prop, or using the `aria-label` or `aria-labelledby` props.
 
@@ -59,7 +61,7 @@ This rule **allows** the following:
 <object width="128" height="256" aria-labelledby="id-12345"></object>
 ```
 
-## `<input type="image">`
+### `<input type="image">`
 
 All `<input type="image">` elements must have a non-empty `alt` prop set with a meaningful description of the image or have the `aria-label` or `aria-labelledby` props set.
 
@@ -75,7 +77,7 @@ This rule **allows** the following:
 <input type="image" alt="Select image to upload">
 ```
 
-## `<area>`
+### `<area>`
 
 All clickable `<area>` elements within an image map have an `alt`, `aria-label` or `aria-labelledby` prop that describes the purpose of the link.
 

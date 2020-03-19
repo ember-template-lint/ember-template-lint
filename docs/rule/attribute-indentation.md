@@ -2,7 +2,9 @@
 
 This rule requires the positional params, attributes, and block params of the helper/component to be indented by moving them to multiple lines when the open invocation has more than 80 characters (configurable).
 
-## Forbidden
+## Examples
+
+### Forbidden
 
 Non-Block form
 
@@ -30,7 +32,7 @@ Block form (HTML)
 <a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>
 ```
 
-## Allowed
+### Allowed
 
 Non-Block form
 
