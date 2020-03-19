@@ -63,6 +63,7 @@
 * [style-concatenation](rule/style-concatenation.md)
 * [table-groups](rule/table-groups.md)
 * [template-length](rule/template-length.md)
+* [use-concat-for-string-concatenation](rule/use-concat-for-string-concatenation.md)
 
 ## Deprecations
 
