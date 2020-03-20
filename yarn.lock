@@ -4818,10 +4818,10 @@ registry-url@^5.0.0:
   dependencies:
     rc "^1.2.8"
 
-release-it-lerna-changelog@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/release-it-lerna-changelog/-/release-it-lerna-changelog-2.0.0.tgz#e2244d8132d860ce05ea5332509156b1820e68b8"
-  integrity sha512-JitaWljePcdQejrC4L4rLOM+WqM1e5aDzWKY94UdOT3tS+qCmp5nWeszL4Gjas88Itl6lfW466Z39qd1UB4h0A==
+release-it-lerna-changelog@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/release-it-lerna-changelog/-/release-it-lerna-changelog-2.1.0.tgz#b9899bb41fb85fdd906bc7476af7e6676f0d248c"
+  integrity sha512-qcnrt7zN7cSouf5TQNwMeA7hFp2jd2sFTQSBBnvoNkvkNrMmlk5YQ7ztP9ZP+ySRlKJwIRh5amamKE8XFV4CeA==
   dependencies:
     execa "^4.0.0"
     lerna-changelog "^1.0.1"
