@@ -46,6 +46,7 @@
 * [no-shadowed-elements](rule/no-shadowed-elements.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
+* [no-unbalanced-curlies](rule/no-unbalanced-curlies.md)
 * [no-unbound](rule/no-unbound.md)
 * [no-unnecessary-component-helper](rule/no-unnecessary-component-helper.md)
 * [no-unnecessary-concat](rule/no-unnecessary-concat.md)
@@ -70,5 +71,3 @@
 * [deprecated-each-syntax](rule/deprecations/deprecated-each-syntax.md)
 * [deprecated-inline-view-helper](rule/deprecations/deprecated-inline-view-helper.md)
 * [deprecated-render-helper](rule/deprecations/deprecated-render-helper.md)
-
-* [no-unbalanced-curlies](rule/no-unbalanced-curlies.md)
