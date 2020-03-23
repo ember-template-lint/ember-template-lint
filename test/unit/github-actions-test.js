@@ -2,7 +2,7 @@
 
 const Printer = require('../../lib/printers/github-actions');
 
-describe('GitHub Actions Annotations', function() {
+describe('GitHub Actions Annotations', function () {
   describe('_formatGitHubActionAnnotation', () => {
     let printer;
     beforeEach(() => {

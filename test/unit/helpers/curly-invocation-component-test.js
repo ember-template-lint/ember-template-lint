@@ -5,8 +5,8 @@ const {
   isNestedComponentTagName,
 } = require('../../../lib/helpers/curly-component-invocation');
 
-describe('#transformTagName', function() {
-  it('it works as expected', function() {
+describe('#transformTagName', function () {
+  it('it works as expected', function () {
     expect(transformTagName('foo')).toEqual('Foo');
     expect(transformTagName('foo-bar')).toEqual('FooBar');
     expect(transformTagName('Foo-Bar')).toEqual('FooBar');
@@ -25,8 +25,8 @@ describe('#transformTagName', function() {
   });
 });
 
-describe('#isNestedComponentTagName', function() {
-  it('it works as expected', function() {
+describe('#isNestedComponentTagName', function () {
+  it('it works as expected', function () {
     expect(isNestedComponentTagName('nested/my-component')).toBe(true);
     expect(isNestedComponentTagName('my-component')).toBe(false);
   });

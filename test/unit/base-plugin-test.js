@@ -9,7 +9,7 @@ const ruleNames = Object.keys(require('../../lib/rules'));
 const Project = require('../helpers/fake-project');
 const EditorConfigResolver = require('../../lib/get-editor-config');
 
-describe('base plugin', function() {
+describe('base plugin', function () {
   let project, editorConfigResolver;
   beforeEach(() => {
     project = Project.defaultSetup();
@@ -56,7 +56,7 @@ describe('base plugin', function() {
   }
 
   let messages, config;
-  beforeEach(function() {
+  beforeEach(function () {
     messages = [];
     config = {};
   });
@@ -88,14 +88,14 @@ describe('base plugin', function() {
     return { Rule, name, config };
   }
 
-  it('all presets correctly reexported', function() {
+  it('all presets correctly reexported', function () {
     const presetsPath = join(__dirname, '../../lib/config');
 
     const files = readdirSync(presetsPath);
     const presetFiles = files
-      .map(it => parsePath(it))
-      .filter(it => it.ext === '.js' && it.name !== 'index')
-      .map(it => it.name);
+      .map((it) => parsePath(it))
+      .filter((it) => it.ext === '.js' && it.name !== 'index')
+      .map((it) => it.name);
 
     const exportedPresets = require(join(presetsPath, 'index.js'));
     const exportedPresetNames = Object.keys(exportedPresets);
@@ -103,8 +103,8 @@ describe('base plugin', function() {
     expect(exportedPresetNames).toEqual(presetFiles);
   });
 
-  describe('rule APIs', function() {
-    it('can access editorConfig', function() {
+  describe('rule APIs', function () {
+    it('can access editorConfig', function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this.editorConfig.insert_final_newline).toBe(false);
@@ -114,7 +114,7 @@ describe('base plugin', function() {
       runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
 
-    it('does not error when accessing editorConfig when no filePath is passed', function() {
+    it('does not error when accessing editorConfig when no filePath is passed', function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this.editorConfig.insert_final_newline).toBe(undefined);
@@ -127,25 +127,25 @@ describe('base plugin', function() {
     });
   });
 
-  describe('rules setup is correct', function() {
+  describe('rules setup is correct', function () {
     const rulesEntryPath = join(__dirname, '../../lib/rules');
     const files = readdirSync(rulesEntryPath);
     const deprecatedFiles = readdirSync(join(rulesEntryPath, 'deprecations'));
     const deprecatedRules = deprecatedFiles
-      .filter(fileName => {
+      .filter((fileName) => {
         return fileName.endsWith('.js');
       })
-      .map(fileName => fileName.replace('.js', ''));
+      .map((fileName) => fileName.replace('.js', ''));
     const expectedRules = files
-      .filter(fileName => {
+      .filter((fileName) => {
         return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
       })
-      .map(fileName => fileName.replace('.js', ''));
+      .map((fileName) => fileName.replace('.js', ''));
 
-    it('has correct rules reexport', function() {
+    it('has correct rules reexport', function () {
       const defaultExport = require(rulesEntryPath);
       const exportedRules = Object.keys(defaultExport);
-      exportedRules.forEach(ruleName => {
+      exportedRules.forEach((ruleName) => {
         let pathName = join(rulesEntryPath, `${ruleName}`);
 
         if (ruleName.startsWith('deprecated-')) {
@@ -157,58 +157,58 @@ describe('base plugin', function() {
       expect(expectedRules.length + deprecatedRules.length).toEqual(exportedRules.length);
     });
 
-    it('has docs/rule reference for each item', function() {
+    it('has docs/rule reference for each item', function () {
       const ruleDocsFolder = join(__dirname, '../../docs/rule');
-      deprecatedRules.forEach(ruleName => {
+      deprecatedRules.forEach((ruleName) => {
         const docFileName = `${ruleName}.md`;
         const docFilePath = join(ruleDocsFolder, 'deprecations', docFileName);
         expect(existsSync(docFilePath)).toBe(true);
       });
-      expectedRules.forEach(ruleName => {
+      expectedRules.forEach((ruleName) => {
         const docFileName = `${ruleName}.md`;
         const docFilePath = join(ruleDocsFolder, docFileName);
         expect(existsSync(docFilePath)).toBe(true);
       });
     });
 
-    it('All files under docs/rule/ have a link from docs/rules.md.', function() {
+    it('All files under docs/rule/ have a link from docs/rules.md.', function () {
       const docsPath = join(__dirname, '../../docs');
       const entryPath = join(docsPath, 'rule');
       const ruleFiles = readdirSync(entryPath).filter(
-        name => name.endsWith('.md') && name !== '_TEMPLATE_.md'
+        (name) => name.endsWith('.md') && name !== '_TEMPLATE_.md'
       );
-      const deprecatedRuleFiles = readdirSync(join(entryPath, 'deprecations')).filter(name =>
+      const deprecatedRuleFiles = readdirSync(join(entryPath, 'deprecations')).filter((name) =>
         name.endsWith('.md')
       );
       const allRulesFile = readFileSync(join(docsPath, 'rules.md'), {
         encoding: 'utf8',
       });
-      ruleFiles.forEach(fileName => {
+      ruleFiles.forEach((fileName) => {
         expect(allRulesFile.includes(`(rule/${fileName})`)).toBe(true);
       });
-      deprecatedRuleFiles.forEach(fileName => {
+      deprecatedRuleFiles.forEach((fileName) => {
         expect(allRulesFile.includes(`(rule/deprecations/${fileName})`)).toBe(true);
       });
     });
 
-    it('All rules has test files', function() {
+    it('All rules has test files', function () {
       const testsPath = join(__dirname, '../unit/rules');
-      const ruleFiles = readdirSync(testsPath).filter(name => name.endsWith('-test.js'));
-      const deprecatedRuleFiles = readdirSync(join(testsPath, 'deprecations')).filter(name =>
+      const ruleFiles = readdirSync(testsPath).filter((name) => name.endsWith('-test.js'));
+      const deprecatedRuleFiles = readdirSync(join(testsPath, 'deprecations')).filter((name) =>
         name.endsWith('-test.js')
       );
-      expectedRules.forEach(ruleFileName => {
+      expectedRules.forEach((ruleFileName) => {
         const ruleTestFileName = `${ruleFileName}-test.js`;
         expect(ruleFiles.includes(ruleTestFileName)).toBe(true);
       });
-      deprecatedRules.forEach(ruleFileName => {
+      deprecatedRules.forEach((ruleFileName) => {
         const ruleTestFileName = `${ruleFileName}-test.js`;
         expect(deprecatedRuleFiles.includes(ruleTestFileName)).toBe(true);
       });
     });
 
-    it('should have the right contents (title, examples) for each rule documentation file', function() {
-      deprecatedRules.forEach(ruleName => {
+    it('should have the right contents (title, examples) for each rule documentation file', function () {
+      deprecatedRules.forEach((ruleName) => {
         const path = join(__dirname, '..', '..', 'docs', 'rule', 'deprecations', `${ruleName}.md`);
         const file = readFileSync(path, 'utf8');
 
@@ -216,7 +216,7 @@ describe('base plugin', function() {
         expect(file).toContain('## Examples'); // Examples section header.
       });
 
-      expectedRules.forEach(ruleName => {
+      expectedRules.forEach((ruleName) => {
         const path = join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
         const file = readFileSync(path, 'utf8');
 
@@ -226,7 +226,7 @@ describe('base plugin', function() {
     });
   });
 
-  describe('parses templates', function() {
+  describe('parses templates', function () {
     let visitor = {
       ElementNode(node) {
         this.process(node);
@@ -245,7 +245,7 @@ describe('base plugin', function() {
       let template = config.template;
       let nodeSources = config.sources;
 
-      it(`can get raw source for \`${template}\``, function() {
+      it(`can get raw source for \`${template}\``, function () {
         runRules(template, [plugin(buildPlugin(visitor), 'fake', config)]);
 
         expect(messages).toEqual(nodeSources);
@@ -270,7 +270,7 @@ describe('base plugin', function() {
     });
   });
 
-  describe('node types', function() {
+  describe('node types', function () {
     let wasCalled;
 
     let visitor = {
@@ -279,14 +279,14 @@ describe('base plugin', function() {
       },
     };
 
-    it('calls the "Template" node type', function() {
+    it('calls the "Template" node type', function () {
       runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
 
       expect(wasCalled).toBe(true);
     });
   });
 
-  describe('parses instructions', function() {
+  describe('parses instructions', function () {
     function processTemplate(template) {
       let Rule = buildPlugin({
         MustacheCommentStatement(node) {
@@ -294,10 +294,10 @@ describe('base plugin', function() {
         },
       });
 
-      Rule.prototype.log = function(result) {
+      Rule.prototype.log = function (result) {
         messages.push(result.message);
       };
-      Rule.prototype.process = function(node) {
+      Rule.prototype.process = function (node) {
         config = this._processInstructionNode(node);
       };
 
@@ -305,7 +305,7 @@ describe('base plugin', function() {
     }
 
     function expectConfig(instruction, expectedConfig) {
-      it(`can parse \`${instruction}\``, function() {
+      it(`can parse \`${instruction}\``, function () {
         processTemplate(`{{! ${instruction} }}`);
         expect(config).toEqual(expectedConfig);
         expect(messages).toEqual([]);
@@ -362,7 +362,7 @@ describe('base plugin', function() {
     expectConfig('', null);
 
     // Errors
-    it('logs an error when it encounters an unknown rule name', function() {
+    it('logs an error when it encounters an unknown rule name', function () {
       processTemplate(
         [
           '{{! template-lint-enable notarule }}',
@@ -378,14 +378,14 @@ describe('base plugin', function() {
       ]);
     });
 
-    it("logs an error when it can't parse a configure instruction's JSON", function() {
+    it("logs an error when it can't parse a configure instruction's JSON", function () {
       processTemplate('{{! template-lint-configure fake { not: "json" ] }}');
       expect(messages).toEqual([
         'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON',
       ]);
     });
 
-    it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function() {
+    it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function () {
       processTemplate(
         [
           '{{! template-lint-bloober fake }}',
@@ -400,7 +400,7 @@ describe('base plugin', function() {
       ]);
     });
 
-    it('only logs syntax errors once across all rules', function() {
+    it('only logs syntax errors once across all rules', function () {
       runRules(
         '{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}',
         [
@@ -415,7 +415,7 @@ describe('base plugin', function() {
     });
   });
 
-  describe('scopes instructions', function() {
+  describe('scopes instructions', function () {
     let events;
 
     function getId(node) {
@@ -485,7 +485,7 @@ describe('base plugin', function() {
       runRules(template, [plugin(buildPlugin(), 'fake', config)]);
     }
 
-    beforeEach(function() {
+    beforeEach(function () {
       messages = [];
       events = [];
     });
@@ -496,7 +496,7 @@ describe('base plugin', function() {
       let expectedEvents = data.events;
       let config = data.config;
 
-      it(description, function() {
+      it(description, function () {
         processTemplate(template, config);
         expect(events).toEqual(expectedEvents);
         expect(messages).toEqual([]);
