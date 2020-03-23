@@ -4,24 +4,24 @@ const { readFileSync } = require('fs');
 const execa = require('execa');
 const Project = require('../helpers/fake-project');
 
-describe('ember-template-lint executable', function() {
+describe('ember-template-lint executable', function () {
   setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
 
   // Fake project
   let project;
-  beforeEach(function() {
+  beforeEach(function () {
     project = Project.defaultSetup();
     project.chdir();
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await project.dispose();
   });
 
-  describe('basic usage', function() {
-    describe('without any parameters', function() {
-      it('should emit help text', function() {
+  describe('basic usage', function () {
+    describe('without any parameters', function () {
+      it('should emit help text', function () {
         let result = run([]);
 
         expect(result.exitCode).toEqual(1);
@@ -49,8 +49,8 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('with --help', function() {
-      it('should emit help text', function() {
+    describe('with --help', function () {
+      it('should emit help text', function () {
         let result = run(['--help']);
 
         expect(result.exitCode).toEqual(0);
@@ -78,8 +78,8 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('given path to non-existing file', function() {
-      it('should exit without error and any console output', function() {
+    describe('given path to non-existing file', function () {
+      it('should exit without error and any console output', function () {
         setProjectConfigForErrors();
         let result = run(['app/templates/application-1.hbs']);
 
@@ -89,8 +89,8 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('given path to single file with errors', function() {
-      it('should print errors', function() {
+    describe('given path to single file with errors', function () {
+      it('should print errors', function () {
         setProjectConfigForErrors();
         let result = run(['app/templates/application.hbs']);
 
@@ -100,8 +100,8 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('given wildcard path resolving to single file', function() {
-      it('should print errors', function() {
+    describe('given wildcard path resolving to single file', function () {
+      it('should print errors', function () {
         setProjectConfigForErrors();
         let result = run(['app/templates/*']);
 
@@ -111,8 +111,8 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('given directory path', function() {
-      it('should print errors', function() {
+    describe('given directory path', function () {
+      it('should print errors', function () {
         setProjectConfigForErrors();
         let result = run(['app']);
 
@@ -128,8 +128,8 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('given no path', function() {
-      it('should print errors', function() {
+    describe('given no path', function () {
+      it('should print errors', function () {
         setProjectConfigForErrors();
         let result = run(['<', 'app/templates/application.hbs'], {
           shell: true,
@@ -161,8 +161,8 @@ Options:
       });
     });
 
-    describe('given no path with --filename', function() {
-      it('should print errors', function() {
+    describe('given no path with --filename', function () {
+      it('should print errors', function () {
         setProjectConfigForErrors();
         let result = run(
           ['--filename', 'app/templates/application.hbs', '<', 'app/templates/application.hbs'],
@@ -177,8 +177,8 @@ Options:
       });
     });
 
-    describe('given - (stdin) path', function() {
-      it('should print errors', function() {
+    describe('given - (stdin) path', function () {
+      it('should print errors', function () {
         setProjectConfigForErrors();
         let result = run(['-', '<', 'app/templates/application.hbs'], {
           shell: true,
@@ -190,8 +190,8 @@ Options:
       });
     });
 
-    describe('given /dev/stdin path', function() {
-      it('should print errors', function() {
+    describe('given /dev/stdin path', function () {
+      it('should print errors', function () {
         setProjectConfigForErrors();
         let result = run(['/dev/stdin', '<', 'app/templates/application.hbs'], {
           shell: true,
@@ -203,8 +203,8 @@ Options:
       });
     });
 
-    describe('given path to single file without errors', function() {
-      it('should exit without error and any console output', function() {
+    describe('given path to single file without errors', function () {
+      it('should exit without error and any console output', function () {
         setProjectConfigWithoutErrors();
         let result = run(['app/templates/application.hbs']);
 
@@ -215,9 +215,9 @@ Options:
     });
   });
 
-  describe('errors and warnings formatting', function() {
-    describe('without --json param', function() {
-      it('should print properly formatted error messages', function() {
+  describe('errors and warnings formatting', function () {
+    describe('without --json param', function () {
+      it('should print properly formatted error messages', function () {
         setProjectConfigForErrors();
         let result = run(['.']);
 
@@ -232,7 +232,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should print properly formatted error and warning messages', function() {
+      it('should print properly formatted error and warning messages', function () {
         setProjectConfigForErrorsAndWarning();
         let result = run(['.']);
 
@@ -248,7 +248,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should include information about available fixes', function() {
+      it('should include information about available fixes', function () {
         project.setConfig({
           rules: {
             'require-button-type': true,
@@ -278,8 +278,8 @@ Options:
       });
     });
 
-    describe('with --quiet param', function() {
-      it('should print properly formatted error messages, omitting any warnings', function() {
+    describe('with --quiet param', function () {
+      it('should print properly formatted error messages, omitting any warnings', function () {
         setProjectConfigForErrorsAndWarning();
         let result = run(['.', '--quiet']);
 
@@ -294,7 +294,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should exit without error and any console output', function() {
+      it('should exit without error and any console output', function () {
         project.setConfig({
           rules: {
             'no-html-comments': true,
@@ -322,8 +322,8 @@ Options:
       });
     });
 
-    describe('with/without --ignore-pattern', function() {
-      it('should respect dirs ignored by default', function() {
+    describe('with/without --ignore-pattern', function () {
+      it('should respect dirs ignored by default', function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -346,7 +346,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should allow to pass custom ignore pattern', function() {
+      it('should allow to pass custom ignore pattern', function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -379,7 +379,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should allow to disable dirs ignored by default', function() {
+      it('should allow to disable dirs ignored by default', function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -411,8 +411,8 @@ Options:
       });
     });
 
-    describe('with --json param', function() {
-      it('should print valid JSON string with errors', function() {
+    describe('with --json param', function () {
+      it('should print valid JSON string with errors', function () {
         setProjectConfigForErrors();
         let result = run(['.', '--json']);
 
@@ -445,7 +445,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should include information about fixing', function() {
+      it('should include information about fixing', function () {
         project.setConfig({
           rules: {
             'require-button-type': true,
@@ -483,8 +483,8 @@ Options:
       });
     });
 
-    describe('with --json param and --quiet', function() {
-      it('should print valid JSON string with errors, omitting warnings', function() {
+    describe('with --json param and --quiet', function () {
+      it('should print valid JSON string with errors, omitting warnings', function () {
         setProjectConfigForErrorsAndWarning();
         let result = run(['.', '--json', '--quiet']);
 
@@ -517,7 +517,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should exit without error and empty errors array', function() {
+      it('should exit without error and empty errors array', function () {
         project.setConfig({
           rules: {
             'no-html-comments': true,
@@ -548,9 +548,9 @@ Options:
       });
     });
 
-    describe('with --config-path param', function() {
-      describe('able to run only limited subset of rules', function() {
-        it('should skip disabled rules from subset', function() {
+    describe('with --config-path param', function () {
+      describe('able to run only limited subset of rules', function () {
+        it('should skip disabled rules from subset', function () {
           project.write({
             'temp-templatelint-rc.js':
               'module.exports = { rules: { "no-shadowed-elements": false } };',
@@ -563,7 +563,7 @@ Options:
           expect(result.stderr).toBeFalsy();
         });
 
-        it('should load only one rule and print error message', function() {
+        it('should load only one rule and print error message', function () {
           project.write({
             'temp-templatelint-rc.js':
               'module.exports = { rules: { "no-shadowed-elements": true } };',
@@ -582,8 +582,8 @@ Options:
         });
       });
 
-      describe('given a directory with errors and a lintrc with rules', function() {
-        it('should print properly formatted error messages', function() {
+      describe('given a directory with errors and a lintrc with rules', function () {
+        it('should print properly formatted error messages', function () {
           setProjectConfigWithoutErrors();
 
           let overrideConfig = {
@@ -608,8 +608,8 @@ Options:
         });
       });
 
-      describe('given a directory with errors but a lintrc without any rules', function() {
-        it('should exit without error and any console output', function() {
+      describe('given a directory with errors but a lintrc without any rules', function () {
+        it('should exit without error and any console output', function () {
           setProjectConfigForErrors();
 
           let overrideConfig = {
@@ -629,8 +629,8 @@ Options:
       });
     });
 
-    describe('with --print-pending param', function() {
-      it('should print a list of pending modules', function() {
+    describe('with --print-pending param', function () {
+      it('should print a list of pending modules', function () {
         setProjectConfigForErrorsAndWarning();
 
         let result = run(['.', '--print-pending']);
@@ -642,7 +642,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should ignore existing pending modules that have no lint errors', function() {
+      it('should ignore existing pending modules that have no lint errors', function () {
         project.setConfig({
           rules: {
             'no-html-comments': false,
@@ -673,7 +673,7 @@ Options:
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should ignore existing pending modules that have partially passing rules', function() {
+      it('should ignore existing pending modules that have partially passing rules', function () {
         project.setConfig({
           rules: {
             'no-html-comments': true,
@@ -703,8 +703,8 @@ Options:
       });
     });
 
-    describe('with --print-pending and --json params', function() {
-      it('should print json of pending modules', function() {
+    describe('with --print-pending and --json params', function () {
+      it('should print json of pending modules', function () {
         setProjectConfigForErrorsAndWarning();
 
         let result = run(['.', '--print-pending', '--json']);
@@ -721,10 +721,10 @@ Options:
       });
     });
 
-    describe('with GITHUB_ACTIONS env var', function() {
+    describe('with GITHUB_ACTIONS env var', function () {
       setupEnvVar('GITHUB_ACTIONS', 'true');
 
-      it('should print GitHub Actions annotations', function() {
+      it('should print GitHub Actions annotations', function () {
         setProjectConfigForErrors();
 
         let result = run(['.'], {
@@ -746,8 +746,8 @@ Options:
     });
   });
 
-  describe('--fix usage', function() {
-    it('should write fixed file to fs', function() {
+  describe('--fix usage', function () {
+    it('should write fixed file to fs', function () {
       let config = { rules: { 'require-button-type': true } };
       project.setConfig(config);
       project.write({ 'require-button-type.hbs': '<button>Klikk</button>' });
@@ -834,7 +834,7 @@ Options:
 function setupEnvVar(name, value) {
   let oldValue;
 
-  beforeEach(function() {
+  beforeEach(function () {
     oldValue = name in process.env ? process.env[name] : null;
 
     if (value === null) {
@@ -844,7 +844,7 @@ function setupEnvVar(name, value) {
     }
   });
 
-  afterEach(function() {
+  afterEach(function () {
     if (oldValue === null) {
       delete process.env[name];
     } else {

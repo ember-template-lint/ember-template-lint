@@ -30,12 +30,12 @@ function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
 function expandFileGlobs(positional, ignorePattern) {
   let result = new Set();
 
-  positional.forEach(item => {
+  positional.forEach((item) => {
     globby
       // `--no-ignore-pattern` results in `ignorePattern === [false]`
       .sync(item, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
-      .filter(filePath => filePath.slice(-4) === '.hbs')
-      .forEach(filePath => result.add(filePath));
+      .filter((filePath) => filePath.slice(-4) === '.hbs')
+      .forEach((filePath) => result.add(filePath));
   });
 
   return result;

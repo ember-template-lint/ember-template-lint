@@ -3,7 +3,7 @@
 const Linter = require('../../lib/index');
 const stripIndent = require('common-tags').stripIndent;
 
-describe('recommended config', function() {
+describe('recommended config', function () {
   function buildFakeConsole() {
     return {
       _logLines: [],
@@ -15,12 +15,12 @@ describe('recommended config', function() {
   }
 
   let mockConsole;
-  beforeEach(function() {
+  beforeEach(function () {
     mockConsole = buildFakeConsole();
   });
 
   function ensureValid(source) {
-    it(`passes with: \`${source}\``, function() {
+    it(`passes with: \`${source}\``, function () {
       let config = { extends: 'recommended' };
 
       let linter = new Linter({

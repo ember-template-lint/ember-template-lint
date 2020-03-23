@@ -3,19 +3,19 @@
 const EditorConfigResolver = require('../../lib/get-editor-config');
 const Project = require('../helpers/fake-project');
 
-describe('get-editor-config', function() {
+describe('get-editor-config', function () {
   let project = null;
 
-  beforeEach(function() {
+  beforeEach(function () {
     project = new Project();
     project.chdir();
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await project.dispose();
   });
 
-  it('able to read and add info from .editorconfig file if exists', function() {
+  it('able to read and add info from .editorconfig file if exists', function () {
     let filePath = project.path('app.hbs');
 
     project.write({
@@ -69,7 +69,7 @@ trim_trailing_whitespace = false
     });
   });
 
-  it('return empty object if no config found', function() {
+  it('return empty object if no config found', function () {
     let filePath = project.path('app.hbs');
 
     project.write({
@@ -79,7 +79,7 @@ trim_trailing_whitespace = false
     expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({});
   });
 
-  it('able to merge different editor config files', function() {
+  it('able to merge different editor config files', function () {
     let filePath = project.path('app/app.hbs');
 
     project.write({
@@ -107,7 +107,7 @@ indent_size = 5
     });
   });
 
-  it('able to merge different config sections', function() {
+  it('able to merge different config sections', function () {
     let filePath = project.path('app.hbs');
 
     project.write({
@@ -133,7 +133,7 @@ insert_final_newline = true
     });
   });
 
-  it('able to resolve relative paths', function() {
+  it('able to resolve relative paths', function () {
     project.write({
       src: {
         'app.hbs': '',
@@ -149,7 +149,7 @@ indent_style = space
     });
   });
 
-  it('able to resolve config with custom name', function() {
+  it('able to resolve config with custom name', function () {
     let filePath = project.path('app.hbs');
 
     project.write({
@@ -177,7 +177,7 @@ insert_final_newline = true
     });
   });
 
-  it('return default values if no hbs in editor config', function() {
+  it('return default values if no hbs in editor config', function () {
     let filePath = project.path('app.hbs');
 
     project.write({
@@ -196,7 +196,7 @@ indent_size = 5
     });
   });
 
-  it('return empty object if editor config not relevant', function() {
+  it('return empty object if editor config not relevant', function () {
     let filePath = project.path('app.hbs');
 
     project.write({
@@ -211,7 +211,7 @@ indent_size = 5
     expect(new EditorConfigResolver().getEditorConfigData(filePath)).toEqual({});
   });
 
-  it('allow specify custom editorconfig for file', function() {
+  it('allow specify custom editorconfig for file', function () {
     let filePath = project.path('items/app.hbs');
 
     project.write({

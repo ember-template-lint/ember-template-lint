@@ -7,8 +7,8 @@ function verifyWithExternalSnapshot(results) {
   expect(results).toMatchSnapshot();
 }
 
-describe('rule public api', function() {
-  describe('general test harness support', function() {
+describe('rule public api', function () {
+  describe('general test harness support', function () {
     generateRuleTests({
       plugins: [
         {
@@ -95,7 +95,7 @@ describe('rule public api', function() {
     });
   });
 
-  describe('mode === fix', function() {
+  describe('mode === fix', function () {
     generateRuleTests({
       plugins: [
         {

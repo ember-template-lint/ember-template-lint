@@ -6,18 +6,18 @@ const buildFakeConsole = require('../helpers/console');
 const Project = require('../helpers/fake-project');
 const { stripIndent } = require('common-tags');
 
-describe('get-config', function() {
+describe('get-config', function () {
   let project = null;
 
-  beforeEach(function() {
+  beforeEach(function () {
     project = new Project();
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await project.dispose();
   });
 
-  it('if config is provided directly, it is used', function() {
+  it('if config is provided directly, it is used', function () {
     let config = {
       rules: {
         foo: 'bar',
@@ -32,7 +32,7 @@ describe('get-config', function() {
     });
   });
 
-  it('it supports severity level', function() {
+  it('it supports severity level', function () {
     let expected = {
       rules: {
         foo: { config: true, severity: 1 },
@@ -51,7 +51,7 @@ describe('get-config', function() {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('shows rules being "upgraded" to the new syntax when the config is in the old syntax', function() {
+  it('shows rules being "upgraded" to the new syntax when the config is in the old syntax', function () {
     let actual = getProjectConfig({
       config: {
         rules: {
@@ -72,7 +72,7 @@ describe('get-config', function() {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('it supports severity level with custom configuration', function() {
+  it('it supports severity level with custom configuration', function () {
     let expected = {
       rules: {
         foo: { config: { allow: [1, 2, 3] }, severity: 1 },
@@ -99,7 +99,7 @@ describe('get-config', function() {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('uses .template-lintrc.js in cwd if present', function() {
+  it('uses .template-lintrc.js in cwd if present', function () {
     let config = {
       rules: {
         foo: 'bar',
@@ -120,7 +120,7 @@ describe('get-config', function() {
     });
   });
 
-  it('uses the specified configPath from cwd', function() {
+  it('uses the specified configPath from cwd', function () {
     let someOtherPathConfig = {
       rules: {
         foo: 'bar',
@@ -140,7 +140,7 @@ describe('get-config', function() {
     });
   });
 
-  it('uses the specified configPath outside of cwd', function() {
+  it('uses the specified configPath outside of cwd', function () {
     let someOtherPathConfig = {
       rules: {
         foo: 'bar',
@@ -160,7 +160,7 @@ describe('get-config', function() {
     });
   });
 
-  it('can specify that it extends a default configuration', function() {
+  it('can specify that it extends a default configuration', function () {
     let actual = getProjectConfig({
       config: {
         extends: 'recommended',
@@ -170,7 +170,7 @@ describe('get-config', function() {
     expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
   });
 
-  it('can extend and override a default configuration', function() {
+  it('can extend and override a default configuration', function () {
     let expected = recommendedConfig;
 
     let actual = getProjectConfig({
@@ -186,7 +186,7 @@ describe('get-config', function() {
     expect(actual.rules['block-indentation']).not.toEqual(expected.rules['block-indentation']);
   });
 
-  it('migrates rules in the config root into `rules` property', function() {
+  it('migrates rules in the config root into `rules` property', function () {
     let actual = getProjectConfig({
       console: buildFakeConsole(),
       config: {
@@ -197,7 +197,7 @@ describe('get-config', function() {
     expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
   });
 
-  it('rules in the config root trigger a deprecation', function() {
+  it('rules in the config root trigger a deprecation', function () {
     let console = buildFakeConsole();
 
     getProjectConfig({
@@ -210,7 +210,7 @@ describe('get-config', function() {
     expect(console.stdout).toMatch(/Rule configuration has been moved/);
   });
 
-  it('warns for unknown rules', function() {
+  it('warns for unknown rules', function () {
     let console = buildFakeConsole();
 
     getProjectConfig({
@@ -225,7 +225,7 @@ describe('get-config', function() {
     expect(console.stdout).toMatch(/Invalid rule configuration found/);
   });
 
-  it('warns for unknown extends', function() {
+  it('warns for unknown extends', function () {
     let console = buildFakeConsole();
 
     getProjectConfig({
@@ -238,7 +238,7 @@ describe('get-config', function() {
     expect(console.stdout).toMatch(/Cannot find configuration for extends/);
   });
 
-  it('resolves plugins by string', function() {
+  it('resolves plugins by string', function () {
     let console = buildFakeConsole();
 
     project.setConfig({
@@ -246,7 +246,7 @@ describe('get-config', function() {
       plugins: ['my-awesome-thing'],
     });
 
-    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+    project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = stripIndent`
         module.exports = {
           name: 'my-awesome-thing',
@@ -272,12 +272,12 @@ describe('get-config', function() {
     expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
-  it('resolves plugins by string when using specified config (not resolved project config)', function() {
+  it('resolves plugins by string when using specified config (not resolved project config)', function () {
     let console = buildFakeConsole();
 
     project.setConfig();
 
-    project.addDevDependency('my-awesome-thing', '0.0.0', dep => {
+    project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = stripIndent`
         module.exports = {
           name: 'my-awesome-thing',
@@ -307,7 +307,7 @@ describe('get-config', function() {
     expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
-  it('extending multiple configurations allows subsequent configs to override earlier ones', function() {
+  it('extending multiple configurations allows subsequent configs to override earlier ones', function () {
     let actual = getProjectConfig({
       config: {
         extends: ['recommended', 'myplugin:recommended'],
@@ -330,7 +330,7 @@ describe('get-config', function() {
     expect(actual.rules['no-action']).toEqual({ config: false, severity: 0 });
   });
 
-  it('extending multiple configurations merges all rules', function() {
+  it('extending multiple configurations merges all rules', function () {
     let actual = getProjectConfig({
       config: {
         extends: ['myplugin:first', 'myplugin:second'],
@@ -361,7 +361,7 @@ describe('get-config', function() {
     });
   });
 
-  it('can specify plugin without rules', function() {
+  it('can specify plugin without rules', function () {
     let console = buildFakeConsole();
 
     let actual = getProjectConfig({
@@ -388,10 +388,10 @@ describe('get-config', function() {
     expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
   });
 
-  it('throw exception when plugin path is incorrect', function() {
+  it('throw exception when plugin path is incorrect', function () {
     let wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
-    expect(function() {
+    expect(function () {
       getProjectConfig({
         config: {
           plugins: [wrongPluginPath],
@@ -400,7 +400,7 @@ describe('get-config', function() {
     }).toThrow();
   });
 
-  it('validates non-default loaded rules', function() {
+  it('validates non-default loaded rules', function () {
     let console = buildFakeConsole();
 
     let actual = getProjectConfig({
@@ -426,7 +426,7 @@ describe('get-config', function() {
     expect(actual.loadedRules['foo-bar']).toEqual('plugin-function-placeholder');
   });
 
-  it('can chain extends and load rules across chained plugins', function() {
+  it('can chain extends and load rules across chained plugins', function () {
     let console = buildFakeConsole();
 
     let actual = getProjectConfig({
@@ -474,7 +474,7 @@ describe('get-config', function() {
     expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
   });
 
-  it('handles circular reference in config', function() {
+  it('handles circular reference in config', function () {
     let config = {
       extends: 'plugin1:recommended',
 
@@ -507,7 +507,7 @@ describe('get-config', function() {
     expect(actual.rules['foo-bar']).toEqual({ config: true, severity: 2 });
   });
 
-  it('handles circular reference in plugin', function() {
+  it('handles circular reference in plugin', function () {
     let plugin = {
       name: 'plugin1',
 
@@ -543,7 +543,7 @@ describe('get-config', function() {
     expect(actual.rules['foo-bar']).toEqual({ config: true, severity: 2 });
   });
 
-  it('getting config is idempotent', function() {
+  it('getting config is idempotent', function () {
     let console = buildFakeConsole();
     let firstPass = getProjectConfig({
       console,
@@ -573,7 +573,7 @@ describe('get-config', function() {
     expect(console.stdout).toBeFalsy();
   });
 
-  it('does not mutate the config', function() {
+  it('does not mutate the config', function () {
     let config = {
       config: {
         extends: 'recommended',
@@ -589,8 +589,8 @@ describe('get-config', function() {
   });
 });
 
-describe('determineRuleConfig', function() {
-  it('returns config and severity for a given rule config', function() {
+describe('determineRuleConfig', function () {
+  it('returns config and severity for a given rule config', function () {
     let config = {
       foo: 'bar',
       bang: 'warn',
@@ -606,8 +606,8 @@ describe('determineRuleConfig', function() {
   });
 });
 
-describe('getConfigForFile', function() {
-  it('Merges the overrides rules with existing rules config', function() {
+describe('getConfigForFile', function () {
+  it('Merges the overrides rules with existing rules config', function () {
     let config = {
       rules: {
         foo: 'bar',
@@ -632,7 +632,7 @@ describe('getConfigForFile', function() {
     expect(actual.rules).toEqual(expectedRule);
   });
 
-  it('Returns the correct rules config if overrides is empty/not present', function() {
+  it('Returns the correct rules config if overrides is empty/not present', function () {
     let config = {
       rules: {
         foo: 'bar',
@@ -655,7 +655,7 @@ describe('getConfigForFile', function() {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('Merges the overrides rules from multiple overrides with existing rules config', function() {
+  it('Merges the overrides rules from multiple overrides with existing rules config', function () {
     let config = {
       rules: {
         qux: 'blobber',
@@ -688,7 +688,7 @@ describe('getConfigForFile', function() {
     expect(actual.rules).toEqual(expectedRule);
   });
 
-  it('returns the correct pendingStatus when the provided moduleId is listed in `pending`', function() {
+  it('returns the correct pendingStatus when the provided moduleId is listed in `pending`', function () {
     let config = {
       pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
     };
@@ -698,7 +698,7 @@ describe('getConfigForFile', function() {
     expect(getConfigForFile(config, { moduleId: 'some/other/path' }).pendingStatus).toBeFalsy();
   });
 
-  it('matches with absolute paths for modules', function() {
+  it('matches with absolute paths for modules', function () {
     let config = {
       pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
     };

@@ -4,13 +4,13 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 const message = require('../../../lib/rules/no-implicit-this').message;
 
 let statements = [
-  path => `{{${path}}}`,
-  path => `{{${path} argument=true}}`,
-  path => `{{#${path}}}{{/${path}}}`,
-  path => `{{helper argument=${path}}}`,
-  path => `{{#helper argument=${path}}}{{/helper}}`,
-  path => `{{echo (helper ${path})}}`,
-  path => `<div {{helper ${path}}}></div>`,
+  (path) => `{{${path}}}`,
+  (path) => `{{${path} argument=true}}`,
+  (path) => `{{#${path}}}{{/${path}}}`,
+  (path) => `{{helper argument=${path}}}`,
+  (path) => `{{#helper argument=${path}}}{{/helper}}`,
+  (path) => `{{echo (helper ${path})}}`,
+  (path) => `<div {{helper ${path}}}></div>`,
 ];
 
 let good = [
@@ -32,7 +32,7 @@ let good = [
   },
 ];
 
-statements.forEach(statement => {
+statements.forEach((statement) => {
   good.push(`${statement('@book')}`);
   good.push(`${statement('@book.author')}`);
   good.push(`${statement('this.book')}`);

@@ -9,23 +9,23 @@ const chalk = require('chalk');
 
 const fixturePath = path.join(__dirname, '..', '/fixtures');
 
-describe('public api', function() {
+describe('public api', function () {
   let project;
   let mockConsole;
 
-  beforeEach(function() {
+  beforeEach(function () {
     mockConsole = buildFakeConsole();
 
     project = new Project();
     project.chdir();
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await project.dispose();
   });
 
-  describe('Linter.prototype.loadConfig', function() {
-    it('throws an error if the config file has an error on parsing', function() {
+  describe('Linter.prototype.loadConfig', function () {
+    it('throws an error if the config file has an error on parsing', function () {
       project.write({
         '.template-lintrc.js': "throw Error('error happening during config loading');\n",
       });
@@ -37,7 +37,7 @@ describe('public api', function() {
       }).toThrow(/error happening during config loading/);
     });
 
-    it('uses an empty set of rules if no .template-lintrc is present', function() {
+    it('uses an empty set of rules if no .template-lintrc is present', function () {
       let linter = new Linter({
         console: mockConsole,
       });
@@ -45,7 +45,7 @@ describe('public api', function() {
       expect(linter.config.rules).toEqual({});
     });
 
-    it('uses provided config', function() {
+    it('uses provided config', function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -65,7 +65,7 @@ describe('public api', function() {
       });
     });
 
-    it('uses .template-lintrc.js in cwd if present', function() {
+    it('uses .template-lintrc.js in cwd if present', function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -85,7 +85,7 @@ describe('public api', function() {
       });
     });
 
-    it('uses .template-lintrc in provided configPath', function() {
+    it('uses .template-lintrc in provided configPath', function () {
       let someOtherPathConfig = {
         rules: {
           foo: 'bar',
@@ -108,7 +108,7 @@ describe('public api', function() {
       });
     });
 
-    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function() {
+    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -137,7 +137,7 @@ describe('public api', function() {
       });
     });
 
-    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function() {
+    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function () {
       let appPathConfig = {
         rules: {
           foo: 'bar',
@@ -167,7 +167,7 @@ describe('public api', function() {
       });
     });
 
-    it('breaks if the specified configPath does not exist', function() {
+    it('breaks if the specified configPath does not exist', function () {
       expect(() => {
         new Linter({
           console: mockConsole,
@@ -176,7 +176,7 @@ describe('public api', function() {
       }).toThrow('The configuration file specified (does/not/exist) could not be found. Aborting.');
     });
 
-    it('with deprecated rule config', function() {
+    it('with deprecated rule config', function () {
       let expected = {
         rules: {
           'no-bare-strings': 'error',
@@ -193,12 +193,12 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter.prototype.constructor', function() {
-    it('should be able to instantiate without options', function() {
+  describe('Linter.prototype.constructor', function () {
+    it('should be able to instantiate without options', function () {
       expect(new Linter()).toBeTruthy();
     });
 
-    it('accepts a fake console implementation', function() {
+    it('accepts a fake console implementation', function () {
       let expected = 'foo bar widget';
       let actual;
 
@@ -215,10 +215,10 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter.prototype.verifyAndFix', function() {
+  describe('Linter.prototype.verifyAndFix', function () {
     let linter;
 
-    beforeEach(function() {
+    beforeEach(function () {
       project.setConfig({
         rules: {
           quotes: ['error', 'double'],
@@ -241,11 +241,11 @@ describe('public api', function() {
       });
     });
 
-    afterEach(async function() {
+    afterEach(async function () {
       await project.dispose();
     });
 
-    it('returns whether the source has been fixed + an array of remaining issues with the provided template', function() {
+    it('returns whether the source has been fixed + an array of remaining issues with the provided template', function () {
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -272,7 +272,7 @@ describe('public api', function() {
       expect(result.isFixed).toEqual(false);
     });
 
-    it('includes updated output when fixable', function() {
+    it('includes updated output when fixable', function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
       project.write({
@@ -296,7 +296,7 @@ describe('public api', function() {
       expect(result.isFixed).toEqual(true);
     });
 
-    it('updated output includes byte order mark if input source includes it', function() {
+    it('updated output includes byte order mark if input source includes it', function () {
       let templateContents = '\uFEFF<button>LOL, Click me!</button>';
 
       project.write({
@@ -321,9 +321,9 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter.prototype.verify', function() {
+  describe('Linter.prototype.verify', function () {
     let linter;
-    beforeEach(function() {
+    beforeEach(function () {
       project.setConfig({
         rules: {
           'no-bare-strings': 'error',
@@ -355,11 +355,11 @@ describe('public api', function() {
       });
     });
 
-    afterEach(async function() {
+    afterEach(async function () {
       await project.dispose();
     });
 
-    it('returns an array of issues with the provided template', function() {
+    it('returns an array of issues with the provided template', function () {
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -394,7 +394,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('returns a "fatal" result object if an error occurs during parsing', function() {
+    it('returns a "fatal" result object if an error occurs during parsing', function () {
       let template = '<div>';
       let result = linter.verify({
         source: template,
@@ -403,7 +403,7 @@ describe('public api', function() {
       expect(result[0].fatal).toBe(true);
     });
 
-    it('triggers warnings when severity is set to warn', function() {
+    it('triggers warnings when severity is set to warn', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -434,7 +434,7 @@ describe('public api', function() {
       expect(result).toEqual([expected]);
     });
 
-    it('allows custom severity level for rules along with custom config', function() {
+    it('allows custom severity level for rules along with custom config', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -465,7 +465,7 @@ describe('public api', function() {
       expect(result).toEqual([expected]);
     });
 
-    it('defaults all messages to warning severity level when module listed in pending', function() {
+    it('defaults all messages to warning severity level when module listed in pending', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -495,7 +495,7 @@ describe('public api', function() {
       expect(result).toEqual([expected]);
     });
 
-    it('does not exclude errors when other rules are marked as pending', function() {
+    it('does not exclude errors when other rules are marked as pending', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -535,7 +535,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides - base case', function() {
+    it('Works with overrides - base case', function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -562,7 +562,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides with custom warning severity', function() {
+    it('Works with overrides with custom warning severity', function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -603,7 +603,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('Works for older syntax without custom severity', function() {
+    it('Works for older syntax without custom severity', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -659,7 +659,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides with custom warning severity object', function() {
+    it('Works with overrides with custom warning severity object', function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -700,7 +700,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('Should not trigger the lint error over custom overrides', function() {
+    it('Should not trigger the lint error over custom overrides', function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -730,7 +730,7 @@ describe('public api', function() {
       expect(result).toEqual([]);
     });
 
-    it('triggers warnings when specific rule is marked as pending', function() {
+    it('triggers warnings when specific rule is marked as pending', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -762,7 +762,7 @@ describe('public api', function() {
       expect(result).toEqual([expected]);
     });
 
-    it('module listed via moduleId in pending passes an error results', function() {
+    it('module listed via moduleId in pending passes an error results', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -790,7 +790,7 @@ describe('public api', function() {
       expect(result).toEqual([expected]);
     });
 
-    it('module listed as object via rule exclusion in pending passes an error results', function() {
+    it('module listed as object via rule exclusion in pending passes an error results', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -818,7 +818,7 @@ describe('public api', function() {
       expect(result).toEqual([expected]);
     });
 
-    it('triggers error if pending rule is passing', function() {
+    it('triggers error if pending rule is passing', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -858,7 +858,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('does not include errors when marked as ignored', function() {
+    it('does not include errors when marked as ignored', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -877,7 +877,7 @@ describe('public api', function() {
       expect(result).toEqual([]);
     });
 
-    it('does not include errors when marked as ignored using glob', function() {
+    it('does not include errors when marked as ignored using glob', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -896,7 +896,7 @@ describe('public api', function() {
       expect(result).toEqual([]);
     });
 
-    it('shows a "rule not found" error if a rule definition is not found"', function() {
+    it('shows a "rule not found" error if a rule definition is not found"', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -922,18 +922,18 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter using plugins', function() {
+  describe('Linter using plugins', function () {
     let basePath = path.join(fixturePath, 'with-plugins');
     let linter;
 
-    beforeEach(function() {
+    beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
         configPath: path.join(basePath, '.template-lintrc.js'),
       });
     });
 
-    it('returns plugin rule issues', function() {
+    it('returns plugin rule issues', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -958,7 +958,7 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
 
-    it('allow you to disable plugin rules inline', function() {
+    it('allow you to disable plugin rules inline', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'disabled-rule.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
@@ -973,18 +973,18 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter using plugin with extends', function() {
+  describe('Linter using plugin with extends', function () {
     let basePath = path.join(fixturePath, 'with-plugin-with-configurations');
     let linter;
 
-    beforeEach(function() {
+    beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
         configPath: path.join(basePath, '.template-lintrc.js'),
       });
     });
 
-    it('returns plugin rule issues', function() {
+    it('returns plugin rule issues', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -1009,18 +1009,18 @@ describe('public api', function() {
       expect(result).toEqual(expected);
     });
   });
-  describe('Linter using plugin with multiple extends', function() {
+  describe('Linter using plugin with multiple extends', function () {
     let basePath = path.join(fixturePath, 'with-multiple-extends');
     let linter;
 
-    beforeEach(function() {
+    beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
         configPath: path.join(basePath, '.template-lintrc.js'),
       });
     });
 
-    it('returns plugin rule issues', function() {
+    it('returns plugin rule issues', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -1056,18 +1056,18 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter using plugins (inline plugins)', function() {
+  describe('Linter using plugins (inline plugins)', function () {
     let basePath = path.join(fixturePath, 'with-inline-plugins');
     let linter;
 
-    beforeEach(function() {
+    beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
         configPath: path.join(basePath, '.template-lintrc.js'),
       });
     });
 
-    it('returns plugin rule issues', function() {
+    it('returns plugin rule issues', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -1093,18 +1093,18 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter using plugins loading a configuration that extends from another plugins configuration', function() {
+  describe('Linter using plugins loading a configuration that extends from another plugins configuration', function () {
     let basePath = path.join(fixturePath, 'with-plugins-overwriting');
     let linter;
 
-    beforeEach(function() {
+    beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
         configPath: path.join(basePath, '.template-lintrc.js'),
       });
     });
 
-    it('returns plugin rule issues', function() {
+    it('returns plugin rule issues', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
@@ -1119,12 +1119,12 @@ describe('public api', function() {
     });
   });
 
-  describe('Linter.errorsToMessages', function() {
+  describe('Linter.errorsToMessages', function () {
     beforeEach(() => {
       chalk.level = 0;
     });
 
-    it('formats error with rule, message and moduleId', function() {
+    it('formats error with rule, message and moduleId', function () {
       let result = Linter.errorsToMessages('file/path', [
         { rule: 'some rule', message: 'some message' },
       ]);
@@ -1132,7 +1132,7 @@ describe('public api', function() {
       expect(result).toEqual('file/path\n' + '  -:-  error  some message  some rule\n');
     });
 
-    it('formats error with rule, message, line and column numbers even when they are "falsey"', function() {
+    it('formats error with rule, message, line and column numbers even when they are "falsey"', function () {
       let result = Linter.errorsToMessages('file/path', [
         { rule: 'some rule', message: 'some message', line: 1, column: 0 },
       ]);
@@ -1140,7 +1140,7 @@ describe('public api', function() {
       expect(result).toEqual('file/path\n' + '  1:0  error  some message  some rule\n');
     });
 
-    it('formats error with rule, message, line and column numbers', function() {
+    it('formats error with rule, message, line and column numbers', function () {
       let result = Linter.errorsToMessages('file/path', [
         { rule: 'some rule', message: 'some message', line: 11, column: 12 },
       ]);
@@ -1148,7 +1148,7 @@ describe('public api', function() {
       expect(result).toEqual('file/path\n' + '  11:12  error  some message  some rule\n');
     });
 
-    it('formats error with rule, message, source', function() {
+    it('formats error with rule, message, source', function () {
       let result = Linter.errorsToMessages(
         'file/path',
         [{ rule: 'some rule', message: 'some message', source: 'some source' }],
@@ -1160,7 +1160,7 @@ describe('public api', function() {
       );
     });
 
-    it('formats more than one error', function() {
+    it('formats more than one error', function () {
       let result = Linter.errorsToMessages('file/path', [
         { rule: 'some rule', message: 'some message', line: 11, column: 12 },
         {
@@ -1178,7 +1178,7 @@ describe('public api', function() {
       );
     });
 
-    it('formats empty errors', function() {
+    it('formats empty errors', function () {
       let result = Linter.errorsToMessages('file/path', []);
 
       expect(result).toEqual('');
