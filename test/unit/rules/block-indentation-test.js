@@ -696,9 +696,9 @@ generateRuleTests({
       results: [
         {
           fatal: true,
-          message: "ach doesn't match each - 3:9"
-        }
-      ]
+          message: "ach doesn't match each - 3:9",
+        },
+      ],
     },
   ],
 });
