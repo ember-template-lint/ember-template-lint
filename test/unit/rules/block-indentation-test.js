@@ -687,4 +687,18 @@ generateRuleTests({
       ],
     },
   ],
+  errors: [
+    {
+      template: `
+      {{#ach this.foo as |bar|}}
+        <li>{{bar}}</li>
+      {{/each}}`,
+      results: [
+        {
+          fatal: true,
+          message: "ach doesn't match each - 3:9"
+        }
+      ]
+    },
+  ],
 });
