@@ -1,3 +1,21 @@
+## v2.4.1 (2020-03-25)
+
+#### :bug: Bug Fix
+* [#1229](https://github.com/ember-template-lint/ember-template-lint/pull/1229) Ensure template parsing errors are only reported once (not once per-rule) ([@lifeart](https://github.com/lifeart))
+* [#1210](https://github.com/ember-template-lint/ember-template-lint/pull/1210) Fix invalid failure for invalid block param definition ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#1220](https://github.com/ember-template-lint/ember-template-lint/pull/1220) Ensure each rule documentation file has the right title and an examples section ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1212](https://github.com/ember-template-lint/ember-template-lint/pull/1212) Re-run `npm init rwjblue-release-it-setup --update`. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+
 ## v2.4.0 (2020-03-08)
 
 #### :rocket: Enhancement
