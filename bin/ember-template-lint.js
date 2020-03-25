@@ -21,17 +21,20 @@ const readFile = promisify(fs.readFile);
 
 const STDIN = '/dev/stdin';
 
-async function buildLinterOptions(workingDir, filePath, filename = '', isReadingStdin) {
+function removeExt(filePath) {
+  return filePath.slice(0, -path.extname(filePath).length);
+}
+
+async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
   if (isReadingStdin) {
     let filePath = filename;
-    let moduleId = filePath.slice(0, -4);
+    let moduleId = removeExt(filePath);
     let source = await getStdin();
 
     return { source, filePath, moduleId };
   } else {
-    let moduleId = filePath.slice(0, -4);
-    let resolvedFilePath = path.resolve(workingDir, filePath);
-    let source = await readFile(resolvedFilePath, { encoding: 'utf8' });
+    let moduleId = removeExt(filePath);
+    let source = await readFile(path.resolve(filePath), { encoding: 'utf8' });
 
     return { source, filePath, moduleId };
   }
@@ -60,13 +63,14 @@ function executeGlobby(workingDir, pattern, ignore) {
 
 function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = executeGlobby) {
   let result = new Set();
+  let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
 
   filePatterns.forEach((pattern) => {
-    let isHBS = pattern.slice(-4) === '.hbs';
-    let isLiteralPath = !isGlob(pattern) && fs.existsSync(path.resolve(workingDir, pattern));
+    let isSupported = supportedExtensions.has(path.extname(pattern));
+    let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
 
-    if (isHBS && isLiteralPath) {
-      let isIgnored = micromatch.isMatch(pattern, ignorePattern);
+    if (isSupported && isLiteralPath) {
+      let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
 
       if (!isIgnored) {
         result.add(pattern);
@@ -75,7 +79,11 @@ function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = execute
       return;
     }
 
-    glob(workingDir, pattern, ignorePattern).forEach((filePath) => result.add(filePath));
+    globby
+      // `--no-ignore-pattern` results in `ignorePattern === [false]`
+      .sync(pattern, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
+      .filter((filePath) => supportedExtensions.has(path.extname(filePath)))
+      .forEach((filePath) => result.add(filePath));
   });
 
   return result;
@@ -197,7 +205,7 @@ function printPending(results, options) {
     }, new Set());
 
     if (failingRules.size > 0) {
-      pendingList.push({ moduleId: filePath.slice(0, -4), only: [...failingRules] });
+      pendingList.push({ moduleId: removeExt(filePath), only: [...failingRules] });
     }
   }
   let pendingListString = JSON.stringify(pendingList, null, 2);

@@ -1247,4 +1247,133 @@ describe('public api', function () {
       expect(result).toEqual('');
     });
   });
+
+  describe('Linter able to lint and fix .html files', function () {
+    let linter;
+
+    beforeEach(function () {
+      project.setConfig({
+        rules: {
+          quotes: ['error', 'double'],
+          'require-button-type': 'error',
+        },
+      });
+
+      project.write({
+        app: {
+          templates: {
+            'application.html': "<input class='mb4'>",
+            'other.html': '<button>LOL, Click me!</button>',
+          },
+        },
+      });
+
+      linter = new Linter({
+        console: mockConsole,
+        configPath: project.path('.template-lintrc.js'),
+      });
+    });
+
+    afterEach(async function () {
+      await project.dispose();
+    });
+
+    it('[.html] returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
+      let templatePath = project.path('app/templates/application.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          column: 7,
+          line: 1,
+          message: 'you must use double quotes in templates',
+          filePath: templatePath,
+          moduleId: templatePath.slice(0, -4),
+          rule: 'quotes',
+          severity: 2,
+          source: "class='mb4'",
+        },
+      ];
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual(expected);
+      expect(result.output).toEqual(templateContents);
+      expect(result.isFixed).toEqual(false);
+    });
+
+    it('[.html] ensures template parsing errors are only reported once (not once per-rule)', async function () {
+      let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
+      project.write({
+        app: {
+          templates: {
+            'other.html': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.html');
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages.length).toEqual(1);
+      expect(result.messages[0].message).toEqual("ach doesn't match each - 1:3");
+      expect(result.messages[0].fatal).toEqual(true);
+    });
+
+    it('[.html] includes updated output when fixable', async function () {
+      let templateContents = '<button>LOL, Click me!</button>';
+
+      project.write({
+        app: {
+          templates: {
+            'other.html': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.html');
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual('<button type="button">LOL, Click me!</button>');
+      expect(result.isFixed).toEqual(true);
+    });
+
+    it('[.html] updated output includes byte order mark if input source includes it', async function () {
+      let templateContents = '\uFEFF<button>LOL, Click me!</button>';
+
+      project.write({
+        app: {
+          templates: {
+            'other.html': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.html');
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual('\uFEFF<button type="button">LOL, Click me!</button>');
+      expect(result.isFixed).toEqual(true);
+    });
+  });
 });
