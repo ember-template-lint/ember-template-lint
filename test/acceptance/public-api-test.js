@@ -272,6 +272,29 @@ describe('public api', function () {
       expect(result.isFixed).toEqual(false);
     });
 
+    it('ensures template parsing errors are only reported once (not once per-rule)', function () {
+      let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
+      project.write({
+        app: {
+          templates: {
+            'other.hbs': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.hbs');
+
+      let result = linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages.length).toEqual(1);
+      expect(result.messages[0].message).toEqual("ach doesn't match each - 1:3");
+      expect(result.messages[0].fatal).toEqual(true);
+    });
+
     it('includes updated output when fixable', function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
