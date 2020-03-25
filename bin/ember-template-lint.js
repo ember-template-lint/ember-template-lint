@@ -21,15 +21,19 @@ const readFile = promisify(fs.readFile);
 
 const STDIN = '/dev/stdin';
 
+function removeExt(filePath) {
+  return filePath.slice(0, -path.extname(filePath).length);
+}
+
 async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
   if (isReadingStdin) {
     let filePath = filename;
-    let moduleId = filePath.slice(0, -4);
+    let moduleId = removeExt(filePath);
     let source = await getStdin();
 
     return { source, filePath, moduleId };
   } else {
-    let moduleId = filePath.slice(0, -4);
+    let moduleId = removeExt(filePath);
     let source = await readFile(path.resolve(filePath), { encoding: 'utf8' });
 
     return { source, filePath, moduleId };
@@ -51,12 +55,13 @@ async function lintSource(linter, options, shouldFix) {
 
 function expandFileGlobs(filePatterns, ignorePattern) {
   let result = new Set();
+  let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
 
   filePatterns.forEach((pattern) => {
-    let isHBS = pattern.slice(-4) === '.hbs';
+    let isSupported = supportedExtensions.has(path.extname(pattern));
     let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
 
-    if (isHBS && isLiteralPath) {
+    if (isSupported && isLiteralPath) {
       let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
 
       if (!isIgnored) {
@@ -69,7 +74,7 @@ function expandFileGlobs(filePatterns, ignorePattern) {
     globby
       // `--no-ignore-pattern` results in `ignorePattern === [false]`
       .sync(pattern, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
-      .filter((filePath) => filePath.slice(-4) === '.hbs')
+      .filter((filePath) => supportedExtensions.has(path.extname(filePath)))
       .forEach((filePath) => result.add(filePath));
   });
 
@@ -178,7 +183,7 @@ function printPending(results, options) {
     }, new Set());
 
     if (failingRules.size > 0) {
-      pendingList.push({ moduleId: filePath.slice(0, -4), only: [...failingRules] });
+      pendingList.push({ moduleId: removeExt(filePath), only: [...failingRules] });
     }
   }
   let pendingListString = JSON.stringify(pendingList, null, 2);
