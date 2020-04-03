@@ -35,7 +35,7 @@
     ]
   },
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "ember-template-recast": "^4.1.1",
     "find-up": "^4.1.0",
     "globby": "^11.0.0",
