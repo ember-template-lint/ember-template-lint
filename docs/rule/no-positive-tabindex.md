@@ -1,5 +1,7 @@
 # no-positive-tabindex
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 ## `<* tabindex>`
 
 Avoid positive tabIndex property values to synchronize the flow of the page with keyboard tab order.

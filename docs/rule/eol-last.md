@@ -1,5 +1,7 @@
 # eol-last
 
+:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
+
 Require or disallow newline at the end of files.
 
 ## Examples

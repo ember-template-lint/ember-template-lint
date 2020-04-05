@@ -1,5 +1,7 @@
 # no-unused-block-params
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule forbids unused block parameters except when they are needed to access a later parameter.
 
 ## Examples

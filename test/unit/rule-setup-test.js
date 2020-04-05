@@ -1,5 +1,12 @@
 const { readdirSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
+const configRecommended = require('../../lib/config/recommended');
+const configOctane = require('../../lib/config/octane');
+const configStylistic = require('../../lib/config/stylistic');
+
+const RULE_NAMES_RECOMMENDED = new Set(Object.keys(configRecommended.rules));
+const RULE_NAMES_OCTANE = new Set(Object.keys(configOctane.rules));
+const RULE_NAMES_STYLISTIC = new Set(Object.keys(configStylistic.rules));
 
 describe('rules setup is correct', function () {
   const rulesEntryPath = join(__dirname, '..', '..', 'lib', 'rules');
@@ -81,13 +88,38 @@ describe('rules setup is correct', function () {
     });
   });
 
-  it('should have the right contents (title, examples) for each rule documentation file', function () {
+  it('should have the right contents (title, examples, notices) for each rule documentation file', function () {
+    const CONFIG_MSG_RECOMMENDED =
+      ":white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.";
+    const CONFIG_MSG_OCTANE =
+      ":car: The `extends: 'octane'` property in a configuration file enables this rule.";
+    const CONFIG_MSG_STYLISTIC =
+      ":dress: The `extends: 'stylistic'` property in a configuration file enables this rule.";
+
     deprecatedRules.forEach((ruleName) => {
       const path = join(__dirname, '..', '..', 'docs', 'rule', 'deprecations', `${ruleName}.md`);
       const file = readFileSync(path, 'utf8');
 
       expect(file).toContain(`# ${ruleName}`); // Title header.
       expect(file).toContain('## Examples'); // Examples section header.
+
+      if (RULE_NAMES_RECOMMENDED.has(ruleName)) {
+        expect(file).toContain(CONFIG_MSG_RECOMMENDED);
+      } else {
+        expect(file).not.toContain(CONFIG_MSG_RECOMMENDED);
+      }
+
+      if (RULE_NAMES_OCTANE.has(ruleName)) {
+        expect(file).toContain(CONFIG_MSG_OCTANE);
+      } else {
+        expect(file).not.toContain(CONFIG_MSG_OCTANE);
+      }
+
+      if (RULE_NAMES_STYLISTIC.has(ruleName)) {
+        expect(file).toContain(CONFIG_MSG_STYLISTIC);
+      } else {
+        expect(file).not.toContain(CONFIG_MSG_STYLISTIC);
+      }
     });
 
     expectedRules.forEach((ruleName) => {
@@ -96,6 +128,24 @@ describe('rules setup is correct', function () {
 
       expect(file).toContain(`# ${ruleName}`); // Title header.
       expect(file).toContain('## Examples'); // Examples section header.
+
+      if (RULE_NAMES_RECOMMENDED.has(ruleName)) {
+        expect(file).toContain(CONFIG_MSG_RECOMMENDED);
+      } else {
+        expect(file).not.toContain(CONFIG_MSG_RECOMMENDED);
+      }
+
+      if (RULE_NAMES_OCTANE.has(ruleName)) {
+        expect(file).toContain(CONFIG_MSG_OCTANE);
+      } else {
+        expect(file).not.toContain(CONFIG_MSG_OCTANE);
+      }
+
+      if (RULE_NAMES_STYLISTIC.has(ruleName)) {
+        expect(file).toContain(CONFIG_MSG_STYLISTIC);
+      } else {
+        expect(file).not.toContain(CONFIG_MSG_STYLISTIC);
+      }
     });
   });
 });

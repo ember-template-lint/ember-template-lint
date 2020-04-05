@@ -1,5 +1,7 @@
 # require-button-type
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule requires all `<button>` elements to have a valid `type` attribute.
 
 By default, the `type` attribute of `<button>` elements is `submit`. This can

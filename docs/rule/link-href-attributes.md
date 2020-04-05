@@ -1,5 +1,7 @@
 # link-href-attributes
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 It's common to treat anchor tags as buttons. However, this is a bad practice! The resulting anchor tag without an `href` is completely unfocusable (cannot use keyboard navigation to to land on it, cannot be seen from a screen reader). The most discernible difference between a link (`<a>`) and a `<button>` is that a link navigates the user to a new URL (thus taking the user away from the current context). A `button` toggles something in the interface or triggers new content in that same context (i.e., a popup menu using `aria-haspopup`).
 
 One of the differences between `<a>` elements and `<button>` elements is how they work- the `<button>` can be triggered by either the `SPACEBAR` or the `ENTER` key, while the `<a>` is only triggered by the `ENTER` key. This is important to know, so you can provide appropriately for users who rely UI elements to work in a consistent way.
