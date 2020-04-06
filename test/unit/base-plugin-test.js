@@ -51,7 +51,7 @@ describe('base plugin', function () {
 
       let rule = new Rule(options);
 
-      transform(ast, () => rule.getVisitor());
+      transform(ast, (env) => rule.getVisitor(env));
     }
   }
 
@@ -124,6 +124,21 @@ describe('base plugin', function () {
       runRules('foo', [
         { Rule: AwesomeRule, name: 'awesome-rule', config: true, filePath: undefined },
       ]);
+    });
+
+    it('can access template-recast env', function () {
+      class AwesomeRule extends Rule {
+        visitor(env) {
+          let { syntax } = env;
+          expect(syntax).toHaveProperty('parse');
+          expect(syntax).toHaveProperty('builders');
+          expect(syntax).toHaveProperty('print');
+          expect(syntax).toHaveProperty('traverse');
+          expect(syntax).toHaveProperty('Walker');
+        }
+      }
+
+      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
   });
 
