@@ -1,5 +1,7 @@
 # no-unnecessary-component-helper
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 The `component` template helper can be used to dynamically pick the component being rendered based on the provided property. But if the component name is passed as a string because it's already known, then the component should be invoked directly, instead of using the `component` helper.
 
 ## Examples

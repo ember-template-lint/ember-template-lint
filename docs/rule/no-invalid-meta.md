@@ -1,5 +1,7 @@
 # no-invalid-meta
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule checks for these meta tag issues:
 
 - a meta with a redirect- if it exists, it checks for a timed delay greater than 0.

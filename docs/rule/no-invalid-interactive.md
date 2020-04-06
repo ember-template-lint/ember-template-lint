@@ -1,5 +1,7 @@
 # no-invalid-interactive
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Adding interactivity to an element that is not naturally interactive content leads to a very poor experience for
 users of assistive technology (i.e. screen readers). In order to ensure that screen readers can provide useful information to their users, we should add an appropriate `role` attribute when the underlying element would not have made that role obvious.
 

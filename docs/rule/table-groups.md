@@ -1,5 +1,7 @@
 # table-groups
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 It is best practice to group table rows into one of:
 
 * `thead`

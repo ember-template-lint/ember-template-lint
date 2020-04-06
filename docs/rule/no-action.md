@@ -1,5 +1,7 @@
 # no-action
 
+:car: The `extends: 'octane'` property in a configuration file enables this rule.
+
 What's wrong with `{{action}}`?
 
 "Action" is an overloaded term in Ember parlance. Actions are:

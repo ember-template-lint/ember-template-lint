@@ -1,5 +1,7 @@
 # style-concatenation
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Ember has a runtime warning that says:
 
 > Binding style attributes may introduce cross-site scripting vulnerabilities; please ensure that values being bound are properly escaped.

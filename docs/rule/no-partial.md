@@ -1,5 +1,7 @@
 # no-partial
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Partials are a legacy hold over from the days in which Ember had little to no mechanism for sharing "template snippets". Today, we can use "contextual components" (and soon "named blocks"), which serves the original need for partials.
 
 In addition to having a better solution for the original problem, there are also a number of issues with partials:

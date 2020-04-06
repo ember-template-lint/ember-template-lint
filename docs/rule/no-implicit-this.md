@@ -1,5 +1,7 @@
 # no-implicit-this
 
+:car: The `extends: 'octane'` property in a configuration file enables this rule.
+
 This rule aides in the migration path for [emberjs/rfcs#308](https://github.com/emberjs/rfcs/pull/308).
 
 ## Motivation

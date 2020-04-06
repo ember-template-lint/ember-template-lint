@@ -1,5 +1,7 @@
 # no-index-component-invocation
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Components and Component Templates can be structured as `app/components/foo-bar/index.js` and
 `app/components/foo-bar/index.hbs`. This allows additional files related to the
 component (such as a `README.md` file) to be co-located on the filesystem.

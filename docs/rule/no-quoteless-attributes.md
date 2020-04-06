@@ -1,5 +1,7 @@
 # no-quoteless-attributes
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 In HTML, all attribute values are considered strings, regardless of whether they are quoted or not.
 
 The following two examples are _identical_ from the perspective of the browser:
