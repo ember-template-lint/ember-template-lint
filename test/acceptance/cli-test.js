@@ -725,7 +725,7 @@ Options:
       setupEnvVar('GITHUB_ACTIONS', 'true');
 
       it('should print GitHub Actions annotations', function () {
-        setProjectConfigForErrors();
+        setProjectConfigForErrorsAndWarning();
 
         let result = run(['.'], {
           env: { GITHUB_ACTIONS: 'true' },
@@ -735,13 +735,37 @@ Options:
         expect(result.stdout.split('\n')).toEqual([
           'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
-          '  1:25  error  Non-translated string used  no-bare-strings',
+          '  1:24  error  Non-translated string used  no-bare-strings',
+          '  1:53  warning  HTML comment detected  no-html-comments',
           '',
-          '✖ 2 problems (2 errors, 0 warnings)',
+          '✖ 3 problems (2 errors, 1 warnings)',
           '::error file=app/templates/application.hbs,line=1,col=4::Non-translated string used',
-          '::error file=app/templates/application.hbs,line=1,col=25::Non-translated string used',
+          '::error file=app/templates/application.hbs,line=1,col=24::Non-translated string used',
+          '::warning file=app/templates/application.hbs,line=1,col=53::HTML comment detected',
         ]);
         expect(result.stderr).toBeFalsy();
+      });
+
+      describe('with --quiet param', function () {
+        it('should print GitHub Actions annotations', function () {
+          setProjectConfigForErrorsAndWarning();
+
+          let result = run(['.', '--quiet'], {
+            env: { GITHUB_ACTIONS: 'true' },
+          });
+
+          expect(result.exitCode).toEqual(1);
+          expect(result.stdout.split('\n')).toEqual([
+            'app/templates/application.hbs',
+            '  1:4  error  Non-translated string used  no-bare-strings',
+            '  1:24  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 2 problems (2 errors, 0 warnings)',
+            '::error file=app/templates/application.hbs,line=1,col=4::Non-translated string used',
+            '::error file=app/templates/application.hbs,line=1,col=24::Non-translated string used',
+          ]);
+          expect(result.stderr).toBeFalsy();
+        });
       });
     });
   });
