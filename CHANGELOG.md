@@ -1,3 +1,23 @@
+## v2.5.0 (2020-04-08)
+
+#### :rocket: Enhancement
+* [#1251](https://github.com/ember-template-lint/ember-template-lint/pull/1251) Pass `env` from `ember-template-recast` to rules so they can use `env.syntax.builders.*` during `ember-template-lint **/*.hbs --fix`. ([@dcyriller](https://github.com/dcyriller))
+* [#1238](https://github.com/ember-template-lint/ember-template-lint/pull/1238) Add new rule: `require-form-method` ([@raido](https://github.com/raido))
+
+#### :bug: Bug Fix
+* [#1257](https://github.com/ember-template-lint/ember-template-lint/pull/1257) Ensure GitHub Action annotations are not emitted for warnings. ([@eramod](https://github.com/eramod))
+
+#### :memo: Documentation
+* [#1250](https://github.com/ember-template-lint/ember-template-lint/pull/1250) Update each rule doc to mention what config enables the rule ([@bmish](https://github.com/bmish))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Dianne Eramo ([@eramod](https://github.com/eramod))
+- Raido Kuli ([@raido](https://github.com/raido))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.4.1 (2020-03-25)
 
 #### :bug: Bug Fix
