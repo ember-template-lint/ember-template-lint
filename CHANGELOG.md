@@ -1,3 +1,12 @@
+## v2.5.1 (2020-04-09)
+
+#### :rocket: Enhancement
+* [#1260](https://github.com/ember-template-lint/ember-template-lint/pull/1260) Expose `ember-template-recast` API on main entry point (e.g. `require('ember-template-lint').recast`) ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 1
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
+
 ## v2.5.0 (2020-04-08)
 
 #### :rocket: Enhancement
