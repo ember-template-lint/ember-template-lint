@@ -66,6 +66,7 @@ function parseArgv(_argv) {
       },
       json: {
         describe: 'Format output as json',
+        boolean: true,
       },
       verbose: {
         describe: 'Output errors with source description',
