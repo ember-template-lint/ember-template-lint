@@ -57,7 +57,7 @@ function parseArgv(_argv) {
       },
       rule: {
         describe:
-          'Specify a rule and it\'s severity to run that rule against required file paths (rule:severity) or can be specified as an json string "{ rule: String, severity: String, config: Object }"',
+          'Specify a rule and it\'s severity to add that rule to loaded rules - (rule:severity) or can be specified as an json string "{ rule: String, severity: String, config: Object }"',
         type: 'string',
       },
       filename: {
@@ -75,6 +75,10 @@ function parseArgv(_argv) {
       },
       verbose: {
         describe: 'Output errors with source description',
+        boolean: true,
+      },
+      'no-templaterc': {
+        describe: 'Does not use the local templaterc, will use a blank templaterc instead',
         boolean: true,
       },
       'print-pending': {
@@ -139,7 +143,11 @@ function run() {
 
   let linter;
   try {
-    linter = new Linter({ configPath: options.configPath, rule: options.rule });
+    linter = new Linter({
+      configPath: options.configPath,
+      rule: options.rule,
+      useConfig: options.templaterc,
+    });
   } catch (e) {
     console.error(e.message);
     process.exitCode = 1;

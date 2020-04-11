@@ -34,16 +34,18 @@ describe('ember-template-lint executable', function () {
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
             --quiet           Ignore warnings and only show errors               [boolean]
-            --rule            Specify a rule and it's severity to run that rule against
-                              required file paths (rule:severity) or can be specified as
-                              an json string \\"{ rule: String, severity: String, config:
-                              Object }\\"                                           [string]
+            --rule            Specify a rule and it's severity to add that rule to loaded
+                              rules - (rule:severity) or can be specified as an json
+                              string \\"{ rule: String, severity: String, config: Object }\\"
+                                                                                  [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
+            --no-templaterc   Does not use the local templaterc, will use a blank
+                              templaterc instead                                 [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
             --ignore-pattern  Specify custom ignore pattern (can be disabled with
@@ -67,16 +69,18 @@ describe('ember-template-lint executable', function () {
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
             --quiet           Ignore warnings and only show errors               [boolean]
-            --rule            Specify a rule and it's severity to run that rule against
-                              required file paths (rule:severity) or can be specified as
-                              an json string \\"{ rule: String, severity: String, config:
-                              Object }\\"                                           [string]
+            --rule            Specify a rule and it's severity to add that rule to loaded
+                              rules - (rule:severity) or can be specified as an json
+                              string \\"{ rule: String, severity: String, config: Object }\\"
+                                                                                  [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
+            --no-templaterc   Does not use the local templaterc, will use a blank
+                              templaterc instead                                 [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
             --ignore-pattern  Specify custom ignore pattern (can be disabled with
@@ -154,16 +158,18 @@ describe('ember-template-lint executable', function () {
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
             --quiet           Ignore warnings and only show errors               [boolean]
-            --rule            Specify a rule and it's severity to run that rule against
-                              required file paths (rule:severity) or can be specified as
-                              an json string \\"{ rule: String, severity: String, config:
-                              Object }\\"                                           [string]
+            --rule            Specify a rule and it's severity to add that rule to loaded
+                              rules - (rule:severity) or can be specified as an json
+                              string \\"{ rule: String, severity: String, config: Object }\\"
+                                                                                  [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
+            --no-templaterc   Does not use the local templaterc, will use a blank
+                              templaterc instead                                 [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
             --ignore-pattern  Specify custom ignore pattern (can be disabled with
@@ -264,7 +270,7 @@ describe('ember-template-lint executable', function () {
 
       it('should be able to run only one rule at a time', function () {
         setProjectConfigForErrorsAndWarning();
-        let result = run(['.', '--rule', 'no-html-comments:1']);
+        let result = run(['.', '--no-templaterc', '--rule', 'no-html-comments:1']);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout.split('\n')).toEqual([
