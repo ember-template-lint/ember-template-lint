@@ -414,7 +414,7 @@ Options:
     describe('with --json param', function () {
       it('should print valid JSON string with errors', function () {
         setProjectConfigForErrors();
-        let result = run(['.', '--json']);
+        let result = run(['--json', '.']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [
