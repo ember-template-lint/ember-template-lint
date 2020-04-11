@@ -36,7 +36,7 @@ describe('ember-template-lint executable', function () {
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json            Format output as json
+            --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
@@ -65,7 +65,7 @@ describe('ember-template-lint executable', function () {
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json            Format output as json
+            --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
@@ -138,26 +138,26 @@ describe('ember-template-lint executable', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeFalsy();
         expect(result.stderr).toMatchInlineSnapshot(`
-"ember-template-lint [options] [files..]
+          "ember-template-lint [options] [files..]
 
-Options:
-  --config-path     Define a custom config path
-                                       [string] [default: \\".template-lintrc.js\\"]
-  --quiet           Ignore warnings and only show errors               [boolean]
-  --filename        Used to indicate the filename to be assumed for contents
-                    from STDIN                                          [string]
-  --fix             Fix any errors that are reported as fixable
-                                                      [boolean] [default: false]
-  --json            Format output as json
-  --verbose         Output errors with source description              [boolean]
-  --print-pending   Print list of formated rules for use with \`pending\` in
-                    config file                                        [boolean]
-  --ignore-pattern  Specify custom ignore pattern (can be disabled with
-                    --no-ignore-pattern)
-              [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-  --help            Show help                                          [boolean]
-  --version         Show version number                                [boolean]"
-`);
+          Options:
+            --config-path     Define a custom config path
+                                                 [string] [default: \\".template-lintrc.js\\"]
+            --quiet           Ignore warnings and only show errors               [boolean]
+            --filename        Used to indicate the filename to be assumed for contents
+                              from STDIN                                          [string]
+            --fix             Fix any errors that are reported as fixable
+                                                                [boolean] [default: false]
+            --json            Format output as json                              [boolean]
+            --verbose         Output errors with source description              [boolean]
+            --print-pending   Print list of formated rules for use with \`pending\` in
+                              config file                                        [boolean]
+            --ignore-pattern  Specify custom ignore pattern (can be disabled with
+                              --no-ignore-pattern)
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            --help            Show help                                          [boolean]
+            --version         Show version number                                [boolean]"
+        `);
       });
     });
 
@@ -414,7 +414,7 @@ Options:
     describe('with --json param', function () {
       it('should print valid JSON string with errors', function () {
         setProjectConfigForErrors();
-        let result = run(['.', '--json']);
+        let result = run(['--json', '.']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [
