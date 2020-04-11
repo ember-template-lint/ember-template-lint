@@ -1,3 +1,15 @@
+## v2.5.2 (2020-04-11)
+
+#### :bug: Bug Fix
+* [#1264](https://github.com/ember-template-lint/ember-template-lint/pull/1264) Ensure `--json` argument can be used anywhere on the command line. ([@dcyriller](https://github.com/dcyriller))
+
+#### :house: Internal
+* [#1265](https://github.com/ember-template-lint/ember-template-lint/pull/1265) test(cli): Set LC_ALL env var to en_US ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 1
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
+
 ## v2.5.1 (2020-04-09)
 
 #### :rocket: Enhancement
