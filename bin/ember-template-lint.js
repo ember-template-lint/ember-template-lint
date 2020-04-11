@@ -55,6 +55,11 @@ function parseArgv(_argv) {
         describe: 'Ignore warnings and only show errors',
         boolean: true,
       },
+      rule: {
+        describe:
+          'Specify a rule and it\'s severity to run that rule against required file paths (rule:severity) or can be specified as an json string "{ rule: String, severity: String, config: Object }"',
+        type: 'string',
+      },
       filename: {
         describe: 'Used to indicate the filename to be assumed for contents from STDIN',
         type: 'string',
@@ -134,7 +139,7 @@ function run() {
 
   let linter;
   try {
-    linter = new Linter({ configPath: options.configPath });
+    linter = new Linter({ configPath: options.configPath, rule: options.rule });
   } catch (e) {
     console.error(e.message);
     process.exitCode = 1;

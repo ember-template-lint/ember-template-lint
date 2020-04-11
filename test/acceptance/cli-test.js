@@ -34,6 +34,10 @@ describe('ember-template-lint executable', function () {
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
             --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and it's severity to run that rule against
+                              required file paths (rule:severity) or can be specified as
+                              an json string \\"{ rule: String, severity: String, config:
+                              Object }\\"                                           [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
@@ -63,6 +67,10 @@ describe('ember-template-lint executable', function () {
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
             --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and it's severity to run that rule against
+                              required file paths (rule:severity) or can be specified as
+                              an json string \\"{ rule: String, severity: String, config:
+                              Object }\\"                                           [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
@@ -146,6 +154,10 @@ describe('ember-template-lint executable', function () {
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
             --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and it's severity to run that rule against
+                              required file paths (rule:severity) or can be specified as
+                              an json string \\"{ rule: String, severity: String, config:
+                              Object }\\"                                           [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
@@ -246,6 +258,20 @@ describe('ember-template-lint executable', function () {
           '  1:53  warning  HTML comment detected  no-html-comments',
           '',
           '✖ 3 problems (2 errors, 1 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able to run only one rule at a time', function () {
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.', '--rule', 'no-html-comments:1']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  warning  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (0 errors, 1 warnings)',
         ]);
         expect(result.stderr).toBeFalsy();
       });
