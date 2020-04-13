@@ -3,6 +3,7 @@ const { readFileSync } = require('fs');
 
 const execa = require('execa');
 const Project = require('../helpers/fake-project');
+const setupEnvVar = require('../helpers/setup-env-var');
 
 describe('ember-template-lint executable', function () {
   setupEnvVar('GITHUB_ACTIONS', null);
@@ -855,25 +856,3 @@ describe('ember-template-lint executable', function () {
     return execa.sync(require.resolve('../../bin/ember-template-lint.js'), args, options);
   }
 });
-
-function setupEnvVar(name, value) {
-  let oldValue;
-
-  beforeEach(function () {
-    oldValue = name in process.env ? process.env[name] : null;
-
-    if (value === null) {
-      delete process.env[name];
-    } else {
-      process.env[name] = value;
-    }
-  });
-
-  afterEach(function () {
-    if (oldValue === null) {
-      delete process.env[name];
-    } else {
-      process.env[name] = oldValue;
-    }
-  });
-}
