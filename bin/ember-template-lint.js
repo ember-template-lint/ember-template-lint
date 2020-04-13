@@ -51,6 +51,10 @@ function parseArgv(_argv) {
         default: '.template-lintrc.js',
         type: 'string',
       },
+      config: {
+        describe: 'Define a custom config object - (--config \'{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }\')',
+        type: 'string',
+      },
       quiet: {
         describe: 'Ignore warnings and only show errors',
         boolean: true,
@@ -143,8 +147,19 @@ function run() {
 
   let linter;
   try {
+    let config;
+
+    if(options.config) {
+      try {
+        config = JSON.parse(options.config);
+      } catch(ex) {
+        console.debug('Could not parse options passed through --config')
+      }
+    }
+
     linter = new Linter({
       configPath: options.configPath,
+      overrideConfig: config,
       rule: options.rule,
       useConfig: options.templaterc,
     });

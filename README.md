@@ -92,6 +92,9 @@ Example usage:
 
 # running a single rule with options
 ./node_modules/.bin/ember-template-lint --no-templaterc app/templates --rule '{ "rule": "no-implicit-this", "severity": 2, "config": { "allow": [] }}'
+
+# specify a config object to use instead of what exists locally
+./node_modules/.bin/ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
 
 ### ESLint

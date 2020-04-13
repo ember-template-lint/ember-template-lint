@@ -33,6 +33,9 @@ describe('ember-template-lint executable', function () {
           Options:
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom config object - (--config '{ \\"rules\\": {
+                              \\"no-implicit-this\\": { \\"severity\\": 2, \\"config\\": true } } }')
+                                                                                  [string]
             --quiet           Ignore warnings and only show errors               [boolean]
             --rule            Specify a rule and it's severity to add that rule to loaded
                               rules - (rule:severity) or can be specified as an json
@@ -68,6 +71,9 @@ describe('ember-template-lint executable', function () {
           Options:
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom config object - (--config '{ \\"rules\\": {
+                              \\"no-implicit-this\\": { \\"severity\\": 2, \\"config\\": true } } }')
+                                                                                  [string]
             --quiet           Ignore warnings and only show errors               [boolean]
             --rule            Specify a rule and it's severity to add that rule to loaded
                               rules - (rule:severity) or can be specified as an json
@@ -157,6 +163,9 @@ describe('ember-template-lint executable', function () {
           Options:
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom config object - (--config '{ \\"rules\\": {
+                              \\"no-implicit-this\\": { \\"severity\\": 2, \\"config\\": true } } }')
+                                                                                  [string]
             --quiet           Ignore warnings and only show errors               [boolean]
             --rule            Specify a rule and it's severity to add that rule to loaded
                               rules - (rule:severity) or can be specified as an json
