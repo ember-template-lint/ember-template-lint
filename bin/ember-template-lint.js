@@ -27,13 +27,13 @@ function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
   }
 }
 
-function expandFileGlobs(positional, ignorePattern) {
+function expandFileGlobs(filePatterns, ignorePattern) {
   let result = new Set();
 
-  positional.forEach((item) => {
+  filePatterns.forEach((pattern) => {
     globby
       // `--no-ignore-pattern` results in `ignorePattern === [false]`
-      .sync(item, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
+      .sync(pattern, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
       .filter((filePath) => filePath.slice(-4) === '.hbs')
       .forEach((filePath) => result.add(filePath));
   });
