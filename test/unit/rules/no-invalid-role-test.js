@@ -38,6 +38,24 @@ generateRuleTests({
       },
     },
     {
+      template: '<ol role="presentation"></ol>',
+      result: {
+        message: createErrorMessage('ol'),
+        source: '<ol role="presentation"></ol>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<li role="presentation"></li>',
+      result: {
+        message: createErrorMessage('li'),
+        source: '<li role="presentation"></li>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
       template: '<table role="presentation"></table>',
       result: {
         message: createErrorMessage('table'),
