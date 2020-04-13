@@ -52,7 +52,8 @@ function parseArgv(_argv) {
         type: 'string',
       },
       config: {
-        describe: 'Define a custom config object - (--config \'{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }\')',
+        describe:
+          'Define a custom config object - (--config \'{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }\')',
         type: 'string',
       },
       quiet: {
@@ -149,11 +150,11 @@ function run() {
   try {
     let config;
 
-    if(options.config) {
+    if (options.config) {
       try {
         config = JSON.parse(options.config);
-      } catch(ex) {
-        console.debug('Could not parse options passed through --config')
+      } catch (ex) {
+        console.debug('Could not parse options passed through --config');
       }
     }
 
