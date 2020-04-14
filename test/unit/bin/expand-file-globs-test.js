@@ -8,47 +8,33 @@ describe('expandFileGlobs', function () {
 
   beforeEach(function () {
     project = Project.defaultSetup();
-  });
+    project.chdir();
 
+    project.write({ 'application.hbs': 'almost empty' });
+  });
   afterEach(async function () {
     await project.dispose();
   });
 
   describe('basic', function () {
-    beforeEach(function () {
-      project.chdir();
-    });
-
     it('resolves a basic pattern', function () {
-      project.write({ 'application.hbs': 'almost empty' });
-
       let files = expandFileGlobs(['application.hbs', 'other.hbs'], []);
       expect(files.has('application.hbs')).toBe(true);
     });
 
     it('respects a basic ignore option', function () {
-      project.write({ 'application.hbs': 'almost empty' });
-
       let files = expandFileGlobs(['application.hbs', 'other.hbs'], ['application.hbs']);
       expect(files.has('application.hbs')).toBe(false);
     });
   });
 
   describe('glob', function () {
-    beforeEach(function () {
-      project.chdir();
-    });
-
     it('resolves a glob pattern', function () {
-      project.write({ 'application.hbs': 'almost empty' });
-
       let files = expandFileGlobs(['*'], []);
       expect(files.has('application.hbs')).toBe(true);
     });
 
     it('respects a glob ignore option', function () {
-      project.write({ 'application.hbs': 'almost empty' });
-
       let files = expandFileGlobs(['application.hbs'], ['*']);
       expect(files.has('application.hbs')).toBe(false);
     });
