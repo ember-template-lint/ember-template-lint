@@ -4,6 +4,7 @@ const { _expandFileGlobs: expandFileGlobs } = require('../../../bin/ember-templa
 const Project = require('../../helpers/fake-project');
 
 describe('expandFileGlobs', function () {
+  let anotherProject = null;
   let project = null;
 
   beforeEach(function () {
@@ -11,9 +12,12 @@ describe('expandFileGlobs', function () {
     project.chdir();
 
     project.write({ 'application.hbs': 'almost empty' });
+
+    anotherProject = new Project('another-fake-project');
   });
   afterEach(async function () {
     await project.dispose();
+    await anotherProject.dispose();
   });
 
   describe('basic', function () {
@@ -57,7 +61,7 @@ describe('expandFileGlobs', function () {
 
       // we want to test `expandFileGlobs` with a relative path
       // so, let's change process.cwd to another tmp folder
-      new Project('another-fake-project').chdir();
+      anotherProject.chdir();
 
       let files = expandFileGlobs([relativePathToTemplate], []);
 
