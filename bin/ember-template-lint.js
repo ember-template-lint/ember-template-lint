@@ -4,15 +4,24 @@
 
 const fs = require('fs');
 const path = require('path');
+const getStdin = require('get-stdin');
 const globby = require('globby');
 const Linter = require('../lib/index');
 const processResults = require('../lib/helpers/process-results');
 
 const STDIN = '/dev/stdin';
 
-function lintFile(linter, filePath, toRead, moduleId, shouldFix) {
-  // TODO: swap to using get-stdin when we can leverage async/await
-  let source = fs.readFileSync(toRead, { encoding: 'utf8' });
+async function getSource(filePathToRead) {
+  if (filePathToRead === STDIN) {
+    let stdin = await getStdin();
+    return stdin;
+  }
+
+  return fs.readFileSync(filePathToRead, { encoding: 'utf8' });
+}
+
+async function lintFile(linter, filePath, filePathToRead, moduleId, shouldFix) {
+  let source = await getSource(filePathToRead);
   let options = { source, filePath, moduleId };
 
   if (shouldFix) {
@@ -128,7 +137,7 @@ function printPending(results, options) {
   }
 }
 
-function run() {
+async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
 
@@ -151,10 +160,9 @@ function run() {
   let resultsAccumulator = [];
   for (let relativeFilePath of filesToLint) {
     let resolvedFilePath = path.resolve(relativeFilePath);
-    let toRead = resolvedFilePath === STDIN ? process.stdin.fd : resolvedFilePath;
     let filePath = resolvedFilePath === STDIN ? options.filename || '' : relativeFilePath;
     let moduleId = filePath.slice(0, -4);
-    let messages = lintFile(linter, filePath, toRead, moduleId, options.fix);
+    let messages = await lintFile(linter, filePath, resolvedFilePath, moduleId, options.fix);
 
     resultsAccumulator.push(...messages);
   }
