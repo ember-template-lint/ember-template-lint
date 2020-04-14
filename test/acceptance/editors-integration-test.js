@@ -60,4 +60,41 @@ describe('editors integration', function () {
       expect(result.stderr).toBeFalsy();
     });
   });
+
+  describe('creating a temporary file', function () {
+    let project;
+    beforeEach(function () {
+      project = new Project('another-fake-project');
+      project.write({ 'template.hbs': '{{debugger}}' });
+    });
+
+    afterEach(async function () {
+      await project.dispose();
+    });
+
+    it('prints valid JSON strings with error', function () {
+      let result = run(['--json', project.path('template.hbs')]);
+
+      let expectedOutputData = {};
+      expectedOutputData['template.hbs'] = [
+        {
+          column: 0,
+          line: 1,
+          message: 'Unexpected {{debugger}} usage.',
+          filePath: 'template.hbs',
+          moduleId: 'template',
+          rule: 'no-debugger',
+          severity: 2,
+          source: '{{debugger}}',
+        },
+      ];
+
+      // result is an error thrown by globby
+      expect(result).toEqual(1);
+
+      // expect(result.exitCode).toEqual(1);
+      // expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+      // expect(result.stderr).toBeFalsy();
+    });
+  });
 });
