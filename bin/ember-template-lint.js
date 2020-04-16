@@ -158,12 +158,12 @@ function run() {
     }
   }
 
+  if (options['no-config-path'] !== undefined) {
+    options.configPath = false;
+  }
+
   let linter;
   try {
-    if (options['no-config-path'] !== undefined) {
-      options.configPath = false;
-    }
-
     linter = new Linter({
       configPath: options.configPath,
       config,
