@@ -53,7 +53,7 @@ function parseArgv(_argv) {
       },
       config: {
         describe:
-          'Define a custom config object - (--config \'{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }\')',
+          `Define a custom configuration to be used - (e.g. '{ "rules": { "no-implicit-this": "error" } }') `,
         type: 'string',
       },
       quiet: {
