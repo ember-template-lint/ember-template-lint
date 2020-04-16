@@ -53,7 +53,7 @@ function parseArgv(_argv) {
       },
       config: {
         describe:
-          `Define a custom configuration to be used - (e.g. '{ "rules": { "no-implicit-this": "error" } }') `,
+          'Define a custom configuration to be used - (e.g. \'{ "rules": { "no-implicit-this": "error" } }\') ',
         type: 'string',
       },
       quiet: {
@@ -82,8 +82,9 @@ function parseArgv(_argv) {
         describe: 'Output errors with source description',
         boolean: true,
       },
-      'no-templaterc': {
-        describe: 'Does not use the local templaterc, will use a blank templaterc instead',
+      'no-config-path': {
+        describe:
+          'Does not use the local template-lintrc, will use a blank template-lintrc instead',
         boolean: true,
       },
       'print-pending': {
@@ -145,24 +146,28 @@ function printPending(results, options) {
 function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
+  let config;
+
+  if (options.config) {
+    try {
+      config = JSON.parse(options.config);
+    } catch (error) {
+      console.error('Could not parse specified `--config` as JSON');
+      process.exitCode = 1;
+      return;
+    }
+  }
 
   let linter;
   try {
-    let config;
-
-    if (options.config) {
-      try {
-        config = JSON.parse(options.config);
-      } catch (ex) {
-        console.debug('Could not parse options passed through --config');
-      }
+    if (options['no-config-path'] !== undefined) {
+      options.configPath = false;
     }
 
     linter = new Linter({
       configPath: options.configPath,
-      overrideConfig: config,
+      config,
       rule: options.rule,
-      useConfig: options.templaterc,
     });
   } catch (e) {
     console.error(e.message);
