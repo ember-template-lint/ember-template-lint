@@ -736,7 +736,7 @@ describe('getConfigForFile', function () {
     expect(getRuleFromString('no-implicit-this:off')).toEqual({
       name: 'no-implicit-this',
       severity: 0,
-      config: true,
+      config: false,
     });
   });
 
