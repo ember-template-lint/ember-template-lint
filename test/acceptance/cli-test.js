@@ -301,12 +301,7 @@ describe('ember-template-lint executable', function () {
 
       it('should be able run a rule passed in (rule:[warn, config])', function () {
         setProjectConfigForErrorsAndWarning();
-        let result = run([
-          '.',
-          '--no-config-path',
-          '--rule',
-          'no-html-comments:["warn", true]',
-        ]);
+        let result = run(['.', '--no-config-path', '--rule', 'no-html-comments:["warn", true]']);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout.split('\n')).toEqual([
@@ -320,12 +315,7 @@ describe('ember-template-lint executable', function () {
 
       it('should be able run a rule passed in (rule:[error, config])', function () {
         setProjectConfigForErrorsAndWarning();
-        let result = run([
-          '.',
-          '--no-config-path',
-          '--rule',
-          'no-html-comments:["error", true]',
-        ]);
+        let result = run(['.', '--no-config-path', '--rule', 'no-html-comments:["error", true]']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
