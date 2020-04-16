@@ -88,7 +88,7 @@ Example usage:
 ./node_modules/.bin/ember-template-lint /tmp/template.hbs --no-ignore-pattern
 
 # running a single rule without options
-./node_modules/.bin/ember-template-lint --no-templaterc app/templates --rule 'no-implicit-this:2'
+./node_modules/.bin/ember-template-lint --no-templaterc app/templates --rule 'no-implicit-this:error'
 
 # running a single rule with options
 ./node_modules/.bin/ember-template-lint --no-templaterc app/templates --rule '{ "rule": "no-implicit-this", "severity": 2, "config": { "allow": [] }}'
