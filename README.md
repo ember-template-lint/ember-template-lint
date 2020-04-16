@@ -88,10 +88,10 @@ Example usage:
 ./node_modules/.bin/ember-template-lint /tmp/template.hbs --no-ignore-pattern
 
 # running a single rule without options
-./node_modules/.bin/ember-template-lint --no-templaterc app/templates --rule 'no-implicit-this:error'
+./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error'
 
 # running a single rule with options
-./node_modules/.bin/ember-template-lint --no-templaterc app/templates --rule '{ "rules": { "no-implicit-this": "error" } }'
+./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule '{ "rules": { "no-implicit-this": "error" } }'
 
 # specify a config object to use instead of what exists locally
 ./node_modules/.bin/ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
