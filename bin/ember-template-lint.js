@@ -62,7 +62,7 @@ function parseArgv(_argv) {
       },
       rule: {
         describe:
-          'Specify a rule and it\'s severity to add that rule to loaded rules - (rule:severity) or can be specified as an json string "{ rule: String, severity: String, config: Object }"',
+          'Specify a rule and its severity to add that rule to loaded rules - (e.g. `no-implicit-this:error` or `rule:["error", { "allow": ["some-helper"] }]`)',
         type: 'string',
       },
       filename: {
