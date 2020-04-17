@@ -193,7 +193,8 @@ async function run() {
 
   let resultsAccumulator = [];
   for (let relativeFilePath of filesToLint) {
-    let resolvedFilePath = path.resolve(relativeFilePath);
+    // on Windows the attempt to resolve the '/dev/stdin' doesn't return '/dev/stdin', hence explicit check
+    let resolvedFilePath = relativeFilePath === STDIN ? STDIN : path.resolve(relativeFilePath);
     let filePath = resolvedFilePath === STDIN ? options.filename || '' : relativeFilePath;
     let moduleId = filePath.slice(0, -4);
     let messages = await lintFile(linter, filePath, resolvedFilePath, moduleId, options.fix);
