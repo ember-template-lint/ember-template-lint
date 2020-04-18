@@ -11,7 +11,12 @@ function setForBasicDebuggerError(project) {
 function run(project, args, options = {}) {
   options.reject = false;
   options.cwd = options.cwd || project.path('.');
-  return execa.sync(require.resolve('../../bin/ember-template-lint.js'), args, options);
+
+  return execa(
+    process.execPath,
+    [require.resolve('../../bin/ember-template-lint.js'), ...args],
+    options
+  );
 }
 
 describe('editors integration', function () {
@@ -31,14 +36,14 @@ describe('editors integration', function () {
   });
 
   describe('reading from stdin', function () {
-    it('prints valid JSON strings with error', function () {
+    it('prints valid JSON strings with error', async function () {
       setForBasicDebuggerError(project);
 
-      let result = run(
+      let result = await run(
         project,
-        ['--json', '--filename', 'template.hbs', '/dev/stdin', '<', 'template.hbs'],
+        ['--json', '--filename', 'template.hbs', '<', 'template.hbs'],
         {
-          shell: true,
+          shell: false,
         }
       );
 
