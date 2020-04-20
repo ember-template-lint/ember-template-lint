@@ -759,5 +759,16 @@ describe('getConfigForFile', function () {
       name: 'no-implicit-this',
       config: { severity: 0, config: { allow: ['some-helper'] } },
     });
+
+    try {
+      expect(getRuleFromString('no-implicit-this:["error", "allow": ["some-helper"] }]')).toEqual({
+        name: 'no-implicit-this',
+        config: { severity: 2, config: { allow: ['some-helper'] } },
+      });
+    } catch (ex) {
+      expect(ex.message).toEqual(
+        'Error parsing specified `--rule` config no-implicit-this:["error", "allow": ["some-helper"] }] as JSON.'
+      );
+    }
   });
 });
