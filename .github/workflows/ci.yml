@@ -39,15 +39,15 @@ jobs:
       - run: yarn test
 
   nodeX:
-    name: Node ${{ matrix.node-version }}
-    runs-on: ${{ matrix.os }}
+    name: Node ${{ matrix.node-version }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 10
 
     needs: [node12]
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu, windows]
         node-version: [10.x, 13.x]
 
     steps:
