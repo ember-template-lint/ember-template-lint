@@ -1,6 +1,12 @@
 'use strict';
 
-const { getProjectConfig, getConfigForFile, determineRuleConfig } = require('../../lib/get-config');
+const {
+  getProjectConfig,
+  getConfigForFile,
+  determineRuleConfig,
+  resolveProjectConfig,
+  getRuleFromString,
+} = require('../../lib/get-config');
 const recommendedConfig = require('../../lib/config/recommended');
 const buildFakeConsole = require('../helpers/console');
 const Project = require('../helpers/fake-project');
@@ -708,5 +714,61 @@ describe('getConfigForFile', function () {
     expect(
       getConfigForFile(config, { moduleId: `${process.cwd()}/foo/bar/baz` }).pendingStatus
     ).toBeTruthy();
+  });
+
+  it('should return an empty object when options.config is set explicitly false', function () {
+    const config = resolveProjectConfig({ config: false });
+
+    expect(config).toEqual({});
+  });
+
+  it('should be able to translate rule:severity to an object', function () {
+    expect(getRuleFromString('no-implicit-this:error')).toEqual({
+      name: 'no-implicit-this',
+      config: {
+        severity: 2,
+        config: true,
+      },
+    });
+    expect(getRuleFromString('no-implicit-this:warn')).toEqual({
+      name: 'no-implicit-this',
+      config: {
+        severity: 1,
+        config: true,
+      },
+    });
+    expect(getRuleFromString('no-implicit-this:off')).toEqual({
+      name: 'no-implicit-this',
+      config: {
+        severity: 0,
+        config: false,
+      },
+    });
+  });
+
+  it('should be able to translate rule:["severity", { configObject }] to an object', function () {
+    expect(getRuleFromString('no-implicit-this:["error", { "allow": ["some-helper"] }]')).toEqual({
+      name: 'no-implicit-this',
+      config: { severity: 2, config: { allow: ['some-helper'] } },
+    });
+    expect(getRuleFromString('no-implicit-this:["warn", { "allow": ["some-helper"] }]')).toEqual({
+      name: 'no-implicit-this',
+      config: { severity: 1, config: { allow: ['some-helper'] } },
+    });
+    expect(getRuleFromString('no-implicit-this:["off", { "allow": ["some-helper"] }]')).toEqual({
+      name: 'no-implicit-this',
+      config: { severity: 0, config: { allow: ['some-helper'] } },
+    });
+
+    try {
+      expect(getRuleFromString('no-implicit-this:["error", "allow": ["some-helper"] }]')).toEqual({
+        name: 'no-implicit-this',
+        config: { severity: 2, config: { allow: ['some-helper'] } },
+      });
+    } catch (ex) {
+      expect(ex.message).toEqual(
+        'Error parsing specified `--rule` config no-implicit-this:["error", "allow": ["some-helper"] }] as JSON.'
+      );
+    }
   });
 });

@@ -60,9 +60,19 @@ function parseArgv(_argv) {
         default: '.template-lintrc.js',
         type: 'string',
       },
+      config: {
+        describe:
+          'Define a custom configuration to be used - (e.g. \'{ "rules": { "no-implicit-this": "error" } }\') ',
+        type: 'string',
+      },
       quiet: {
         describe: 'Ignore warnings and only show errors',
         boolean: true,
+      },
+      rule: {
+        describe:
+          'Specify a rule and its severity to add that rule to loaded rules - (e.g. `no-implicit-this:error` or `rule:["error", { "allow": ["some-helper"] }]`)',
+        type: 'string',
       },
       filename: {
         describe: 'Used to indicate the filename to be assumed for contents from STDIN',
@@ -79,6 +89,11 @@ function parseArgv(_argv) {
       },
       verbose: {
         describe: 'Output errors with source description',
+        boolean: true,
+      },
+      'no-config-path': {
+        describe:
+          'Does not use the local template-lintrc, will use a blank template-lintrc instead',
         boolean: true,
       },
       'print-pending': {
@@ -140,10 +155,29 @@ function printPending(results, options) {
 async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
+  let config;
+
+  if (options.config) {
+    try {
+      config = JSON.parse(options.config);
+    } catch (error) {
+      console.error('Could not parse specified `--config` as JSON');
+      process.exitCode = 1;
+      return;
+    }
+  }
+
+  if (options['no-config-path'] !== undefined) {
+    options.configPath = false;
+  }
 
   let linter;
   try {
-    linter = new Linter({ configPath: options.configPath });
+    linter = new Linter({
+      configPath: options.configPath,
+      config,
+      rule: options.rule,
+    });
   } catch (e) {
     console.error(e.message);
     process.exitCode = 1;

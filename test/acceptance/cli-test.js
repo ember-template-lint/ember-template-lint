@@ -33,13 +33,20 @@ describe('ember-template-lint executable', function () {
           Options:
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom configuration to be used - (e.g. '{
+                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
             --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and its severity to add that rule to loaded
+                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
+                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
+            --no-config-path  Does not use the local template-lintrc, will use a blank
+                              template-lintrc instead                            [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
             --ignore-pattern  Specify custom ignore pattern (can be disabled with
@@ -62,13 +69,20 @@ describe('ember-template-lint executable', function () {
           Options:
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom configuration to be used - (e.g. '{
+                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
             --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and its severity to add that rule to loaded
+                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
+                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
+            --no-config-path  Does not use the local template-lintrc, will use a blank
+                              template-lintrc instead                            [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
             --ignore-pattern  Specify custom ignore pattern (can be disabled with
@@ -145,13 +159,20 @@ describe('ember-template-lint executable', function () {
           Options:
             --config-path     Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom configuration to be used - (e.g. '{
+                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
             --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and its severity to add that rule to loaded
+                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
+                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
             --filename        Used to indicate the filename to be assumed for contents
                               from STDIN                                          [string]
             --fix             Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --json            Format output as json                              [boolean]
             --verbose         Output errors with source description              [boolean]
+            --no-config-path  Does not use the local template-lintrc, will use a blank
+                              template-lintrc instead                            [boolean]
             --print-pending   Print list of formated rules for use with \`pending\` in
                               config file                                        [boolean]
             --ignore-pattern  Specify custom ignore pattern (can be disabled with
@@ -246,6 +267,62 @@ describe('ember-template-lint executable', function () {
           '  1:53  warning  HTML comment detected  no-html-comments',
           '',
           '✖ 3 problems (2 errors, 1 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able run a rule passed in (rule:warn)', function () {
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.', '--no-config-path', '--rule', 'no-html-comments:warn']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  warning  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (0 errors, 1 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able run a rule passed in (rule:error)', function () {
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.', '--no-config-path', '--rule', 'no-html-comments:error']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  error  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (1 errors, 0 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able run a rule passed in (rule:[warn, config])', function () {
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.', '--no-config-path', '--rule', 'no-html-comments:["warn", true]']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  warning  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (0 errors, 1 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able run a rule passed in (rule:[error, config])', function () {
+        setProjectConfigForErrorsAndWarning();
+        let result = run(['.', '--no-config-path', '--rule', 'no-html-comments:["error", true]']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  error  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (1 errors, 0 warnings)',
         ]);
         expect(result.stderr).toBeFalsy();
       });
