@@ -725,36 +725,39 @@ describe('getConfigForFile', function () {
   it('should be able to translate rule:severity to an object', function () {
     expect(getRuleFromString('no-implicit-this:error')).toEqual({
       name: 'no-implicit-this',
-      severity: 2,
-      config: true,
+      config: {
+        severity: 2,
+        config: true,
+      },
     });
     expect(getRuleFromString('no-implicit-this:warn')).toEqual({
       name: 'no-implicit-this',
-      severity: 1,
-      config: true,
+      config: {
+        severity: 1,
+        config: true,
+      },
     });
     expect(getRuleFromString('no-implicit-this:off')).toEqual({
       name: 'no-implicit-this',
-      severity: 0,
-      config: false,
+      config: {
+        severity: 0,
+        config: false,
+      },
     });
   });
 
   it('should be able to translate rule:["severity", { configObject }] to an object', function () {
     expect(getRuleFromString('no-implicit-this:["error", { "allow": ["some-helper"] }]')).toEqual({
       name: 'no-implicit-this',
-      severity: 2,
-      config: { allow: ['some-helper'] },
+      config: { severity: 2, config: { allow: ['some-helper'] } },
     });
     expect(getRuleFromString('no-implicit-this:["warn", { "allow": ["some-helper"] }]')).toEqual({
       name: 'no-implicit-this',
-      severity: 1,
-      config: { allow: ['some-helper'] },
+      config: { severity: 1, config: { allow: ['some-helper'] } },
     });
     expect(getRuleFromString('no-implicit-this:["off", { "allow": ["some-helper"] }]')).toEqual({
       name: 'no-implicit-this',
-      severity: 0,
-      config: { allow: ['some-helper'] },
+      config: { severity: 0, config: { allow: ['some-helper'] } },
     });
   });
 });
