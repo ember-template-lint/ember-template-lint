@@ -14,6 +14,7 @@ jobs:
   node12:
     name: Node 12.x
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -39,8 +40,8 @@ jobs:
 
   nodeX:
     name: Node ${{ matrix.node-version }}
-
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
 
     needs: [node12]
 
@@ -73,8 +74,8 @@ jobs:
 
   floating-dependencies:
     name: Floating Dependencies
-
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     needs: [node12]
 
