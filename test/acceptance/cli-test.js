@@ -145,17 +145,15 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('given no path', function () {
-      // todo doublecheck if we need this guard
-      // you don't have to specify path on Windows OS
-      // if (process.platform === 'win32') {
-      //   return;
-      // }
+      // TOFIX on windows
+      if (process.platform === 'win32') {
+        return;
+      }
 
       it('should print errors', async function () {
         setProjectConfigForErrors();
         let result = await run(['<', 'app/templates/application.hbs'], {
-          // todo rollback if we do need the commented guard
-          shell: process.platform !== 'win32',
+          shell: true,
         });
 
         expect(result.exitCode).toEqual(1);
@@ -235,23 +233,6 @@ describe('ember-template-lint executable', function () {
         setProjectConfigForErrors();
         let result = await run(['/dev/stdin', '<', 'app/templates/application.hbs'], {
           shell: true,
-        });
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('given std input path on Windows OS', function () {
-      if (process.platform !== 'win32') {
-        return;
-      }
-
-      it('should print errors', async function () {
-        setProjectConfigForErrors();
-        let result = await run(['<', 'app/templates/application.hbs'], {
-          shell: false,
         });
 
         expect(result.exitCode).toEqual(1);
