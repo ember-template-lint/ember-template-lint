@@ -196,10 +196,10 @@ async function run() {
     return;
   }
 
-  let filesToLint = getFilesToLint(positional, options.ignorePattern);
+  let filePathsToLint = getFilesToLint(positional, options.ignorePattern);
 
   let resultsAccumulator = [];
-  for (let relativeFilePath of filesToLint) {
+  for (let relativeFilePath of filePathsToLint) {
     let resolvedFilePath = path.resolve(relativeFilePath);
     let filePath = resolvedFilePath === STDIN ? options.filename || '' : relativeFilePath;
     let moduleId = filePath.slice(0, -4);
