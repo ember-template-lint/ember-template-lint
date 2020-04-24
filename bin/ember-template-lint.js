@@ -50,6 +50,18 @@ function expandFileGlobs(filePatterns, ignorePattern) {
   return result;
 }
 
+function getFilesToLint(filePatterns, ignorePattern = []) {
+  let files;
+
+  if (filePatterns.length === 0 || filePatterns.includes('-') || filePatterns.includes(STDIN)) {
+    files = new Set([STDIN]);
+  } else {
+    files = expandFileGlobs(filePatterns, ignorePattern);
+  }
+
+  return files;
+}
+
 function parseArgv(_argv) {
   let parser = require('yargs')
     .scriptName('ember-template-lint')
@@ -184,12 +196,7 @@ async function run() {
     return;
   }
 
-  let filesToLint;
-  if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
-    filesToLint = new Set([STDIN]);
-  } else {
-    filesToLint = expandFileGlobs(positional, options.ignorePattern);
-  }
+  let filesToLint = getFilesToLint(positional, options.ignorePattern);
 
   let resultsAccumulator = [];
   for (let relativeFilePath of filesToLint) {
@@ -221,6 +228,7 @@ async function run() {
 module.exports = {
   _parseArgv: parseArgv,
   _expandFileGlobs: expandFileGlobs,
+  _getFilesToLint: getFilesToLint,
 };
 
 if (require.main === module) {
