@@ -9,36 +9,27 @@ const globby = require('globby');
 const Linter = require('../lib/index');
 const processResults = require('../lib/helpers/process-results');
 
+const readFile = require('util').promisify(fs.readFile);
+
 const STDIN = '/dev/stdin';
 
-async function getSource(filePathToRead) {
-  if (filePathToRead === STDIN) {
-    let stdin = await getStdin();
-    return stdin;
-  }
+async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
+  if (isReadingStdin) {
+    let filePath = filename;
+    let moduleId = filePath.slice(0, -4);
+    let source = await getStdin();
 
-  return fs.readFileSync(filePathToRead, { encoding: 'utf8' });
+    return { source, filePath, moduleId };
+  } else {
+    let moduleId = filePath.slice(0, -4);
+    let source = await readFile(path.resolve(filePath), { encoding: 'utf8' });
+
+    return { source, filePath, moduleId };
+  }
 }
 
-async function buildLinterOptions(relativeFilePath, cliOptions) {
-  let absoluteFilePath = path.resolve(relativeFilePath);
-
-  let filePath = relativeFilePath;
-  if (absoluteFilePath === STDIN) {
-    filePath = cliOptions.filename || '';
-  }
-
-  let moduleId = filePath.slice(0, -4);
-
-  let source = await getSource(absoluteFilePath);
-
-  return { source, filePath, moduleId };
-}
-
-async function lintFile(linter, relativeFilePath, cliOptions) {
-  let options = await buildLinterOptions(relativeFilePath, cliOptions);
-
-  if (cliOptions.fix) {
+function lintSource(linter, options, shouldFix) {
+  if (shouldFix) {
     let { isFixed, output, messages } = linter.verifyAndFix(options);
     if (isFixed) {
       fs.writeFileSync(options.filePath, output);
@@ -210,11 +201,17 @@ async function run() {
     return;
   }
 
-  let filePathsToLint = getFilesToLint(positional, options.ignorePattern);
+  let filePaths = getFilesToLint(positional, options.ignorePattern);
 
   let resultsAccumulator = [];
-  for (let relativeFilePath of filePathsToLint) {
-    let messages = await lintFile(linter, relativeFilePath, options);
+  for (let relativeFilePath of filePaths) {
+    let linterOptions = await buildLinterOptions(
+      relativeFilePath,
+      options.filename,
+      filePaths.has(STDIN)
+    );
+
+    let messages = lintSource(linter, linterOptions, options.fix);
 
     resultsAccumulator.push(...messages);
   }
