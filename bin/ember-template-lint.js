@@ -20,18 +20,28 @@ async function getSource(filePathToRead) {
   return fs.readFileSync(filePathToRead, { encoding: 'utf8' });
 }
 
-async function lintFile(linter, relativeFilePath, cliOptions) {
-  let resolvedFilePath = path.resolve(relativeFilePath);
-  let filePath = resolvedFilePath === STDIN ? cliOptions.filename || '' : relativeFilePath;
+async function buildLinterOptions(relativeFilePath, cliOptions) {
+  let absoluteFilePath = path.resolve(relativeFilePath);
+
+  let filePath = relativeFilePath;
+  if (absoluteFilePath === STDIN) {
+    filePath = cliOptions.filename || '';
+  }
+
   let moduleId = filePath.slice(0, -4);
 
-  let source = await getSource(resolvedFilePath);
-  let options = { source, filePath, moduleId };
+  let source = await getSource(absoluteFilePath);
+
+  return { source, filePath, moduleId };
+}
+
+async function lintFile(linter, relativeFilePath, cliOptions) {
+  let options = await buildLinterOptions(relativeFilePath, cliOptions);
 
   if (cliOptions.fix) {
     let { isFixed, output, messages } = linter.verifyAndFix(options);
     if (isFixed) {
-      fs.writeFileSync(filePath, output);
+      fs.writeFileSync(options.filePath, output);
     }
 
     return messages;
