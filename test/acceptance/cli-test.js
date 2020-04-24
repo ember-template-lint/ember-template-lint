@@ -195,7 +195,7 @@ describe('ember-template-lint executable', function () {
         let result = await run(
           ['--filename', 'app/templates/application.hbs', '<', 'app/templates/application.hbs'],
           {
-            shell: false,
+            shell: true,
           }
         );
 
