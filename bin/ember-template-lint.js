@@ -20,11 +20,15 @@ async function getSource(filePathToRead) {
   return fs.readFileSync(filePathToRead, { encoding: 'utf8' });
 }
 
-async function lintFile(linter, filePath, filePathToRead, moduleId, shouldFix) {
-  let source = await getSource(filePathToRead);
+async function lintFile(linter, relativeFilePath, cliOptions) {
+  let resolvedFilePath = path.resolve(relativeFilePath);
+  let filePath = resolvedFilePath === STDIN ? cliOptions.filename || '' : relativeFilePath;
+  let moduleId = filePath.slice(0, -4);
+
+  let source = await getSource(resolvedFilePath);
   let options = { source, filePath, moduleId };
 
-  if (shouldFix) {
+  if (cliOptions.fix) {
     let { isFixed, output, messages } = linter.verifyAndFix(options);
     if (isFixed) {
       fs.writeFileSync(filePath, output);
@@ -200,10 +204,7 @@ async function run() {
 
   let resultsAccumulator = [];
   for (let relativeFilePath of filePathsToLint) {
-    let resolvedFilePath = path.resolve(relativeFilePath);
-    let filePath = resolvedFilePath === STDIN ? options.filename || '' : relativeFilePath;
-    let moduleId = filePath.slice(0, -4);
-    let messages = await lintFile(linter, filePath, resolvedFilePath, moduleId, options.fix);
+    let messages = await lintFile(linter, relativeFilePath, options);
 
     resultsAccumulator.push(...messages);
   }
