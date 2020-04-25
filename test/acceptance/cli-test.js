@@ -96,7 +96,9 @@ describe('ember-template-lint executable', function () {
         `);
       });
     });
+  });
 
+  describe('reading files', function () {
     describe('given path to non-existing file', function () {
       it('should exit without error and any console output', async function () {
         setProjectConfigForErrors();
