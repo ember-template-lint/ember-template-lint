@@ -2,6 +2,9 @@
 const { readFileSync } = require('fs');
 
 const execa = require('execa');
+const fs = require('fs');
+const path = require('path');
+
 const Project = require('../helpers/fake-project');
 const setupEnvVar = require('../helpers/setup-env-var');
 
@@ -145,15 +148,11 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('given no path', function () {
-      // TOFIX on windows
-      if (process.platform === 'win32') {
-        return;
-      }
-
       it('should print errors', async function () {
         setProjectConfigForErrors();
-        let result = await run(['<', 'app/templates/application.hbs'], {
-          shell: true,
+        let result = await run([], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('app/templates/application.hbs')),
         });
 
         expect(result.exitCode).toEqual(1);
@@ -192,12 +191,10 @@ describe('ember-template-lint executable', function () {
     describe('given no path with --filename', function () {
       it('should print errors', async function () {
         setProjectConfigForErrors();
-        let result = await run(
-          ['--filename', 'app/templates/application.hbs', '<', 'app/templates/application.hbs'],
-          {
-            shell: true,
-          }
-        );
+        let result = await run(['--filename', 'app/templates/application.hbs'], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('app/templates/application.hbs')),
+        });
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();

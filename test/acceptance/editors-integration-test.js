@@ -2,6 +2,8 @@
 const execa = require('execa');
 const Project = require('../helpers/fake-project');
 const setupEnvVar = require('../helpers/setup-env-var');
+const fs = require('fs');
+const path = require('path');
 
 function setForBasicDebuggerError(project) {
   project.setConfig({ rules: { 'no-debugger': true } });
@@ -39,13 +41,10 @@ describe('editors integration', function () {
     it('prints valid JSON strings with error', async function () {
       setForBasicDebuggerError(project);
 
-      let result = await run(
-        project,
-        ['--json', '--filename', 'template.hbs', '<', 'template.hbs'],
-        {
-          shell: false,
-        }
-      );
+      let result = await run(project, ['--json', '--filename', 'template.hbs'], {
+        shell: false,
+        input: fs.readFileSync(path.resolve('template.hbs')),
+      });
 
       let expectedOutputData = {};
       expectedOutputData['template.hbs'] = [
