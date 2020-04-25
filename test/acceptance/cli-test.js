@@ -147,6 +147,19 @@ describe('ember-template-lint executable', function () {
       });
     });
 
+    describe('given path to single file without errors', function () {
+      it('should exit without error and any console output', async function () {
+        setProjectConfigWithoutErrors();
+        let result = await run(['app/templates/application.hbs']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+  });
+
+  describe('reading from stdin', function () {
     describe('given no path', function () {
       it('should print errors', async function () {
         setProjectConfigForErrors();
@@ -234,17 +247,6 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('given path to single file without errors', function () {
-      it('should exit without error and any console output', async function () {
-        setProjectConfigWithoutErrors();
-        let result = await run(['app/templates/application.hbs']);
-
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toBeFalsy();
         expect(result.stderr).toBeFalsy();
       });
     });
