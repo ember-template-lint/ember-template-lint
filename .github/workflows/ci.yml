@@ -35,7 +35,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [10.x, 13.x, 14.x]
+        node-version: [10.x, 12.x, 13.x, 14.x]
+
+        # excluded because it is the `test` job above
+        exclude:
+          - os: ubuntu
+            node-version: 12.x
 
     steps:
       - uses: actions/checkout@v2
