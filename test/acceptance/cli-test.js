@@ -1004,15 +1004,8 @@ describe('ember-template-lint executable', function () {
                   '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
               },
             },
+            'other-file.js': "module.exports = { rules: { 'no-bare-strings': true } };",
           });
-
-          let overrideConfig = {
-            rules: {
-              'no-bare-strings': true,
-            },
-          };
-          project.files['other-file.js'] = `module.exports = ${JSON.stringify(overrideConfig)};`;
-          project.writeSync();
 
           let result = await run(['.', '--config-path', project.path('other-file.js')]);
 
@@ -1044,15 +1037,8 @@ describe('ember-template-lint executable', function () {
                 },
               },
             },
+            'other-file.js': "module.exports = { rules: { 'no-bare-strings': false } };",
           });
-
-          let overrideConfig = {
-            rules: {
-              'no-bare-strings': false,
-            },
-          };
-          project.files['other-file.js'] = `module.exports = ${JSON.stringify(overrideConfig)};`;
-          project.writeSync();
 
           let result = await run(['.', '--config-path', project.path('other-file.js')]);
 
