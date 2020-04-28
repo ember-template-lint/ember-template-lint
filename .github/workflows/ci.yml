@@ -23,7 +23,8 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile
 
-      - run: yarn test
+      - run: yarn lint
+      - run: yarn test:jest
 
   nodeX:
     name: Node ${{ matrix.node-version }} - ${{ matrix.os }}
