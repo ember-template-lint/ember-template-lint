@@ -5,11 +5,6 @@ const setupEnvVar = require('../helpers/setup-env-var');
 const fs = require('fs');
 const path = require('path');
 
-function setForBasicDebuggerError(project) {
-  project.setConfig({ rules: { 'no-debugger': true } });
-  project.write({ 'template.hbs': '{{debugger}}' });
-}
-
 function run(project, args, options = {}) {
   options.reject = false;
   options.cwd = options.cwd || project.path('.');
@@ -38,8 +33,9 @@ describe('editors integration', function () {
   });
 
   describe('reading from stdin', function () {
-    it('prints valid JSON strings with error', async function () {
-      setForBasicDebuggerError(project);
+    it('has exit code 1 and reports errors to stdout', async function () {
+      project.setConfig({ rules: { 'no-debugger': true } });
+      project.write({ 'template.hbs': '{{debugger}}' });
 
       let result = await run(project, ['--json', '--filename', 'template.hbs'], {
         shell: false,
