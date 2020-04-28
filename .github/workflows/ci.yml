@@ -11,8 +11,8 @@ on:
     - cron:  '0 3 * * *' # daily, at 3am
 
 jobs:
-  node12:
-    name: Node 12.x
+  test:
+    name: Node 12.x - ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 10
 
-    needs: [node12]
+    needs: [test]
 
     strategy:
       matrix:
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    needs: [node12]
+    needs: [test]
 
     steps:
       - uses: actions/checkout@v2
