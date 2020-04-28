@@ -1,3 +1,41 @@
+## v2.6.0 (2020-04-28)
+
+#### :rocket: Enhancement
+* [#1263](https://github.com/ember-template-lint/ember-template-lint/pull/1263) Add `--rule` and `--no-config-path` command line options ([@gabrielcsapo](https://github.com/gabrielcsapo))
+
+#### :bug: Bug Fix
+* [#1303](https://github.com/ember-template-lint/ember-template-lint/pull/1303) Update ember-template-recast to remove extraneous whitespace in `--fix` for `inline-link-to` rule ([@dcyriller](https://github.com/dcyriller))
+* [#1297](https://github.com/ember-template-lint/ember-template-lint/pull/1297) Fix reading from stdin on Windows ([@dcyriller](https://github.com/dcyriller))
+
+#### :memo: Documentation
+* [#1305](https://github.com/ember-template-lint/ember-template-lint/pull/1305) Fix example in no-invalid-role documentation ([@MelSumner](https://github.com/MelSumner))
+* [#1304](https://github.com/ember-template-lint/ember-template-lint/pull/1304) Tweak Installation section of `README.md` to clarify that `ember-template-lint` is installed by default ([@MelSumner](https://github.com/MelSumner))
+* [#1308](https://github.com/ember-template-lint/ember-template-lint/pull/1308) Add Node 14 as supported platform ([@dcyriller](https://github.com/dcyriller))
+* [#1306](https://github.com/ember-template-lint/ember-template-lint/pull/1306) Fix invalid URL in documentation reference for `no-invalid-link-title` rule ([@MelSumner](https://github.com/MelSumner))
+
+#### :house: Internal
+* [#1310](https://github.com/ember-template-lint/ember-template-lint/pull/1310) Refactor CI setup. ([@rwjblue](https://github.com/rwjblue))
+* [#1309](https://github.com/ember-template-lint/ember-template-lint/pull/1309) Add Node 14 to CI. ([@rwjblue](https://github.com/rwjblue))
+* [#1302](https://github.com/ember-template-lint/ember-template-lint/pull/1302) Remove "over DRY" test setup (make tests easier to understand) ([@dcyriller](https://github.com/dcyriller))
+* [#1282](https://github.com/ember-template-lint/ember-template-lint/pull/1282) Adapt tests for reading from stdin to run on Windows ([@stukalin](https://github.com/stukalin))
+* [#1284](https://github.com/ember-template-lint/ember-template-lint/pull/1284) Test Windows in CI ([@stukalin](https://github.com/stukalin))
+* [#1285](https://github.com/ember-template-lint/ember-template-lint/pull/1285) Set a shorter timeout for Github Actions ([@dcyriller](https://github.com/dcyriller))
+* [#1278](https://github.com/ember-template-lint/ember-template-lint/pull/1278) Use the correct title in generated rule doc when running `yarn new` ([@josephdsumner](https://github.com/josephdsumner))
+* [#1277](https://github.com/ember-template-lint/ember-template-lint/pull/1277) Use get-stdin dependency to read from stdin ([@dcyriller](https://github.com/dcyriller))
+* [#1271](https://github.com/ember-template-lint/ember-template-lint/pull/1271) Adds additional test cases for `no-invalid-role` ([@MelSumner](https://github.com/MelSumner))
+* [#1270](https://github.com/ember-template-lint/ember-template-lint/pull/1270) Start testing editor integrations ([@dcyriller](https://github.com/dcyriller))
+* [#1268](https://github.com/ember-template-lint/ember-template-lint/pull/1268) Add unit tests for `bin/ember-template-lint.js` ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 7
+- Andrey Stukalin ([@stukalin](https://github.com/stukalin))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- Joseph D. Sumner ([@josephdsumner](https://github.com/josephdsumner))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.5.2 (2020-04-11)
 
 #### :bug: Bug Fix
