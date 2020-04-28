@@ -18,6 +18,8 @@ the `no-bare-strings` rule found an error.
 
 ## Install
 
+This addon is installed by default with new Ember apps, so check your package.json before installing to see if you need to install it.
+
 To install ember-template-lint
 
 ```shell
