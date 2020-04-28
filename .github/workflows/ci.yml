@@ -51,7 +51,7 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile --ignore-engines
 
-      - run: yarn test
+      - run: yarn test:jest
 
   floating-dependencies:
     name: Floating Dependencies
@@ -69,4 +69,4 @@ jobs:
       - name: install dependencies
         run: yarn install --no-lockfile
 
-      - run: yarn test
+      - run: yarn test:jest
