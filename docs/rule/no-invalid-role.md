@@ -25,7 +25,7 @@ This rule **forbids** the following:
 This rule **allows** the following:
 
 ```hbs
-<img role="presentation">
+<img role="presentation" alt="">
 ```
 
 ```hbs
