@@ -16,7 +16,7 @@ generateRuleTests({
   bad: [
     {
       template: "{{link-to 'Link text' 'routeName'}}",
-      fixedTemplate: "{{#link-to 'routeName' }}Link text{{/link-to}}",
+      fixedTemplate: "{{#link-to 'routeName'}}Link text{{/link-to}}",
 
       result: {
         message,
@@ -28,7 +28,7 @@ generateRuleTests({
     },
     {
       template: "{{link-to 'Link text' 'routeName' one two}}",
-      fixedTemplate: "{{#link-to 'routeName' one two }}Link text{{/link-to}}",
+      fixedTemplate: "{{#link-to 'routeName' one two}}Link text{{/link-to}}",
 
       result: {
         message,
@@ -40,7 +40,7 @@ generateRuleTests({
     },
     {
       template: "{{link-to (concat 'Hello' @username) 'routeName' one two}}",
-      fixedTemplate: "{{#link-to 'routeName' one two }}{{concat 'Hello' @username }}{{/link-to}}",
+      fixedTemplate: "{{#link-to 'routeName' one two}}{{concat 'Hello' @username}}{{/link-to}}",
 
       result: {
         message,
