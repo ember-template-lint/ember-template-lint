@@ -33,3 +33,4 @@ This rule **forbids** the following:
 1. [AX_FOCUS_03](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_focus_03)
 1. [w3.org/TR/wai-aria-practices/#kbd_general_between](https://www.w3.org/TR/wai-aria-practices/#kbd_general_between)
 1. [w3.org/TR/2009/WD-wai-aria-practices-20090224/#focus_tabindex](https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/#focus_tabindex)
+1.[MDN: tabindex documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex)
