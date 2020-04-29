@@ -4,7 +4,11 @@
 
 ## `<* tabindex>`
 
-Avoid positive tabIndex property values to synchronize the flow of the page with keyboard tab order.
+[MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) explains the motivation of this rule nicely:
+
+> Avoid using tabindex values greater than 0. Doing so makes it difficult for people who rely on assistive technology to navigate and operate page content. Instead, write the document with the elements in a logical sequence.
+
+This rule prevents usage of any `tabindex` values other than `0` and `-1`. It does allow for dynamic values (choosing which value to show based on some condition / helper / etc), but only if that inline `if` condition has static `0`/`-1` as the value.
 
 This rule takes no arguments.
 
@@ -16,6 +20,8 @@ This rule **allows** the following:
 <span tabindex="0">foo</span>
 <span tabindex="-1">bar</span>
 <span tabindex={{0}}>baz</span>
+<button tabindex={{if this.isHidden "-1"}}>baz</button>
+<div role="tab" tabindex={{if this.isHidden "-1" "0"}}>baz</div>
 ```
 
 This rule **forbids** the following:
