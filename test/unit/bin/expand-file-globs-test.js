@@ -24,6 +24,7 @@ describe('expandFileGlobs', function () {
 
       let files = expandFileGlobs(['application.hbs', 'other.hbs'], []);
       expect(files.has('application.hbs')).toBe(true);
+      expect(files.has('other.hbs')).toBe(true);
     });
 
     it('respects a basic ignore option', function () {
