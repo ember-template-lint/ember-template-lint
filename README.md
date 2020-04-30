@@ -56,6 +56,8 @@ var results = linter.verify({ source: template, moduleId: 'template.hbs' });
 
 Basic `ember-template-lint` executable is provided, allowing for easy use within i.e. Git pre-commit/push hooks and development of appropriate plugins for text editors.
 
+> If using _ZSH_ wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `./node_modules/.bin/ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `./node_modules/.bin/ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
+
 Example usage:
 
 ```bash
