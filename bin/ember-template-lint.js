@@ -45,6 +45,12 @@ function expandFileGlobs(filePatterns, ignorePattern) {
   let result = new Set();
 
   filePatterns.forEach((pattern) => {
+    // if we are passed items that are already globbed before we should not crawl them as directories
+    if(item.slice(-4) === '.hbs' && item.indexOf('*') === -1) {
+      result.add(item);
+      return;
+    }
+
     globby
       // `--no-ignore-pattern` results in `ignorePattern === [false]`
       .sync(pattern, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
