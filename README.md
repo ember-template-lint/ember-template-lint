@@ -237,6 +237,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                        |
 | :white_check_mark:         | [no-partial](./docs/rule/no-partial.md)                                                    |
 |                            | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                  |
+| :wrench:                   | [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)      |
 | :white_check_mark:         | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                |
 | :white_check_mark:         | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                          |
 |                            | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                    |
