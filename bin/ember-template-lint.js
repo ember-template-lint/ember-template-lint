@@ -49,13 +49,14 @@ function expandFileGlobs(filePatterns, ignorePattern) {
   filePatterns.forEach((pattern) => {
     let isHBS = pattern.slice(-4) === '.hbs';
     let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
-    let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
-    
+
     if (isHBS && isLiteralPath) {
+      let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
+
       if (!isIgnored) {
         result.add(pattern);
       }
-      
+
       return;
     }
 
