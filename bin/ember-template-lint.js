@@ -5,6 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 const micromatch = require('micromatch');
+const isValidGlob = require('is-valid-glob');
 const getStdin = require('get-stdin');
 const globby = require('globby');
 const Linter = require('../lib/index');
@@ -47,7 +48,7 @@ function expandFileGlobs(filePatterns, ignorePattern) {
 
   filePatterns.forEach((pattern) => {
     // if we are passed items that are already globbed before we should not crawl them as directories
-    if (pattern.slice(-4) === '.hbs' && pattern.indexOf('*') === -1) {
+    if (pattern.slice(-4) === '.hbs' && !isValidGlob(pattern)) {
       if (
         (ignorePattern.length === 0 || !micromatch.isMatch(pattern, ignorePattern)) &&
         fs.existsSync(pattern)
