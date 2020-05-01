@@ -40,6 +40,7 @@
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
     "globby": "^11.0.0",
+    "is-valid-glob": "^1.0.0",
     "micromatch": "^4.0.2",
     "resolve": "^1.17.0",
     "yargs": "^15.3.1"

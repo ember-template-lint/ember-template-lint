@@ -56,38 +56,40 @@ var results = linter.verify({ source: template, moduleId: 'template.hbs' });
 
 Basic `ember-template-lint` executable is provided, allowing for easy use within i.e. Git pre-commit/push hooks and development of appropriate plugins for text editors.
 
+> Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `./node_modules/.bin/ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `./node_modules/.bin/ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
+
 Example usage:
 
 ```bash
 # basic usage
-./node_modules/.bin/ember-template-lint app/templates/application.hbs
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs"
 
 # output errors with source description
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --verbose
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --verbose
 
 # multiple file/directory/wildcard paths are accepted
-./node_modules/.bin/ember-template-lint app/templates/components/**/* app/templates/application.hbs
+./node_modules/.bin/ember-template-lint "app/templates/components/**/*" "app/templates/application.hbs"
 
 # output errors as pretty-printed JSON string
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --json
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --json
 
 # ignore warnings / only report errors
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --quiet
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --quiet
 
 # define custom config path
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --config-path .my-template-lintrc.js
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --config-path .my-template-lintrc.js
 
 # read from stdin
 ./node_modules/.bin/ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
 
 # print list of formated rules for use with `pending` in config file
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --print-pending
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --print-pending
 
 # specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
-./node_modules/.bin/ember-template-lint /tmp/template.hbs --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
+./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
 
 # disable ignore pattern entirely
-./node_modules/.bin/ember-template-lint /tmp/template.hbs --no-ignore-pattern
+./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --no-ignore-pattern
 
 # running a single rule without options
 ./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error'

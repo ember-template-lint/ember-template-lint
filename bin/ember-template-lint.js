@@ -4,6 +4,8 @@
 
 const fs = require('fs');
 const path = require('path');
+const micromatch = require('micromatch');
+const isValidGlob = require('is-valid-glob');
 const getStdin = require('get-stdin');
 const globby = require('globby');
 const Linter = require('../lib/index');
@@ -45,6 +47,19 @@ function expandFileGlobs(filePatterns, ignorePattern) {
   let result = new Set();
 
   filePatterns.forEach((pattern) => {
+    let isHBS = pattern.slice(-4) === '.hbs';
+    let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
+
+    if (isHBS && isLiteralPath) {
+      let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
+
+      if (!isIgnored) {
+        result.add(pattern);
+      }
+
+      return;
+    }
+
     globby
       // `--no-ignore-pattern` results in `ignorePattern === [false]`
       .sync(pattern, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
