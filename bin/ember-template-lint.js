@@ -47,15 +47,15 @@ function expandFileGlobs(filePatterns, ignorePattern) {
   let result = new Set();
 
   filePatterns.forEach((pattern) => {
-    // if we are passed items that are already globbed before we should not crawl them as directories
-    if (pattern.slice(-4) === '.hbs' && !isValidGlob(pattern)) {
-      if (
-        (ignorePattern.length === 0 || !micromatch.isMatch(pattern, ignorePattern)) &&
-        fs.existsSync(pattern)
-      ) {
+    let isHBS = pattern.slice(-4) === '.hbs';
+    let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
+    let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
+    
+    if (isHBS && isLiteralPath) {
+      if (!isIgnored) {
         result.add(pattern);
       }
-
+      
       return;
     }
 
