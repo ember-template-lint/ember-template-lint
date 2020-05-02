@@ -1,9 +1,8 @@
 # no-redundant-landmark-role
 
-If a landmark element is used, any role provided will either be redundant or incorrect. 
-Add support for landmark elements to ensure that no role attribute is placed on any of 
+If a landmark element is used, any role provided will either be redundant or incorrect.
+Add support for landmark elements to ensure that no role attribute is placed on any of
 the landmark elements, with a few exceptions.
-
 
 ## Examples
 
@@ -34,5 +33,3 @@ This rule **allows** the following:
 ```hbs
 <footer role="contentinfo"></footer>
 ```
-
-
