@@ -1,27 +1,43 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const rule = require('../../../lib/rules/no-nested-landmark');
 
-const ERROR_MESSAGE = require('../../../lib/rules/no-nested-landmark').ERROR_MESSAGE;
+const { createErrorMessage } = rule;
 
 generateRuleTests({
   name: 'no-nested-landmark',
 
   config: true,
 
-  // TODO update with a good example that should pass
-  good: ['passingTest00'],
+  good: ['<div><main></main></div>'],
 
-  // TODO update with tests that should fail
   bad: [
     {
-      template: 'FailingTest00 -- contains DisallowedText',
+      template: '<main><main></main></main>',
       result: {
-        moduleId: 'layout.hbs',
-        message: ERROR_MESSAGE,
+        message: createErrorMessage('main'),
         line: 1,
-        column: 0,
-        source: 'FailingTest00 -- contains DisallowedText',
+        column: 6,
+        source: '<main></main>',
+      },
+    },
+    {
+      template: '<div role="main"><main></main></div>',
+      result: {
+        message: createErrorMessage('main'),
+        line: 1,
+        column: 17,
+        source: '<main></main>',
+      },
+    },
+    {
+      template: '<main><div role="main"></div></main>',
+      result: {
+        message: createErrorMessage('div'),
+        line: 1,
+        column: 6,
+        source: '<div role="main"></div>',
       },
     },
   ],

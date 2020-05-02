@@ -1,53 +1,45 @@
 # no-nested-landmark
 
-TODO: context about the problem goes here
+Landmark elements should not be nested within landmark elements of the same name.
 
-TODO: what the rule does goes here
+## List of elements & their corresponding roles
+
+- header (banner)
+- main (main)
+- aside (complementary)
+- form (form, search)
+- main (main)
+- nav (navigation)
+- footer (contentinfo)
 
 ## Examples
 
 This rule **forbids** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+<main>
+  <main></main>
+</main>
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<div role="main">
+  <main></main>
+</div>
+```
+
+```hbs
+<main>
+  <div role="main"></div>
+</main>
 ```
 
 This rule **allows** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+<div><main></main></div>
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<main></main>
 ```
-
-## Migration
-
-TODO: suggest any fast/automated techniques for fixing violations in a large codebase
-
-* TODO: suggestion on how to fix violations using find-and-replace / regexp
-* TODO: suggestion on how to fix violations using a codemod
-
-## Configuration
-
-TODO: exclude this section if the rule has no extra configuration
-
-* object -- containing the following properties:
-  * string -- `parameterName1` -- TODO: description of parameter including the possible values and default value
-  * boolean -- `parameterName2` -- TODO: description of parameter including the possible values and default value
-
-## Related Rules
-
-* [TODO-related-rule-name1](related-rule-name1.md)
-* [TODO-related-rule-name2](related-rule-name2.md)
-
-## References
-
-* TODO: link to relevant documentation goes here
-* TODO: link to relevant function spec goes here
-* TODO: link to relevant guide goes here

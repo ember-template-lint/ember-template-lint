@@ -37,6 +37,7 @@
 * [no-multiple-empty-lines](rule/no-multiple-empty-lines.md)
 * [no-negated-condition](rule/no-negated-condition.md)
 * [no-nested-interactive](rule/no-nested-interactive.md)
+* [no-nested-landmark](rule/no-nested-landmark.md)
 * [no-obsolete-elements](rule/no-obsolete-elements.md)
 * [no-outlet-outside-routes](rule/no-outlet-outside-routes.md)
 * [no-partial](rule/no-partial.md)
@@ -71,5 +72,3 @@
 * [deprecated-each-syntax](rule/deprecations/deprecated-each-syntax.md)
 * [deprecated-inline-view-helper](rule/deprecations/deprecated-inline-view-helper.md)
 * [deprecated-render-helper](rule/deprecations/deprecated-render-helper.md)
-
-* [no-nested-landmark](rule/no-nested-landmark.md)
