@@ -1,53 +1,39 @@
 # no-redundant-landmark-role
 
-TODO: context about the problem goes here
+If a landmark element is used, any role provided will either be redundant or incorrect. 
+Add support for landmark elements to ensure that no role attribute is placed on any of 
+the landmark elements, with a few exceptions.
 
-TODO: what the rule does goes here
 
 ## Examples
 
 This rule **forbids** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+<header role="banner"></header>
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<main role="main"></main>
+```
+
+```hbs
+<aside role="complementary"></aside>
+```
+
+```hbs
+<nav role="navigation"></nav>
 ```
 
 This rule **allows** the following:
 
+  good: ['', ''],
 ```hbs
-{{!-- TODO: Example 1  --}}
+<form role="search"></form>
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<footer role="contentinfo"></footer>
 ```
 
-## Migration
 
-TODO: suggest any fast/automated techniques for fixing violations in a large codebase
-
-* TODO: suggestion on how to fix violations using find-and-replace / regexp
-* TODO: suggestion on how to fix violations using a codemod
-
-## Configuration
-
-TODO: exclude this section if the rule has no extra configuration
-
-* object -- containing the following properties:
-  * string -- `parameterName1` -- TODO: description of parameter including the possible values and default value
-  * boolean -- `parameterName2` -- TODO: description of parameter including the possible values and default value
-
-## Related Rules
-
-* [TODO-related-rule-name1](related-rule-name1.md)
-* [TODO-related-rule-name2](related-rule-name2.md)
-
-## References
-
-* TODO: link to relevant documentation goes here
-* TODO: link to relevant function spec goes here
-* TODO: link to relevant guide goes here
