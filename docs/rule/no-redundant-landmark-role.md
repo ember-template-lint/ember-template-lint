@@ -27,7 +27,6 @@ This rule **forbids** the following:
 
 This rule **allows** the following:
 
-  good: ['', ''],
 ```hbs
 <form role="search"></form>
 ```
