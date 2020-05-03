@@ -23,14 +23,38 @@ This rule **forbids** the following:
 ```
 
 ```hbs
+<main>
+  <div>
+    <main></main>
+  </div>
+</main>
+```
+
+```hbs
 <div role="main">
   <main></main>
 </div>
 ```
 
 ```hbs
+<div role="main">
+  <div>
+    <main></main>
+  </div>
+</div>
+```
+
+```hbs
 <main>
   <div role="main"></div>
+</main>
+```
+
+```hbs
+<main>
+  <div>
+    <div role="main"></div>
+  </div>
 </main>
 ```
 

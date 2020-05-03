@@ -23,6 +23,16 @@ generateRuleTests({
       },
     },
     {
+      template: '<main><div><main></main></div></main>',
+      result: {
+        message: createErrorMessage('main'),
+        line: 1,
+        column: 11,
+        source: '<main></main>',
+      },
+    },
+
+    {
       template: '<div role="main"><main></main></div>',
       result: {
         message: createErrorMessage('main'),
@@ -32,11 +42,30 @@ generateRuleTests({
       },
     },
     {
+      template: '<div role="main"><div><main></main></div></div>',
+      result: {
+        message: createErrorMessage('main'),
+        line: 1,
+        column: 22,
+        source: '<main></main>',
+      },
+    },
+
+    {
       template: '<main><div role="main"></div></main>',
       result: {
         message: createErrorMessage('div'),
         line: 1,
         column: 6,
+        source: '<div role="main"></div>',
+      },
+    },
+    {
+      template: '<main><div><div role="main"></div></div></main>',
+      result: {
+        message: createErrorMessage('div'),
+        line: 1,
+        column: 11,
         source: '<div role="main"></div>',
       },
     },
