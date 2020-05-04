@@ -51,5 +51,14 @@ generateRuleTests({
         source: '<nav role="navigation"></nav>',
       },
     },
+    {
+      template: '<form role="form"></form>',
+      result: {
+        message: createErrorMessage('form'),
+        line: 1,
+        column: 0,
+        source: '<form role="form"></form>',
+      },
+    },
   ],
 });

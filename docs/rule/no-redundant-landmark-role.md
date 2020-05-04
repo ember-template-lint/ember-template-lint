@@ -24,6 +24,10 @@ This rule **forbids** the following:
 <nav role="navigation"></nav>
 ```
 
+```hbs
+<form role="form"></form>
+```
+
 This rule **allows** the following:
 
 ```hbs
@@ -33,3 +37,8 @@ This rule **allows** the following:
 ```hbs
 <footer role="contentinfo"></footer>
 ```
+
+## References
+
+- [Landmark Roles (WAI-ARIA spec)](https://www.w3.org/WAI/PF/aria/roles#landmark_roles)
+- [Using ARIA landmarks to identify regions of a page](https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA11)
