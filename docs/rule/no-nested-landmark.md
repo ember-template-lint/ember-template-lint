@@ -67,3 +67,11 @@ This rule **allows** the following:
 ```hbs
 <main></main>
 ```
+
+```hbs
+<div role="application">
+  <div role="document">
+    <div role="application"></div>
+  </div>
+</div>
+```

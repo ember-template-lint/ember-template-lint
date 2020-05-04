@@ -10,7 +10,10 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<div><main></main></div>'],
+  good: [
+    '<div><main></main></div>',
+    '<div role="application"><div role="document"><div role="application"></div></div></div>',
+  ],
 
   bad: [
     {
