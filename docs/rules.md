@@ -18,6 +18,7 @@
 * [no-debugger](rule/no-debugger.md)
 * [no-curly-component-invocation](rule/no-curly-component-invocation.md)
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
+* [no-duplicate-landmark-labels](rule/no-duplicate-landmark-labels.md)
 * [no-element-event-actions](rule/no-element-event-actions.md)
 * [no-extra-mut-helper-argument](rule/no-extra-mut-helper-argument.md)
 * [no-heading-inside-button](rule/no-heading-inside-button.md)
@@ -71,5 +72,3 @@
 * [deprecated-each-syntax](rule/deprecations/deprecated-each-syntax.md)
 * [deprecated-inline-view-helper](rule/deprecations/deprecated-inline-view-helper.md)
 * [deprecated-render-helper](rule/deprecations/deprecated-render-helper.md)
-
-* [no-duplicate-landmkar-labels](rule/no-duplicate-landmkar-labels.md)

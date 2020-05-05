@@ -1,4 +1,4 @@
-# no-duplicate-landmkar-labels
+# no-duplicate-landmark-labels
 
 TODO: context about the problem goes here
 
