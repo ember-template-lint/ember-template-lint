@@ -71,3 +71,5 @@
 * [deprecated-each-syntax](rule/deprecations/deprecated-each-syntax.md)
 * [deprecated-inline-view-helper](rule/deprecations/deprecated-inline-view-helper.md)
 * [deprecated-render-helper](rule/deprecations/deprecated-render-helper.md)
+
+* [no-duplicate-landmkar-labels](rule/no-duplicate-landmkar-labels.md)
