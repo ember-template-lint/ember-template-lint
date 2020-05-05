@@ -11,7 +11,10 @@ generateRuleTests({
 
   config: true,
 
-  good: ['passingTest00'],
+  good: [
+    '<nav aria-label="primary site navigation"></nav><nav aria-label="secondary site navigation within home page"></nav>',
+    '<nav aria-label="primary site navigation"></nav><div role="navigation" aria-label="secondary site navigation within home page"></div>',
+  ],
 
   bad: [
     {
@@ -22,6 +25,16 @@ generateRuleTests({
         line: 1,
         column: 11,
         source: '<nav></nav>',
+      },
+    },
+    {
+      template: '<nav></nav><div role="navigation"></div>',
+      result: {
+        moduleId: 'layout',
+        message: createErrorMessage('div'),
+        line: 1,
+        column: 11,
+        source: '<div role="navigation"></div>',
       },
     },
     {
