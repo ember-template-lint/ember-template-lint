@@ -31,6 +31,11 @@ This rule **forbids** the following:
 <nav aria-label="site navigation"></nav>
 ```
 
+```hbs
+<form aria-label="search-form"></form>
+<form aria-label="search-form"></form>
+```
+
 This rule **allows** the following:
 
 ```hbs

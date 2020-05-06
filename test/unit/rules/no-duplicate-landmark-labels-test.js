@@ -57,5 +57,15 @@ generateRuleTests({
         source: '<nav aria-label="site navigation"></nav>',
       },
     },
+    {
+      template: '<form aria-label="search-form"></form><form aria-label="search-form"></form>',
+      result: {
+        moduleId: 'layout',
+        message: createErrorMessage('form'),
+        line: 1,
+        column: 38,
+        source: '<form aria-label="search-form"></form>',
+      },
+    },
   ],
 });
