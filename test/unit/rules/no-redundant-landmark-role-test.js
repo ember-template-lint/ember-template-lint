@@ -10,10 +10,8 @@ generateRuleTests({
 
   config: true,
 
-  // TODO update with a good example that should pass
   good: ['<form role="search"></form>', '<footer role="contentinfo"></footer>'],
 
-  // TODO update with tests that should fail
   bad: [
     {
       template: '<header role="banner"></header>',
