@@ -72,5 +72,23 @@ generateRuleTests({
         source: '<div role="main"></div>',
       },
     },
+    {
+      template: '<nav><nav></nav></nav>',
+      result: {
+        message: createErrorMessage('nav'),
+        line: 1,
+        column: 5,
+        source: '<nav></nav>',
+      },
+    },
+    {
+      template: '<header><header></header></header>',
+      result: {
+        message: createErrorMessage('header'),
+        line: 1,
+        column: 8,
+        source: '<header></header>',
+      },
+    },
   ],
 });
