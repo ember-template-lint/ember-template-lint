@@ -26,6 +26,12 @@ generateRuleTests({
     '<AwesomeThing role="none"></AwesomeThing>',
     '<AwesomeThing role="presentation"></AwesomeThing>',
     '<table role="textbox"></table>', // Random role on this element.
+    {
+      config: {
+        catchInvalidRoles: false,
+      },
+      template: '<div role="command interface"></div>',
+    },
   ],
 
   bad: [
