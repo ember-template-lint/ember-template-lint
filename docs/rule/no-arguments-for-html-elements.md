@@ -43,15 +43,15 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<img @src="1" >`
+<img @src="1" >
 ```
 
 ```hbs
-<img src="this.picture" >`
+<img src="this.picture" >
 ```
 
 ```hbs
-<img src="@img" >`
+<img src="@img" >
 ```
 
 ```hbs
@@ -71,16 +71,16 @@ This rule **allows** the following:
 ```
 
 ```hbs
-<img src={{this.picture}} >`
+<img src={{this.picture}} >
 ```
 
 ```hbs
-<img src={{@img}} >`
+<img src={{@img}} >
 ```
 
 ```hbs
 <MyComponent as |blockName|>
-    {{blockName}}
+  {{blockName}}
 </MyComponent>
 ```
 
@@ -101,3 +101,8 @@ This rule **allows** the following:
   <:slot @name="Header"></:slot>
 </MyComponent>
 ```
+
+
+## References
+
+* [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)

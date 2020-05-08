@@ -16,60 +16,25 @@ generateRuleTests({
     <:slot @name="Header"></:slot>
   </MyComponent>`,
     '<@foo.bar @name="2" />',
+    '<this.name @boo="bar"></this.name>',
     '<@foo @name="2" />',
-    '<foo.some.name @name="1"/>',
-    '<div name="@value"></div>',
-    "<div name='@value'></div>",
-    '<div name=`@value`></div>',
-    '<ABC name=`@value`></ABC>',
+    '<foo.some.name @name="1" />',
   ],
 
   bad: [
     {
       template: '<div as |a|></div>',
       result: {
-        message: makeError(3, 'a'),
-        moduleId: 'layout.hbs',
+        message: makeError(2, 'a'),
         source: '<div as |a|></div>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<div name=@value></div>',
-      result: {
-        message: makeError(2, '@value', 'name={{@value}}'),
-        moduleId: 'layout.hbs',
-        source: '@value',
-        line: 1,
-        column: 10,
-      },
-    },
-    {
-      template: '<Abc name=@value></Abc>',
-      result: {
-        message: makeError(2, '@value', 'name={{@value}}'),
-        moduleId: 'layout.hbs',
-        source: '@value',
-        line: 1,
-        column: 10,
-      },
-    },
-    {
-      template: '<div name=this.name></div>',
-      result: {
-        message: makeError(2, 'this.name', 'name={{this.name}}'),
-        moduleId: 'layout.hbs',
-        source: 'this.name',
-        line: 1,
-        column: 10,
-      },
-    },
-    {
       template: '<div @value="1"></div>',
       result: {
         message: makeError(1, '@value', 'div'),
-        moduleId: 'layout.hbs',
         source: '@value="1"',
         line: 1,
         column: 5,
@@ -79,8 +44,16 @@ generateRuleTests({
       template: '<div @value></div>',
       result: {
         message: makeError(1, '@value', 'div'),
-        moduleId: 'layout.hbs',
         source: '@value',
+        line: 1,
+        column: 5,
+      },
+    },
+    {
+      template: '<img @src="12">',
+      result: {
+        message: makeError(1, '@src', 'img'),
+        source: '@src="12"',
         line: 1,
         column: 5,
       },
