@@ -46,6 +46,12 @@ This rule **allows** the following:
 <span role="none"></span>
 ```
 
+## Configuration
+
+* boolean - `true` to enable / `false` to disable
+
+* object - { 'catchNonexistentRoles' : `true|false` } -- Whether invalid role values should be allowed (defaults to `false`)
+
 ## Migration
 
 * If violations are found, remediation should be planned to replace the semantic HTML with the `div` element. Additional CSS will likely be required.

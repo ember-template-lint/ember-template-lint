@@ -28,7 +28,7 @@ generateRuleTests({
     '<table role="textbox"></table>', // Random role on this element.
     {
       config: {
-        catchInvalidRoles: false,
+        catchNonexistentRoles: false,
       },
       template: '<div role="command interface"></div>',
     },
@@ -84,7 +84,7 @@ generateRuleTests({
     {
       template: '<div role="command interface"></div>',
       config: {
-        catchInvalidRoles: true,
+        catchNonexistentRoles: true,
       },
       result: {
         message: createInvalidRoleErrorMessage('div'),
@@ -96,7 +96,7 @@ generateRuleTests({
     {
       template: '<div role="COMMAND INTERFACE"></div>',
       config: {
-        catchInvalidRoles: true,
+        catchNonexistentRoles: true,
       },
       result: {
         message: createInvalidRoleErrorMessage('div'),
