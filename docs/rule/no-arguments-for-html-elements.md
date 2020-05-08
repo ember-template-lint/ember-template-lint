@@ -27,11 +27,10 @@ Uncaught (in promise) TypeError: func is not a function
 This is untraceable for end-users.
 This linting rule determines if it is a component or not and emits an error if argument is assigned to a lower-case element without the same block name and without dots in notation.
 
-This rule will also emit an error for these other conditions: 
+This rule will also emit an error for these other conditions:
 
 - trying to specify "path-like" string as attribute argument
 - trying to use an HTML element with block params
-
 
 ## Examples
 
@@ -103,4 +102,4 @@ This rule **allows** the following:
 
 ## References
 
-* [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)
+- [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)
