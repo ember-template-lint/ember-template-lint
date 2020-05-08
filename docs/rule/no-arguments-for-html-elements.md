@@ -1,5 +1,4 @@
-## no-arguments-for-html-elements
-
+# no-arguments-for-html-elements
 
 Angle bracket components use the `@argument` style and that's why users are more likely to start making this mistake.
 
@@ -11,7 +10,7 @@ For case like:
 
 we have untrackable error like
 
-```
+```txt
 Uncaught (in promise) TypeError: func is not a function
     at Compilers.compile
     at compile
@@ -34,7 +33,7 @@ This rule will also emit an error for these other conditions:
 - trying to use an HTML element with block params
 
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
@@ -101,7 +100,6 @@ This rule **allows** the following:
   <:slot @name="Header"></:slot>
 </MyComponent>
 ```
-
 
 ## References
 
