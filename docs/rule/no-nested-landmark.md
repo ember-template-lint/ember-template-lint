@@ -75,3 +75,8 @@ This rule **allows** the following:
   </div>
 </div>
 ```
+
+## References
+
+- [HTML Sectioning Elements](https://www.w3.org/TR/wai-aria-practices-1.1/#html-sectioning-elements)
+- [Landmark Roles](https://www.w3.org/TR/wai-aria-1.1/#landmark_roles)
