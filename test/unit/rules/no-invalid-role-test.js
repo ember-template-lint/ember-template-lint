@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 const rule = require('../../../lib/rules/no-invalid-role');
 
-const { createErrorMessageDisallowedRoleForElement, createInvalidRoleErrorMessage } = rule;
+const { createErrorMessageDisallowedRoleForElement, createNonexistentRoleErrorMessage } = rule;
 
 generateRuleTests({
   name: 'no-invalid-role',
@@ -87,7 +87,7 @@ generateRuleTests({
         catchNonexistentRoles: true,
       },
       result: {
-        message: createInvalidRoleErrorMessage('div'),
+        message: createNonexistentRoleErrorMessage('div'),
         source: '<div role="command interface"></div>',
         line: 1,
         column: 0,
@@ -99,7 +99,7 @@ generateRuleTests({
         catchNonexistentRoles: true,
       },
       result: {
-        message: createInvalidRoleErrorMessage('div'),
+        message: createNonexistentRoleErrorMessage('div'),
         source: '<div role="COMMAND INTERFACE"></div>',
         line: 1,
         column: 0,

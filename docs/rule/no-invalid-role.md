@@ -51,6 +51,7 @@ This rule **allows** the following:
 * boolean - `true` to enable / `false` to disable
 
 * object - { 'catchNonexistentRoles' : `true|false` } -- Whether invalid role values should be allowed (defaults to `false`)
+(TODO: change default to true in next major release)
 
 ## Migration
 
