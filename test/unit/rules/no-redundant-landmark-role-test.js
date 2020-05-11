@@ -10,13 +10,18 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<form role="search"></form>', '<footer role="contentinfo"></footer>'],
+  good: [
+    '<form role="search"></form>',
+    '<footer role="contentinfo"></footer>',
+    '<footer role={{this.foo}}></footer>',
+    '<footer role="{{this.stuff}}{{this.foo}}"></footer>',
+  ],
 
   bad: [
     {
       template: '<header role="banner"></header>',
       result: {
-        message: createErrorMessage('header'),
+        message: createErrorMessage('header', 'banner'),
         line: 1,
         column: 0,
         source: '<header role="banner"></header>',
@@ -25,7 +30,7 @@ generateRuleTests({
     {
       template: '<main role="main"></main>',
       result: {
-        message: createErrorMessage('main'),
+        message: createErrorMessage('main', 'main'),
         line: 1,
         column: 0,
         source: '<main role="main"></main>',
@@ -34,7 +39,7 @@ generateRuleTests({
     {
       template: '<aside role="complementary"></aside>',
       result: {
-        message: createErrorMessage('aside'),
+        message: createErrorMessage('aside', 'complementary'),
         line: 1,
         column: 0,
         source: '<aside role="complementary"></aside>',
@@ -43,7 +48,7 @@ generateRuleTests({
     {
       template: '<nav role="navigation"></nav>',
       result: {
-        message: createErrorMessage('nav'),
+        message: createErrorMessage('nav', 'navigation'),
         line: 1,
         column: 0,
         source: '<nav role="navigation"></nav>',
@@ -52,7 +57,7 @@ generateRuleTests({
     {
       template: '<form role="form"></form>',
       result: {
-        message: createErrorMessage('form'),
+        message: createErrorMessage('form', 'form'),
         line: 1,
         column: 0,
         source: '<form role="form"></form>',
