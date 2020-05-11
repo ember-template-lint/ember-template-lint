@@ -21,7 +21,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<html></html>
+<meta charset="utf-8">
 ```
 
 This rule **allows** the following:
