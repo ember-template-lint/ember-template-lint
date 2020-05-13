@@ -1,0 +1,5 @@
+{
+  "name": "ember-template-lint-printer-test",
+  "version": "1.0.0",
+  "description": "test printer to show how to package printers and use them."
+}

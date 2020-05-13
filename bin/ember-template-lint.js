@@ -139,6 +139,11 @@ function parseArgv(_argv) {
         boolean: true,
         default: false,
       },
+      printer: {
+        describe: 'Specify formatter to be used in printing output',
+        type: 'string',
+        default: 'pretty',
+      },
       json: {
         describe: 'Format output as json',
         boolean: true,

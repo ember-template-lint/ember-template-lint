@@ -54,6 +54,7 @@
     "@babel/traverse": "^7.13.0",
     "common-tags": "^1.8.0",
     "date-fns": "^2.16.1",
+    "ember-template-lint-printer-test": "link:./test/fixtures/ember-template-lint-printer-test",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
