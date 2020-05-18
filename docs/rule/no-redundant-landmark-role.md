@@ -1,7 +1,7 @@
 # no-redundant-landmark-role
 
 If a landmark element is used, any role provided will either be redundant or incorrect.
-Add support for landmark elements to ensure that no role attribute is placed on any of
+This rule adds support for landmark elements, to ensure that no role attribute is placed on any of
 the landmark elements, with a few exceptions.
 
 ## Examples
