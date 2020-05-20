@@ -45,6 +45,7 @@
 * [no-passed-in-event-handlers](rule/no-passed-in-event-handlers.md)
 * [no-positive-tabindex](rule/no-positive-tabindex.md)
 * [no-quoteless-attributes](rule/no-quoteless-attributes.md)
+* [no-redundant-landmark-role](rule/no-redundant-landmark-role.md)
 * [no-shadowed-elements](rule/no-shadowed-elements.md)
 * [no-trailing-spaces](rule/no-trailing-spaces.md)
 * [no-triple-curlies](rule/no-triple-curlies.md)
