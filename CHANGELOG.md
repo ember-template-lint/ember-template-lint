@@ -1,3 +1,31 @@
+## v2.7.0 (2020-05-11)
+
+#### :rocket: Enhancement
+* [#927](https://github.com/ember-template-lint/ember-template-lint/pull/927) Add `no-arguments-for-html-elements` rule ([@lifeart](https://github.com/lifeart))
+* [#1320](https://github.com/ember-template-lint/ember-template-lint/pull/1320) Add `catchNonexistentRoles` option (default false) to `no-invalid-role` rule ([@rajasegar](https://github.com/rajasegar))
+* [#1222](https://github.com/ember-template-lint/ember-template-lint/pull/1222) Add new rule: `no-unbalanced-curlies` ([@pablobm](https://github.com/pablobm))
+
+#### :bug: Bug Fix
+* [#1324](https://github.com/ember-template-lint/ember-template-lint/pull/1324) Ensure `require-valid-alt-text` can handle a dynamic `role` attribute  ([@gabrielcsapo](https://github.com/gabrielcsapo))
+* [#1317](https://github.com/ember-template-lint/ember-template-lint/pull/1317) Avoid glob matching when no-glob is present (e.g. globs have already been replaced by shell expansion) ([@gabrielcsapo](https://github.com/gabrielcsapo))
+
+#### :memo: Documentation
+* [#1313](https://github.com/ember-template-lint/ember-template-lint/pull/1313) Update documentation and examples for `no-positive-tabindex` ([@MelSumner](https://github.com/MelSumner))
+
+#### :house: Internal
+* [#1323](https://github.com/ember-template-lint/ember-template-lint/pull/1323) Refactor `no-invalid-role` rule to better support future additions ([@bmish](https://github.com/bmish))
+* [#1298](https://github.com/ember-template-lint/ember-template-lint/pull/1298) Add shell-specific tests for reading from stdin ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 7
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Pablo Brasero ([@pablobm](https://github.com/pablobm))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+
+
 ## v2.6.0 (2020-04-28)
 
 #### :rocket: Enhancement

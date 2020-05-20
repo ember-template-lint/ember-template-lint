@@ -22,6 +22,7 @@ let good = [
   '{{textarea}}',
   '{{yield}}',
   '{{welcome-page}}',
+  '<MyComponent @prop={{can "edit" @model}} />',
   {
     config: { allow: ['book-details'] },
     template: '{{book-details}}',
@@ -92,6 +93,43 @@ generateRuleTests({
         source: 'book',
         line: 1,
         column: 10,
+      },
+    },
+    {
+      template: '<MyComponent @prop={{can.do}} />',
+      result: {
+        message: message('can.do'),
+        source: 'can.do',
+        line: 1,
+        column: 21,
+      },
+    },
+    {
+      template: '<MyComponent @prop={{can.do}} />',
+      config: { allow: ['can'] },
+      result: {
+        message: message('can.do'),
+        source: 'can.do',
+        line: 1,
+        column: 21,
+      },
+    },
+    {
+      template: '{{session.user.name}}',
+      result: {
+        message: message('session.user.name'),
+        source: 'session.user.name',
+        line: 1,
+        column: 2,
+      },
+    },
+    {
+      template: '<MyComponent @prop={{session.user.name}} />',
+      result: {
+        message: message('session.user.name'),
+        source: 'session.user.name',
+        line: 1,
+        column: 21,
       },
     },
   ],
