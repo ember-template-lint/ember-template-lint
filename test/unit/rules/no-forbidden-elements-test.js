@@ -10,8 +10,16 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<header></header>', '<div></div>', '<footer></footer>', '<p></p>'],
-
+  good: [
+    '<header></header>',
+    '<div></div>',
+    '<footer></footer>',
+    '<p></p>',
+    {
+      template: '<script></script>',
+      config: ['html', 'meta', 'style'],
+    },
+  ],
   bad: [
     {
       template: '<script></script>',
@@ -75,6 +83,17 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: '<div></div>',
+      },
+    },
+    {
+      template: '<Foo />',
+      config: ['Foo'],
+      result: {
+        moduleId: 'layout',
+        message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('Foo'),
+        line: 1,
+        column: 0,
+        source: '<Foo />',
       },
     },
   ],

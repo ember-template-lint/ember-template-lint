@@ -1,8 +1,9 @@
 # no-forbidden-elements
 
-This rule disallows the use of `meta`, `style`, `html` and `script` tags in template files.
+This rule disallows the use of forbidden elements in template files.
 
 The rule is configurable so teams can add their own disallowed elements.
+The default list of forbidden elements are `meta`, `style`, `html` and `script`.
 
 ## Examples
 
@@ -37,6 +38,6 @@ This rule **allows** the following:
 ## Configuration
 
 * boolean - `true` to enable / `false` to disable
-  * array -- an array of strings to forbid
+  * array -- an array of strings to forbid, default: ['meta', 'style', 'html', 'style']
   * object -- An object with the following keys:
     * `forbidden` -- An array of forbidden element names
