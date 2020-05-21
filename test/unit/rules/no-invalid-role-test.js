@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 const rule = require('../../../lib/rules/no-invalid-role');
 
-const { createErrorMessageDisallowedRoleForElement } = rule;
+const { createErrorMessageDisallowedRoleForElement, createNonexistentRoleErrorMessage } = rule;
 
 generateRuleTests({
   name: 'no-invalid-role',
@@ -26,6 +26,12 @@ generateRuleTests({
     '<AwesomeThing role="none"></AwesomeThing>',
     '<AwesomeThing role="presentation"></AwesomeThing>',
     '<table role="textbox"></table>', // Random role on this element.
+    {
+      config: {
+        catchNonexistentRoles: false,
+      },
+      template: '<div role="command interface"></div>',
+    },
   ],
 
   bad: [
@@ -70,6 +76,31 @@ generateRuleTests({
       result: {
         message: createErrorMessageDisallowedRoleForElement('table'),
         source: '<table role="none"></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+
+    {
+      template: '<div role="command interface"></div>',
+      config: {
+        catchNonexistentRoles: true,
+      },
+      result: {
+        message: createNonexistentRoleErrorMessage('div'),
+        source: '<div role="command interface"></div>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<div role="COMMAND INTERFACE"></div>',
+      config: {
+        catchNonexistentRoles: true,
+      },
+      result: {
+        message: createNonexistentRoleErrorMessage('div'),
+        source: '<div role="COMMAND INTERFACE"></div>',
         line: 1,
         column: 0,
       },
