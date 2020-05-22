@@ -1,7 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-implicit-this').message;
+const { ARGLESS_BUILTIN_HELPERS, message } = require('../../../lib/rules/no-implicit-this');
 
 let statements = [
   (path) => `{{${path}}}`,
@@ -13,15 +13,13 @@ let statements = [
   (path) => `<div {{helper ${path}}}></div>`,
 ];
 
-let good = [
-  '{{debugger}}',
-  '{{has-block}}',
-  '{{hasBlock}}',
-  '{{input}}',
-  '{{outlet}}',
-  '{{textarea}}',
-  '{{yield}}',
+let builtins = ARGLESS_BUILTIN_HELPERS.reduce((accumulator, helper) => {
+  return accumulator.concat([`{{${helper}}}`, `{{"inline: " (${helper})}}`]);
+}, []);
+
+let good = builtins.concat([
   '{{welcome-page}}',
+  '<WelcomePage />',
   '<MyComponent @prop={{can "edit" @model}} />',
   {
     config: { allow: ['book-details'] },
@@ -31,7 +29,7 @@ let good = [
     config: { allow: [/^data-test-.+/] },
     template: '{{foo-bar data-test-foo}}',
   },
-];
+]);
 
 statements.forEach((statement) => {
   good.push(`${statement('@book')}`);
