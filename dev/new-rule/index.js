@@ -93,7 +93,7 @@ function insertNewRuleIntoList(newRuleName) {
   // Insert rule into rule list
   let pathRuleList = path.join(pathRoot, 'lib', 'rules', 'index.js');
   let ruleListInsert = `\n  '${newRuleName}': require('./${newRuleName}'),`;
-  let ruleListPattern = /\n\};/;
+  let ruleListPattern = /\n};/;
   let orgContent = fs.readFileSync(pathRuleList, { encoding: 'utf8' });
   let matches = orgContent.match(ruleListPattern);
   if (matches) {

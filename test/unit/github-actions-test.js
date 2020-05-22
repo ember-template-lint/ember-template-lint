@@ -1,7 +1,7 @@
 'use strict';
 
 const Printer = require('../../lib/printers/github-actions');
-const Linter = require('../../lib/index');
+const Linter = require('../../lib');
 
 describe('GitHub Actions Annotations', function () {
   describe('_formatGitHubActionAnnotation', () => {
