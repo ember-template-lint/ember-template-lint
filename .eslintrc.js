@@ -3,22 +3,16 @@ module.exports = {
     ecmaVersion: 2019,
   },
   env: {
-    node: true
+    node: true,
   },
-  plugins: [
-    'eslint-comments',
-    'filenames',
-    'import',
-    'node',
-    'prettier'
-  ],
+  plugins: ['eslint-comments', 'filenames', 'import', 'node', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:node/recommended',
-    'prettier'
+    'prettier',
   ],
   rules: {
     // Optional eslint rules:
@@ -66,7 +60,7 @@ module.exports = {
     'prefer-rest-params': 'error',
     'prefer-spread': 'error',
     'prefer-template': 'error',
-    'quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }], // Disallow unnecessary template literals.
+    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }], // Disallow unnecessary template literals.
     radix: 'error',
     'require-atomic-updates': 'error',
     'require-await': 'error',
@@ -76,23 +70,23 @@ module.exports = {
 
     'eslint-comments/no-unused-disable': 'error',
 
-    'filenames/match-regex': ['error', '^[a-z0-9-]+$'], // Kebab-case.
+    'filenames/match-regex': ['error', '^.?[a-z0-9-]+$'], // Kebab-case.
 
     // Optional import rules:
-    'import/extensions': 'error',
-    'import/first': 'error',
-    'import/newline-after-import': 'error',
-    'import/no-absolute-path': 'error',
-    'import/no-cycle': 'error',
-    'import/no-deprecated': 'error',
-    'import/no-dynamic-require': 'error',
-    'import/no-mutable-exports': 'error',
-    'import/no-named-default': 'error',
-    'import/no-self-import': 'error',
-    'import/no-unassigned-import': 'error',
-    'import/no-unused-modules': 'error',
-    'import/no-useless-path-segments': 'error',
-    'import/no-webpack-loader-syntax': 'error',
+    'import/extensions': 'error',
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-absolute-path': 'error',
+    'import/no-cycle': 'error',
+    'import/no-deprecated': 'error',
+    'import/no-dynamic-require': 'error',
+    'import/no-mutable-exports': 'error',
+    'import/no-named-default': 'error',
+    'import/no-self-import': 'error',
+    'import/no-unassigned-import': 'error',
+    'import/no-unused-modules': 'error',
+    'import/no-useless-path-segments': 'error',
+    'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
 
     'prettier/prettier': 'error',
@@ -109,7 +103,7 @@ module.exports = {
       files: ['lib/rules/**/*.js'],
       rules: {
         'filenames/match-exported': ['error', 'kebab'],
-      }
+      },
     },
     {
       files: ['test/**/*.js'],
@@ -117,8 +111,8 @@ module.exports = {
         jest: true,
       },
       rules: {
-        'import/no-dynamic-require': 'off'
-      }
-    }
+        'import/no-dynamic-require': 'off',
+      },
+    },
   ],
 };
