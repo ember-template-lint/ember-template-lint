@@ -1,3 +1,27 @@
+## v2.8.0 (2020-05-22)
+
+#### :rocket: Enhancement
+* [#1335](https://github.com/ember-template-lint/ember-template-lint/pull/1335) Add new rule: no-forbidden-elements ([@rajasegar](https://github.com/rajasegar))
+* [#1321](https://github.com/ember-template-lint/ember-template-lint/pull/1321) Add new rule: `no-redundant-landmark-role` ([@rajasegar](https://github.com/rajasegar))
+* [#1322](https://github.com/ember-template-lint/ember-template-lint/pull/1322) Add new rule: `no-nested-landmark` ([@rajasegar](https://github.com/rajasegar))
+
+#### :bug: Bug Fix
+* [#1347](https://github.com/ember-template-lint/ember-template-lint/pull/1347) Add additional built-in helpers to `no-implicit-this` (e.g. `array`, `concat`, `query-params`, etc) ([@jaydgruber](https://github.com/jaydgruber))
+
+#### :memo: Documentation
+* [#1338](https://github.com/ember-template-lint/ember-template-lint/pull/1338) Clarify recommended fix for `no-negated-condition` rule ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1349](https://github.com/ember-template-lint/ember-template-lint/pull/1349) chore(dev-deps): update to eslint 7 ([@bmish](https://github.com/bmish))
+* [#1333](https://github.com/ember-template-lint/ember-template-lint/pull/1333) Ensure `<MyComponent @prop={{can.do}} />` triggers `no-implicit-this` error. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 4
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@jaydgruber](https://github.com/jaydgruber)
+
+
 ## v2.7.0 (2020-05-11)
 
 #### :rocket: Enhancement
