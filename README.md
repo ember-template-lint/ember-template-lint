@@ -18,13 +18,15 @@ the `no-bare-strings` rule found an error.
 
 ## Install
 
+This addon is installed by default with new Ember apps, so check your package.json before installing to see if you need to install it.
+
 To install ember-template-lint
 
 ```shell
 npm install --save-dev ember-template-lint
 ```
 
-Node.js `10 || 12 || 13` is required.
+Node.js `10 || >=12` is required.
 
 ## Usage
 
@@ -54,32 +56,49 @@ var results = linter.verify({ source: template, moduleId: 'template.hbs' });
 
 Basic `ember-template-lint` executable is provided, allowing for easy use within i.e. Git pre-commit/push hooks and development of appropriate plugins for text editors.
 
+> Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `./node_modules/.bin/ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `./node_modules/.bin/ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
+
 Example usage:
 
 ```bash
 # basic usage
-./node_modules/.bin/ember-template-lint app/templates/application.hbs
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs"
 
 # output errors with source description
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --verbose
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --verbose
 
 # multiple file/directory/wildcard paths are accepted
-./node_modules/.bin/ember-template-lint app/templates/components/**/* app/templates/application.hbs
+./node_modules/.bin/ember-template-lint "app/templates/components/**/*" "app/templates/application.hbs"
 
 # output errors as pretty-printed JSON string
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --json
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --json
 
 # ignore warnings / only report errors
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --quiet
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --quiet
 
 # define custom config path
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --config-path .my-template-lintrc.js
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --config-path .my-template-lintrc.js
 
 # read from stdin
 ./node_modules/.bin/ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
 
 # print list of formated rules for use with `pending` in config file
-./node_modules/.bin/ember-template-lint app/templates/application.hbs --print-pending
+./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --print-pending
+
+# specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
+./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
+
+# disable ignore pattern entirely
+./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --no-ignore-pattern
+
+# running a single rule without options
+./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error'
+
+# running a single rule with options
+./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:["error", { "allow": ["some-helper"] }]'
+
+# specify a config object to use instead of what exists locally
+./node_modules/.bin/ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
 
 ### ESLint
@@ -92,11 +111,11 @@ ember-template-lint into your normal eslint workflow.
 
 ### Presets
 
-Name   | Description |
-|:-----|:------------|
-| [recommended](lib/config/recommended.js) | enables the recommended rules |
-| [octane](lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
-| [stylistic](lib/config/stylistic.js) | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
+|    | Name   | Description |
+|:---|:-----|:------------|
+| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules |
+| :car: | [octane](lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
+| :dress: | [stylistic](lib/config/stylistic.js) | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ### Project Wide
 
@@ -152,6 +171,20 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 
 ## Rules
 
+Each rule can have its own severity level which can be a string or could be the first element of the array that contains the custom rule configuration.
+Supported severity levels are `off`, `warn`, `error`.
+You can define a severity level directly on the rule:
+Eg: `'no-bare-strings': 'warn'`
+OR
+If your rule has a custom configuration, and you want to define the severity level you would need to add the `severity` as the first element of the array.
+Eg:
+
+```js
+{
+   "no-implicit-this": ['warn', { "allow": [ "fooData" ] }
+}
+```
+
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
 ### Per Template File
@@ -184,6 +217,11 @@ and to configure rules in the template:
 {{!-- template-lint-configure no-bare-strings ["ZOMG THIS IS ALLOWED!!!!"]  --}}
 
 {{!-- template-lint-configure no-bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]}  --}}
+
+{{!-- template-lint-configure no-bare-strings ["warn", ["ZOMG THIS IS ALLOWED!!!!"]]  --}}
+
+{{!-- template-lint-configure no-bare-strings "warn"  --}}
+
 ```
 
 The configure instruction can only configure a single rule, and the configuration value must be valid JSON that parses into a configuration for that rule.
@@ -249,12 +287,3 @@ A few ideas for where to take this in the future:
 * This addon should use a test printer shared with jshint, eslint and jscs addons
 * A command-line version of the linter should be provided so IDEs and editors
   can provide feedback to devs during development
-
-### Installation
-
-* `git clone` this repository
-* `yarn`
-
-### Running Tests
-
-* `yarn test`

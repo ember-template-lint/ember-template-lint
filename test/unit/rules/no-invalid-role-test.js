@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 const rule = require('../../../lib/rules/no-invalid-role');
 
-const { createErrorMessage } = rule;
+const { createErrorMessageDisallowedRoleForElement, createNonexistentRoleErrorMessage } = rule;
 
 generateRuleTests({
   name: 'no-invalid-role',
@@ -25,14 +25,39 @@ generateRuleTests({
     '<custom-component role="none"></custom-component>',
     '<AwesomeThing role="none"></AwesomeThing>',
     '<AwesomeThing role="presentation"></AwesomeThing>',
+    '<table role="textbox"></table>', // Random role on this element.
+    {
+      config: {
+        catchNonexistentRoles: false,
+      },
+      template: '<div role="command interface"></div>',
+    },
   ],
 
   bad: [
     {
       template: '<ul role="presentation"></ul>',
       result: {
-        message: createErrorMessage('ul'),
+        message: createErrorMessageDisallowedRoleForElement('ul'),
         source: '<ul role="presentation"></ul>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<ol role="presentation"></ol>',
+      result: {
+        message: createErrorMessageDisallowedRoleForElement('ol'),
+        source: '<ol role="presentation"></ol>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<li role="presentation"></li>',
+      result: {
+        message: createErrorMessageDisallowedRoleForElement('li'),
+        source: '<li role="presentation"></li>',
         line: 1,
         column: 0,
       },
@@ -40,7 +65,7 @@ generateRuleTests({
     {
       template: '<table role="presentation"></table>',
       result: {
-        message: createErrorMessage('table'),
+        message: createErrorMessageDisallowedRoleForElement('table'),
         source: '<table role="presentation"></table>',
         line: 1,
         column: 0,
@@ -49,8 +74,33 @@ generateRuleTests({
     {
       template: '<table role="none"></table>',
       result: {
-        message: createErrorMessage('table'),
+        message: createErrorMessageDisallowedRoleForElement('table'),
         source: '<table role="none"></table>',
+        line: 1,
+        column: 0,
+      },
+    },
+
+    {
+      template: '<div role="command interface"></div>',
+      config: {
+        catchNonexistentRoles: true,
+      },
+      result: {
+        message: createNonexistentRoleErrorMessage('div'),
+        source: '<div role="command interface"></div>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<div role="COMMAND INTERFACE"></div>',
+      config: {
+        catchNonexistentRoles: true,
+      },
+      result: {
+        message: createNonexistentRoleErrorMessage('div'),
+        source: '<div role="COMMAND INTERFACE"></div>',
         line: 1,
         column: 0,
       },

@@ -1,6 +1,12 @@
 # linebreak-style
 
+:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
+
 Having consistent linebreaks is important to make sure that the source code is rendered correctly in editors.
+
+## Examples
+
+N/A
 
 ## Configuration
 

@@ -24,5 +24,5 @@ This rule **allows** the following:
 
 ## References
 
-* [Supplementing link text with the title attribute](<https://www.w3.org/TR/WCAG20-TECHS/H33.html)>
+* [Supplementing link text with the title attribute](https://www.w3.org/TR/WCAG20-TECHS/H33.html)
 * [Understanding Link Purpose](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html)

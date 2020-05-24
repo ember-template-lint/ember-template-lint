@@ -18,7 +18,7 @@ generateRuleTests({
     {{/let}}`,
   ],
 
-  bad: OBSOLETE_ELEMENTS.map(element => {
+  bad: OBSOLETE_ELEMENTS.map((element) => {
     return {
       template: `<${element}></${element}>`,
       result: {

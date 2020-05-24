@@ -2,13 +2,14 @@
 
 const { parse, transform } = require('ember-template-recast');
 const Rule = require('./../../lib/rules/base');
-const { readdirSync, existsSync, readFileSync } = require('fs');
+const { determineRuleConfig } = require('./../../lib/get-config');
+const { readdirSync } = require('fs');
 const { join, parse: parsePath } = require('path');
 const ruleNames = Object.keys(require('../../lib/rules'));
 const Project = require('../helpers/fake-project');
 const EditorConfigResolver = require('../../lib/get-editor-config');
 
-describe('base plugin', function() {
+describe('base plugin', function () {
   let project, editorConfigResolver;
   beforeEach(() => {
     project = Project.defaultSetup();
@@ -50,12 +51,12 @@ describe('base plugin', function() {
 
       let rule = new Rule(options);
 
-      transform(ast, () => rule.getVisitor());
+      transform(ast, (env) => rule.getVisitor(env));
     }
   }
 
   let messages, config;
-  beforeEach(function() {
+  beforeEach(function () {
     messages = [];
     config = {};
   });
@@ -87,14 +88,14 @@ describe('base plugin', function() {
     return { Rule, name, config };
   }
 
-  it('all presets correctly reexported', function() {
+  it('all presets correctly reexported', function () {
     const presetsPath = join(__dirname, '../../lib/config');
 
     const files = readdirSync(presetsPath);
     const presetFiles = files
-      .map(it => parsePath(it))
-      .filter(it => it.ext === '.js' && it.name !== 'index')
-      .map(it => it.name);
+      .map((it) => parsePath(it))
+      .filter((it) => it.ext === '.js' && it.name !== 'index')
+      .map((it) => it.name);
 
     const exportedPresets = require(join(presetsPath, 'index.js'));
     const exportedPresetNames = Object.keys(exportedPresets);
@@ -102,8 +103,8 @@ describe('base plugin', function() {
     expect(exportedPresetNames).toEqual(presetFiles);
   });
 
-  describe('rule APIs', function() {
-    it('can access editorConfig', function() {
+  describe('rule APIs', function () {
+    it('can access editorConfig', function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this.editorConfig.insert_final_newline).toBe(false);
@@ -113,7 +114,7 @@ describe('base plugin', function() {
       runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
 
-    it('does not error when accessing editorConfig when no filePath is passed', function() {
+    it('does not error when accessing editorConfig when no filePath is passed', function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this.editorConfig.insert_final_newline).toBe(undefined);
@@ -124,87 +125,24 @@ describe('base plugin', function() {
         { Rule: AwesomeRule, name: 'awesome-rule', config: true, filePath: undefined },
       ]);
     });
-  });
 
-  describe('rules setup is correct', function() {
-    const rulesEntryPath = join(__dirname, '../../lib/rules');
-    const files = readdirSync(rulesEntryPath);
-    const deprecatedFiles = readdirSync(join(rulesEntryPath, 'deprecations'));
-    const deprecatedRules = deprecatedFiles.filter(fileName => {
-      return fileName.endsWith('.js');
-    });
-    const expectedRules = files.filter(fileName => {
-      return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
-    });
-
-    it('has correct rules reexport', function() {
-      const defaultExport = require(rulesEntryPath);
-      const exportedRules = Object.keys(defaultExport);
-      exportedRules.forEach(ruleName => {
-        let pathName = join(rulesEntryPath, `${ruleName}`);
-
-        if (ruleName.startsWith('deprecated-')) {
-          pathName = join(rulesEntryPath, 'deprecations', `${ruleName}`);
+    it('can access template-recast env', function () {
+      class AwesomeRule extends Rule {
+        visitor(env) {
+          let { syntax } = env;
+          expect(syntax).toHaveProperty('parse');
+          expect(syntax).toHaveProperty('builders');
+          expect(syntax).toHaveProperty('print');
+          expect(syntax).toHaveProperty('traverse');
+          expect(syntax).toHaveProperty('Walker');
         }
-
-        expect(defaultExport[ruleName]).toEqual(require(pathName));
-      });
-      expect(expectedRules.length + deprecatedRules.length).toEqual(exportedRules.length);
-    });
-
-    it('has docs/rule reference for each item', function() {
-      function transformFileName(fileName) {
-        return fileName.replace('.js', '.md');
       }
-      const ruleDocsFolder = join(__dirname, '../../docs/rule');
-      deprecatedFiles.forEach(ruleFileName => {
-        const docFilePath = join(ruleDocsFolder, 'deprecations', transformFileName(ruleFileName));
-        expect(existsSync(docFilePath)).toBe(true);
-      });
-      expectedRules.forEach(ruleFileName => {
-        const docFilePath = join(ruleDocsFolder, transformFileName(ruleFileName));
-        expect(existsSync(docFilePath)).toBe(true);
-      });
-    });
 
-    it('All files under docs/rule/ have a link from docs/rules.md.', function() {
-      const docsPath = join(__dirname, '../../docs');
-      const entryPath = join(docsPath, 'rule');
-      const ruleFiles = readdirSync(entryPath).filter(
-        name => name.endsWith('.md') && name !== '_TEMPLATE_.md'
-      );
-      const deprecatedRuleFiles = readdirSync(join(entryPath, 'deprecations')).filter(name =>
-        name.endsWith('.md')
-      );
-      const allRulesFile = readFileSync(join(docsPath, 'rules.md'), {
-        encoding: 'utf8',
-      });
-      ruleFiles.forEach(fileName => {
-        expect(allRulesFile.includes(`(rule/${fileName})`)).toBe(true);
-      });
-      deprecatedRuleFiles.forEach(fileName => {
-        expect(allRulesFile.includes(`(rule/deprecations/${fileName})`)).toBe(true);
-      });
-    });
-
-    it('All rules has test files', function() {
-      const testsPath = join(__dirname, '../unit/rules');
-      const ruleFiles = readdirSync(testsPath).filter(name => name.endsWith('-test.js'));
-      const deprecatedRuleFiles = readdirSync(join(testsPath, 'deprecations')).filter(name =>
-        name.endsWith('-test.js')
-      );
-      expectedRules.forEach(ruleFileName => {
-        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
-        expect(ruleFiles.includes(ruleTestFileName)).toBe(true);
-      });
-      deprecatedRules.forEach(ruleFileName => {
-        const ruleTestFileName = ruleFileName.replace('.js', '-test.js');
-        expect(deprecatedRuleFiles.includes(ruleTestFileName)).toBe(true);
-      });
+      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
   });
 
-  describe('parses templates', function() {
+  describe('parses templates', function () {
     let visitor = {
       ElementNode(node) {
         this.process(node);
@@ -223,7 +161,7 @@ describe('base plugin', function() {
       let template = config.template;
       let nodeSources = config.sources;
 
-      it(`can get raw source for \`${template}\``, function() {
+      it(`can get raw source for \`${template}\``, function () {
         runRules(template, [plugin(buildPlugin(visitor), 'fake', config)]);
 
         expect(messages).toEqual(nodeSources);
@@ -248,7 +186,7 @@ describe('base plugin', function() {
     });
   });
 
-  describe('node types', function() {
+  describe('node types', function () {
     let wasCalled;
 
     let visitor = {
@@ -257,14 +195,14 @@ describe('base plugin', function() {
       },
     };
 
-    it('calls the "Template" node type', function() {
+    it('calls the "Template" node type', function () {
       runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
 
       expect(wasCalled).toBe(true);
     });
   });
 
-  describe('parses instructions', function() {
+  describe('parses instructions', function () {
     function processTemplate(template) {
       let Rule = buildPlugin({
         MustacheCommentStatement(node) {
@@ -272,10 +210,10 @@ describe('base plugin', function() {
         },
       });
 
-      Rule.prototype.log = function(result) {
+      Rule.prototype.log = function (result) {
         messages.push(result.message);
       };
-      Rule.prototype.process = function(node) {
+      Rule.prototype.process = function (node) {
         config = this._processInstructionNode(node);
       };
 
@@ -283,7 +221,7 @@ describe('base plugin', function() {
     }
 
     function expectConfig(instruction, expectedConfig) {
-      it(`can parse \`${instruction}\``, function() {
+      it(`can parse \`${instruction}\``, function () {
         processTemplate(`{{! ${instruction} }}`);
         expect(config).toEqual(expectedConfig);
         expect(messages).toEqual([]);
@@ -340,7 +278,7 @@ describe('base plugin', function() {
     expectConfig('', null);
 
     // Errors
-    it('logs an error when it encounters an unknown rule name', function() {
+    it('logs an error when it encounters an unknown rule name', function () {
       processTemplate(
         [
           '{{! template-lint-enable notarule }}',
@@ -356,14 +294,14 @@ describe('base plugin', function() {
       ]);
     });
 
-    it("logs an error when it can't parse a configure instruction's JSON", function() {
+    it("logs an error when it can't parse a configure instruction's JSON", function () {
       processTemplate('{{! template-lint-configure fake { not: "json" ] }}');
       expect(messages).toEqual([
         'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON',
       ]);
     });
 
-    it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function() {
+    it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function () {
       processTemplate(
         [
           '{{! template-lint-bloober fake }}',
@@ -378,7 +316,7 @@ describe('base plugin', function() {
       ]);
     });
 
-    it('only logs syntax errors once across all rules', function() {
+    it('only logs syntax errors once across all rules', function () {
       runRules(
         '{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}',
         [
@@ -393,7 +331,7 @@ describe('base plugin', function() {
     });
   });
 
-  describe('scopes instructions', function() {
+  describe('scopes instructions', function () {
     let events;
 
     function getId(node) {
@@ -408,7 +346,8 @@ describe('base plugin', function() {
     }
 
     function addEvent(event, node, plugin) {
-      events.push([event, getId(node), plugin.config]);
+      let { config, severity } = determineRuleConfig(plugin.config);
+      events.push([event, getId(node), config, severity]);
     }
 
     function buildPlugin() {
@@ -462,7 +401,7 @@ describe('base plugin', function() {
       runRules(template, [plugin(buildPlugin(), 'fake', config)]);
     }
 
-    beforeEach(function() {
+    beforeEach(function () {
       messages = [];
       events = [];
     });
@@ -473,7 +412,7 @@ describe('base plugin', function() {
       let expectedEvents = data.events;
       let config = data.config;
 
-      it(description, function() {
+      it(description, function () {
         processTemplate(template, config);
         expect(events).toEqual(expectedEvents);
         expect(messages).toEqual([]);
@@ -484,12 +423,48 @@ describe('base plugin', function() {
       desc: 'handles top-level instructions',
       template: ['{{! template-lint-configure fake "foo" }}', '<div id="id1"></div>'].join('\n'),
       events: [
-        ['comment/enter', '', true],
-        ['comment/exit', '', 'foo'],
-        ['element/enter', 'id1', 'foo'],
-        ['element/enter:children', 'id1', 'foo'],
-        ['element/exit:children', 'id1', 'foo'],
-        ['element/exit', 'id1', 'foo'],
+        ['comment/enter', '', true, 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/enter', 'id1', 'foo', 2],
+        ['element/enter:children', 'id1', 'foo', 2],
+        ['element/exit:children', 'id1', 'foo', 2],
+        ['element/exit', 'id1', 'foo', 2],
+      ],
+    });
+
+    expectEvents({
+      desc: 'uses config correctly with custom severity',
+      template: [
+        '<div id="id1">',
+        '  {{! template-lint-configure fake "off" }}',
+        '  <span id="id2">',
+        '    {{! template-lint-configure fake ["warn", ["bar", "baz"]] }}',
+        '    <b id="id3"/>',
+        '  </span>',
+        '</div>',
+        '<i id="id4"></i>',
+      ].join('\n'),
+      events: [
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['comment/enter', '', true, 2],
+        ['comment/exit', '', false, 0],
+        ['element/enter', 'id2', false, 0],
+        ['element/enter:children', 'id2', false, 0],
+        ['comment/enter', '', false, 0],
+        ['comment/exit', '', ['bar', 'baz'], 1],
+        ['element/enter', 'id3', ['bar', 'baz'], 1],
+        ['element/enter:children', 'id3', ['bar', 'baz'], 1],
+        ['element/exit:children', 'id3', ['bar', 'baz'], 1],
+        ['element/exit', 'id3', ['bar', 'baz'], 1],
+        ['element/exit:children', 'id2', false, 0],
+        ['element/exit', 'id2', false, 0],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
+        ['element/enter', 'id4', true, 2],
+        ['element/enter:children', 'id4', true, 2],
+        ['element/exit:children', 'id4', true, 2],
+        ['element/exit', 'id4', true, 2],
       ],
     });
 
@@ -503,20 +478,20 @@ describe('base plugin', function() {
         '<i id="id3"></i>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', true],
-        ['element/enter:children', 'id1', true],
-        ['comment/enter', '', true],
-        ['comment/exit', '', 'foo'],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', 'foo'],
-        ['element/exit:children', 'id2', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', true],
-        ['element/exit', 'id1', true],
-        ['element/enter', 'id3', true],
-        ['element/enter:children', 'id3', true],
-        ['element/exit:children', 'id3', true],
-        ['element/exit', 'id3', true],
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['comment/enter', '', true, 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', 'foo', 2],
+        ['element/exit:children', 'id2', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
+        ['element/enter', 'id3', true, 2],
+        ['element/enter:children', 'id3', true, 2],
+        ['element/exit:children', 'id3', true, 2],
+        ['element/exit', 'id3', true, 2],
       ],
     });
 
@@ -533,26 +508,26 @@ describe('base plugin', function() {
         '<i id="id4"></i>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', true],
-        ['element/enter:children', 'id1', true],
-        ['comment/enter', '', true],
-        ['comment/exit', '', 'foo'],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'bar'],
-        ['element/enter', 'id3', 'bar'],
-        ['element/enter:children', 'id3', 'bar'],
-        ['element/exit:children', 'id3', 'bar'],
-        ['element/exit', 'id3', 'bar'],
-        ['element/exit:children', 'id2', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', true],
-        ['element/exit', 'id1', true],
-        ['element/enter', 'id4', true],
-        ['element/enter:children', 'id4', true],
-        ['element/exit:children', 'id4', true],
-        ['element/exit', 'id4', true],
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['comment/enter', '', true, 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'bar', 2],
+        ['element/enter', 'id3', 'bar', 2],
+        ['element/enter:children', 'id3', 'bar', 2],
+        ['element/exit:children', 'id3', 'bar', 2],
+        ['element/exit', 'id3', 'bar', 2],
+        ['element/exit:children', 'id2', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
+        ['element/enter', 'id4', true, 2],
+        ['element/enter:children', 'id4', true, 2],
+        ['element/exit:children', 'id4', true, 2],
+        ['element/exit', 'id4', true, 2],
       ],
     });
 
@@ -568,26 +543,26 @@ describe('base plugin', function() {
         '<i id="id4"></i>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', true],
-        ['element/enter:children', 'id1', true],
-        ['comment/enter', '', true],
-        ['comment/exit', '', 'foo'],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', 'foo'],
-        ['element/exit:children', 'id2', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'bar'],
-        ['element/enter', 'id3', 'bar'],
-        ['element/enter:children', 'id3', 'bar'],
-        ['element/exit:children', 'id3', 'bar'],
-        ['element/exit', 'id3', 'bar'],
-        ['element/exit:children', 'id1', true],
-        ['element/exit', 'id1', true],
-        ['element/enter', 'id4', true],
-        ['element/enter:children', 'id4', true],
-        ['element/exit:children', 'id4', true],
-        ['element/exit', 'id4', true],
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['comment/enter', '', true, 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', 'foo', 2],
+        ['element/exit:children', 'id2', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'bar', 2],
+        ['element/enter', 'id3', 'bar', 2],
+        ['element/enter:children', 'id3', 'bar', 2],
+        ['element/exit:children', 'id3', 'bar', 2],
+        ['element/exit', 'id3', 'bar', 2],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
+        ['element/enter', 'id4', true, 2],
+        ['element/enter:children', 'id4', true, 2],
+        ['element/exit:children', 'id4', true, 2],
+        ['element/exit', 'id4', true, 2],
       ],
     });
 
@@ -603,24 +578,24 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', true],
-        ['element/enter:children', 'id1', true],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', true],
-        ['element/enter', 'id3', true],
-        ['element/enter:children', 'id3', true],
-        ['element/enter', 'id4', true],
-        ['element/enter:children', 'id4', true],
-        ['element/exit:children', 'id4', true],
-        ['element/exit', 'id4', true],
-        ['element/exit:children', 'id3', true],
-        ['element/exit', 'id3', true],
-        ['element/exit:children', 'id2', true],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', true],
-        ['element/exit', 'id1', true],
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', true, 2],
+        ['element/enter', 'id3', true, 2],
+        ['element/enter:children', 'id3', true, 2],
+        ['element/enter', 'id4', true, 2],
+        ['element/enter:children', 'id4', true, 2],
+        ['element/exit:children', 'id4', true, 2],
+        ['element/exit', 'id4', true, 2],
+        ['element/exit:children', 'id3', true, 2],
+        ['element/exit', 'id3', true, 2],
+        ['element/exit:children', 'id2', true, 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
       ],
     });
 
@@ -636,24 +611,24 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', true],
-        ['element/enter:children', 'id1', true],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', 'foo'],
-        ['element/enter', 'id3', 'foo'],
-        ['element/enter:children', 'id3', 'foo'],
-        ['element/enter', 'id4', 'foo'],
-        ['element/enter:children', 'id4', 'foo'],
-        ['element/exit:children', 'id4', 'foo'],
-        ['element/exit', 'id4', 'foo'],
-        ['element/exit:children', 'id3', 'foo'],
-        ['element/exit', 'id3', 'foo'],
-        ['element/exit:children', 'id2', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', true],
-        ['element/exit', 'id1', true],
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', 'foo', 2],
+        ['element/enter', 'id3', 'foo', 2],
+        ['element/enter:children', 'id3', 'foo', 2],
+        ['element/enter', 'id4', 'foo', 2],
+        ['element/enter:children', 'id4', 'foo', 2],
+        ['element/exit:children', 'id4', 'foo', 2],
+        ['element/exit', 'id4', 'foo', 2],
+        ['element/exit:children', 'id3', 'foo', 2],
+        ['element/exit', 'id3', 'foo', 2],
+        ['element/exit:children', 'id2', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
       ],
     });
 
@@ -669,26 +644,26 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', 'foo'],
-        ['element/enter:children', 'id1', 'foo'],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', 'foo'],
-        ['element/enter', 'id3', 'bar'],
-        ['element/enter:children', 'id3', 'foo'],
-        ['element/enter', 'id4', 'foo'],
-        ['element/enter:children', 'id4', 'foo'],
-        ['element/exit:children', 'id4', 'foo'],
-        ['element/exit', 'id4', 'foo'],
-        ['element/exit:children', 'id3', 'foo'],
-        ['comment/enter', '', 'bar'],
-        ['comment/exit', '', 'bar'],
-        ['element/exit', 'id3', 'bar'],
-        ['element/exit:children', 'id2', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'foo'],
-        ['element/exit', 'id1', 'foo'],
+        ['element/enter', 'id1', 'foo', 2],
+        ['element/enter:children', 'id1', 'foo', 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', 'foo', 2],
+        ['element/enter', 'id3', 'bar', 2],
+        ['element/enter:children', 'id3', 'foo', 2],
+        ['element/enter', 'id4', 'foo', 2],
+        ['element/enter:children', 'id4', 'foo', 2],
+        ['element/exit:children', 'id4', 'foo', 2],
+        ['element/exit', 'id4', 'foo', 2],
+        ['element/exit:children', 'id3', 'foo', 2],
+        ['comment/enter', '', 'bar', 2],
+        ['comment/exit', '', 'bar', 2],
+        ['element/exit', 'id3', 'bar', 2],
+        ['element/exit:children', 'id2', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/exit', 'id1', 'foo', 2],
       ],
     });
 
@@ -704,26 +679,26 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', 'foo'],
-        ['element/enter:children', 'id1', 'foo'],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', 'foo'],
-        ['element/enter', 'id3', 'bar'],
-        ['element/enter:children', 'id3', 'bar'],
-        ['element/enter', 'id4', 'bar'],
-        ['element/enter:children', 'id4', 'bar'],
-        ['element/exit:children', 'id4', 'bar'],
-        ['element/exit', 'id4', 'bar'],
-        ['element/exit:children', 'id3', 'bar'],
-        ['comment/enter', '', 'bar'],
-        ['comment/exit', '', 'bar'],
-        ['element/exit', 'id3', 'bar'],
-        ['element/exit:children', 'id2', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'foo'],
-        ['element/exit', 'id1', 'foo'],
+        ['element/enter', 'id1', 'foo', 2],
+        ['element/enter:children', 'id1', 'foo', 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', 'foo', 2],
+        ['element/enter', 'id3', 'bar', 2],
+        ['element/enter:children', 'id3', 'bar', 2],
+        ['element/enter', 'id4', 'bar', 2],
+        ['element/enter:children', 'id4', 'bar', 2],
+        ['element/exit:children', 'id4', 'bar', 2],
+        ['element/exit', 'id4', 'bar', 2],
+        ['element/exit:children', 'id3', 'bar', 2],
+        ['comment/enter', '', 'bar', 2],
+        ['comment/exit', '', 'bar', 2],
+        ['element/exit', 'id3', 'bar', 2],
+        ['element/exit:children', 'id2', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/exit', 'id1', 'foo', 2],
       ],
     });
 
@@ -740,26 +715,26 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', 'foo'],
-        ['element/enter:children', 'id1', 'foo'],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'bar'],
-        ['element/enter', 'id3', 'bar'],
-        ['element/enter:children', 'id3', 'bar'],
-        ['element/enter', 'id4', 'bar'],
-        ['element/enter:children', 'id4', 'bar'],
-        ['element/exit:children', 'id4', 'bar'],
-        ['element/exit', 'id4', 'bar'],
-        ['element/exit:children', 'id3', 'bar'],
-        ['element/exit', 'id3', 'bar'],
-        ['element/exit:children', 'id2', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'foo'],
-        ['element/exit', 'id1', 'foo'],
+        ['element/enter', 'id1', 'foo', 2],
+        ['element/enter:children', 'id1', 'foo', 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'bar', 2],
+        ['element/enter', 'id3', 'bar', 2],
+        ['element/enter:children', 'id3', 'bar', 2],
+        ['element/enter', 'id4', 'bar', 2],
+        ['element/enter:children', 'id4', 'bar', 2],
+        ['element/exit:children', 'id4', 'bar', 2],
+        ['element/exit', 'id4', 'bar', 2],
+        ['element/exit:children', 'id3', 'bar', 2],
+        ['element/exit', 'id3', 'bar', 2],
+        ['element/exit:children', 'id2', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/exit', 'id1', 'foo', 2],
       ],
     });
 
@@ -779,22 +754,22 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', 'foo'],
-        ['element/enter:children', 'id1', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'bar'],
-        ['element/enter', 'id2', 'bar'],
-        ['element/enter:children', 'id2', 'bar'],
-        ['comment/enter', '', 'bar'],
-        ['comment/exit', '', 'foo'],
-        ['element/enter', 'id4', 'foo'],
-        ['element/enter:children', 'id4', 'foo'],
-        ['element/exit:children', 'id4', 'foo'],
-        ['element/exit', 'id4', 'foo'],
-        ['element/exit:children', 'id2', 'bar'],
-        ['element/exit', 'id2', 'bar'],
-        ['element/exit:children', 'id1', 'foo'],
-        ['element/exit', 'id1', 'foo'],
+        ['element/enter', 'id1', 'foo', 2],
+        ['element/enter:children', 'id1', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'bar', 2],
+        ['element/enter', 'id2', 'bar', 2],
+        ['element/enter:children', 'id2', 'bar', 2],
+        ['comment/enter', '', 'bar', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/enter', 'id4', 'foo', 2],
+        ['element/enter:children', 'id4', 'foo', 2],
+        ['element/exit:children', 'id4', 'foo', 2],
+        ['element/exit', 'id4', 'foo', 2],
+        ['element/exit:children', 'id2', 'bar', 2],
+        ['element/exit', 'id2', 'bar', 2],
+        ['element/exit:children', 'id1', 'foo', 2],
+        ['element/exit', 'id1', 'foo', 2],
       ],
     });
 
@@ -808,11 +783,11 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['comment/exit', '', true],
-        ['element/enter', 'id2', true],
-        ['element/enter:children', 'id2', true],
-        ['element/exit:children', 'id2', true],
-        ['element/exit', 'id2', true],
+        ['comment/exit', '', true, 2],
+        ['element/enter', 'id2', true, 2],
+        ['element/enter:children', 'id2', true, 2],
+        ['element/exit:children', 'id2', true, 2],
+        ['element/exit', 'id2', true, 2],
       ],
     });
 
@@ -830,26 +805,26 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', true],
-        ['element/enter:children', 'id1', true],
-        ['element/enter', 'id2', 'foo'],
-        ['element/enter:children', 'id2', true],
-        ['element/enter', 'id3', true],
-        ['element/enter:children', 'id3', true],
-        ['element/enter', 'id4', true],
-        ['element/enter:children', 'id4', true],
-        ['element/exit:children', 'id4', true],
-        ['element/exit', 'id4', true],
-        ['element/exit:children', 'id3', true],
-        ['element/exit', 'id3', true],
-        ['element/exit:children', 'id2', true],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'foo'],
-        ['comment/enter', '', 'foo'],
-        ['comment/exit', '', 'foo'],
-        ['element/exit', 'id2', 'foo'],
-        ['element/exit:children', 'id1', true],
-        ['element/exit', 'id1', true],
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['element/enter', 'id2', 'foo', 2],
+        ['element/enter:children', 'id2', true, 2],
+        ['element/enter', 'id3', true, 2],
+        ['element/enter:children', 'id3', true, 2],
+        ['element/enter', 'id4', true, 2],
+        ['element/enter:children', 'id4', true, 2],
+        ['element/exit:children', 'id4', true, 2],
+        ['element/exit', 'id4', true, 2],
+        ['element/exit:children', 'id3', true, 2],
+        ['element/exit', 'id3', true, 2],
+        ['element/exit:children', 'id2', true, 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['comment/enter', '', 'foo', 2],
+        ['comment/exit', '', 'foo', 2],
+        ['element/exit', 'id2', 'foo', 2],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
       ],
     });
 
@@ -865,20 +840,20 @@ describe('base plugin', function() {
         '</div>',
       ].join('\n'),
       events: [
-        ['element/enter', 'id1', true],
-        ['element/enter:children', 'id1', true],
-        ['element/enter:children', 'id2', true],
-        ['element/enter', 'id3', true],
-        ['element/enter:children', 'id3', true],
-        ['element/enter', 'id4', true],
-        ['element/enter:children', 'id4', true],
-        ['element/exit:children', 'id4', true],
-        ['element/exit', 'id4', true],
-        ['element/exit:children', 'id3', true],
-        ['element/exit', 'id3', true],
-        ['element/exit:children', 'id2', true],
-        ['element/exit:children', 'id1', true],
-        ['element/exit', 'id1', true],
+        ['element/enter', 'id1', true, 2],
+        ['element/enter:children', 'id1', true, 2],
+        ['element/enter:children', 'id2', true, 2],
+        ['element/enter', 'id3', true, 2],
+        ['element/enter:children', 'id3', true, 2],
+        ['element/enter', 'id4', true, 2],
+        ['element/enter:children', 'id4', true, 2],
+        ['element/exit:children', 'id4', true, 2],
+        ['element/exit', 'id4', true, 2],
+        ['element/exit:children', 'id3', true, 2],
+        ['element/exit', 'id3', true, 2],
+        ['element/exit:children', 'id2', true, 2],
+        ['element/exit:children', 'id1', true, 2],
+        ['element/exit', 'id1', true, 2],
       ],
     });
   });

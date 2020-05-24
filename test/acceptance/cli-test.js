@@ -1,62 +1,123 @@
 'use strict';
+const { readFileSync } = require('fs');
 
 const execa = require('execa');
-const Project = require('../helpers/fake-project');
+const fs = require('fs');
+const path = require('path');
 
-describe('ember-template-lint executable', function() {
+const Project = require('../helpers/fake-project');
+const setupEnvVar = require('../helpers/setup-env-var');
+
+describe('ember-template-lint executable', function () {
+  setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
+  setupEnvVar('LC_ALL', 'en_US');
+
   // Fake project
   let project;
-  beforeEach(function() {
-    project = new Project();
+  beforeEach(function () {
+    project = Project.defaultSetup();
     project.chdir();
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await project.dispose();
   });
 
-  describe('basic usage', function() {
-    describe('without any parameters', function() {
-      it('should emit help text', function() {
-        let result = run([]);
+  describe('basic usage', function () {
+    describe('without any parameters', function () {
+      it('should emit help text', async function () {
+        let result = await run([]);
 
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "Usage for ember-template-lint:
-            --config-path <config_path> Define a custom config path
-            --quiet                     Ignore warnings and only show errors
-            --filename                  Used to indicate the filename to be assumed for contents from STDIN
-            --fix                       Fix any errors that are reported as fixable
-            --json                      Format output as json
-            --verbose                   Output errors with source description
-            --print-pending             Print list of formated rules for use with \`pending\` in config file"
+        expect(result.stderr).toMatchInlineSnapshot(`
+          "ember-template-lint [options] [files..]
+
+          Options:
+            --config-path     Define a custom config path
+                                                 [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom configuration to be used - (e.g. '{
+                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
+            --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and its severity to add that rule to loaded
+                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
+                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
+            --filename        Used to indicate the filename to be assumed for contents
+                              from STDIN                                          [string]
+            --fix             Fix any errors that are reported as fixable
+                                                                [boolean] [default: false]
+            --json            Format output as json                              [boolean]
+            --verbose         Output errors with source description              [boolean]
+            --no-config-path  Does not use the local template-lintrc, will use a blank
+                              template-lintrc instead                            [boolean]
+            --print-pending   Print list of formated rules for use with \`pending\` in
+                              config file                                        [boolean]
+            --ignore-pattern  Specify custom ignore pattern (can be disabled with
+                              --no-ignore-pattern)
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            --help            Show help                                          [boolean]
+            --version         Show version number                                [boolean]"
         `);
       });
     });
 
-    describe('with --help', function() {
-      it('should emit help text', function() {
-        let result = run(['--help']);
+    describe('with --help', function () {
+      it('should emit help text', async function () {
+        let result = await run(['--help']);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "Usage for ember-template-lint:
-            --config-path <config_path> Define a custom config path
-            --quiet                     Ignore warnings and only show errors
-            --filename                  Used to indicate the filename to be assumed for contents from STDIN
-            --fix                       Fix any errors that are reported as fixable
-            --json                      Format output as json
-            --verbose                   Output errors with source description
-            --print-pending             Print list of formated rules for use with \`pending\` in config file"
+          "ember-template-lint [options] [files..]
+
+          Options:
+            --config-path     Define a custom config path
+                                                 [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom configuration to be used - (e.g. '{
+                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
+            --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and its severity to add that rule to loaded
+                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
+                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
+            --filename        Used to indicate the filename to be assumed for contents
+                              from STDIN                                          [string]
+            --fix             Fix any errors that are reported as fixable
+                                                                [boolean] [default: false]
+            --json            Format output as json                              [boolean]
+            --verbose         Output errors with source description              [boolean]
+            --no-config-path  Does not use the local template-lintrc, will use a blank
+                              template-lintrc instead                            [boolean]
+            --print-pending   Print list of formated rules for use with \`pending\` in
+                              config file                                        [boolean]
+            --ignore-pattern  Specify custom ignore pattern (can be disabled with
+                              --no-ignore-pattern)
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            --help            Show help                                          [boolean]
+            --version         Show version number                                [boolean]"
         `);
       });
     });
+  });
 
-    describe('given path to non-existing file', function() {
-      it('should exit without error and any console output', function() {
-        setProjectConfigForErrors();
-        let result = run(['app/templates/application-1.hbs']);
+  describe('reading files', function () {
+    describe('given path to non-existing file', function () {
+      it('should exit without error and any console output', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['app/templates/application-1.hbs']);
 
         expect(result.exitCode).toEqual(0, 'exits without error');
         expect(result.stdout).toBeFalsy();
@@ -64,61 +125,25 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('given path to single file with errors', function() {
-      it('should print errors', function() {
-        setProjectConfigForErrors();
-        let result = run(['app/templates/application.hbs']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('given wildcard path resolving to single file', function() {
-      it('should print errors', function() {
-        setProjectConfigForErrors();
-        let result = run(['app/templates/*']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('given directory path', function() {
-      it('should print errors', function() {
-        setProjectConfigForErrors();
-        let result = run(['app']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('given no path', function() {
-      it('should print errors', function() {
-        setProjectConfigForErrors();
-        let result = run(['<', 'app/templates/application.hbs'], {
-          shell: true,
+    describe('given path to single file with errors', function () {
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
         });
 
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('given no path with --filename', function() {
-      it('should print errors', function() {
-        setProjectConfigForErrors();
-        let result = run(
-          ['--filename', 'app/templates/application.hbs', '<', 'app/templates/application.hbs'],
-          {
-            shell: true,
-          }
-        );
+        let result = await run(['app/templates/application.hbs']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
@@ -126,36 +151,81 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('given - (stdin) path', function() {
-      it('should print errors', function() {
-        setProjectConfigForErrors();
-        let result = run(['-', '<', 'app/templates/application.hbs'], {
-          shell: true,
+    describe('given wildcard path resolving to single file', function () {
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
         });
 
+        let result = await run(['app/templates/*']);
+
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
         expect(result.stderr).toBeFalsy();
       });
     });
 
-    describe('given /dev/stdin path', function() {
-      it('should print errors', function() {
-        setProjectConfigForErrors();
-        let result = run(['/dev/stdin', '<', 'app/templates/application.hbs'], {
-          shell: true,
+    describe('given directory path', function () {
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
         });
 
+        let result = await run(['app']);
+
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toBeTruthy();
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
         expect(result.stderr).toBeFalsy();
       });
     });
 
-    describe('given path to single file without errors', function() {
-      it('should exit without error and any console output', function() {
-        setProjectConfigWithoutErrors();
-        let result = run(['app/templates/application.hbs']);
+    describe('given path to single file without errors', function () {
+      it('should exit without error and any console output', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': false,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
+            },
+          },
+        });
+
+        let result = await run(['app/templates/application.hbs']);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -164,17 +234,183 @@ describe('ember-template-lint executable', function() {
     });
   });
 
-  describe('errors and warnings formatting', function() {
-    setupEnvVar('GITHUB_ACTIONS', null);
+  describe('reading from stdin', function () {
+    describe('given no path', function () {
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
 
-    describe('without --json param', function() {
-      it('should print properly formatted error messages', function() {
-        setProjectConfigForErrors();
-        let result = run(['.']);
+        let result = await run([], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('app/templates/application.hbs')),
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`
+          "ember-template-lint [options] [files..]
+
+          Options:
+            --config-path     Define a custom config path
+                                                 [string] [default: \\".template-lintrc.js\\"]
+            --config          Define a custom configuration to be used - (e.g. '{
+                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
+            --quiet           Ignore warnings and only show errors               [boolean]
+            --rule            Specify a rule and its severity to add that rule to loaded
+                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
+                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
+            --filename        Used to indicate the filename to be assumed for contents
+                              from STDIN                                          [string]
+            --fix             Fix any errors that are reported as fixable
+                                                                [boolean] [default: false]
+            --json            Format output as json                              [boolean]
+            --verbose         Output errors with source description              [boolean]
+            --no-config-path  Does not use the local template-lintrc, will use a blank
+                              template-lintrc instead                            [boolean]
+            --print-pending   Print list of formated rules for use with \`pending\` in
+                              config file                                        [boolean]
+            --ignore-pattern  Specify custom ignore pattern (can be disabled with
+                              --no-ignore-pattern)
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            --help            Show help                                          [boolean]
+            --version         Show version number                                [boolean]"
+        `);
+      });
+    });
+
+    describe('given no path with --filename', function () {
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['--filename', 'app/templates/application.hbs'], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('app/templates/application.hbs')),
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('given - (stdin) path', function () {
+      // there is no such path on Windows OS
+      if (process.platform === 'win32') {
+        return;
+      }
+
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['-', '<', 'app/templates/application.hbs'], {
+          shell: true,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('given /dev/stdin path', function () {
+      // there is no such path on Windows OS
+      if (process.platform === 'win32') {
+        return;
+      }
+
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['/dev/stdin', '<', 'app/templates/application.hbs'], {
+          shell: true,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+  });
+
+  describe('errors and warnings formatting', function () {
+    describe('without --json param', function () {
+      it('should print properly formatted error messages', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['.']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          project.path('app/templates/application.hbs'),
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:25  error  Non-translated string used  no-bare-strings',
           '',
@@ -183,13 +419,33 @@ describe('ember-template-lint executable', function() {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should print properly formatted error and warning messages', function() {
-        setProjectConfigForErrorsAndWarning();
-        let result = run(['.']);
+      it('should print properly formatted error and warning messages', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['.']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          project.path('app/templates/application.hbs'),
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:24  error  Non-translated string used  no-bare-strings',
           '  1:53  warning  HTML comment detected  no-html-comments',
@@ -198,16 +454,211 @@ describe('ember-template-lint executable', function() {
         ]);
         expect(result.stderr).toBeFalsy();
       });
-    });
 
-    describe('with --quiet param', function() {
-      it('should print properly formatted error messages, omitting any warnings', function() {
-        setProjectConfigForErrorsAndWarning();
-        let result = run(['.', '--quiet']);
+      it('should be able run a rule passed in (rule:warn)', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:warn']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  warning  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (0 errors, 1 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able run a rule passed in (rule:error)', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:error']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          project.path('app/templates/application.hbs'),
+          'app/templates/application.hbs',
+          '  1:53  error  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (1 errors, 0 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able run a rule passed in (rule:[warn, config])', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run([
+          '.',
+          '--no-config-path',
+          '--rule',
+          'no-html-comments:["warn", true]',
+        ]);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  warning  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (0 errors, 1 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able run a rule passed in (rule:[error, config])', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run([
+          '.',
+          '--no-config-path',
+          '--rule',
+          'no-html-comments:["error", true]',
+        ]);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:53  error  HTML comment detected  no-html-comments',
+          '',
+          '✖ 1 problems (1 errors, 0 warnings)',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should include information about available fixes', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
+
+        project.write({
+          app: {
+            components: {
+              'click-me-button.hbs': '<button>Click me!</button>',
+            },
+          },
+        });
+
+        let result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+
+        expect(result.stdout.split('\n')).toEqual([
+          'app/components/click-me-button.hbs',
+          '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
+          '',
+          '✖ 1 problems (1 errors, 0 warnings)',
+          '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
+        ]);
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('with --quiet param', function () {
+      it('should print properly formatted error messages, omitting any warnings', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['.', '--quiet']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:24  error  Non-translated string used  no-bare-strings',
           '',
@@ -216,7 +667,7 @@ describe('ember-template-lint executable', function() {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should exit without error and any console output', function() {
+      it('should exit without error and any console output', async function () {
         project.setConfig({
           rules: {
             'no-html-comments': true,
@@ -236,7 +687,7 @@ describe('ember-template-lint executable', function() {
             },
           },
         });
-        let result = run(['.', '--quiet']);
+        let result = await run(['.', '--quiet']);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -244,14 +695,117 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('with --json param', function() {
-      it('should print valid JSON string with errors', function() {
-        setProjectConfigForErrors();
-        let result = run(['.', '--json']);
+    describe('with/without --ignore-pattern', function () {
+      it('should respect dirs ignored by default', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            dist: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
 
-        let fullTemplateFilePath = project.path('app/templates/application.hbs');
+        let result = await run(['app/**/*']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should allow to pass custom ignore pattern', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            foo: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+            bar: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run([
+          'app/**/*',
+          '--ignore-pattern',
+          '"**/foo/**"',
+          '--ignore-pattern',
+          '"**/bar/**"',
+        ]);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should allow to disable dirs ignored by default', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            dist: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['app/**/*', '--no-ignore-pattern']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toEqual(
+          `app/dist/application.hbs
+  1:4  error  Non-translated string used  no-bare-strings
+  1:24  error  Non-translated string used  no-bare-strings
+  1:53  error  HTML comment detected  no-html-comments
+
+✖ 3 problems (3 errors, 0 warnings)`
+        );
+
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('with --json param', function () {
+      it('should print valid JSON string with errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['--json', '.']);
+
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [
+        expectedOutputData['app/templates/application.hbs'] = [
           {
             column: 4,
             line: 1,
@@ -278,16 +832,72 @@ describe('ember-template-lint executable', function() {
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
+
+      it('should include information about fixing', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
+
+        project.write({
+          app: {
+            components: {
+              'click-me-button.hbs': '<button>Click me!</button>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--json']);
+
+        let expectedOutputData = {};
+        expectedOutputData['app/components/click-me-button.hbs'] = [
+          {
+            column: 0,
+            line: 1,
+            isFixable: true,
+            message: 'All `<button>` elements should have a valid `type` attribute',
+            filePath: 'app/components/click-me-button.hbs',
+            moduleId: 'app/components/click-me-button',
+            rule: 'require-button-type',
+            severity: 2,
+            source: '<button>Click me!</button>',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
     });
 
-    describe('with --json param and --quiet', function() {
-      it('should print valid JSON string with errors, omitting warnings', function() {
-        setProjectConfigForErrorsAndWarning();
-        let result = run(['.', '--json', '--quiet']);
+    describe('with --json param and --quiet', function () {
+      it('should print valid JSON string with errors, omitting warnings', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
 
-        let fullTemplateFilePath = project.path('app/templates/application.hbs');
+        let result = await run(['.', '--json', '--quiet']);
+
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [
+        expectedOutputData['app/templates/application.hbs'] = [
           {
             column: 4,
             line: 1,
@@ -315,7 +925,7 @@ describe('ember-template-lint executable', function() {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should exit without error and empty errors array', function() {
+      it('should exit without error and empty errors array', async function () {
         project.setConfig({
           rules: {
             'no-html-comments': true,
@@ -335,11 +945,10 @@ describe('ember-template-lint executable', function() {
             },
           },
         });
-        let result = run(['.', '--json', '--quiet']);
+        let result = await run(['.', '--json', '--quiet']);
 
-        let fullTemplateFilePath = project.path('app/templates/application.hbs');
         let expectedOutputData = {};
-        expectedOutputData[fullTemplateFilePath] = [];
+        expectedOutputData['app/templates/application.hbs'] = [];
 
         expect(result.exitCode).toEqual(0);
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
@@ -347,32 +956,32 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('with --config-path param', function() {
-      describe('able to run only limited subset of rules', function() {
-        it('should skip disabled rules from subset', function() {
+    describe('with --config-path param', function () {
+      describe('able to await run only limited subset of rules', function () {
+        it('should skip disabled rules from subset', async function () {
           project.write({
             'temp-templatelint-rc.js':
               'module.exports = { rules: { "no-shadowed-elements": false } };',
             'application.hbs': '{{#let "foo" as |div|}}<div>boo</div>{{/let}}',
           });
-          let result = run(['.', '--config-path', 'temp-templatelint-rc.js']);
+          let result = await run(['.', '--config-path', 'temp-templatelint-rc.js']);
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toBeFalsy();
           expect(result.stderr).toBeFalsy();
         });
 
-        it('should load only one rule and print error message', function() {
+        it('should load only one rule and print error message', async function () {
           project.write({
             'temp-templatelint-rc.js':
               'module.exports = { rules: { "no-shadowed-elements": true } };',
             'template.hbs': '{{#let "foo" as |div|}}<div>boo</div>{{/let}}',
           });
-          let result = run(['.', '--config-path', 'temp-templatelint-rc.js']);
+          let result = await run(['.', '--config-path', 'temp-templatelint-rc.js']);
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
-            project.path('template.hbs'),
+            'template.hbs',
             '  1:23  error  Ambiguous element used (`div`)  no-shadowed-elements',
             '',
             '✖ 1 problems (1 errors, 0 warnings)',
@@ -381,23 +990,28 @@ describe('ember-template-lint executable', function() {
         });
       });
 
-      describe('given a directory with errors and a lintrc with rules', function() {
-        it('should print properly formatted error messages', function() {
-          setProjectConfigWithoutErrors();
-
-          let overrideConfig = {
+      describe('given a directory with errors and a lintrc with rules', function () {
+        it('should print properly formatted error messages', async function () {
+          project.setConfig({
             rules: {
-              'no-bare-strings': true,
+              'no-bare-strings': false,
             },
-          };
-          project.files['other-file.js'] = `module.exports = ${JSON.stringify(overrideConfig)};`;
-          project.writeSync();
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs':
+                  '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
+              },
+            },
+            'other-file.js': "module.exports = { rules: { 'no-bare-strings': true } };",
+          });
 
-          let result = run(['.', '--config-path', project.path('other-file.js')]);
+          let result = await run(['.', '--config-path', project.path('other-file.js')]);
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
-            project.path('app/templates/application.hbs'),
+            'app/templates/application.hbs',
             '  1:4  error  Non-translated string used  no-bare-strings',
             '  1:39  error  Non-translated string used  no-bare-strings',
             '',
@@ -407,19 +1021,26 @@ describe('ember-template-lint executable', function() {
         });
       });
 
-      describe('given a directory with errors but a lintrc without any rules', function() {
-        it('should exit without error and any console output', function() {
-          setProjectConfigForErrors();
-
-          let overrideConfig = {
+      describe('given a directory with errors but a lintrc without any rules', function () {
+        it('should exit without error and any console output', async function () {
+          project.setConfig({
             rules: {
-              'no-bare-strings': false,
+              'no-bare-strings': true,
             },
-          };
-          project.files['other-file.js'] = `module.exports = ${JSON.stringify(overrideConfig)};`;
-          project.writeSync();
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+                components: {
+                  'foo.hbs': '{{fooData}}',
+                },
+              },
+            },
+            'other-file.js': "module.exports = { rules: { 'no-bare-strings': false } };",
+          });
 
-          let result = run(['.', '--config-path', project.path('other-file.js')]);
+          let result = await run(['.', '--config-path', project.path('other-file.js')]);
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toBeFalsy();
@@ -428,21 +1049,39 @@ describe('ember-template-lint executable', function() {
       });
     });
 
-    describe('with --print-pending param', function() {
-      it('should print a list of pending modules', function() {
-        setProjectConfigForErrorsAndWarning();
+    describe('with --print-pending param', function () {
+      it('should print a list of pending modules', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
 
-        let result = run(['.', '--print-pending']);
+        let result = await run(['.', '--print-pending']);
 
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]';
 
-        expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should ignore existing pending modules that have no lint errors', function() {
+      it('should ignore existing pending modules that have no lint errors', async function () {
         project.setConfig({
           rules: {
             'no-html-comments': false,
@@ -464,17 +1103,16 @@ describe('ember-template-lint executable', function() {
           },
         });
 
-        let result = run(['.', '--print-pending']);
+        let result = await run(['.', '--print-pending']);
 
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: []';
 
-        expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should ignore existing pending modules that have partially passing rules', function() {
+      it('should ignore existing pending modules that have partially passing rules', async function () {
         project.setConfig({
           rules: {
             'no-html-comments': true,
@@ -494,22 +1132,40 @@ describe('ember-template-lint executable', function() {
             },
           },
         });
-        let result = run(['.', '--print-pending']);
+        let result = await run(['.', '--print-pending']);
 
         let expectedOutputData =
           'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings"\n    ]\n  }\n]';
 
-        expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
     });
 
-    describe('with --print-pending and --json params', function() {
-      it('should print json of pending modules', function() {
-        setProjectConfigForErrorsAndWarning();
+    describe('with --print-pending and --json params', function () {
+      it('should print json of pending modules', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
 
-        let result = run(['.', '--print-pending', '--json']);
+        let result = await run(['.', '--print-pending', '--json']);
 
         let expectedOutputData = [
           {
@@ -518,122 +1174,126 @@ describe('ember-template-lint executable', function() {
           },
         ];
 
-        expect(result.exitCode).toEqual(1);
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
     });
 
-    describe('with GITHUB_ACTIONS env var', function() {
+    describe('with GITHUB_ACTIONS env var', function () {
       setupEnvVar('GITHUB_ACTIONS', 'true');
 
-      it('should print GitHub Actions annotations', function() {
-        setProjectConfigForErrors();
+      it('should print GitHub Actions annotations', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
 
-        let filePath = project.path('app/templates/application.hbs');
-
-        let result = run(['.'], {
+        let result = await run(['.'], {
           env: { GITHUB_ACTIONS: 'true' },
         });
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout.split('\n')).toEqual([
-          filePath,
+          'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
-          '  1:25  error  Non-translated string used  no-bare-strings',
+          '  1:24  error  Non-translated string used  no-bare-strings',
+          '  1:53  warning  HTML comment detected  no-html-comments',
           '',
-          '✖ 2 problems (2 errors, 0 warnings)',
-          `::error file=${filePath},line=1,col=4::Non-translated string used`,
-          `::error file=${filePath},line=1,col=25::Non-translated string used`,
+          '✖ 3 problems (2 errors, 1 warnings)',
+          '::error file=app/templates/application.hbs,line=1,col=4::Non-translated string used',
+          '::error file=app/templates/application.hbs,line=1,col=24::Non-translated string used',
+          '::warning file=app/templates/application.hbs,line=1,col=53::HTML comment detected',
         ]);
         expect(result.stderr).toBeFalsy();
+      });
+
+      describe('with --quiet param', function () {
+        it('should print GitHub Actions annotations', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+              'no-html-comments': true,
+            },
+            pending: [
+              {
+                moduleId: 'app/templates/application',
+                only: ['no-html-comments'],
+              },
+            ],
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs':
+                  '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+              },
+            },
+          });
+
+          let result = await run(['.', '--quiet'], {
+            env: { GITHUB_ACTIONS: 'true' },
+          });
+
+          expect(result.exitCode).toEqual(1);
+          expect(result.stdout.split('\n')).toEqual([
+            'app/templates/application.hbs',
+            '  1:4  error  Non-translated string used  no-bare-strings',
+            '  1:24  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 2 problems (2 errors, 0 warnings)',
+            '::error file=app/templates/application.hbs,line=1,col=4::Non-translated string used',
+            '::error file=app/templates/application.hbs,line=1,col=24::Non-translated string used',
+          ]);
+          expect(result.stderr).toBeFalsy();
+        });
       });
     });
   });
 
-  // set specific project configuration for test cases.
-  function setProjectConfigForErrors() {
-    project.setConfig({
-      rules: {
-        'no-bare-strings': true,
-      },
-    });
+  describe('autofixing files', function () {
+    it('should write fixed file to fs', async function () {
+      let config = { rules: { 'require-button-type': true } };
+      project.setConfig(config);
+      project.write({ 'require-button-type.hbs': '<button>Klikk</button>' });
 
-    project.write({
-      app: {
-        templates: {
-          'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
-          components: {
-            'foo.hbs': '{{fooData}}',
-          },
-        },
-      },
-    });
-  }
+      let result = await run(['.', '--fix']);
 
-  function setProjectConfigWithoutErrors() {
-    project.setConfig({
-      rules: {
-        'no-bare-strings': false,
-      },
-    });
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout).toBeFalsy();
+      expect(result.stderr).toBeFalsy();
 
-    project.write({
-      app: {
-        templates: {
-          'application.hbs': '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
-        },
-      },
-    });
-  }
+      let fileContents = readFileSync(project.path('require-button-type.hbs'), {
+        encoding: 'utf8',
+      });
 
-  function setProjectConfigForErrorsAndWarning() {
-    project.setConfig({
-      rules: {
-        'no-bare-strings': true,
-        'no-html-comments': true,
-      },
-      pending: [
-        {
-          moduleId: 'app/templates/application',
-          only: ['no-html-comments'],
-        },
-      ],
+      expect(fileContents).toEqual('<button type="button">Klikk</button>');
     });
-    project.write({
-      app: {
-        templates: {
-          'application.hbs':
-            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-        },
-      },
-    });
-  }
+  });
+
   function run(args, options = {}) {
     options.reject = false;
     options.cwd = options.cwd || project.path('.');
-    return execa.sync(require.resolve('../../bin/ember-template-lint.js'), args, options);
+
+    return execa(
+      process.execPath,
+      [require.resolve('../../bin/ember-template-lint.js'), ...args],
+      options
+    );
   }
 });
-
-function setupEnvVar(name, value) {
-  let oldValue;
-
-  beforeEach(function() {
-    oldValue = name in process.env ? process.env[name] : null;
-
-    if (value === null) {
-      delete process.env[name];
-    } else {
-      process.env[name] = value;
-    }
-  });
-
-  afterEach(function() {
-    if (oldValue === null) {
-      delete process.env[name];
-    } else {
-      process.env[name] = oldValue;
-    }
-  });
-}

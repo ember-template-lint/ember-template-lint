@@ -1,10 +1,10 @@
 module.exports = {
   rules: {
-    'no-implicit-this': {
-      allow: [
-        /^data-test-/,
-        'book'
-      ]
-    }
-  }
+    'no-implicit-this': [
+      'error',
+      {
+        allow: [/^data-test-/, 'book'],
+      },
+    ],
+  },
 };

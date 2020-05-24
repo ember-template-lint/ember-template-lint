@@ -11,91 +11,63 @@ on:
     - cron:  '0 3 * * *' # daily, at 3am
 
 jobs:
-  node12:
-    name: Node 12.x
+  test:
+    name: Node 12.x - ubuntu
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-
-      - name: get yarn cache dir
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-node-12.x-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - uses: actions/checkout@v2
+      - uses: volta-cli/action@v1
 
       - name: install dependencies
         run: yarn install --frozen-lockfile
 
-      - run: yarn test
+      - run: yarn lint
+      - run: yarn test:jest
 
   nodeX:
-    name: Node ${{ matrix.node-version }}
+    name: Node ${{ matrix.node-version }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
+    timeout-minutes: 10
 
-    runs-on: ${{ matrix.os }}
-
-    needs: [node12]
+    needs: [test]
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node-version: [10.x, 13.x]
+        os: [ubuntu, windows]
+        node-version: [10.x, 12.x, 13.x, 14.x]
+
+        # excluded because it is the `test` job above
+        exclude:
+          - os: ubuntu
+            node-version: 12.x
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: volta-cli/action@v1
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: get yarn cache dir
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
 
       - name: install dependencies
         run: yarn install --frozen-lockfile --ignore-engines
 
-      - run: yarn test
+      - run: yarn test:jest
 
   floating-dependencies:
     name: Floating Dependencies
-
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
-    needs: [node12]
+    needs: [test]
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: volta-cli/action@v1
         with:
           node-version: 12.x
-
-      - name: get yarn cache dir
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-floating-dependencies-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
 
       - name: install dependencies
         run: yarn install --no-lockfile
 
-      - run: yarn test
+      - run: yarn test:jest

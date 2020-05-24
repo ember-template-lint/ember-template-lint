@@ -1,5 +1,7 @@
 # no-abstract-roles
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 The HTML attribute `role` must never have the following values:
 
 * `command`
@@ -15,7 +17,7 @@ The HTML attribute `role` must never have the following values:
 * `widget`
 * `window`
 
-## `<* role>`
+## Examples
 
 This rule **forbids** the following:
 

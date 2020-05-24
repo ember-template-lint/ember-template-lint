@@ -47,6 +47,7 @@ generateRuleTests({
     '<area aria-hidden="true">',
     '<area aria-labelledby="some-alt">',
     '<area aria-label="some-alt">',
+    '<img role={{unless this.altText "presentation"}} alt={{this.altText}}>',
   ],
 
   bad: [

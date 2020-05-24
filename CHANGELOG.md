@@ -1,10 +1,214 @@
+## v2.8.0 (2020-05-22)
+
+#### :rocket: Enhancement
+* [#1335](https://github.com/ember-template-lint/ember-template-lint/pull/1335) Add new rule: no-forbidden-elements ([@rajasegar](https://github.com/rajasegar))
+* [#1321](https://github.com/ember-template-lint/ember-template-lint/pull/1321) Add new rule: `no-redundant-landmark-role` ([@rajasegar](https://github.com/rajasegar))
+* [#1322](https://github.com/ember-template-lint/ember-template-lint/pull/1322) Add new rule: `no-nested-landmark` ([@rajasegar](https://github.com/rajasegar))
+
+#### :bug: Bug Fix
+* [#1347](https://github.com/ember-template-lint/ember-template-lint/pull/1347) Add additional built-in helpers to `no-implicit-this` (e.g. `array`, `concat`, `query-params`, etc) ([@jaydgruber](https://github.com/jaydgruber))
+
+#### :memo: Documentation
+* [#1338](https://github.com/ember-template-lint/ember-template-lint/pull/1338) Clarify recommended fix for `no-negated-condition` rule ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1349](https://github.com/ember-template-lint/ember-template-lint/pull/1349) chore(dev-deps): update to eslint 7 ([@bmish](https://github.com/bmish))
+* [#1333](https://github.com/ember-template-lint/ember-template-lint/pull/1333) Ensure `<MyComponent @prop={{can.do}} />` triggers `no-implicit-this` error. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 4
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@jaydgruber](https://github.com/jaydgruber)
+
+
+## v2.7.0 (2020-05-11)
+
+#### :rocket: Enhancement
+* [#927](https://github.com/ember-template-lint/ember-template-lint/pull/927) Add `no-arguments-for-html-elements` rule ([@lifeart](https://github.com/lifeart))
+* [#1320](https://github.com/ember-template-lint/ember-template-lint/pull/1320) Add `catchNonexistentRoles` option (default false) to `no-invalid-role` rule ([@rajasegar](https://github.com/rajasegar))
+* [#1222](https://github.com/ember-template-lint/ember-template-lint/pull/1222) Add new rule: `no-unbalanced-curlies` ([@pablobm](https://github.com/pablobm))
+
+#### :bug: Bug Fix
+* [#1324](https://github.com/ember-template-lint/ember-template-lint/pull/1324) Ensure `require-valid-alt-text` can handle a dynamic `role` attribute  ([@gabrielcsapo](https://github.com/gabrielcsapo))
+* [#1317](https://github.com/ember-template-lint/ember-template-lint/pull/1317) Avoid glob matching when no-glob is present (e.g. globs have already been replaced by shell expansion) ([@gabrielcsapo](https://github.com/gabrielcsapo))
+
+#### :memo: Documentation
+* [#1313](https://github.com/ember-template-lint/ember-template-lint/pull/1313) Update documentation and examples for `no-positive-tabindex` ([@MelSumner](https://github.com/MelSumner))
+
+#### :house: Internal
+* [#1323](https://github.com/ember-template-lint/ember-template-lint/pull/1323) Refactor `no-invalid-role` rule to better support future additions ([@bmish](https://github.com/bmish))
+* [#1298](https://github.com/ember-template-lint/ember-template-lint/pull/1298) Add shell-specific tests for reading from stdin ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 7
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Pablo Brasero ([@pablobm](https://github.com/pablobm))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+
+
+## v2.6.0 (2020-04-28)
+
+#### :rocket: Enhancement
+* [#1263](https://github.com/ember-template-lint/ember-template-lint/pull/1263) Add `--rule` and `--no-config-path` command line options ([@gabrielcsapo](https://github.com/gabrielcsapo))
+
+#### :bug: Bug Fix
+* [#1303](https://github.com/ember-template-lint/ember-template-lint/pull/1303) Update ember-template-recast to remove extraneous whitespace in `--fix` for `inline-link-to` rule ([@dcyriller](https://github.com/dcyriller))
+* [#1297](https://github.com/ember-template-lint/ember-template-lint/pull/1297) Fix reading from stdin on Windows ([@dcyriller](https://github.com/dcyriller))
+
+#### :memo: Documentation
+* [#1305](https://github.com/ember-template-lint/ember-template-lint/pull/1305) Fix example in no-invalid-role documentation ([@MelSumner](https://github.com/MelSumner))
+* [#1304](https://github.com/ember-template-lint/ember-template-lint/pull/1304) Tweak Installation section of `README.md` to clarify that `ember-template-lint` is installed by default ([@MelSumner](https://github.com/MelSumner))
+* [#1308](https://github.com/ember-template-lint/ember-template-lint/pull/1308) Add Node 14 as supported platform ([@dcyriller](https://github.com/dcyriller))
+* [#1306](https://github.com/ember-template-lint/ember-template-lint/pull/1306) Fix invalid URL in documentation reference for `no-invalid-link-title` rule ([@MelSumner](https://github.com/MelSumner))
+
+#### :house: Internal
+* [#1310](https://github.com/ember-template-lint/ember-template-lint/pull/1310) Refactor CI setup. ([@rwjblue](https://github.com/rwjblue))
+* [#1309](https://github.com/ember-template-lint/ember-template-lint/pull/1309) Add Node 14 to CI. ([@rwjblue](https://github.com/rwjblue))
+* [#1302](https://github.com/ember-template-lint/ember-template-lint/pull/1302) Remove "over DRY" test setup (make tests easier to understand) ([@dcyriller](https://github.com/dcyriller))
+* [#1282](https://github.com/ember-template-lint/ember-template-lint/pull/1282) Adapt tests for reading from stdin to run on Windows ([@stukalin](https://github.com/stukalin))
+* [#1284](https://github.com/ember-template-lint/ember-template-lint/pull/1284) Test Windows in CI ([@stukalin](https://github.com/stukalin))
+* [#1285](https://github.com/ember-template-lint/ember-template-lint/pull/1285) Set a shorter timeout for Github Actions ([@dcyriller](https://github.com/dcyriller))
+* [#1278](https://github.com/ember-template-lint/ember-template-lint/pull/1278) Use the correct title in generated rule doc when running `yarn new` ([@josephdsumner](https://github.com/josephdsumner))
+* [#1277](https://github.com/ember-template-lint/ember-template-lint/pull/1277) Use get-stdin dependency to read from stdin ([@dcyriller](https://github.com/dcyriller))
+* [#1271](https://github.com/ember-template-lint/ember-template-lint/pull/1271) Adds additional test cases for `no-invalid-role` ([@MelSumner](https://github.com/MelSumner))
+* [#1270](https://github.com/ember-template-lint/ember-template-lint/pull/1270) Start testing editor integrations ([@dcyriller](https://github.com/dcyriller))
+* [#1268](https://github.com/ember-template-lint/ember-template-lint/pull/1268) Add unit tests for `bin/ember-template-lint.js` ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 7
+- Andrey Stukalin ([@stukalin](https://github.com/stukalin))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- Joseph D. Sumner ([@josephdsumner](https://github.com/josephdsumner))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
+## v2.5.2 (2020-04-11)
+
+#### :bug: Bug Fix
+* [#1264](https://github.com/ember-template-lint/ember-template-lint/pull/1264) Ensure `--json` argument can be used anywhere on the command line. ([@dcyriller](https://github.com/dcyriller))
+
+#### :house: Internal
+* [#1265](https://github.com/ember-template-lint/ember-template-lint/pull/1265) test(cli): Set LC_ALL env var to en_US ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 1
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
+
+## v2.5.1 (2020-04-09)
+
+#### :rocket: Enhancement
+* [#1260](https://github.com/ember-template-lint/ember-template-lint/pull/1260) Expose `ember-template-recast` API on main entry point (e.g. `require('ember-template-lint').recast`) ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 1
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+
+
+## v2.5.0 (2020-04-08)
+
+#### :rocket: Enhancement
+* [#1251](https://github.com/ember-template-lint/ember-template-lint/pull/1251) Pass `env` from `ember-template-recast` to rules so they can use `env.syntax.builders.*` during `ember-template-lint **/*.hbs --fix`. ([@dcyriller](https://github.com/dcyriller))
+* [#1238](https://github.com/ember-template-lint/ember-template-lint/pull/1238) Add new rule: `require-form-method` ([@raido](https://github.com/raido))
+
+#### :bug: Bug Fix
+* [#1257](https://github.com/ember-template-lint/ember-template-lint/pull/1257) Ensure GitHub Action annotations are not emitted for warnings. ([@eramod](https://github.com/eramod))
+
+#### :memo: Documentation
+* [#1250](https://github.com/ember-template-lint/ember-template-lint/pull/1250) Update each rule doc to mention what config enables the rule ([@bmish](https://github.com/bmish))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Dianne Eramo ([@eramod](https://github.com/eramod))
+- Raido Kuli ([@raido](https://github.com/raido))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
+## v2.4.1 (2020-03-25)
+
+#### :bug: Bug Fix
+* [#1229](https://github.com/ember-template-lint/ember-template-lint/pull/1229) Ensure template parsing errors are only reported once (not once per-rule) ([@lifeart](https://github.com/lifeart))
+* [#1210](https://github.com/ember-template-lint/ember-template-lint/pull/1210) Fix invalid failure for invalid block param definition ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#1220](https://github.com/ember-template-lint/ember-template-lint/pull/1220) Ensure each rule documentation file has the right title and an examples section ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1212](https://github.com/ember-template-lint/ember-template-lint/pull/1212) Re-run `npm init rwjblue-release-it-setup --update`. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+
+## v2.4.0 (2020-03-08)
+
+#### :rocket: Enhancement
+* [#1200](https://github.com/ember-template-lint/ember-template-lint/pull/1200) Add `--ignore-pattern` and `--no-ignore-pattern` command line flags ([@kangax](https://github.com/kangax))
+
+#### :memo: Documentation
+* [#1202](https://github.com/ember-template-lint/ember-template-lint/pull/1202) Update contributing info in README ([@pablobm](https://github.com/pablobm))
+
+#### Committers: 2
+- Juriy Zaytsev ([@kangax](https://github.com/kangax))
+- Pablo Brasero ([@pablobm](https://github.com/pablobm))
+
+## v2.3.0 (2020-03-04)
+
+#### :rocket: Enhancement
+* [#1179](https://github.com/ember-template-lint/ember-template-lint/pull/1179) inline-link-to: Implement `fix` mode ([@Turbo87](https://github.com/Turbo87))
+* [#1160](https://github.com/ember-template-lint/ember-template-lint/pull/1160) Add severity support (off, warn, error) to rule configuration (via both `.template-lintrc.js` and inline configuration). ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+
+#### :memo: Documentation
+* [#1195](https://github.com/ember-template-lint/ember-template-lint/pull/1195) Add v2 migration guide ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1196](https://github.com/ember-template-lint/ember-template-lint/pull/1196) Migrate to `yargs` for argument parsing. ([@rwjblue](https://github.com/rwjblue))
+* [#1191](https://github.com/ember-template-lint/ember-template-lint/pull/1191) Refactor printers. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Suchita Doshi ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+## v2.2.0 (2020-03-02)
+
+#### :rocket: Enhancement
+* [#1190](https://github.com/ember-template-lint/ember-template-lint/pull/1190) Ensure BOM is preserved when using `--fix`. ([@rwjblue](https://github.com/rwjblue))
+* [#1185](https://github.com/ember-template-lint/ember-template-lint/pull/1185) Add message about running `--fix` to console output when fixable errors have ocurred. ([@rwjblue](https://github.com/rwjblue))
+* [#1183](https://github.com/ember-template-lint/ember-template-lint/pull/1183) --fix: Write output to fs ([@dcyriller](https://github.com/dcyriller))
+* [#1178](https://github.com/ember-template-lint/ember-template-lint/pull/1178) require-button-type: Implement `fix` mode ([@Turbo87](https://github.com/Turbo87))
+
+#### :bug: Bug Fix
+* [#1189](https://github.com/ember-template-lint/ember-template-lint/pull/1189) Ensure resolvable plugins work when the config is not resolved. ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#1188](https://github.com/ember-template-lint/ember-template-lint/pull/1188) Ensure `yarn new` emits the expected TODO format ([@MelSumner](https://github.com/MelSumner))
+* [#1181](https://github.com/ember-template-lint/ember-template-lint/pull/1181) Ensure the exported class name matches the rule name ([@bmish](https://github.com/bmish))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
 ## v2.1.0 (2020-02-28)
 
 #### :rocket: Enhancement
 * [#1158](https://github.com/ember-template-lint/ember-template-lint/pull/1158) Introduce rule visitor based fixing support. ([@rwjblue](https://github.com/rwjblue))
 * [#1174](https://github.com/ember-template-lint/ember-template-lint/pull/1174) Add test harness features (naming test cases, snapshot support, etc). ([@rwjblue](https://github.com/rwjblue))
 * [#1169](https://github.com/ember-template-lint/ember-template-lint/pull/1169) Add support to `test.only` in the test harness. ([@rwjblue](https://github.com/rwjblue))
-* [#1074](https://github.com/ember-template-lint/ember-template-lint/pull/1074) feat(cli-option): Add --help option and configurable option parsing ([@velrest](https://github.com/velrest))
+* [#1117](https://github.com/ember-template-lint/ember-template-lint/pull/1117) Add configuration file support for overrides  ([@suchitadoshi1987](https://github.com/suchitadoshi1987))
+* [#1074](https://github.com/ember-template-lint/ember-template-lint/pull/1074) Add --help option and configurable option parsing ([@velrest](https://github.com/velrest))
 * [#1102](https://github.com/ember-template-lint/ember-template-lint/pull/1102) Add new rule: `no-heading-inside-button` ([@MelSumner](https://github.com/MelSumner))
 * [#1105](https://github.com/ember-template-lint/ember-template-lint/pull/1105) Add new rule: `require-input-label` ([@MelSumner](https://github.com/MelSumner))
 * [#1120](https://github.com/ember-template-lint/ember-template-lint/pull/1120) Add new rule: `no-invalid-link-title` ([@MelSumner](https://github.com/MelSumner))
@@ -49,6 +253,8 @@
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
 ## v2.0.0 (2020-02-22)
+
+See the [migration guide](docs/migration/v2.md) for this release.
 
 #### :boom: Breaking Change
 * [#1067](https://github.com/ember-template-lint/ember-template-lint/pull/1067) Remove deprecated `templateEnvironmentData` rule property ([@bmish](https://github.com/bmish))

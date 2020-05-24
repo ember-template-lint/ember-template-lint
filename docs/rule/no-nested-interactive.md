@@ -1,5 +1,7 @@
 # no-nested-interactive
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Usage of nested, interactive content can lead to UX problems, accessibility problems, bugs, and in some cases DOM errors. You should not put interactive content elements nested inside other interactive content elements. Instead of using nested interactive content elements, you should separate them, or use styling on a single element.
 
 ## Examples

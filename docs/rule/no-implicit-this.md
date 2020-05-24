@@ -1,5 +1,7 @@
 # no-implicit-this
 
+:car: The `extends: 'octane'` property in a configuration file enables this rule.
+
 This rule aides in the migration path for [emberjs/rfcs#308](https://github.com/emberjs/rfcs/pull/308).
 
 ## Motivation
@@ -13,7 +15,7 @@ ambiguous, as it could be referring to a local variable (block param), a helper
 with no arguments, a closed over component, or a property on the component
 class.
 
-## Exemplar
+## Examples
 
 Consider the following example where the ambiguity can cause issues:
 

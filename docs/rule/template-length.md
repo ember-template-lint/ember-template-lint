@@ -14,6 +14,10 @@ Some ember shops try to put some guard-rails on the length of templates for the 
 - Templates that are extremely short might be better off inlined into the
   component itself rather than existing as a separate `.hbs` file.
 
+## Examples
+
+N/A
+
 ## Configuration
 
 This rule is configured with a boolean, or a string value:

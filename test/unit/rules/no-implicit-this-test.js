@@ -1,27 +1,26 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-implicit-this').message;
+const { ARGLESS_BUILTIN_HELPERS, message } = require('../../../lib/rules/no-implicit-this');
 
 let statements = [
-  path => `{{${path}}}`,
-  path => `{{${path} argument=true}}`,
-  path => `{{#${path}}}{{/${path}}}`,
-  path => `{{helper argument=${path}}}`,
-  path => `{{#helper argument=${path}}}{{/helper}}`,
-  path => `{{echo (helper ${path})}}`,
-  path => `<div {{helper ${path}}}></div>`,
+  (path) => `{{${path}}}`,
+  (path) => `{{${path} argument=true}}`,
+  (path) => `{{#${path}}}{{/${path}}}`,
+  (path) => `{{helper argument=${path}}}`,
+  (path) => `{{#helper argument=${path}}}{{/helper}}`,
+  (path) => `{{echo (helper ${path})}}`,
+  (path) => `<div {{helper ${path}}}></div>`,
 ];
 
-let good = [
-  '{{debugger}}',
-  '{{has-block}}',
-  '{{hasBlock}}',
-  '{{input}}',
-  '{{outlet}}',
-  '{{textarea}}',
-  '{{yield}}',
+let builtins = ARGLESS_BUILTIN_HELPERS.reduce((accumulator, helper) => {
+  return accumulator.concat([`{{${helper}}}`, `{{"inline: " (${helper})}}`]);
+}, []);
+
+let good = builtins.concat([
   '{{welcome-page}}',
+  '<WelcomePage />',
+  '<MyComponent @prop={{can "edit" @model}} />',
   {
     config: { allow: ['book-details'] },
     template: '{{book-details}}',
@@ -30,9 +29,9 @@ let good = [
     config: { allow: [/^data-test-.+/] },
     template: '{{foo-bar data-test-foo}}',
   },
-];
+]);
 
-statements.forEach(statement => {
+statements.forEach((statement) => {
   good.push(`${statement('@book')}`);
   good.push(`${statement('@book.author')}`);
   good.push(`${statement('this.book')}`);
@@ -92,6 +91,43 @@ generateRuleTests({
         source: 'book',
         line: 1,
         column: 10,
+      },
+    },
+    {
+      template: '<MyComponent @prop={{can.do}} />',
+      result: {
+        message: message('can.do'),
+        source: 'can.do',
+        line: 1,
+        column: 21,
+      },
+    },
+    {
+      template: '<MyComponent @prop={{can.do}} />',
+      config: { allow: ['can'] },
+      result: {
+        message: message('can.do'),
+        source: 'can.do',
+        line: 1,
+        column: 21,
+      },
+    },
+    {
+      template: '{{session.user.name}}',
+      result: {
+        message: message('session.user.name'),
+        source: 'session.user.name',
+        line: 1,
+        column: 2,
+      },
+    },
+    {
+      template: '<MyComponent @prop={{session.user.name}} />',
+      result: {
+        message: message('session.user.name'),
+        source: 'session.user.name',
+        line: 1,
+        column: 21,
       },
     },
   ],
