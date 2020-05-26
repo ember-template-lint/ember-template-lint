@@ -23,5 +23,15 @@ generateRuleTests({
         source: '{{yield "some" "param" to="else"}}',
       },
     },
+    {
+      template: '{{yield "some" "param" to="inverse"}}',
+      result: {
+        moduleId: 'layout',
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '{{yield "some" "param" to="inverse"}}',
+      },
+    },
   ],
 });

@@ -9,21 +9,17 @@ TODO: what the rule does goes here
 This rule **forbids** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+{{yield "some" "param" to="else"}}
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+{{yield "some" "param" to="inverse"}}
 ```
 
 This rule **allows** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
-```
-
-```hbs
-{{!-- TODO: Example 2  --}}
+{{yield}}
 ```
 
 ## Migration
