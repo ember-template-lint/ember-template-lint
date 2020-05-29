@@ -60,5 +60,22 @@ describe('editors integration', function () {
       expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
       expect(result.stderr).toBeFalsy();
     });
+
+    it('has exit code 0 and writes fixes if --filename is provided', async function () {
+      project.setConfig({ rules: { 'require-button-type': true } });
+      project.write({ 'template.hbs': '<button></button>' });
+
+      let result = await run(project, ['--json', '--filename', 'template.hbs', '--fix'], {
+        shell: false,
+        input: fs.readFileSync(path.resolve('template.hbs')),
+      });
+
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout).toBeFalsy();
+      expect(result.stderr).toBeFalsy();
+
+      let template = fs.readFileSync(path.resolve('template.hbs'), { encoding: 'utf8' });
+      expect(template).toBe('<button type="button"></button>');
+    });
   });
 });
