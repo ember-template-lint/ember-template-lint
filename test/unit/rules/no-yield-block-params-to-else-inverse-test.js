@@ -10,7 +10,7 @@ generateRuleTests({
 
   config: true,
 
-  good: ['{{yield}}'],
+  good: ['{{yield}}', '{{yield to="whatever"}}'],
 
   bad: [
     {
