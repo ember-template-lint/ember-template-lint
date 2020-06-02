@@ -10,7 +10,12 @@ generateRuleTests({
 
   config: true,
 
-  good: ['{{yield}}', '{{yield to="whatever"}}'],
+  good: [
+    '{{yield}}',
+    '{{yield to="whatever"}}',
+    '{{yield to=this.someValue}}',
+    '{{yield to=(get some this.map)}}',
+  ],
 
   bad: [
     {
