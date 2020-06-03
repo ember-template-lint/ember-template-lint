@@ -35,7 +35,7 @@ This rule **allows** the following:
 
 ```hbs
 <div role="group" aria-labelledby="preferred-mascot-heading">
-  <div id="preferred-mascot-heading">Preferred Mascot Version</legend>
+  <div id="preferred-mascot-heading">Preferred Mascot Version</div>
   <label for="radio-001">Chicago Zoey</label>
   <input id="radio-001" type="radio" name="prefMascot-Zoey" value="chicago zoey" />
   <label for="radio-002">Office Hours Tomster</label>
