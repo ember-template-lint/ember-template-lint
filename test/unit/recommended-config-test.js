@@ -1,6 +1,6 @@
 'use strict';
 
-const Linter = require('../../lib/index');
+const Linter = require('../../lib');
 const stripIndent = require('common-tags').stripIndent;
 
 describe('recommended config', function () {

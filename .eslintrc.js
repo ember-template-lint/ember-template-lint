@@ -1,18 +1,21 @@
 module.exports = {
   parserOptions: {
     ecmaVersion: 2019,
+    sourceType: 'script',
   },
   env: {
     node: true,
   },
-  plugins: ['eslint-comments', 'filenames', 'import', 'node', 'prettier'],
+  plugins: ['eslint-comments', 'filenames', 'import', 'node', 'prettier', 'unicorn'],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:node/recommended',
+    'plugin:unicorn/recommended',
     'prettier',
+    'prettier/unicorn',
   ],
   rules: {
     // Optional eslint rules:
@@ -90,6 +93,15 @@ module.exports = {
     'import/unambiguous': 'error',
 
     'prettier/prettier': 'error',
+
+    // Unicorn rules:
+    'unicorn/consistent-function-scoping': 'off',
+    'unicorn/explicit-length-check': 'off',
+    'unicorn/no-fn-reference-in-iterator': 'off',
+    'unicorn/no-null': 'off',
+    'unicorn/no-reduce': 'off',
+    'unicorn/no-useless-undefined': 'off',
+    'unicorn/prevent-abbreviations': 'off',
   },
 
   overrides: [

@@ -74,17 +74,17 @@ describe('rules setup is correct', function () {
 
   it('All rules has test files', function () {
     const testsPath = join(__dirname, '..', 'unit', 'rules');
-    const ruleFiles = readdirSync(testsPath).filter((name) => name.endsWith('-test.js'));
-    const deprecatedRuleFiles = readdirSync(join(testsPath, 'deprecations')).filter((name) =>
-      name.endsWith('-test.js')
+    const ruleFiles = new Set(readdirSync(testsPath).filter((name) => name.endsWith('-test.js')));
+    const deprecatedRuleFiles = new Set(
+      readdirSync(join(testsPath, 'deprecations')).filter((name) => name.endsWith('-test.js'))
     );
     expectedRules.forEach((ruleFileName) => {
       const ruleTestFileName = `${ruleFileName}-test.js`;
-      expect(ruleFiles.includes(ruleTestFileName)).toBe(true);
+      expect(ruleFiles.has(ruleTestFileName)).toBe(true);
     });
     deprecatedRules.forEach((ruleFileName) => {
       const ruleTestFileName = `${ruleFileName}-test.js`;
-      expect(deprecatedRuleFiles.includes(ruleTestFileName)).toBe(true);
+      expect(deprecatedRuleFiles.has(ruleTestFileName)).toBe(true);
     });
   });
 
