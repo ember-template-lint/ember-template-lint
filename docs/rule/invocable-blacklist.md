@@ -7,19 +7,23 @@ Disallow certain components or helpers from being used. Use case is you bring in
 Given a config of:
 
 ```js
-'invocable-blacklist': ['foo']
+'invocable-blacklist': ['foo-bar']
 ```
 
 This rule **forbids** the following:
 
 ```hbs
-{{foo}}
+{{foo-bar}}
 ```
 
 ```hbs
-{{#foo}}{{/foo}}
+{{#foo-bar}}{{/foo-bar}}
+```
+
+```hbs
+<FooBar />
 ```
 
 ## Configuration
 
-* array of strings - helpers or components to blacklist
+* array of strings - helpers or components to blacklist (using kebab-case names like `nested-scope/component-name`)
