@@ -261,5 +261,14 @@ generateRuleTests({
         message: 'You specified `{}`',
       },
     },
+    {
+      config: [],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `[]`',
+      },
+    },
   ],
 });
