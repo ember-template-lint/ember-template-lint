@@ -5,7 +5,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'invocable-blacklist',
 
-  config: ['foo', 'bar'],
+  config: ['foo', 'bar', 'nested-scope/foo-bar'],
 
   good: [
     '{{baz}}',
@@ -28,6 +28,10 @@ generateRuleTests({
     '{{yield (baz (baz (baz) foo=(baz)))}}',
     '{{#baz as |foo|}}{{foo}}{{/baz}}',
     '{{#with (component "blah") as |Foo|}} <Foo /> {{/with}}',
+    '{{other/foo-bar}}',
+    '{{nested-scope/other}}',
+    '<Random/>',
+    '<NestedScope::Random/>',
   ],
 
   bad: [
@@ -231,6 +235,26 @@ generateRuleTests({
         column: 27,
       },
     },
+    {
+      template: '{{nested-scope/foo-bar}}',
+
+      result: {
+        message: "Cannot use blacklisted helper or component '{{nested-scope/foo-bar}}'",
+        source: '{{nested-scope/foo-bar}}',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<NestedScope::FooBar/>',
+
+      result: {
+        message: "Cannot use blacklisted helper or component '<NestedScope::FooBar />'",
+        source: '<NestedScope::FooBar/>',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 
   error: [
@@ -268,6 +292,66 @@ generateRuleTests({
       result: {
         fatal: true,
         message: 'You specified `[]`',
+      },
+    },
+    {
+      // Disallows non-string.
+      config: [123],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `[123]`',
+      },
+    },
+    {
+      // Disallows empty string.
+      config: [''],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `[""]`',
+      },
+    },
+    {
+      // Disallows incorrect naming format (disallows angle bracket invocation style).
+      config: ['MyComponent'],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `["MyComponent"]`',
+      },
+    },
+    {
+      // Disallows incorrect naming format (disallows nested angle bracket invocation style).
+      config: ['MyComponent'],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `["MyComponent"]`',
+      },
+    },
+    {
+      // Disallows incorrect naming format.
+      config: ['Scope/MyComponent'],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `["Scope/MyComponent"]`',
+      },
+    },
+    {
+      // Disallows incorrect naming format.
+      config: ['scope::my-component'],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `["scope::my-component"]`',
       },
     },
   ],
