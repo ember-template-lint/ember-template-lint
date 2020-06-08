@@ -5,7 +5,15 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'invocable-blacklist',
 
-  config: ['foo', 'bar', 'nested-scope/foo-bar'],
+  config: [
+    'foo',
+    'bar',
+    'nested-scope/foo-bar',
+    {
+      names: ['deprecated-component'],
+      message: 'This component is deprecated; use component ABC instead.',
+    },
+  ],
 
   good: [
     '{{baz}}',
@@ -255,6 +263,16 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template: '{{deprecated-component}}',
+
+      result: {
+        message: 'This component is deprecated; use component ABC instead.',
+        source: '{{deprecated-component}}',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 
   error: [
@@ -352,6 +370,36 @@ generateRuleTests({
       result: {
         fatal: true,
         message: 'You specified `["scope::my-component"]`',
+      },
+    },
+    {
+      // Disallows empty object.
+      config: [{}],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `[{}]`',
+      },
+    },
+    {
+      // Disallows object missing names array.
+      config: [{ message: 'Custom error message.' }],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `[{"message":"Custom error message."}]`',
+      },
+    },
+    {
+      // Disallows object with empty names array.
+      config: [{ names: [], message: 'Custom error message.' }],
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `[{"names":[],"message":"Custom error message."}]`',
       },
     },
   ],
