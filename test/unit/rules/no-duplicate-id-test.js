@@ -86,10 +86,6 @@ generateRuleTests({
         column: 27,
         source: 'id="{{"id"}}-00"',
       },
-
-      
     },
-
-
   ],
 });
