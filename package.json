@@ -35,7 +35,7 @@
     ]
   },
   "dependencies": {
-    "chalk": "^4.0.0",
+    "chalk": "^4.1.0",
     "ember-template-recast": "^4.1.4",
     "find-up": "^4.1.0",
     "get-stdin": "^8.0.0",
