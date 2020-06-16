@@ -26,6 +26,10 @@ generateRuleTests({
     '<div id="id-00"></div><div id={{id-00}}></div>',
     '<div id="concat-{{id-00}}"></div><div id="concat-id-00"></div>',
     '<div id="concat-id-00"></div><div id="concat-{{id-00}}"></div>',
+
+    // BlockStatement
+    '<div id="id-00"></div>{{#foo elementId="id-01"}}{{/foo}}',
+    '{{#foo elementId="id-01"}}{{/foo}}<div id="id-00"></div>',
   ],
 
   bad: [
@@ -85,6 +89,77 @@ generateRuleTests({
         line: 1,
         column: 27,
         source: 'id="{{"id"}}-00"',
+      },
+    },
+
+    // BlockStatement
+    {
+      template: '<div id="id-00"></div>{{#foo elementId="id-00"}}{{/foo}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 22,
+        source: '{{#foo elementId="id-00"}}{{/foo}}',
+      },
+    },
+
+    {
+      template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-00"></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 39,
+        source: 'id="id-00"',
+      },
+    },
+
+    {
+      template: '<div id={{"id-00"}}></div>{{#foo elementId="id-00"}}{{/foo}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 26,
+        source: '{{#foo elementId="id-00"}}{{/foo}}',
+      },
+    },
+
+    {
+      template: '{{#foo elementId="id-00"}}{{/foo}}<div id={{"id-00"}}></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 39,
+        source: 'id={{"id-00"}}',
+      },
+    },
+
+    {
+      template: '<div id="id-{{"00"}}"></div>{{#foo elementId="id-00"}}{{/foo}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 28,
+        source: '{{#foo elementId="id-00"}}{{/foo}}',
+      },
+    },
+
+    {
+      template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-{{"00"}}"></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 39,
+        source: 'id="id-{{"00"}}"',
+      },
+    },
+
+    {
+      template: '{{#foo elementId="id-00"}}{{/foo}}{{#bar elementId="id-00"}}{{/bar}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 34,
+        source: '{{#bar elementId="id-00"}}{{/bar}}',
       },
     },
   ],
