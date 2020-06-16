@@ -47,5 +47,45 @@ generateRuleTests({
         source: 'id="id-01"',
       },
     },
+
+    {
+      template: '<div id="id-00"></div><div id={{"id-00"}}></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 27,
+        source: 'id={{"id-00"}}',
+      },
+    },
+
+    {
+      template: '<div id={{"id-00"}}></div><div id="id-00"></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 31,
+        source: 'id="id-00"',
+      },
+    },
+
+    {
+      template: '<div id="id-00"></div><div id="id-{{"00"}}"></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 27,
+        source: 'id="id-{{"00"}}"',
+      },
+    },
+
+    {
+      template: '<div id="id-00"></div><div id="{{"id"}}-00"></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 27,
+        source: 'id="{{"id"}}-00"',
+      },
+    },
   ],
 });
