@@ -14,6 +14,7 @@ generateRuleTests({
   good: [
     '<nav aria-label="primary site navigation"></nav><nav aria-label="secondary site navigation within home page"></nav>',
     '<nav aria-label="primary site navigation"></nav><div role="navigation" aria-label="secondary site navigation within home page"></div>',
+    '<nav aria-label={{siteNavigation}}></nav><nav aria-label={{siteNavigation}}></nav>',
   ],
 
   bad: [
