@@ -2,7 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const Linter = require('../../lib/index');
+const Linter = require('../../lib');
 const buildFakeConsole = require('./../helpers/console');
 const Project = require('../helpers/fake-project');
 const chalk = require('chalk');

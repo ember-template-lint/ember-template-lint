@@ -123,5 +123,25 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template: '<button tabindex="{{unless a 1}}"></button>',
+
+      result: {
+        message: 'Avoid positive integer values for tabindex.',
+        source: 'tabindex="{{unless a 1}}"',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<button tabindex="{{unless a -1 1}}"></button>',
+
+      result: {
+        message: 'Avoid positive integer values for tabindex.',
+        source: 'tabindex="{{unless a -1 1}}"',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 });

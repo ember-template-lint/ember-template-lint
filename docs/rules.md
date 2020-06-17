@@ -22,6 +22,7 @@
 * [no-duplicate-landmark-labels](rule/no-duplicate-landmark-labels.md)
 * [no-element-event-actions](rule/no-element-event-actions.md)
 * [no-extra-mut-helper-argument](rule/no-extra-mut-helper-argument.md)
+* [no-forbidden-elements](rule/no-forbidden-elements.md)
 * [no-heading-inside-button](rule/no-heading-inside-button.md)
 * [no-html-comments](rule/no-html-comments.md)
 * [no-implicit-this](rule/no-implicit-this.md)

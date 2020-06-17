@@ -16,3 +16,7 @@ This rule **forbids** the following:
 ```hbs
 {{partial "foo"}}
 ```
+
+## RFCs
+
+* [Deprecate {{partial}}](https://github.com/emberjs/rfcs/blob/master/text/0449-deprecate-partials.md)

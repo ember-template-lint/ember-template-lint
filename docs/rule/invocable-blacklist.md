@@ -1,25 +1,43 @@
 # invocable-blacklist
 
-Disallow certain components or helpers from being used. Use case is you bring in some addon like ember-composable-helpers, but your team deems one or many of the helpers not suitable and wants to guard against their usage.
+Disallow certain components or helpers from being used.
+
+Use cases include:
+
+* You bring in some addon like ember-composable-helpers, but your team deems one or many of the helpers not suitable and wants to guard against their usage
+* You want to discourage use of a deprecated component
 
 ## Examples
 
 Given a config of:
 
 ```js
-'invocable-blacklist': ['foo']
+'invocable-blacklist': ['foo-bar']
 ```
 
 This rule **forbids** the following:
 
 ```hbs
-{{foo}}
+{{foo-bar}}
 ```
 
 ```hbs
-{{#foo}}{{/foo}}
+{{#foo-bar}}{{/foo-bar}}
+```
+
+```hbs
+<FooBar />
 ```
 
 ## Configuration
 
-* array of strings - helpers or components to blacklist
+One of these:
+
+* string[] - helpers or components to blacklist (using kebab-case names like `nested-scope/component-name`)
+* object[] - with the following keys:
+  * `names` - string[] - helpers or components to blacklist (using kebab-case names like `nested-scope/component-name`)
+  * `message` - string - custom error message to report for violations (typically a deprecation notice / explanation of why not to use it and a recommended replacement)
+
+## Related Rules
+
+* [ember/no-restricted-service-injections](https://github.com/ember-cli/eslint-plugin-ember/blob/master/docs/rules/no-restricted-service-injections.md)
