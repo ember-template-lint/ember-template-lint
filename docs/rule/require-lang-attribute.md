@@ -1,6 +1,6 @@
 # require-lang-attribute
 
-A missing `lang` attribute can cause an application to fail legal conformance for digital accessibility requirements. 
+A missing `lang` attribute can cause an application to fail legal conformance for digital accessibility requirements.
 
 This rule's objective is to ensure that Ember applications achieve [WCAG Success Criterion 3.1.1: Language of Page](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html). The state of the `lang` attribute has a usability impact on the experience of users that require screen-reading assistive technology. When the attribute is properly assigned:
 
@@ -8,15 +8,15 @@ This rule's objective is to ensure that Ember applications achieve [WCAG Success
 >
 > **Source: [WCAG Success Criterion 3.1.1: Intent](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html#intent)**
 
-When the language of the page cannot be identified, the integrity of the above information cannot be guaranteed. 
+When the language of the page cannot be identified, the integrity of the above information cannot be guaranteed.
 
 Consider the following use case:
 
-- the application developer is unaware that Ember now includes the lang attribute
-- the application does not require internationalization
-- the application's content is in a language that is not English
-- an end-user with a screen reader turned on, whose operating system (OS) is set to a different language, navigates to that page with their screen reader turned on
-- the screen reader would attempt to read the page in the language that is defined by the lang attribute on the page, but the supporting element information ("button", "link", etc) is read out in the language that is set by the operating system.
+* the application developer is unaware that Ember now includes the lang attribute
+* the application does not require internationalization
+* the application's content is in a language that is not English
+* an end-user with a screen reader turned on, whose operating system (OS) is set to a different language, navigates to that page with their screen reader turned on
+* the screen reader would attempt to read the page in the language that is defined by the lang attribute on the page, but the supporting element information ("button", "link", etc) is read out in the language that is set by the operating system.
 
 ## Examples
 
