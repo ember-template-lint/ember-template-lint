@@ -1,10 +1,6 @@
 # require-lang-attribute
 
-<<<<<<< HEAD
 A missing `lang` attribute can cause an application to fail legal conformance for digital accessibility requirements.
-=======
-A missing `lang` attribute can cause an application to fail legal conformance for digital accessibility requirements. 
->>>>>>> Adds new rule: require-lang-attribute
 
 This rule's objective is to ensure that Ember applications achieve [WCAG Success Criterion 3.1.1: Language of Page](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html). The state of the `lang` attribute has a usability impact on the experience of users that require screen-reading assistive technology. When the attribute is properly assigned:
 
@@ -27,17 +23,24 @@ Consider the following use case:
 This rule **forbids** the following:
 
 ```hbs
-<html>
+<html></html>
 ```
+
+```hbs
+<html lang=""></html>
 
 This rule **allows** the following:
 
 ```hbs
-<html lang="en">
+<html lang="en"></html>
 ```
 
 ```hbs
-<html lang="en-US">
+<html lang="en-US"></html>
+```
+
+```hbs
+<html lang={{this.foo}}></html>
 ```
 
 ## Migration
