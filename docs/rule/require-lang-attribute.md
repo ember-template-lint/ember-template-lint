@@ -40,7 +40,7 @@ This rule **allows** the following:
 ```
 
 ```hbs
-<html lang={{this.foo}}></html>
+<html lang={{lang}}></html>
 ```
 
 ## Migration
