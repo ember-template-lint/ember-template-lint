@@ -52,24 +52,27 @@ describe('rules setup is correct', function () {
     });
   });
 
-  it('All files under docs/rule/ have a link from docs/rules.md.', function () {
+  it('has correct rules.md with all rules in sorted order', function () {
     const docsPath = join(__dirname, '..', '..', 'docs');
-    const entryPath = join(docsPath, 'rule');
-    const ruleFiles = readdirSync(entryPath).filter(
-      (name) => name.endsWith('.md') && name !== '_TEMPLATE_.md'
-    );
-    const deprecatedRuleFiles = readdirSync(join(entryPath, 'deprecations')).filter((name) =>
-      name.endsWith('.md')
-    );
     const allRulesFile = readFileSync(join(docsPath, 'rules.md'), {
       encoding: 'utf8',
     });
-    ruleFiles.forEach((fileName) => {
-      expect(allRulesFile.includes(`(rule/${fileName})`)).toBe(true);
-    });
-    deprecatedRuleFiles.forEach((fileName) => {
-      expect(allRulesFile.includes(`(rule/deprecations/${fileName})`)).toBe(true);
-    });
+
+    const defaultExport = require(rulesEntryPath);
+    const exportedRules = Object.keys(defaultExport);
+
+    const rulesList = exportedRules
+      .sort()
+      .filter((ruleName) => !ruleName.startsWith('deprecated-'))
+      .map((ruleName) => `* [${ruleName}](rule/${ruleName}.md)`);
+    const deprecatedRulesList = deprecatedRules.map(
+      (ruleName) => `* [${ruleName}](rule/deprecations/${ruleName}.md)`
+    );
+    const expectedFileContents = `# Rules\n\n${rulesList.join(
+      '\n'
+    )}\n\n## Deprecations\n\n${deprecatedRulesList.join('\n')}\n`;
+
+    expect(allRulesFile).toEqual(expectedFileContents);
   });
 
   it('All rules has test files', function () {
