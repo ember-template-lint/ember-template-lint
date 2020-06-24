@@ -631,7 +631,7 @@ describe('public api', function () {
         console: mockConsole,
         config: {
           rules: {
-            'invocable-blacklist': ['foo', 'bar'],
+            'no-restricted-invocations': ['foo', 'bar'],
             'no-implicit-this': { allow: ['baz'] },
             'no-bare-strings': true,
           },
@@ -647,11 +647,11 @@ describe('public api', function () {
 
       let expected = [
         {
-          rule: 'invocable-blacklist',
+          rule: 'no-restricted-invocations',
           severity: 2,
           filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
-          message: "Cannot use blacklisted helper or component '{{foo}}'",
+          message: "Cannot use disallowed helper or component '{{foo}}'",
           line: 1,
           column: 17,
           source: '{{foo}}',
