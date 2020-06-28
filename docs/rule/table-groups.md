@@ -73,7 +73,7 @@ allow it with your configuration.
 
 One of these:
 
-* boolean - `true` - Enables the rule to be enforced with no extra allowed components as children of table components.
+* boolean - `true` to enable / `false` to disable
 * object[] - with the following keys:
   * `allowed-caption-components` - string[] - components to treat as having the caption tag (using kebab-case names like `nested-scope/component-name`)
   * `allowed-colgroup-components` - string[] - components to treat as having the colgroup tag (using kebab-case names like `nested-scope/component-name`)
