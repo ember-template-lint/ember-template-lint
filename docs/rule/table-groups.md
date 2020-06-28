@@ -78,11 +78,29 @@ This rule **allows** the following:
 </table>
 ```
 
-If you have a component with one of the table groups specified as its `tagName`, you should disable the rule inline:
+If you have a component with one of the table groups specified as its `tagName`, or it has no tag and instead only has valid children, you can
+allow it with your configuration.
+
+```js
+'table-groups': {
+  'allowable-tbody-components': 'some-component-with-tag-name-tbody',
+}
+```
 
 ```hbs
 <table>
-  {{!-- template-lint-disable table-groups  --}}
-  {{some-component-with-tagName-tbody}}
+  {{some-component-with-tag-name-tbody}}
 </table>
 ```
+
+## Configuration
+
+One of these:
+
+* boolean - `true` to enable / `false` to disable
+* object[] - with the following keys:
+  * `allowed-caption-components` - string[] - components to treat as having the caption tag (using kebab-case names like `nested-scope/component-name`)
+  * `allowed-colgroup-components` - string[] - components to treat as having the colgroup tag (using kebab-case names like `nested-scope/component-name`)
+  * `allowed-thead-components` - string[] - components to treat as having the thead tag (using kebab-case names like `nested-scope/component-name`)
+  * `allowed-tbody-components` - string[] - components to treat as having the tbody tag (using kebab-case names like `nested-scope/component-name`)
+  * `allowed-tfoot-components` - string[] - components to treat as having the tfoot tag (using kebab-case names like `nested-scope/component-name`)
