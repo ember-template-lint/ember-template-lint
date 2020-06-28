@@ -1,6 +1,6 @@
 'use strict';
 
-const javascriptUtils = require('../../../lib/utils/javascript');
+const javascriptUtils = require('../../../lib/helpers/javascript');
 
 describe('flat', function () {
   it('correctly flattens arrays', function () {
