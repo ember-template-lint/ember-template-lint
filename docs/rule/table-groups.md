@@ -10,6 +10,14 @@ It is best practice to group table rows into one of:
 
 This helps avoid a very nuanced (and possibly deprecated in the future) feature of glimmer that auto-inserts these tags.
 
+This rule also enforces that all children of the `table` element are in the correct order:
+
+* `caption`
+* `colgroup`
+* `thead`
+* `tbody`
+* `tfoot`
+
 ## Examples
 
 This rule **forbids** the following:
@@ -25,6 +33,14 @@ This rule **forbids** the following:
 ```hbs
 <table>
   {{some-thing content=content}}
+</table>
+```
+
+```hbs
+<table>
+  <tfoot />
+  <tbody />
+  <thead />
 </table>
 ```
 
@@ -45,6 +61,14 @@ This rule **allows** the following:
   <tbody>
     {{some-thing content=content}}
   </tbody>
+</table>
+```
+
+```hbs
+<table>
+  <thead />
+  <tbody />
+  <tfoot />
 </table>
 ```
 
