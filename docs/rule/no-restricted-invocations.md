@@ -1,4 +1,4 @@
-# invocable-blacklist
+# no-restricted-invocations
 
 Disallow certain components or helpers from being used.
 
@@ -12,7 +12,7 @@ Use cases include:
 Given a config of:
 
 ```js
-'invocable-blacklist': ['foo-bar']
+'no-restricted-invocations': ['foo-bar']
 ```
 
 This rule **forbids** the following:
@@ -33,9 +33,9 @@ This rule **forbids** the following:
 
 One of these:
 
-* string[] - helpers or components to blacklist (using kebab-case names like `nested-scope/component-name`)
+* string[] - helpers or components to disallow (using kebab-case names like `nested-scope/component-name`)
 * object[] - with the following keys:
-  * `names` - string[] - helpers or components to blacklist (using kebab-case names like `nested-scope/component-name`)
+  * `names` - string[] - helpers or components to disallow (using kebab-case names like `nested-scope/component-name`)
   * `message` - string - custom error message to report for violations (typically a deprecation notice / explanation of why not to use it and a recommended replacement)
 
 ## Related Rules

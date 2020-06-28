@@ -463,12 +463,20 @@ generateRuleTests({
       },
     },
     {
-      template: '<table><tbody /><colgroup /></table>',
+      template: `
+        <table>
+          <tbody />
+          <colgroup />
+        </table>
+      `,
       result: {
         message: orderingMessage,
-        source: '<table><tbody /><colgroup /></table>',
-        line: 1,
-        column: 0,
+        source: `<table>
+          <tbody />
+          <colgroup />
+        </table>`,
+        line: 2,
+        column: 8,
       },
     },
     {
