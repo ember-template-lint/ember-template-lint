@@ -25,6 +25,7 @@ jobs:
 
       - run: yarn lint
       - run: yarn test:jest
+      - run: yarn update && git diff --exit-code
 
   nodeX:
     name: Node ${{ matrix.node-version }} - ${{ matrix.os }}

@@ -171,6 +171,87 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 
 ## Rules
 
+<!--RULES_TABLE_START-->
+
+|    | Rule ID |
+|:---|:--------|
+|  | [attribute-indentation](./docs/rule/attribute-indentation.md) |
+| :dress: | [block-indentation](./docs/rule/block-indentation.md) |
+|  | [deprecated-each-syntax](./docs/rule/deprecations/deprecated-each-syntax.md) |
+|  | [deprecated-inline-view-helper](./docs/rule/deprecations/deprecated-inline-view-helper.md) |
+| :white_check_mark: | [deprecated-render-helper](./docs/rule/deprecations/deprecated-render-helper.md) |
+| :dress: | [eol-last](./docs/rule/eol-last.md) |
+|  | [inline-link-to](./docs/rule/inline-link-to.md) |
+| :dress: | [linebreak-style](./docs/rule/linebreak-style.md) |
+| :white_check_mark: | [link-href-attributes](./docs/rule/link-href-attributes.md) |
+| :white_check_mark: | [link-rel-noopener](./docs/rule/link-rel-noopener.md) |
+|  | [modifier-name-case](./docs/rule/modifier-name-case.md) |
+| :white_check_mark: | [no-abstract-roles](./docs/rule/no-abstract-roles.md) |
+| :car: | [no-action](./docs/rule/no-action.md) |
+|  | [no-action-modifiers](./docs/rule/no-action-modifiers.md) |
+| :white_check_mark: | [no-args-paths](./docs/rule/no-args-paths.md) |
+|  | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md) |
+| :white_check_mark: | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md) |
+|  | [no-bare-strings](./docs/rule/no-bare-strings.md) |
+| :car: | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md) |
+| :white_check_mark: | [no-debugger](./docs/rule/no-debugger.md) |
+| :white_check_mark: | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md) |
+|  | [no-element-event-actions](./docs/rule/no-element-event-actions.md) |
+| :white_check_mark: | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md) |
+|  | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md) |
+|  | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md) |
+| :white_check_mark: | [no-html-comments](./docs/rule/no-html-comments.md) |
+| :car: | [no-implicit-this](./docs/rule/no-implicit-this.md) |
+| :white_check_mark: | [no-index-component-invocation](./docs/rule/no-index-component-invocation.md) |
+| :white_check_mark: | [no-inline-styles](./docs/rule/no-inline-styles.md) |
+| :white_check_mark: | [no-input-block](./docs/rule/no-input-block.md) |
+| :white_check_mark: | [no-input-tagname](./docs/rule/no-input-tagname.md) |
+|  | [no-invalid-block-param-definition](./docs/rule/no-invalid-block-param-definition.md) |
+| :white_check_mark: | [no-invalid-interactive](./docs/rule/no-invalid-interactive.md) |
+| :white_check_mark: | [no-invalid-link-text](./docs/rule/no-invalid-link-text.md) |
+|  | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md) |
+| :white_check_mark: | [no-invalid-meta](./docs/rule/no-invalid-meta.md) |
+| :white_check_mark: | [no-invalid-role](./docs/rule/no-invalid-role.md) |
+| :white_check_mark: | [no-log](./docs/rule/no-log.md) |
+| :dress: | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md) |
+| :white_check_mark: | [no-negated-condition](./docs/rule/no-negated-condition.md) |
+| :white_check_mark: | [no-nested-interactive](./docs/rule/no-nested-interactive.md) |
+|  | [no-nested-landmark](./docs/rule/no-nested-landmark.md) |
+| :white_check_mark: | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md) |
+| :white_check_mark: | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md) |
+| :white_check_mark: | [no-partial](./docs/rule/no-partial.md) |
+|  | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md) |
+| :white_check_mark: | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md) |
+| :white_check_mark: | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md) |
+|  | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md) |
+|  | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md) |
+| :white_check_mark: | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md) |
+| :dress: | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md) |
+| :white_check_mark: | [no-triple-curlies](./docs/rule/no-triple-curlies.md) |
+|  | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md) |
+| :white_check_mark: | [no-unbound](./docs/rule/no-unbound.md) |
+| :white_check_mark: | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md) |
+| :dress: | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md) |
+| :white_check_mark: | [no-unused-block-params](./docs/rule/no-unused-block-params.md) |
+|  | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md) |
+|  | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md) |
+|  | [no-yield-only](./docs/rule/no-yield-only.md) |
+| :dress: | [quotes](./docs/rule/quotes.md) |
+| :white_check_mark: | [require-button-type](./docs/rule/require-button-type.md) |
+|  | [require-form-method](./docs/rule/require-form-method.md) |
+| :white_check_mark: | [require-iframe-title](./docs/rule/require-iframe-title.md) |
+|  | [require-input-label](./docs/rule/require-input-label.md) |
+| :white_check_mark: | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md) |
+| :dress: | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md) |
+| :white_check_mark: | [simple-unless](./docs/rule/simple-unless.md) |
+| :white_check_mark: | [style-concatenation](./docs/rule/style-concatenation.md) |
+| :white_check_mark: | [table-groups](./docs/rule/table-groups.md) |
+|  | [template-length](./docs/rule/template-length.md) |
+
+<!--RULES_TABLE_END-->
+
+### Severity Levels
+
 Each rule can have its own severity level which can be a string or could be the first element of the array that contains the custom rule configuration.
 Supported severity levels are `off`, `warn`, `error`.
 You can define a severity level directly on the rule:
@@ -184,8 +265,6 @@ Eg:
    "no-implicit-this": ['warn', { "allow": [ "fooData" ] }
 }
 ```
-
-Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
 ### Per Template File
 

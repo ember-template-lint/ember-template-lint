@@ -75,20 +75,6 @@ function createNewRuleDocFile(newRuleName) {
   );
 }
 
-function appendDocListFile(newRuleName) {
-  // Append rule + link to rule doc file
-  let pathDocList = path.join(pathRoot, 'docs', 'rules.md');
-  let docListAppend = `\n* [${newRuleName}](rule/${newRuleName}.md)`;
-  fs.appendFileSync(pathDocList, docListAppend);
-  console.log(
-    chalk.cyan(
-      `4. Success! ${chalk.yellow(
-        `${newRuleName}.md`
-      )} was appended to ${pathDocList}: please be sure to alphabetically sort the list before making a commit!`
-    )
-  );
-}
-
 function insertNewRuleIntoList(newRuleName) {
   // Insert rule into rule list
   let pathRuleList = path.join(pathRoot, 'lib', 'rules', 'index.js');
@@ -123,8 +109,9 @@ function main() {
   createNewRuleFile(ruleName);
   createNewTestFile(ruleName);
   createNewRuleDocFile(ruleName);
-  appendDocListFile(ruleName);
   insertNewRuleIntoList(ruleName);
+
+  console.log(chalk.red('Please run `yarn update` to update the rules list in README.md.'));
 }
 
 main();
