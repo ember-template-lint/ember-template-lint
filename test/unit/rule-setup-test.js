@@ -52,29 +52,6 @@ describe('rules setup is correct', function () {
     });
   });
 
-  it('has correct rules.md with all rules in sorted order', function () {
-    const docsPath = join(__dirname, '..', '..', 'docs');
-    const allRulesFile = readFileSync(join(docsPath, 'rules.md'), {
-      encoding: 'utf8',
-    });
-
-    const defaultExport = require(rulesEntryPath);
-    const exportedRules = Object.keys(defaultExport);
-
-    const rulesList = exportedRules
-      .sort()
-      .filter((ruleName) => !ruleName.startsWith('deprecated-'))
-      .map((ruleName) => `* [${ruleName}](rule/${ruleName}.md)`);
-    const deprecatedRulesList = deprecatedRules.map(
-      (ruleName) => `* [${ruleName}](rule/deprecations/${ruleName}.md)`
-    );
-    const expectedFileContents = `# Rules\n\n${rulesList.join(
-      '\n'
-    )}\n\n## Deprecations\n\n${deprecatedRulesList.join('\n')}\n`;
-
-    expect(allRulesFile).toEqual(expectedFileContents);
-  });
-
   it('All rules has test files', function () {
     const testsPath = join(__dirname, '..', 'unit', 'rules');
     const ruleFiles = new Set(readdirSync(testsPath).filter((name) => name.endsWith('-test.js')));

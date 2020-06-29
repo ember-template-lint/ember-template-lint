@@ -23,7 +23,8 @@
     "new": "node dev/new-rule/index.js",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
-    "test:jest": "jest"
+    "test:jest": "jest",
+    "update": "node ./scripts/update-rules.js"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
