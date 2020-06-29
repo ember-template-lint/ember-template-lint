@@ -22,6 +22,9 @@ generateRuleTests({
     '{{#baz}}{{/baz}}',
     '{{#baz foo=bar}}{{/baz}}',
     '{{#baz foo=(baz)}}{{/baz}}',
+
+    // Component helper:
+    '{{component}}',
     '{{component "baz"}}',
     '{{component "baz" foo=bar}}',
     '{{component "baz" foo=(baz)}}',
@@ -31,6 +34,7 @@ generateRuleTests({
     '{{yield (component "baz")}}',
     '{{yield (component "baz" foo=bar)}}',
     '{{yield (component "baz" foo=(baz))}}',
+
     '{{yield (baz (baz (baz) bar))}}',
     '{{yield (baz (baz (baz) (baz)))}}',
     '{{yield (baz (baz (baz) foo=(baz)))}}',
@@ -38,7 +42,10 @@ generateRuleTests({
     '{{#with (component "blah") as |Foo|}} <Foo /> {{/with}}',
     '{{other/foo-bar}}',
     '{{nested-scope/other}}',
+
+    // Angle bracket:
     '<Random/>',
+    '<HelloWorld/>',
     '<NestedScope::Random/>',
   ],
 
