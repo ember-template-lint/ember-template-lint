@@ -350,6 +350,10 @@ Note that enabling a rule (`{{!-- template-lint-enable --}}`) that has been conf
 
 You can define and use your own custom rules using the plugin system. See [plugin documentation](docs/plugins.md) for more details.
 
+### Supporting the --fix option
+
+You can add a fixer to a rule. See [fixer documentation](docs/fixer.md) for more details.
+
 ### Sharing configs
 
 It is possible to share a config (`extends`) or plugin (custom rules) across projects. See [ember-template-lint-plugin-peopleconnect](https://github.com/peopleconnectus/ember-template-lint-plugin-peopleconnect) for an example.
