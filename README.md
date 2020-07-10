@@ -38,19 +38,21 @@ Run templates through the linter's `verify` method like so:
 let TemplateLinter = require('ember-template-lint');
 
 let linter = new TemplateLinter();
-let template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
+let template = fs.readFileSync('some/path/to/template.hbs', {
+  encoding: 'utf8',
+});
 let results = linter.verify({ source: template, moduleId: 'template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
 
-* `rule` - The name of the rule that triggered this warning/error.
-* `message` - The message that should be output.
-* `line` - The line on which the error occurred.
-* `column` - The column on which the error occurred.
-* `moduleId` - The module path for the file containing the error.
-* `source` - The source that caused the error.
-* `fix` - An object describing how to fix the error.
+- `rule` - The name of the rule that triggered this warning/error.
+- `message` - The message that should be output.
+- `line` - The line on which the error occurred.
+- `column` - The column on which the error occurred.
+- `moduleId` - The module path for the file containing the error.
+- `source` - The source that caused the error.
+- `fix` - An object describing how to fix the error.
 
 ### CLI executable
 
@@ -111,11 +113,11 @@ ember-template-lint into your normal eslint workflow.
 
 ### Presets
 
-|    | Name   | Description |
-|:---|:-----|:------------|
-| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules |
-| :car: | [octane](lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
-| :dress: | [stylistic](lib/config/stylistic.js) | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
+|                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
+| :----------------- | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
+| :car:              | [octane](lib/config/octane.js)           | extends the `recommended` preset by enabling Ember Octane rules                                                                                                                                                                                                                      |
+| :dress:            | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ### Project Wide
 
@@ -128,9 +130,9 @@ module.exports = {
   extends: 'recommended',
 
   rules: {
-    'no-bare-strings': true
-  }
-}
+    'no-bare-strings': true,
+  },
+};
 ```
 
 This extends from the builtin recommended configuration ([lib/config/recommended.js](lib/config/recommended.js)),
@@ -144,8 +146,8 @@ some "bare strings" that are allowed you might have:
 ```javascript
 module.exports = {
   rules: {
-    'no-bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
-  }
+    'no-bare-strings': ['ZOMG THIS IS ALLOWED!!!!'],
+  },
 };
 ```
 
@@ -153,20 +155,20 @@ module.exports = {
 
 The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
 
-* `rules` -- `Object`
+- `rules` -- `Object`
   This is an object containing rule specific configuration (see details for each rule below).
-* `extends` -- `string|string[]`
+- `extends` -- `string|string[]`
   Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).
-* `pending` -- `string[]`
+- `pending` -- `string[]`
   An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-  * You can generate this list with the: `yarn ember-template-lint * --print-pending`
-* `ignore` -- `string[]|glob[]`
+  - You can generate this list with the: `yarn ember-template-lint * --print-pending`
+- `ignore` -- `string[]|glob[]`
   An array of module id's that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.
-* `plugins` -- `(string|Object)[]`
+- `plugins` -- `(string|Object)[]`
   An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
-* `overrides` -- `Array`
+- `overrides` -- `Array`
   An array of overrides that would allow overriding of specific rules for user specified files/folders. See [overrides documentation](docs/overrides.md) for more details.
 
 ## Rules
@@ -178,80 +180,80 @@ Each rule has emojis denoting:
 
 <!--RULES_TABLE_START-->
 
-|    | Rule ID |
-|:---|:--------|
-|  | [attribute-indentation](./docs/rule/attribute-indentation.md) |
-| :dress: | [block-indentation](./docs/rule/block-indentation.md) |
-|  | [deprecated-each-syntax](./docs/rule/deprecations/deprecated-each-syntax.md) |
-|  | [deprecated-inline-view-helper](./docs/rule/deprecations/deprecated-inline-view-helper.md) |
-| :white_check_mark: | [deprecated-render-helper](./docs/rule/deprecations/deprecated-render-helper.md) |
-| :dress: | [eol-last](./docs/rule/eol-last.md) |
-| :wrench: | [inline-link-to](./docs/rule/inline-link-to.md) |
-| :dress: | [linebreak-style](./docs/rule/linebreak-style.md) |
-| :white_check_mark: | [link-href-attributes](./docs/rule/link-href-attributes.md) |
-| :white_check_mark: | [link-rel-noopener](./docs/rule/link-rel-noopener.md) |
-|  | [modifier-name-case](./docs/rule/modifier-name-case.md) |
-| :white_check_mark: | [no-abstract-roles](./docs/rule/no-abstract-roles.md) |
-| :car: | [no-action](./docs/rule/no-action.md) |
-|  | [no-action-modifiers](./docs/rule/no-action-modifiers.md) |
-| :white_check_mark: | [no-args-paths](./docs/rule/no-args-paths.md) |
-|  | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md) |
-| :white_check_mark: | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md) |
-|  | [no-bare-strings](./docs/rule/no-bare-strings.md) |
-| :car: | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md) |
-| :white_check_mark: | [no-debugger](./docs/rule/no-debugger.md) |
-| :white_check_mark: | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md) |
-|  | [no-element-event-actions](./docs/rule/no-element-event-actions.md) |
-| :white_check_mark: | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md) |
-|  | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md) |
-|  | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md) |
-| :white_check_mark: | [no-html-comments](./docs/rule/no-html-comments.md) |
-| :car: | [no-implicit-this](./docs/rule/no-implicit-this.md) |
-| :white_check_mark: | [no-index-component-invocation](./docs/rule/no-index-component-invocation.md) |
-| :white_check_mark: | [no-inline-styles](./docs/rule/no-inline-styles.md) |
-| :white_check_mark: | [no-input-block](./docs/rule/no-input-block.md) |
-| :white_check_mark: | [no-input-tagname](./docs/rule/no-input-tagname.md) |
-|  | [no-invalid-block-param-definition](./docs/rule/no-invalid-block-param-definition.md) |
-| :white_check_mark: | [no-invalid-interactive](./docs/rule/no-invalid-interactive.md) |
-| :white_check_mark: | [no-invalid-link-text](./docs/rule/no-invalid-link-text.md) |
-|  | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md) |
-| :white_check_mark: | [no-invalid-meta](./docs/rule/no-invalid-meta.md) |
-| :white_check_mark: | [no-invalid-role](./docs/rule/no-invalid-role.md) |
-| :white_check_mark: | [no-log](./docs/rule/no-log.md) |
-| :dress: | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md) |
-| :white_check_mark: | [no-negated-condition](./docs/rule/no-negated-condition.md) |
-| :white_check_mark: | [no-nested-interactive](./docs/rule/no-nested-interactive.md) |
-|  | [no-nested-landmark](./docs/rule/no-nested-landmark.md) |
-| :white_check_mark: | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md) |
-| :white_check_mark: | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md) |
-| :white_check_mark: | [no-partial](./docs/rule/no-partial.md) |
-|  | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md) |
-| :white_check_mark: | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md) |
-| :white_check_mark: | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md) |
-|  | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md) |
-|  | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md) |
-| :white_check_mark: | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md) |
-| :dress: | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md) |
-| :white_check_mark: | [no-triple-curlies](./docs/rule/no-triple-curlies.md) |
-|  | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md) |
-| :white_check_mark: | [no-unbound](./docs/rule/no-unbound.md) |
-| :white_check_mark: | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md) |
-| :dress: | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md) |
-| :white_check_mark: | [no-unused-block-params](./docs/rule/no-unused-block-params.md) |
-|  | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md) |
-|  | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md) |
-|  | [no-yield-only](./docs/rule/no-yield-only.md) |
-| :dress: | [quotes](./docs/rule/quotes.md) |
-| :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md) |
-|  | [require-form-method](./docs/rule/require-form-method.md) |
-| :white_check_mark: | [require-iframe-title](./docs/rule/require-iframe-title.md) |
-|  | [require-input-label](./docs/rule/require-input-label.md) |
-| :white_check_mark: | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md) |
-| :dress: | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md) |
-| :white_check_mark: | [simple-unless](./docs/rule/simple-unless.md) |
-| :white_check_mark: | [style-concatenation](./docs/rule/style-concatenation.md) |
-| :white_check_mark: | [table-groups](./docs/rule/table-groups.md) |
-|  | [template-length](./docs/rule/template-length.md) |
+|                            | Rule ID                                                                                    |
+| :------------------------- | :----------------------------------------------------------------------------------------- |
+|                            | [attribute-indentation](./docs/rule/attribute-indentation.md)                              |
+| :dress:                    | [block-indentation](./docs/rule/block-indentation.md)                                      |
+|                            | [deprecated-each-syntax](./docs/rule/deprecations/deprecated-each-syntax.md)               |
+|                            | [deprecated-inline-view-helper](./docs/rule/deprecations/deprecated-inline-view-helper.md) |
+| :white_check_mark:         | [deprecated-render-helper](./docs/rule/deprecations/deprecated-render-helper.md)           |
+| :dress:                    | [eol-last](./docs/rule/eol-last.md)                                                        |
+| :wrench:                   | [inline-link-to](./docs/rule/inline-link-to.md)                                            |
+| :dress:                    | [linebreak-style](./docs/rule/linebreak-style.md)                                          |
+| :white_check_mark:         | [link-href-attributes](./docs/rule/link-href-attributes.md)                                |
+| :white_check_mark:         | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                      |
+|                            | [modifier-name-case](./docs/rule/modifier-name-case.md)                                    |
+| :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                      |
+| :car:                      | [no-action](./docs/rule/no-action.md)                                                      |
+|                            | [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                  |
+| :white_check_mark:         | [no-args-paths](./docs/rule/no-args-paths.md)                                              |
+|                            | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)            |
+| :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                            |
+|                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                          |
+| :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)              |
+| :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                  |
+| :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                          |
+|                            | [no-element-event-actions](./docs/rule/no-element-event-actions.md)                        |
+| :white_check_mark:         | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                |
+|                            | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                              |
+|                            | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                        |
+| :white_check_mark:         | [no-html-comments](./docs/rule/no-html-comments.md)                                        |
+| :car:                      | [no-implicit-this](./docs/rule/no-implicit-this.md)                                        |
+| :white_check_mark:         | [no-index-component-invocation](./docs/rule/no-index-component-invocation.md)              |
+| :white_check_mark:         | [no-inline-styles](./docs/rule/no-inline-styles.md)                                        |
+| :white_check_mark:         | [no-input-block](./docs/rule/no-input-block.md)                                            |
+| :white_check_mark:         | [no-input-tagname](./docs/rule/no-input-tagname.md)                                        |
+|                            | [no-invalid-block-param-definition](./docs/rule/no-invalid-block-param-definition.md)      |
+| :white_check_mark:         | [no-invalid-interactive](./docs/rule/no-invalid-interactive.md)                            |
+| :white_check_mark:         | [no-invalid-link-text](./docs/rule/no-invalid-link-text.md)                                |
+|                            | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                              |
+| :white_check_mark:         | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                          |
+| :white_check_mark:         | [no-invalid-role](./docs/rule/no-invalid-role.md)                                          |
+| :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                            |
+| :dress:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                          |
+| :white_check_mark:         | [no-negated-condition](./docs/rule/no-negated-condition.md)                                |
+| :white_check_mark:         | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                              |
+|                            | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                    |
+| :white_check_mark:         | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                |
+| :white_check_mark:         | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                        |
+| :white_check_mark:         | [no-partial](./docs/rule/no-partial.md)                                                    |
+|                            | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                  |
+| :white_check_mark:         | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                |
+| :white_check_mark:         | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                          |
+|                            | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                    |
+|                            | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                      |
+| :white_check_mark:         | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                |
+| :dress:                    | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                    |
+| :white_check_mark:         | [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                      |
+|                            | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                              |
+| :white_check_mark:         | [no-unbound](./docs/rule/no-unbound.md)                                                    |
+| :white_check_mark:         | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)          |
+| :dress:                    | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                              |
+| :white_check_mark:         | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                            |
+|                            | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                        |
+|                            | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                      |
+|                            | [no-yield-only](./docs/rule/no-yield-only.md)                                              |
+| :dress:                    | [quotes](./docs/rule/quotes.md)                                                            |
+| :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                                  |
+|                            | [require-form-method](./docs/rule/require-form-method.md)                                  |
+| :white_check_mark:         | [require-iframe-title](./docs/rule/require-iframe-title.md)                                |
+|                            | [require-input-label](./docs/rule/require-input-label.md)                                  |
+| :white_check_mark:         | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                            |
+| :dress:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                    |
+| :white_check_mark:         | [simple-unless](./docs/rule/simple-unless.md)                                              |
+| :white_check_mark:         | [style-concatenation](./docs/rule/style-concatenation.md)                                  |
+| :white_check_mark:         | [table-groups](./docs/rule/table-groups.md)                                                |
+|                            | [template-length](./docs/rule/template-length.md)                                          |
 
 <!--RULES_TABLE_END-->
 
