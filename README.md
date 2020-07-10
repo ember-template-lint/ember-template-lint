@@ -111,14 +111,6 @@ ember-template-lint into your normal eslint workflow.
 
 ## Configuration
 
-### Presets
-
-|                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
-| :----------------- | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
-| :car:              | [octane](lib/config/octane.js)           | extends the `recommended` preset by enabling Ember Octane rules                                                                                                                                                                                                                      |
-| :dress:            | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
-
 ### Project Wide
 
 You can turn on specific rules by toggling them in a
@@ -170,6 +162,14 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
   An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
 - `overrides` -- `Array`
   An array of overrides that would allow overriding of specific rules for user specified files/folders. See [overrides documentation](docs/overrides.md) for more details.
+
+### Presets
+
+|                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
+| :----------------- | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
+| :car:              | [octane](lib/config/octane.js)           | extends the `recommended` preset by enabling Ember Octane rules                                                                                                                                                                                                                      |
+| :dress:            | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ## Rules
 
