@@ -35,11 +35,11 @@ Node.js `10 || >=12` is required.
 Run templates through the linter's `verify` method like so:
 
 ```js
-var TemplateLinter = require('ember-template-lint');
+let TemplateLinter = require('ember-template-lint');
 
-var linter = new TemplateLinter();
-var template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
-var results = linter.verify({ source: template, moduleId: 'template.hbs' });
+let linter = new TemplateLinter();
+let template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
+let results = linter.verify({ source: template, moduleId: 'template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
