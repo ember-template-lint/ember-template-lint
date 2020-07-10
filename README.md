@@ -171,6 +171,11 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 
 ## Rules
 
+Each rule has emojis denoting:
+
+- what configuration it belongs to
+- :wrench: if some problems reported by the rule are automatically fixable by the `--fix` command line option
+
 <!--RULES_TABLE_START-->
 
 |    | Rule ID |
@@ -181,7 +186,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 |  | [deprecated-inline-view-helper](./docs/rule/deprecations/deprecated-inline-view-helper.md) |
 | :white_check_mark: | [deprecated-render-helper](./docs/rule/deprecations/deprecated-render-helper.md) |
 | :dress: | [eol-last](./docs/rule/eol-last.md) |
-|  | [inline-link-to](./docs/rule/inline-link-to.md) |
+| :wrench: | [inline-link-to](./docs/rule/inline-link-to.md) |
 | :dress: | [linebreak-style](./docs/rule/linebreak-style.md) |
 | :white_check_mark: | [link-href-attributes](./docs/rule/link-href-attributes.md) |
 | :white_check_mark: | [link-rel-noopener](./docs/rule/link-rel-noopener.md) |
@@ -237,7 +242,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 |  | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md) |
 |  | [no-yield-only](./docs/rule/no-yield-only.md) |
 | :dress: | [quotes](./docs/rule/quotes.md) |
-| :white_check_mark: | [require-button-type](./docs/rule/require-button-type.md) |
+| :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md) |
 |  | [require-form-method](./docs/rule/require-form-method.md) |
 | :white_check_mark: | [require-iframe-title](./docs/rule/require-iframe-title.md) |
 |  | [require-input-label](./docs/rule/require-input-label.md) |
