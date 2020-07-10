@@ -360,11 +360,8 @@ The semver policy for this addon can be read here: [semver policy](dev/versionin
 
 ## Contributing
 
-A few ideas for where to take this in the future:
-
-* The list of rules should be configurable
-* This addon should use a test printer shared with jshint, eslint and jscs addons
-* A command-line version of the linter should be provided so IDEs and editors
-  can provide feedback to devs during development
-
 See the [Contributing Guidelines](CONTRIBUTING.md) for information on how to help out.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
