@@ -35,11 +35,11 @@ Node.js `10 || >=12` is required.
 Run templates through the linter's `verify` method like so:
 
 ```js
-var TemplateLinter = require('ember-template-lint');
+let TemplateLinter = require('ember-template-lint');
 
-var linter = new TemplateLinter();
-var template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
-var results = linter.verify({ source: template, moduleId: 'template.hbs' });
+let linter = new TemplateLinter();
+let template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
+let results = linter.verify({ source: template, moduleId: 'template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
@@ -56,49 +56,49 @@ var results = linter.verify({ source: template, moduleId: 'template.hbs' });
 
 Basic `ember-template-lint` executable is provided, allowing for easy use within i.e. Git pre-commit/push hooks and development of appropriate plugins for text editors.
 
-> Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `./node_modules/.bin/ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `./node_modules/.bin/ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
+> Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `yarn ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `yarn ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
 
 Example usage:
 
 ```bash
 # basic usage
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs"
+yarn ember-template-lint "app/templates/application.hbs"
 
 # output errors with source description
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --verbose
+yarn ember-template-lint "app/templates/application.hbs" --verbose
 
 # multiple file/directory/wildcard paths are accepted
-./node_modules/.bin/ember-template-lint "app/templates/components/**/*" "app/templates/application.hbs"
+yarn ember-template-lint "app/templates/components/**/*" "app/templates/application.hbs"
 
 # output errors as pretty-printed JSON string
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --json
+yarn ember-template-lint "app/templates/application.hbs" --json
 
 # ignore warnings / only report errors
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --quiet
+yarn ember-template-lint "app/templates/application.hbs" --quiet
 
 # define custom config path
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --config-path .my-template-lintrc.js
+yarn ember-template-lint "app/templates/application.hbs" --config-path .my-template-lintrc.js
 
 # read from stdin
-./node_modules/.bin/ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
+yarn ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
 
 # print list of formated rules for use with `pending` in config file
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --print-pending
+yarn ember-template-lint "app/templates/application.hbs" --print-pending
 
 # specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
-./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
+yarn ember-template-lint "/tmp/template.hbs" --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
 
 # disable ignore pattern entirely
-./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --no-ignore-pattern
+yarn ember-template-lint "/tmp/template.hbs" --no-ignore-pattern
 
 # running a single rule without options
-./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error'
+yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error'
 
 # running a single rule with options
-./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:["error", { "allow": ["some-helper"] }]'
+yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:["error", { "allow": ["some-helper"] }]'
 
 # specify a config object to use instead of what exists locally
-./node_modules/.bin/ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
+yarn ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
 
 ### ESLint
@@ -161,7 +161,7 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
   An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-  * You can generate this list with the: `./node_modules/.bin/ember-template-lint * --print-pending`
+  * You can generate this list with the: `yarn ember-template-lint * --print-pending`
 * `ignore` -- `string[]|glob[]`
   An array of module id's that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.
 * `plugins` -- `(string|Object)[]`
@@ -360,11 +360,8 @@ The semver policy for this addon can be read here: [semver policy](dev/versionin
 
 ## Contributing
 
-A few ideas for where to take this in the future:
-
-* The list of rules should be configurable
-* This addon should use a test printer shared with jshint, eslint and jscs addons
-* A command-line version of the linter should be provided so IDEs and editors
-  can provide feedback to devs during development
-
 See the [Contributing Guidelines](CONTRIBUTING.md) for information on how to help out.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
