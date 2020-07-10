@@ -5,11 +5,17 @@ const path = require('path');
 
 const { parse } = require('@babel/parser');
 const { default: traverse } = require('@babel/traverse');
+const prettier = require('prettier');
 
 const rules = require('../lib/rules');
 const { rules: recommendedRules } = require('../lib/config/recommended');
 const { rules: octaneRules } = require('../lib/config/octane');
 const { rules: stylisticRules } = require('../lib/config/stylistic');
+
+const prettierConfig = {
+  ...require('../.prettierrc.js'),
+  parser: 'markdown',
+};
 
 const pathReadme = path.resolve(__dirname, '../README.md');
 const readmeContent = fs.readFileSync(pathReadme, 'utf8');
@@ -69,10 +75,11 @@ const rulesTableContent = Object.keys(rules)
   })
   .join('\n');
 
-fs.writeFileSync(
-  pathReadme,
-  readmeContent.replace(
-    tablePlaceholder,
-    `<!--RULES_TABLE_START-->\n\n|    | Rule ID |\n|:---|:--------|\n${rulesTableContent}\n\n<!--RULES_TABLE_END-->`
-  )
+const readmeNewContent = readmeContent.replace(
+  tablePlaceholder,
+  `<!--RULES_TABLE_START-->\n\n|    | Rule ID |\n|:---|:--------|\n${rulesTableContent}\n\n<!--RULES_TABLE_END-->`
 );
+
+const readmeFormattedNewContent = prettier.format(readmeNewContent, prettierConfig);
+
+fs.writeFileSync(pathReadme, readmeFormattedNewContent);
