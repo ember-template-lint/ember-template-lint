@@ -47,6 +47,8 @@
     "yargs": "^15.4.0"
   },
   "devDependencies": {
+    "@babel/parser": "^7.10.4",
+    "@babel/traverse": "^7.10.4",
     "common-tags": "^1.8.0",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",

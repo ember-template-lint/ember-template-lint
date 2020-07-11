@@ -2,6 +2,7 @@
 /dist
 /docs
 /test
+/scripts
 .*
 *.tgz
 RELEASE.md
