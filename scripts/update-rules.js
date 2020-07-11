@@ -43,7 +43,7 @@ function isRuleFixable(ruleName) {
       if (
         path.node.key.type === 'Identifier' &&
         path.node.key.name === 'isFixable' &&
-        !(path.node.value.type === 'Identifier' && path.node.value.value === false)
+        !(path.node.value.type === 'BooleanLiteral' && path.node.value.value === false)
       ) {
         isFixable = true;
       }
