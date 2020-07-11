@@ -40,7 +40,11 @@ function isRuleFixable(ruleName) {
 
   traverse(ast, {
     ObjectProperty(path) {
-      if (path.node.key.name === 'isFixable' && path.node.value.value !== false) {
+      if (
+        path.node.key.type === 'Identifier' &&
+        path.node.key.name === 'isFixable' &&
+        !(path.node.value.type === 'BooleanLiteral' && path.node.value.value === false)
+      ) {
         isFixable = true;
       }
     },
