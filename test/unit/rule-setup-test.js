@@ -3,6 +3,7 @@ const { join } = require('path');
 const configRecommended = require('../../lib/config/recommended');
 const configOctane = require('../../lib/config/octane');
 const configStylistic = require('../../lib/config/stylistic');
+const isRuleFixable = require('../helpers/is-rule-fixable');
 
 const RULE_NAMES_RECOMMENDED = new Set(Object.keys(configRecommended.rules));
 const RULE_NAMES_OCTANE = new Set(Object.keys(configOctane.rules));
@@ -75,6 +76,8 @@ describe('rules setup is correct', function () {
       ":car: The `extends: 'octane'` property in a configuration file enables this rule.";
     const CONFIG_MSG_STYLISTIC =
       ":dress: The `extends: 'stylistic'` property in a configuration file enables this rule.";
+    const FIXABLE_NOTICE =
+      ':wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.';
 
     deprecatedRules.forEach((ruleName) => {
       const path = join(__dirname, '..', '..', 'docs', 'rule', 'deprecations', `${ruleName}.md`);
@@ -99,6 +102,12 @@ describe('rules setup is correct', function () {
         expect(file).toContain(CONFIG_MSG_STYLISTIC);
       } else {
         expect(file).not.toContain(CONFIG_MSG_STYLISTIC);
+      }
+
+      if (isRuleFixable(ruleName)) {
+        expect(file).toContain(FIXABLE_NOTICE);
+      } else {
+        expect(file).not.toContain(FIXABLE_NOTICE);
       }
     });
 
@@ -125,6 +134,12 @@ describe('rules setup is correct', function () {
         expect(file).toContain(CONFIG_MSG_STYLISTIC);
       } else {
         expect(file).not.toContain(CONFIG_MSG_STYLISTIC);
+      }
+
+      if (isRuleFixable(ruleName)) {
+        expect(file).toContain(FIXABLE_NOTICE);
+      } else {
+        expect(file).not.toContain(FIXABLE_NOTICE);
       }
     });
   });
