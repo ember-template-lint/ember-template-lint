@@ -44,7 +44,7 @@
     "is-valid-glob": "^1.0.0",
     "micromatch": "^4.0.2",
     "resolve": "^1.17.0",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@babel/parser": "^7.10.4",
