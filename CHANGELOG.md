@@ -1,3 +1,19 @@
+## v2.9.1 (2020-07-15)
+
+#### :bug: Bug Fix
+* [#1407](https://github.com/ember-template-lint/ember-template-lint/pull/1407) Ensure `plugins` config parsing is idempotent  ([@dcyriller](https://github.com/dcyriller))
+
+#### :memo: Documentation
+* [#1413](https://github.com/ember-template-lint/ember-template-lint/pull/1413) Add fixable notice to the rule doc of fixable rules ([@bmish](https://github.com/bmish))
+* [#1411](https://github.com/ember-template-lint/ember-template-lint/pull/1411) Add 🔧 emoji to fixable rules in rules table in README ([@dcyriller](https://github.com/dcyriller))
+* [#1409](https://github.com/ember-template-lint/ember-template-lint/pull/1409) Add documentation about how to create a fixer for a rule ([@dcyriller](https://github.com/dcyriller))
+* [#1410](https://github.com/ember-template-lint/ember-template-lint/pull/1410) Minor cleanup to README ([@dcyriller](https://github.com/dcyriller))
+
+#### Committers: 2
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille ([@dcyriller](https://github.com/dcyriller))
+
+
 ## v2.9.0 (2020-06-29)
 
 #### :rocket: Enhancement
