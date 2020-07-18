@@ -17,6 +17,7 @@ generateRuleTests({
     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = yes">',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable= yes">',
     '<meta name={{name}} content={{content}}>',
+    '<meta property="og:type" content="website">',
 
     // doesn't error on unrelated elements
     '<div></div>',
@@ -91,10 +92,21 @@ generateRuleTests({
 
       result: {
         message:
-          'a meta content attribute must be defined if the name or the http-equiv attribute is defined',
+          'a meta content attribute must be defined if the name, property or the http-equiv attribute is defined',
         line: 1,
         column: 0,
         source: '<meta name="viewport">',
+      },
+    },
+    {
+      template: '<meta property="og:type">',
+
+      result: {
+        message:
+          'a meta content attribute must be defined if the name, property or the http-equiv attribute is defined',
+        line: 1,
+        column: 0,
+        source: '<meta property="og:type">',
       },
     },
     {
@@ -102,19 +114,18 @@ generateRuleTests({
 
       result: {
         message:
-          'a meta content attribute must be defined if the name or the http-equiv attribute is defined',
+          'a meta content attribute must be defined if the name, property or the http-equiv attribute is defined',
         line: 1,
         column: 0,
         source: '<meta http-equiv="refresh">',
       },
     },
-
     {
       template: '<meta content="72001">',
 
       result: {
         message:
-          'a meta content attribute cannot be defined if neither the name nor the http-equiv attributes are defined',
+          'a meta content attribute cannot be defined if the name, property nor the http-equiv attributes are defined',
         line: 1,
         column: 0,
         source: '<meta content="72001">',
