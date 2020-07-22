@@ -21,5 +21,14 @@ generateRuleTests({
         source: '<html></html>',
       },
     },
+    {
+      template: '<html lang=""></html>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<html lang=""></html>',
+      },
+    },
   ],
 });
