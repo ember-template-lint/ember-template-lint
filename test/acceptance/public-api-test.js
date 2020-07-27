@@ -475,7 +475,7 @@ describe('public api', function () {
 
       let expected = {
         message:
-          "Ambiguous path 'barData' is not allowed. Use '@barData' if it is a named argument or 'this.barData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['barData'] }.",
+          "Ambiguous path 'barData' is not allowed. Use '@barData' if it is a named argument or 'this.barData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['barData'] }.",
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
         line: 2,
@@ -574,7 +574,7 @@ describe('public api', function () {
           filePath: templatePath,
           line: 1,
           message:
-            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
+            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
           moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
@@ -615,7 +615,7 @@ describe('public api', function () {
           filePath: templatePath,
           line: 1,
           message:
-            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
+            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
           moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
@@ -631,7 +631,7 @@ describe('public api', function () {
         console: mockConsole,
         config: {
           rules: {
-            'invocable-blacklist': ['foo', 'bar'],
+            'no-restricted-invocations': ['foo', 'bar'],
             'no-implicit-this': { allow: ['baz'] },
             'no-bare-strings': true,
           },
@@ -647,11 +647,11 @@ describe('public api', function () {
 
       let expected = [
         {
-          rule: 'invocable-blacklist',
+          rule: 'no-restricted-invocations',
           severity: 2,
           filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
-          message: "Cannot use blacklisted helper or component '{{foo}}'",
+          message: "Cannot use disallowed helper or component '{{foo}}'",
           line: 1,
           column: 17,
           source: '{{foo}}',
@@ -662,7 +662,7 @@ describe('public api', function () {
           filePath: 'some/path/here.hbs',
           moduleId: 'some/path/here',
           message:
-            "Ambiguous path 'foo' is not allowed. Use '@foo' if it is a named argument or 'this.foo' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['foo'] }.",
+            "Ambiguous path 'foo' is not allowed. Use '@foo' if it is a named argument or 'this.foo' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['foo'] }.",
           line: 1,
           column: 19,
           source: 'foo',
@@ -712,7 +712,7 @@ describe('public api', function () {
           line: 1,
           filePath: templatePath,
           message:
-            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments you must manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
+            "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
           moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,

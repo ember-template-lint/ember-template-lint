@@ -2,6 +2,9 @@
 
 'use strict';
 
+// Use V8's code cache to speed up instantiation time:
+require('v8-compile-cache'); // eslint-disable-line import/no-unassigned-import
+
 const fs = require('fs');
 const path = require('path');
 const micromatch = require('micromatch');

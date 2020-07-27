@@ -1,8 +1,11 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/table-groups').message;
-const orderingMessage = require('../../../lib/rules/table-groups').orderingMessage;
+const {
+  message,
+  orderingMessage,
+  createTableGroupsErrorMessage,
+} = require('../../../lib/rules/table-groups');
 
 generateRuleTests({
   name: 'table-groups',
@@ -15,6 +18,7 @@ generateRuleTests({
     {{#if showCaption}}
       <caption>Some Name</caption>
     {{/if}}
+    <colgroup></colgroup>
     {{#if foo}}
       <thead>
         <tr></tr>
@@ -24,7 +28,6 @@ generateRuleTests({
         <tr></tr>
       </tbody>
     {{/if}}
-    <colgroup></colgroup>
     </table>
     `,
     `
@@ -151,6 +154,69 @@ generateRuleTests({
       '</table>',
     '<table>\n' + '<tbody>\n' + '</tbody>\n' + '</table>',
     '<table><colgroup></colgroup><colgroup></colgroup><tbody></tbody></table>',
+    {
+      config: {
+        'allowed-caption-components': ['nested/my-caption'],
+        'allowed-colgroup-components': ['nested/my-colgroup'],
+        'allowed-thead-components': ['nested/my-thead'],
+        'allowed-tbody-components': ['nested/my-tbody'],
+        'allowed-tfoot-components': ['nested/my-tfoot'],
+      },
+      template: `
+      <table>
+        <Nested::MyCaption />
+        <Nested::MyColgroup />
+        <Nested::MyThead />
+        <Nested::MyTbody />
+        <Nested::MyTfoot />
+      </table>
+      `,
+    },
+    {
+      config: {
+        'allowed-caption-components': ['nested/my-caption'],
+        'allowed-colgroup-components': ['nested/my-colgroup'],
+        'allowed-thead-components': ['nested/my-thead'],
+        'allowed-tbody-components': ['nested/my-tbody'],
+        'allowed-tfoot-components': ['nested/my-tfoot'],
+      },
+      template: `
+      <table>
+        {{nested/my-caption}}
+        {{nested/my-colgroup}}
+        {{nested/my-thead}}
+        {{nested/my-tbody}}
+        {{nested/my-tfoot}}
+      </table>
+      `,
+    },
+    {
+      config: {
+        'allowed-thead-components': ['nested/head-or-foot'],
+        'allowed-tbody-components': ['nested/body'],
+        'allowed-tfoot-components': ['nested/head-or-foot'],
+      },
+      template: `
+      <table>
+        <Nested::HeadOrFoot />
+        <Nested::Body />
+        <Nested::HeadOrFoot/>
+      </table>
+      `,
+    },
+    {
+      config: {
+        'allowed-caption-components': ['nested/my-caption'],
+      },
+      template: `
+      <table>
+        <Nested::MyCaption />
+        <thead />
+        <Nested::MyCaption @tagName="tbody" />
+        <tfoot />
+      </table>
+      `,
+    },
   ],
 
   bad: [
@@ -397,12 +463,164 @@ generateRuleTests({
       },
     },
     {
-      template: '<table><tbody /><colgroup /></table>',
+      template: `
+        <table>
+          <tbody />
+          <colgroup />
+        </table>
+      `,
       result: {
         message: orderingMessage,
-        source: '<table><tbody /><colgroup /></table>',
-        line: 1,
-        column: 0,
+        source: `<table>
+          <tbody />
+          <colgroup />
+        </table>`,
+        line: 2,
+        column: 8,
+      },
+    },
+    {
+      config: {
+        'allowed-caption-components': ['nested/allowed'],
+      },
+      template: `
+      <table>
+        <Nested::SomethingElse />
+      </table>
+      `,
+      result: {
+        message,
+        source: `<table>
+        <Nested::SomethingElse />
+      </table>`,
+        line: 2,
+        column: 6,
+      },
+    },
+    {
+      config: {
+        'allowed-thead-components': ['nested/my-thead'],
+        'allowed-tfoot-components': ['nested/my-tfoot'],
+      },
+      template: `
+      <table>
+        <Nested::MyTfoot />
+        <Nested::MyThead />
+      </table>
+      `,
+      result: {
+        message: orderingMessage,
+        source: `<table>
+        <Nested::MyTfoot />
+        <Nested::MyThead />
+      </table>`,
+        line: 2,
+        column: 6,
+      },
+    },
+    {
+      config: {
+        'allowed-thead-components': ['nested/head-or-foot'],
+        'allowed-tbody-components': ['nested/body'],
+        'allowed-tfoot-components': ['nested/head-or-foot'],
+      },
+      template: `
+      <table>
+        <Nested::HeadOrFoot />
+        <Nested::Body />
+        <Nested::HeadOrFoot/>
+        <Nested::Body />
+      </table>
+      `,
+      result: {
+        message: orderingMessage,
+        source: `<table>
+        <Nested::HeadOrFoot />
+        <Nested::Body />
+        <Nested::HeadOrFoot/>
+        <Nested::Body />
+      </table>`,
+        line: 2,
+        column: 6,
+      },
+    },
+    {
+      config: {
+        'allowed-tbody-components': ['nested/my-tbody'],
+      },
+      template: `
+      <table>
+        <thead />
+        <Nested::MyTbody @tagName="caption" />
+        <tbody />
+      </table>
+      `,
+      result: {
+        message: orderingMessage,
+        source: `<table>
+        <thead />
+        <Nested::MyTbody @tagName="caption" />
+        <tbody />
+      </table>`,
+        line: 2,
+        column: 6,
+      },
+    },
+  ],
+
+  error: [
+    {
+      // If none of the keys are recognized, they should just use `true`.
+      config: {
+        'invalid-key': ['nested/my-component'],
+      },
+      template: 'test',
+      result: {
+        fatal: true,
+        message: createTableGroupsErrorMessage('table-groups', {
+          'invalid-key': ['nested/my-component'],
+        }),
+      },
+    },
+    {
+      // The allowed components needs to be wrapped in an array.
+      config: {
+        'allowed-thead-components': 'string',
+      },
+      template: 'test',
+      result: {
+        fatal: true,
+        message: createTableGroupsErrorMessage('table-groups', {
+          'allowed-thead-components': 'string',
+        }),
+      },
+    },
+    {
+      // The allowed components needs to be an array of strings.
+      config: {
+        'allowed-thead-components': [5],
+      },
+      template: 'test',
+      result: {
+        fatal: true,
+        message: createTableGroupsErrorMessage('table-groups', {
+          'allowed-thead-components': [5],
+        }),
+      },
+    },
+    {
+      // The allowed components should be dasherized (nested/my-thead).
+      config: {
+        'allowed-thead-components': ['Nested::MyThead'],
+        'allowed-tfoot-components': ['Nested::MyTfoot'],
+      },
+      template: 'test',
+      result: {
+        fatal: true,
+        message: createTableGroupsErrorMessage('table-groups', {
+          'allowed-thead-components': ['Nested::MyThead'],
+          'allowed-tfoot-components': ['Nested::MyTfoot'],
+        }),
       },
     },
   ],

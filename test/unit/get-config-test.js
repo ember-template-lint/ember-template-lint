@@ -771,4 +771,39 @@ describe('getConfigForFile', function () {
       );
     }
   });
+
+  it('processing config is idempotent', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended'],
+      rules: {
+        bar: false,
+      },
+    };
+
+    let expected = {
+      foo: { config: true, severity: 2 },
+      bar: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig({ config });
+    expect(processedConfig.rules).toEqual(expected);
+
+    let reprocessedConfig = getProjectConfig({ config });
+    expect(reprocessedConfig.rules).toEqual(expected);
+  });
 });

@@ -35,70 +35,72 @@ Node.js `10 || >=12` is required.
 Run templates through the linter's `verify` method like so:
 
 ```js
-var TemplateLinter = require('ember-template-lint');
+let TemplateLinter = require('ember-template-lint');
 
-var linter = new TemplateLinter();
-var template = fs.readFileSync('some/path/to/template.hbs', { encoding: 'utf8' });
-var results = linter.verify({ source: template, moduleId: 'template.hbs' });
+let linter = new TemplateLinter();
+let template = fs.readFileSync('some/path/to/template.hbs', {
+  encoding: 'utf8',
+});
+let results = linter.verify({ source: template, moduleId: 'template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
 
-* `rule` - The name of the rule that triggered this warning/error.
-* `message` - The message that should be output.
-* `line` - The line on which the error occurred.
-* `column` - The column on which the error occurred.
-* `moduleId` - The module path for the file containing the error.
-* `source` - The source that caused the error.
-* `fix` - An object describing how to fix the error.
+- `rule` - The name of the rule that triggered this warning/error.
+- `message` - The message that should be output.
+- `line` - The line on which the error occurred.
+- `column` - The column on which the error occurred.
+- `moduleId` - The module path for the file containing the error.
+- `source` - The source that caused the error.
+- `fix` - An object describing how to fix the error.
 
 ### CLI executable
 
 Basic `ember-template-lint` executable is provided, allowing for easy use within i.e. Git pre-commit/push hooks and development of appropriate plugins for text editors.
 
-> Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `./node_modules/.bin/ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `./node_modules/.bin/ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
+> Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `yarn ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `yarn ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
 
 Example usage:
 
 ```bash
 # basic usage
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs"
+yarn ember-template-lint "app/templates/application.hbs"
 
 # output errors with source description
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --verbose
+yarn ember-template-lint "app/templates/application.hbs" --verbose
 
 # multiple file/directory/wildcard paths are accepted
-./node_modules/.bin/ember-template-lint "app/templates/components/**/*" "app/templates/application.hbs"
+yarn ember-template-lint "app/templates/components/**/*" "app/templates/application.hbs"
 
 # output errors as pretty-printed JSON string
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --json
+yarn ember-template-lint "app/templates/application.hbs" --json
 
 # ignore warnings / only report errors
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --quiet
+yarn ember-template-lint "app/templates/application.hbs" --quiet
 
 # define custom config path
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --config-path .my-template-lintrc.js
+yarn ember-template-lint "app/templates/application.hbs" --config-path .my-template-lintrc.js
 
 # read from stdin
-./node_modules/.bin/ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
+yarn ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
 
 # print list of formated rules for use with `pending` in config file
-./node_modules/.bin/ember-template-lint "app/templates/application.hbs" --print-pending
+yarn ember-template-lint "app/templates/application.hbs" --print-pending
 
 # specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
-./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
+yarn ember-template-lint "/tmp/template.hbs" --ignore-pattern "**/foo/**" --ignore-pattern "**/bar/**"
 
 # disable ignore pattern entirely
-./node_modules/.bin/ember-template-lint "/tmp/template.hbs" --no-ignore-pattern
+yarn ember-template-lint "/tmp/template.hbs" --no-ignore-pattern
 
 # running a single rule without options
-./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error'
+yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error'
 
 # running a single rule with options
-./node_modules/.bin/ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:["error", { "allow": ["some-helper"] }]'
+yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:["error", { "allow": ["some-helper"] }]'
 
 # specify a config object to use instead of what exists locally
-./node_modules/.bin/ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
+yarn ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
 
 ### ESLint
@@ -108,14 +110,6 @@ If you are using templates inlined into your JS files, you can leverage
 ember-template-lint into your normal eslint workflow.
 
 ## Configuration
-
-### Presets
-
-|    | Name   | Description |
-|:---|:-----|:------------|
-| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules |
-| :car: | [octane](lib/config/octane.js) | extends the `recommended` preset by enabling Ember Octane rules |
-| :dress: | [stylistic](lib/config/stylistic.js) | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ### Project Wide
 
@@ -128,9 +122,9 @@ module.exports = {
   extends: 'recommended',
 
   rules: {
-    'no-bare-strings': true
-  }
-}
+    'no-bare-strings': true,
+  },
+};
 ```
 
 This extends from the builtin recommended configuration ([lib/config/recommended.js](lib/config/recommended.js)),
@@ -144,8 +138,8 @@ some "bare strings" that are allowed you might have:
 ```javascript
 module.exports = {
   rules: {
-    'no-bare-strings': ['ZOMG THIS IS ALLOWED!!!!']
-  }
+    'no-bare-strings': ['ZOMG THIS IS ALLOWED!!!!'],
+  },
 };
 ```
 
@@ -153,23 +147,117 @@ module.exports = {
 
 The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
 
-* `rules` -- `Object`
+- `rules` -- `Object`
   This is an object containing rule specific configuration (see details for each rule below).
-* `extends` -- `string|string[]`
+- `extends` -- `string|string[]`
   Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).
-* `pending` -- `string[]`
+- `pending` -- `string[]`
   An array of module id's that are still pending. The goal of this array is to allow incorporating template linting
   into an existing project, without changing every single template file. You can add all existing templates to this `pending` listing
   and slowly work through them, while at the same time ensuring that new templates added to the project pass all defined rules.
-  * You can generate this list with the: `./node_modules/.bin/ember-template-lint * --print-pending`
-* `ignore` -- `string[]|glob[]`
+  - You can generate this list with the: `yarn ember-template-lint * --print-pending`
+- `ignore` -- `string[]|glob[]`
   An array of module id's that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.
-* `plugins` -- `(string|Object)[]`
+- `plugins` -- `(string|Object)[]`
   An array of plugin objects, or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.
-* `overrides` -- `Array`
+- `overrides` -- `Array`
   An array of overrides that would allow overriding of specific rules for user specified files/folders. See [overrides documentation](docs/overrides.md) for more details.
 
+### Presets
+
+|                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
+| :----------------- | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
+| :car:              | [octane](lib/config/octane.js)           | extends the `recommended` preset by enabling Ember Octane rules                                                                                                                                                                                                                      |
+| :dress:            | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
+
 ## Rules
+
+Each rule has emojis denoting:
+
+- what configuration it belongs to
+- :wrench: if some problems reported by the rule are automatically fixable by the `--fix` command line option
+
+<!--RULES_TABLE_START-->
+
+|                            | Rule ID                                                                                    |
+| :------------------------- | :----------------------------------------------------------------------------------------- |
+|                            | [attribute-indentation](./docs/rule/attribute-indentation.md)                              |
+| :dress:                    | [block-indentation](./docs/rule/block-indentation.md)                                      |
+|                            | [deprecated-each-syntax](./docs/rule/deprecations/deprecated-each-syntax.md)               |
+|                            | [deprecated-inline-view-helper](./docs/rule/deprecations/deprecated-inline-view-helper.md) |
+| :white_check_mark:         | [deprecated-render-helper](./docs/rule/deprecations/deprecated-render-helper.md)           |
+| :dress:                    | [eol-last](./docs/rule/eol-last.md)                                                        |
+| :wrench:                   | [inline-link-to](./docs/rule/inline-link-to.md)                                            |
+| :dress:                    | [linebreak-style](./docs/rule/linebreak-style.md)                                          |
+| :white_check_mark:         | [link-href-attributes](./docs/rule/link-href-attributes.md)                                |
+| :white_check_mark:         | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                      |
+|                            | [modifier-name-case](./docs/rule/modifier-name-case.md)                                    |
+| :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                      |
+| :car:                      | [no-action](./docs/rule/no-action.md)                                                      |
+|                            | [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                  |
+| :white_check_mark:         | [no-args-paths](./docs/rule/no-args-paths.md)                                              |
+|                            | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)            |
+| :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                            |
+|                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                          |
+| :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)              |
+| :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                  |
+| :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                          |
+|                            | [no-element-event-actions](./docs/rule/no-element-event-actions.md)                        |
+| :white_check_mark:         | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                |
+|                            | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                              |
+|                            | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                        |
+| :white_check_mark:         | [no-html-comments](./docs/rule/no-html-comments.md)                                        |
+| :car:                      | [no-implicit-this](./docs/rule/no-implicit-this.md)                                        |
+| :white_check_mark:         | [no-index-component-invocation](./docs/rule/no-index-component-invocation.md)              |
+| :white_check_mark:         | [no-inline-styles](./docs/rule/no-inline-styles.md)                                        |
+| :white_check_mark:         | [no-input-block](./docs/rule/no-input-block.md)                                            |
+| :white_check_mark:         | [no-input-tagname](./docs/rule/no-input-tagname.md)                                        |
+|                            | [no-invalid-block-param-definition](./docs/rule/no-invalid-block-param-definition.md)      |
+| :white_check_mark:         | [no-invalid-interactive](./docs/rule/no-invalid-interactive.md)                            |
+| :white_check_mark:         | [no-invalid-link-text](./docs/rule/no-invalid-link-text.md)                                |
+|                            | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                              |
+| :white_check_mark:         | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                          |
+| :white_check_mark:         | [no-invalid-role](./docs/rule/no-invalid-role.md)                                          |
+| :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                            |
+| :dress:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                          |
+| :white_check_mark:         | [no-negated-condition](./docs/rule/no-negated-condition.md)                                |
+| :white_check_mark:         | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                              |
+|                            | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                    |
+| :white_check_mark:         | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                |
+| :white_check_mark:         | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                        |
+| :white_check_mark:         | [no-partial](./docs/rule/no-partial.md)                                                    |
+|                            | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                  |
+| :white_check_mark:         | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                |
+| :white_check_mark:         | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                          |
+|                            | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                    |
+|                            | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                      |
+| :white_check_mark:         | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                |
+| :dress:                    | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                    |
+| :white_check_mark:         | [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                      |
+|                            | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                              |
+| :white_check_mark:         | [no-unbound](./docs/rule/no-unbound.md)                                                    |
+| :white_check_mark:         | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)          |
+| :dress:                    | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                              |
+| :white_check_mark:         | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                            |
+|                            | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                        |
+|                            | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                      |
+|                            | [no-yield-only](./docs/rule/no-yield-only.md)                                              |
+| :dress:                    | [quotes](./docs/rule/quotes.md)                                                            |
+| :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                                  |
+|                            | [require-form-method](./docs/rule/require-form-method.md)                                  |
+| :white_check_mark:         | [require-iframe-title](./docs/rule/require-iframe-title.md)                                |
+|                            | [require-input-label](./docs/rule/require-input-label.md)                                  |
+| :white_check_mark:         | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                            |
+| :dress:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                    |
+| :white_check_mark:         | [simple-unless](./docs/rule/simple-unless.md)                                              |
+| :white_check_mark:         | [style-concatenation](./docs/rule/style-concatenation.md)                                  |
+| :white_check_mark:         | [table-groups](./docs/rule/table-groups.md)                                                |
+|                            | [template-length](./docs/rule/template-length.md)                                          |
+
+<!--RULES_TABLE_END-->
+
+### Severity Levels
 
 Each rule can have its own severity level which can be a string or could be the first element of the array that contains the custom rule configuration.
 Supported severity levels are `off`, `warn`, `error`.
@@ -184,8 +272,6 @@ Eg:
    "no-implicit-this": ['warn', { "allow": [ "fooData" ] }
 }
 ```
-
-Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
 ### Per Template File
 
@@ -271,6 +357,10 @@ Note that enabling a rule (`{{!-- template-lint-enable --}}`) that has been conf
 
 You can define and use your own custom rules using the plugin system. See [plugin documentation](docs/plugins.md) for more details.
 
+### Supporting the --fix option
+
+You can add a fixer to a rule. See [fixer documentation](docs/fixer.md) for more details.
+
 ### Sharing configs
 
 It is possible to share a config (`extends`) or plugin (custom rules) across projects. See [ember-template-lint-plugin-peopleconnect](https://github.com/peopleconnectus/ember-template-lint-plugin-peopleconnect) for an example.
@@ -281,11 +371,8 @@ The semver policy for this addon can be read here: [semver policy](dev/versionin
 
 ## Contributing
 
-A few ideas for where to take this in the future:
-
-* The list of rules should be configurable
-* This addon should use a test printer shared with jshint, eslint and jscs addons
-* A command-line version of the linter should be provided so IDEs and editors
-  can provide feedback to devs during development
-
 See the [Contributing Guidelines](CONTRIBUTING.md) for information on how to help out.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
