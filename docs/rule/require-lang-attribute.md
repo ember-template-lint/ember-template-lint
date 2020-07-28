@@ -28,6 +28,7 @@ This rule **forbids** the following:
 
 ```hbs
 <html lang=""></html>
+```
 
 This rule **allows** the following:
 
