@@ -9,7 +9,7 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<html lang="en"></html>', '<html lang="en-US"></html>'],
+  good: ['<html lang="en"></html>', '<html lang="en-US"></html>', '<html lang={{lang}}></html>'],
 
   bad: [
     {
