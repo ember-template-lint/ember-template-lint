@@ -10,7 +10,7 @@ This rule's objective is to ensure that Ember applications achieve [WCAG Success
 
 When the language of the page cannot be identified, the integrity of the above information cannot be guaranteed.
 
-Consider the following use case:
+Consider any of the following use cases:
 
 * the application developer is unaware that Ember now includes the lang attribute
 * the application does not require internationalization
