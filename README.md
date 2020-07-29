@@ -203,6 +203,7 @@ Each rule has emojis denoting:
 | :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)              |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                  |
 | :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                          |
+|                            | [no-duplicate-landmark-labels](./docs/rule/no-duplicate-landmark-labels.md)                |
 |                            | [no-element-event-actions](./docs/rule/no-element-event-actions.md)                        |
 | :white_check_mark:         | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                |
 |                            | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                              |
