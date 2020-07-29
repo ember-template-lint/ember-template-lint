@@ -2,46 +2,73 @@
 
 const nodeMatchesRefNode = require('../../../lib/helpers/node-match').nodeMatchesRef;
 const nodeMatchesValidRefNode = require('../../../lib/helpers/node-match').nodeMatchesValidRef;
+const { parse } = require('ember-template-recast');
 
 describe('testNode matched against single refNode', function () {
-  it('Exact Match', function () {
-    let testNode = { a: 1, b: { c: 3, d: 4 } };
-    let refNode = { a: 1, b: { c: 3, d: 4 } };
+  it('Match: testNode === refNode, not nested, not parsed', function () {
+    let refNode = { type: 'ElementNode', tag: 'div' };
+    let testNode = { type: 'ElementNode', tag: 'div' };
+    expect(nodeMatchesRefNode(testNode, refNode)).toBe(true);
+  });
+
+  it('Match: testNode === refNode, not nested, parsed', function () {
+    let refNode = parse('<div id="id-00"></div>').body[0];
+    let testNode = parse('<div id="id-00"></div>').body[0];
+    expect(nodeMatchesRefNode(testNode, refNode)).toBe(true);
+  });
+
+  it('Match: portion(testNode) === refNode, nested, parsed', function () {
+    let refNode = {
+      type: 'ElementNode',
+      tag: 'div',
+      attributes: [
+        {
+          type: 'AttrNode',
+          name: 'id',
+        },
+      ],
+    };
+    let testNode = parse('<div id="id-00"></div>').body[0];
     let result = nodeMatchesRefNode(testNode, refNode);
     expect(result).toBe(true);
   });
 
-  it('testNode match (k+v) with excess', function () {
-    let testNode = { a: 1, b: { c: 3, d: 4 }, d: 5 };
-    let refNode = { a: 1, b: { c: 3, d: 4 } };
-    let result = nodeMatchesRefNode(testNode, refNode);
-    expect(result).toBe(true);
+  it('No Match: keys(testNode) === keys(refNode), values(testNode) !== values(refNode)', function () {
+    let refNode = { type: 'ElementNode', tag: 'div' };
+    let testNode = { type: 'ElementNode', tag: 'img' };
+    expect(nodeMatchesRefNode(testNode, refNode)).toBe(false);
   });
 
-  it('testNode match (k only)', function () {
-    let testNode = { a: 2, b: { c: 3, d: 4 } };
-    let refNode = { a: 1, b: { c: 3, d: 4 } };
-    let result = nodeMatchesRefNode(testNode, refNode);
-    expect(result).toBe(false);
+  it('No Match: keys(testNode) === keys(refNode), values(testNode) !== values(refNode)', function () {
+    let refNode = { type: 'ElementNode', tag: 'div' };
+    let testNode = parse('<img />').body[0];
+    expect(nodeMatchesRefNode(testNode, refNode)).toBe(false);
   });
 
-  it('testNode non-match (-k)', function () {
-    let testNode = { a: 2, b: { c: 3 } };
-    let refNode = { a: 1, b: { c: 3, d: 4 } };
-    let result = nodeMatchesRefNode(testNode, refNode);
-    expect(result).toBe(false);
+  it('No Match: keys(testNode) !== keys(refNode)', function () {
+    let refNode = {
+      type: 'ElementNode',
+      tag: 'div',
+      attributes: [
+        {
+          type: 'AttrNode',
+          name: 'aria-label',
+        },
+      ],
+    };
+    let testNode = parse('<div id="id-00"></div>').body[0];
+    expect(nodeMatchesRefNode(testNode, refNode)).toBe(false);
   });
 });
 
-describe('Multiple Valid Refs Possible', function () {
-  it('Exact Match', function () {
-    let testNode = { a: 1, b: { c: 3, d: 4 } };
+describe('testNode matched against Array containing valid refNodes', function () {
+  it('Match: testNode === refNodes[i]', function () {
     let refNodes = [
-      { a: 1, b: { c: 3, d: 4 } },
-      { a: 2, b: { c: 3, d: 6 } },
-      { a: 'dog', b: { c: 3, d: 7 } },
+      { type: 'ElementNode', tag: 'img' },
+      { type: 'ElementNode', tag: 'div' },
+      { type: 'ElementNode', tag: 'label' },
     ];
-    let result = nodeMatchesValidRefNode(testNode, refNodes);
-    expect(result).toBe(true);
+    let testNode = { type: 'ElementNode', tag: 'div' };
+    expect(nodeMatchesValidRefNode(testNode, refNodes)).toBe(true);
   });
 });
