@@ -15,6 +15,7 @@ generateRuleTests({
     '{{yield to="whatever"}}',
     '{{yield to=this.someValue}}',
     '{{yield to=(get some this.map)}}',
+    '{{not-yield "some" "param" to="else"}}',
   ],
 
   bad: [
