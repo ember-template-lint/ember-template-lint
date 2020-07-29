@@ -71,4 +71,14 @@ describe('testNode matched against Array containing valid refNodes', function ()
     let testNode = { type: 'ElementNode', tag: 'div' };
     expect(nodeMatchesValidRefNode(testNode, refNodes)).toBe(true);
   });
+
+  it('No Match: testNode !== refNodes[i]', function () {
+    let refNodes = [
+      { type: 'ElementNode', tag: 'img' },
+      { type: 'ElementNode', tag: 'input' },
+      { type: 'ElementNode', tag: 'label' },
+    ];
+    let testNode = { type: 'ElementNode', tag: 'div' };
+    expect(nodeMatchesValidRefNode(testNode, refNodes)).toBe(false);
+  });
 });
