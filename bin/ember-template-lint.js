@@ -140,6 +140,10 @@ function parseArgv(_argv) {
         type: 'array',
         default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
       },
+      'no-inline-config': {
+        describe: 'Prevent inline configuration comments from changing config or rules',
+        boolean: true,
+      },
     })
     .help()
     .version();
@@ -212,6 +216,7 @@ async function run() {
       configPath: options.configPath,
       config,
       rule: options.rule,
+      allowInlineConfig: !options.noInlineConfig,
     });
   } catch (error) {
     console.error(error.message);

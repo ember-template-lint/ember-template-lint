@@ -329,6 +329,44 @@ describe('base plugin', function () {
       );
       expect(messages).toHaveLength(3);
     });
+
+    describe('allowInlineConfig: false', function () {
+      function processTemplate(template) {
+        let Rule = buildPlugin({
+          MustacheCommentStatement(node) {
+            this.process(node);
+          },
+        });
+
+        Rule.prototype.log = function (result) {
+          messages.push(result.message);
+        };
+        Rule.prototype.process = function (node) {
+          config = this._processInstructionNode(node);
+        };
+
+        runRules(template, [
+          Object.assign({ allowInlineConfig: false }, plugin(Rule, 'fake', 'foo')),
+        ]);
+      }
+
+      it('inline config has no effect', function () {
+        processTemplate('{{! template-lint-disable fake }}');
+
+        expect(config).toEqual(null);
+      });
+
+      it('unknown rules do not throw an error', function () {
+        processTemplate(
+          [
+            '{{! template-lint-enable notarule }}',
+            '{{! template-lint-disable fake norme meneither }}',
+            '{{! template-lint-configure nope false }}',
+          ].join('\n')
+        );
+        expect(messages).toEqual([]);
+      });
+    });
   });
 
   describe('scopes instructions', function () {
