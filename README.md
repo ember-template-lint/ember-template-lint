@@ -60,6 +60,9 @@ Basic `ember-template-lint` executable is provided, allowing for easy use within
 
 > Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `yarn ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `yarn ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
 
+**Important** note for those running `ember-template-lint` in Github Actions:
+There is an additional printer always used for Github Actions, if you'd like to disable it set the `DISABLE_GITHUB_ACTIONS_ANNOTATIONS` env var to `true`.
+
 Example usage:
 
 ```bash
@@ -101,6 +104,9 @@ yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this
 
 # specify a config object to use instead of what exists locally
 yarn ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
+
+# disable Github Actions custom printer (only relevant when running in Github Actions)
+DISABLE_GITHUB_ACTIONS_ANNOTATIONS=true yarn ember-template-lint "app/templates/application.hbs"
 ```
 
 ### ESLint
