@@ -1,3 +1,20 @@
+## v2.10.0 (2020-08-07)
+
+#### :rocket: Enhancement
+* [#1386](https://github.com/ember-template-lint/ember-template-lint/pull/1386) Add new rule: `require-lang-attribute` ([@MelSumner](https://github.com/MelSumner))
+* [#1426](https://github.com/ember-template-lint/ember-template-lint/pull/1426) Add v8-compile-cache to improve startup performance ([@bmish](https://github.com/bmish))
+
+#### :bug: Bug Fix
+* [#1419](https://github.com/ember-template-lint/ember-template-lint/pull/1419) Check `name` and `property` in `no-invalid-meta` rule ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :house: Internal
+* [#1418](https://github.com/ember-template-lint/ember-template-lint/pull/1418) Add npm-package-json-lint ([@bmish](https://github.com/bmish))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v2.9.1 (2020-07-15)
 
 #### :bug: Bug Fix
