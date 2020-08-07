@@ -34,29 +34,31 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path     Define a custom config path
+            --config-path       Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --config          Define a custom configuration to be used - (e.g. '{
-                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
-            --quiet           Ignore warnings and only show errors               [boolean]
-            --rule            Specify a rule and its severity to add that rule to loaded
-                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
-                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
-            --filename        Used to indicate the filename to be assumed for contents
-                              from STDIN                                          [string]
-            --fix             Fix any errors that are reported as fixable
+            --config            Define a custom configuration to be used - (e.g. '{
+                                \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')      [string]
+            --quiet             Ignore warnings and only show errors             [boolean]
+            --rule              Specify a rule and its severity to add that rule to loaded
+                                rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\",
+                                { \\"allow\\": [\\"some-helper\\"] }]\`)                   [string]
+            --filename          Used to indicate the filename to be assumed for contents
+                                from STDIN                                        [string]
+            --fix               Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json            Format output as json                              [boolean]
-            --verbose         Output errors with source description              [boolean]
-            --no-config-path  Does not use the local template-lintrc, will use a blank
-                              template-lintrc instead                            [boolean]
-            --print-pending   Print list of formated rules for use with \`pending\` in
-                              config file                                        [boolean]
-            --ignore-pattern  Specify custom ignore pattern (can be disabled with
-                              --no-ignore-pattern)
+            --json              Format output as json                            [boolean]
+            --verbose           Output errors with source description            [boolean]
+            --no-config-path    Does not use the local template-lintrc, will use a blank
+                                template-lintrc instead                          [boolean]
+            --print-pending     Print list of formated rules for use with \`pending\` in
+                                config file                                      [boolean]
+            --ignore-pattern    Specify custom ignore pattern (can be disabled with
+                                --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --help            Show help                                          [boolean]
-            --version         Show version number                                [boolean]"
+            --no-inline-config  Prevent inline configuration comments from changing config
+                                or rules                                         [boolean]
+            --help              Show help                                        [boolean]
+            --version           Show version number                              [boolean]"
         `);
       });
     });
@@ -70,29 +72,31 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path     Define a custom config path
+            --config-path       Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --config          Define a custom configuration to be used - (e.g. '{
-                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
-            --quiet           Ignore warnings and only show errors               [boolean]
-            --rule            Specify a rule and its severity to add that rule to loaded
-                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
-                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
-            --filename        Used to indicate the filename to be assumed for contents
-                              from STDIN                                          [string]
-            --fix             Fix any errors that are reported as fixable
+            --config            Define a custom configuration to be used - (e.g. '{
+                                \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')      [string]
+            --quiet             Ignore warnings and only show errors             [boolean]
+            --rule              Specify a rule and its severity to add that rule to loaded
+                                rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\",
+                                { \\"allow\\": [\\"some-helper\\"] }]\`)                   [string]
+            --filename          Used to indicate the filename to be assumed for contents
+                                from STDIN                                        [string]
+            --fix               Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json            Format output as json                              [boolean]
-            --verbose         Output errors with source description              [boolean]
-            --no-config-path  Does not use the local template-lintrc, will use a blank
-                              template-lintrc instead                            [boolean]
-            --print-pending   Print list of formated rules for use with \`pending\` in
-                              config file                                        [boolean]
-            --ignore-pattern  Specify custom ignore pattern (can be disabled with
-                              --no-ignore-pattern)
+            --json              Format output as json                            [boolean]
+            --verbose           Output errors with source description            [boolean]
+            --no-config-path    Does not use the local template-lintrc, will use a blank
+                                template-lintrc instead                          [boolean]
+            --print-pending     Print list of formated rules for use with \`pending\` in
+                                config file                                      [boolean]
+            --ignore-pattern    Specify custom ignore pattern (can be disabled with
+                                --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --help            Show help                                          [boolean]
-            --version         Show version number                                [boolean]"
+            --no-inline-config  Prevent inline configuration comments from changing config
+                                or rules                                         [boolean]
+            --help              Show help                                        [boolean]
+            --version           Show version number                              [boolean]"
         `);
       });
     });
@@ -264,29 +268,31 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path     Define a custom config path
+            --config-path       Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --config          Define a custom configuration to be used - (e.g. '{
-                              \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')        [string]
-            --quiet           Ignore warnings and only show errors               [boolean]
-            --rule            Specify a rule and its severity to add that rule to loaded
-                              rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\", {
-                              \\"allow\\": [\\"some-helper\\"] }]\`)                       [string]
-            --filename        Used to indicate the filename to be assumed for contents
-                              from STDIN                                          [string]
-            --fix             Fix any errors that are reported as fixable
+            --config            Define a custom configuration to be used - (e.g. '{
+                                \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')      [string]
+            --quiet             Ignore warnings and only show errors             [boolean]
+            --rule              Specify a rule and its severity to add that rule to loaded
+                                rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\",
+                                { \\"allow\\": [\\"some-helper\\"] }]\`)                   [string]
+            --filename          Used to indicate the filename to be assumed for contents
+                                from STDIN                                        [string]
+            --fix               Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json            Format output as json                              [boolean]
-            --verbose         Output errors with source description              [boolean]
-            --no-config-path  Does not use the local template-lintrc, will use a blank
-                              template-lintrc instead                            [boolean]
-            --print-pending   Print list of formated rules for use with \`pending\` in
-                              config file                                        [boolean]
-            --ignore-pattern  Specify custom ignore pattern (can be disabled with
-                              --no-ignore-pattern)
+            --json              Format output as json                            [boolean]
+            --verbose           Output errors with source description            [boolean]
+            --no-config-path    Does not use the local template-lintrc, will use a blank
+                                template-lintrc instead                          [boolean]
+            --print-pending     Print list of formated rules for use with \`pending\` in
+                                config file                                      [boolean]
+            --ignore-pattern    Specify custom ignore pattern (can be disabled with
+                                --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --help            Show help                                          [boolean]
-            --version         Show version number                                [boolean]"
+            --no-inline-config  Prevent inline configuration comments from changing config
+                                or rules                                         [boolean]
+            --help              Show help                                        [boolean]
+            --version           Show version number                              [boolean]"
         `);
       });
     });

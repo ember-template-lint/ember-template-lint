@@ -99,6 +99,9 @@ yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this
 # running a single rule with options
 yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:["error", { "allow": ["some-helper"] }]'
 
+# running a single rule, disabling inline configuration
+yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this:error' --no-inline-config
+
 # specify a config object to use instead of what exists locally
 yarn ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
