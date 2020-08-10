@@ -62,7 +62,7 @@ generateRuleTests({
       template: '<script role="template"></script>',
 
       result: {
-        message: 'script tag must not contain "role" attribute',
+        message: 'A script tag must not contain the "role" attribute',
         moduleId: 'layout.hbs',
         source: '<script role="template"></script>',
         line: 1,
