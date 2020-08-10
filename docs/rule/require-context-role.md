@@ -1,6 +1,6 @@
-## require-context-role
+# require-context-role
 
-### `<* role><* role /></*>`
+## `<* role><* role /></*>`
 
 The required context role defines the owning container where this role is allowed. If a role has a required context, authors MUST ensure that an element with the role is contained inside (or owned by) an element with the required context role. For example, an element with `role="listitem"` is only meaningful when contained inside (or owned by) an element with `role="list"`.
 
@@ -20,6 +20,8 @@ Format: role | required context role
 * rowheader | row
 * tab | tablist
 * treeitem | group or tree
+
+## Examples
 
 This rule **allows** the following:
 
@@ -41,16 +43,16 @@ This rule **forbids** the following:
 
 ### References
 
-1. https://www.w3.org/TR/wai-aria-1.0/roles#scope
-1. https://www.w3.org/TR/wai-aria-1.0/roles#columnheader
-1. https://www.w3.org/TR/wai-aria-1.0/roles#gridcell
-1. https://www.w3.org/TR/wai-aria-1.0/roles#listitem
-1. https://www.w3.org/TR/wai-aria-1.0/roles#menuitem
-1. https://www.w3.org/TR/wai-aria-1.0/roles#menuitemcheckbox
-1. https://www.w3.org/TR/wai-aria-1.0/roles#menuitemradio
-1. https://www.w3.org/TR/wai-aria-1.0/roles#option
-1. https://www.w3.org/TR/wai-aria-1.0/roles#row
-1. https://www.w3.org/TR/wai-aria-1.0/roles#rowgroup
-1. https://www.w3.org/TR/wai-aria-1.0/roles#rowheader
-1. https://www.w3.org/TR/wai-aria-1.0/roles#tab
-1. https://www.w3.org/TR/wai-aria-1.0/roles#treeitem
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#scope>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#columnheader>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#gridcell>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#listitem>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#menuitem>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#menuitemcheckbox>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#menuitemradio>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#option>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#row>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#rowgroup>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#rowheader>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#tab>
+1. <https://www.w3.org/TR/wai-aria-1.0/roles#treeitem>
