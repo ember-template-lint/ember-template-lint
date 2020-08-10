@@ -67,7 +67,7 @@ generateRuleTests({
       template: '<style role></style>',
 
       result: {
-        message: 'style tag must not contain "role" attribute',
+        message: 'A style tag must not contain the "role" attribute',
         moduleId: 'layout.hbs',
         source: '<style role></style>',
         line: 1,
