@@ -29,7 +29,7 @@ generateRuleTests({
       template: '<meta aria-foo="some-prop">',
 
       result: {
-        message: 'meta tag must not contain "aria-foo" attribute',
+        message: 'The meta tag must not contain an "aria-*" attribute',
         moduleId: 'layout.hbs',
         source: '<meta aria-foo="some-prop">',
         line: 1,
