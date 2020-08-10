@@ -51,7 +51,7 @@ generateRuleTests({
       template: '<html role="button"></html>',
 
       result: {
-        message: 'html tag must not contain "role" attribute',
+        message: 'The html tag must not contain the "role" attribute',
         moduleId: 'layout.hbs',
         source: '<html role="button"></html>',
         line: 1,
