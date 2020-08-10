@@ -40,7 +40,7 @@ generateRuleTests({
       template: '<meta role="name">',
 
       result: {
-        message: 'meta tag must not contain "role" attribute',
+        message: 'The meta tag must not contain the "role" attribute',
         moduleId: 'layout.hbs',
         source: '<meta role="name">',
         line: 1,
