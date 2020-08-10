@@ -1,4 +1,4 @@
-## required-context-role
+## require-context-role
 
 ### `<* role><* role /></*>`
 

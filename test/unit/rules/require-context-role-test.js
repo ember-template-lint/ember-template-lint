@@ -18,7 +18,7 @@ const ROOTS = {
 
 const VALID_PARENTS_FOR_CHILD = Object.keys(ROOTS).reduce((result, keyName) => {
   const childs = ROOTS[keyName];
-  childs.forEach(childName => {
+  childs.forEach((childName) => {
     if (!(childName in result)) {
       result[childName] = [];
     }
@@ -26,17 +26,17 @@ const VALID_PARENTS_FOR_CHILD = Object.keys(ROOTS).reduce((result, keyName) => {
   });
   return result;
 }, {});
-Object.keys(VALID_PARENTS_FOR_CHILD).forEach(key => {
+Object.keys(VALID_PARENTS_FOR_CHILD).forEach((key) => {
   VALID_PARENTS_FOR_CHILD[key].sort();
 });
-const errorMessage = role => {
+const errorMessage = (role) => {
   return `You have an element with the role of "${role}" but it is missing the required (immediate) parent element of "[${VALID_PARENTS_FOR_CHILD[
     role
   ].join(', ')}]". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#${role}.`;
 };
 
 generateRuleTests({
-  name: 'required-context-role',
+  name: 'require-context-role',
 
   config: true,
 
