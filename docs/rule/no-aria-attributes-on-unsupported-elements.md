@@ -24,4 +24,4 @@ This rule **allows** the following:
 ### References
 
  - Google Audit defs [AX_ARIA_12](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-rules#ax_aria_12)
- - [eslint-plugin-jsx-a11y/aria-unsupported-elements](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/aria-unsupported-elements.md#aria-unsupported-elements)
+ - [WCAG 4.1.2 - Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)
