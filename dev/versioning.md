@@ -48,3 +48,11 @@ A major release is likely to break your lint build.
 
 * Adding new rules in a config set
 * Making a rule more restrictive
+
+## Exemptions
+
+There are some files that are intended to be used for special purposes and as such are exempt from this versioning policy. 
+
+Exemption list:
+
+* lib/config/a11y.js
