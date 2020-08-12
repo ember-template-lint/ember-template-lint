@@ -20,7 +20,7 @@
     "lint": "npm-run-all lint:* --continue-on-error",
     "lint:docs": "markdownlint '**/*.md'",
     "lint:js": "eslint . --cache",
-    "lint:package-json": "npmPkgJsonLint .",
+    "lint:package-json": "sort-package-json --check",
     "new": "node dev/new-rule/index.js",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
@@ -65,11 +65,11 @@
     "jest": "^26.2.2",
     "lerna-changelog": "^1.0.1",
     "markdownlint-cli": "^0.23.2",
-    "npm-package-json-lint": "^5.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "release-it": "^13.6.6",
-    "release-it-lerna-changelog": "^2.3.0"
+    "release-it-lerna-changelog": "^2.3.0",
+    "sort-package-json": "^1.44.0"
   },
   "engines": {
     "node": "10.* || >= 12.*"
