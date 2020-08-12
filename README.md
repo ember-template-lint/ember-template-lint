@@ -34,7 +34,7 @@ With yarn:
 yarn add ember-template-lint --dev
 ```
 
-Node.js `10 || >=12` is required.
+Node.js `10 || 12 || >=14` is required.
 
 ## Usage
 
