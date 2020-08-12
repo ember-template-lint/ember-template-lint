@@ -51,7 +51,7 @@ A major release is likely to break your lint build.
 
 ## Exemptions
 
-There are some files that are intended to be used for special purposes and as such are exempt from this versioning policy. 
+There are some files that are intended to be used for special purposes and as such are exempt from this versioning policy.
 
 Exemption list:
 
