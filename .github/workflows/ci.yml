@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    name: Node 14.x - ubuntu
+    name: Node 12.x - ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -42,7 +42,7 @@ jobs:
         # excluded because it is the `test` job above
         exclude:
           - os: ubuntu
-            node-version: 14.x
+            node-version: 12.x
 
     steps:
       - uses: actions/checkout@v2
