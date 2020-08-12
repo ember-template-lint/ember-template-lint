@@ -50,7 +50,7 @@ describe('ember-template-lint executable', function () {
             --verbose           Output errors with source description            [boolean]
             --no-config-path    Does not use the local template-lintrc, will use a blank
                                 template-lintrc instead                          [boolean]
-            --print-pending     Print list of formated rules for use with \`pending\` in
+            --print-pending     Print list of formatted rules for use with \`pending\` in
                                 config file                                      [boolean]
             --ignore-pattern    Specify custom ignore pattern (can be disabled with
                                 --no-ignore-pattern)
@@ -88,7 +88,7 @@ describe('ember-template-lint executable', function () {
             --verbose           Output errors with source description            [boolean]
             --no-config-path    Does not use the local template-lintrc, will use a blank
                                 template-lintrc instead                          [boolean]
-            --print-pending     Print list of formated rules for use with \`pending\` in
+            --print-pending     Print list of formatted rules for use with \`pending\` in
                                 config file                                      [boolean]
             --ignore-pattern    Specify custom ignore pattern (can be disabled with
                                 --no-ignore-pattern)
@@ -284,7 +284,7 @@ describe('ember-template-lint executable', function () {
             --verbose           Output errors with source description            [boolean]
             --no-config-path    Does not use the local template-lintrc, will use a blank
                                 template-lintrc instead                          [boolean]
-            --print-pending     Print list of formated rules for use with \`pending\` in
+            --print-pending     Print list of formatted rules for use with \`pending\` in
                                 config file                                      [boolean]
             --ignore-pattern    Specify custom ignore pattern (can be disabled with
                                 --no-ignore-pattern)

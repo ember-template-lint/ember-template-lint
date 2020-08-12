@@ -132,7 +132,7 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'print-pending': {
-        describe: 'Print list of formated rules for use with `pending` in config file',
+        describe: 'Print list of formatted rules for use with `pending` in config file',
         boolean: true,
       },
       'ignore-pattern': {

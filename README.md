@@ -87,7 +87,7 @@ yarn ember-template-lint "app/templates/application.hbs" --config-path .my-templ
 # read from stdin
 yarn ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
 
-# print list of formated rules for use with `pending` in config file
+# print list of formatted rules for use with `pending` in config file
 yarn ember-template-lint "app/templates/application.hbs" --print-pending
 
 # specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
