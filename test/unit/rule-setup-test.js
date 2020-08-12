@@ -37,6 +37,7 @@ describe('rules setup is correct', function () {
       expect(defaultExport[ruleName]).toEqual(require(pathName));
     });
     expect(expectedRules.length + deprecatedRules.length).toEqual(exportedRules.length);
+    expect(exportedRules).toEqual([...exportedRules].sort());
   });
 
   it('has docs/rule reference for each item', function () {
