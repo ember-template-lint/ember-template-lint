@@ -34,8 +34,8 @@ And suggests using the following instead:
 {{/foo-bar}}
 ```
 
-Additionally, this rule implements `--fix` support to automatically convert the "bad" examples into "good" ones.
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 ## References
 
-[Not Supported](https://github.com/simplabs/ember-test-selectors/commit/d47f73d76b3ccbc9f0be5df3b897afd08b1636a6)
+- [ember-test-selectors#d47f73d](https://github.com/simplabs/ember-test-selectors/commit/d47f73d76b3ccbc9f0be5df3b897afd08b1636a6)
