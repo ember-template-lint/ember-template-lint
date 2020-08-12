@@ -39,6 +39,10 @@ const SHARED_GOOD = [
   '{{yield}}',
   '{{yield to="inverse"}}',
 
+  // ember-cli related addon
+  '{{app-version}}',
+  '{{app-version versionOnly=true}}',
+
   // real world examples
   '<GoodCode />',
   '<GoodCode></GoodCode>',
