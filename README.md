@@ -240,6 +240,7 @@ Each rule has emojis denoting:
 |                            | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                  |
 | :wrench:                   | [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)      |
 | :white_check_mark:         | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                |
+|                            | [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                      |
 | :white_check_mark:         | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                          |
 | :wrench:                   | [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                          |
 |                            | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                    |
