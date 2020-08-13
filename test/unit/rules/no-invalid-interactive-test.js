@@ -9,6 +9,7 @@ generateRuleTests({
 
   good: [
     '<button {{action "foo"}}></button>',
+    '<canvas {{on "mousedown"}}></canvas>',
     '<div role="button" {{action "foo"}}></div>',
     '<div randomProperty={{myValue}}></div>',
     '<li><button {{action "foo"}}></button></li>',
