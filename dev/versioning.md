@@ -55,4 +55,4 @@ There are some files that are intended to be used for special purposes and as su
 
 Exemption list:
 
-* lib/config/a11y.js
+* `a11y`
