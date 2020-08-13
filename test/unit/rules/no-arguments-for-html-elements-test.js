@@ -25,7 +25,7 @@ generateRuleTests({
     {
       template: '<div @value="1"></div>',
       result: {
-        message: makeError(1, '@value', 'div'),
+        message: makeError('@value', 'div'),
         source: '@value="1"',
         line: 1,
         column: 5,
@@ -34,7 +34,7 @@ generateRuleTests({
     {
       template: '<div @value></div>',
       result: {
-        message: makeError(1, '@value', 'div'),
+        message: makeError('@value', 'div'),
         source: '@value',
         line: 1,
         column: 5,
@@ -43,7 +43,7 @@ generateRuleTests({
     {
       template: '<img @src="12">',
       result: {
-        message: makeError(1, '@src', 'img'),
+        message: makeError('@src', 'img'),
         source: '@src="12"',
         line: 1,
         column: 5,
