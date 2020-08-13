@@ -55,4 +55,4 @@ There are some files that are intended to be used for special purposes and as su
 
 Exemption list:
 
-* `a11y`
+* `a11y` - this config file was created to help in instances where an a11y-specific linting audit of a codebase is desired.
