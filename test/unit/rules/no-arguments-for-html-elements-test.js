@@ -23,15 +23,6 @@ generateRuleTests({
 
   bad: [
     {
-      template: '<div as |a|></div>',
-      result: {
-        message: makeError(2, 'a'),
-        source: '<div as |a|></div>',
-        line: 1,
-        column: 0,
-      },
-    },
-    {
       template: '<div @value="1"></div>',
       result: {
         message: makeError(1, '@value', 'div'),

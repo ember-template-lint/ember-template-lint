@@ -209,6 +209,7 @@ Each rule has emojis denoting:
 |                            | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)            |
 | :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                            |
 |                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                          |
+|                            | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)      |
 | :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)              |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                  |
 | :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                          |
