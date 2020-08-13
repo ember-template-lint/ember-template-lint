@@ -45,14 +45,6 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<img src="this.picture" >
-```
-
-```hbs
-<img src="@img" >
-```
-
-```hbs
 <div as |blockName|>
     {{blockName}}
 </div>
@@ -66,14 +58,6 @@ This rule **allows** the following:
 
 ```hbs
 <Img @src="1" />
-```
-
-```hbs
-<img src={{this.picture}} >
-```
-
-```hbs
-<img src={{@img}} >
 ```
 
 ```hbs
