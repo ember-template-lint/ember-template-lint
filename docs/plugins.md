@@ -206,14 +206,6 @@ const helpers = require('ember-template-lint').ASTHelpers;
 
   Returns any attributes on the node with a name that matches `attributeName`.
 
-* `function isImgElement(node): boolean`
-
-  Returns true if this node is an `img` element.
-
-* `function isLinkElement(node): boolean`
-
-  Returns true if this node is a link (`a`) element.
-
 * `function childrenFor(node): Object[]`
 
   Returns any child nodes of this node.
