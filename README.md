@@ -193,6 +193,7 @@ Each rule has emojis denoting:
 | :------------------------- | :----------------------------------------------------------------------------------------- |
 |                            | [attribute-indentation](./docs/rule/attribute-indentation.md)                              |
 | :dress:                    | [block-indentation](./docs/rule/block-indentation.md)                                      |
+|                            | [builtin-component-arguments](./docs/rule/builtin-component-arguments.md)                  |
 |                            | [deprecated-each-syntax](./docs/rule/deprecations/deprecated-each-syntax.md)               |
 |                            | [deprecated-inline-view-helper](./docs/rule/deprecations/deprecated-inline-view-helper.md) |
 | :white_check_mark:         | [deprecated-render-helper](./docs/rule/deprecations/deprecated-render-helper.md)           |
