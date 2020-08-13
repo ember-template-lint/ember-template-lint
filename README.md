@@ -229,6 +229,7 @@ Each rule has emojis denoting:
 |                            | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                              |
 | :white_check_mark:         | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                          |
 | :white_check_mark:         | [no-invalid-role](./docs/rule/no-invalid-role.md)                                          |
+|                            | [no-link-to-tag-name](./docs/rule/no-link-to-tag-name.md)                                  |
 | :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                            |
 | :dress:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                          |
 | :white_check_mark:         | [no-negated-condition](./docs/rule/no-negated-condition.md)                                |
