@@ -2,7 +2,7 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
-const ERROR_MESSAGE = require('../../../lib/rules/placeholder-for-dasherized-rule').ERROR_MESSAGE;
+const { ERROR_MESSAGE } = require('../../../lib/rules/placeholder-for-dasherized-rule');
 
 generateRuleTests({
   name: 'placeholder-for-dasherized-rule',
