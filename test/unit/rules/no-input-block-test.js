@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-input-block');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-input-block').message;
 
 generateRuleTests({
   name: 'no-input-block',

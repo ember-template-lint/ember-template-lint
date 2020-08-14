@@ -1,8 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/no-link-to-tag-name');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const ERROR_MESSAGE = require('../../../lib/rules/no-link-to-tag-name').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-link-to-tag-name',

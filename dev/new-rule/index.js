@@ -3,7 +3,9 @@
 
 const fs = require('fs');
 const path = require('path');
+
 const chalk = require('chalk');
+
 const toTitleCase = require('./helpers/to-title-case');
 
 function usage() {

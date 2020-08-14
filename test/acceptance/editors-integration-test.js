@@ -1,9 +1,11 @@
 'use strict';
-const execa = require('execa');
-const Project = require('../helpers/fake-project');
-const setupEnvVar = require('../helpers/setup-env-var');
 const fs = require('fs');
 const path = require('path');
+
+const execa = require('execa');
+
+const Project = require('../helpers/fake-project');
+const setupEnvVar = require('../helpers/setup-env-var');
 
 function run(project, args, options = {}) {
   options.reject = false;

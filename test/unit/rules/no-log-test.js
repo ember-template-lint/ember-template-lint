@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-log');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-log').message;
 
 generateRuleTests({
   name: 'no-log',

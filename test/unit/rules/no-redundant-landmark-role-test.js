@@ -1,9 +1,7 @@
 'use strict';
 
+const { createErrorMessage } = require('../../../lib/rules/no-redundant-landmark-role');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const rule = require('../../../lib/rules/no-redundant-landmark-role');
-
-const { createErrorMessage } = rule;
 
 generateRuleTests({
   name: 'no-redundant-landmark-role',

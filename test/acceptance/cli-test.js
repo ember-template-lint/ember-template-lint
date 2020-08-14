@@ -1,9 +1,9 @@
 'use strict';
 const { readFileSync } = require('fs');
-
-const execa = require('execa');
 const fs = require('fs');
 const path = require('path');
+
+const execa = require('execa');
 
 const Project = require('../helpers/fake-project');
 const setupEnvVar = require('../helpers/setup-env-var');

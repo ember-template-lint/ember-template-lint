@@ -1,7 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const { parseConfig, CONFIG_ERROR_MESSAGE } = require('../../../lib/rules/no-multiple-empty-lines');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'no-multiple-empty-lines',

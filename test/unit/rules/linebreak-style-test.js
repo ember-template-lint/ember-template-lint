@@ -1,6 +1,7 @@
 'use strict';
 
 const os = require('os');
+
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

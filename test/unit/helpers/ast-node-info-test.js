@@ -1,7 +1,8 @@
 'use strict';
 
-const AstNodeInfo = require('../../../lib/helpers/ast-node-info');
 const { parse } = require('ember-template-recast');
+
+const AstNodeInfo = require('../../../lib/helpers/ast-node-info');
 
 describe('isImgElement', function () {
   it('can detect an image tag', function () {

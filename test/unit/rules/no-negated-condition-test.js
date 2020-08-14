@@ -1,7 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const rule = require('../../../lib/rules/no-negated-condition');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 const { ERROR_MESSAGE_FLIP_IF, ERROR_MESSAGE_USE_IF, ERROR_MESSAGE_USE_UNLESS } = rule;
 

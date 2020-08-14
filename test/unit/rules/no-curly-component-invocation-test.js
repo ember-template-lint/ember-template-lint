@@ -1,6 +1,6 @@
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
 const { parseConfig } = require('../../../lib/rules/no-curly-component-invocation');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 function generateError(name) {
   let angleBracketName = transformTagName(name);

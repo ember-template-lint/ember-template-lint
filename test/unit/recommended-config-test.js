@@ -1,7 +1,8 @@
 'use strict';
 
-const Linter = require('../../lib');
 const stripIndent = require('common-tags').stripIndent;
+
+const Linter = require('../../lib');
 
 describe('recommended config', function () {
   function buildFakeConsole() {

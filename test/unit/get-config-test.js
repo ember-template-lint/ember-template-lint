@@ -1,5 +1,8 @@
 'use strict';
 
+const { stripIndent } = require('common-tags');
+
+const recommendedConfig = require('../../lib/config/recommended');
 const {
   getProjectConfig,
   getConfigForFile,
@@ -7,10 +10,8 @@ const {
   resolveProjectConfig,
   getRuleFromString,
 } = require('../../lib/get-config');
-const recommendedConfig = require('../../lib/config/recommended');
 const buildFakeConsole = require('../helpers/console');
 const Project = require('../helpers/fake-project');
-const { stripIndent } = require('common-tags');
 
 describe('get-config', function () {
   let project = null;

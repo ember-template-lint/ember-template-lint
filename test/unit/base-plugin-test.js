@@ -1,13 +1,15 @@
 'use strict';
 
-const { parse, transform } = require('ember-template-recast');
-const Rule = require('./../../lib/rules/base');
-const { determineRuleConfig } = require('./../../lib/get-config');
 const { readdirSync } = require('fs');
 const { join, parse: parsePath } = require('path');
+
+const { parse, transform } = require('ember-template-recast');
+
+const EditorConfigResolver = require('../../lib/get-editor-config');
 const ruleNames = Object.keys(require('../../lib/rules'));
 const Project = require('../helpers/fake-project');
-const EditorConfigResolver = require('../../lib/get-editor-config');
+const { determineRuleConfig } = require('./../../lib/get-config');
+const Rule = require('./../../lib/rules/base');
 
 describe('base plugin', function () {
   let project, editorConfigResolver;

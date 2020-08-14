@@ -1,8 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/no-nested-splattributes');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const ERROR_MESSAGE = require('../../../lib/rules/no-nested-splattributes').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-nested-splattributes',

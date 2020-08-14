@@ -6,7 +6,15 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: ['eslint-comments', 'filenames', 'import', 'node', 'prettier', 'unicorn'],
+  plugins: [
+    'eslint-comments',
+    'filenames',
+    'import',
+    'import-helpers',
+    'node',
+    'prettier',
+    'unicorn',
+  ],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
@@ -91,6 +99,19 @@ module.exports = {
     'import/no-useless-path-segments': 'error',
     'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
+
+    'import-helpers/order-imports': [
+      'error',
+      {
+        newlinesBetween: 'always',
+        groups: [
+          '/^(assert|async_hooks|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|http2|https|inspector|module|net|os|path|perf_hooks|process|punycode|querystring|readline|repl|stream|string_decoder|timers|tls|trace_events|tty|url|util|v8|vm|zli)/',
+          ['module'],
+          ['parent', 'sibling', 'index'],
+        ],
+        alphabetize: { order: 'asc', ignoreCase: true },
+      },
+    ],
 
     'prettier/prettier': 'error',
 
