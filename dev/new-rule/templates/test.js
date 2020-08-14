@@ -17,7 +17,6 @@ generateRuleTests({
     {
       template: 'FailingTest00 -- contains DisallowedText',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
