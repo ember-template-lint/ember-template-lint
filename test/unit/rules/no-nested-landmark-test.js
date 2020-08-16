@@ -1,7 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const rule = require('../../../lib/rules/no-nested-landmark');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 const { createErrorMessage } = rule;
 

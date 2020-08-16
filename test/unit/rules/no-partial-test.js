@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-partial');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-partial').message;
 
 generateRuleTests({
   name: 'no-partial',

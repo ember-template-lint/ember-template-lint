@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+
 const Printer = require('../../lib/printers/pretty');
 
 describe('Linter.errorsToMessages', function () {

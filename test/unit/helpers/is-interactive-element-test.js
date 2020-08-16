@@ -1,6 +1,7 @@
 'use strict';
 
 const { parse } = require('ember-template-recast');
+
 const isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
 describe('isInteractiveElement', function () {

@@ -1,8 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
 const { generateErrorMessage } = require('../../../lib/rules/no-potential-path-strings');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'no-potential-path-strings',

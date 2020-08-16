@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+
 const FixturifyProject = require('fixturify-project');
 
 const ROOT = process.cwd();

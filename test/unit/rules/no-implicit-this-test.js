@@ -1,7 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const { ARGLESS_BUILTIN_HELPERS, message } = require('../../../lib/rules/no-implicit-this');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 let statements = [
   (path) => `{{${path}}}`,

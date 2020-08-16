@@ -1,7 +1,8 @@
 const { readdirSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
-const configRecommended = require('../../lib/config/recommended');
+
 const configOctane = require('../../lib/config/octane');
+const configRecommended = require('../../lib/config/recommended');
 const configStylistic = require('../../lib/config/stylistic');
 const isRuleFixable = require('../helpers/is-rule-fixable');
 

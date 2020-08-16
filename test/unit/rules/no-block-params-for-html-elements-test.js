@@ -1,7 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const { generateErrorMessage } = require('../../../lib/rules/no-block-params-for-html-elements');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'no-block-params-for-html-elements',

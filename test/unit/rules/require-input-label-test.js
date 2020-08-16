@@ -1,7 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/require-input-label');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/require-input-label').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'require-input-label',

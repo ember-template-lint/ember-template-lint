@@ -1,8 +1,9 @@
 'use strict';
 
+const {
+  DEPRECATION_URL,
+} = require('../../../../lib/rules/deprecations/deprecated-inline-view-helper');
 const generateRuleTests = require('../../../helpers/rule-test-harness');
-const DEPRECATION_URL = require('../../../../lib/rules/deprecations/deprecated-inline-view-helper')
-  .DEPRECATION_URL;
 
 const message =
   // eslint-disable-next-line prefer-template

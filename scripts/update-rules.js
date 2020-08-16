@@ -2,11 +2,13 @@
 
 const fs = require('fs');
 const path = require('path');
+
 const prettier = require('prettier');
-const rules = require('../lib/rules');
-const { rules: recommendedRules } = require('../lib/config/recommended');
+
 const { rules: octaneRules } = require('../lib/config/octane');
+const { rules: recommendedRules } = require('../lib/config/recommended');
 const { rules: stylisticRules } = require('../lib/config/stylistic');
+const rules = require('../lib/rules');
 const isRuleFixable = require('../test/helpers/is-rule-fixable');
 
 const prettierConfig = {

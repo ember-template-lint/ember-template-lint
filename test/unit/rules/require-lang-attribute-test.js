@@ -1,8 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/require-lang-attribute');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const ERROR_MESSAGE = require('../../../lib/rules/require-lang-attribute').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'require-lang-attribute',
