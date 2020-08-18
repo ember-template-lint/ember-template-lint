@@ -200,7 +200,7 @@ Each rule has emojis denoting:
 | :wrench:                   | [inline-link-to](./docs/rule/inline-link-to.md)                                            |
 | :dress:                    | [linebreak-style](./docs/rule/linebreak-style.md)                                          |
 | :white_check_mark:         | [link-href-attributes](./docs/rule/link-href-attributes.md)                                |
-| :white_check_mark:         | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                      |
+| :white_check_mark::wrench: | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                      |
 |                            | [modifier-name-case](./docs/rule/modifier-name-case.md)                                    |
 | :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                      |
 | :car:                      | [no-action](./docs/rule/no-action.md)                                                      |
