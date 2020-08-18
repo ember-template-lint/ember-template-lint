@@ -1,4 +1,4 @@
-# no-link-to-tag-name
+# no-link-to-tagname
 
 The builtin `LinkTo` component generates an `<a>` element. Since it is still
 built on top of `Ember.Component` it is possible to assign a `tagName` from the
