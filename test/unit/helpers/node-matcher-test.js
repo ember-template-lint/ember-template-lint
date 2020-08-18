@@ -1,7 +1,7 @@
 'use strict';
 
-const NodeMatcher = require('../../../lib/helpers/node-matcher');
 const { parse } = require('ember-template-recast');
+const NodeMatcher = require('../../../lib/helpers/node-matcher');
 
 describe('testNode matched against single refNode', function () {
   it('Match: testNode === refNode, not nested, not parsed', function () {
