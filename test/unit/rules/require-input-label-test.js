@@ -1,6 +1,9 @@
 'use strict';
 
-const { ERROR_MESSAGE, ERROR_MESSAGE_MULTIPLE_LABEL } = require('../../../lib/rules/require-input-label');
+const { 
+  ERROR_MESSAGE,
+  ERROR_MESSAGE_MULTIPLE_LABEL
+} = require('../../../lib/rules/require-input-label');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
