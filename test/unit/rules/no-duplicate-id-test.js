@@ -1,8 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
 const ERROR_MESSAGE = require('../../../lib/rules/no-duplicate-id').ERROR_MESSAGE;
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'no-duplicate-id',
@@ -142,7 +141,6 @@ generateRuleTests({
         source: '{{#foo elementId="id-00"}}{{/foo}}',
       },
     },
-
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-{{"00"}}"></div>',
       result: {
@@ -152,7 +150,6 @@ generateRuleTests({
         source: 'id="id-{{"00"}}"',
       },
     },
-
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}{{#bar elementId="id-00"}}{{/bar}}',
       result: {
@@ -160,6 +157,15 @@ generateRuleTests({
         line: 1,
         column: 34,
         source: '{{#bar elementId="id-00"}}{{/bar}}',
+      },
+    },
+    {
+      template: '{{foo id="id-00"}}{{bar id="id-00"}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 18,
+        source: '{{bar id="id-00"}}',
       },
     },
   ],
