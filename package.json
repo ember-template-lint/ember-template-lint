@@ -39,7 +39,7 @@
   "dependencies": {
     "chalk": "^4.0.0",
     "ember-template-recast": "^4.1.5",
-    "find-up": "^4.1.0",
+    "find-up": "^5.0.0",
     "get-stdin": "^8.0.0",
     "globby": "^11.0.1",
     "is-valid-glob": "^1.0.0",
