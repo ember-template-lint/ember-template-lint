@@ -11,6 +11,12 @@ generateRuleTests({
     '{{foo}}',
     '<div>{{foo.bar}}</div>',
     '{{attrs.foo}}', // defaults to layout.hbs
+    {
+      template: '{{attrs.foo}}',
+      meta: {
+        moduleId: '/templates/foo.hbs',
+      },
+    },
   ],
   bad: [
     {
@@ -24,6 +30,54 @@ generateRuleTests({
         rule: 'no-attrs-in-components',
         message: 'Component templates should not contain `attrs`.',
         moduleId: 'templates/components/layout.hbs',
+        source: 'attrs.foo',
+        line: 1,
+        column: 2,
+      },
+    },
+    {
+      template: '{{attrs.foo}}',
+
+      meta: {
+        moduleId: 'components/nested/foo/template.hbs',
+      },
+
+      result: {
+        rule: 'no-attrs-in-components',
+        message: 'Component templates should not contain `attrs`.',
+        moduleId: 'components/nested/foo/template.hbs',
+        source: 'attrs.foo',
+        line: 1,
+        column: 2,
+      },
+    },
+    {
+      template: '{{attrs.foo}}',
+
+      meta: {
+        moduleId: 'ui/components/foo.hbs',
+      },
+
+      result: {
+        rule: 'no-attrs-in-components',
+        message: 'Component templates should not contain `attrs`.',
+        moduleId: 'ui/components/foo.hbs',
+        source: 'attrs.foo',
+        line: 1,
+        column: 2,
+      },
+    },
+    {
+      template: '{{attrs.foo}}',
+
+      meta: {
+        moduleId: 'foo/-components/bar.hbs',
+      },
+
+      result: {
+        rule: 'no-attrs-in-components',
+        message: 'Component templates should not contain `attrs`.',
+        moduleId: 'foo/-components/bar.hbs',
         source: 'attrs.foo',
         line: 1,
         column: 2,
