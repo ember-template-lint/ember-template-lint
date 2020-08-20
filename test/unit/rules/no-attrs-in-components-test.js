@@ -17,6 +17,12 @@ generateRuleTests({
         moduleId: 'app/templates/index.hbs',
       },
     },
+    {
+      template: '{{attrs.foo}}',
+      meta: {
+        moduleId: 'app/templates/my-components/index.hbs',
+      },
+    },
   ],
   bad: [
     {
