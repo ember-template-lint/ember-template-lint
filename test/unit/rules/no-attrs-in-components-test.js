@@ -39,6 +39,38 @@ generateRuleTests({
       template: '{{attrs.foo}}',
 
       meta: {
+        moduleId: 'components/foo.hbs',
+      },
+
+      result: {
+        rule: 'no-attrs-in-components',
+        message: 'Component templates should not contain `attrs`.',
+        moduleId: 'components/foo.hbs',
+        source: 'attrs.foo',
+        line: 1,
+        column: 2,
+      },
+    },
+    {
+      template: '{{attrs.foo}}',
+
+      meta: {
+        moduleId: 'components/nested/foo.hbs',
+      },
+
+      result: {
+        rule: 'no-attrs-in-components',
+        message: 'Component templates should not contain `attrs`.',
+        moduleId: 'components/nested/foo.hbs',
+        source: 'attrs.foo',
+        line: 1,
+        column: 2,
+      },
+    },
+    {
+      template: '{{attrs.foo}}',
+
+      meta: {
         moduleId: 'components/nested/foo/template.hbs',
       },
 
