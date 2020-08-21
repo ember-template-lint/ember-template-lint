@@ -32,3 +32,7 @@ This rule **allows** the following:
 ## Related Rules
 
 - [no-arguments-for-html-elements](no-arguments-for-html-elements.md)
+
+## References
+
+- [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)

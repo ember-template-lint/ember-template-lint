@@ -67,6 +67,10 @@ This rule **allows** the following:
 </MyComponent>
 ```
 
+## Related Rules
+
+* [no-potential-path-strings](no-potential-path-strings.md)
+
 ## References
 
-- [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)
+* [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)

@@ -33,3 +33,8 @@ Use regexp find-and-replace to fix existing violations of this rule:
 | Before | After |
 | --- | --- |
 | `="{{([^}]+)}}"` | `={{$1}}` |
+
+## References
+
+* [Handlebars docs/expressions](https://handlebarsjs.com/guide/expressions.html)
+* [Ember api/concat helper](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/concat?anchor=concat)

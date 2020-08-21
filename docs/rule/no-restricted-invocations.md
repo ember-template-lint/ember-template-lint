@@ -41,3 +41,7 @@ One of these:
 ## Related Rules
 
 * [ember/no-restricted-service-injections](https://github.com/ember-cli/eslint-plugin-ember/blob/master/docs/rules/no-restricted-service-injections.md)
+
+## References
+
+* [ember-cli-deprecation-workflow](https://github.com/mixonic/ember-cli-deprecation-workflow)

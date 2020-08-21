@@ -28,3 +28,11 @@ This rule is configured with a boolean, or a string value:
     right thing to do would be to split the template up into pieces).
   - min {number} - the shortest a template should be without failing a test (assuming the
     right thing to do would be to inline the template.
+
+## Related rules
+
+- [eslint/max-lines](https://eslint.org/docs/rules/max-lines)
+
+## References
+
+- [JS Complexity](https://web.archive.org/web/20160808115119/http://jscomplexity.org/complexity)

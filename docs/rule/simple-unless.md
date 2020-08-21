@@ -68,3 +68,7 @@ The following values are valid configuration:
 ## Related Rules
 
 * [no-negated-condition](no-negated-condition.md)
+
+## References
+
+* [Wikipedia/boolean algebra](https://en.wikipedia.org/wiki/Boolean_algebra)

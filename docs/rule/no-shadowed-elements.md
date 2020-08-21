@@ -34,3 +34,13 @@ This rule **allows** the following:
   <bar.baz />
 </Foo>
 ```
+
+## Related rules
+
+* [no-invalid-block-param-definition](no-invalid-block-param-definition.md)
+
+## References
+
+* [Ember guides/block content](https://guides.emberjs.com/release/components/block-content/)
+* [rfcs/angle bracket invocation](https://emberjs.github.io/rfcs/0311-angle-bracket-invocation.html)
+* [rfcs/named blocks](https://emberjs.github.io/rfcs/0226-named-blocks.html)

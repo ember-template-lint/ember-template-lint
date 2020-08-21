@@ -43,3 +43,7 @@ If you have curlies in your code that you wish to show verbatim, but are flagged
 <p>This is a closing double curly: {{ '}}' }}</p>
 <p>This is a closing triple curly: {{ '}}}' }}</p>
 ```
+
+## References
+
+* [Handlebars docs/expressions](https://handlebarsjs.com/guide/expressions.html)

@@ -33,3 +33,8 @@ When the config value of `true` is used the following configuration is used:
 * `whitelist` - `(),.&+-=*/#%!?:[]{}`
 * `globalAttributes` - `title`, `aria-label`, `aria-placeholder`, `aria-roledescription`, `aria-valuetext`
 * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
+
+## References
+
+* [ECMA/i18n spec](https://tc39.es/ecma402)
+* [ICU message syntax docs](https://formatjs.io/docs/core-concepts/icu-syntax/)

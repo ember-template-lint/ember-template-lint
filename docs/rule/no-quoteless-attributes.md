@@ -40,3 +40,7 @@ This rule **allows** the following:
 ```hbs
 <div data-foo={{someValue}}></div>
 ```
+
+## References
+
+* [HTML spec/attributes](https://html.spec.whatwg.org/multipage/dom.html#attributes)

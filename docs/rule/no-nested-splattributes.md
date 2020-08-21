@@ -28,3 +28,8 @@ This rule **allows** the following:
 ## Migration
 
 - Remove the inner `...attributes` declaration
+
+## References
+
+- [rfcs/angle bracket invocation](https://emberjs.github.io/rfcs/0311-angle-bracket-invocation.html#html-attributes)
+- [rfcs/modifier splattributes](https://emberjs.github.io/rfcs/0435-modifier-splattributes.html)

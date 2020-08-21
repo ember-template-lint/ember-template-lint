@@ -17,6 +17,6 @@ This rule **forbids** the following:
 {{partial "foo"}}
 ```
 
-## RFCs
+## References
 
-* [Deprecate {{partial}}](https://github.com/emberjs/rfcs/blob/master/text/0449-deprecate-partials.md)
+* [rfcs/deprecate partials](https://github.com/emberjs/rfcs/blob/master/text/0449-deprecate-partials.md)

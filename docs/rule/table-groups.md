@@ -104,3 +104,7 @@ One of these:
   * `allowed-thead-components` - string[] - components to treat as having the thead tag (using kebab-case names like `nested-scope/component-name`)
   * `allowed-tbody-components` - string[] - components to treat as having the tbody tag (using kebab-case names like `nested-scope/component-name`)
   * `allowed-tfoot-components` - string[] - components to treat as having the tfoot tag (using kebab-case names like `nested-scope/component-name`)
+
+## References
+
+* [HTML spec/table element](https://html.spec.whatwg.org/#the-table-element)
