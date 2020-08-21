@@ -30,9 +30,24 @@ This rule **allows** the following:
 
 When the config value of `true` is used the following configuration is used:
 
-* `whitelist` - `(),.&+-=*/#%!?:[]{}`
+* `whitelist` - refer to the `DEFAULT_CONFIG.whitelist` property in the [rule](../lib/rules/no-bare-strings.js)
 * `globalAttributes` - `title`, `aria-label`, `aria-placeholder`, `aria-roledescription`, `aria-valuetext`
 * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
+
+The `DEFAULT_CONFIG` is available as an export. Example use in configuration:
+
+```javascript
+const {
+  DEFAULT_CONFIG
+} = require('ember-template-lint/lib/rules/no-bare-strings');
+const additionalCharsToIgnore = ['a', 'b', 'c'];
+
+module.exports = {
+  rules: {
+    'no-bare-strings': [...DEFAULT_CONFIG.whitelist, ...additionalCharsToIgnore]
+  }
+};
+```
 
 ## References
 
