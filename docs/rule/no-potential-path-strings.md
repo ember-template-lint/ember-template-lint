@@ -32,3 +32,11 @@ This rule **allows** the following:
 ## Migration
 
 - Replace the surrounding `"` characters with `{{`/`}}`
+
+## Related Rules
+
+- [no-arguments-for-html-elements](no-arguments-for-html-elements.md)
+
+## References
+
+- [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)

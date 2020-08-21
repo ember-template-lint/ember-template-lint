@@ -16,3 +16,12 @@ This rule **forbids** the following:
 {{yield (component "input" tagName="foo")}}
 {{yield (component "input" tagName=X)}}
 ```
+
+## Related rules
+
+* [no-link-to-tagname](no-link-to-tagname.md)
+
+## References
+
+* [Ember api/input component](https://api.emberjs.com/ember/release/classes/Ember.Templates.components/methods/Input?anchor=Input)
+* [rfcs/built in components](https://emberjs.github.io/rfcs/0459-angle-bracket-built-in-components.html)

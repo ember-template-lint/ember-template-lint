@@ -31,4 +31,4 @@ This rule **allows** the following:
 
 ## References
 
-* Red [HTML spec - the button element](https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type)
+* [HTML spec - the button element](https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type)

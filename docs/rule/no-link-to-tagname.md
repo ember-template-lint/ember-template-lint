@@ -43,3 +43,12 @@ This rule **allows** the following:
 
 - Remove the `tagName` overrides and, if you need it, adjust the styling of the
   `<a>` elements to make them look like buttons
+
+## Related rules
+
+- [no-input-tagname](no-input-tagname.md)
+
+## References
+
+- [Ember guides/LinkTo component](https://guides.emberjs.com/release/routing/linking-between-routes/#toc_the-linkto--component)
+- [Ember api/LinkTo component](https://api.emberjs.com/ember/release/classes/Ember.Templates.components/methods/LinkTo?anchor=LinkTo)

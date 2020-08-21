@@ -23,3 +23,7 @@ or if you using Ember 3.1 and above:
 ```hbs
 {{@foo}}
 ```
+
+## References
+
+* [rfcs/named args](https://github.com/emberjs/rfcs/blob/master/text/0276-named-args.md#motivation)

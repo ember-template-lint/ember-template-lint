@@ -29,3 +29,7 @@ The following values are valid configuration:
 
 * boolean -- `true` for enabled / `false` for disabled
 * string -- `require` to mandate the use of self closing tags
+
+## References
+
+* [HTML spec/void elements](https://html.spec.whatwg.org/#void-elements)

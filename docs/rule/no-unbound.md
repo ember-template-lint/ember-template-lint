@@ -18,3 +18,8 @@ This rule **forbids** the following:
 ```hbs
 {{some-component foo=(unbound aVar)}}
 ```
+
+## References
+
+* [deprecations/unbound block syntax](https://deprecations.emberjs.com/v1.x/#toc_block-and-multi-argument-unbound-helper)
+* [Ember api/unbound helper](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/each?anchor=unbound)
