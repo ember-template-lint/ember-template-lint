@@ -55,4 +55,4 @@ There are some files that are intended to be used for special purposes and as su
 
 Exemption list:
 
-* `a11y` - this config file was created to help in instances where an a11y-specific linting audit of a codebase is desired.
+* `a11y` - this config file was created to help in instances where an a11y-specific linting audit of a codebase is desired. This is excluded from the normal SemVer guarantees as we expect it to always be the "canonical reference" for the A11Y related rules in the codebase.
