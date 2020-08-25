@@ -6,7 +6,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'simple-unless',
   config: {
-    whitelist: ['or', 'eq', 'not-eq'],
+    allowlist: ['or', 'eq', 'not-eq'],
     maxHelpers: 2,
   },
 
@@ -27,14 +27,14 @@ generateRuleTests({
     },
     {
       config: {
-        whitelist: ['or', 'eq', 'not-eq'],
+        allowlist: ['or', 'eq', 'not-eq'],
         maxHelpers: 2,
       },
       template: '{{unless (eq foo bar) baz}}',
     },
     {
       config: {
-        whitelist: [],
+        allowlist: [],
         maxHelpers: 2,
       },
       template: '{{unless (eq (not foo) bar) baz}}',
@@ -54,14 +54,14 @@ generateRuleTests({
     {
       config: {
         maxHelpers: -1,
-        blacklist: [],
+        denylist: [],
       },
       template: '{{unless (eq (not foo) bar) baz}}',
     },
     {
       config: {
         maxHelpers: -1,
-        blacklist: ['or'],
+        denylist: ['or'],
       },
       template: '{{unless (eq (not foo) bar) baz}}',
     },
@@ -70,7 +70,7 @@ generateRuleTests({
   bad: [
     {
       config: {
-        whitelist: ['or', 'eq', 'not-eq'],
+        allowlist: ['or', 'eq', 'not-eq'],
         maxHelpers: 2,
       },
       template: "{{unless (if (or true))  'Please no'}}",
@@ -284,7 +284,7 @@ generateRuleTests({
     },
     {
       config: {
-        whitelist: ['test'],
+        allowlist: ['test'],
         maxHelpers: 1,
       },
       template: [
@@ -312,7 +312,7 @@ generateRuleTests({
     },
     {
       config: {
-        whitelist: [],
+        allowlist: [],
         maxHelpers: 2,
       },
       template: [
@@ -331,7 +331,7 @@ generateRuleTests({
     },
     {
       config: {
-        blacklist: ['two'],
+        denylist: ['two'],
         maxHelpers: -1,
       },
       template: [
@@ -350,7 +350,7 @@ generateRuleTests({
     },
     {
       config: {
-        blacklist: ['two', 'four'],
+        denylist: ['two', 'four'],
         maxHelpers: -1,
       },
       template: [

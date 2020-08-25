@@ -7,7 +7,7 @@ describe('imports', () => {
   it('should expose the default config', () => {
     expect(rule.DEFAULT_CONFIG).toEqual(
       expect.objectContaining({
-        whitelist: expect.arrayContaining(['&lpar;']),
+        allowlist: expect.arrayContaining(['&lpar;']),
         globalAttributes: expect.arrayContaining(['title']),
         elementAttributes: expect.any(Object),
       })
@@ -75,7 +75,7 @@ generateRuleTests({
     '<div placeholder="wat?"></div>',
 
     {
-      // config as array is whitelist of chars
+      // config as array is allowlist of chars
       config: ['/', '"'],
       template: '{{t "foo"}} / "{{name}}"',
     },
