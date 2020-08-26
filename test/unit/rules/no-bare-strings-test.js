@@ -1,6 +1,19 @@
 'use strict';
 
+const rule = require('../../../lib/rules/no-bare-strings');
 const generateRuleTests = require('../../helpers/rule-test-harness');
+
+describe('imports', () => {
+  it('should expose the default config', () => {
+    expect(rule.DEFAULT_CONFIG).toEqual(
+      expect.objectContaining({
+        whitelist: expect.arrayContaining(['&lpar;']),
+        globalAttributes: expect.arrayContaining(['title']),
+        elementAttributes: expect.any(Object),
+      })
+    );
+  });
+});
 
 generateRuleTests({
   name: 'no-bare-strings',
