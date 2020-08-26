@@ -33,7 +33,6 @@ module.exports = {
     curly: 'error',
     eqeqeq: 'error',
     'func-style': ['error', 'declaration'],
-    'id-denylist': ['error', 'whitelist', 'blacklist'],
     'new-parens': 'error',
     'no-async-promise-executor': 'error',
     'no-console': 'error',

@@ -22,32 +22,17 @@ This rule **allows** the following:
  The following values are valid configuration:
 
 * boolean -- `true` for enabled / `false` for disabled
-* array -- an array of allowlisted strings
+* array -- an array of whitelisted strings
 * object -- An object with the following keys:
-  * `allowlist` -- An array of allowlisted strings
+  * `whitelist` -- An array of whitelisted strings
   * `globalAttributes` -- An array of attributes to check on every element.
   * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name.
 
 When the config value of `true` is used the following configuration is used:
 
-* `allowlist` - refer to the `DEFAULT_CONFIG.allowlist` property in the [rule](../lib/rules/no-bare-strings.js)
+* `whitelist` - `(),.&+-=*/#%!?:[]{}`
 * `globalAttributes` - `title`, `aria-label`, `aria-placeholder`, `aria-roledescription`, `aria-valuetext`
 * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
-
-The `DEFAULT_CONFIG` is available as an export. Example use in configuration:
-
-```javascript
-const {
-  DEFAULT_CONFIG
-} = require('ember-template-lint/lib/rules/no-bare-strings');
-const additionalCharsToIgnore = ['a', 'b', 'c'];
-
-module.exports = {
-  rules: {
-    'no-bare-strings': [...DEFAULT_CONFIG.allowlist, ...additionalCharsToIgnore]
-  }
-};
-```
 
 ## References
 
