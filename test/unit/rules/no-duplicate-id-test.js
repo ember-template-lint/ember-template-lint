@@ -12,13 +12,15 @@ generateRuleTests({
     // Unique sibling TextNode IDs
     '<div id="id-00"></div><div id="id-01"></div>',
 
-    // Ignore MustacheStatements, even duplicates
-    '<div id={{this.divId}}></div>',
-    '<div id={{this.divId}}></div><div id={{this.divId}}></div>',
+    // Mustache Statements
+    '<div id={{"id-00"}}></div>',
+    '<div id={{"id-00"}}></div><div id={{"id-01"}}></div>',
+    '<div id={{this.divId00}}></div>',
+    '<div id={{this.divId00}}></div><div id={{this.divId01}}></div>',
 
-    // Ignore ConcatStatements, even duplicates
+    // ConcatStatements
     '<div id="concat-{{this.divId}}"></div>',
-    '<div id="concat-{{this.divId}}"></div><div id="concat-{{this.divId}}"></div>',
+    '<div id="concat-{{this.divId00}}"></div><div id="concat-{{this.divId01}}"></div>',
 
     // Mustache and Concat do not conflict/flag with TextNode
     '<div id={{id-00}}></div><div id="id-00"></div>',
@@ -29,6 +31,20 @@ generateRuleTests({
     // BlockStatement
     '<div id="id-00"></div>{{#foo elementId="id-01"}}{{/foo}}',
     '{{#foo elementId="id-01"}}{{/foo}}<div id="id-00"></div>',
+
+    // Number
+    '<div id={{1234}}></div>',
+    '<div id={{1234}}></div><div id={{"1234"}}></div>',
+
+    // Dynamic
+    '<div id={{"id-00"}}></div><div id={{"id-01"}}></div>',
+    '<div id={{this.foo}}></div><div id={{this.bar}}></div>',
+
+    // Source: Mustache
+    '{{foo id="id-00"}}{{foo id="id-01"}}',
+
+    // Mixed
+    '<div id="partA{{partB}}{{"partC"}}"></div><div id="{{"partA"}}{{"partB"}}partC"></div>',
   ],
 
   bad: [
@@ -50,7 +66,6 @@ generateRuleTests({
         source: 'id="id-01"',
       },
     },
-
     {
       template: '<div id="id-00"></div><div id={{"id-00"}}></div>',
       result: {
@@ -60,7 +75,6 @@ generateRuleTests({
         source: 'id={{"id-00"}}',
       },
     },
-
     {
       template: '<div id={{"id-00"}}></div><div id="id-00"></div>',
       result: {
@@ -70,7 +84,6 @@ generateRuleTests({
         source: 'id="id-00"',
       },
     },
-
     {
       template: '<div id="id-00"></div><div id="id-{{"00"}}"></div>',
       result: {
@@ -80,7 +93,6 @@ generateRuleTests({
         source: 'id="id-{{"00"}}"',
       },
     },
-
     {
       template: '<div id="id-00"></div><div id="{{"id"}}-00"></div>',
       result: {
@@ -90,8 +102,6 @@ generateRuleTests({
         source: 'id="{{"id"}}-00"',
       },
     },
-
-    // BlockStatement
     {
       template: '<div id="id-00"></div>{{#foo elementId="id-00"}}{{/foo}}',
       result: {
@@ -101,7 +111,6 @@ generateRuleTests({
         source: '{{#foo elementId="id-00"}}{{/foo}}',
       },
     },
-
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-00"></div>',
       result: {
@@ -111,7 +120,6 @@ generateRuleTests({
         source: 'id="id-00"',
       },
     },
-
     {
       template: '<div id={{"id-00"}}></div>{{#foo elementId="id-00"}}{{/foo}}',
       result: {
@@ -121,7 +129,6 @@ generateRuleTests({
         source: '{{#foo elementId="id-00"}}{{/foo}}',
       },
     },
-
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id={{"id-00"}}></div>',
       result: {
@@ -131,7 +138,6 @@ generateRuleTests({
         source: 'id={{"id-00"}}',
       },
     },
-
     {
       template: '<div id="id-{{"00"}}"></div>{{#foo elementId="id-00"}}{{/foo}}',
       result: {
@@ -160,12 +166,40 @@ generateRuleTests({
       },
     },
     {
-      template: '{{foo id="id-00"}}{{bar id="id-00"}}',
+      template: '{{foo id="id-00"}}{{foo id="id-00"}}',
       result: {
         message: ERROR_MESSAGE,
         line: 1,
         column: 18,
-        source: '{{bar id="id-00"}}',
+        source: '{{foo id="id-00"}}',
+      },
+    },
+    {
+      template: '<div id={{1234}}></div><div id={{1234}}></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 28,
+        source: 'id={{1234}}',
+      },
+    },
+    {
+      template: '<div id={{this.divId00}}></div><div id={{this.divId00}}></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 36,
+        source: 'id={{this.divId00}}',
+      },
+    },
+    {
+      template:
+        '<div id="partA{{partB}}{{"partC"}}"></div><div id="{{"partA"}}{{partB}}partC"></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 47,
+        source: 'id="{{"partA"}}{{partB}}partC"',
       },
     },
   ],
