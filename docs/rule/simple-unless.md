@@ -61,8 +61,10 @@ The following values are valid configuration:
 
 * boolean -- `true` for enabled / `false` for disabled
 * object --
-  * `whitelist` -- array - `['or']` for specific helpers / `[]` for wildcard
-  * `blacklist` -- array - `['or']` for specific helpers / `[]` for none
+  * `allowlist` -- array - `['or']` for specific helpers / `[]` for wildcard
+  * `whitelist` -- deprecated, use `allowlist`. If both are provided, `whitelist` will be ignored.
+  * `denylist` -- array - `['or']` for specific helpers / `[]` for none
+  * `blacklist` -- deprecated, use `denylist`. If both are provided, `blacklist` will be ignored.
   * `maxHelpers` -- number - use -1 for no limit
 
 ## Related Rules
