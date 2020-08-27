@@ -9,6 +9,7 @@ generateRuleTests({
 
   good: [
     '<button {{action "foo"}}></button>',
+    '<canvas {{on "mousedown"}}></canvas>',
     '<div role="button" {{action "foo"}}></div>',
     '<div randomProperty={{myValue}}></div>',
     '<li><button {{action "foo"}}></button></li>',
@@ -26,6 +27,8 @@ generateRuleTests({
     '<form {{on "submit" this.send}}></form>',
     '<form {{on "reset" this.reset}}></form>',
     '<form {{on "change" this.change}}></form>',
+    '<div {{on "scroll" this.handleScroll}}></div>',
+    '<code {{on "copy" (action @onCopy)}}></code>',
     {
       config: { additionalInteractiveTags: ['div'] },
       template: '<div {{on "click" this.onClick}}></div>',

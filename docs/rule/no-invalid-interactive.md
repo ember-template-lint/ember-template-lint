@@ -29,3 +29,7 @@ The following values are valid configuration (same as the `no-nested-interactive
   * `ignoreTabindex` - When `true` tabindex will be ignored. Defaults to `false`.
   * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
   * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.
+
+## References
+
+* [MDN docs/ARIA roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)

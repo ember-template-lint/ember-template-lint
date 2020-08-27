@@ -2,6 +2,8 @@
 
 :white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 When you want to link to an external page from your app, it is very common to use `<a href="url" target="_blank"></a>`
 to make the browser open this link in a new tab.
 

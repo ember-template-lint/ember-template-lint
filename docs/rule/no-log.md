@@ -12,3 +12,11 @@ This rule **forbids** the following:
 {{log}}
 {{log "foo" var}}
 ```
+
+## Related rules
+
+* [eslint/no-console](https://eslint.org/docs/rules/no-console)
+
+## References
+
+* [Ember api/log helper](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/log?anchor=log)

@@ -1,7 +1,10 @@
 'use strict';
 
+const {
+  ERROR_MESSAGE,
+  ERROR_MESSAGE_MULTIPLE_LABEL,
+} = require('../../../lib/rules/require-input-label');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/require-input-label').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'require-input-label',
@@ -24,6 +27,7 @@ generateRuleTests({
     '{{input id="foo"}}',
     '<label>Text here<Input /></label>',
     '<label>Text here {{input}}</label>',
+    '<input id="label-input" ...attributes>',
   ],
 
   bad: [
@@ -79,6 +83,33 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: '<Input/>',
+      },
+    },
+    {
+      template: '<input aria-label="first label" aria-labelledby="second label">',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<input aria-label="first label" aria-labelledby="second label">',
+      },
+    },
+    {
+      template: '<input id="label-input" aria-label="second label">',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<input id="label-input" aria-label="second label">',
+      },
+    },
+    {
+      template: '<label>Input label<input aria-label="Custom label"></label>',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 18,
+        source: '<input aria-label="Custom label">',
       },
     },
   ],

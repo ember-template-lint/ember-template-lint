@@ -36,7 +36,7 @@ generateRuleTests({
       result: {
         column: 17,
         line: 1,
-        message: 'Attribute @blah should be either quoted or wrapped in mustaches',
+        message: 'Argument @blah should be either quoted or wrapped in mustaches',
         source: '<SomeThing @blah=asdf />',
       },
     },

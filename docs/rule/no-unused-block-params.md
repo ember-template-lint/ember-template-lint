@@ -37,3 +37,13 @@ Allowed (later parameter used):
   {{index}}
 {{/each}}
 ```
+
+## Related rules
+
+* [eslint/no-unused-vars](https://eslint.org/docs/rules/no-unused-vars)
+
+## References
+
+* [Ember guides/block content](https://guides.emberjs.com/release/components/block-content/)
+* [rfcs/angle bracket invocation](https://emberjs.github.io/rfcs/0311-angle-bracket-invocation.html)
+* [rfcs/named blocks](https://emberjs.github.io/rfcs/0226-named-blocks.html)

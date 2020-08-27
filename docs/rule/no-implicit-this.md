@@ -90,6 +90,12 @@ know about fallback resolution rules. This makes common features like ["Go To
 Definition"](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition)
 much easier to implement since we have semantics that mean "property on class".
 
+## Migration
+
+* use [ember-no-implicit-this-codemod](https://github.com/ember-codemods/ember-no-implicit-this-codemod)
+* [upgrade to Glimmer components](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/), which don't allow ambiguous access
+  * classic components have [auto-reflection](https://github.com/emberjs/rfcs/blob/master/text/0276-named-args.md#motivation), and can use `this.myArgName` or `this.args.myArgNme` or `@myArgName` interchangeably
+
 ## Configuration
 
  The following values are valid configuration:
@@ -98,3 +104,8 @@ much easier to implement since we have semantics that mean "property on class".
 * object -- An object with the following keys:
   * `allow` -- An array of component / helper names for that may be called
     without arguments (string or regular expression)
+
+## References
+
+* [Glimmer components](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/)
+* [rfcs/named args](https://github.com/emberjs/rfcs/blob/master/text/0276-named-args.md#motivation)

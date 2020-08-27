@@ -11,3 +11,8 @@ This rule **forbids** the following (except in routes):
 ```hbs
 {{outlet}}
 ```
+
+## References
+
+* [Ember guides/routing](https://guides.emberjs.com/release/routing/rendering-a-template/)
+* [Ember api/outlet helper](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/outlet?anchor=outlet)

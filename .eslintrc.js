@@ -6,7 +6,15 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: ['eslint-comments', 'filenames', 'import', 'node', 'prettier', 'unicorn'],
+  plugins: [
+    'eslint-comments',
+    'filenames',
+    'import',
+    'import-helpers',
+    'node',
+    'prettier',
+    'unicorn',
+  ],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
@@ -25,6 +33,7 @@ module.exports = {
     curly: 'error',
     eqeqeq: 'error',
     'func-style': ['error', 'declaration'],
+    'id-denylist': ['error', 'whitelist', 'blacklist'],
     'new-parens': 'error',
     'no-async-promise-executor': 'error',
     'no-console': 'error',
@@ -92,6 +101,19 @@ module.exports = {
     'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
 
+    'import-helpers/order-imports': [
+      'error',
+      {
+        newlinesBetween: 'always',
+        groups: [
+          '/^(assert|async_hooks|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|http2|https|inspector|module|net|os|path|perf_hooks|process|punycode|querystring|readline|repl|stream|string_decoder|timers|tls|trace_events|tty|url|util|v8|vm|zli)/',
+          ['module'],
+          ['parent', 'sibling', 'index'],
+        ],
+        alphabetize: { order: 'asc', ignoreCase: true },
+      },
+    ],
+
     'prettier/prettier': 'error',
 
     // Unicorn rules:
@@ -124,6 +146,17 @@ module.exports = {
       },
       rules: {
         'import/no-dynamic-require': 'off',
+      },
+    },
+    {
+      files: [
+        'lib/rules/no-bare-strings.js',
+        'lib/rules/simple-unless.js',
+        'test/unit/rules/no-bare-strings-test.js',
+        'test/unit/rules/simple-unless-test.js',
+      ],
+      rules: {
+        'id-denylist': 'off',
       },
     },
   ],

@@ -29,3 +29,7 @@ The following values are valid configuration:
 ## Related Rules
 
 * [quotes](https://eslint.org/docs/rules/quotes) from eslint
+
+## References
+
+* [Google style guide/quotes](https://google.github.io/styleguide/htmlcssguide.html#HTML_Quotation_Marks)

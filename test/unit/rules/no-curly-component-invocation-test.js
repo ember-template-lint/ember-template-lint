@@ -1,6 +1,6 @@
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
 const { parseConfig } = require('../../../lib/rules/no-curly-component-invocation');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 function generateError(name) {
   let angleBracketName = transformTagName(name);
@@ -38,6 +38,10 @@ const SHARED_GOOD = [
   '{{outlet}}',
   '{{yield}}',
   '{{yield to="inverse"}}',
+
+  // ember-cli related addon
+  '{{app-version}}',
+  '{{app-version versionOnly=true}}',
 
   // real world examples
   '<GoodCode />',

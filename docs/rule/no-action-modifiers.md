@@ -23,7 +23,7 @@ This rule **allows** the following:
 The following values are valid configuration:
 
 * boolean -- `true` for enabled / `false` for disabled
-* array -- an array of whitelisted element tag names, which will accept action modifiers
+* array -- an allowlist of element tag names, which will accept action modifiers
 
 ## References
 

@@ -51,3 +51,8 @@ If `.editorconfig` file present, rule configuration will be inherit from it.
 ## Related Rules
 
 * [attribute-indentation](attribute-indentation.md)
+* [eslint/indent](https://eslint.org/docs/rules/indent)
+
+## References
+
+* [Google style guide/formatting](https://google.github.io/styleguide/htmlcssguide.html#General_Formatting)

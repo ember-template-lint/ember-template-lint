@@ -60,6 +60,9 @@ Basic `ember-template-lint` executable is provided, allowing for easy use within
 
 > Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `yarn ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `yarn ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
 
+**Important** note for those running `ember-template-lint` in Github Actions:
+There is an additional printer always used for Github Actions, if you'd like to disable it set the `DISABLE_GITHUB_ACTIONS_ANNOTATIONS` env var to `true`.
+
 Example usage:
 
 ```bash
@@ -84,7 +87,7 @@ yarn ember-template-lint "app/templates/application.hbs" --config-path .my-templ
 # read from stdin
 yarn ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
 
-# print list of formated rules for use with `pending` in config file
+# print list of formatted rules for use with `pending` in config file
 yarn ember-template-lint "app/templates/application.hbs" --print-pending
 
 # specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
@@ -104,6 +107,9 @@ yarn ember-template-lint --no-config-path app/templates --rule 'no-implicit-this
 
 # specify a config object to use instead of what exists locally
 yarn ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
+
+# disable Github Actions custom printer (only relevant when running in Github Actions)
+DISABLE_GITHUB_ACTIONS_ANNOTATIONS=true yarn ember-template-lint "app/templates/application.hbs"
 ```
 
 ### ESLint
@@ -194,7 +200,7 @@ Each rule has emojis denoting:
 | :wrench:                   | [inline-link-to](./docs/rule/inline-link-to.md)                                            |
 | :dress:                    | [linebreak-style](./docs/rule/linebreak-style.md)                                          |
 | :white_check_mark:         | [link-href-attributes](./docs/rule/link-href-attributes.md)                                |
-| :white_check_mark:         | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                      |
+| :white_check_mark::wrench: | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                      |
 |                            | [modifier-name-case](./docs/rule/modifier-name-case.md)                                    |
 | :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                      |
 | :car:                      | [no-action](./docs/rule/no-action.md)                                                      |
@@ -203,6 +209,7 @@ Each rule has emojis denoting:
 |                            | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)            |
 | :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                            |
 |                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                          |
+|                            | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)      |
 | :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)              |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                  |
 | :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                          |
@@ -222,17 +229,22 @@ Each rule has emojis denoting:
 |                            | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                              |
 | :white_check_mark:         | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                          |
 | :white_check_mark:         | [no-invalid-role](./docs/rule/no-invalid-role.md)                                          |
+|                            | [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                    |
 | :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                            |
 | :dress:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                          |
 | :white_check_mark:         | [no-negated-condition](./docs/rule/no-negated-condition.md)                                |
 | :white_check_mark:         | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                              |
 |                            | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                    |
+|                            | [no-nested-splattributes](./docs/rule/no-nested-splattributes.md)                          |
 | :white_check_mark:         | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                |
 | :white_check_mark:         | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                        |
 | :white_check_mark:         | [no-partial](./docs/rule/no-partial.md)                                                    |
 |                            | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                  |
+| :wrench:                   | [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)      |
 | :white_check_mark:         | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                |
+|                            | [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                      |
 | :white_check_mark:         | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                          |
+| :wrench:                   | [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                          |
 |                            | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                    |
 |                            | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                      |
 | :white_check_mark:         | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                |
