@@ -318,7 +318,7 @@ and to configure rules in the template:
 ```hbs
 {{!-- template-lint-configure no-bare-strings ["ZOMG THIS IS ALLOWED!!!!"]  --}}
 
-{{!-- template-lint-configure no-bare-strings {"whitelist": "(),.", "globalAttributes": ["title"]}  --}}
+{{!-- template-lint-configure no-bare-strings {"allowlist": "(),.", "globalAttributes": ["title"]}  --}}
 
 {{!-- template-lint-configure no-bare-strings ["warn", ["ZOMG THIS IS ALLOWED!!!!"]]  --}}
 

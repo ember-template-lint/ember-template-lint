@@ -23,9 +23,9 @@ This rule **allows** the following:
 
 The following values are valid configuration (same as the `no-nested-interactive` rule above):
 
-* boolean -- `true` indicates all whitelist test will run, `false` indicates that the rule is disabled.
+* boolean -- `true` indicates all allowlisted tests will run, `false` indicates that the rule is disabled.
 * object - Containing the following values:
-  * `ignoredTags` - An array of element tag names that should be whitelisted. Default to `[]`.
+  * `ignoredTags` - An array of element tag names that should be allowlisted. Default to `[]`.
   * `ignoreTabindex` - When `true` tabindex will be ignored. Defaults to `false`.
   * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
   * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.
