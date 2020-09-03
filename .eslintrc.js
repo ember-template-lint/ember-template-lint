@@ -33,7 +33,7 @@ module.exports = {
     curly: 'error',
     eqeqeq: 'error',
     'func-style': ['error', 'declaration'],
-    'id-denylist': ['error', 'whitelist', 'blacklist'],
+    'id-denylist': ['error', 'whitelist', 'whiteList', 'blacklist', 'blackList'],
     'new-parens': 'error',
     'no-async-promise-executor': 'error',
     'no-console': 'error',
@@ -146,17 +146,6 @@ module.exports = {
       },
       rules: {
         'import/no-dynamic-require': 'off',
-      },
-    },
-    {
-      files: [
-        'lib/rules/no-bare-strings.js',
-        'lib/rules/simple-unless.js',
-        'test/unit/rules/no-bare-strings-test.js',
-        'test/unit/rules/simple-unless-test.js',
-      ],
-      rules: {
-        'id-denylist': 'off',
       },
     },
   ],
