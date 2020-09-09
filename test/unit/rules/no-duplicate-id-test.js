@@ -202,5 +202,50 @@ generateRuleTests({
         source: 'id="{{"partA"}}{{partB}}partC"',
       },
     },
+    {
+      template: '{{#foo elementId="id-00"}}{{/foo}}{{bar elementId="id-00"}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 34,
+        source: '{{bar elementId="id-00"}}',
+      },
+    },
+    {
+      template: '{{#foo id="id-00"}}{{/foo}}{{bar id="id-00"}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 27,
+        source: '{{bar id="id-00"}}',
+      },
+    },
+    {
+      template: '{{#foo id="id-00"}}{{/foo}}<Bar id="id-00" />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 32,
+        source: 'id="id-00"',
+      },
+    },
+    {
+      template: '{{#foo id="id-00"}}{{/foo}}<Bar @id="id-00" />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 32,
+        source: '@id="id-00"',
+      },
+    },
+    {
+      template: '{{#foo id="id-00"}}{{/foo}}<Bar @elementId="id-00" />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 32,
+        source: '@elementId="id-00"',
+      },
+    },
   ],
 });
