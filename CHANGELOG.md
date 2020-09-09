@@ -1,3 +1,28 @@
+## v2.12.0 (2020-09-09)
+
+#### :boom: Breaking Change
+* [#1509](https://github.com/ember-template-lint/ember-template-lint/pull/1509) Add `no-duplicate-id` to `a11y` preset ([@rwjblue](https://github.com/rwjblue))
+* [#1505](https://github.com/ember-template-lint/ember-template-lint/pull/1505) Add `no-duplicate-attributes` to `a11y` preset ([@MelSumner](https://github.com/MelSumner))
+
+#### :rocket: Enhancement
+* [#1187](https://github.com/ember-template-lint/ember-template-lint/pull/1187) Adds new rule: no-duplicate-id ([@MelSumner](https://github.com/MelSumner))
+* [#1504](https://github.com/ember-template-lint/ember-template-lint/pull/1504) Update documentation for `no-duplicate-attributes` ([@MelSumner](https://github.com/MelSumner))
+* [#1466](https://github.com/ember-template-lint/ember-template-lint/pull/1466) Cache `pending`/`ignore` config lookups to speed up linting of larger codebases ([@fivetanley](https://github.com/fivetanley))
+
+#### :bug: Bug Fix
+* [#1497](https://github.com/ember-template-lint/ember-template-lint/pull/1497) Avoid validating text within attributes in `no-whitespace-within-word` ([@zelaznik](https://github.com/zelaznik))
+
+#### :memo: Documentation
+* [#1504](https://github.com/ember-template-lint/ember-template-lint/pull/1504) Update documentation for `no-duplicate-attributes` ([@MelSumner](https://github.com/MelSumner))
+
+#### Committers: 5
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Stanley Stuart ([@fivetanley](https://github.com/fivetanley))
+- Steve Zelaznik ([@zelaznik](https://github.com/zelaznik))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.11.0 (2020-08-27)
 
 #### :rocket: Enhancement
