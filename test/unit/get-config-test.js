@@ -5,7 +5,6 @@ const { stripIndent } = require('common-tags');
 const recommendedConfig = require('../../lib/config/recommended');
 const {
   getProjectConfig,
-  getConfigForFile,
   determineRuleConfig,
   resolveProjectConfig,
   getRuleFromString,
@@ -613,116 +612,52 @@ describe('determineRuleConfig', function () {
   });
 });
 
-describe('getConfigForFile', function () {
-  it('Merges the overrides rules with existing rules config', function () {
-    let config = {
-      rules: {
-        foo: 'bar',
-        baz: 'derp',
-      },
-      overrides: [
-        {
-          files: ['**/templates/**/*.hbs'],
-          rules: {
-            baz: 'bang',
-          },
-        },
-      ],
-    };
-
-    let expectedRule = {
-      foo: 'bar',
-      baz: 'bang',
-    };
-    let actual = getConfigForFile(config, { filePath: 'app/templates/foo.hbs' });
-
-    expect(actual.rules).toEqual(expectedRule);
-  });
-
-  it('Returns the correct rules config if overrides is empty/not present', function () {
-    let config = {
-      rules: {
-        foo: 'bar',
-        baz: 'derp',
-      },
-      overrides: [],
-    };
-
-    // clone to ensure we are not mutating
-    let expected = JSON.parse(JSON.stringify(config));
-
-    let actual = getConfigForFile(config, 'app/templates/foo.hbs');
-
-    expect(actual.rules).toEqual(expected.rules);
-
-    delete config.overrides;
-
-    actual = getConfigForFile(config, 'app/templates/foo.hbs');
-
-    expect(actual.rules).toEqual(expected.rules);
-  });
-
-  it('Merges the overrides rules from multiple overrides with existing rules config', function () {
-    let config = {
-      rules: {
-        qux: 'blobber',
-        foo: 'bar',
-        baz: 'derp',
-      },
-      overrides: [
-        {
-          files: ['**/templates/**/*.hbs'],
-          rules: {
-            baz: 'bang',
-          },
-        },
-        {
-          files: ['**/foo.hbs'],
-          rules: {
-            foo: 'zomg',
-          },
-        },
-      ],
-    };
-
-    let expectedRule = {
-      qux: 'blobber',
-      foo: 'zomg',
-      baz: 'bang',
-    };
-    let actual = getConfigForFile(config, { filePath: 'app/templates/foo.hbs' });
-
-    expect(actual.rules).toEqual(expectedRule);
-  });
-
-  it('returns the correct pendingStatus when the provided moduleId is listed in `pending`', function () {
-    let config = {
-      pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-    };
-
-    expect(getConfigForFile(config, { moduleId: 'some/path/here' }).pendingStatus).toBeTruthy();
-    expect(getConfigForFile(config, { moduleId: 'foo/bar/baz' }).pendingStatus).toBeTruthy();
-    expect(getConfigForFile(config, { moduleId: 'some/other/path' }).pendingStatus).toBeFalsy();
-  });
-
-  it('matches with absolute paths for modules', function () {
-    let config = {
-      pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-    };
-    expect(
-      getConfigForFile(config, { moduleId: `${process.cwd()}/some/path/here` }).pendingStatus
-    ).toBeTruthy();
-    expect(
-      getConfigForFile(config, { moduleId: `${process.cwd()}/foo/bar/baz` }).pendingStatus
-    ).toBeTruthy();
-  });
-
+describe('resolveProjectConfig', function () {
   it('should return an empty object when options.config is set explicitly false', function () {
     const config = resolveProjectConfig({ config: false });
 
     expect(config).toEqual({});
   });
+});
 
+describe('getProjectConfig', function () {
+  it('processing config is idempotent', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended'],
+      rules: {
+        bar: false,
+      },
+    };
+
+    let expected = {
+      foo: { config: true, severity: 2 },
+      bar: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig({ config });
+    expect(processedConfig.rules).toEqual(expected);
+
+    let reprocessedConfig = getProjectConfig({ config });
+    expect(reprocessedConfig.rules).toEqual(expected);
+  });
+});
+
+describe('getRuleFromString', function () {
   it('should be able to translate rule:severity to an object', function () {
     expect(getRuleFromString('no-implicit-this:error')).toEqual({
       name: 'no-implicit-this',
@@ -771,40 +706,5 @@ describe('getConfigForFile', function () {
         'Error parsing specified `--rule` config no-implicit-this:["error", "allow": ["some-helper"] }] as JSON.'
       );
     }
-  });
-
-  it('processing config is idempotent', function () {
-    let config = {
-      plugins: [
-        {
-          name: 'foo',
-          configurations: {
-            recommended: {
-              rules: {
-                foo: true,
-              },
-            },
-          },
-          rules: {
-            foo: class Rule {},
-          },
-        },
-      ],
-      extends: ['foo:recommended'],
-      rules: {
-        bar: false,
-      },
-    };
-
-    let expected = {
-      foo: { config: true, severity: 2 },
-      bar: { config: false, severity: 0 },
-    };
-
-    let processedConfig = getProjectConfig({ config });
-    expect(processedConfig.rules).toEqual(expected);
-
-    let reprocessedConfig = getProjectConfig({ config });
-    expect(reprocessedConfig.rules).toEqual(expected);
   });
 });
