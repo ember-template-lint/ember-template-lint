@@ -1,9 +1,4 @@
 module.exports = {
-  plugins: [
-    './plugins/plugin1'
-  ],
-  extends: [
-    'recommended',
-    'plugin1:recommended'
-  ]
+  plugins: ['./plugins/plugin1'],
+  extends: ['plugin1:recommended', 'recommended'],
 };
