@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "2.12.0",
+  "version": "2.12.1",
   "description": "Linter for Ember or Handlebars templates.",
   "keywords": [],
   "homepage": "https://github.com/ember-template-lint/ember-template-lint",
