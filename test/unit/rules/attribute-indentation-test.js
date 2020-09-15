@@ -12,6 +12,32 @@ generateRuleTests({
       config: {
         'mustache-open-end': 'new-line',
         'element-open-end': 'new-line',
+        'as-indentation': 'attribute',
+      },
+      template: `
+      {{#foo
+        attribute=this.mine
+        as |let|
+      }}
+      {{/foo}}`,
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+        'element-open-end': 'new-line',
+        'as-indentation': 'closing-brace',
+      },
+      template: `
+      {{#foo
+        attribute=this.mine
+      as |let|
+      }}
+      {{/foo}}`,
+    },
+    {
+      config: {
+        'mustache-open-end': 'new-line',
+        'element-open-end': 'new-line',
       },
       template:
         '<div' +
