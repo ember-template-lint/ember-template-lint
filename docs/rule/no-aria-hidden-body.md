@@ -20,10 +20,6 @@ This rule **allows** the following:
 <body>
 ```
 
-```hbs
-{{!-- TODO: Example 2  --}}
-```
-
 ## References
 
 * [WCAG 4.1.2 - Name, Role, Value (Level A)](https://www.w3.org/TR/WCAG21/#name-role-value)
