@@ -2,7 +2,7 @@
 
 If two of the same landmark elements or landmark roles are found in the same template, ensure that they have a unique label (provided by the aria-label or aria-labelledby attribute).
 
-## List of elements & their corresponding roles
+List of elements & their corresponding roles
 
 - header (banner)
 - main (main)
@@ -47,3 +47,5 @@ This rule **allows** the following:
 <nav aria-label="primary site navigation"></nav>
 <div role="navigation" aria-label="secondary site navigation within home page"></div>
 ```
+
+## References

@@ -1,8 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
 const rule = require('../../../lib/rules/no-duplicate-landmark-labels');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 const { createErrorMessage } = rule;
 
