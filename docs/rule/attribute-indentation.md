@@ -133,3 +133,9 @@ Block form (HTML)
 ## Related Rules
 
 * [block-indentation](block-indentation.md)
+* [eslint/max-len](https://eslint.org/docs/rules/max-len)
+* [eslint/indent](https://eslint.org/docs/rules/indent)
+
+## References
+
+* [Google style guide/line wrapping](https://google.github.io/styleguide/htmlcssguide.html#HTML_Line-Wrapping)

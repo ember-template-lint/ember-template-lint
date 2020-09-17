@@ -27,11 +27,6 @@ Uncaught (in promise) TypeError: func is not a function
 This is untraceable for end-users.
 This linting rule determines if it is a component or not and emits an error if argument is assigned to a lower-case element without the same block name and without dots in notation.
 
-This rule will also emit an error for these other conditions:
-
-- trying to specify "path-like" string as attribute argument
-- trying to use an HTML element with block params
-
 ## Examples
 
 This rule **forbids** the following:
@@ -44,20 +39,6 @@ This rule **forbids** the following:
 <img @src="1" >
 ```
 
-```hbs
-<img src="this.picture" >
-```
-
-```hbs
-<img src="@img" >
-```
-
-```hbs
-<div as |blockName|>
-    {{blockName}}
-</div>
-```
-
 This rule **allows** the following:
 
 ```hbs
@@ -66,20 +47,6 @@ This rule **allows** the following:
 
 ```hbs
 <Img @src="1" />
-```
-
-```hbs
-<img src={{this.picture}} >
-```
-
-```hbs
-<img src={{@img}} >
-```
-
-```hbs
-<MyComponent as |blockName|>
-  {{blockName}}
-</MyComponent>
 ```
 
 ```hbs
@@ -100,6 +67,10 @@ This rule **allows** the following:
 </MyComponent>
 ```
 
+## Related Rules
+
+* [no-potential-path-strings](no-potential-path-strings.md)
+
 ## References
 
-- [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)
+* [Component Arguments and HTML Attributes](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/)

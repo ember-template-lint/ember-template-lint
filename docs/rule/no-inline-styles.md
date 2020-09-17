@@ -34,3 +34,7 @@ This rule **allows** the following:
 ## Related Rules
 
 * [style-concatenation](style-concatenation.md)
+
+## References
+
+* [Deprecations/binding style attributes](https://emberjs.com/deprecations/v1.x/#toc_binding-style-attributes)

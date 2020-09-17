@@ -17,3 +17,8 @@ This rule **allows** the following:
 ```hbs
 {{!-- comment goes here --}}
 ```
+
+## References
+
+* [Ember guides/template features](https://guides.emberjs.com/release/components/#toc_supported-features)
+* [Handlebars docs/comments](https://handlebarsjs.com/guide/#template-comments)

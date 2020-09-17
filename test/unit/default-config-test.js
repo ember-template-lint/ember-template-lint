@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+
 const rules = require('../../lib/rules');
 
 const DEFAULT_CONFIG_PATH = path.join(__dirname, '..', '..', 'lib', 'config');

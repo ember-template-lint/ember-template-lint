@@ -1,6 +1,20 @@
 'use strict';
 
+const rule = require('../../../lib/rules/no-bare-strings');
 const generateRuleTests = require('../../helpers/rule-test-harness');
+
+describe('imports', () => {
+  it('should expose the default config', () => {
+    expect(rule.DEFAULT_CONFIG).toEqual(
+      expect.objectContaining({
+        allowlist: expect.arrayContaining(['&lpar;']),
+        whitelist: expect.arrayContaining(['&lpar;']),
+        globalAttributes: expect.arrayContaining(['title']),
+        elementAttributes: expect.any(Object),
+      })
+    );
+  });
+});
 
 generateRuleTests({
   name: 'no-bare-strings',
@@ -94,16 +108,26 @@ generateRuleTests({
       template: '<input placeholder="hahaha">',
     },
 
-    '<foo-bar>\n</foo-bar>',
-
     {
       // combine bare string with a variable
       config: ['X'],
       template: '<input placeholder="{{foo}}X">',
     },
 
-    '{{! template-lint-disable no-bare-strings}}LOL{{! template-lint-enable no-bare-strings}}',
+    {
+      // deprecated `whitelist` config
+      config: { whitelist: ['Z'] },
+      template: '<p>Z</p>',
+    },
 
+    {
+      // `allowlist` supercedes deprecated `whitelist` config
+      config: { allowlist: ['Y'], whitelist: ['Z'] },
+      template: '<p>Y</p>',
+    },
+
+    '<foo-bar>\n</foo-bar>',
+    '{{! template-lint-disable no-bare-strings}}LOL{{! template-lint-enable no-bare-strings}}',
     `{{!-- template-lint-disable no-bare-strings --}}
 <i class="material-icons">folder_open</i>
 {{!-- template-lint-enable no-bare-strings --}}`,
@@ -258,6 +282,34 @@ generateRuleTests({
           line: 2,
           column: 9,
           source: 'trolol',
+        },
+      ],
+    },
+
+    {
+      // deprecated `whitelist` config - rule still logs normally
+      config: { whitelist: ['Z'] },
+      template: '<p>Y</p>',
+      results: [
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 3,
+          source: 'Y',
+        },
+      ],
+    },
+
+    {
+      // `allowlist` supercedes deprecated `whitelist` config
+      config: { allowlist: ['Y'], whitelist: ['Z'] },
+      template: '<p>Z</p>',
+      results: [
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 3,
+          source: 'Z',
         },
       ],
     },

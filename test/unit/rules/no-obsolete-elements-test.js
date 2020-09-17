@@ -1,10 +1,10 @@
 'use strict';
 
+const {
+  ERROR_MESSAGE_OBSOLETE_ELEMENT,
+  OBSOLETE_ELEMENTS,
+} = require('../../../lib/rules/no-obsolete-elements');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const rule = require('../../../lib/rules/no-obsolete-elements');
-
-const ERROR_MESSAGE_OBSOLETE_ELEMENT = rule.ERROR_MESSAGE_OBSOLETE_ELEMENT;
-const OBSOLETE_ELEMENTS = rule.OBSOLETE_ELEMENTS;
 
 generateRuleTests({
   name: 'no-obsolete-elements',

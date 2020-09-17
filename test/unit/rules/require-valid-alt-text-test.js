@@ -1,7 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/require-valid-alt-text');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/require-valid-alt-text').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'require-valid-alt-text',

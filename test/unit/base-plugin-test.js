@@ -1,13 +1,15 @@
 'use strict';
 
-const { parse, transform } = require('ember-template-recast');
-const Rule = require('./../../lib/rules/base');
-const { determineRuleConfig } = require('./../../lib/get-config');
 const { readdirSync } = require('fs');
 const { join, parse: parsePath } = require('path');
+
+const { parse, transform } = require('ember-template-recast');
+
+const EditorConfigResolver = require('../../lib/get-editor-config');
 const ruleNames = Object.keys(require('../../lib/rules'));
 const Project = require('../helpers/fake-project');
-const EditorConfigResolver = require('../../lib/get-editor-config');
+const { determineRuleConfig } = require('./../../lib/get-config');
+const Rule = require('./../../lib/rules/base');
 
 describe('base plugin', function () {
   let project, editorConfigResolver;
@@ -328,6 +330,44 @@ describe('base plugin', function () {
         ]
       );
       expect(messages).toHaveLength(3);
+    });
+
+    describe('allowInlineConfig: false', function () {
+      function processTemplate(template) {
+        let Rule = buildPlugin({
+          MustacheCommentStatement(node) {
+            this.process(node);
+          },
+        });
+
+        Rule.prototype.log = function (result) {
+          messages.push(result.message);
+        };
+        Rule.prototype.process = function (node) {
+          config = this._processInstructionNode(node);
+        };
+
+        runRules(template, [
+          Object.assign({ allowInlineConfig: false }, plugin(Rule, 'fake', 'foo')),
+        ]);
+      }
+
+      it('inline config has no effect', function () {
+        processTemplate('{{! template-lint-disable fake }}');
+
+        expect(config).toEqual(null);
+      });
+
+      it('unknown rules do not throw an error', function () {
+        processTemplate(
+          [
+            '{{! template-lint-enable notarule }}',
+            '{{! template-lint-disable fake norme meneither }}',
+            '{{! template-lint-configure nope false }}',
+          ].join('\n')
+        );
+        expect(messages).toEqual([]);
+      });
     });
   });
 

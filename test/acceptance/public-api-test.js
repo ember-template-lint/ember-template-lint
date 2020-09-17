@@ -1,11 +1,13 @@
 'use strict';
 
-const path = require('path');
 const fs = require('fs');
-const Linter = require('../../lib');
-const buildFakeConsole = require('./../helpers/console');
-const Project = require('../helpers/fake-project');
+const path = require('path');
+
 const chalk = require('chalk');
+
+const Linter = require('../../lib');
+const Project = require('../helpers/fake-project');
+const buildFakeConsole = require('./../helpers/console');
 
 const fixturePath = path.join(__dirname, '..', '/fixtures');
 

@@ -7,14 +7,17 @@ require('v8-compile-cache'); // eslint-disable-line import/no-unassigned-import
 
 const fs = require('fs');
 const path = require('path');
-const micromatch = require('micromatch');
-const isValidGlob = require('is-valid-glob');
+const util = require('util');
+
 const getStdin = require('get-stdin');
 const globby = require('globby');
+const isValidGlob = require('is-valid-glob');
+const micromatch = require('micromatch');
+
 const Linter = require('../lib');
 const processResults = require('../lib/helpers/process-results');
 
-const readFile = require('util').promisify(fs.readFile);
+const readFile = util.promisify(fs.readFile);
 
 const STDIN = '/dev/stdin';
 
@@ -132,13 +135,17 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'print-pending': {
-        describe: 'Print list of formated rules for use with `pending` in config file',
+        describe: 'Print list of formatted rules for use with `pending` in config file',
         boolean: true,
       },
       'ignore-pattern': {
         describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
         type: 'array',
         default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+      },
+      'no-inline-config': {
+        describe: 'Prevent inline configuration comments from changing config or rules',
+        boolean: true,
       },
     })
     .help()
@@ -212,6 +219,7 @@ async function run() {
       configPath: options.configPath,
       config,
       rule: options.rule,
+      allowInlineConfig: !options.noInlineConfig,
     });
   } catch (error) {
     console.error(error.message);

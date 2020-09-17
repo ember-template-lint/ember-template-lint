@@ -41,3 +41,7 @@ This rule **allows** the following:
   * array -- an array of strings to forbid, default: ['meta', 'style', 'html', 'style']
   * object -- An object with the following keys:
     * `forbidden` -- An array of forbidden element names
+
+## References
+
+* [Ember guides/template restrictions](https://guides.emberjs.com/release/components/#toc_restrictions)

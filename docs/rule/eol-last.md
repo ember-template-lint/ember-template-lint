@@ -30,3 +30,8 @@ The following values are valid configuration:
 ## Related Rules
 
 * [eol-last](https://eslint.org/docs/rules/eol-last) from eslint
+
+## References
+
+* [POSIX standard/line](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_206)
+* [Wikipedia/newline](https://en.wikipedia.org/wiki/Newline#Interpretation)
