@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'svg-require-valid-alt-text',
+  name: 'require-valid-svg',
 
   config: true,
 

@@ -1,4 +1,4 @@
-# svg-require-valid-alt-text
+# require-valid-svg
 
 TODO: context about the problem goes here
 
