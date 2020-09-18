@@ -66,5 +66,16 @@ generateRuleTests({
         column: 0,
       },
     },
+    {
+      template: '<svg alt></svg>',
+
+      result: {
+        message:
+          'An `<svg>` element without role `image` should not have the `alt` attribute defined',
+        source: '<svg alt></svg>',
+        line: 1,
+        column: 0,
+      },
+    },
   ],
 });
