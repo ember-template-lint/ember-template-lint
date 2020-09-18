@@ -214,6 +214,10 @@ const helpers = require('ember-template-lint').ASTHelpers;
 
   Returns true if this node is a link (`a`) element.
 
+* `function isSVGElement(node): boolean`
+
+  Returns true if this node is a svg (`svg`) element.
+
 * `function childrenFor(node): Object[]`
 
   Returns any child nodes of this node.
