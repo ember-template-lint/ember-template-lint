@@ -272,6 +272,7 @@ Each rule has emojis denoting:
 | :dress:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)               |
 | :white_check_mark:         | [simple-unless](./docs/rule/simple-unless.md)                                         |
 | :white_check_mark:         | [style-concatenation](./docs/rule/style-concatenation.md)                             |
+|                            | [svg-require-valid-alt-text](./docs/rule/svg-require-valid-alt-text.md)                    |
 | :white_check_mark:         | [table-groups](./docs/rule/table-groups.md)                                           |
 |                            | [template-length](./docs/rule/template-length.md)                                     |
 
