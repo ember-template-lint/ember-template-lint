@@ -9,45 +9,45 @@ TODO: what the rule does goes here
 This rule **forbids** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+<svg role="image">...</svg>
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<svg role="image" alt="">...</svg>
+```
+
+```hbs
+<svg role="image" alt="meaningful alt text">...</svg>
+```
+
+```hbs
+<svg role="image">
+  <title>Meaningful title</title>
+  ...
+</svg>
 ```
 
 This rule **allows** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+<svg role="image" alt="meaningful alt text goes here">
+  <title>Meaningful Title text because screen reader implementation support is spotty</title>
+  ...
+</svg>
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<a href="link.html" aria-label="home page">
+  <svg aria-hidden="true">...</svg>
+</a>
 ```
 
-## Migration
-
-TODO: suggest any fast/automated techniques for fixing violations in a large codebase
-
-* TODO: suggestion on how to fix violations using find-and-replace / regexp
-* TODO: suggestion on how to fix violations using a codemod
-
-## Configuration
-
-TODO: exclude this section if the rule has no extra configuration
-
-* object -- containing the following properties:
-  * string -- `parameterName1` -- TODO: description of parameter including the possible values and default value
-  * boolean -- `parameterName2` -- TODO: description of parameter including the possible values and default value
-
-## Related Rules
-
-* [TODO-related-rule-name1](related-rule-name1.md)
-* [TODO-related-rule-name2](related-rule-name2.md)
+```hbs
+<button aria-label="sort ascending to descending">
+  <svg aria-hidden="true">...</svg>
+</button>
+```
 
 ## References
 
-* TODO: link to relevant documentation goes here
-* TODO: link to relevant function spec goes here
-* TODO: link to relevant guide goes here
+> All non-text content that is presented to the user has a text alternative that serves the equivalent purpose, with few exceptions. See: [WCAG 1.1.1 - Non-text Content](https://www.w3.org/TR/WCAG21/#non-text-content)
