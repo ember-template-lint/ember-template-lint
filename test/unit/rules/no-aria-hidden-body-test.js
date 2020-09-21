@@ -12,21 +12,25 @@ generateRuleTests({
 
   bad: [
     {
-      template: '<body aria-hidden></body>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<body aria-hidden></body>',
-      },
-    },
-    {
       template: '<body aria-hidden="true"></body>',
+      fixedTemplate: '<body></body>',
       result: {
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
         source: '<body aria-hidden="true"></body>',
+        isFixable: true,
+      },
+    },
+    {
+      template: '<body aria-hidden></body>',
+      fixedTemplate: '<body></body>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<body aria-hidden></body>',
+        isFixable: true,
       },
     },
   ],
