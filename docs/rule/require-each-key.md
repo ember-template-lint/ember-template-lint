@@ -44,6 +44,12 @@ This rule **forbids** the following:
 {{/each}}
 ```
 
+```hbs
+{{#each this.items key="" as |item|}}
+  {{item.name}}
+{{/each}}
+```
+
 This rule **allows** the following:
 
 ```hbs
