@@ -1,8 +1,8 @@
 # require-each-key
 
-You might be having huge performance issues when rendering large data-sets with `{{#each}}`
+You might be having performance issues when rendering data-sets with `{{#each}}`
 
-In order to avoid that, it is recommended to use `key` with `{{#each}}` because, Ember will not rerendering all items, but only the ones that actually needed to be updated.
+In order to avoid that, it is recommended to use `key` with `{{#each}}` because, Ember will not be re-rendering all the items, but only the items that actually need to be updated.
 
 This rule will require to always use `key` with `{{#each}}`.
 
