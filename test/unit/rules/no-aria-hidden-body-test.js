@@ -8,7 +8,11 @@ generateRuleTests({
 
   config: true,
 
-  good: ['<body></body>', '<body><h1>Hello world</h1></body>'],
+  good: [
+    '<body></body>',
+    '<body><h1>Hello world</h1></body>',
+    '<body><p aria-hidden="true">Some things are better left unsaid</p></body>',
+  ],
 
   bad: [
     {

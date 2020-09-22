@@ -24,4 +24,6 @@ This rule **allows** the following:
 
 ## References
 
+* [Using the aria-hidden attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-hidden_attribute)
+* [How Lighthouse identifies hidden body elements](https://web.dev/aria-hidden-body/)
 * [WCAG 4.1.2 - Name, Role, Value (Level A)](https://www.w3.org/TR/WCAG21/#name-role-value)
