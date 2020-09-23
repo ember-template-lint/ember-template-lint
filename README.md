@@ -261,6 +261,7 @@ Each rule has emojis denoting:
 |                            | [no-yield-only](./docs/rule/no-yield-only.md)                                              |
 | :dress:                    | [quotes](./docs/rule/quotes.md)                                                            |
 | :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                                  |
+|                            | [require-each-key](./docs/rule/require-each-key.md)                                        |
 |                            | [require-form-method](./docs/rule/require-form-method.md)                                  |
 | :white_check_mark:         | [require-iframe-title](./docs/rule/require-iframe-title.md)                                |
 |                            | [require-input-label](./docs/rule/require-input-label.md)                                  |
