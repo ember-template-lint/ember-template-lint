@@ -7,7 +7,7 @@ require('v8-compile-cache'); // eslint-disable-line import/no-unassigned-import
 
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
+const { promisify } = require('util');
 
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -17,7 +17,7 @@ const micromatch = require('micromatch');
 const Linter = require('../lib');
 const processResults = require('../lib/helpers/process-results');
 
-const readFile = util.promisify(fs.readFile);
+const readFile = promisify(fs.readFile);
 
 const STDIN = '/dev/stdin';
 

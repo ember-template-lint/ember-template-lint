@@ -1,7 +1,7 @@
 'use strict';
 
 const { readdirSync } = require('fs');
-const { join, parse: parsePath } = require('path');
+const path = require('path');
 
 const { parse, transform } = require('ember-template-recast');
 
@@ -91,15 +91,15 @@ describe('base plugin', function () {
   }
 
   it('all presets correctly reexported', function () {
-    const presetsPath = join(__dirname, '../../lib/config');
+    const presetsPath = path.join(__dirname, '../../lib/config');
 
     const files = readdirSync(presetsPath);
     const presetFiles = files
-      .map((it) => parsePath(it))
+      .map((it) => path.parse(it))
       .filter((it) => it.ext === '.js' && it.name !== 'index')
       .map((it) => it.name);
 
-    const exportedPresets = require(join(presetsPath, 'index.js'));
+    const exportedPresets = require(path.join(presetsPath, 'index.js'));
     const exportedPresetNames = Object.keys(exportedPresets);
 
     expect(exportedPresetNames).toEqual(presetFiles);
