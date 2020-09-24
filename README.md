@@ -208,6 +208,7 @@ Each rule has emojis denoting:
 |                            | [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                  |
 | :white_check_mark:         | [no-args-paths](./docs/rule/no-args-paths.md)                                              |
 |                            | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)            |
+| :wrench:                   | [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                  |
 | :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                            |
 |                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                          |
 |                            | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)      |
