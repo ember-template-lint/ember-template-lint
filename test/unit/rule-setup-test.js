@@ -13,12 +13,6 @@ const RULE_NAMES_STYLISTIC = new Set(Object.keys(configStylistic.rules));
 describe('rules setup is correct', function () {
   const rulesEntryPath = path.join(__dirname, '..', '..', 'lib', 'rules');
   const files = readdirSync(rulesEntryPath);
-  const deprecatedFiles = readdirSync(path.join(rulesEntryPath, 'deprecations'));
-  const deprecatedRules = deprecatedFiles
-    .filter((fileName) => {
-      return fileName.endsWith('.js');
-    })
-    .map((fileName) => fileName.replace('.js', ''));
   const expectedRules = files
     .filter((fileName) => {
       return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
@@ -30,24 +24,14 @@ describe('rules setup is correct', function () {
     const exportedRules = Object.keys(defaultExport);
     exportedRules.forEach((ruleName) => {
       let pathName = path.join(rulesEntryPath, `${ruleName}`);
-
-      if (ruleName.startsWith('deprecated-')) {
-        pathName = path.join(rulesEntryPath, 'deprecations', `${ruleName}`);
-      }
-
       expect(defaultExport[ruleName]).toEqual(require(pathName));
     });
-    expect(expectedRules.length + deprecatedRules.length).toEqual(exportedRules.length);
+    expect(expectedRules.length).toEqual(exportedRules.length);
     expect(exportedRules).toEqual([...exportedRules].sort());
   });
 
   it('has docs/rule reference for each item', function () {
     const ruleDocsFolder = path.join(__dirname, '..', '..', 'docs', 'rule');
-    deprecatedRules.forEach((ruleName) => {
-      const docFileName = `${ruleName}.md`;
-      const docFilePath = path.join(ruleDocsFolder, 'deprecations', docFileName);
-      expect(existsSync(docFilePath)).toBe(true);
-    });
     expectedRules.forEach((ruleName) => {
       const docFileName = `${ruleName}.md`;
       const docFilePath = path.join(ruleDocsFolder, docFileName);
@@ -58,16 +42,9 @@ describe('rules setup is correct', function () {
   it('All rules have test files', function () {
     const testsPath = path.join(__dirname, '..', 'unit', 'rules');
     const ruleFiles = new Set(readdirSync(testsPath).filter((name) => name.endsWith('-test.js')));
-    const deprecatedRuleFiles = new Set(
-      readdirSync(path.join(testsPath, 'deprecations')).filter((name) => name.endsWith('-test.js'))
-    );
     expectedRules.forEach((ruleFileName) => {
       const ruleTestFileName = `${ruleFileName}-test.js`;
       expect(ruleFiles.has(ruleTestFileName)).toBe(true);
-    });
-    deprecatedRules.forEach((ruleFileName) => {
-      const ruleTestFileName = `${ruleFileName}-test.js`;
-      expect(deprecatedRuleFiles.has(ruleTestFileName)).toBe(true);
     });
   });
 
@@ -80,47 +57,6 @@ describe('rules setup is correct', function () {
       ":dress: The `extends: 'stylistic'` property in a configuration file enables this rule.";
     const FIXABLE_NOTICE =
       ':wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.';
-
-    deprecatedRules.forEach((ruleName) => {
-      const filePath = path.join(
-        __dirname,
-        '..',
-        '..',
-        'docs',
-        'rule',
-        'deprecations',
-        `${ruleName}.md`
-      );
-      const file = readFileSync(filePath, 'utf8');
-
-      expect(file).toContain(`# ${ruleName}`); // Title header.
-      expect(file).toContain('## Examples'); // Examples section header.
-      expect(file).toContain('## References');
-
-      if (RULE_NAMES_RECOMMENDED.has(ruleName)) {
-        expect(file).toContain(CONFIG_MSG_RECOMMENDED);
-      } else {
-        expect(file).not.toContain(CONFIG_MSG_RECOMMENDED);
-      }
-
-      if (RULE_NAMES_OCTANE.has(ruleName)) {
-        expect(file).toContain(CONFIG_MSG_OCTANE);
-      } else {
-        expect(file).not.toContain(CONFIG_MSG_OCTANE);
-      }
-
-      if (RULE_NAMES_STYLISTIC.has(ruleName)) {
-        expect(file).toContain(CONFIG_MSG_STYLISTIC);
-      } else {
-        expect(file).not.toContain(CONFIG_MSG_STYLISTIC);
-      }
-
-      if (isRuleFixable(ruleName)) {
-        expect(file).toContain(FIXABLE_NOTICE);
-      } else {
-        expect(file).not.toContain(FIXABLE_NOTICE);
-      }
-    });
 
     expectedRules.forEach((ruleName) => {
       const filePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
