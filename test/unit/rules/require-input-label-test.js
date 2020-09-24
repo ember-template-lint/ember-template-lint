@@ -28,6 +28,11 @@ generateRuleTests({
     '<label>Text here<Input /></label>',
     '<label>Text here {{input}}</label>',
     '<input id="label-input" ...attributes>',
+
+    // Hidden inputs are allowed.
+    '<input type="hidden"/>',
+    '<Input type="hidden" />',
+    '{{input type="hidden"}}',
   ],
 
   bad: [
@@ -110,6 +115,60 @@ generateRuleTests({
         line: 1,
         column: 18,
         source: '<input aria-label="Custom label">',
+      },
+    },
+    {
+      template: '{{input type="button"}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '{{input type="button"}}',
+      },
+    },
+    {
+      template: '{{input type=myType}}',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '{{input type=myType}}',
+      },
+    },
+    {
+      template: '<input type="button"/>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<input type="button"/>',
+      },
+    },
+    {
+      template: '<input type={{myType}}/>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<input type={{myType}}/>',
+      },
+    },
+    {
+      template: '<Input type="button"/>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<Input type="button"/>',
+      },
+    },
+    {
+      template: '<Input type={{myType}}/>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<Input type={{myType}}/>',
       },
     },
   ],
