@@ -43,9 +43,7 @@ const rulesTableContent = Object.keys(rules)
       isFixable ? EMOJI_FIXABLE : '',
     ].join('');
 
-    const url = ruleName.startsWith('deprecated-')
-      ? `./docs/rule/deprecations/${ruleName}.md`
-      : `./docs/rule/${ruleName}.md`;
+    const url = `./docs/rule/${ruleName}.md`;
     const link = `[${ruleName}](${url})`;
 
     return `| ${emoji} | ${link} |`;
