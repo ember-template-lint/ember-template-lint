@@ -11,34 +11,34 @@ This rule forbids the use of obsolete elements.
 This rule **forbids** the following:
 
 ```hbs
-<applet></applet>
 <acronym></acronym>
-<bgsound></bgsound>
-<dir></dir>
-<frame></frame>
-<frameset></frameset>
-<noframes></noframes>
-<isindex></isindex>
-<keygen>
-<listing></listing>
-<menuitem></menuitem>
-<nextid></nextid>
-<noembed></noembed>
-<plaintext></plaintext>
-<rb></rb>
-<rtc></rtc>
-<strike></strike>
-<xmp></xmp>
+<applet></applet>
 <basefont></basefont>
+<bgsound></bgsound>
 <big></big>
 <blink></blink>
 <center></center>
+<dir></dir>
 <font></font>
+<frame></frame>
+<frameset></frameset>
+<isindex></isindex>
+<keygen>
+<listing></listing>
 <marquee></marquee>
+<menuitem></menuitem>
 <multicol></multicol>
+<nextid></nextid>
 <nobr></nobr>
+<noembed></noembed>
+<noframes></noframes>
+<plaintext></plaintext>
+<rb></rb>
+<rtc></rtc>
 <spacer></spacer>
+<strike></strike>
 <tt></tt>
+<xmp></xmp>
 ```
 
 This rule **allows** anything that is not an obsolete element.

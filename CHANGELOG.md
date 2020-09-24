@@ -1,3 +1,16 @@
+## v2.12.1 (2020-09-11)
+
+#### :bug: Bug Fix
+* [#1514](https://github.com/ember-template-lint/ember-template-lint/pull/1514) Ensure `bad` test cases **always** have results. ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#1510](https://github.com/ember-template-lint/ember-template-lint/pull/1510) Update automated release setup. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.12.0 (2020-09-09)
 
 #### :boom: Breaking Change

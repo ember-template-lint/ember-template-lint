@@ -1,5 +1,5 @@
 const { readdirSync, existsSync, readFileSync } = require('fs');
-const { join } = require('path');
+const path = require('path');
 
 const configOctane = require('../../lib/config/octane');
 const configRecommended = require('../../lib/config/recommended');
@@ -11,9 +11,9 @@ const RULE_NAMES_OCTANE = new Set(Object.keys(configOctane.rules));
 const RULE_NAMES_STYLISTIC = new Set(Object.keys(configStylistic.rules));
 
 describe('rules setup is correct', function () {
-  const rulesEntryPath = join(__dirname, '..', '..', 'lib', 'rules');
+  const rulesEntryPath = path.join(__dirname, '..', '..', 'lib', 'rules');
   const files = readdirSync(rulesEntryPath);
-  const deprecatedFiles = readdirSync(join(rulesEntryPath, 'deprecations'));
+  const deprecatedFiles = readdirSync(path.join(rulesEntryPath, 'deprecations'));
   const deprecatedRules = deprecatedFiles
     .filter((fileName) => {
       return fileName.endsWith('.js');
@@ -29,10 +29,10 @@ describe('rules setup is correct', function () {
     const defaultExport = require(rulesEntryPath);
     const exportedRules = Object.keys(defaultExport);
     exportedRules.forEach((ruleName) => {
-      let pathName = join(rulesEntryPath, `${ruleName}`);
+      let pathName = path.join(rulesEntryPath, `${ruleName}`);
 
       if (ruleName.startsWith('deprecated-')) {
-        pathName = join(rulesEntryPath, 'deprecations', `${ruleName}`);
+        pathName = path.join(rulesEntryPath, 'deprecations', `${ruleName}`);
       }
 
       expect(defaultExport[ruleName]).toEqual(require(pathName));
@@ -42,24 +42,24 @@ describe('rules setup is correct', function () {
   });
 
   it('has docs/rule reference for each item', function () {
-    const ruleDocsFolder = join(__dirname, '..', '..', 'docs', 'rule');
+    const ruleDocsFolder = path.join(__dirname, '..', '..', 'docs', 'rule');
     deprecatedRules.forEach((ruleName) => {
       const docFileName = `${ruleName}.md`;
-      const docFilePath = join(ruleDocsFolder, 'deprecations', docFileName);
+      const docFilePath = path.join(ruleDocsFolder, 'deprecations', docFileName);
       expect(existsSync(docFilePath)).toBe(true);
     });
     expectedRules.forEach((ruleName) => {
       const docFileName = `${ruleName}.md`;
-      const docFilePath = join(ruleDocsFolder, docFileName);
+      const docFilePath = path.join(ruleDocsFolder, docFileName);
       expect(existsSync(docFilePath)).toBe(true);
     });
   });
 
   it('All rules have test files', function () {
-    const testsPath = join(__dirname, '..', 'unit', 'rules');
+    const testsPath = path.join(__dirname, '..', 'unit', 'rules');
     const ruleFiles = new Set(readdirSync(testsPath).filter((name) => name.endsWith('-test.js')));
     const deprecatedRuleFiles = new Set(
-      readdirSync(join(testsPath, 'deprecations')).filter((name) => name.endsWith('-test.js'))
+      readdirSync(path.join(testsPath, 'deprecations')).filter((name) => name.endsWith('-test.js'))
     );
     expectedRules.forEach((ruleFileName) => {
       const ruleTestFileName = `${ruleFileName}-test.js`;
@@ -82,8 +82,16 @@ describe('rules setup is correct', function () {
       ':wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.';
 
     deprecatedRules.forEach((ruleName) => {
-      const path = join(__dirname, '..', '..', 'docs', 'rule', 'deprecations', `${ruleName}.md`);
-      const file = readFileSync(path, 'utf8');
+      const filePath = path.join(
+        __dirname,
+        '..',
+        '..',
+        'docs',
+        'rule',
+        'deprecations',
+        `${ruleName}.md`
+      );
+      const file = readFileSync(filePath, 'utf8');
 
       expect(file).toContain(`# ${ruleName}`); // Title header.
       expect(file).toContain('## Examples'); // Examples section header.
@@ -115,8 +123,8 @@ describe('rules setup is correct', function () {
     });
 
     expectedRules.forEach((ruleName) => {
-      const path = join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
-      const file = readFileSync(path, 'utf8');
+      const filePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
+      const file = readFileSync(filePath, 'utf8');
 
       expect(file).toContain(`# ${ruleName}`); // Title header.
       expect(file).toContain('## Examples'); // Examples section header.

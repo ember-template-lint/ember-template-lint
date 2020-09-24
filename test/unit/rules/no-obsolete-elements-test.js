@@ -19,11 +19,13 @@ generateRuleTests({
   ],
 
   bad: OBSOLETE_ELEMENTS.map((element) => {
+    const VOID_ELEMENTS = ['keygen'];
+    const html = VOID_ELEMENTS.includes(element) ? `<${element}>` : `<${element}></${element}>`;
     return {
-      template: `<${element}></${element}>`,
+      template: html,
       result: {
         message: ERROR_MESSAGE_OBSOLETE_ELEMENT(element),
-        source: `<${element}></${element}>`,
+        source: html,
         line: 1,
         column: 0,
       },
