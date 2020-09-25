@@ -13,6 +13,10 @@ generateRuleTests({
   good: [
     '<div><main></main></div>',
     '<div role="application"><div role="document"><div role="application"></div></div></div>',
+    '<footer><nav></nav></footer>', // nested landmarks of different types are okay
+    '<div role="footer"><nav></nav></div>',
+    '<footer><div role="nav"></div></footer>',
+    '<div role="footer"><div role="nav"></div></div>',
   ],
 
   bad: [
