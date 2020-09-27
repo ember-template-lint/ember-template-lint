@@ -1,3 +1,29 @@
+## v2.13.0 (2020-09-27)
+
+#### :rocket: Enhancement
+* [#1521](https://github.com/ember-template-lint/ember-template-lint/pull/1521) Add new rule `no-aria-hidden-body` ([@rajasegar](https://github.com/rajasegar))
+* [#1465](https://github.com/ember-template-lint/ember-template-lint/pull/1465) Add new rule `builtin-component-arguments` ([@Turbo87](https://github.com/Turbo87))
+* [#1525](https://github.com/ember-template-lint/ember-template-lint/pull/1525) Add new rule `require-each-key` ([@rajasegar](https://github.com/rajasegar))
+
+#### :bug: Bug Fix
+* [#1516](https://github.com/ember-template-lint/ember-template-lint/pull/1516) `no-whitespace-within-word` rule should ignore <style> elements ([@mydea](https://github.com/mydea))
+* [#1540](https://github.com/ember-template-lint/ember-template-lint/pull/1540) `require-input-label` rule should ignore hidden inputs ([@bmish](https://github.com/bmish))
+* [#1543](https://github.com/ember-template-lint/ember-template-lint/pull/1543) `no-invalid-block-param-definition` rule should ignore comments ([@bmish](https://github.com/bmish))
+* [#1533](https://github.com/ember-template-lint/ember-template-lint/pull/1533) Add missing `keygen` element to `no-obsolete-elements` rule elements list ([@bmish](https://github.com/bmish))
+* [#1495](https://github.com/ember-template-lint/ember-template-lint/pull/1495) Ensure `overrides` config parsing is idempotent ([@bobisjan](https://github.com/bobisjan))
+
+#### :house: Internal
+* [#1537](https://github.com/ember-template-lint/ember-template-lint/pull/1537) Remove unnecessary deprecations folder for rules ([@bmish](https://github.com/bmish))
+
+#### Committers: 6
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Francesco Novy ([@mydea](https://github.com/mydea))
+- Jan Bobisud ([@bobisjan](https://github.com/bobisjan))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.12.1 (2020-09-11)
 
 #### :bug: Bug Fix
