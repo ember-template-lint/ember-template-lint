@@ -253,30 +253,30 @@
   resolved "https://registry.yarnpkg.com/@glimmer/env/-/env-0.1.7.tgz#fd2d2b55a9029c6b37a6c935e8c8871ae70dfa07"
   integrity sha1-/S0rVakCnGs3psk16MiHGucN+gc=
 
-"@glimmer/interfaces@^0.54.1":
-  version "0.54.1"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.54.1.tgz#b8d2cfc59ed5dd5eefd8dd109657b580a34ef377"
-  integrity sha512-G8PdpZH2lugcsxt2N/R/WNKGCOXukCDKMCukda4a3DnYEXQLccTyhNVtJFWKHh1C6pxYLXD5sNA0b90GJUrCww==
+"@glimmer/interfaces@^0.59.1":
+  version "0.59.1"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.59.1.tgz#d7904a482d7c3113ea1c555372299f99585567b8"
+  integrity sha512-KPOUludcDdPPXm+78YmLR8hW7uSE1AjedVHdZ70OzSdQa27ZeLBdBGfN3pWBjQP/QSmL4k+wcfedAzO675jcxQ==
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
-"@glimmer/syntax@^0.54.1":
-  version "0.54.1"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.54.1.tgz#e3a1e1bfa72719ea2357a7f147ff595d0790a95f"
-  integrity sha512-bNRSXVOKBaZyE+kPjFy5BkoUK0VnVkQ3ph//YSwnVY4xM9AF9E5nKVgDBPxQlioCK3ODBWzhMdfTHZ/RHkLS3Q==
+"@glimmer/syntax@^0.59.0":
+  version "0.59.1"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.59.1.tgz#a1b97bb0b51d80fef04506efd2e549224a287e5a"
+  integrity sha512-0ENuadW5uLaIN06jLMD3QkbW20L68dwooCULOKCx5GGXx3cq6DRb0O0u8+6ABKMnxP7BGphmY7OysSk9myKmIA==
   dependencies:
-    "@glimmer/interfaces" "^0.54.1"
-    "@glimmer/util" "^0.54.1"
+    "@glimmer/interfaces" "^0.59.1"
+    "@glimmer/util" "^0.59.1"
     handlebars "^4.7.4"
     simple-html-tokenizer "^0.5.9"
 
-"@glimmer/util@^0.54.1":
-  version "0.54.1"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.54.1.tgz#9995b08dc7fd0cc8fb5c3522574d680ccc8f5511"
-  integrity sha512-WrpTueecsmzVALrG7U0LBLDWtsGvj3eRZ/z72BKi4+usK2DYt+346LS+VCgozC8XdCIS9BawI37qogIXCyZrjw==
+"@glimmer/util@^0.59.1":
+  version "0.59.1"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.59.1.tgz#7b673293f7b49771308d9ef521811300989bc287"
+  integrity sha512-jDtAGpsGTVp3Gd6cyEM4/SM/qF8f5t3OEm7dLwAoLK2gDvXcGUmQa/v8CZNbpmwAVlmkQTCtvYf9QjbD1D9I5Q==
   dependencies:
     "@glimmer/env" "0.1.7"
-    "@glimmer/interfaces" "^0.54.1"
+    "@glimmer/interfaces" "^0.59.1"
     "@simple-dom/interface" "^1.4.0"
 
 "@iarna/toml@2.2.5":
@@ -1434,7 +1434,7 @@ chalk@4.1.0, chalk@^4.0.0, chalk@^4.1.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
+chalk@^2.0.0, chalk@^2.4.1:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -1521,11 +1521,6 @@ cli-highlight@^2.1.4:
     parse5 "^5.1.1"
     parse5-htmlparser2-tree-adapter "^5.1.1"
     yargs "^15.0.0"
-
-cli-spinners@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/cli-spinners/-/cli-spinners-2.2.0.tgz#e8b988d9206c692302d8ee834e7a85c0144d8f77"
-  integrity sha512-tgU3fKwzYjiLEQgPMD9Jt+JjHVL9kW93FiIMX/l7rivvOD4/LL0Mf7gda3+4U2KJBloybwgj5KEoQgGRioMiKQ==
 
 cli-spinners@^2.4.0:
   version "2.4.0"
@@ -1621,10 +1616,10 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
-  integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
+commander@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-6.1.0.tgz#f8d722b78103141006b66f4c7ba1e97315ba75bc"
+  integrity sha512-wl7PNrYWd2y5mp1OK/LhTlv8Ff4kQJQRXXAvF+uU/TPNiVJUxZLRYGj/B0y/lPGAVcSbJqH2Za/cvHmrPMC8mA==
 
 commander@~2.20.3:
   version "2.20.3"
@@ -1974,17 +1969,17 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-ember-template-recast@^4.1.5:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-4.1.5.tgz#cc6581c9c7dff8b8345991326ee5b7c132757db3"
-  integrity sha512-+k4v1vmeSlqT8y5T/B25JE8iD1tkrs7TwDofMsqHgPw0Zr8hwdnx/FfB1ZqOscyiiaZiFvNh7eYv+vXaUtKJDg==
+ember-template-recast@^4.1.6:
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-4.1.6.tgz#34a0fdc423085c8d505a9e23e44e5ed4d93706f4"
+  integrity sha512-5r8Ur5grP8ylbuCPYvUCnYP31oe9WiFbWELlYi/uCp4WhmlsoyDD6IeG9Zs5Iy4CUEffEy/yFmZv/veNYMw6jA==
   dependencies:
-    "@glimmer/syntax" "^0.54.1"
+    "@glimmer/syntax" "^0.59.0"
     async-promise-queue "^1.0.5"
     colors "^1.4.0"
-    commander "^5.1.0"
+    commander "^6.1.0"
     globby "^11.0.1"
-    ora "^4.0.4"
+    ora "^5.1.0"
     slash "^3.0.0"
     tmp "^0.2.1"
     workerpool "^6.0.0"
@@ -4253,13 +4248,6 @@ lodash@4.17.20, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
-log-symbols@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
-  integrity sha512-dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ==
-  dependencies:
-    chalk "^2.4.2"
-
 log-symbols@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-4.0.0.tgz#69b3cc46d20f448eccdb75ea1fa733d9e821c920"
@@ -4844,7 +4832,7 @@ ora@5.0.0:
     strip-ansi "^6.0.0"
     wcwidth "^1.0.1"
 
-ora@5.1.0:
+ora@5.1.0, ora@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/ora/-/ora-5.1.0.tgz#b188cf8cd2d4d9b13fd25383bc3e5cba352c94f8"
   integrity sha512-9tXIMPvjZ7hPTbk8DFq1f7Kow/HU/pQYB60JbNq+QnGwcyhWVZaQ4hM9zQDEsPxw/muLpgiHSaumUZxCAmod/w==
@@ -4854,20 +4842,6 @@ ora@5.1.0:
     cli-spinners "^2.4.0"
     is-interactive "^1.0.0"
     log-symbols "^4.0.0"
-    mute-stream "0.0.8"
-    strip-ansi "^6.0.0"
-    wcwidth "^1.0.1"
-
-ora@^4.0.4:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/ora/-/ora-4.0.5.tgz#7410b5cc2d99fa637fd5099bbb9f02bfbb5a361e"
-  integrity sha512-jCDgm9DqvRcNIAEv2wZPrh7E5PcQiDUnbnWbAfu4NGAE2ZNqPFbDixmWldy1YG2QfLeQhuiu6/h5VRrk6cG50w==
-  dependencies:
-    chalk "^3.0.0"
-    cli-cursor "^3.1.0"
-    cli-spinners "^2.2.0"
-    is-interactive "^1.0.0"
-    log-symbols "^3.0.0"
     mute-stream "0.0.8"
     strip-ansi "^6.0.0"
     wcwidth "^1.0.1"
