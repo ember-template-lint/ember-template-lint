@@ -58,6 +58,13 @@ This rule **forbids** the following:
 </main>
 ```
 
+```hbs
+<header>
+  {{! the "header" tag is equivalent to the "banner" role }}
+  <div role="banner"></div>
+</header>
+```
+
 This rule **allows** the following:
 
 ```hbs
