@@ -84,10 +84,10 @@ This rule **allows** the following:
 ```
 
 ```hbs
-<footer>
+<header>
   <nav>
   </nav>
-</footer>
+</header>
 ```
 
 ## References
