@@ -43,6 +43,10 @@ as
   </MyComponent>
 </MyComponent>
 `,
+
+    // Ensure comments are ignored:
+    '<div {{! This is needed to serve as a container }}></div>',
+    '<MyComponent {{! This is needed to serve as a container }}></MyComponent>',
   ],
 
   bad: [
