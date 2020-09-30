@@ -267,6 +267,7 @@ Each rule has emojis denoting:
 |                            | [require-form-method](./docs/rule/require-form-method.md)                             |
 | :white_check_mark:         | [require-iframe-title](./docs/rule/require-iframe-title.md)                           |
 |                            | [require-input-label](./docs/rule/require-input-label.md)                             |
+|                            | [require-landmark-labels](./docs/rule/require-landmark-labels.md)                     |
 |                            | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                       |
 | :white_check_mark:         | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                       |
 | :dress:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)               |
