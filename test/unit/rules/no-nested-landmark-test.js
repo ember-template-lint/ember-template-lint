@@ -13,6 +13,10 @@ generateRuleTests({
   good: [
     '<div><main></main></div>',
     '<div role="application"><div role="document"><div role="application"></div></div></div>',
+    '<header><nav></nav></header>', // nested landmarks of different types are okay
+    '<div role="banner"><nav></nav></div>',
+    '<header><div role="navigation"></div></header>',
+    '<div role="banner"><div role="navigation"></div></div>',
   ],
 
   bad: [
@@ -88,6 +92,24 @@ generateRuleTests({
         line: 1,
         column: 8,
         source: '<header></header>',
+      },
+    },
+    {
+      template: '<header><div role="banner"></div></header>',
+      result: {
+        message: createErrorMessage('div'),
+        line: 1,
+        column: 8,
+        source: '<div role="banner"></div>',
+      },
+    },
+    {
+      template: '<div role="contentinfo"><footer></footer></div>',
+      result: {
+        message: createErrorMessage('footer'),
+        line: 1,
+        column: 24,
+        source: '<footer></footer>',
       },
     },
   ],
