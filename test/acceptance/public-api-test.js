@@ -285,7 +285,7 @@ describe('public api', function () {
       await project.dispose();
     });
 
-    it('returns whether the source has been fixed + an array of remaining issues with the provided template', function () {
+    it('returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -301,7 +301,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -312,7 +312,7 @@ describe('public api', function () {
       expect(result.isFixed).toEqual(false);
     });
 
-    it('ensures template parsing errors are only reported once (not once per-rule)', function () {
+    it('ensures template parsing errors are only reported once (not once per-rule)', async function () {
       let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
       project.write({
         app: {
@@ -324,7 +324,7 @@ describe('public api', function () {
 
       let templatePath = project.path('app/templates/other.hbs');
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -335,7 +335,7 @@ describe('public api', function () {
       expect(result.messages[0].fatal).toEqual(true);
     });
 
-    it('includes updated output when fixable', function () {
+    it('includes updated output when fixable', async function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
       project.write({
@@ -348,7 +348,7 @@ describe('public api', function () {
 
       let templatePath = project.path('app/templates/other.hbs');
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -359,7 +359,7 @@ describe('public api', function () {
       expect(result.isFixed).toEqual(true);
     });
 
-    it('updated output includes byte order mark if input source includes it', function () {
+    it('updated output includes byte order mark if input source includes it', async function () {
       let templateContents = '\uFEFF<button>LOL, Click me!</button>';
 
       project.write({
@@ -372,7 +372,7 @@ describe('public api', function () {
 
       let templatePath = project.path('app/templates/other.hbs');
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -422,7 +422,7 @@ describe('public api', function () {
       await project.dispose();
     });
 
-    it('returns an array of issues with the provided template', function () {
+    it('returns an array of issues with the provided template', async function () {
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -448,7 +448,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -457,16 +457,16 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('returns a "fatal" result object if an error occurs during parsing', function () {
+    it('returns a "fatal" result object if an error occurs during parsing', async function () {
       let template = '<div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
       });
 
       expect(result[0].fatal).toBe(true);
     });
 
-    it('triggers warnings when severity is set to warn', function () {
+    it('triggers warnings when severity is set to warn', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -476,7 +476,7 @@ describe('public api', function () {
 
       let template = ['<div>', '<p></p>', '</div>'].join('\n');
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -497,7 +497,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('allows custom severity level for rules along with custom config', function () {
+    it('allows custom severity level for rules along with custom config', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -507,7 +507,7 @@ describe('public api', function () {
 
       let template = ['<div>', '{{fooData}}{{barData}}', '</div>'].join('\n');
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -528,7 +528,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('defaults all messages to warning severity level when module listed in pending', function () {
+    it('defaults all messages to warning severity level when module listed in pending', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -538,7 +538,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -558,7 +558,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('does not exclude errors when other rules are marked as pending', function () {
+    it('does not exclude errors when other rules are marked as pending', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -568,7 +568,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -598,11 +598,11 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides - base case', function () {
+    it('Works with overrides - base case', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -625,7 +625,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides with custom warning severity', function () {
+    it('Works with overrides with custom warning severity', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -643,7 +643,7 @@ describe('public api', function () {
         },
       });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -666,7 +666,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works for older syntax without custom severity', function () {
+    it('Works for older syntax without custom severity', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -679,7 +679,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string {{foo}} {{baz}}</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -722,7 +722,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides with custom warning severity object', function () {
+    it('Works with overrides with custom warning severity object', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -740,7 +740,7 @@ describe('public api', function () {
         },
       });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -763,7 +763,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Should not trigger the lint error over custom overrides', function () {
+    it('Should not trigger the lint error over custom overrides', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -784,7 +784,7 @@ describe('public api', function () {
         },
       });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -793,7 +793,7 @@ describe('public api', function () {
       expect(result).toEqual([]);
     });
 
-    it('triggers warnings when specific rule is marked as pending', function () {
+    it('triggers warnings when specific rule is marked as pending', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -804,7 +804,7 @@ describe('public api', function () {
 
       let template = ['<div>', '<p></p>', '</div>'].join('\n');
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -825,7 +825,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('module listed via moduleId in pending passes an error results', function () {
+    it('module listed via moduleId in pending passes an error results', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -835,7 +835,7 @@ describe('public api', function () {
       });
 
       let template = '<div></div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -853,7 +853,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('module listed as object via rule exclusion in pending passes an error results', function () {
+    it('module listed as object via rule exclusion in pending passes an error results', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -863,7 +863,7 @@ describe('public api', function () {
       });
 
       let template = '<div></div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -881,7 +881,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('triggers error if pending rule is passing', function () {
+    it('triggers error if pending rule is passing', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -891,7 +891,7 @@ describe('public api', function () {
       });
 
       let template = '<div>Bare strings are bad</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -921,7 +921,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('does not include errors when marked as ignored', function () {
+    it('does not include errors when marked as ignored', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -931,7 +931,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -940,7 +940,7 @@ describe('public api', function () {
       expect(result).toEqual([]);
     });
 
-    it('does not include errors when marked as ignored using glob', function () {
+    it('does not include errors when marked as ignored using glob', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -950,7 +950,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -959,7 +959,7 @@ describe('public api', function () {
       expect(result).toEqual([]);
     });
 
-    it('shows a "rule not found" error if a rule definition is not found"', function () {
+    it('shows a "rule not found" error if a rule definition is not found"', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -968,7 +968,7 @@ describe('public api', function () {
       });
 
       let template = '';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -996,7 +996,7 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -1012,7 +1012,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1021,12 +1021,12 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('allow you to disable plugin rules inline', function () {
+    it('allow you to disable plugin rules inline', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'disabled-rule.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1047,7 +1047,7 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -1063,7 +1063,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1083,7 +1083,7 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -1109,7 +1109,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1130,7 +1130,7 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -1146,7 +1146,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1167,12 +1167,12 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
