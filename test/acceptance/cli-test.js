@@ -155,6 +155,29 @@ describe('ember-template-lint executable', function () {
       });
     });
 
+    describe('given path to single file with custom extension with errors', function () {
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.fizzle': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['app/templates/application.fizzle']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
     describe('given wildcard path resolving to single file', function () {
       it('should print errors', async function () {
         project.setConfig({

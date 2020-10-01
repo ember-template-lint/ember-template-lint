@@ -64,15 +64,22 @@ function executeGlobby(pattern, ignore) {
   );
 }
 
+function isFile(possibleFile) {
+  try {
+    let stat = fs.statSync(possibleFile);
+    return stat.isFile();
+  } catch {
+    return false;
+  }
+}
+
 function expandFileGlobs(filePatterns, ignorePattern, glob = executeGlobby) {
-  let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
   let result = new Set();
 
   filePatterns.forEach((pattern) => {
-    let isSupported = supportedExtensions.has(path.extname(pattern));
-    let isLiteralPath = !isGlob(pattern) && fs.existsSync(pattern);
+    let isLiteralPath = !isGlob(pattern) && isFile(pattern);
 
-    if (isSupported && isLiteralPath) {
+    if (isLiteralPath) {
       let isIgnored = micromatch.isMatch(pattern, ignorePattern);
 
       if (!isIgnored) {
