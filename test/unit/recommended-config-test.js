@@ -21,7 +21,7 @@ describe('recommended config', function () {
   });
 
   function ensureValid(source) {
-    it(`passes with: \`${source}\``, function () {
+    it(`passes with: \`${source}\``, async function () {
       let config = { extends: 'recommended' };
 
       let linter = new Linter({
@@ -29,7 +29,7 @@ describe('recommended config', function () {
         config,
       });
 
-      expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).toEqual([]);
+      expect(await linter.verify({ source, moduleId: 'some/thing.hbs' })).toEqual([]);
     });
   }
 
