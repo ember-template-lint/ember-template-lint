@@ -1,12 +1,35 @@
 # require-input-label
 
-Users with assistive technology need `<input>` elements to have associated labels. It's so essential for users that failure to provide an associated label for an `<input>` element will cause failure of **three** different WCAG success criteria: [1.3.1, Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html), [3.3.2, Labels or Instructions](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html), and [4.1.2, Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html). It is also associated with common failure [#68: Failure of Success Criterion 4.1.2 due to a user interface control not having a programmatically determined name](https://www.w3.org/WAI/WCAG21/Techniques/failures/F68).
+Users with assistive technology need user-input form elements to have associated labels.
 
-This rule checks to see if the `<input>` element is contained by a label element. If it is not, it checks to see if the `<input>` element has any of these three attributes: `id`, `aria-label`, or `aria-labelledby`. While the `id` element on the `<input>` is not a concrete indicator of the presence of an associated `<label>` element with a `for` attribute, it is a good indicator that one likely exists.
+The rule applies to the following HTML tags:
+
+* `<input>`
+* `<textarea>`
+* `<select>`
+
+The rule also applies to the following ember components:
+
+* `<Textarea />`
+* `<Input />`
+* `{{textarea}}`
+* `{{input}}`
+
+The label is **essential** for users.  Leaving it out will cause **three** different WCAG criteria to fail:
+
+* [1.3.1, Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html)
+* [3.3.2, Labels or Instructions](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html)
+* [4.1.2, Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html)
+
+It is also associated with this common failure:
+
+* [#68: Failure of Success Criterion 4.1.2 due to a user interface control not having a programmatically determined name](https://www.w3.org/WAI/WCAG21/Techniques/failures/F68).
+
+This rule checks to see if the input is contained by a label element. If it is not, it checks to see if the input has any of these three attributes: `id`, `aria-label`, or `aria-labelledby`. While the `id` element on the input is not a concrete indicator of the presence of an associated `<label>` element with a `for` attribute, it is a good indicator that one likely exists.
 
 This rule does not allow an input to use a `title` attribute for a valid label. This is because implementation by browsers is unreliable and incomplete.
 
-This rule is unable to determine if a valid label is present if ...attributes is used, and must allow it to pass. However, developers are encouraged to write tests to ensure that a valid label is present for each `input` element present.
+This rule is unable to determine if a valid label is present if ...attributes is used, and must allow it to pass. However, developers are encouraged to write tests to ensure that a valid label is present for each input element present.
 
 ## Examples
 
@@ -18,6 +41,10 @@ This rule **forbids** the following:
 
 ```hbs
 <input title="some label text" />
+```
+
+```hbs
+<textarea />
 ```
 
 This rule **allows** the following:
