@@ -1278,6 +1278,106 @@ describe('public api', function () {
       await project.dispose();
     });
 
+    it('[.html] does not identify errors for ember-cli default app/index.html (3.20)', async function () {
+      // reset config to default value
+      project.setConfig();
+
+      project.write({
+        app: {
+          'index.html': `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyApp</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{content-for "head"}}
+
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/my-app.css">
+
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/my-app.js"></script>
+
+    {{content-for "body-footer"}}
+  </body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let results = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(results).toEqual([]);
+    });
+
+    it('[.html] does not identify errors for ember-cli default tests/index.html (3.20)', async function () {
+      // reset config to default value
+      project.setConfig();
+
+      project.write({
+        tests: {
+          'index.html': `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyApp Tests</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{content-for "head"}}
+    {{content-for "test-head"}}
+
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/my-app.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
+
+    {{content-for "head-footer"}}
+    {{content-for "test-head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+    {{content-for "test-body"}}
+
+    <script src="/testem.js" integrity=""></script>
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/test-support.js"></script>
+    <script src="{{rootURL}}assets/my-app.js"></script>
+    <script src="{{rootURL}}assets/tests.js"></script>
+
+    {{content-for "body-footer"}}
+    {{content-for "test-body-footer"}}
+  </body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('tests/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let results = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(results).toEqual([]);
+    });
+
     it('[.html] returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
       let templatePath = project.path('app/templates/application.html');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
