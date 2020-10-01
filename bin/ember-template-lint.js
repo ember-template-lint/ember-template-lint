@@ -61,16 +61,24 @@ function executeGlobby(workingDir, pattern, ignore) {
   return globby.sync(pattern, options).filter((filePath) => filePath.slice(-4) === '.hbs');
 }
 
-function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = executeGlobby) {
+function isFile(possibleFile) {
+  try {
+    let stat = fs.statSync(possibleFile);
+    return stat.isFile();
+  } catch {
+    return false;
+  }
+}
+
+function expandFileGlobs(filePatterns, ignorePattern, glob = executeGlobby) {
   let result = new Set();
   let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
 
   filePatterns.forEach((pattern) => {
-    let isSupported = supportedExtensions.has(path.extname(pattern));
-    let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
+    let isLiteralPath = !isGlob(pattern) && isFile(pattern);
 
-    if (isSupported && isLiteralPath) {
-      let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
+    if (isLiteralPath) {
+      let isIgnored = micromatch.isMatch(pattern, ignorePattern);
 
       if (!isIgnored) {
         result.add(pattern);
