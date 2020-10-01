@@ -11,7 +11,7 @@ const { promisify } = require('util');
 
 const getStdin = require('get-stdin');
 const globby = require('globby');
-const isValidGlob = require('is-valid-glob');
+const isGlob = require('is-glob');
 const micromatch = require('micromatch');
 
 const Linter = require('../lib');
@@ -53,16 +53,27 @@ async function lintSource(linter, options, shouldFix) {
   }
 }
 
-function expandFileGlobs(filePatterns, ignorePattern) {
-  let result = new Set();
+function executeGlobby(pattern, ignore) {
   let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
+
+  return (
+    globby
+      // `--no-ignore-pattern` results in `ignorePattern === [false]`
+      .sync(pattern, ignore[0] === false ? {} : { ignore, gitignore: true })
+      .filter((filePath) => supportedExtensions.has(path.extname(filePath)))
+  );
+}
+
+function expandFileGlobs(filePatterns, ignorePattern, glob = executeGlobby) {
+  let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
+  let result = new Set();
 
   filePatterns.forEach((pattern) => {
     let isSupported = supportedExtensions.has(path.extname(pattern));
-    let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
+    let isLiteralPath = !isGlob(pattern) && fs.existsSync(pattern);
 
     if (isSupported && isLiteralPath) {
-      let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
+      let isIgnored = micromatch.isMatch(pattern, ignorePattern);
 
       if (!isIgnored) {
         result.add(pattern);
@@ -71,11 +82,7 @@ function expandFileGlobs(filePatterns, ignorePattern) {
       return;
     }
 
-    globby
-      // `--no-ignore-pattern` results in `ignorePattern === [false]`
-      .sync(pattern, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
-      .filter((filePath) => supportedExtensions.has(path.extname(filePath)))
-      .forEach((filePath) => result.add(filePath));
+    glob(pattern, ignorePattern).forEach((filePath) => result.add(filePath));
   });
 
   return result;

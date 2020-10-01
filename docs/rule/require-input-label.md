@@ -69,6 +69,10 @@ This rule **allows** the following:
 <input ...attributes />
 ```
 
+```hbs
+<input type="hidden" />
+```
+
 ## Migration
 
 * the recommended fix is to add an associated label element.
