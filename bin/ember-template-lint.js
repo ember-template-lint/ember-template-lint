@@ -11,7 +11,7 @@ const { promisify } = require('util');
 
 const getStdin = require('get-stdin');
 const globby = require('globby');
-const isValidGlob = require('is-valid-glob');
+const isGlob = require('is-glob');
 const micromatch = require('micromatch');
 
 const Linter = require('../lib');
@@ -49,15 +49,24 @@ function lintSource(linter, options, shouldFix) {
   }
 }
 
-function expandFileGlobs(filePatterns, ignorePattern) {
+function executeGlobby(pattern, ignore) {
+  return (
+    globby
+      // `--no-ignore-pattern` results in `ignorePattern === [false]`
+      .sync(pattern, ignore[0] === false ? {} : { ignore, gitignore: true })
+      .filter((filePath) => filePath.slice(-4) === '.hbs')
+  );
+}
+
+function expandFileGlobs(filePatterns, ignorePattern, glob = executeGlobby) {
   let result = new Set();
 
   filePatterns.forEach((pattern) => {
     let isHBS = pattern.slice(-4) === '.hbs';
-    let isLiteralPath = !isValidGlob(pattern) && fs.existsSync(pattern);
+    let isLiteralPath = !isGlob(pattern) && fs.existsSync(pattern);
 
     if (isHBS && isLiteralPath) {
-      let isIgnored = !micromatch.isMatch(pattern, ignorePattern);
+      let isIgnored = micromatch.isMatch(pattern, ignorePattern);
 
       if (!isIgnored) {
         result.add(pattern);
@@ -66,11 +75,7 @@ function expandFileGlobs(filePatterns, ignorePattern) {
       return;
     }
 
-    globby
-      // `--no-ignore-pattern` results in `ignorePattern === [false]`
-      .sync(pattern, ignorePattern[0] === false ? {} : { ignore: ignorePattern, gitignore: true })
-      .filter((filePath) => filePath.slice(-4) === '.hbs')
-      .forEach((filePath) => result.add(filePath));
+    glob(pattern, ignorePattern).forEach((filePath) => result.add(filePath));
   });
 
   return result;
