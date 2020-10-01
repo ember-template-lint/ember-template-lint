@@ -23,15 +23,14 @@ describe('expandFileGlobs', function () {
       project.write({ 'application.hbs': 'almost empty' });
 
       let files = expandFileGlobs(['application.hbs', 'other.hbs'], []);
-      expect(files.has('application.hbs')).toBe(true);
-      expect(files.has('other.hbs')).toBe(false);
+      expect(files).toEqual(new Set(['application.hbs']));
     });
 
     it('respects a basic ignore option', function () {
       project.write({ 'application.hbs': 'almost empty' });
 
       let files = expandFileGlobs(['application.hbs', 'other.hbs'], ['application.hbs']);
-      expect(files.has('application.hbs')).toBe(false);
+      expect(files).toEqual(new Set([]));
     });
   });
 
@@ -45,6 +44,18 @@ describe('expandFileGlobs', function () {
 
       let files = expandFileGlobs(['*'], []);
       expect(files.has('application.hbs')).toBe(true);
+    });
+
+    it('does not fallback to globbing if not passed a globlike string', function () {
+      project.write({ 'application.hbs': 'almost empty' });
+
+      let ignorePatterns = [];
+      function glob() {
+        throw new Error('Should not use globbing for exact file matches');
+      }
+
+      let files = expandFileGlobs(['application.hbs'], ignorePatterns, glob);
+      expect(files).toEqual(new Set(['application.hbs']));
     });
 
     it('respects a glob ignore option', function () {

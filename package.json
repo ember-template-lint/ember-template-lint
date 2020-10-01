@@ -42,7 +42,7 @@
     "find-up": "^5.0.0",
     "get-stdin": "^8.0.0",
     "globby": "^11.0.1",
-    "is-valid-glob": "^1.0.0",
+    "is-glob": "^4.0.1",
     "micromatch": "^4.0.2",
     "resolve": "^1.17.0",
     "v8-compile-cache": "^2.1.1",
