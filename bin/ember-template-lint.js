@@ -36,9 +36,9 @@ async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
   }
 }
 
-function lintSource(linter, options, shouldFix) {
+async function lintSource(linter, options, shouldFix) {
   if (shouldFix) {
-    let { isFixed, output, messages } = linter.verifyAndFix(options);
+    let { isFixed, output, messages } = await linter.verifyAndFix(options);
     if (isFixed) {
       fs.writeFileSync(options.filePath, output);
     }
@@ -237,7 +237,7 @@ async function run() {
       filePaths.has(STDIN)
     );
 
-    let messages = lintSource(linter, linterOptions, options.fix);
+    let messages = await lintSource(linter, linterOptions, options.fix);
 
     resultsAccumulator.push(...messages);
   }

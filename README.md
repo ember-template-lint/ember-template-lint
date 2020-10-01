@@ -41,7 +41,7 @@ let linter = new TemplateLinter();
 let template = fs.readFileSync('some/path/to/template.hbs', {
   encoding: 'utf8',
 });
-let results = linter.verify({ source: template, moduleId: 'template.hbs' });
+let results = await linter.verify({ source: template, moduleId: 'template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
