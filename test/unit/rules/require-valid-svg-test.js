@@ -9,8 +9,12 @@ generateRuleTests({
 
   good: [
     '<svg role="image" alt="valid alternative text"><title>Image description</title></svg>',
+    '<svg role="image" ...attributes><title>Image description</title></svg>',
+    '<svg ...attributes><title>Image description</title></svg>',
     '<a href="lint.html" aria-label="home page"><svg aria-hidden="true"></svg></a>',
+    '<a href="lint.html" aria-label="home page"><svg ...attributes></svg></a>',
     '<button aria-label="sort ascending to descending"><svg aria-hidden="true"></svg></button>',
+    '<button aria-label="sort ascending to descending"><svg ...attributes></svg></button>',
   ],
 
   bad: [
