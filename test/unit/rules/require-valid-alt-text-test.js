@@ -48,6 +48,7 @@ generateRuleTests({
     '<area aria-labelledby="some-alt">',
     '<area aria-label="some-alt">',
     '<img role={{unless this.altText "presentation"}} alt={{this.altText}}>',
+    '<img src={{image}} alt={{imageAlt}}>',
   ],
 
   bad: [
@@ -219,6 +220,15 @@ generateRuleTests({
         message:
           'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
         source: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img src={{image}} alt="hello world">',
+      result: {
+        message: 'The `alt` attribute value must be of the same type as `src` attribute',
+        source: '<img src={{image}} alt="hello world">',
         line: 1,
         column: 0,
       },
