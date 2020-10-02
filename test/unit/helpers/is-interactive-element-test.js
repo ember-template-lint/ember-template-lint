@@ -25,10 +25,17 @@ describe('isInteractiveElement', function () {
     });
   }
 
-  let nonInteractive = ['<a></a>', '<input type="hidden">', '<img>', '<div></div>'];
+  let nonInteractive = [
+    '<input type="hidden">',
+    '<img>',
+    '<div></div>',
+    '<div tabindex=1></div>',
+    '<div role="button"></div>',
+    '<canvas></canvas>',
+  ];
 
   let interactive = {
-    '<a href="derp">Link</a>': 'an <a> element with the `href` attribute',
+    '<a href="derp">Link</a>': '<a>',
     '<button>Derp</button>': '<button>',
     '<details></details>': '<details>',
     '<embed>': '<embed>',
@@ -38,10 +45,11 @@ describe('isInteractiveElement', function () {
     '<textarea></textarea>': '<textarea>',
     '<img usemap="#foo">': 'an <img> element with the `usemap` attribute',
     '<object usemap="#foo"></object>': 'an <object> element with the `usemap` attribute',
-    '<div tabindex=1></div>': 'an element with the `tabindex` attribute',
     '<label></label>': '<label>',
-    '<div role="button"></div>': 'an element with `role="button"`',
-    '<div role="textbox"></div>': 'an element with `role="textbox"`',
+    '<div role="button" tabindex></div>':
+      'an element with `role="button"` and `tabindex` attribute',
+    '<div role="textbox" tabindex></div>':
+      'an element with `role="textbox"` and `tabindex` attribute',
     '<video controls></video>': 'an <video> element with the `controls` attribute',
     '<audio controls></audio>': 'an <audio> element with the `controls` attribute',
   };

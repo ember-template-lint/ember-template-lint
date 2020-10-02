@@ -2,6 +2,8 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
+const ERROR_MESSAGE = 'Do not nest interactive elements';
+
 generateRuleTests({
   name: 'no-nested-interactive',
 
@@ -10,25 +12,15 @@ generateRuleTests({
   good: [
     '<button>button</button>',
     '<button>button <strong>!!!</strong></button>',
-    '<a><button>button</button></a>',
     '<a href="/">link</a>',
     '<a href="/">link <strong>!!!</strong></a>',
     '<button><input type="hidden"></button>',
-    '<div tabindex=-1><button>Click me!</button></div>',
-    '<div tabindex="1"><button></button></div>',
     '<label><input></label>',
     {
       config: {
         ignoredTags: ['button'],
       },
       template: '<button><input></button>',
-    },
-    {
-      config: {
-        ignoreTabindex: true,
-      },
-
-      template: '<button><div tabindex=-1></div></button>',
     },
     {
       config: {
@@ -44,8 +36,7 @@ generateRuleTests({
       template: '<a href="/">button<a href="/">!</a></a>',
 
       result: {
-        message:
-          'Do not use an <a> element with the `href` attribute inside an <a> element with the `href` attribute',
+        message: ERROR_MESSAGE,
         source: '<a href="/">!</a>',
         line: 1,
         column: 18,
@@ -55,7 +46,7 @@ generateRuleTests({
       template: '<a href="/">button<button>!</button></a>',
 
       result: {
-        message: 'Do not use <button> inside an <a> element with the `href` attribute',
+        message: ERROR_MESSAGE,
         source: '<button>!</button>',
         line: 1,
         column: 18,
@@ -65,7 +56,7 @@ generateRuleTests({
       template: '<button>button<a href="/">!</a></button>',
 
       result: {
-        message: 'Do not use an <a> element with the `href` attribute inside <button>',
+        message: ERROR_MESSAGE,
         source: '<a href="/">!</a>',
         line: 1,
         column: 14,
@@ -75,7 +66,7 @@ generateRuleTests({
       template: '<button>button<button>!</button></button>',
 
       result: {
-        message: 'Do not use <button> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<button>!</button>',
         line: 1,
         column: 14,
@@ -85,7 +76,7 @@ generateRuleTests({
       template: '<button><input type="text"></button>',
 
       result: {
-        message: 'Do not use <input> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<input type="text">',
         line: 1,
         column: 8,
@@ -95,7 +86,7 @@ generateRuleTests({
       template: '<button><details><summary>Some details</summary><p>!</p></details></button>',
 
       result: {
-        message: 'Do not use <details> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<details><summary>Some details</summary><p>!</p></details>',
         line: 1,
         column: 8,
@@ -106,7 +97,7 @@ generateRuleTests({
         '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>',
 
       result: {
-        message: 'Do not use <embed> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<embed type="video/quicktime" src="movie.mov" width="640" height="480">',
         line: 1,
         column: 8,
@@ -116,7 +107,7 @@ generateRuleTests({
       template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>',
 
       result: {
-        message: 'Do not use <iframe> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<iframe src="/frame.html" width="640" height="480"></iframe>',
         line: 1,
         column: 8,
@@ -126,7 +117,7 @@ generateRuleTests({
       template: '<button><select></select></button>',
 
       result: {
-        message: 'Do not use <select> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<select></select>',
         line: 1,
         column: 8,
@@ -136,18 +127,18 @@ generateRuleTests({
       template: '<button><textarea></textarea></button>',
 
       result: {
-        message: 'Do not use <textarea> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<textarea></textarea>',
         line: 1,
         column: 8,
       },
     },
     {
-      template: '<button><div tabindex="1"></div></button>',
+      template: '<button><div tabindex="0" role="button"></div></button>',
 
       result: {
-        message: 'Do not use an element with the `tabindex` attribute inside <button>',
-        source: '<div tabindex="1"></div>',
+        message: ERROR_MESSAGE,
+        source: '<div tabindex="0" role="button"></div>',
         line: 1,
         column: 8,
       },
@@ -156,7 +147,7 @@ generateRuleTests({
       template: '<button><img usemap=""></button>',
 
       result: {
-        message: 'Do not use an <img> element with the `usemap` attribute inside <button>',
+        message: ERROR_MESSAGE,
         source: '<img usemap="">',
         line: 1,
         column: 8,
@@ -166,7 +157,7 @@ generateRuleTests({
       template: '<object usemap=""><button></button></object>',
 
       result: {
-        message: 'Do not use <button> inside an <object> element with the `usemap` attribute',
+        message: ERROR_MESSAGE,
         source: '<button></button>',
         line: 1,
         column: 18,
@@ -179,7 +170,7 @@ generateRuleTests({
       template: '<button><my-special-input></my-special-input></button>',
 
       result: {
-        message: 'Do not use <my-special-input> inside <button>',
+        message: ERROR_MESSAGE,
         source: '<my-special-input></my-special-input>',
         line: 1,
         column: 8,
@@ -198,18 +189,13 @@ generateRuleTests({
     },
 
     {
-      template: [
-        '<label for="foo">',
-        '  <div id="foo" tabindex=-1></div>',
-        '  <input>',
-        '</label>',
-      ].join('\n'),
+      template: '<label for="foo"><div id="foo" tabindex=0 role="button"></div><input></label>',
 
       result: {
         message: 'Do not use multiple interactive elements inside a single `<label>`',
-        source: '<label for="foo">\n  <div id="foo" tabindex=-1></div>\n  <input>\n</label>',
-        line: 3,
-        column: 2,
+        source: '<label for="foo"><div id="foo" tabindex=0 role="button"></div><input></label>',
+        line: 1,
+        column: 62,
       },
     },
   ],

@@ -2,6 +2,8 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
+const ERROR_MESSAGE = 'Interaction added to non-interactive element';
+
 generateRuleTests({
   name: 'no-invalid-interactive',
 
@@ -9,8 +11,7 @@ generateRuleTests({
 
   good: [
     '<button {{action "foo"}}></button>',
-    '<canvas {{on "mousedown"}}></canvas>',
-    '<div role="button" {{action "foo"}}></div>',
+    '<div role="button" tabindex="0" {{action "foo"}}></div>',
     '<div randomProperty={{myValue}}></div>',
     '<li><button {{action "foo"}}></button></li>',
     '<form {{action "foo" on="submit"}}></form>',
@@ -61,7 +62,7 @@ generateRuleTests({
       template: '<div {{on "click" this.actionName}}>...</div>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 5,
         source: '<div {{on "click" this.actionName}}>...</div>',
@@ -71,7 +72,7 @@ generateRuleTests({
       template: '<div {{action "foo"}}></div>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 5,
         source: '<div {{action "foo"}}></div>',
@@ -82,7 +83,7 @@ generateRuleTests({
       template: '<div onclick={{action "foo"}}></div>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 5,
         source: '<div onclick={{action "foo"}}></div>',
@@ -94,7 +95,7 @@ generateRuleTests({
       template: '<div onclick={{pipe-action "foo"}}></div>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 5,
         source: '<div onclick={{pipe-action "foo"}}></div>',
@@ -105,7 +106,7 @@ generateRuleTests({
       template: '<div onsubmit={{action "foo"}}></div>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 5,
         source: '<div onsubmit={{action "foo"}}></div>',
@@ -117,7 +118,7 @@ generateRuleTests({
       template: '<div randomAttribute={{action "foo"}}></div>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 5,
         source: '<div randomAttribute={{action "foo"}}></div>',
@@ -128,7 +129,7 @@ generateRuleTests({
       template: '<form {{action "foo" on="click"}}></form>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 6,
         source: '<form {{action "foo" on="click"}}></form>',
@@ -139,10 +140,30 @@ generateRuleTests({
       template: '<div {{action "foo" on="submit"}}></div>',
 
       result: {
-        message: 'Interaction added to non-interactive element',
+        message: ERROR_MESSAGE,
         line: 1,
         column: 5,
         source: '<div {{action "foo" on="submit"}}></div>',
+      },
+    },
+    {
+      template: '<canvas {{on "mousedown"}}></canvas>',
+
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 8,
+        source: '<canvas {{on "mousedown"}}></canvas>',
+      },
+    },
+    {
+      template: '<div role="button" {{action "foo"}}></div>',
+
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 19,
+        source: '<div role="button" {{action "foo"}}></div>',
       },
     },
   ],
