@@ -8,6 +8,8 @@ const execa = require('execa');
 const Project = require('../helpers/fake-project');
 const setupEnvVar = require('../helpers/setup-env-var');
 
+const ROOT = process.cwd();
+
 describe('ember-template-lint executable', function () {
   setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
@@ -21,6 +23,7 @@ describe('ember-template-lint executable', function () {
   });
 
   afterEach(async function () {
+    process.chdir(ROOT);
     await project.dispose();
   });
 
@@ -34,31 +37,36 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path       Define a custom config path
+            --config-path               Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --config            Define a custom configuration to be used - (e.g. '{
-                                \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')      [string]
-            --quiet             Ignore warnings and only show errors             [boolean]
-            --rule              Specify a rule and its severity to add that rule to loaded
-                                rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\",
-                                { \\"allow\\": [\\"some-helper\\"] }]\`)                   [string]
-            --filename          Used to indicate the filename to be assumed for contents
-                                from STDIN                                        [string]
-            --fix               Fix any errors that are reported as fixable
+            --config                    Define a custom configuration to be used - (e.g.
+                                        '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
+                                                                                  [string]
+            --quiet                     Ignore warnings and only show errors     [boolean]
+            --rule                      Specify a rule and its severity to add that rule
+                                        to loaded rules - (e.g. \`no-implicit-this:error\`
+                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+                                                                                  [string]
+            --filename                  Used to indicate the filename to be assumed for
+                                        contents from STDIN                       [string]
+            --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json              Format output as json                            [boolean]
-            --verbose           Output errors with source description            [boolean]
-            --no-config-path    Does not use the local template-lintrc, will use a blank
-                                template-lintrc instead                          [boolean]
-            --print-pending     Print list of formatted rules for use with \`pending\` in
-                                config file                                      [boolean]
-            --ignore-pattern    Specify custom ignore pattern (can be disabled with
-                                --no-ignore-pattern)
+            --json                      Format output as json                    [boolean]
+            --verbose                   Output errors with source description    [boolean]
+            --working-directory, --cwd  Path to a directory that should be considered as
+                                        the current working directory.
+                                                                   [string] [default: \\".\\"]
+            --no-config-path            Does not use the local template-lintrc, will use a
+                                        blank template-lintrc instead            [boolean]
+            --print-pending             Print list of formatted rules for use with
+                                        \`pending\` in config file                 [boolean]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled
+                                        with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config  Prevent inline configuration comments from changing config
-                                or rules                                         [boolean]
-            --help              Show help                                        [boolean]
-            --version           Show version number                              [boolean]"
+            --no-inline-config          Prevent inline configuration comments from
+                                        changing config or rules                 [boolean]
+            --help                      Show help                                [boolean]
+            --version                   Show version number                      [boolean]"
         `);
       });
     });
@@ -72,31 +80,36 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path       Define a custom config path
+            --config-path               Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --config            Define a custom configuration to be used - (e.g. '{
-                                \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')      [string]
-            --quiet             Ignore warnings and only show errors             [boolean]
-            --rule              Specify a rule and its severity to add that rule to loaded
-                                rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\",
-                                { \\"allow\\": [\\"some-helper\\"] }]\`)                   [string]
-            --filename          Used to indicate the filename to be assumed for contents
-                                from STDIN                                        [string]
-            --fix               Fix any errors that are reported as fixable
+            --config                    Define a custom configuration to be used - (e.g.
+                                        '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
+                                                                                  [string]
+            --quiet                     Ignore warnings and only show errors     [boolean]
+            --rule                      Specify a rule and its severity to add that rule
+                                        to loaded rules - (e.g. \`no-implicit-this:error\`
+                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+                                                                                  [string]
+            --filename                  Used to indicate the filename to be assumed for
+                                        contents from STDIN                       [string]
+            --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json              Format output as json                            [boolean]
-            --verbose           Output errors with source description            [boolean]
-            --no-config-path    Does not use the local template-lintrc, will use a blank
-                                template-lintrc instead                          [boolean]
-            --print-pending     Print list of formatted rules for use with \`pending\` in
-                                config file                                      [boolean]
-            --ignore-pattern    Specify custom ignore pattern (can be disabled with
-                                --no-ignore-pattern)
+            --json                      Format output as json                    [boolean]
+            --verbose                   Output errors with source description    [boolean]
+            --working-directory, --cwd  Path to a directory that should be considered as
+                                        the current working directory.
+                                                                   [string] [default: \\".\\"]
+            --no-config-path            Does not use the local template-lintrc, will use a
+                                        blank template-lintrc instead            [boolean]
+            --print-pending             Print list of formatted rules for use with
+                                        \`pending\` in config file                 [boolean]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled
+                                        with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config  Prevent inline configuration comments from changing config
-                                or rules                                         [boolean]
-            --help              Show help                                        [boolean]
-            --version           Show version number                              [boolean]"
+            --no-inline-config          Prevent inline configuration comments from
+                                        changing config or rules                 [boolean]
+            --help                      Show help                                [boolean]
+            --version                   Show version number                      [boolean]"
         `);
       });
     });
@@ -153,6 +166,45 @@ describe('ember-template-lint executable', function () {
         expect(result.stdout).toBeTruthy();
         expect(result.stderr).toBeFalsy();
       });
+
+      it('when using custom working directory', async function () {
+        process.chdir(ROOT);
+
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(
+          ['--working-directory', project.baseDir, 'app/templates/application.hbs'],
+          {
+            // run from ember-template-lint's root (forces `--working-directory` to be used)
+            cwd: ROOT,
+          }
+        );
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+        expect(result.stderr).toMatchInlineSnapshot('""');
+      });
     });
 
     describe('given wildcard path resolving to single file', function () {
@@ -178,6 +230,40 @@ describe('ember-template-lint executable', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
         expect(result.stderr).toBeFalsy();
+      });
+
+      it('when using custom working directory', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['--working-directory', project.baseDir, 'app/templates/*'], {
+          // run from ember-template-lint's root (forces `--working-directory` to be used)
+          cwd: ROOT,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+        expect(result.stderr).toMatchInlineSnapshot('""');
       });
     });
 
@@ -268,31 +354,36 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path       Define a custom config path
+            --config-path               Define a custom config path
                                                  [string] [default: \\".template-lintrc.js\\"]
-            --config            Define a custom configuration to be used - (e.g. '{
-                                \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')      [string]
-            --quiet             Ignore warnings and only show errors             [boolean]
-            --rule              Specify a rule and its severity to add that rule to loaded
-                                rules - (e.g. \`no-implicit-this:error\` or \`rule:[\\"error\\",
-                                { \\"allow\\": [\\"some-helper\\"] }]\`)                   [string]
-            --filename          Used to indicate the filename to be assumed for contents
-                                from STDIN                                        [string]
-            --fix               Fix any errors that are reported as fixable
+            --config                    Define a custom configuration to be used - (e.g.
+                                        '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
+                                                                                  [string]
+            --quiet                     Ignore warnings and only show errors     [boolean]
+            --rule                      Specify a rule and its severity to add that rule
+                                        to loaded rules - (e.g. \`no-implicit-this:error\`
+                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+                                                                                  [string]
+            --filename                  Used to indicate the filename to be assumed for
+                                        contents from STDIN                       [string]
+            --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --json              Format output as json                            [boolean]
-            --verbose           Output errors with source description            [boolean]
-            --no-config-path    Does not use the local template-lintrc, will use a blank
-                                template-lintrc instead                          [boolean]
-            --print-pending     Print list of formatted rules for use with \`pending\` in
-                                config file                                      [boolean]
-            --ignore-pattern    Specify custom ignore pattern (can be disabled with
-                                --no-ignore-pattern)
+            --json                      Format output as json                    [boolean]
+            --verbose                   Output errors with source description    [boolean]
+            --working-directory, --cwd  Path to a directory that should be considered as
+                                        the current working directory.
+                                                                   [string] [default: \\".\\"]
+            --no-config-path            Does not use the local template-lintrc, will use a
+                                        blank template-lintrc instead            [boolean]
+            --print-pending             Print list of formatted rules for use with
+                                        \`pending\` in config file                 [boolean]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled
+                                        with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config  Prevent inline configuration comments from changing config
-                                or rules                                         [boolean]
-            --help              Show help                                        [boolean]
-            --version           Show version number                              [boolean]"
+            --no-inline-config          Prevent inline configuration comments from
+                                        changing config or rules                 [boolean]
+            --help                      Show help                                [boolean]
+            --version                   Show version number                      [boolean]"
         `);
       });
     });
@@ -991,6 +1082,49 @@ describe('ember-template-lint executable', function () {
             '  1:23  error  Ambiguous element used (`div`)  no-shadowed-elements',
             '',
             '✖ 1 problems (1 errors, 0 warnings)',
+          ]);
+          expect(result.stderr).toBeFalsy();
+        });
+      });
+
+      describe('given a working-directory with errors and a lintrc with rules', function () {
+        it('should print properly formatted error messages', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': false,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs':
+                  '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
+              },
+            },
+            'other-file.js': "module.exports = { rules: { 'no-bare-strings': true } };",
+          });
+
+          let result = await run(
+            [
+              '--working-directory',
+              project.baseDir,
+              '--config-path',
+              project.path('other-file.js'),
+              '.',
+            ],
+            {
+              // run from ember-template-lint's root (forces `--working-directory` to be used)
+              cwd: ROOT,
+            }
+          );
+
+          expect(result.exitCode).toEqual(1);
+          expect(result.stdout.split('\n')).toEqual([
+            'app/templates/application.hbs',
+            '  1:4  error  Non-translated string used  no-bare-strings',
+            '  1:39  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 2 problems (2 errors, 0 warnings)',
           ]);
           expect(result.stderr).toBeFalsy();
         });
