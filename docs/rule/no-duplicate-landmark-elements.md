@@ -1,4 +1,4 @@
-# require-landmark-labels
+# no-duplicate-landmark-elements
 
 If multiple landmark elements of the same type are found on a page, they must each have a unique label (provided by aria-label or aria-labelledby).
 

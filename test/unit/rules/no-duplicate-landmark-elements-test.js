@@ -1,10 +1,10 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/require-landmark-labels');
+const { ERROR_MESSAGE } = require('../../../lib/rules/no-duplicate-landmark-elements');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'require-landmark-labels',
+  name: 'no-duplicate-landmark-elements',
 
   config: true,
 

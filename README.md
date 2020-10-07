@@ -216,6 +216,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                             |
 | :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                     |
 |                            | [no-duplicate-id](./docs/rule/no-duplicate-id.md)                                     |
+|                            | [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)       |
 |                            | [no-element-event-actions](./docs/rule/no-element-event-actions.md)                   |
 | :white_check_mark:         | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)           |
 |                            | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                         |
@@ -267,7 +268,6 @@ Each rule has emojis denoting:
 |                            | [require-form-method](./docs/rule/require-form-method.md)                             |
 | :white_check_mark:         | [require-iframe-title](./docs/rule/require-iframe-title.md)                           |
 |                            | [require-input-label](./docs/rule/require-input-label.md)                             |
-|                            | [require-landmark-labels](./docs/rule/require-landmark-labels.md)                     |
 |                            | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                       |
 | :white_check_mark:         | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                       |
 | :dress:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)               |
