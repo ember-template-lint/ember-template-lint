@@ -60,6 +60,7 @@ This rule **allows** the following:
 
 ## References
 
+- [WAI-ARIA specification: Landmark Roles](https://www.w3.org/WAI/PF/aria/roles#landmark_roles)
 - [Understanding Success Criterion 1.3.1: Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html)
 - [Using aria-labelledby to name regions and landmarks](https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA13.html)
 - [Using aria-label to provide labels for objects](https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA6)
