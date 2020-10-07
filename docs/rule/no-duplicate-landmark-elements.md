@@ -2,7 +2,7 @@
 
 If multiple landmark elements of the same type are found on a page, they must each have a unique label (provided by aria-label or aria-labelledby).
 
-List of elements & their corresponding roles
+List of elements & their corresponding roles:
 
 - header (banner)
 - main (main)
