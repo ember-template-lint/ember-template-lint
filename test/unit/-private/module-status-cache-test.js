@@ -1,6 +1,8 @@
 const ModuleStatusCache = require('../../../lib/-private/module-status-cache');
 
 describe('ModuleStatusCache', function () {
+  const workingDir = process.cwd();
+
   it('Merges the overrides rules with existing rules config', function () {
     let config = {
       rules: {
@@ -21,7 +23,7 @@ describe('ModuleStatusCache', function () {
       foo: 'bar',
       baz: 'bang',
     };
-    let actual = new ModuleStatusCache(config).getConfigForFile({
+    let actual = new ModuleStatusCache(workingDir, config).getConfigForFile({
       filePath: 'app/templates/foo.hbs',
     });
 
@@ -40,7 +42,7 @@ describe('ModuleStatusCache', function () {
     // clone to ensure we are not mutating
     let expected = JSON.parse(JSON.stringify(config));
 
-    let actual = new ModuleStatusCache(config).getConfigForFile({
+    let actual = new ModuleStatusCache(workingDir, config).getConfigForFile({
       filePath: 'app/templates/foo.hbs',
     });
 
@@ -48,7 +50,7 @@ describe('ModuleStatusCache', function () {
 
     delete config.overrides;
 
-    actual = new ModuleStatusCache(config).getConfigForFile('app/templates/foo.hbs');
+    actual = new ModuleStatusCache(workingDir, config).getConfigForFile('app/templates/foo.hbs');
 
     expect(actual.rules).toEqual(expected.rules);
   });
@@ -81,7 +83,7 @@ describe('ModuleStatusCache', function () {
       foo: 'zomg',
       baz: 'bang',
     };
-    let actual = new ModuleStatusCache(config).getConfigForFile({
+    let actual = new ModuleStatusCache(workingDir, config).getConfigForFile({
       filePath: 'app/templates/foo.hbs',
     });
 
@@ -93,7 +95,7 @@ describe('ModuleStatusCache', function () {
       pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
     };
 
-    let moduleStatusCache = new ModuleStatusCache(config);
+    let moduleStatusCache = new ModuleStatusCache(workingDir, config);
 
     expect(
       moduleStatusCache.getConfigForFile({ moduleId: 'some/path/here' }).pendingStatus
@@ -111,13 +113,12 @@ describe('ModuleStatusCache', function () {
       pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
     };
 
-    let moduleStatusCache = new ModuleStatusCache(config);
+    let moduleStatusCache = new ModuleStatusCache(workingDir, config);
     expect(
-      moduleStatusCache.getConfigForFile({ moduleId: `${process.cwd()}/some/path/here` })
-        .pendingStatus
+      moduleStatusCache.getConfigForFile({ moduleId: `${workingDir}/some/path/here` }).pendingStatus
     ).toBeTruthy();
     expect(
-      moduleStatusCache.getConfigForFile({ moduleId: `${process.cwd()}/foo/bar/baz` }).pendingStatus
+      moduleStatusCache.getConfigForFile({ moduleId: `${workingDir}/foo/bar/baz` }).pendingStatus
     ).toBeTruthy();
   });
 });

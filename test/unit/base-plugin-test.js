@@ -16,7 +16,7 @@ describe('base plugin', function () {
   beforeEach(() => {
     project = Project.defaultSetup();
 
-    editorConfigResolver = new EditorConfigResolver();
+    editorConfigResolver = new EditorConfigResolver(project.baseDir);
     editorConfigResolver.resolveEditorConfigFiles();
   });
 
