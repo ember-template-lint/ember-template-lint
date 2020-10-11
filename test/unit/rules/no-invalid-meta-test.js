@@ -18,6 +18,7 @@ generateRuleTests({
     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable= yes">',
     '<meta name={{name}} content={{content}}>',
     '<meta property="og:type" content="website">',
+    '<meta itemprop="type" content="website">',
 
     // doesn't error on unrelated elements
     '<div></div>',
@@ -92,7 +93,7 @@ generateRuleTests({
 
       result: {
         message:
-          'a meta content attribute must be defined if the name, property or the http-equiv attribute is defined',
+          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
         line: 1,
         column: 0,
         source: '<meta name="viewport">',
@@ -103,10 +104,21 @@ generateRuleTests({
 
       result: {
         message:
-          'a meta content attribute must be defined if the name, property or the http-equiv attribute is defined',
+          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
         line: 1,
         column: 0,
         source: '<meta property="og:type">',
+      },
+    },
+    {
+      template: '<meta itemprop="type">',
+
+      result: {
+        message:
+          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
+        line: 1,
+        column: 0,
+        source: '<meta itemprop="type">',
       },
     },
     {
@@ -114,7 +126,7 @@ generateRuleTests({
 
       result: {
         message:
-          'a meta content attribute must be defined if the name, property or the http-equiv attribute is defined',
+          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
         line: 1,
         column: 0,
         source: '<meta http-equiv="refresh">',
@@ -125,7 +137,7 @@ generateRuleTests({
 
       result: {
         message:
-          'a meta content attribute cannot be defined if the name, property nor the http-equiv attributes are defined',
+          'a meta content attribute cannot be defined if the name, property, itemprop nor the http-equiv attributes are defined',
         line: 1,
         column: 0,
         source: '<meta content="72001">',
