@@ -1,4 +1,4 @@
-## no-access-key
+## no-accesskey-attribute
 
 ### `<* accesskey>`
 

@@ -10,7 +10,7 @@
 * [link-href-attributes](rule/link-href-attributes.md)
 * [link-rel-noopener](rule/link-rel-noopener.md)
 * [no-abstract-roles](rule/no-abstract-roles.md)
-* [no-access-key](rule/no-access-key.md)
+* [no-accesskey-attribute](rule/no-accesskey-attribute.md)
 * [no-action](rule/no-action.md)
 * [no-action-modifiers](rule/no-action-modifiers.md)
 * [no-attrs-in-components](rule/no-attrs-in-components.md)

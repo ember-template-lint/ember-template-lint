@@ -1,8 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message =
-  'No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.';
+const { errorMessage: message } = require('./../../../lib/rules/no-accesskey-attribute');
 
 generateRuleTests({
   name: 'no-access-key',
