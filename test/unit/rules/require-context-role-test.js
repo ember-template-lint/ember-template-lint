@@ -12,6 +12,8 @@ generateRuleTests({
     '<div role="list"><div role="listitem">Item One</div><div role="listitem">Item Two</div></div>',
     '<div role="group"><div role="listitem">Item One</div><div role="listitem">Item Two</div></div>',
     '<div role="row"><div role="columnheader">Item One</div></div>',
+    '<div role="gridcell">Item One</div>',
+    '<div role="row">{{yield}}</div>',
     '<div role="row"><div role="gridcell">Item One</div></div>',
     '<div role="row"><br>{{#if a}}<div role="gridcell">Item One</div>{{/if}}</div>',
     '<div role="group"><div role="menuitem">Item One</div></div>',
