@@ -1,8 +1,10 @@
-## no-implicit-this
+# no-implicit-this
+
+:car: The `extends: 'octane'` property in a configuration file enables this rule.
 
 This rule aides in the migration path for [emberjs/rfcs#308](https://github.com/emberjs/rfcs/pull/308).
 
-### Motivation
+## Motivation
 
 Currently, the way to access properties on a components class is `{{greeting}}`
 from a template. This works because the component class is one of the objects
@@ -13,7 +15,7 @@ ambiguous, as it could be referring to a local variable (block param), a helper
 with no arguments, a closed over component, or a property on the component
 class.
 
-#### Exemplar
+## Examples
 
 Consider the following example where the ambiguity can cause issues:
 
@@ -88,11 +90,22 @@ know about fallback resolution rules. This makes common features like ["Go To
 Definition"](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition)
 much easier to implement since we have semantics that mean "property on class".
 
-### Configuration
+## Migration
+
+* use [ember-no-implicit-this-codemod](https://github.com/ember-codemods/ember-no-implicit-this-codemod)
+* [upgrade to Glimmer components](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/), which don't allow ambiguous access
+  * classic components have [auto-reflection](https://github.com/emberjs/rfcs/blob/master/text/0276-named-args.md#motivation), and can use `this.myArgName` or `this.args.myArgNme` or `@myArgName` interchangeably
+
+## Configuration
 
  The following values are valid configuration:
 
-  * boolean - `true` to enable / `false` to disable
-  * object -- An object with the following keys:
-    * `allow` -- An array of component / helper names for that may be called
-      without arguments (string or regular expression)
+* boolean - `true` to enable / `false` to disable
+* object -- An object with the following keys:
+  * `allow` -- An array of component / helper names for that may be called
+    without arguments (string or regular expression)
+
+## References
+
+* [Glimmer components](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/)
+* [rfcs/named args](https://github.com/emberjs/rfcs/blob/master/text/0276-named-args.md#motivation)

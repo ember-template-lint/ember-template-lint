@@ -2,8 +2,8 @@
 
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/no-whitespace-for-layout');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/no-whitespace-for-layout').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-whitespace-for-layout',
@@ -22,7 +22,6 @@ generateRuleTests({
       template: 'START  FINISH',
 
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
@@ -32,7 +31,6 @@ generateRuleTests({
     {
       template: 'START&nbsp;&nbsp;FINISH',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
@@ -42,7 +40,6 @@ generateRuleTests({
     {
       template: 'START&nbsp; FINISH',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,
@@ -52,7 +49,6 @@ generateRuleTests({
     {
       template: 'START &nbsp;FINISH',
       result: {
-        moduleId: 'layout.hbs',
         message: ERROR_MESSAGE,
         line: 1,
         column: 0,

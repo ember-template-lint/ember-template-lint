@@ -1,7 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/require-valid-alt-text');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/require-valid-alt-text').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'require-valid-alt-text',
@@ -47,6 +47,7 @@ generateRuleTests({
     '<area aria-hidden="true">',
     '<area aria-labelledby="some-alt">',
     '<area aria-label="some-alt">',
+    '<img role={{unless this.altText "presentation"}} alt={{this.altText}}>',
   ],
 
   bad: [
@@ -55,7 +56,6 @@ generateRuleTests({
 
       result: {
         message: 'All `<img>` tags must have an alt attribute',
-        moduleId: 'layout.hbs',
         source: '<img>',
         line: 1,
         column: 0,
@@ -66,7 +66,6 @@ generateRuleTests({
 
       result: {
         message: 'All `<img>` tags must have an alt attribute',
-        moduleId: 'layout.hbs',
         source: '<img src="zoey.jpg">',
         line: 1,
         column: 0,
@@ -78,7 +77,6 @@ generateRuleTests({
       result: {
         message:
           'If the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
-        moduleId: 'layout.hbs',
         source: '<img alt="" src="zoey.jpg">',
         line: 1,
         column: 0,
@@ -90,7 +88,6 @@ generateRuleTests({
       result: {
         message:
           'If the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
-        moduleId: 'layout.hbs',
         source: '<img alt src="zoey.jpg">',
         line: 1,
         column: 0,
@@ -100,7 +97,6 @@ generateRuleTests({
       template: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
       result: {
         message: 'The alt text must not be the same as the image source',
-        moduleId: 'layout.hbs',
         source: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
         line: 1,
         column: 0,
@@ -112,7 +108,6 @@ generateRuleTests({
       result: {
         message:
           'All <input> elements with type="image" must have a text alternative through the `alt`, `aria-label`, or `aria-labelledby` attribute.',
-        moduleId: 'layout.hbs',
         source: '<input type="image">',
         line: 1,
         column: 0,
@@ -123,7 +118,6 @@ generateRuleTests({
       result: {
         message:
           'Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.',
-        moduleId: 'layout.hbs',
         source: '<object></object>',
         line: 1,
         column: 0,
@@ -134,7 +128,6 @@ generateRuleTests({
       result: {
         message:
           'Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.',
-        moduleId: 'layout.hbs',
         source: '<object />',
         line: 1,
         column: 0,
@@ -145,7 +138,6 @@ generateRuleTests({
       result: {
         message:
           'Each area of an image map must have a text alternative through the `alt`, `aria-label`, or `aria-labelledby` attribute.',
-        moduleId: 'layout.hbs',
         source: '<area>',
         line: 1,
         column: 0,
@@ -156,7 +148,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<img alt="picture">',
         line: 1,
         column: 0,
@@ -167,7 +158,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<img alt="photo">',
         line: 1,
         column: 0,
@@ -178,7 +168,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<img alt="image">',
         line: 1,
         column: 0,
@@ -189,7 +178,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<img alt="  IMAGE ">',
         line: 1,
         column: 0,
@@ -200,7 +188,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '<img alt="  IMAGE {{picture}} {{word}} ">',
         line: 1,
         column: 0,
@@ -211,7 +198,6 @@ generateRuleTests({
 
       result: {
         message: 'A number is not valid alt text',
-        moduleId: 'layout.hbs',
         source: '<img alt="52" src="b52.jpg">',
         line: 1,
         column: 0,
@@ -222,7 +208,6 @@ generateRuleTests({
       result: {
         message:
           'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
-        moduleId: 'layout.hbs',
         source: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
         line: 1,
         column: 0,
@@ -233,7 +218,6 @@ generateRuleTests({
       result: {
         message:
           'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
-        moduleId: 'layout.hbs',
         source: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
         line: 1,
         column: 0,

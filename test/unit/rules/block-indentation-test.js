@@ -5,9 +5,15 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'block-indentation',
 
-  config: 2,
+  config: 'error',
 
   good: [
+    {
+      template: '<div>\n' + '    <p>Hi!</p>\n' + '</div>',
+      meta: {
+        editorConfig: { indent_size: 4 },
+      },
+    },
     ['  this is fine'].join('\n'),
     ['<h1>Header</h1>', '<div>', '  \\{{example}}', '</div>'].join('\n'),
     ['<div>', '  \\{{example}}', '</div>'].join('\n'),
@@ -79,11 +85,10 @@ generateRuleTests({
     {
       config: 4,
 
-      template: '' + '<div>\n' + '    <p>Hi!</p>\n' + '</div>',
+      template: '' + '<div>\n' + '    <p>LOLOL!</p>\n' + '</div>',
     },
     {
       config: 'tab',
-
       template: '' + '<div>\n' + '\t<p>Hi!</p>\n' + '</div>',
     },
     '{{! template-lint-disable no-bare-strings }}',
@@ -232,7 +237,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `each` beginning at L2:C2. Expected `{{/each}}` ending at L3:C17 to be at an indentation of 2 but was found at 8.',
-        moduleId: 'layout.hbs',
         source: '{{#each cats as |dog|}}\n        {{/each}}',
         line: 3,
         column: 17,
@@ -244,7 +248,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `div` beginning at L1:C0. Expected `</div>` ending at L2:C8 to be at an indentation of 0 but was found at 2.',
-        moduleId: 'layout.hbs',
         source: '<div>\n  </div>',
         line: 2,
         column: 8,
@@ -256,7 +259,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `div` beginning at L1:C0. Expected `</div>` ending at L2:C30 to be at an indentation of 0 but was found at 24.',
-        moduleId: 'layout.hbs',
         source: '<div>\n  <p>Stuff goes here</p></div>',
         line: 2,
         column: 30,
@@ -268,7 +270,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
-        moduleId: 'layout.hbs',
         source: '<div>\n<p>Stuff goes here</p>\n</div>',
         line: 2,
         column: 0,
@@ -280,7 +281,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
-        moduleId: 'layout.hbs',
         source: '{{#if}}\n<p>Stuff goes here</p>\n{{/if}}',
         line: 2,
         column: 0,
@@ -298,7 +298,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `if` beginning at L3:C2. Expected `{{/if}}` ending at L5:C11 to be at an indentation of 2 but was found at 4.',
-        moduleId: 'layout.hbs',
         source: '{{#if something}}\n    Good night\n    {{/if}}',
         line: 5,
         column: 11,
@@ -312,7 +311,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C2. Expected `<p>` to be at an indentation of 4 but was found at 2.',
-        moduleId: 'layout.hbs',
         source: '<div>\n  <p>Hi!</p>\n</div>',
         line: 2,
         column: 2,
@@ -324,7 +322,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `{{bar}}` beginning at L3:C0. Expected `{{bar}}` to be at an indentation of 2 but was found at 0.',
-        moduleId: 'layout.hbs',
         source: '<div>\n  {{foo}}\n{{bar}}\n</div>',
         line: 3,
         column: 0,
@@ -336,7 +333,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `{{bar}}` beginning at L3:C0. Expected `{{bar}}` to be at an indentation of 2 but was found at 0.',
-        moduleId: 'layout.hbs',
         source: '<div>\n  Foo:\n{{bar}}\n</div>',
         line: 3,
         column: 0,
@@ -351,7 +347,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `some-thing` beginning at L2:C18. Expected `{{/some-thing}}` ending at L3:C17 to be at an indentation of 18 but was found at 2.',
-        moduleId: 'layout.hbs',
         source: '{{#some-thing}}\n  {{/some-thing}}',
         line: 3,
         column: 17,
@@ -365,7 +360,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `p` beginning at L2:C10. Expected `</p>` ending at L4:C6 to be at an indentation of 10 but was found at 2.',
-        moduleId: 'layout.hbs',
         source: '<p>\n            Bar\n  </p>',
         line: 4,
         column: 6,
@@ -378,7 +372,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `<!-- foo bar baz -->` beginning at L2:C0. Expected `<!-- foo bar baz -->` to be at an indentation of 2 but was found at 0.',
-        moduleId: 'layout.hbs',
         source: '<div>\n<!-- foo bar baz -->\n</div>',
         line: 2,
         column: 0,
@@ -390,7 +383,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for inverse block of `{{#if}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
-        moduleId: 'layout.hbs',
         source: '{{#if foo}}\n  {{else}}\n{{/if}}',
         line: 2,
         column: 2,
@@ -410,7 +402,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `if` beginning at L1:C0. Expected `{{/if}}` ending at L6:C9 to be at an indentation of 0 but was found at 2.',
-        moduleId: 'layout.hbs',
         source: '{{#if foo}}\n{{else if bar}}\n{{else}}\n  {{#if baz}}\n  {{/if~}}\n  {{/if}}',
         line: 6,
         column: 9,
@@ -423,7 +414,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for inverse block of `{{#each}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
-        moduleId: 'layout.hbs',
         source: '{{#each foo as |bar|}}\n  {{else}}\n{{/each}}',
         line: 2,
         column: 2,
@@ -442,7 +432,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `{{! comment with incorrect indentation }}` beginning at L4:C4. Expected `{{! comment with incorrect indentation }}` to be at an indentation of 2 but was found at 4.',
-        moduleId: 'layout.hbs',
         source:
           '<div>\n  {{#if foo}}\n  {{/if}}\n    {{! comment with incorrect indentation }}\n</div>',
         line: 4,
@@ -464,7 +453,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `Good morning\n` beginning at L1:C19. Expected `Good morning\n` to be at an indentation of 2 but was found at 19.',
-        moduleId: 'layout.hbs',
         source:
           '{{#if isMorning}}  Good morning\n{{else if isAfternoon}}\n  Good afternoon\n{{else}}\n  Good night\n{{/if}}',
         line: 1,
@@ -484,7 +472,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `Good afternoon\n` beginning at L4:C4. Expected `Good afternoon\n` to be at an indentation of 2 but was found at 4.',
-        moduleId: 'layout.hbs',
         source: '{{else if isAfternoon~}}\n    Good afternoon\n',
         line: 4,
         column: 4,
@@ -496,7 +483,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `{{! What a comment }}` beginning at L2:C0. Expected `{{! What a comment }}` to be at an indentation of 2 but was found at 0.',
-        moduleId: 'layout.hbs',
         source: '<div>\n{{! What a comment }}\n  {{foo-bar}}\n</div>',
         line: 2,
         column: 0,
@@ -508,7 +494,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `{{! bad comment }}` beginning at L1:C6. Expected `{{! bad comment }}` to be at an indentation of 2 but was found at 6.',
-        moduleId: 'layout.hbs',
         source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
         line: 1,
         column: 6,
@@ -520,7 +505,6 @@ generateRuleTests({
       result: {
         message:
           'Incorrect indentation for `<span>` beginning at L3:C0. Expected `<span>` to be at an indentation of 2 but was found at 0.',
-        moduleId: 'layout.hbs',
         source: '{{#if media.isMobile}}\n{{else}}\n<span>\n</span>\n{{/if}}',
         line: 3,
         column: 0,
@@ -533,7 +517,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for `{{#if}}` beginning at L1:C1. Expected `{{#if}}` to be at an indentation of 0, but was found at 1.',
-          moduleId: 'layout.hbs',
           source: '{{#if foo}}\n{{/if}}',
           line: 1,
           column: 1,
@@ -541,7 +524,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for `if` beginning at L1:C1. Expected `{{/if}}` ending at L2:C7 to be at an indentation of 1 but was found at 0.',
-          moduleId: 'layout.hbs',
           source: '{{#if foo}}\n{{/if}}',
           line: 2,
           column: 7,
@@ -555,7 +537,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for inverse block of `{{#if}}` beginning at L1:C0. Expected `{{else}}` starting at L1:C14 to be at an indentation of 0 but was found at 14.',
-          moduleId: 'layout.hbs',
           source: '{{#if foo}}foo{{else}}\n  bar\n{{/if}}',
           line: 1,
           column: 14,
@@ -563,7 +544,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for `foo` beginning at L1:C11. Expected `foo` to be at an indentation of 2 but was found at 11.',
-          moduleId: 'layout.hbs',
           source: '{{#if foo}}foo{{else}}\n  bar\n{{/if}}',
           line: 1,
           column: 11,
@@ -577,7 +557,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for `bar\n` beginning at L4:C4. Expected `bar\n` to be at an indentation of 2 but was found at 4.',
-          moduleId: 'layout.hbs',
           source: '{{#if foo}}\n  foo\n{{else}}\n    bar\n{{/if}}',
           line: 4,
           column: 4,
@@ -599,7 +578,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for `{{#if}}` beginning at L4:C4. Expected `{{#if}}` to be at an indentation of 2 but was found at 4.',
-          moduleId: 'layout.hbs',
           source: '{{#if foo}}\n  foo\n{{else}}\n    {{#if bar}}\n      bar\n    {{/if}}\n{{/if}}',
           line: 4,
           column: 4,
@@ -613,7 +591,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for `{{#foo-bar}}` beginning at L1:C5. Expected `{{#foo-bar}}` to be at an indentation of 0, but was found at 5.',
-          moduleId: 'layout.hbs',
           source: '{{#foo-bar}}\n     {{/foo-bar}}',
           line: 1,
           column: 5,
@@ -627,7 +604,6 @@ generateRuleTests({
         {
           message:
             'Incorrect indentation for `<div>` beginning at L1:C2. Expected `<div>` to be at an indentation of 0, but was found at 2.',
-          moduleId: 'layout.hbs',
           source: '<div>\n  </div>',
           line: 1,
           column: 2,
@@ -648,7 +624,6 @@ generateRuleTests({
           line: 2,
           message:
             'Incorrect indentation for `{{#foobar.baz}}` beginning at L2:C3. Expected `{{#foobar.baz}}` to be at an indentation of 2 but was found at 3.',
-          moduleId: 'layout.hbs',
           rule: 'block-indentation',
           severity: 2,
           source:
@@ -659,7 +634,6 @@ generateRuleTests({
           line: 3,
           message:
             'Incorrect indentation for `{{foobar.baz}}` beginning at L3:C3. Expected `{{foobar.baz}}` to be at an indentation of 2 but was found at 3.',
-          moduleId: 'layout.hbs',
           rule: 'block-indentation',
           severity: 2,
           source:
@@ -675,7 +649,6 @@ generateRuleTests({
           line: 2,
           message:
             'Incorrect indentation for `<!-- Comment -->` beginning at L2:C0. Expected `<!-- Comment -->` to be at an indentation of 2 but was found at 0.',
-          moduleId: 'layout.hbs',
           rule: 'block-indentation',
           severity: 2,
           source: '<div>\n<!-- Comment -->\n</div>',
@@ -690,7 +663,6 @@ generateRuleTests({
           line: 2,
           message:
             'Incorrect indentation for `{{! Comment }}` beginning at L2:C0. Expected `{{! Comment }}` to be at an indentation of 2 but was found at 0.',
-          moduleId: 'layout.hbs',
           rule: 'block-indentation',
           severity: 2,
           source: '<div>\n{{! Comment }}\n</div>',
@@ -708,7 +680,6 @@ generateRuleTests({
           line: 1,
           message:
             'Incorrect indentation for `test` beginning at L1:C0. Expected `test` to be at an indentation of 2 but was found at 0.',
-          moduleId: 'layout.hbs',
           rule: 'block-indentation',
           severity: 2,
           source: ['<div>', 'test{{! Comment }}', '</div>'].join('\n'),

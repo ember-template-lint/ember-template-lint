@@ -1,7 +1,11 @@
-## self-closing-void-elements
+# self-closing-void-elements
+
+:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 HTML has no self-closing tags. The HTML5 parser will ignore self-closing tag in the case of [void elements](https://www.w3.org/TR/html-markup/syntax.html#void-elements) (tags that shouldn't have a "closing tag"). Although the parser will ignore it, it's
 unnecessary and can lead to confusion with SVG/XML code.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -19,9 +23,13 @@ This rule **allows** the following:
 
 There may be cases where a self-closing tag may be necessary for void elements. In such cases, a `require` string may be passed to log the missing closing tags.
 
-### Configuration
+## Configuration
 
 The following values are valid configuration:
 
-  * boolean -- `true` for enabled / `false` for disabled
-  * string -- `require` to mandate the use of self closing tags
+* boolean -- `true` for enabled / `false` for disabled
+* string -- `require` to mandate the use of self closing tags
+
+## References
+
+* [HTML spec/void elements](https://html.spec.whatwg.org/#void-elements)

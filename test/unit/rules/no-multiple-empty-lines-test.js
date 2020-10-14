@@ -1,7 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const { parseConfig, CONFIG_ERROR_MESSAGE } = require('../../../lib/rules/no-multiple-empty-lines');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'no-multiple-empty-lines',
@@ -31,7 +31,6 @@ generateRuleTests({
       template: '<div>foo</div>\n\n\n<div>bar</div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'More than 1 blank line not allowed.',
         line: 2,
         column: 0,
@@ -42,7 +41,6 @@ generateRuleTests({
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'More than 1 blank line not allowed.',
         line: 2,
         column: 0,
@@ -55,7 +53,6 @@ generateRuleTests({
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'More than 3 blank lines not allowed.',
         line: 4,
         column: 0,

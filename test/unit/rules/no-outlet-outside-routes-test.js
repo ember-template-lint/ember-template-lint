@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-outlet-outside-routes');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-outlet-outside-routes').message;
 
 generateRuleTests({
   name: 'no-outlet-outside-routes',

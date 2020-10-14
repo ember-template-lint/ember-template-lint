@@ -1,12 +1,13 @@
 'use strict';
 
-const preprocess = require('@glimmer/syntax').preprocess;
+const { parse } = require('ember-template-recast');
+
 const isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
 
-describe('isInteractiveElement', function() {
+describe('isInteractiveElement', function () {
   function testTemplate(template, expectedValue) {
-    it(`isInteractiveElement(\`${template}\` should be ${expectedValue}`, function() {
-      let ast = preprocess(template);
+    it(`isInteractiveElement(\`${template}\` should be ${expectedValue}`, function () {
+      let ast = parse(template);
 
       let interactive = isInteractiveElement(ast.body[0]);
 
@@ -15,8 +16,8 @@ describe('isInteractiveElement', function() {
   }
 
   function testReason(template, expectedReason) {
-    it(`isInteractiveElement.reason(\`${template}\` should be \`${expectedReason}\``, function() {
-      let ast = preprocess(template);
+    it(`isInteractiveElement.reason(\`${template}\` should be \`${expectedReason}\``, function () {
+      let ast = parse(template);
 
       let reason = isInteractiveElement.reason(ast.body[0]);
 
@@ -45,32 +46,32 @@ describe('isInteractiveElement', function() {
     '<audio controls></audio>': 'an <audio> element with the `controls` attribute',
   };
 
-  nonInteractive.forEach(function(template) {
+  nonInteractive.forEach(function (template) {
     testTemplate(template, false);
   });
 
   // eslint-disable-next-line wrap-iife
-  (function() {
+  (function () {
     for (let template in interactive) {
       testTemplate(template, true);
     }
   })();
 
-  describe('reason', function() {
+  describe('reason', function () {
     function test(template) {
-      let ast = preprocess(template);
+      let ast = parse(template);
 
       return isInteractiveElement.reason(ast.body[0]);
     }
 
-    nonInteractive.forEach(function(template) {
-      it(`${template} should have a reason of \`null\``, function() {
+    nonInteractive.forEach(function (template) {
+      it(`${template} should have a reason of \`null\``, function () {
         expect(test(template)).toBe(null);
       });
     });
 
     // eslint-disable-next-line wrap-iife
-    (function() {
+    (function () {
       for (let template in interactive) {
         testReason(template, interactive[template]);
       }

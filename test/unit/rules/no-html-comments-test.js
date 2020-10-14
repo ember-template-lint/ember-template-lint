@@ -12,7 +12,7 @@ generateRuleTests({
     '{{!--comment here--}}',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
-    '{{! template-lint-disable html-comments }}<!-- lol -->',
+    '{{! template-lint-disable no-html-comments }}<!-- lol -->',
   ],
 
   bad: [
@@ -21,7 +21,6 @@ generateRuleTests({
 
       result: {
         message: 'HTML comment detected',
-        moduleId: 'layout.hbs',
         source: '<!-- comment here -->',
         line: 1,
         column: 0,
@@ -35,7 +34,6 @@ generateRuleTests({
 
       result: {
         message: 'HTML comment detected',
-        moduleId: 'layout.hbs',
         source: '<!--comment here-->',
         line: 1,
         column: 0,

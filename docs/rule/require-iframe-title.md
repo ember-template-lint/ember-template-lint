@@ -1,10 +1,14 @@
-## require-iframe-title
+# require-iframe-title
 
-### `<iframe>`
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
+## `<iframe>`
 
 `<iframe>` elements must have a unique title property to indicate its content to the user.
 
 This rule takes no arguments.
+
+## Examples
 
 This rule **allows** the following:
 
@@ -20,7 +24,7 @@ This rule **forbids** the following:
 <iframe title="" />
 ```
 
-### References
+## References
 
 - [Deque University](https://dequeuniversity.com/rules/axe/1.1/frame-title)
 - [Technique H65: Using the title attribute of the frame and iframe elements](https://www.w3.org/TR/2014/NOTE-WCAG20-TECHS-20140408/H64)

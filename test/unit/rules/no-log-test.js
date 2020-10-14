@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-log');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-log').message;
 
 generateRuleTests({
   name: 'no-log',
@@ -16,7 +16,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{log}}',
         line: 1,
         column: 0,
@@ -27,7 +26,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{log "Logs are best for debugging!"}}',
         line: 1,
         column: 0,
@@ -38,7 +36,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#log}}Arrgh!{{/log}}',
         line: 1,
         column: 0,
@@ -49,7 +46,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#log "Foo"}}{{/log}}',
         line: 1,
         column: 0,

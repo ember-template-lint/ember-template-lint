@@ -2,168 +2,280 @@
 
 'use strict';
 
+// Use V8's code cache to speed up instantiation time:
+require('v8-compile-cache'); // eslint-disable-line import/no-unassigned-import
+
 const fs = require('fs');
 const path = require('path');
+const { promisify } = require('util');
+
+const getStdin = require('get-stdin');
 const globby = require('globby');
-const Linter = require('../lib/index');
+const isGlob = require('is-glob');
+const micromatch = require('micromatch');
+
+const Linter = require('../lib');
+const processResults = require('../lib/helpers/process-results');
+
+const readFile = promisify(fs.readFile);
 
 const STDIN = '/dev/stdin';
 
-function lintFile(linter, filePath, moduleId) {
-  let toRead = filePath === STDIN ? process.stdin.fd : filePath;
+async function buildLinterOptions(workingDir, filePath, filename = '', isReadingStdin) {
+  if (isReadingStdin) {
+    let filePath = filename;
+    let moduleId = filePath.slice(0, -4);
+    let source = await getStdin();
 
-  // TODO: swap to using get-stdin when we can leverage async/await
-  let source = fs.readFileSync(toRead, { encoding: 'utf8' });
+    return { source, filePath, moduleId };
+  } else {
+    let moduleId = filePath.slice(0, -4);
+    let resolvedFilePath = path.resolve(workingDir, filePath);
+    let source = await readFile(resolvedFilePath, { encoding: 'utf8' });
 
-  return linter.verify({ source, moduleId });
+    return { source, filePath, moduleId };
+  }
 }
 
-function expandFileGlobs(positional) {
+function lintSource(linter, options, shouldFix) {
+  if (shouldFix) {
+    let { isFixed, output, messages } = linter.verifyAndFix(options);
+    if (isFixed) {
+      fs.writeFileSync(options.filePath, output);
+    }
+
+    return messages;
+  } else {
+    return linter.verify(options);
+  }
+}
+
+function executeGlobby(workingDir, pattern, ignore) {
+  // `--no-ignore-pattern` results in `ignorePattern === [false]`
+  let options =
+    ignore[0] === false ? { cwd: workingDir } : { cwd: workingDir, gitignore: true, ignore };
+
+  return globby.sync(pattern, options).filter((filePath) => filePath.slice(-4) === '.hbs');
+}
+
+function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = executeGlobby) {
   let result = new Set();
 
-  positional.forEach(item => {
-    globby
-      .sync(item, {
-        ignore: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-        gitignore: true,
-      })
-      .filter(filePath => filePath.slice(-4) === '.hbs')
-      .forEach(filePath => result.add(filePath));
+  filePatterns.forEach((pattern) => {
+    let isHBS = pattern.slice(-4) === '.hbs';
+    let isLiteralPath = !isGlob(pattern) && fs.existsSync(path.resolve(workingDir, pattern));
+
+    if (isHBS && isLiteralPath) {
+      let isIgnored = micromatch.isMatch(pattern, ignorePattern);
+
+      if (!isIgnored) {
+        result.add(pattern);
+      }
+
+      return;
+    }
+
+    glob(workingDir, pattern, ignorePattern).forEach((filePath) => result.add(filePath));
   });
 
   return result;
 }
 
+function getFilesToLint(workingDir, filePatterns, ignorePattern = []) {
+  let files;
+
+  if (filePatterns.length === 0 || filePatterns.includes('-') || filePatterns.includes(STDIN)) {
+    files = new Set([STDIN]);
+  } else {
+    files = expandFileGlobs(workingDir, filePatterns, ignorePattern);
+  }
+
+  return files;
+}
+
 function parseArgv(_argv) {
-  let toProcess = _argv.slice();
-  let options = { positional: [], named: {} };
+  let parser = require('yargs')
+    .scriptName('ember-template-lint')
+    .usage('$0 [options] [files..]')
+    .options({
+      'config-path': {
+        describe: 'Define a custom config path',
+        default: '.template-lintrc.js',
+        type: 'string',
+      },
+      config: {
+        describe:
+          'Define a custom configuration to be used - (e.g. \'{ "rules": { "no-implicit-this": "error" } }\') ',
+        type: 'string',
+      },
+      quiet: {
+        describe: 'Ignore warnings and only show errors',
+        boolean: true,
+      },
+      rule: {
+        describe:
+          'Specify a rule and its severity to add that rule to loaded rules - (e.g. `no-implicit-this:error` or `rule:["error", { "allow": ["some-helper"] }]`)',
+        type: 'string',
+      },
+      filename: {
+        describe: 'Used to indicate the filename to be assumed for contents from STDIN',
+        type: 'string',
+      },
+      fix: {
+        describe: 'Fix any errors that are reported as fixable',
+        boolean: true,
+        default: false,
+      },
+      json: {
+        describe: 'Format output as json',
+        boolean: true,
+      },
+      verbose: {
+        describe: 'Output errors with source description',
+        boolean: true,
+      },
+      'working-directory': {
+        alias: 'cwd',
+        describe: 'Path to a directory that should be considered as the current working directory.',
+        type: 'string',
+        // defaulting to `.` here to refer to `process.cwd()`, setting the default to `process.cwd()` itself
+        // would make our snapshots unstable (and make the help output unaligned since most directory paths
+        // are fairly deep)
+        default: '.',
+      },
+      'no-config-path': {
+        describe:
+          'Does not use the local template-lintrc, will use a blank template-lintrc instead',
+        boolean: true,
+      },
+      'print-pending': {
+        describe: 'Print list of formatted rules for use with `pending` in config file',
+        boolean: true,
+      },
+      'ignore-pattern': {
+        describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
+        type: 'array',
+        default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+      },
+      'no-inline-config': {
+        describe: 'Prevent inline configuration comments from changing config or rules',
+        boolean: true,
+      },
+    })
+    .help()
+    .version();
 
-  let shouldHandleNamed = true;
+  parser.parserConfiguration({
+    'greedy-arrays': false,
+  });
 
-  while (toProcess.length > 0) {
-    let arg = toProcess.shift();
+  if (_argv.length === 0) {
+    parser.showHelp();
+    parser.exit(1);
+  } else {
+    let options = parser.parse(_argv);
 
-    if (!shouldHandleNamed) {
-      options.positional.push(arg);
-    } else {
-      switch (arg) {
-        case '--config-path':
-          options.named.configPath = toProcess.shift();
-          break;
-        case '--filename':
-          options.named.filename = toProcess.shift();
-          break;
-        case '--quiet':
-          options.named.quiet = true;
-          break;
-        case '--json':
-          options.named.json = true;
-          break;
-        case '--verbose':
-          options.named.verbose = true;
-          break;
-        case '--print-pending':
-          options.named.printPending = true;
-          break;
-        case '--':
-          shouldHandleNamed = false;
-          break;
-        default:
-          if (arg.startsWith('--config-path=') || arg.startsWith('--filename=')) {
-            toProcess.unshift(...arg.split('=', 2));
-          } else {
-            options.positional.push(arg);
-          }
+    if (options.workingDirectory === '.') {
+      options.workingDirectory = process.cwd();
+    }
+
+    return options;
+  }
+}
+
+const PENDING_RULES = new Set(['invalid-pending-module', 'invalid-pending-module-rule']);
+function printPending(results, options) {
+  let pendingList = [];
+  for (let filePath in results.files) {
+    let fileResults = results.files[filePath];
+    let failingRules = fileResults.messages.reduce((memo, error) => {
+      if (!PENDING_RULES.has(error.rule)) {
+        memo.add(error.rule);
       }
+
+      return memo;
+    }, new Set());
+
+    if (failingRules.size > 0) {
+      pendingList.push({ moduleId: filePath.slice(0, -4), only: [...failingRules] });
+    }
+  }
+  let pendingListString = JSON.stringify(pendingList, null, 2);
+
+  if (options.json) {
+    console.log(pendingListString);
+  } else {
+    console.log(
+      'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
+    );
+
+    console.log(`pending: ${pendingListString}`);
+  }
+}
+
+async function run() {
+  let options = parseArgv(process.argv.slice(2));
+  let positional = options._;
+  let config;
+
+  if (options.config) {
+    try {
+      config = JSON.parse(options.config);
+    } catch {
+      console.error('Could not parse specified `--config` as JSON');
+      process.exitCode = 1;
+      return;
     }
   }
 
-  return options;
-}
-
-function run() {
-  let options = parseArgv(process.argv.slice(2));
-
-  let {
-    named: { configPath, filename: filePathFromArgs = '', printPending, json },
-    positional,
-  } = options;
+  if (options['no-config-path'] !== undefined) {
+    options.configPath = false;
+  }
 
   let linter;
   try {
-    linter = new Linter({ configPath });
-  } catch (e) {
-    console.error(e.message);
+    linter = new Linter({
+      workingDir: options.workingDirectory,
+      configPath: options.configPath,
+      config,
+      rule: options.rule,
+      allowInlineConfig: !options.noInlineConfig,
+    });
+  } catch (error) {
+    console.error(error.message);
     process.exitCode = 1;
     return;
   }
 
-  let errors = {};
-  let filesToLint;
-  let filesWithErrors = [];
+  let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
-  if (positional.length === 0 || positional.includes('-') || positional.includes(STDIN)) {
-    filesToLint = new Set([STDIN]);
+  let resultsAccumulator = [];
+  for (let relativeFilePath of filePaths) {
+    let linterOptions = await buildLinterOptions(
+      options.workingDirectory,
+      relativeFilePath,
+      options.filename,
+      filePaths.has(STDIN)
+    );
+
+    let messages = lintSource(linter, linterOptions, options.fix);
+
+    resultsAccumulator.push(...messages);
+  }
+
+  let results = processResults(resultsAccumulator);
+  if (results.errorCount > 0) {
+    process.exitCode = 1;
+  }
+
+  if (options.printPending) {
+    return printPending(results, options);
   } else {
-    filesToLint = expandFileGlobs(positional);
-  }
-
-  for (let relativeFilePath of filesToLint) {
-    let filePath = path.resolve(relativeFilePath);
-    let fileName = relativeFilePath === STDIN ? filePathFromArgs : relativeFilePath;
-    let moduleId = fileName.slice(0, -4);
-    let fileErrors = lintFile(linter, filePath, moduleId);
-
-    if (printPending) {
-      const ignoredPendingRules = ['invalid-pending-module', 'invalid-pending-module-rule'];
-      let failingRules = Array.from(
-        fileErrors.reduce((memo, error) => {
-          if (!ignoredPendingRules.includes(error.rule)) {
-            memo.add(error.rule);
-          }
-
-          return memo;
-        }, new Set())
-      );
-
-      if (failingRules.length > 0) {
-        filesWithErrors.push({ moduleId, only: failingRules });
-      }
+    if (results.errorCount || results.warningCount) {
+      let Printer = require('../lib/printers/default');
+      let printer = new Printer(options);
+      printer.print(results);
     }
-
-    if (
-      fileErrors.some(function(err) {
-        return err.severity > 1;
-      })
-    ) {
-      process.exitCode = 1;
-    }
-
-    if (fileErrors.length) {
-      errors[filePath] = fileErrors;
-    }
-  }
-
-  if (printPending) {
-    let pendingList = JSON.stringify(filesWithErrors, null, 2);
-
-    if (json) {
-      console.log(pendingList);
-    } else {
-      console.log(
-        'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
-      );
-
-      console.log(`pending: ${pendingList}`);
-    }
-
-    return;
-  }
-
-  if (Object.keys(errors).length) {
-    let Printer = require('../lib/printers/default');
-    let printer = new Printer(options.named);
-    printer.print(errors);
   }
 }
 
@@ -171,6 +283,7 @@ function run() {
 module.exports = {
   _parseArgv: parseArgv,
   _expandFileGlobs: expandFileGlobs,
+  _getFilesToLint: getFilesToLint,
 };
 
 if (require.main === module) {

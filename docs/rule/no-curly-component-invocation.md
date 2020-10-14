@@ -1,4 +1,6 @@
-## no-curly-component-invocation
+# no-curly-component-invocation
+
+:car: The `extends: 'octane'` property in a configuration file enables this rule.
 
 There are two ways to invoke a component in a template: curly component syntax
 (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The
@@ -10,7 +12,7 @@ Edition.
 This rule checks all the curly braces in your app and warns about those that
 look like they could be component invocations.
 
-### Examples
+## Examples
 
 - `{{foo}}` ✅
   (simple mustache without `-` in the path is likely to be a property; unless
@@ -66,11 +68,11 @@ look like they could be component invocations.
 - `{{#link-to "foo"}}bar{{/link-to}}` ❌ (angle brackets: `<LinkTo @route="foo">bar</LinkTo>`)
   (block form of the built-in `link-to` component)
 
-### Migration
+## Migration
 
-- use https://github.com/ember-codemods/ember-angle-brackets-codemod
+- use <https://github.com/ember-codemods/ember-angle-brackets-codemod>
 
-### Configuration
+## Configuration
 
 - boolean -- if `true`, default configuration is applied
   (`noImplicitThis: false`, `requireDash: true`), see below for details
@@ -88,7 +90,7 @@ look like they could be component invocations.
   - array -- `disallow` -- a list of curly invocation paths that are known to
     be component invocations
 
-### References
+## References
 
 - [RFC #311](https://github.com/emberjs/rfcs/pull/311) (Angle Bracket Syntax)
 - [RFC #457](https://github.com/emberjs/rfcs/pull/457) (Nested Components)

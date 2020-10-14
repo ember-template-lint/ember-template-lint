@@ -80,7 +80,7 @@ generateRuleTests({
     {{/my-component}}
     `,
     '{{#each cats as |cat|}}{{#meow-meow cat as |cat|}}{{cat}}{{/meow-meow}}{{/each}}',
-    '{{! template-lint-disable unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
+    '{{! template-lint-disable no-unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
     '{{#with (component "foo-bar") as |FooBar|}}<FooBar />{{/with}}',
     '<BurgerMenu as |menu|><header>Something</header><menu.item>Text</menu.item></BurgerMenu>',
     '{{#burger-menu as |menu|}}<header>Something</header>{{#menu.item}}Text{{/menu.item}}{{/burger-menu}}',
@@ -92,7 +92,6 @@ generateRuleTests({
 
       result: {
         message: "'cat' is defined but never used",
-        moduleId: 'layout.hbs',
         source: 'Dogs',
         line: 1,
         column: 23,
@@ -102,7 +101,6 @@ generateRuleTests({
       template: '{{#each cats as |cat index|}}{{cat}}{{/each}}',
       result: {
         message: "'index' is defined but never used",
-        moduleId: 'layout.hbs',
         source: '{{cat}}',
         line: 1,
         column: 29,
@@ -117,7 +115,6 @@ generateRuleTests({
         '{{/each}}',
       result: {
         message: "'index' is defined but never used",
-        moduleId: 'layout.hbs',
         source: '{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}',
         line: 1,
         column: 29,
@@ -131,7 +128,6 @@ generateRuleTests({
         '{{/each}}',
       result: {
         message: "'life' is defined but never used",
-        moduleId: 'layout.hbs',
         source: 'Life',
         line: 1,
         column: 75,

@@ -7,6 +7,20 @@ generateRuleTests({
 
   good: [
     {
+      config: 'editorconfig',
+      template: 'test\n',
+      meta: {
+        editorConfig: { insert_final_newline: true },
+      },
+    },
+    {
+      config: 'editorconfig',
+      template: 'test',
+      meta: {
+        editorConfig: { insert_final_newline: false },
+      },
+    },
+    {
       config: 'always',
       template: 'test\n',
     },
@@ -31,7 +45,6 @@ generateRuleTests({
       template: 'test',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'template must end with newline',
         line: 1,
         column: 0,
@@ -43,7 +56,36 @@ generateRuleTests({
       template: 'test\n',
 
       result: {
-        moduleId: 'layout.hbs',
+        message: 'template cannot end with newline',
+        line: 1,
+        column: 0,
+        source: 'test\n',
+      },
+    },
+    {
+      config: 'editorconfig',
+      template: 'test',
+
+      meta: {
+        editorConfig: { insert_final_newline: true },
+      },
+
+      result: {
+        message: 'template must end with newline',
+        line: 1,
+        column: 0,
+        source: 'test',
+      },
+    },
+    {
+      config: 'editorconfig',
+      template: 'test\n',
+
+      meta: {
+        editorConfig: { insert_final_newline: false },
+      },
+
+      result: {
         message: 'template cannot end with newline',
         line: 1,
         column: 0,
@@ -57,7 +99,6 @@ generateRuleTests({
       template: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'template cannot end with newline',
         line: 1,
         column: 0,
@@ -73,17 +114,30 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        moduleId: 'layout.hbs',
         message: 'You specified `"sometimes"`',
       },
     },
+
+    {
+      config: 'editorconfig',
+      template: 'test',
+      meta: {
+        editorConfig: {},
+      },
+
+      result: {
+        fatal: true,
+        message:
+          'allows setting the configuration to `"editorconfig"`, _only_ when an `.editorconfig` file with the `insert_final_newline` setting exists',
+      },
+    },
+
     {
       config: true,
       template: 'test',
 
       result: {
         fatal: true,
-        moduleId: 'layout.hbs',
         message: 'You specified `true`',
       },
     },

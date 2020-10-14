@@ -22,7 +22,6 @@ generateRuleTests({
       results: [
         {
           message: 'This title is not unique. #1',
-          moduleId: 'layout.hbs',
           source: 'title="foo"',
           line: 1,
           column: 8,
@@ -30,7 +29,6 @@ generateRuleTests({
         {
           message:
             '<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1',
-          moduleId: 'layout.hbs',
           source: '<iframe title="foo" />',
           line: 1,
           column: 22,
@@ -43,7 +41,6 @@ generateRuleTests({
       results: [
         {
           message: 'This title is not unique. #1',
-          moduleId: 'layout.hbs',
           source: 'title="foo"',
           line: 1,
           column: 8,
@@ -51,14 +48,12 @@ generateRuleTests({
         {
           message:
             '<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1',
-          moduleId: 'layout.hbs',
           source: '<iframe title="foo" />',
           line: 1,
           column: 44,
         },
         {
           message: 'This title is not unique. #2',
-          moduleId: 'layout.hbs',
           source: 'title="boo"',
           line: 1,
           column: 30,
@@ -66,7 +61,6 @@ generateRuleTests({
         {
           message:
             '<iframe> elements must have a unique title property. Value title="boo" already used for different iframe. #2',
-          moduleId: 'layout.hbs',
           source: '<iframe title="boo" />',
           line: 1,
           column: 66,
@@ -78,7 +72,6 @@ generateRuleTests({
 
       result: {
         message: '<iframe> elements must have a unique title property.',
-        moduleId: 'layout.hbs',
         source: '<iframe src="12" />',
         line: 1,
         column: 0,
@@ -89,7 +82,6 @@ generateRuleTests({
 
       result: {
         message: '<iframe> elements must have a unique title property.',
-        moduleId: 'layout.hbs',
         source: '<iframe src="12" title={{false}} />',
         line: 1,
         column: 0,
@@ -100,7 +92,6 @@ generateRuleTests({
 
       result: {
         message: '<iframe> elements must have a unique title property.',
-        moduleId: 'layout.hbs',
         source: '<iframe src="12" title="{{false}}" />',
         line: 1,
         column: 0,
@@ -111,7 +102,6 @@ generateRuleTests({
 
       result: {
         message: '<iframe> elements must have a unique title property.',
-        moduleId: 'layout.hbs',
         source: '<iframe src="12" title="" />',
         line: 1,
         column: 0,

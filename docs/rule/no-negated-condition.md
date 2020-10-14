@@ -1,4 +1,6 @@
-## no-negated-condition
+# no-negated-condition
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 It can be hard to reason about negated conditions:
 
@@ -7,9 +9,11 @@ It can be hard to reason about negated conditions:
 
 Negated conditions can often be avoided or simplified by:
 
-* Flipping `if (not condition) ... else ...` to `if .... else ...`
-* Replacing `if (not condition)` with `unless`
-* Replacing `unless (not condition)` with `if`
+* Flipping `{{if (not condition)}} {{prop1}} {{else}} {{prop2}} {{/if}}` to `{{if condition}} {{prop2}} {{else}} {{prop1}} {{/if}}`
+* Replacing `if (not condition)` with `unless condition`
+* Replacing `unless (not condition)` with `if condition`
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -75,10 +79,10 @@ And similar examples with non-block forms like:
 {{input class=(if condition "some-class" "other-class")}}
 ```
 
-### Related Rules
+## Related Rules
 
 * [simple-unless](simple-unless.md)
 
-### References
+## References
 
 * [no-negated-condition](https://eslint.org/docs/rules/no-negated-condition) from eslint

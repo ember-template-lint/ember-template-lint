@@ -1,7 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/no-extra-mut-helper-argument');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/no-extra-mut-helper-argument').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-extra-mut-helper-argument',
@@ -22,7 +22,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '(mut isClicked true)',
         line: 1,
         column: 29,
@@ -33,7 +32,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '(mut isClicked true)',
         line: 1,
         column: 32,
@@ -44,7 +42,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: '(mut isClicked true)',
         line: 1,
         column: 17,

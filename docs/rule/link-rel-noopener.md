@@ -1,4 +1,8 @@
-## link-rel-noopener
+# link-rel-noopener
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 When you want to link to an external page from your app, it is very common to use `<a href="url" target="_blank"></a>`
 to make the browser open this link in a new tab.
@@ -9,6 +13,8 @@ to a malicious clone to perform phishing on your users.
 
 Adding `rel="noopener noreferrer"` closes that door and avoids javascript in the opened tab to block the main
 thread in the opener. Also note that Firefox versions prior 52 do not implement `noopener`, so `rel="noreferrer"` should be used instead ([see Firefox issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1222516)).
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -22,14 +28,15 @@ This rule **allows** the following:
 <a href="https://i.seem.secure.com" target="_blank" rel="noopener noreferrer">I'm a bait</a>
 ```
 
-### Configuration
+## Configuration
 
 The following values are valid configuration:
 
-  * string -- `strict` for enabled and validating both noopener `and` noreferrer
-  * boolean `true` to maintain backwards compatibility with previous versions of `ember-template-lint` that validate noopener `or` noreferrer
-  If you are supporting Firefox, you should use `strict`.
+* string -- `strict` for enabled and validating both noopener `and` noreferrer
+* boolean `true` to maintain backwards compatibility with previous versions of `ember-template-lint` that validate noopener `or` noreferrer
 
-### References
+If you are supporting Firefox, you should use `strict`.
+
+## References
 
 * [Link type "noreferrer"](https://html.spec.whatwg.org/multipage/semantics.html#link-type-noreferrer) spec
