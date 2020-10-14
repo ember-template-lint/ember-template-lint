@@ -20,3 +20,5 @@ This rule **forbids** the following:
 
 ### References
 1. [WebAIM](http://webaim.org/techniques/keyboard/accesskey#spec)
+2. [WCAG: Understanding Character Key Shortcut](https://w3c.github.io/wcag/understanding/character-key-shortcuts.html)
+3. [W3C Wiki: Accesskey](https://www.w3.org/WAI/PF/HTML/wiki/Accesskey)
