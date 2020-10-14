@@ -1,4 +1,6 @@
-## no-abstract-roles
+# no-abstract-roles
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 The HTML attribute `role` must never have the following values:
 
@@ -15,7 +17,7 @@ The HTML attribute `role` must never have the following values:
 * `widget`
 * `window`
 
-### `<* role>`
+## Examples
 
 This rule **forbids** the following:
 
@@ -29,5 +31,6 @@ This rule **allows** the following:
 <div role="button"> Push it </div>
 ```
 
-### References
+## References
+
 * See [https://www.w3.org/TR/wai-aria-1.0/roles#abstract_roles](https://www.w3.org/TR/wai-aria-1.0/roles#abstract_roles)

@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-debugger');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-debugger').message;
 
 generateRuleTests({
   name: 'no-debugger',
@@ -16,7 +16,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{debugger}}',
         line: 1,
         column: 0,
@@ -27,7 +26,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{debugger}}',
         line: 1,
         column: 0,
@@ -38,7 +36,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{#debugger}}Invalid!{{/debugger}}',
         line: 1,
         column: 0,

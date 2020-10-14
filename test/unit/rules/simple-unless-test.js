@@ -1,12 +1,12 @@
 'use strict';
 
+const { messages } = require('../../../lib/rules/simple-unless');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const messages = require('../../../lib/rules/simple-unless').messages;
 
 generateRuleTests({
   name: 'simple-unless',
   config: {
-    whitelist: ['or', 'eq', 'not-eq'],
+    allowlist: ['or', 'eq', 'not-eq'],
     maxHelpers: 2,
   },
 
@@ -27,14 +27,14 @@ generateRuleTests({
     },
     {
       config: {
-        whitelist: ['or', 'eq', 'not-eq'],
+        allowlist: ['or', 'eq', 'not-eq'],
         maxHelpers: 2,
       },
       template: '{{unless (eq foo bar) baz}}',
     },
     {
       config: {
-        whitelist: [],
+        allowlist: [],
         maxHelpers: 2,
       },
       template: '{{unless (eq (not foo) bar) baz}}',
@@ -54,30 +54,48 @@ generateRuleTests({
     {
       config: {
         maxHelpers: -1,
-        blacklist: [],
+        denylist: [],
       },
       template: '{{unless (eq (not foo) bar) baz}}',
     },
     {
       config: {
         maxHelpers: -1,
-        blacklist: ['or'],
+        denylist: ['or'],
       },
       template: '{{unless (eq (not foo) bar) baz}}',
+    },
+
+    {
+      // deprecated `whitelist` config
+      config: {
+        maxHelpers: 1,
+        whitelist: ['or'],
+      },
+      template: '{{unless (or foo bar)}}',
+    },
+
+    {
+      // `allowlist` supercedes deprecated `whitelist` config
+      config: {
+        maxHelpers: 1,
+        allowlist: ['and'],
+        whitelist: ['or'],
+      },
+      template: '{{unless (and foo bar)}}',
     },
   ],
 
   bad: [
     {
       config: {
-        whitelist: ['or', 'eq', 'not-eq'],
+        allowlist: ['or', 'eq', 'not-eq'],
         maxHelpers: 2,
       },
       template: "{{unless (if (or true))  'Please no'}}",
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
         column: 9,
@@ -88,7 +106,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (if ...',
         line: 1,
         column: 9,
@@ -99,7 +116,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
         column: 9,
@@ -116,7 +132,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 3,
         column: 0,
@@ -127,7 +142,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 2,
         column: 0,
@@ -144,7 +158,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 2,
         column: 0,
@@ -161,7 +174,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else if goHawks}}',
         line: 3,
         column: 0,
@@ -180,7 +192,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else if goPats}}',
         line: 3,
         column: 0,
@@ -199,7 +210,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else if goBengals}}',
         line: 3,
         column: 0,
@@ -212,7 +222,6 @@ generateRuleTests({
 
       result: {
         message: messages.asElseUnlessBlock,
-        moduleId: 'layout.hbs',
         source: '{{else unless ...',
         line: 3,
         column: 0,
@@ -227,7 +236,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (and ...',
         line: 1,
         column: 10,
@@ -242,7 +250,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        moduleId: 'layout.hbs',
         source: '{{unless (not ...',
         line: 1,
         column: 10,
@@ -259,7 +266,6 @@ generateRuleTests({
 
       result: {
         message: messages.followingElseBlock,
-        moduleId: 'layout.hbs',
         source: '{{else}}',
         line: 3,
         column: 0,
@@ -274,7 +280,6 @@ generateRuleTests({
 
       result: {
         message: `${messages.withHelper} MaxHelpers: 2`,
-        moduleId: 'layout.hbs',
         source: '{{unless (... (not-eq ...',
         line: 1,
         column: 27,
@@ -298,7 +303,7 @@ generateRuleTests({
     },
     {
       config: {
-        whitelist: ['test'],
+        allowlist: ['test'],
         maxHelpers: 1,
       },
       template: [
@@ -326,7 +331,7 @@ generateRuleTests({
     },
     {
       config: {
-        whitelist: [],
+        allowlist: [],
         maxHelpers: 2,
       },
       template: [
@@ -345,7 +350,7 @@ generateRuleTests({
     },
     {
       config: {
-        blacklist: ['two'],
+        denylist: ['two'],
         maxHelpers: -1,
       },
       template: [
@@ -364,7 +369,7 @@ generateRuleTests({
     },
     {
       config: {
-        blacklist: ['two', 'four'],
+        denylist: ['two', 'four'],
         maxHelpers: -1,
       },
       template: [
@@ -387,6 +392,43 @@ generateRuleTests({
           source: '{{unless (... (four ...',
           line: 1,
           column: 27,
+        },
+      ],
+    },
+
+    {
+      // deprecated `whitelist` config
+      config: {
+        maxHelpers: 1,
+        whitelist: ['or'],
+      },
+      template: '{{unless (and foo bar)}}',
+      results: [
+        {
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: or',
+          line: 1,
+          column: 9,
+          source: '{{unless (and ...',
+        },
+      ],
+    },
+
+    {
+      // `allowlist` supercedes deprecated `whitelist` config
+      config: {
+        maxHelpers: 1,
+        allowlist: ['and'],
+        whitelist: ['or'],
+      },
+      template: '{{unless (or foo bar)}}',
+      results: [
+        {
+          message:
+            'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: and',
+          line: 1,
+          column: 9,
+          source: '{{unless (or ...',
         },
       ],
     },

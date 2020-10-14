@@ -1,7 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/no-action');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/no-action').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'no-action',
@@ -27,7 +27,6 @@ generateRuleTests({
       template: '<button onclick={{action "foo"}}></button>',
       result: {
         message: ERROR_MESSAGE.replace('%', '{{action ...}}'),
-        moduleId: 'layout.hbs',
         source: '{{action "foo"}}',
         line: 1,
         column: 16,
@@ -37,7 +36,6 @@ generateRuleTests({
       template: '<button {{action "submit"}}>Submit</button>',
       result: {
         message: ERROR_MESSAGE.replace('%', '<button {{action ...}} />'),
-        moduleId: 'layout.hbs',
         source: '{{action "submit"}}',
         line: 1,
         column: 8,
@@ -47,7 +45,6 @@ generateRuleTests({
       template: '<FooBar @baz={{action "submit"}} />',
       result: {
         message: ERROR_MESSAGE.replace('%', '{{action ...}}'),
-        moduleId: 'layout.hbs',
         source: '{{action "submit"}}',
         line: 1,
         column: 13,
@@ -57,7 +54,6 @@ generateRuleTests({
       template: '{{yield (action "foo")}}',
       result: {
         message: ERROR_MESSAGE.replace('%', '(action ...)'),
-        moduleId: 'layout.hbs',
         source: '(action "foo")',
         line: 1,
         column: 8,
@@ -67,7 +63,6 @@ generateRuleTests({
       template: '{{yield (action this.foo)}}',
       result: {
         message: ERROR_MESSAGE.replace('%', '(action ...)'),
-        moduleId: 'layout.hbs',
         source: '(action this.foo)',
         line: 1,
         column: 8,

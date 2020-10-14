@@ -1,16 +1,19 @@
 module.exports = {
   parserOptions: {
     ecmaVersion: 2019,
+    sourceType: 'script',
   },
   env: {
-    node: true
+    node: true,
   },
   plugins: [
     'eslint-comments',
     'filenames',
     'import',
+    'import-helpers',
     'node',
-    'prettier'
+    'prettier',
+    'unicorn',
   ],
   extends: [
     'eslint:recommended',
@@ -18,7 +21,9 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:node/recommended',
-    'prettier'
+    'plugin:unicorn/recommended',
+    'prettier',
+    'prettier/unicorn',
   ],
   rules: {
     // Optional eslint rules:
@@ -28,6 +33,7 @@ module.exports = {
     curly: 'error',
     eqeqeq: 'error',
     'func-style': ['error', 'declaration'],
+    'id-denylist': ['error', 'whitelist', 'blacklist'],
     'new-parens': 'error',
     'no-async-promise-executor': 'error',
     'no-console': 'error',
@@ -66,7 +72,7 @@ module.exports = {
     'prefer-rest-params': 'error',
     'prefer-spread': 'error',
     'prefer-template': 'error',
-    'quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }], // Disallow unnecessary template literals.
+    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }], // Disallow unnecessary template literals.
     radix: 'error',
     'require-atomic-updates': 'error',
     'require-await': 'error',
@@ -76,26 +82,48 @@ module.exports = {
 
     'eslint-comments/no-unused-disable': 'error',
 
-    'filenames/match-regex': ['error', '^[a-z0-9-]+$'], // Kebab-case.
+    'filenames/match-regex': ['error', '^.?[a-z0-9-]+$'], // Kebab-case.
 
     // Optional import rules:
-    'import/extensions': 'error',
-    'import/first': 'error',
-    'import/newline-after-import': 'error',
-    'import/no-absolute-path': 'error',
-    'import/no-cycle': 'error',
-    'import/no-deprecated': 'error',
-    'import/no-dynamic-require': 'error',
-    'import/no-mutable-exports': 'error',
-    'import/no-named-default': 'error',
-    'import/no-self-import': 'error',
-    'import/no-unassigned-import': 'error',
-    'import/no-unused-modules': 'error',
-    'import/no-useless-path-segments': 'error',
-    'import/no-webpack-loader-syntax': 'error',
+    'import/extensions': 'error',
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-absolute-path': 'error',
+    'import/no-cycle': 'error',
+    'import/no-deprecated': 'error',
+    'import/no-dynamic-require': 'error',
+    'import/no-mutable-exports': 'error',
+    'import/no-named-default': 'error',
+    'import/no-self-import': 'error',
+    'import/no-unassigned-import': 'error',
+    'import/no-unused-modules': 'error',
+    'import/no-useless-path-segments': 'error',
+    'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
 
+    'import-helpers/order-imports': [
+      'error',
+      {
+        newlinesBetween: 'always',
+        groups: [
+          '/^(assert|async_hooks|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|http2|https|inspector|module|net|os|path|perf_hooks|process|punycode|querystring|readline|repl|stream|string_decoder|timers|tls|trace_events|tty|url|util|v8|vm|zli)/',
+          ['module'],
+          ['parent', 'sibling', 'index'],
+        ],
+        alphabetize: { order: 'asc', ignoreCase: true },
+      },
+    ],
+
     'prettier/prettier': 'error',
+
+    // Unicorn rules:
+    'unicorn/consistent-function-scoping': 'off',
+    'unicorn/explicit-length-check': 'off',
+    'unicorn/no-fn-reference-in-iterator': 'off',
+    'unicorn/no-null': 'off',
+    'unicorn/no-reduce': 'off',
+    'unicorn/no-useless-undefined': 'off',
+    'unicorn/prevent-abbreviations': 'off',
   },
 
   overrides: [
@@ -106,13 +134,30 @@ module.exports = {
       },
     },
     {
+      files: ['lib/rules/**/*.js'],
+      rules: {
+        'filenames/match-exported': ['error', 'kebab'],
+      },
+    },
+    {
       files: ['test/**/*.js'],
       env: {
         jest: true,
       },
       rules: {
-        'import/no-dynamic-require': 'off'
-      }
-    }
+        'import/no-dynamic-require': 'off',
+      },
+    },
+    {
+      files: [
+        'lib/rules/no-bare-strings.js',
+        'lib/rules/simple-unless.js',
+        'test/unit/rules/no-bare-strings-test.js',
+        'test/unit/rules/simple-unless-test.js',
+      ],
+      rules: {
+        'id-denylist': 'off',
+      },
+    },
   ],
 };

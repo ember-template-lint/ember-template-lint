@@ -1,7 +1,7 @@
 'use strict';
 
-const generateRuleTests = require('../../helpers/rule-test-harness');
 const { makeErrorMessage } = require('../../../lib/rules/no-passed-in-event-handlers');
+const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
   name: 'no-passed-in-event-handlers',

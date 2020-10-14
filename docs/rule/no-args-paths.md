@@ -1,4 +1,6 @@
-## no-args-paths
+# no-args-paths
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Arguments that are passed to components are prefixed with the `@` symbol in Angle bracket syntax.
 Ember Octane leverages this in the component's templates by allowing users to directly refer to an argument using the same prefix:
@@ -14,9 +16,9 @@ Ember Octane leverages this in the component's templates by allowing users to di
 </ul>
 ```
 
-We can immediately tell now by looking at this template that `@todos` is an argument that was passed to the component externally. This is in fact _always true_ - there is no way to modify the value referenced by `@todos` from the component class, it is the original, unmodified value. 
+We can immediately tell now by looking at this template that `@todos` is an argument that was passed to the component externally. This is in fact _always true_ - there is no way to modify the value referenced by `@todos` from the component class, it is the original, unmodified value.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
@@ -48,16 +50,15 @@ This rule **allows** the following:
 <div {{my-modifier @foo}}></div>
 ```
 
-
-### Migration
+## Migration
 
 * find in templates `this.args.` replace to `@`
 
-### Related Rules
+## Related Rules
 
 * [no-curly-component-invocation](no-curly-component-invocation.md)
 
-### References
+## References
 
 * [RFC #276](https://github.com/emberjs/rfcs/blob/master/text/0276-named-args.md)
 * [Coming Soon in Ember Octane - Part 2: Named Argument Syntax](https://www.pzuraq.com/coming-soon-in-ember-octane-part-2-angle-brackets-and-named-arguments/#namedargumentsyntax)

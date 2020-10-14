@@ -11,7 +11,7 @@ generateRuleTests({
     '{{foo}}',
     '{{! template-lint-disable no-bare-strings }}',
     '{{! template-lint-disable }}',
-    '{{! template-lint-disable triple-curlies}}{{{lol}}}',
+    '{{! template-lint-disable no-triple-curlies}}{{{lol}}}',
   ],
 
   bad: [
@@ -20,7 +20,6 @@ generateRuleTests({
 
       result: {
         message: 'Usage of triple curly brackets is unsafe',
-        moduleId: 'layout.hbs',
         source: '{{{foo}}}',
         line: 2,
         column: 1,

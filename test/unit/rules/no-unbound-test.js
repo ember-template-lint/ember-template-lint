@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-unbound');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-unbound').message;
 
 generateRuleTests({
   name: 'no-unbound',
@@ -16,7 +16,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{unbound foo}}',
         line: 1,
         column: 0,
@@ -27,7 +26,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '(unbound foo)',
         line: 1,
         column: 15,

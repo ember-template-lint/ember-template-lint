@@ -19,7 +19,6 @@ generateRuleTests({
       template: '<FooBar as |div|><div></div></FooBar>',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'Ambiguous element used (`div`)',
         line: 1,
         column: 17,

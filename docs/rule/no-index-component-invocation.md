@@ -1,4 +1,6 @@
-## no-index-component-invocation
+# no-index-component-invocation
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Components and Component Templates can be structured as `app/components/foo-bar/index.js` and
 `app/components/foo-bar/index.hbs`. This allows additional files related to the
@@ -17,7 +19,7 @@ template with the same name that is made available with the resolver API.
 Instead of being resolved at runtime, a template in `app/components` will be
 associated with the component's JavaScript class at build time.
 
-### Examples
+## Examples
 
 This rule **forbids** the following:
 
@@ -47,11 +49,11 @@ This rule **allows** the following:
 {{foo}}
 ```
 
-### Migration
+## Migration
 
 * replace all `::Index>` to `>`
 * replace all `/index}}` to `}}`
 
-### References
+## References
 
 * [RFC #481](https://github.com/emberjs/rfcs/blob/master/text/0481-component-templates-co-location.md#high-level-design)

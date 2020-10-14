@@ -1,4 +1,4 @@
-## no-element-event-actions
+# no-element-event-actions
 
 Using HTML element event properties such as `onclick` for Ember actions is not recommended for the following reasons:
 
@@ -6,6 +6,8 @@ Using HTML element event properties such as `onclick` for Ember actions is not r
 * It can lead to confusing and unexpected behavior when mixed with normal action usage. For a comprehensive explanation of why, read [Deep Dive on Ember Events].
 
 The recommended alternative is the `on` modifier. `on` is available in Ember 3.11+ and by [polyfill](https://github.com/buschtoens/ember-on-modifier) for earlier versions.
+
+## Examples
 
 This rule **forbids** the following:
 
@@ -19,7 +21,7 @@ This rule **allows** the following:
 <button {{on 'click' this.submit}}>Submit</button>
 ```
 
-### References
+## References
 
 * [Documentation](https://guides.emberjs.com/release/templates/actions/) for template actions
 * [Polyfill](https://github.com/buschtoens/ember-on-modifier) for the `on` modifier (needed below Ember 3.11)
@@ -30,7 +32,7 @@ This rule **allows** the following:
 
 [Deep Dive on Ember Events]: https://medium.com/square-corner-blog/deep-dive-on-ember-events-cf684fd3b808
 
-### Related Rules
+## Related Rules
 
 * [no-action](no-action.md)
 * [no-action-modifiers](no-action-modifiers.md)

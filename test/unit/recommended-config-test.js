@@ -1,9 +1,10 @@
 'use strict';
 
-const Linter = require('../../lib/index');
 const stripIndent = require('common-tags').stripIndent;
 
-describe('recommended config', function() {
+const Linter = require('../../lib');
+
+describe('recommended config', function () {
   function buildFakeConsole() {
     return {
       _logLines: [],
@@ -15,12 +16,12 @@ describe('recommended config', function() {
   }
 
   let mockConsole;
-  beforeEach(function() {
+  beforeEach(function () {
     mockConsole = buildFakeConsole();
   });
 
   function ensureValid(source) {
-    it(`passes with: \`${source}\``, function() {
+    it(`passes with: \`${source}\``, function () {
       let config = { extends: 'recommended' };
 
       let linter = new Linter({
@@ -34,10 +35,10 @@ describe('recommended config', function() {
 
   ensureValid(stripIndent`
     <md-autocomplete-wrap
-      id={{autocompleteWrapperId}}
+      id={{this.autocompleteWrapperId}}
       role="listbox"
       layout="row"
-      class="{{if notFloating "md-whiteframe-z1"}} {{if notHidden "md-menu-showing"}}"
+      class="{{if this.notFloating "md-whiteframe-z1"}} {{if this.notHidden "md-menu-showing"}}"
     >
     </md-autocomplete-wrap>
   `);
@@ -46,7 +47,7 @@ describe('recommended config', function() {
   ensureValid('{{#foo-bar as |baz|}}{{#baz.derp}}{{/baz.derp}}{{/foo-bar}}');
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/253
-  ensureValid('<img alt="special thing" src={{some-dir/some-thing x}}>');
+  ensureValid('<img alt="special thing" src={{some-dir/some-thing this.x}}>');
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/443
   ensureValid(`

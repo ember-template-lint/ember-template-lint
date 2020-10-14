@@ -1,7 +1,7 @@
 'use strict';
 
+const { ERROR_MESSAGE } = require('../../../lib/rules/style-concatenation');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const ERROR_MESSAGE = require('../../../lib/rules/style-concatenation').ERROR_MESSAGE;
 
 generateRuleTests({
   name: 'style-concatenation',
@@ -23,7 +23,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: 'style="{{myStyle}}"',
         line: 1,
         column: 5,
@@ -34,7 +33,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: 'style="background-image: {{url}}"',
         line: 1,
         column: 5,
@@ -45,7 +43,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: 'style="{{background-image url}}"',
         line: 1,
         column: 5,
@@ -56,7 +53,6 @@ generateRuleTests({
 
       result: {
         message: ERROR_MESSAGE,
-        moduleId: 'layout.hbs',
         source: 'style={{concat knownSafeStyle1 ";" knownSafeStyle2}}',
         line: 1,
         column: 5,

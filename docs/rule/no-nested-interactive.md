@@ -1,6 +1,10 @@
-## no-nested-interactive
+# no-nested-interactive
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Usage of nested, interactive content can lead to UX problems, accessibility problems, bugs, and in some cases DOM errors. You should not put interactive content elements nested inside other interactive content elements. Instead of using nested interactive content elements, you should separate them, or use styling on a single element.
+
+## Examples
 
 This rule **forbids** the following (button nested inside a link):
 
@@ -18,13 +22,17 @@ This rule **allows** the following (link with button styling):
 <a href="/contact-us" class="button">Contact Us</a>
 ```
 
-### Configuration
+## Configuration
 
 The following values are valid configuration:
 
-  * boolean -- `true` indicates all whitelist test will run, `false` indicates that the rule is disabled.
-  * object - Containing the following values:
-    * `ignoredTags` - An array of element tag names that should be whitelisted. Default to `[]`.
-    * `ignoreTabindex` - When `true` tabindex will be ignored. Defaults to `false`.
-    * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
-    * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.
+* boolean -- `true` indicates all whitelist test will run, `false` indicates that the rule is disabled.
+* object - Containing the following values:
+  * `ignoredTags` - An array of element tag names that should be whitelisted. Default to `[]`.
+  * `ignoreTabindex` - When `true` tabindex will be ignored. Defaults to `false`.
+  * `ignoreUsemapAttribute` - When `true` ignores the `usemap` attribute on `img` and `object` elements. Defaults `false`.
+  * `additionalInteractiveTags` - An array of element tag names that should also be considered as interactive. Defaults to `[]`.
+
+## References
+
+* [MDN docs/ARIA roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)

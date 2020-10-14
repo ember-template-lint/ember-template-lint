@@ -1,7 +1,7 @@
 'use strict';
 
+const { message } = require('../../../lib/rules/no-input-tagname');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const message = require('../../../lib/rules/no-input-tagname').message;
 
 generateRuleTests({
   name: 'no-input-tagname',
@@ -20,7 +20,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{input tagName="foo"}}',
         line: 1,
         column: 0,
@@ -31,7 +30,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{input tagName=bar}}',
         line: 1,
         column: 0,
@@ -42,7 +40,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{component "input" tagName="foo"}}',
         line: 1,
         column: 0,
@@ -53,7 +50,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '{{component "input" tagName=bar}}',
         line: 1,
         column: 0,
@@ -64,7 +60,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '(component "input" tagName="foo")',
         line: 1,
         column: 8,
@@ -75,7 +70,6 @@ generateRuleTests({
 
       result: {
         message,
-        moduleId: 'layout.hbs',
         source: '(component "input" tagName=bar)',
         line: 1,
         column: 8,

@@ -20,7 +20,6 @@ generateRuleTests({
       template: 'test ',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'line cannot end with space',
         line: 1,
         column: 4,
@@ -31,7 +30,6 @@ generateRuleTests({
       template: 'test \n',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'line cannot end with space',
         line: 1,
         column: 4,
@@ -42,7 +40,6 @@ generateRuleTests({
       template: 'test\n' + ' \n',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'line cannot end with space',
         line: 2,
         column: 0,
@@ -55,7 +52,6 @@ generateRuleTests({
       template: '{{#my-component}}\n' + '  test \n' + '{{/my-component}}',
 
       result: {
-        moduleId: 'layout.hbs',
         message: 'line cannot end with space',
         line: 2,
         column: 6,

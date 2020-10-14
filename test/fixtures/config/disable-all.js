@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-  'no-bare-strings': false,
-  'block-indentation': false,
+  'no-bare-strings': 'off',
+  'block-indentation': 'off',
 };
