@@ -4,7 +4,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 const { errorMessage: message } = require('./../../../lib/rules/no-accesskey-attribute');
 
 generateRuleTests({
-  name: 'no-access-key',
+  name: 'no-accesskey-attribute',
 
   config: true,
 
@@ -15,40 +15,51 @@ generateRuleTests({
       template: '<button accesskey="n"></button>',
       result: {
         message,
-        moduleId: 'layout.hbs',
-        source: '<button accesskey="n"></button>',
+        source: 'accesskey="n"',
+        isFixable: true,
         line: 1,
-        column: 0,
+        column: 8,
       },
     },
     {
       template: '<button accesskey></button>',
       result: {
         message,
-        moduleId: 'layout.hbs',
-        source: '<button accesskey></button>',
+        source: 'accesskey',
+        isFixable: true,
         line: 1,
-        column: 0,
+        column: 8,
       },
     },
     {
       template: '<button accesskey={{some-key}}></button>',
       result: {
         message,
-        moduleId: 'layout.hbs',
-        source: '<button accesskey={{some-key}}></button>',
+        source: 'accesskey={{some-key}}',
+        isFixable: true,
         line: 1,
-        column: 0,
+        column: 8,
       },
     },
     {
       template: '<button accesskey="{{some-key}}"></button>',
       result: {
         message,
-        moduleId: 'layout.hbs',
-        source: '<button accesskey="{{some-key}}"></button>',
+        source: 'accesskey="{{some-key}}"',
         line: 1,
-        column: 0,
+        column: 8,
+        isFixable: true,
+      },
+    },
+    {
+      template: '<button accesskey="{{some-key}}"></button>',
+      fixedTemplate: '<button></button>',
+      result: {
+        message,
+        line: 1,
+        column: 8,
+        source: 'accesskey="{{some-key}}"',
+        isFixable: true,
       },
     },
   ],
