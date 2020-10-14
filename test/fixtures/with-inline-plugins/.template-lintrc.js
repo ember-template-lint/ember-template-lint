@@ -8,7 +8,7 @@ module.exports = {
     }
   ],
   rules: {
-    'inline-component': true,
-    'no-bare-strings': true
+    'inline-component': 'error',
+    'no-bare-strings': 'error'
   }
 };

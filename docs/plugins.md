@@ -1,10 +1,10 @@
-## Plugin Support
+# Plugin Support
 
 You can customize the linter with rules that are more specific to your use case with the `ember-template-lint` plugin system.
 
 Plugins can define new rules and set up default configurations that can be extended.
 
-### Defining plugin objects
+## Defining plugin objects
 
 Each plugin object can include these properties.
 
@@ -34,7 +34,7 @@ Sample plugin object:
   // Define rules for this plugin. Each path should map to a plugin rule
   rules: {
     'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
-    'another-custom-rule': require('.lib/template-lint-rules/another-custom-rule')
+    'another-custom-rule': require('./lib/template-lint-rules/another-custom-rule')
   },
 
   // Define configurations for this plugin that can be extended by the base configuration
@@ -48,7 +48,7 @@ Sample plugin object:
 }
 ```
 
-### Adding Plugins to Your Configuration
+## Adding Plugins to Your Configuration
 
 In order to enable a plugin, you must add it to the `plugins` key in your configuration file.
 
@@ -89,11 +89,11 @@ module.exports = {
 }
 ```
 
-### Rule APIs
+## Rule APIs
 
 Every rule defined by a plugin can use these public APIs defined by `ember-template-lint`.
 
-#### Building a rule object
+### Building a rule object
 
 Each file that defines a rule should export a class that extends from the base rule object.
 
@@ -133,16 +133,16 @@ The base rule also has a few helper functions that can be useful in defining rul
 * `function log(options)`
 
   Report a lint error. The `log` function accepts an Object as its only argument, which can contain the following parameters:
-    - `message` -- `string`
-      The error message to display.
-    - `line` -- `number`
-      The line number of the error in the source string.
-    - `column` -- `number`
-      The column number of the error in the source string.
-    - `source` -- `string`
-      The source string that caused the error.
-    - `fix` -- `string`
-      An optional string to display with the recommended fix.
+  * `message` -- `string`
+    The error message to display.
+  * `line` -- `number`
+    The line number of the error in the source string.
+  * `column` -- `number`
+    The column number of the error in the source string.
+  * `source` -- `string`
+    The source string that caused the error.
+  * `fix` -- `string`
+    An optional string to display with the recommended fix.
 
 * `function sourceForNode(node): string`
 
@@ -152,7 +152,7 @@ The base rule also has a few helper functions that can be useful in defining rul
 
   Given an AST node, check if it is derived from a local / block param.
 
-#### AST Node Helpers
+### AST Node Helpers
 
 There are a number of helper functions exported by [`ember-template-lint`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor handlers.
 
@@ -221,3 +221,92 @@ const helpers = require('ember-template-lint').ASTHelpers;
 * `function hasChildren(node): boolean`
 
   Returns true if this node has any child nodes.
+
+### Node Matcher Helper
+
+`ember-template-lint` also exports a `.match` helper that is useful for defining a given rule's 'target nodes' -- that is, the set of nodes for which it is appropriate to apply the rule's logic.
+
+You access this helper via:
+
+```js
+const NodeMatcher = require('ember-template-lint').NodeMatcher;
+```
+
+* `function match(testNode, ref): boolean`
+
+  Pattern matches a test node against either an individual reference node OR
+  an Array of reference nodes.
+
+  ```js
+  @param  {Node} testNode - the node to validate
+  @param  {Node|Node[]} ref - the reference node(s) to match testNode against
+  @return {boolean}
+  ```
+
+  An individual comparison returns whether or not the reference node is a
+  strict subset of the test node. Similarly, an Array comparison returns
+  whether or not any one of its individual reference node elements is a strict
+  subset of the test node.
+
+  In this context, the reference(s) can be used as selection criteria that a
+  given visited node (test node) must satisfy in order to proceed with rule logic
+  execution.
+
+  For simple and specific target patterns, a `match` implementation has clearer
+  and more succinct syntax than its conditional (`if`) counterpart because it
+  does the following tasks on behalf of the rule:
+
+  * asserts the existence of relevant nodes, properties, values, etc.
+  * compounds the 'AND' logic dictated by a strict multi-comparison matching
+
+  As an example, consider a rule designed to ensure that all `div` elements
+  with the custom `class` attribute `foo` also have a `role` attribute of
+  `textbox`. An outline of the rule might look like:
+
+  Example Target:
+
+  ```html
+   <div class="foo"></div>
+   ```
+
+  Example Code Context:
+
+  ```js
+  // require-textbox-role-on-foo-div.js
+   visitor() {
+     return ElementNode(node) {
+       if (
+         // check node against target here
+       ) {
+         // execute rule logic against target nodes here
+       }
+     }
+   }
+  ```
+
+  An implementation using standard AST Node syntax might look like:
+
+  ```js
+       if (
+         node.tag === 'div' &&
+         node.attributes &&
+         node.attributes.find((attributeNode) =>
+           attributeNode.name === 'class' &&
+           attributeNode.value.chars === 'foo'
+         ))
+       )
+  ```
+
+  By comparison, the corresponding `match` implementation might look like:
+
+  ```js
+       if (
+         NodeMatcher.match(node, {
+           tag: 'div',
+           attributes: [ { name: 'class', value: { chars: 'foo' } } ]
+         })
+       )
+  ```
+
+  TODO: complex example (multiple supported types of `links`?)
+  

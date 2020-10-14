@@ -1,4 +1,6 @@
-## no-quoteless-attributes
+# no-quoteless-attributes
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 In HTML, all attribute values are considered strings, regardless of whether they are quoted or not.
 
@@ -21,6 +23,8 @@ This is just _one_ (of many) cases where the default "string" based parsing of a
 
 This rule attempts to make this situation _slightly_ better by at least ensuring that all attribute values are quoted. This obviously doesn't fix the :troll:y nature of HTML here but it does ensure that you still **see** the quotes (which should hopefully help remind you that these are strings and not values).
 
+## Examples
+
 This rule **forbids** the following (note that `someValue` could have been intended either as a string or expression):
 
 ```html
@@ -36,3 +40,7 @@ This rule **allows** the following:
 ```hbs
 <div data-foo={{someValue}}></div>
 ```
+
+## References
+
+* [HTML spec/attributes](https://html.spec.whatwg.org/multipage/dom.html#attributes)

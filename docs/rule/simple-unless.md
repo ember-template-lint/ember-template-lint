@@ -1,4 +1,6 @@
-## simple-unless
+# simple-unless
+
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 This rule strongly advises against `{{unless}}` blocks in the following situations:
 
@@ -7,16 +9,18 @@ This rule strongly advises against `{{unless}}` blocks in the following situatio
 
 Common solutions are to use an `{{if}}` block, or refactor potentially confusing logic within the template.
 
+## Examples
+
 This rule **forbids** the following:
 
-``` hbs
-{{! `unless` condition has a template helper }}
+```hbs
+{{!-- `unless` condition has a template helper  --}}
 
 {{unless (if true) "This is not recommended"}}
 ```
 
-``` hbs
-{{! `unless` statement has an `else` block }}
+```hbs
+{{!-- `unless` statement has an `else` block  --}}
 
 {{#unless bandwagoner}}
   Go Niners!
@@ -25,8 +29,8 @@ This rule **forbids** the following:
 {{/unless}}
 ```
 
-``` hbs
-{{! conditional statement has an `else unless` block }}
+```hbs
+{{!-- conditional statement has an `else unless` block  --}}
 
 {{#if condition}}
   Hello
@@ -37,7 +41,7 @@ This rule **forbids** the following:
 
 This rule **allows** the following:
 
-``` hbs
+```hbs
 {{#if bandwagoner}}
   Go Blue Jays!
 {{else}}
@@ -45,22 +49,28 @@ This rule **allows** the following:
 {{/if}}
 ```
 
-``` hbs
+```hbs
 {{#unless condition}}
   Hello World
 {{/unless}}
 ```
 
-### Configuration
+## Configuration
 
 The following values are valid configuration:
 
-  * boolean -- `true` for enabled / `false` for disabled
-  * object --
-    * `whitelist` -- array - `['or']` for specific helpers / `[]` for wildcard
-    * `blacklist` -- array - `['or']` for specific helpers / `[]` for none
-    * `maxHelpers` -- number - use -1 for no limit
+* boolean -- `true` for enabled / `false` for disabled
+* object --
+  * `allowlist` -- array - `['or']` for specific helpers / `[]` for wildcard
+  * `whitelist` -- deprecated, use `allowlist`. If both are provided, `whitelist` will be ignored.
+  * `denylist` -- array - `['or']` for specific helpers / `[]` for none
+  * `blacklist` -- deprecated, use `denylist`. If both are provided, `blacklist` will be ignored.
+  * `maxHelpers` -- number - use -1 for no limit
 
-### Related Rules
+## Related Rules
 
-  * [no-negated-condition](no-negated-condition.md)
+* [no-negated-condition](no-negated-condition.md)
+
+## References
+
+* [Wikipedia/boolean algebra](https://en.wikipedia.org/wiki/Boolean_algebra)
