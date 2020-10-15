@@ -17,7 +17,7 @@ This rule **allows** the following:
 This rule **forbids** the following:
 
 ```hbs
-<div accesskey="h" ></div>
+<div accesskey="h"></div>
 ```
 
 ## References
