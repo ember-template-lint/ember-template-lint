@@ -139,7 +139,7 @@ function parseArgv(_argv) {
         boolean: true,
         default: false,
       },
-      printer: {
+      formatter: {
         describe: 'Specify formatter to be used in printing output',
         type: 'string',
         default: 'pretty',
@@ -306,6 +306,49 @@ async function run() {
 
   if (options['no-config-path'] !== undefined) {
     options.configPath = false;
+  }
+
+  if (options.json) {
+    options.formatter = 'json';
+  }
+
+  if (options.formatter) {
+    switch (options.formatter) {
+      case 'json': {
+        let JsonPrinter = require('../lib/printers/json');
+        options.formatter = new JsonPrinter(options);
+        break;
+      }
+      case 'pretty': {
+        let PrettyPrinter = require('../lib/printers/pretty');
+        options.formatter = new PrettyPrinter(options);
+        break;
+      }
+      default: {
+        const { dir } = path.parse(options.formatter);
+
+        if (dir === '.') {
+          const customPrinterPath = path.resolve(process.cwd(), options.formatter);
+          // eslint-disable-next-line import/no-dynamic-require
+          const CustomPrinter = require(customPrinterPath);
+
+          options.formatter = new CustomPrinter(options);
+        } else {
+          // you can also import a printer from a package "ember-template-lint-printer-${name of package}"
+          try {
+            // eslint-disable-next-line import/no-dynamic-require
+            const CustomPrinter = require(`ember-template-lint-printer-${options.formatter}`);
+
+            options.formatter = new CustomPrinter(options);
+          } catch (error) {
+            (options.console || console).error(
+              `There was a problem loading the printer: Could not load "ember-template-lint-printer-${options.formatter}"`,
+              error.message
+            );
+          }
+        }
+      }
+    }
   }
 
   let linter;

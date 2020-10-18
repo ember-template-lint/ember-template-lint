@@ -48,6 +48,8 @@ describe('ember-template-lint executable', function () {
                                         contents from STDIN                       [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
+            --formatter                 Specify formatter to be used in printing output
+                                                              [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -99,6 +101,8 @@ describe('ember-template-lint executable', function () {
                                         contents from STDIN                       [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
+            --formatter                 Specify formatter to be used in printing output
+                                                              [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -404,6 +408,8 @@ describe('ember-template-lint executable', function () {
                                         contents from STDIN                       [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
+            --formatter                 Specify formatter to be used in printing output
+                                                              [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
