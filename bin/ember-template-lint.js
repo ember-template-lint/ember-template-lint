@@ -17,6 +17,8 @@ const micromatch = require('micromatch');
 const Linter = require('../lib');
 const processResults = require('../lib/helpers/process-results');
 
+const { getTodoStorageDirPath } = require('@ember-template-lint/todo-utils');
+
 const readFile = promisify(fs.readFile);
 
 const STDIN = '/dev/stdin';
@@ -41,8 +43,11 @@ async function buildLinterOptions(workingDir, filePath, filename = '', isReading
   }
 }
 
+// TODO: inline this function
 async function lintSource(linter, options, shouldFix) {
-  if (shouldFix) {
+  if (options.updateTodos) {
+    return linter.verifyAndUpdateTodos(options);
+  } else if (shouldFix) {
     let { isFixed, output, messages } = await linter.verifyAndFix(options);
     if (isFixed) {
       fs.writeFileSync(options.filePath, output);
@@ -165,7 +170,12 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'print-pending': {
-        describe: 'Print list of formatted rules for use with `pending` in config file',
+        describe:
+          'Print list of formatted rules for use with `pending` in config file (deprecated)',
+        boolean: true,
+      },
+      'update-todos': {
+        describe: 'Update list of linting todos',
         boolean: true,
       },
       'ignore-pattern': {
@@ -263,7 +273,16 @@ async function run() {
     return;
   }
 
+  if (fs.existsSync(getTodoStorageDirPath(process.cwd())) && linter.config.pending) {
+    console.error(
+      'Cannot use the `pending` config option in conjunction with lint todos. Please run with `--update-pending` to migrate to the new todos functionality.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+
 
   let resultsAccumulator = [];
   for (let relativeFilePath of filePaths) {
@@ -283,6 +302,12 @@ async function run() {
   if (results.errorCount > 0) {
     process.exitCode = 1;
   }
+
+  // TODO: add --update-pending flag
+  // TODO: add new --list-pending feature for new system
+  // TODO: error if using --print-pending and new pending system
+  // TODO: error if we have old config.pending and new pending dir
+  // TODO: migrate to new pending system if using old pending system
 
   if (options.printPending) {
     return printPending(results, options);
