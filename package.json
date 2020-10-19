@@ -46,7 +46,7 @@
     "micromatch": "^4.0.2",
     "resolve": "^1.17.0",
     "v8-compile-cache": "^2.1.1",
-    "yargs": "^16.0.3"
+    "yargs": "^16.1.0"
   },
   "devDependencies": {
     "@babel/parser": "^7.11.4",
