@@ -3,6 +3,11 @@ const { readFileSync } = require('fs');
 const fs = require('fs');
 const path = require('path');
 
+const {
+  ensureTodoDir,
+  getTodoStorageDirPath,
+  readTodos,
+} = require('@ember-template-lint/todo-utils');
 const execa = require('execa');
 
 const Project = require('../helpers/fake-project');
@@ -1339,6 +1344,127 @@ describe('ember-template-lint executable', function () {
 
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('with todos', function () {
+      it('without --update-todo param does not create `.lint-todo` dir', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['.']);
+
+        expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(false);
+        expect(result.stdout).toBeTruthy();
+      });
+
+      it('errors when config.pending and `.lint-todo` dir coexist', async function () {
+        await ensureTodoDir(project.baseDir);
+
+        project.setConfig({
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+
+        let result = await run(['.']);
+
+        expect(result.stderr).toBeTruthy();
+      });
+
+      describe('--update-todo param', function () {
+        it('migrates from config.pending to todos when running for first time', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+            pending: [
+              {
+                moduleId: 'app/templates/application',
+                only: ['no-html-comments'],
+              },
+            ],
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+              },
+            },
+          });
+
+          await run(['.', '--update-todo']);
+
+          expect(typeof project.getConfig().pending).toBeUndefined();
+        });
+
+        it('generates no todos for no errors', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<h2>{{@notBare}}</h2>',
+              },
+            },
+          });
+
+          await run(['.', '--update-todo']);
+
+          expect((await readTodos(getTodoStorageDirPath(project.baseDir))).size).toEqual(0);
+        });
+
+        it('generates todos for existing errors', async function () {
+          it('migrates from config.pending to todos when running for first time', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+              },
+            },
+          });
+
+          await run(['.', '--update-todo']);
+
+          expect((await readTodos(getTodoStorageDirPath(project.baseDir))).size).toEqual(1);
+        });
+
+        it('and existing todos, outputs todo count in summary', async function () {
+          expect(project.stdout).toContain('✖ 1 problems (0 errors, 0 warnings, 1 todo)');
+        });
+
+        it('but no todos, outputs 0 for todo count in summary', async function () {
+          expect(project.stdout).toContain('✖ 0 problems (0 errors, 0 warnings, 0 todo)');
+        });
+
+        it('with --include-todo param and todos, outputs todos in results', async function () {});
       });
     });
 
