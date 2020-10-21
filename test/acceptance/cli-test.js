@@ -63,7 +63,8 @@ describe('ember-template-lint executable', function () {
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file                 [boolean]
+                                        \`pending\` in config file (deprecated)    [boolean]
+            --update-todos              Update list of linting todos             [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -106,7 +107,8 @@ describe('ember-template-lint executable', function () {
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file                 [boolean]
+                                        \`pending\` in config file (deprecated)    [boolean]
+            --update-todos              Update list of linting todos             [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -403,7 +405,8 @@ describe('ember-template-lint executable', function () {
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file                 [boolean]
+                                        \`pending\` in config file (deprecated)    [boolean]
+            --update-todos              Update list of linting todos             [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -1436,7 +1439,6 @@ describe('ember-template-lint executable', function () {
         });
 
         it('generates todos for existing errors', async function () {
-          it('migrates from config.pending to todos when running for first time', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -1445,7 +1447,7 @@ describe('ember-template-lint executable', function () {
           project.write({
             app: {
               templates: {
-                'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+                'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
@@ -1456,11 +1458,41 @@ describe('ember-template-lint executable', function () {
         });
 
         it('and existing todos, outputs todo count in summary', async function () {
-          expect(project.stdout).toContain('✖ 1 problems (0 errors, 0 warnings, 1 todo)');
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+
+          let result = await run(['.']);
+
+          expect(result.stdout).toContain('✖ 1 problems (0 errors, 0 warnings, 1 todo)');
         });
 
         it('but no todos, outputs 0 for todo count in summary', async function () {
-          expect(project.stdout).toContain('✖ 0 problems (0 errors, 0 warnings, 0 todo)');
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>{{@foo}}</div>',
+              },
+            },
+          });
+
+          let result = await run(['.']);
+
+          expect(result.stdout).toEqual('');
         });
 
         it('with --include-todo param and todos, outputs todos in results', async function () {});
