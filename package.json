@@ -45,7 +45,7 @@
     "is-glob": "^4.0.1",
     "micromatch": "^4.0.2",
     "resolve": "^1.18.1",
-    "v8-compile-cache": "^2.1.1",
+    "v8-compile-cache": "^2.2.0",
     "yargs": "^16.1.0"
   },
   "devDependencies": {
