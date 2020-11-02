@@ -61,7 +61,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-unicorn": "^22.0.0",
-    "execa": "^4.0.3",
+    "execa": "^4.1.0",
     "fixturify-project": "^2.1.0",
     "jest": "^26.6.1",
     "lerna-changelog": "^1.0.1",
