@@ -4,6 +4,7 @@ Normally, the compiler will find stray curlies and throw a syntax error. However
 
 For example, these are all syntax errors:
 
+{% raw %}
 ```hbs
 {{ x }
 {{ x }}}
@@ -43,6 +44,8 @@ If you have curlies in your code that you wish to show verbatim, but are flagged
 <p>This is a closing double curly: {{ '}}' }}</p>
 <p>This is a closing triple curly: {{ '}}}' }}</p>
 ```
+
+{% endraw %}
 
 ## References
 
