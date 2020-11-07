@@ -1,3 +1,41 @@
+# ember-template-lint
+
+[![npm version](https://badge.fury.io/js/ember-template-lint.svg)](https://badge.fury.io/js/ember-template-lint)
+[![Build Status](https://github.com/ember-template-lint/ember-template-lint/workflows/CI/badge.svg)](https://github.com/ember-template-lint/ember-template-lint/actions?query=workflow%3ACI)
+
+ember-template-lint will lint your template and return error results.
+
+For example, given the rule [`no-bare-strings`](docs/rule/no-bare-strings.md) is enabled, this template would be
+in violation:
+
+```hbs
+{{!-- app/components/my-thing/template.hbs  --}}
+<div>A bare string</div>
+```
+
+When ran through the linter's `verify` method, we would have a single result indicating that
+the `no-bare-strings` rule found an error.
+
+## Install
+
+This addon is installed by default with new Ember apps, so check your package.json before installing to see if you need to install it.
+
+To install ember-template-lint
+
+```shell
+npm install --save-dev ember-template-lint
+```
+
+Node.js `10 || >=12` is required.
+
+
+## Rules
+
+Each rule has emojis denoting:
+
+- what configuration it belongs to
+- :wrench: if some problems reported by the rule are automatically fixable by the `--fix` command line option
+
 
 |                            | Rule ID                                                                               |
 | :------------------------- | :------------------------------------------------------------------------------------ |
