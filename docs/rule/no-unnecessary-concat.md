@@ -32,7 +32,7 @@ Use regexp find-and-replace to fix existing violations of this rule:
 
 | Before | After |
 | --- | --- |
-| `="{{([^}]+)}}"` | `={{$1}}` |
+| {% raw %}`="{{([^}]+)}}"`{% endraw %} | {% raw %}`={{$1}}`{% endraw %} |
 
 ## References
 
