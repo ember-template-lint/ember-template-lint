@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const {
-  ensureTodoDir,
+  ensureTodoStorageDir,
   getTodoStorageDirPath,
   readTodos,
 } = require('@ember-template-lint/todo-utils');
@@ -65,7 +65,7 @@ describe('ember-template-lint executable', function () {
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
                                         \`pending\` in config file (deprecated)    [boolean]
-            --update-todos              Update list of linting todos             [boolean]
+            --update-todo               Update list of linting todos             [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -109,7 +109,7 @@ describe('ember-template-lint executable', function () {
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
                                         \`pending\` in config file (deprecated)    [boolean]
-            --update-todos              Update list of linting todos             [boolean]
+            --update-todo               Update list of linting todos             [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -407,7 +407,7 @@ describe('ember-template-lint executable', function () {
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
                                         \`pending\` in config file (deprecated)    [boolean]
-            --update-todos              Update list of linting todos             [boolean]
+            --update-todo               Update list of linting todos             [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -1378,7 +1378,7 @@ describe('ember-template-lint executable', function () {
       });
 
       it('errors when config.pending and `.lint-todo` dir coexist', async function () {
-        await ensureTodoDir(project.baseDir);
+        await ensureTodoStorageDir(project.baseDir);
 
         project.setConfig({
           pending: [
@@ -1395,7 +1395,7 @@ describe('ember-template-lint executable', function () {
       });
 
       describe('--update-todo param', function () {
-        it('migrates from config.pending to todos when running for first time', async function () {
+        it('errors if config.pending is present when running with --update-todo', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -1415,9 +1415,12 @@ describe('ember-template-lint executable', function () {
             },
           });
 
-          await run(['.', '--update-todo']);
+          let result = await run(['.', '--update-todo']);
 
-          expect(typeof project.getConfig().pending).toBeUndefined();
+          expect(result.exitCode).toEqual(1);
+          expect(result.stderr).toContain(
+            'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
+          );
         });
 
         it('generates no todos for no errors', async function () {
@@ -1436,29 +1439,32 @@ describe('ember-template-lint executable', function () {
 
           await run(['.', '--update-todo']);
 
-          expect((await readTodos(getTodoStorageDirPath(project.baseDir))).size).toEqual(0);
+          expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(false);
         });
 
         it('generates todos for existing errors', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
+              'no-html-comments': true,
             },
           });
           project.write({
             app: {
               templates: {
-                'application.hbs': '<div>Bare strings are bad...</div>',
+                'application.hbs':
+                  '<div>Bare strings are bad...</div><span>Very bad</span><!-- bad comment -->',
               },
             },
           });
 
-          await run(['.', '--update-todo']);
+          let result = await run(['.', '--update-todo']);
 
-          expect((await readTodos(getTodoStorageDirPath(project.baseDir))).size).toEqual(1);
+          expect(result.exitCode).toEqual(0);
+          expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(true);
         });
 
-        it('and existing todos, outputs todo count in summary', async function () {
+        it('and existing todos, outputs empty summary', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -1474,10 +1480,10 @@ describe('ember-template-lint executable', function () {
 
           let result = await run(['.']);
 
-          expect(result.stdout).toContain('✖ 1 problems (0 errors, 0 warnings, 1 todo)');
+          expect(result.stdout).toEqual('');
         });
 
-        it('but no todos, outputs 0 for todo count in summary', async function () {
+        it('but no todos, outputs empty summary', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -1497,6 +1503,8 @@ describe('ember-template-lint executable', function () {
         });
 
         it('with --include-todo param and todos, outputs todos in results', async function () {});
+
+        it('with workflow - verify fails, run `--update-todo`, verify passes', async function () {});
       });
     });
 
