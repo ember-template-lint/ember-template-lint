@@ -9,6 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
+const { getTodoStorageDirPath } = require('@ember-template-lint/todo-utils');
 const getStdin = require('get-stdin');
 const globby = require('globby');
 const isGlob = require('is-glob');
@@ -16,8 +17,6 @@ const micromatch = require('micromatch');
 
 const Linter = require('../lib');
 const processResults = require('../lib/helpers/process-results');
-
-const { getTodoStorageDirPath } = require('@ember-template-lint/todo-utils');
 
 const readFile = promisify(fs.readFile);
 
@@ -43,18 +42,18 @@ async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
 }
 
 // TODO: inline this function
-async function lintSource(linter, options, shouldFix) {
-  if (options.updateTodos) {
-    return linter.verifyAndUpdateTodos(options);
-  } else if (shouldFix) {
-    let { isFixed, output, messages } = await linter.verifyAndFix(options);
+async function lintSource(linter, linterOptions, options) {
+  if (options.updateTodo || linter.todosEnabled) {
+    return linter.verifyAndUpdateTodos(linterOptions, options);
+  } else if (options.fix) {
+    let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
     if (isFixed) {
-      fs.writeFileSync(options.filePath, output);
+      fs.writeFileSync(linterOptions.filePath, output);
     }
 
     return messages;
   } else {
-    return linter.verify(options);
+    return linter.verify(linterOptions);
   }
 }
 
@@ -174,7 +173,7 @@ function parseArgv(_argv) {
           'Print list of formatted rules for use with `pending` in config file (deprecated)',
         boolean: true,
       },
-      'update-todos': {
+      'update-todo': {
         describe: 'Update list of linting todos',
         boolean: true,
       },
@@ -273,7 +272,10 @@ async function run() {
     return;
   }
 
-  if (fs.existsSync(getTodoStorageDirPath(process.cwd())) && linter.config.pending) {
+  if (
+    fs.existsSync(getTodoStorageDirPath(options.workingDirectory)) &&
+    linter.config.pending.length > 0
+  ) {
     console.error(
       'Cannot use the `pending` config option in conjunction with lint todos. Please run with `--update-pending` to migrate to the new todos functionality.'
     );
@@ -281,8 +283,15 @@ async function run() {
     return;
   }
 
-  let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+  if (options.updateTodo && linter.config.pending.length > 0) {
+    console.error(
+      'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
+    );
+    process.exitCode = 1;
+    return;
+  }
 
+  let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
   let resultsAccumulator = [];
   for (let relativeFilePath of filePaths) {
@@ -293,7 +302,7 @@ async function run() {
       filePaths.has(STDIN)
     );
 
-    let messages = await lintSource(linter, linterOptions, options.fix);
+    let messages = await lintSource(linter, linterOptions, options);
 
     resultsAccumulator.push(...messages);
   }
