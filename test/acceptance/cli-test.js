@@ -64,7 +64,9 @@ describe('ember-template-lint executable', function () {
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
                                         \`pending\` in config file (deprecated)    [boolean]
-            --update-todo               Update list of linting todos             [boolean]
+            --update-todo               Update list of linting todos by transforming lint
+                                        errors to todos                          [boolean]
+            --include-todo              Show list of todos                       [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -108,7 +110,9 @@ describe('ember-template-lint executable', function () {
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
                                         \`pending\` in config file (deprecated)    [boolean]
-            --update-todo               Update list of linting todos             [boolean]
+            --update-todo               Update list of linting todos by transforming lint
+                                        errors to todos                          [boolean]
+            --include-todo              Show list of todos                       [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -406,7 +410,9 @@ describe('ember-template-lint executable', function () {
                                         blank template-lintrc instead            [boolean]
             --print-pending             Print list of formatted rules for use with
                                         \`pending\` in config file (deprecated)    [boolean]
-            --update-todo               Update list of linting todos             [boolean]
+            --update-todo               Update list of linting todos by transforming lint
+                                        errors to todos                          [boolean]
+            --include-todo              Show list of todos                       [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -1244,10 +1250,22 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--print-pending']);
 
-        let expectedOutputData =
-          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]';
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "WARNING: Print pending is deprecated. Use --update-todo instead.
 
-        expect(result.stdout).toEqual(expectedOutputData);
+          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
+
+
+          pending: [
+            {
+              \\"moduleId\\": \\"app/templates/application\\",
+              \\"only\\": [
+                \\"no-bare-strings\\",
+                \\"no-html-comments\\"
+              ]
+            }
+          ]"
+        `);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -1275,10 +1293,14 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--print-pending']);
 
-        let expectedOutputData =
-          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: []';
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "WARNING: Print pending is deprecated. Use --update-todo instead.
 
-        expect(result.stdout).toEqual(expectedOutputData);
+          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
+
+
+          pending: []"
+        `);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -1304,10 +1326,21 @@ describe('ember-template-lint executable', function () {
         });
         let result = await run(['.', '--print-pending']);
 
-        let expectedOutputData =
-          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings"\n    ]\n  }\n]';
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "WARNING: Print pending is deprecated. Use --update-todo instead.
 
-        expect(result.stdout).toEqual(expectedOutputData);
+          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
+
+
+          pending: [
+            {
+              \\"moduleId\\": \\"app/templates/application\\",
+              \\"only\\": [
+                \\"no-bare-strings\\"
+              ]
+            }
+          ]"
+        `);
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -1349,8 +1382,8 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with todos', function () {
-      it('without --update-todo param does not create `.lint-todo` dir', async function () {
+    describe('with/without --update-todo and --include-todo params', function () {
+      it('does not create `.lint-todo` dir without --update-todo param', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1393,117 +1426,202 @@ describe('ember-template-lint executable', function () {
         expect(result.stderr).toBeTruthy();
       });
 
-      describe('--update-todo param', function () {
-        it('errors if config.pending is present when running with --update-todo', async function () {
-          project.setConfig({
-            rules: {
-              'no-bare-strings': true,
+      it('errors if config.pending is present when running with --update-todo', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
             },
-            pending: [
-              {
-                moduleId: 'app/templates/application',
-                only: ['no-html-comments'],
-              },
-            ],
-          });
-          project.write({
-            app: {
-              templates: {
-                'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
-              },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
             },
-          });
-
-          let result = await run(['.', '--update-todo']);
-
-          expect(result.exitCode).toEqual(1);
-          expect(result.stderr).toContain(
-            'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
-          );
+          },
         });
 
-        it('generates no todos for no errors', async function () {
-          project.setConfig({
-            rules: {
-              'no-bare-strings': true,
-            },
-          });
-          project.write({
-            app: {
-              templates: {
-                'application.hbs': '<h2>{{@notBare}}</h2>',
-              },
-            },
-          });
+        let result = await run(['.', '--update-todo']);
 
-          await run(['.', '--update-todo']);
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toContain(
+          'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
+        );
+      });
 
-          expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(false);
+      it('generates no todos for no errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>{{@notBare}}</h2>',
+            },
+          },
         });
 
-        it('generates todos for existing errors', async function () {
-          project.setConfig({
-            rules: {
-              'no-bare-strings': true,
-              'no-html-comments': true,
-            },
-          });
-          project.write({
-            app: {
-              templates: {
-                'application.hbs':
-                  '<div>Bare strings are bad...</div><span>Very bad</span><!-- bad comment -->',
-              },
-            },
-          });
+        await run(['.', '--update-todo']);
 
-          let result = await run(['.', '--update-todo']);
+        const result = await readTodos(project.baseDir);
 
-          expect(result.exitCode).toEqual(0);
-          expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(true);
+        expect(result.size).toEqual(0);
+      });
+
+      it('generates todos for existing errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<div>Bare strings are bad...</div><span>Very bad</span><!-- bad comment -->',
+            },
+          },
         });
 
-        it('and existing todos, outputs empty summary', async function () {
-          project.setConfig({
-            rules: {
-              'no-bare-strings': true,
-            },
-          });
-          project.write({
-            app: {
-              templates: {
-                'application.hbs': '<div>Bare strings are bad...</div>',
-              },
-            },
-          });
+        let result = await run(['.', '--update-todo']);
 
-          let result = await run(['.']);
+        expect(result.exitCode).toEqual(0);
+        expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(true);
+      });
 
-          expect(result.stdout).toEqual('');
+      it('errors if a todo item is no longer valid when running without params', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
         });
 
-        it('but no todos, outputs empty summary', async function () {
-          project.setConfig({
-            rules: {
-              'no-bare-strings': true,
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button>Klikk</button>',
             },
-          });
-          project.write({
-            app: {
-              templates: {
-                'application.hbs': '<div>{{@foo}}</div>',
-              },
-            },
-          });
-
-          let result = await run(['.']);
-
-          expect(result.stdout).toEqual('');
+          },
         });
 
-        it('with --include-todo param and todos, outputs todos in results', async function () {});
+        // first generate a todo
+        await run(['.', '--update-todo']);
 
-        it('with workflow - verify fails, run `--update-todo`, verify passes', async function () {});
+        // now fix the rule
+        await run(['.', '--fix']);
+
+        // now run normally and expect an error for not running --update-todo again
+        let result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/require-button-type.hbs
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`--update-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
+      });
+
+      it('outputs empty summary for no todos or errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>{{@foo}}</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        expect(result.stdout).toEqual('');
+      });
+
+      it('outputs empty summary for existing todos', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        // generate todos
+        await run(['.', '--update-todo']);
+
+        // running again should return no results
+        let result = await run(['.']);
+
+        expect(result.stdout).toEqual('');
+      });
+
+      it('with --include-todo param and --update-todo, outputs todos in results', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--update-todo', '--include-todo']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  todo  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+        `);
+      });
+
+      it('with --include-todo param and existing todos, outputs todos in results', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        // generate todos
+        await run(['.', '--update-todo']);
+
+        // running again with --include-todo should return todo summary
+        let result = await run(['.', '--include-todo']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  todo  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+        `);
       });
     });
 

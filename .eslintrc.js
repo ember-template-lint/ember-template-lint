@@ -49,7 +49,6 @@ module.exports = {
     'no-new-wrappers': 'error',
     'no-octal-escape': 'error',
     'no-return-assign': 'error',
-    'no-return-await': 'error',
     'no-self-compare': 'error',
     'no-sequences': 'error',
     'no-shadow-restricted-names': 'error',

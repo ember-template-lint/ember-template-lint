@@ -10,6 +10,7 @@ const path = require('path');
 const { promisify } = require('util');
 
 const { getTodoStorageDirPath } = require('@ember-template-lint/todo-utils');
+const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
 const isGlob = require('is-glob');
@@ -38,22 +39,6 @@ async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
     let source = await readFile(path.resolve(filePath), { encoding: 'utf8' });
 
     return { source, filePath, moduleId };
-  }
-}
-
-// TODO: inline this function
-async function lintSource(linter, linterOptions, options) {
-  if (options.updateTodo || linter.todosEnabled) {
-    return linter.verifyAndUpdateTodos(linterOptions, options);
-  } else if (options.fix) {
-    let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
-    if (isFixed) {
-      fs.writeFileSync(linterOptions.filePath, output);
-    }
-
-    return messages;
-  } else {
-    return linter.verify(linterOptions);
   }
 }
 
@@ -174,7 +159,11 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'update-todo': {
-        describe: 'Update list of linting todos',
+        describe: 'Update list of linting todos by transforming lint errors to todos',
+        boolean: true,
+      },
+      'include-todo': {
+        describe: 'Show list of todos',
         boolean: true,
       },
       'ignore-pattern': {
@@ -230,6 +219,8 @@ function printPending(results, options) {
   if (options.json) {
     console.log(pendingListString);
   } else {
+    console.log(chalk.yellow('WARNING: Print pending is deprecated. Use --update-todo instead.\n'));
+
     console.log(
       'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
     );
@@ -302,26 +293,39 @@ async function run() {
       filePaths.has(STDIN)
     );
 
-    let messages = await lintSource(linter, linterOptions, options);
+    let fileResults;
 
-    resultsAccumulator.push(...messages);
+    if (options.fix) {
+      let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
+      if (isFixed) {
+        fs.writeFileSync(linterOptions.filePath, output);
+      }
+      fileResults = messages;
+    } else {
+      fileResults = await linter.verify(linterOptions);
+    }
+
+    if (options.updateTodo) {
+      await linter.updateTodo(linterOptions, fileResults);
+    }
+
+    if (!filePaths.has(STDIN)) {
+      fileResults = await linter.processTodos(linterOptions, fileResults);
+    }
+
+    resultsAccumulator.push(...fileResults);
   }
 
   let results = processResults(resultsAccumulator);
+
   if (results.errorCount > 0) {
     process.exitCode = 1;
   }
 
-  // TODO: add --update-pending flag
-  // TODO: add new --list-pending feature for new system
-  // TODO: error if using --print-pending and new pending system
-  // TODO: error if we have old config.pending and new pending dir
-  // TODO: migrate to new pending system if using old pending system
-
   if (options.printPending) {
     return printPending(results, options);
   } else {
-    if (results.errorCount || results.warningCount) {
+    if (results.errorCount || results.warningCount || (results.todoCount && options.includeTodo)) {
       let Printer = require('../lib/printers/default');
       let printer = new Printer(options);
       printer.print(results);

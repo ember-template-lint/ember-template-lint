@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 
+const { TODO_SEVERITY } = require('../../lib');
 const Printer = require('../../lib/printers/pretty');
 
 describe('Linter.errorsToMessages', function () {
@@ -65,5 +66,31 @@ describe('Linter.errorsToMessages', function () {
     let result = Printer.errorsToMessages('file/path', []);
 
     expect(result).toEqual('');
+  });
+
+  it('does not format todos if options to include them are not passed', function () {
+    let result = Printer.errorsToMessages('file/path', [
+      { rule: 'some rule', message: 'some message', line: 11, column: 12, severity: TODO_SEVERITY },
+    ]);
+
+    expect(result).toEqual('');
+  });
+
+  it('format todos if options to include them are passed', function () {
+    let result = Printer.errorsToMessages(
+      'file/path',
+      [
+        {
+          rule: 'some rule',
+          message: 'some message',
+          line: 11,
+          column: 12,
+          severity: TODO_SEVERITY,
+        },
+      ],
+      { includeTodo: true }
+    );
+
+    expect(result).toEqual('file/path\n' + '  11:12  todo  some message  some rule\n');
   });
 });
