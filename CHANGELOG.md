@@ -1,3 +1,29 @@
+## v2.14.0 (2020-10-11)
+
+#### :rocket: Enhancement
+* [#1564](https://github.com/ember-template-lint/ember-template-lint/pull/1564) Add `--working-directory` option ([@rwjblue](https://github.com/rwjblue))
+* [#1550](https://github.com/ember-template-lint/ember-template-lint/pull/1550) Add new rule `no-duplicate-landmark-elements` ([@MelSumner](https://github.com/MelSumner))
+* [#1519](https://github.com/ember-template-lint/ember-template-lint/pull/1519) Add `as-indentation` option to `attribute-indentation` rule ([@VincentMolinie](https://github.com/VincentMolinie))
+
+#### :bug: Bug Fix
+* [#1566](https://github.com/ember-template-lint/ember-template-lint/pull/1566) Allow `itemprop` use in meta tags in `no-invalid-meta` rule ([@sukima](https://github.com/sukima))
+* [#1554](https://github.com/ember-template-lint/ember-template-lint/pull/1554) Ensure globbing is only used when using a globlike pattern ([@rwjblue](https://github.com/rwjblue))
+* [#1541](https://github.com/ember-template-lint/ember-template-lint/pull/1541) Allow nested landmarks of different types in `no-nested-landmark` rule ([@zelaznik](https://github.com/zelaznik))
+* [#1548](https://github.com/ember-template-lint/ember-template-lint/pull/1548) Upgrade ember-template-recast to reduce memory pressure while linting ([@dcyriller](https://github.com/dcyriller))
+
+#### :house: Internal
+* [#1518](https://github.com/ember-template-lint/ember-template-lint/pull/1518) chore(deps): bump yargs from 15.4.1 to 16.0.3 ([@dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
+#### Committers: 7
+- Cyrille David ([@dcyriller](https://github.com/dcyriller))
+- Devin Weaver ([@sukima](https://github.com/sukima))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Zelaznik ([@zelaznik](https://github.com/zelaznik))
+- Vincent Molinié ([@VincentMolinie](https://github.com/VincentMolinie))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.13.0 (2020-09-27)
 
 #### :rocket: Enhancement

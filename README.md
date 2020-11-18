@@ -204,6 +204,7 @@ Each rule has emojis denoting:
 | :white_check_mark::wrench: | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                 |
 |                            | [modifier-name-case](./docs/rule/modifier-name-case.md)                               |
 | :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                 |
+| :wrench:                   | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                       |
 | :car:                      | [no-action](./docs/rule/no-action.md)                                                 |
 |                            | [no-action-modifiers](./docs/rule/no-action-modifiers.md)                             |
 | :white_check_mark:         | [no-args-paths](./docs/rule/no-args-paths.md)                                         |

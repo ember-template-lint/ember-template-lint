@@ -19,6 +19,66 @@ generateRuleTests({
       '{{index}}: {{life}}' +
       '{{/each}}' +
       '{{/each}}',
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        <MyOtherComponent .... @param={{param}} />
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        {{foo-bar param}}
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        {{param}}
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
+    `
+    <MyComponent @model={{this.model}} as |param|>
+      {{! template-lint-disable }}
+        {{foo-bar prop=param}}
+      {{! template-lint-enable }}
+    </MyComponent>
+    `,
+    `
+    {{#my-component as |param|}}
+      {{! template-lint-disable }}
+        <MyOtherComponent .... @param={{param}} />
+      {{! template-lint-enable }}
+    {{/my-component}}
+    `,
+    `
+    {{#my-component as |param|}}
+      {{! template-lint-disable }}
+        {{foo-bar param}}
+      {{! template-lint-enable }}
+    {{/my-component}}
+    `,
+    `
+    {{#my-component as |param|}}
+      {{! template-lint-disable }}
+        {{param}}
+      {{! template-lint-enable }}
+    {{/my-component}}
+    `,
+    `
+    {{#my-component as |param bar baz|}}
+      {{! template-lint-disable }}
+        {{foo-bar prop=param}}
+      {{! template-lint-enable }}
+      {{bar}}
+      {{! template-lint-disable }}
+        {{foo-bar prop=baz}}
+      {{! template-lint-enable }}
+    {{/my-component}}
+    `,
     '{{#each cats as |cat|}}{{#meow-meow cat as |cat|}}{{cat}}{{/meow-meow}}{{/each}}',
     '{{! template-lint-disable no-unused-block-params}}{{#each cats as |cat|}}Dogs{{/each}}',
     '{{#with (component "foo-bar") as |FooBar|}}<FooBar />{{/with}}',
