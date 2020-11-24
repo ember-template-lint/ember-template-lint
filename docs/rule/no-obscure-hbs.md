@@ -37,4 +37,3 @@ This rule **allows** the following:
 ## References
 
 - [Github Issue #787](https://github.com/ember-template-lint/ember-template-lint/issues/787)
-
