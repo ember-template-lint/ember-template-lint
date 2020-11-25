@@ -22,7 +22,7 @@ generateRuleTests({
       template: '<svg role="image"></svg>',
 
       result: {
-        message: 'An `<svg>` element with role `image` should have a none empty alternative text',
+        message: 'An `<svg>` element with role `image` should have valid alternative text',
         source: '<svg role="image"></svg>',
         line: 1,
         column: 0,
@@ -32,7 +32,7 @@ generateRuleTests({
       template: '<svg role="image" alt=""></svg>',
 
       result: {
-        message: 'An `<svg>` element with role `image` should have a none empty alternative text',
+        message: 'An `<svg>` element with role `image` should have valid alternative text',
         source: '<svg role="image" alt=""></svg>',
         line: 1,
         column: 0,
@@ -43,7 +43,7 @@ generateRuleTests({
 
       result: {
         message:
-          'An `<svg>` element with role `image` should contains contain a none empty `<title>` element',
+          'An `<svg>` element with role `image` should contains contain a valid `<title>` element',
         source: '<svg role="image" alt="valid alternative text"><g></g></svg>',
         line: 1,
         column: 0,
@@ -54,7 +54,7 @@ generateRuleTests({
 
       result: {
         message:
-          'An `<svg>` element with role `image` should contains contain a none empty `<title>` element',
+          'An `<svg>` element with role `image` should contains contain a valid `<title>` element',
         source: '<svg role="image" alt="valid alternative text"><title>  </title></svg>',
         line: 1,
         column: 0,
@@ -64,7 +64,7 @@ generateRuleTests({
       template: '<svg role="image"><title>Image description</title><g></g></svg>',
 
       result: {
-        message: 'An `<svg>` element with role `image` should have a none empty alternative text',
+        message: 'An `<svg>` element with role `image` should have valid alternative text',
         source: '<svg role="image"><title>Image description</title><g></g></svg>',
         line: 1,
         column: 0,
@@ -75,7 +75,7 @@ generateRuleTests({
 
       result: {
         message:
-          'An `<svg>` element without role `image` should not have the `alt` attribute defined',
+          'An `<svg>` element without `role="image"` should not have the `alt` attribute defined',
         source: '<svg alt></svg>',
         line: 1,
         column: 0,
@@ -97,7 +97,7 @@ generateRuleTests({
 
       result: {
         message:
-          'Parent tag of an `<svg>` element should have an none empty `aria-label` attribute',
+          'Parent tag of an `<svg>` element should have a valid `aria-label` attribute',
         source: '<button><svg aria-hidden="true"></svg></button>',
         line: 1,
         column: 0,

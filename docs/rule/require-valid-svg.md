@@ -50,4 +50,4 @@ This rule **allows** the following:
 
 ## References
 
-> All non-text content that is presented to the user has a text alternative that serves the equivalent purpose, with few exceptions. See: [WCAG 1.1.1 - Non-text Content](https://www.w3.org/TR/WCAG21/#non-text-content)
+- All non-text content that is presented to the user has a text alternative that serves the equivalent purpose, with few exceptions. See: [WCAG 1.1.1 - Non-text Content](https://www.w3.org/TR/WCAG21/#non-text-content)
