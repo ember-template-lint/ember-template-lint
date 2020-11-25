@@ -1,8 +1,8 @@
-# no-obscure-hbs
+# no-obscure-array-access
 
 Using obscrure expressions `{{list.[1].name}}` is descouraged and might be deprecated soon
 
-This rule suggests usage of the Ember's getter instead.
+This rule suggests usage of the Ember's get helper instead.
 
 ## Examples
 
@@ -36,4 +36,4 @@ This rule **allows** the following:
 
 ## References
 
-- [Github Issue #787](https://github.com/ember-template-lint/ember-template-lint/issues/787)
+- [Ember discord discussion in ember-cli channel on 02/06/19](https://discord.com/channels/480462759797063690/486548111221719040)

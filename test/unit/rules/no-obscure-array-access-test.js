@@ -1,10 +1,10 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-obscure-hbs');
+const { ERROR_MESSAGE } = require('../../../lib/rules/no-obscure-array-access');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'no-obscure-hbs',
+  name: 'no-obscure-array-access',
 
   config: true,
 

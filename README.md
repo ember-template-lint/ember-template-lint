@@ -241,7 +241,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                         |
 |                            | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                               |
 |                            | [no-nested-splattributes](./docs/rule/no-nested-splattributes.md)                     |
-|                            | [no-obscure-hbs](./docs/rule/no-obscure-hbs.md)                                       |
+|                            | [no-obscure-array-access](./docs/rule/no-obscure-array-access.md)                                       |
 | :white_check_mark:         | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                           |
 | :white_check_mark:         | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                   |
 | :white_check_mark:         | [no-partial](./docs/rule/no-partial.md)                                               |
