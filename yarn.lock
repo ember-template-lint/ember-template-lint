@@ -239,7 +239,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ember-template-lint/todo-utils@^3.0.0":
+"@ember-template-lint/todo-utils@^3.0.1":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-3.0.2.tgz#fc74f51b9d9a2a3e922fbe9f700f8b23b7970ee5"
   integrity sha512-hdzylXigm5MctZnp1m4f0+DvteNyvBMA+GAQCng6vGe4zExC8yisS6uc4z5DOgKNLnAiRRpwviXZF6Ik34YW6A==
