@@ -274,6 +274,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                       |
 | :dress:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)               |
 | :white_check_mark:         | [simple-unless](./docs/rule/simple-unless.md)                                         |
+|                            | [splat-attributes-only](./docs/rule/splat-attributes-only.md)                         |
 | :white_check_mark:         | [style-concatenation](./docs/rule/style-concatenation.md)                             |
 | :white_check_mark:         | [table-groups](./docs/rule/table-groups.md)                                           |
 |                            | [template-length](./docs/rule/template-length.md)                                     |
