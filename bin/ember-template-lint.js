@@ -325,7 +325,7 @@ async function run() {
   if (options.printPending) {
     return printPending(results, options);
   } else {
-    if (results.errorCount || results.warningCount || (results.todoCount && options.includeTodo)) {
+    if (results.errorCount || results.warningCount || (options.includeTodo && results.todoCount)) {
       let Printer = require('../lib/printers/default');
       let printer = new Printer(options);
       printer.print(results);
