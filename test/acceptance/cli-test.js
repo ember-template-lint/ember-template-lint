@@ -67,7 +67,8 @@ describe('ember-template-lint executable', function () {
                                         \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos                          [boolean]
-            --include-todo              Show list of todos                       [boolean]
+            --include-todo              Include todos in the results (todos are hidden by
+                                        default)                                 [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -113,7 +114,8 @@ describe('ember-template-lint executable', function () {
                                         \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos                          [boolean]
-            --include-todo              Show list of todos                       [boolean]
+            --include-todo              Include todos in the results (todos are hidden by
+                                        default)                                 [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -413,7 +415,8 @@ describe('ember-template-lint executable', function () {
                                         \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos                          [boolean]
-            --include-todo              Show list of todos                       [boolean]
+            --include-todo              Include todos in the results (todos are hidden by
+                                        default)                                 [boolean]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
