@@ -15,10 +15,18 @@ This is also a violation of [WCAG 4.1.1 - Parsing (Level A)](https://www.w3.org/
 This rule **forbids** the following:
 
 ```hbs
-{{employee-details name=name age=age name=name}}
+<EmployeeDetails class="something" class="something" />
+```
+
+```hbs
+{{employee-details name=name age=age name=otherThing}}
 ```
 
 This rule **allows** the following:
+
+```hbs
+<EmployeeDetails class="something" class="something" />
+```
 
 ```hbs
 {{employee-details name=name age=age}}
