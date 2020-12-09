@@ -1,5 +1,7 @@
 # modifier-name-case
 
+:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
+
 It is currently possible to invoke a modifier with multiple words in its name
 using camelCase: `{{didInsert}}` or using dasherized-case: `{{did-insert}}`.
 This means that you can potentially have a lot of inconsistency throughout your
