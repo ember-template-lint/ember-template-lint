@@ -202,7 +202,7 @@ Each rule has emojis denoting:
 | :dress:                    | [linebreak-style](./docs/rule/linebreak-style.md)                                     |
 | :white_check_mark:         | [link-href-attributes](./docs/rule/link-href-attributes.md)                           |
 | :white_check_mark::wrench: | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                 |
-|                            | [modifier-name-case](./docs/rule/modifier-name-case.md)                               |
+| :dress:                    | [modifier-name-case](./docs/rule/modifier-name-case.md)                               |
 | :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                 |
 | :wrench:                   | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                       |
 | :car:                      | [no-action](./docs/rule/no-action.md)                                                 |
@@ -261,8 +261,8 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)     |
 | :dress:                    | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                         |
 | :white_check_mark:         | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                       |
-|                            | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                   |
-|                            | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                 |
+| :dress:                    | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                   |
+| :dress:                    | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                 |
 |                            | [no-yield-only](./docs/rule/no-yield-only.md)                                         |
 | :dress:                    | [quotes](./docs/rule/quotes.md)                                                       |
 | :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                             |
