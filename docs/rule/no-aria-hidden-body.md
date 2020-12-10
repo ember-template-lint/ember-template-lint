@@ -1,5 +1,7 @@
 # no-aria-hidden-body
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 :wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 The aria-hidden attribute should never be present on the `<body>` element, as it hides the entire document from assistive technology.

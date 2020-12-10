@@ -1,5 +1,7 @@
 # no-redundant-fn
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 The `fn` helper can be used to bind arguments to another function. Using it
 without any arguments is redundant because then the inner function could just
 be used directly.

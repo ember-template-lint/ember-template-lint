@@ -2,6 +2,8 @@
 
 ## Motivation
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 [ember-test-selectors](https://github.com/simplabs/ember-test-selectors) is a very popular library that enables better element selectors for testing.
 
 One of the features that had been added to ember-test-selectors over the years was to allow passing a positional argument to curly component invocations as a shorthand (to avoid having to also add a named argument value).
