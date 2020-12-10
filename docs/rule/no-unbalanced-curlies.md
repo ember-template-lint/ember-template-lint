@@ -1,5 +1,7 @@
 # no-unbalanced-curlies
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Normally, the compiler will find stray curlies and throw a syntax error. However, it won't be able to catch every case.
 
 For example, these are all syntax errors:

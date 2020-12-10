@@ -1,5 +1,7 @@
 # no-nested-landmark
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Landmark elements should not be nested within landmark elements of the same name.
 
 ## List of elements & their corresponding roles
