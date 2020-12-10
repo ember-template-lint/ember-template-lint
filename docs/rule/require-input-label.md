@@ -1,5 +1,7 @@
 # require-input-label
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Users with assistive technology need user-input form elements to have associated labels.
 
 The rule applies to the following HTML tags:

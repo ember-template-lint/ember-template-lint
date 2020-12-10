@@ -1,5 +1,7 @@
 # no-nested-splattributes
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Having `...attributes` on multiple elements nested within each other in a
 component can cause unintended results.
 
