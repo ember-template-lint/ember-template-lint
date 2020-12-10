@@ -31,6 +31,7 @@ generateRuleTests({
     // BlockStatement
     '<div id="id-00"></div>{{#foo elementId="id-01"}}{{/foo}}',
     '{{#foo elementId="id-01"}}{{/foo}}<div id="id-00"></div>',
+    '{{#if}}<div id="id-00"></div>{{else}}<span id="id-00"></span>{{/if}}',
 
     // Number
     '<div id={{1234}}></div>',
@@ -45,6 +46,79 @@ generateRuleTests({
 
     // Mixed
     '<div id="partA{{partB}}{{"partC"}}"></div><div id="{{"partA"}}{{"partB"}}partC"></div>',
+
+    // Bypass: *all* duplicate ids are contained within a control flow helper BlockStatement
+    `
+      {{#if this.foo}}
+        <div id="id-00"></div>
+      {{else}}
+        <div id="id-00"></div>
+      {{/if}}
+    `,
+    `
+      {{#if this.foo}}
+        <div id="id-00"></div>
+      {{else if this.bar}}
+        <div id="id-00"></div>
+      {{else}}
+        <div id="id-00"></div>
+      {{/if}}
+    `,
+    `
+      {{#unless this.foo}}
+        <div id="id-00"></div>
+      {{else}}
+        <div id="id-00"></div>
+      {{/unless}}
+    `,
+    `
+      {{#unless this.foo}}
+        <div id="id-00"></div>
+      {{else unless this.bar}}
+        <div id="id-00"></div>
+      {{else if this.baz}}
+        <div id="id-00"></div>
+      {{else}}
+        <div id="id-00"></div>
+      {{/unless}}
+    `,
+    `
+      {{#let 'foobar' as |footerId|}}
+        {{#if this.foo}}
+          <div id={{footerId}}></div>
+        {{else}}
+          <span id={{footerId}}></span>
+        {{/if}}
+      {{/let}}
+    `,
+    `
+      {{#if this.foo}}
+        <div id={{this.divId00}}></div>
+      {{else}}
+        <div id={{this.divId00}}></div>
+      {{/if}}
+    `,
+    {
+      template: `
+      {{#if this.foo}}
+        <div id="partA{{partB}}{{"partC"}}"></div>
+      {{else}}
+        <div id="partA{{partB}}{{"partC"}}"></div>
+      {{/if}}
+    `,
+    },
+    `
+      {{#if this.foo}}
+        {{#if this.other}}
+          <div id="nested"></div>
+        {{else}}
+          <div id="nested"></div>
+        {{/if}}
+        <div id="root"></div>
+      {{else}}
+        <div id="nested"></div>
+      {{/if}}
+    `,
   ],
 
   bad: [
@@ -245,6 +319,94 @@ generateRuleTests({
         line: 1,
         column: 32,
         source: '@elementId="id-00"',
+      },
+    },
+    {
+      template: `
+      {{#if this.foo}}
+        <div id={{this.divId00}}></div>
+        <div id={{this.divId00}}></div>
+      {{else}}
+        <div id="other-thing"></div>
+      {{/if}}
+    `,
+      result: {
+        message: ERROR_MESSAGE,
+        line: 4,
+        column: 13,
+        source: 'id={{this.divId00}}',
+      },
+    },
+    {
+      template: `
+        <div id="id-00"></div>
+        {{#if this.foo}}
+          <div id="id-00"></div>
+        {{/if}}
+      `,
+      result: {
+        message: ERROR_MESSAGE,
+        line: 4,
+        column: 15,
+        source: 'id="id-00"',
+      },
+    },
+    {
+      template: `
+      <div id={{this.divId00}}></div>
+      {{#if this.foo}}
+        <div id={{this.divId00}}></div>
+      {{else}}
+        <div id={{this.divId00}}></div>
+      {{/if}}
+    `,
+      results: [
+        {
+          message: ERROR_MESSAGE,
+          line: 4,
+          column: 13,
+          source: 'id={{this.divId00}}',
+        },
+        {
+          message: ERROR_MESSAGE,
+          line: 6,
+          column: 13,
+          source: 'id={{this.divId00}}',
+        },
+      ],
+    },
+    {
+      template: `
+        {{#if this.foo}}
+          <div id="otherid"></div>
+        {{else}}
+          <div id="anidhere"></div>
+        {{/if}}
+        <div id="anidhere"></div>
+      `,
+      result: {
+        message: ERROR_MESSAGE,
+        line: 7,
+        column: 13,
+        source: 'id="anidhere"',
+      },
+    },
+    {
+      template: `
+        {{#if this.foo}}
+          {{#if this.other}}
+            <div id="nested"></div>
+          {{/if}}
+        {{else}}
+          <div id="nested"></div>
+        {{/if}}
+        <div id="nested"></div>
+      `,
+      result: {
+        message: ERROR_MESSAGE,
+        line: 9,
+        column: 13,
+        source: 'id="nested"',
       },
     },
   ],

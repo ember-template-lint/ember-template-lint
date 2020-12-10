@@ -1,3 +1,33 @@
+## v2.15.0 (2020-12-10)
+
+#### :boom: Breaking Change
+* [#1586](https://github.com/ember-template-lint/ember-template-lint/pull/1586) Add `no-aria-hidden-body` and `table-groups` rules to `a11y` config ([@MelSumner](https://github.com/MelSumner))
+
+#### :rocket: Enhancement
+* [#1596](https://github.com/ember-template-lint/ember-template-lint/pull/1596) Add new rule `no-model-argument-in-route-templates` ([@rwjblue](https://github.com/rwjblue))
+* [#1623](https://github.com/ember-template-lint/ember-template-lint/pull/1623) Add new rule `splat-attributes-only` ([@Turbo87](https://github.com/Turbo87))
+* [#1620](https://github.com/ember-template-lint/ember-template-lint/pull/1620) Add new rule `no-down-event-binding` ([@alexlafroscia](https://github.com/alexlafroscia))
+* [#632](https://github.com/ember-template-lint/ember-template-lint/pull/632) Add new rule `no-accesskey-attribute` ([@lifeart](https://github.com/lifeart))
+* [#1595](https://github.com/ember-template-lint/ember-template-lint/pull/1595) Allow passing a top-level `meta` property ([@rwjblue](https://github.com/rwjblue))
+* [#1629](https://github.com/ember-template-lint/ember-template-lint/pull/1629) chore(deps): bump ember-template-recast from 4.2.1 to 5.0.1 ([@dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
+#### :bug: Bug Fix
+* [#1606](https://github.com/ember-template-lint/ember-template-lint/pull/1606) Fix false positive with content within `{{#if}}`/`{{else}}` blocks in `no-duplicate-id` rule ([@MelSumner](https://github.com/MelSumner))
+* [#1605](https://github.com/ember-template-lint/ember-template-lint/pull/1605) Fix false positive in `no-invalid-link-title` when using a dynamic value surrounded by whitespace. ([@josephdsumner](https://github.com/josephdsumner))
+* [#1137](https://github.com/ember-template-lint/ember-template-lint/pull/1137) Prevent `no-unused-block-params` from flagging locals that are used within `{{template-lint-disable}}`ed content ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* [#1630](https://github.com/ember-template-lint/ember-template-lint/pull/1630) Add element examples to `no-duplicate-attributes` ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 7
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Alex LaFroscia ([@alexlafroscia](https://github.com/alexlafroscia))
+- Joseph D. Sumner ([@josephdsumner](https://github.com/josephdsumner))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v2.14.0 (2020-10-11)
 
 #### :rocket: Enhancement
