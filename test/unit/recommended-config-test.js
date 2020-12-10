@@ -44,7 +44,7 @@ describe('recommended config', function () {
   `);
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/230
-  ensureValid('{{#foo-bar as |baz|}}{{#baz.derp}}{{/baz.derp}}{{/foo-bar}}');
+  ensureValid('<FooBar as |baz|><baz.Derp></baz.Derp></FooBar>');
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/253
   ensureValid('<img alt="special thing" src={{some-dir/some-thing this.x}}>');
@@ -55,7 +55,7 @@ describe('recommended config', function () {
   @selected={{@pageSize}}
   @options={{this.availablePageSizes}}
   @searchEnabled={{false}}
-  @onchange={{action this.changePageSize}} as |size|
+  {{on 'change' this.changePageSize}} as |size|
 >
   {{size}}
 </PowerSelect>`);

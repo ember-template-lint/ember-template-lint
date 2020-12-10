@@ -36,7 +36,7 @@ const DEFAULT_TEMPLATE_LINTRC = `
 'use strict';
 
 module.exports = {
-  extends: 'octane'
+  extends: 'recommended'
 };
 `;
 

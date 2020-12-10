@@ -177,7 +177,6 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 |                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
 | :----------------- | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
-| :car:              | [octane](lib/config/octane.js)           | extends the `recommended` preset by enabling Ember Octane rules                                                                                                                                                                                                                      |
 | :dress:            | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ## Rules
@@ -205,7 +204,7 @@ Each rule has emojis denoting:
 | :dress:                    | [modifier-name-case](./docs/rule/modifier-name-case.md)                               |
 | :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                 |
 | :wrench:                   | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                       |
-| :car:                      | [no-action](./docs/rule/no-action.md)                                                 |
+| :white_check_mark:         | [no-action](./docs/rule/no-action.md)                                                 |
 |                            | [no-action-modifiers](./docs/rule/no-action-modifiers.md)                             |
 | :white_check_mark:         | [no-args-paths](./docs/rule/no-args-paths.md)                                         |
 |                            | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)       |
@@ -213,7 +212,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                       |
 |                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                     |
 |                            | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md) |
-| :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)         |
+| :white_check_mark:         | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)         |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                             |
 |                            | [no-down-event-binding](./docs/rule/no-down-event-binding.md)                         |
 | :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                     |
@@ -224,7 +223,7 @@ Each rule has emojis denoting:
 |                            | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                         |
 |                            | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                   |
 | :white_check_mark:         | [no-html-comments](./docs/rule/no-html-comments.md)                                   |
-| :car:                      | [no-implicit-this](./docs/rule/no-implicit-this.md)                                   |
+| :white_check_mark:         | [no-implicit-this](./docs/rule/no-implicit-this.md)                                   |
 | :white_check_mark:         | [no-index-component-invocation](./docs/rule/no-index-component-invocation.md)         |
 | :white_check_mark:         | [no-inline-styles](./docs/rule/no-inline-styles.md)                                   |
 | :white_check_mark:         | [no-input-block](./docs/rule/no-input-block.md)                                       |
