@@ -14,11 +14,11 @@ look like they could be component invocations.
 
 ## Examples
 
-- `{{foo}}` ✅
+- `{{foo}}` ❌
   (simple mustache without `-` in the path is likely to be a property; unless
   `noImplicitThis` is set or in `disallow` list and not a scoped variable)
 
-- `{{foo.bar}}` ✅
+- `{{foo.bar}}` ❌
   (simple mustache with nested path is likely to be a nested property; unless
   `noImplicitThis` is set)
 
@@ -75,16 +75,16 @@ look like they could be component invocations.
 ## Configuration
 
 - boolean -- if `true`, default configuration is applied
-  (`noImplicitThis: false`, `requireDash: true`), see below for details
+  (`noImplicitThis: true`, `requireDash: false`), see below for details
 
 - object -- containing the following properties:
   - boolean -- `noImplicitThis` -- if `true`, the rule considers all simple
     curly invocations without positional or named arguments as components unless
     they are prefixed with `this.` or `@`
-    (default: `false`)
+    (default: `true`)
   - boolean -- `requireDash` -- if `true`, the rule only considers curly
     invocations with a `-` character as potential component invocations
-    (default: `true`)
+    (default: `false`)
   - array -- `allow` -- a list of curly invocation paths that are known to
     **not** be component invocations
   - array -- `disallow` -- a list of curly invocation paths that are known to
