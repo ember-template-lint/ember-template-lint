@@ -266,8 +266,8 @@ async function run() {
   }
 
   if (
-    fs.existsSync(getTodoStorageDirPath(options.workingDirectory)) &&
-    linter.config.pending.length > 0
+    linter.config.pending.length > 0 &&
+    fs.existsSync(getTodoStorageDirPath(options.workingDirectory))
   ) {
     console.error(
       'Cannot use the `pending` config option in conjunction with lint todos. Please run with `--update-pending` to migrate to the new todos functionality.'
@@ -276,7 +276,7 @@ async function run() {
     return;
   }
 
-  if (options.updateTodo && linter.config.pending.length > 0) {
+  if (linter.config.pending.length > 0 && options.updateTodo) {
     console.error(
       'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
     );
@@ -300,7 +300,7 @@ async function run() {
     if (options.fix) {
       let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
       if (isFixed) {
-        fs.writeFileSync(linterOptions.filePath, output);
+        fs.writeFileSync(linterOptions.filePath, output, { encoding: 'utf-8' });
       }
       fileResults = messages;
     } else {
