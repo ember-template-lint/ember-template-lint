@@ -160,10 +160,12 @@ function parseArgv(_argv) {
       },
       'update-todo': {
         describe: 'Update list of linting todos by transforming lint errors to todos',
+        default: false,
         boolean: true,
       },
       'include-todo': {
         describe: 'Include todos in the results (todos are hidden by default)',
+        default: false,
         boolean: true,
       },
       'ignore-pattern': {
