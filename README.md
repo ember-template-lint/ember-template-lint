@@ -236,7 +236,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-invalid-role](./docs/rule/no-invalid-role.md)                                           |
 |                            | [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                     |
 | :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                             |
-| :white_check_mark::wrench: | [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md) |
+| :wrench:                   | [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md) |
 | :dress:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                           |
 | :white_check_mark:         | [no-negated-condition](./docs/rule/no-negated-condition.md)                                 |
 | :white_check_mark:         | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                               |
