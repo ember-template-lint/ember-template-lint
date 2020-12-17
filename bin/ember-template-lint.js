@@ -164,7 +164,7 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'include-todo': {
-        describe: 'Include todos in the results (todos are hidden by default)',
+        describe: 'Include todos in the results',
         default: false,
         boolean: true,
       },

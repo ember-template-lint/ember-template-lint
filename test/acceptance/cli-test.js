@@ -68,8 +68,8 @@ describe('ember-template-lint executable', function () {
                                         \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
-            --include-todo              Include todos in the results (todos are hidden by
-                                        default)                [boolean] [default: false]
+            --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -115,8 +115,8 @@ describe('ember-template-lint executable', function () {
                                         \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
-            --include-todo              Include todos in the results (todos are hidden by
-                                        default)                [boolean] [default: false]
+            --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -416,8 +416,8 @@ describe('ember-template-lint executable', function () {
                                         \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
-            --include-todo              Include todos in the results (todos are hidden by
-                                        default)                [boolean] [default: false]
+            --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
