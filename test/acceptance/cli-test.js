@@ -1520,7 +1520,13 @@ describe('ember-template-lint executable', function () {
         await run(['.', '--update-todo']);
 
         // now fix the rule
-        await run(['.', '--fix']);
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button type="submit">Klikk</button>',
+            },
+          },
+        });
 
         // now run normally and expect an error for not running --update-todo again
         let result = await run(['.']);
@@ -1533,6 +1539,8 @@ describe('ember-template-lint executable', function () {
           ✖ 1 problems (1 errors, 0 warnings)
             1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
+
+        // await run(['.', '--fix']);
       });
 
       it('outputs empty summary for no todos or errors', async function () {
