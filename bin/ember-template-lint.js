@@ -312,7 +312,7 @@ async function run() {
     }
 
     if (!filePaths.has(STDIN)) {
-      fileResults = await linter.processTodos(linterOptions, fileResults);
+      fileResults = await linter.processTodos(linterOptions, fileResults, options.fix);
     }
 
     resultsAccumulator.push(...fileResults);

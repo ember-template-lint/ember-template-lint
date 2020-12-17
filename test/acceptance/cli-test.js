@@ -5,8 +5,9 @@ const path = require('path');
 
 const {
   ensureTodoStorageDir,
-  getTodoStorageDirPath,
+  todoStorageDirExists,
   readTodos,
+  getTodoStorageDirPath,
 } = require('@ember-template-lint/todo-utils');
 const execa = require('execa');
 
@@ -1408,7 +1409,7 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.']);
 
-        expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(false);
+        expect(todoStorageDirExists(project.baseDir)).toEqual(false);
         expect(result.stdout).toBeTruthy();
       });
 
@@ -1497,7 +1498,7 @@ describe('ember-template-lint executable', function () {
         let result = await run(['.', '--update-todo']);
 
         expect(result.exitCode).toEqual(0);
-        expect(fs.existsSync(getTodoStorageDirPath(project.baseDir))).toEqual(true);
+        expect(todoStorageDirExists(project.baseDir)).toEqual(true);
       });
 
       it('errors if a todo item is no longer valid when running without params', async function () {
@@ -1515,10 +1516,10 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        // first generate a todo
+        // generate todo based on existing error
         await run(['.', '--update-todo']);
 
-        // now fix the rule
+        // mimic fixing the error manually via user interaction
         project.write({
           app: {
             templates: {
@@ -1527,7 +1528,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        // now run normally and expect an error for not running --update-todo again
+        // run normally and expect an error for not running --fix
         let result = await run(['.']);
 
         expect(result.exitCode).toEqual(1);
@@ -1539,7 +1540,20 @@ describe('ember-template-lint executable', function () {
             1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
 
-        // await run(['.', '--fix']);
+        // run fix, and expect that this will delete the outstanding todo item
+        await run(['.', '--fix']);
+
+        // run normally again and expect no error
+        result = await run(['.']);
+
+        let todoStorageDir = getTodoStorageDirPath(project.baseDir);
+        let todos = fs.readdirSync(
+          path.posix.join(todoStorageDir, fs.readdirSync(todoStorageDir)[0])
+        );
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(todos).toHaveLength(0);
       });
 
       it('outputs empty summary for no todos or errors', async function () {
