@@ -16,8 +16,8 @@ Example:
 {{/let}}
 ```
 
-The need for the [no-extra-mut-helper-argument](no-extra-mut-helper-argument.md) rule is further evidence that `mut` has a non-intuitive signature and frequently gets misused.\
-2. The mut helper is usually only used as a pure setter, in which case there are other template helpers that are pure setters that could be used instead of mut (e.g. [ember-set-helper](https://github.com/pzuraq/ember-set-helper)).\
+The need for the [no-extra-mut-helper-argument](no-extra-mut-helper-argument.md) rule is further evidence that `mut` has a non-intuitive signature and frequently gets misused.
+2. The mut helper is usually only used as a pure setter, in which case there are other template helpers that are pure setters that could be used instead of mut (e.g. [ember-set-helper](https://github.com/pzuraq/ember-set-helper)).
 3. The mut helper can re-introduce 2 way data binding into Glimmer Components on named arguments where a child can change a parent’s data, which goes against the Data Down Actions Up principle, goes against Glimmer Components’ intention to have immutable arguments, and is [discouraged by the Ember Core team](https://www.pzuraq.com/on-mut-and-2-way-binding/).
 
 Example:
@@ -121,7 +121,7 @@ setProfileDescription({ target: { value } }) {
 
 ## Migration
 
-1. When used as a pure setter only, `mut` could be replaced by a JS action or [ember-set-helper](https://github.com/pzuraq/ember-set-helper):
+1. When used as a pure setter only, `mut` could be replaced by a JS action ("Option 1" below) or [ember-set-helper](https://github.com/pzuraq/ember-set-helper) ("Option 2" below):
 
 Before:
 
