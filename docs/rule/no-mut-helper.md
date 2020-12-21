@@ -75,11 +75,11 @@ This rule **allows** the following:
 ```
 
 ```hbs
-<button {{action (ember-set-helper$set this "isDropdownOpen" false)}}>Close Dropdown</button>
+<button {{action (set this "isDropdownOpen" false)}}>Close Dropdown</button>
 ```
 
 ```hbs
-<button {{on "click" (ember-set-helper$set this "isDropdownOpen" false)}}>Close Dropdown</button>
+<button {{on "click" (set this "isDropdownOpen" false)}}>Close Dropdown</button>
 ```
 
 ```hbs
@@ -112,7 +112,7 @@ setProfileDescription({ target: { value } }) {
 ```
 
 ```hbs
-{{my-component click=(action (ember-set-helper$set this "setIsDropdownOpen" false)}}
+{{my-component click=(action (set this "setIsDropdownOpen" false)}}
 ```
 
 ```hbs
@@ -152,7 +152,7 @@ After (Option 2):
 
 ```hbs
 <MyComponent
-  @closeDropdown={{ember-set-helper$set this "isDropdownOpen" false}}
+  @closeDropdown={{set this "isDropdownOpen" false}}
 />
 ```
 

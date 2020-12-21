@@ -3,7 +3,7 @@
 const { message, generateMessageWithAlternative } = require('../../../lib/rules/no-mut-helper');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
-const setterAlternative = 'ember-simple-set-helper$set';
+const setterAlternative = '`{{set}}`';
 
 generateRuleTests({
   name: 'no-mut-helper',
@@ -12,22 +12,22 @@ generateRuleTests({
 
   good: [
     '<MyComponent @toggled={{this.showAggregatedLine}}/>',
-    '<MyComponent @toggle={{ember-simple-set-helper$set this "isDropdownOpen"}}/>',
-    '<MyComponent @toggle={{ember-set-helper$set this "isDropdownOpen"}}/>',
+    '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
+    '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @onFocusOut={{action "onFocusOutKeySkillsInput" value="target.value"}}/>',
-    '<MyComponent {{on "click" (ember-simple-set-helper$set this "isDropdownOpen" false)}}/>',
+    '<MyComponent {{on "click" (set this "isDropdownOpen" false)}}/>',
     '<MyComponent {{on "change" this.setContactUsSectionDescription}}/>',
     '<MyComponent {{on "change" (fn this.setContactUsSectionDescription true)}}/>',
     '<MyComponent {{on "change" (action "setContactUsSectionDescription")}}/>',
     '<MyComponent {{on "change" (action "setContactUsSectionDescription" true)}}/>',
     '<MyComponent {{action "setIsDropdownOpen" false}}/>',
-    '<MyComponent @dismissModal={{ember-simple-set-helper$set this "isRequestExpiredModalOpen" false}}/>',
-    '<MyComponent onclick={{ember-simple-set-helper$set this “expandVoluntarySelfIdHelpText” true}}/>',
-    '<MyComponent @click={{ember-simple-set-helper$set this "isCardCollapsed" (if this.isCardCollapsed false true)}}/>',
-    '{{my-component click=(ember-simple-set-helper$set this "isOpen" false)}}',
-    '{{my-component click=(ember-simple-set-helper$set this "isLegalTextExpanded" (not this.isLegalTextExpanded))}}',
-    '{{my-component onVisibilityChange=(ember-simple-set-helper$set this “isDropdownOpen”)}}',
-    '{{my-component click=(ember-simple-set-helper$set this “expandVoluntarySelfIdHelpText” true)}}',
+    '<MyComponent @dismissModal={{set this "isRequestExpiredModalOpen" false}}/>',
+    '<MyComponent onclick={{set this “expandVoluntarySelfIdHelpText” true}}/>',
+    '<MyComponent @click={{set this "isCardCollapsed" (if this.isCardCollapsed false true)}}/>',
+    '{{my-component click=(set this "isOpen" false)}}',
+    '{{my-component click=(set this "isLegalTextExpanded" (not this.isLegalTextExpanded))}}',
+    '{{my-component onVisibilityChange=(set this “isDropdownOpen”)}}',
+    '{{my-component click=(set this “expandVoluntarySelfIdHelpText” true)}}',
     '{{my-component value=this.secondaryProfileHeadline}}',
     '<div {{mutate this.isDropdownOpen}} class="muted mut">Non-helper substrings with mut in them should not violate this rule.</div>',
   ],
