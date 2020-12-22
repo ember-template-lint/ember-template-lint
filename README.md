@@ -46,7 +46,7 @@ Basic usage is as straightforward as
 ember-template-lint .
 ```
 
-### Examples
+### Workflow Examples
 
 Basic usage with a single file
 
