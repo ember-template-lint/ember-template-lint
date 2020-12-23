@@ -64,8 +64,6 @@ describe('ember-template-lint executable', function () {
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
-            --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
@@ -111,8 +109,6 @@ describe('ember-template-lint executable', function () {
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
-            --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
@@ -412,8 +408,6 @@ describe('ember-template-lint executable', function () {
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
-            --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file (deprecated)    [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
