@@ -241,9 +241,9 @@ Example:
 
 module.exports = {
   rules: {
-    'no-mut-helper': {
+    'no-mut-helper': ['error', {
       setterAlternative: '{{set}}',
-    }
+    }]
   }
 };
 ```
