@@ -238,6 +238,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                             |
 | :wrench:                   | [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md) |
 | :dress:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                           |
+|                            | [no-mut-helper](./docs/rule/no-mut-helper.md)                                               |
 | :white_check_mark:         | [no-negated-condition](./docs/rule/no-negated-condition.md)                                 |
 | :white_check_mark:         | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                               |
 | :white_check_mark:         | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                     |
@@ -251,7 +252,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                       |
 | :white_check_mark:         | [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                           |
 | :white_check_mark::wrench: | [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                           |
-| :white_check_mark:         | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                     |
+| :white_check_mark::wrench: | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                     |
 |                            | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                       |
 | :white_check_mark:         | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                 |
 | :dress:                    | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                     |

@@ -18,6 +18,10 @@ This rule **allows** the following:
 {{my-component click=(action (mut isClicked) true)}}
 ```
 
+## Related Rules
+
+* [no-mut-helper](no-mut-helper.md)
+
 ## References
 
 * See the [documentation](https://emberjs.com/api/ember/release/classes/Ember.Templates.helpers/methods/mut?anchor=mut) for the Ember handlebars template `mut` helper

@@ -105,6 +105,7 @@ to
 
 * [no-action-modifiers](no-action-modifiers.md)
 * [no-element-event-actions](no-element-event-actions.md)
+* [no-mut-helper](no-mut-helper.md)
 
 ## References
 
