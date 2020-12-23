@@ -36,68 +36,14 @@ module.exports = {
 
 The following properties are allowed in the root of the `.template-lintrc.js` configuration file:
 
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>`rules`</td>
-      <td>`Object`</td>
-      <td>
-        This is an object containing rule specific configuration (see details for each rule below).
-      </td>
-    </tr>
-    <tr>
-      <td>`extends`</td>
-      <td>`string|string[]`</td>
-      <td>
-        Either a string or an array of strings. Each string allows you to specify an internally
-        curated list of rules (we suggest `recommended` here).
-      </td>
-    </tr>
-    <tr>
-      <td>`pending`</td>
-      <td>`string[]`</td>
-      <td>
-        An array of module id&#39;s that are still pending. The goal of this array is to allow
-        incorporating template linting into an existing project without changing every single
-        template file. You can add all existing templates to this `pending` listing and slowly work
-        through them while at the same time ensuring that new templates added to the project pass
-        all defined rules. You can generate this list with the: `ember-template-lint *
-        --print-pending`.
-      </td>
-    </tr>
-    <tr>
-      <td>`ignore`</td>
-      <td>`string[]|glob[]`</td>
-      <td>
-        An array of module id&#39;s that are to be completely ignored. See [ignore
-        documentation](docs/ignore.md) for more details.
-      </td>
-    </tr>
-    <tr>
-      <td>`plugins`</td>
-      <td>`(string|Object)[]`</td>
-      <td>
-        An array of plugin objects or strings that resolve to files that export plugin objects. See
-        [plugin documentation](docs/plugins.md) for more details.
-      </td>
-    </tr>
-    <tr>
-      <td>`overrides`</td>
-      <td>`Array`</td>
-      <td>
-        An array of overrides that would allow overriding of specific rules for user specified
-        files/folders. See [overrides documentation](docs/overrides.md) for more details.
-      </td>
-    </tr>
-  </tbody>
-</table>                            |
+| Property    | Type                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| :---------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `rules`     | `Object`               | This is an object containing rule specific configuration (see details for each rule below).                                                                                                                                                                                                                                                                                                                                                                         |
+| `extends`   | `string`\|`string[]`   | Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).                                                                                                                                                                                                                                                                                                                      |
+| `pending`   | `string[]`             | An array of module id&#39;s that are still pending. The goal of this array is to allow incorporating template linting into an existing project without changing every single template file. You can add all existing templates to this `pending` listing and slowly work through them while at the same time ensuring that new templates added to the project pass all defined rules. You can generate this list with the: `ember-template-lint * --print-pending`. |
+| `ignore`    | `string[]`\|`glob[]`   | An array of module id&#39;s that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.                                                                                                                                                                                                                                                                                                                                         |
+| `plugins`   | `string[]`\|`object[]` | An array of plugin objects or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.                                                                                                                                                                                                                                                                                                               |
+| `overrides` | `Array`                | An array of overrides that would allow overriding of specific rules for user specified files/folders. See [overrides documentation](docs/overrides.md) for more details.                                                                                                                                                                                                                                                                                            |
 
 ## Severity Levels
 
