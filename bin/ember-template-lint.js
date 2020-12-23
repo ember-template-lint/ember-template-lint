@@ -157,6 +157,7 @@ function parseArgv(_argv) {
         describe:
           'Print list of formatted rules for use with `pending` in config file (deprecated)',
         boolean: true,
+        hidden: true,
       },
       'update-todo': {
         describe: 'Update list of linting todos by transforming lint errors to todos',
