@@ -78,6 +78,18 @@ Ignore warnings / only report errors
 ember-template-lint "app/templates/application.hbs" --quiet
 ```
 
+Convert errors to TODOs in order to resolve at a later date
+
+```bash
+ember-template-lint . --update-todo
+```
+
+Include TODOs with other output results
+
+```bash
+ember-template-lint . --include-todo
+```
+
 Define custom config path
 
 ```bash
@@ -88,12 +100,6 @@ Read from stdin
 
 ```bash
 ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
-```
-
-Print list of formatted rules for use with `pending` in config file
-
-```bash
-ember-template-lint "app/templates/application.hbs" --print-pending
 ```
 
 Specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
