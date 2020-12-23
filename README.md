@@ -167,6 +167,8 @@ module.exports = {
 };
 ```
 
+For more detailed information see [configuration](docs/configuration.md).
+
 ### Presets
 
 |                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
