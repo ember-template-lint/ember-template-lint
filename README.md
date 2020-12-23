@@ -143,12 +143,6 @@ DISABLE_GITHUB_ACTIONS_ANNOTATIONS=true ember-template-lint "app/templates/appli
 :warning: For those running `ember-template-lint` in Github Actions:
 There is an additional printer always used for Github Actions, if you'd like to disable it set the `DISABLE_GITHUB_ACTIONS_ANNOTATIONS` env var to `true`.
 
-### ESLint
-
-If you are using templates inlined into your JS files, you can leverage
-[eslint-plugin-hbs](https://github.com/psbanka/eslint-plugin-hbs) to integrate
-ember-template-lint into your normal eslint workflow.
-
 ## Configuration
 
 ### Project Wide
