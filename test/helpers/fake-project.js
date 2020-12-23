@@ -67,6 +67,10 @@ module.exports = class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
+  getConfig() {
+    return require(path.join(this.baseDir, '.template-lintrc'));
+  }
+
   setEditorConfig(value = DEFAULT_EDITOR_CONFIG) {
     this.files['.editorconfig'] = value;
 

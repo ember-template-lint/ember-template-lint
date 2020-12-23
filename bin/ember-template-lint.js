@@ -9,6 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
+const { getTodoStorageDirPath } = require('@ember-template-lint/todo-utils');
+const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
 const isGlob = require('is-glob');
@@ -38,19 +40,6 @@ async function buildLinterOptions(workingDir, filePath, filename = '', isReading
     let source = await readFile(resolvedFilePath, { encoding: 'utf8' });
 
     return { source, filePath, moduleId };
-  }
-}
-
-async function lintSource(linter, options, shouldFix) {
-  if (shouldFix) {
-    let { isFixed, output, messages } = await linter.verifyAndFix(options);
-    if (isFixed) {
-      fs.writeFileSync(options.filePath, output);
-    }
-
-    return messages;
-  } else {
-    return linter.verify(options);
   }
 }
 
@@ -165,7 +154,18 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'print-pending': {
-        describe: 'Print list of formatted rules for use with `pending` in config file',
+        describe:
+          'Print list of formatted rules for use with `pending` in config file (deprecated)',
+        boolean: true,
+      },
+      'update-todo': {
+        describe: 'Update list of linting todos by transforming lint errors to todos',
+        default: false,
+        boolean: true,
+      },
+      'include-todo': {
+        describe: 'Include todos in the results',
+        default: false,
         boolean: true,
       },
       'ignore-pattern': {
@@ -221,6 +221,8 @@ function printPending(results, options) {
   if (options.json) {
     console.log(pendingListString);
   } else {
+    console.log(chalk.yellow('WARNING: Print pending is deprecated. Use --update-todo instead.\n'));
+
     console.log(
       'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
     );
@@ -263,6 +265,25 @@ async function run() {
     return;
   }
 
+  if (
+    linter.config.pending.length > 0 &&
+    fs.existsSync(getTodoStorageDirPath(options.workingDirectory))
+  ) {
+    console.error(
+      'Cannot use the `pending` config option in conjunction with lint todos. Please run with `--update-pending` to migrate to the new todos functionality.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (linter.config.pending.length > 0 && options.updateTodo) {
+    console.error(
+      'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
   let resultsAccumulator = [];
@@ -274,12 +295,31 @@ async function run() {
       filePaths.has(STDIN)
     );
 
-    let messages = await lintSource(linter, linterOptions, options.fix);
+    let fileResults;
 
-    resultsAccumulator.push(...messages);
+    if (options.fix) {
+      let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
+      if (isFixed) {
+        fs.writeFileSync(linterOptions.filePath, output, { encoding: 'utf-8' });
+      }
+      fileResults = messages;
+    } else {
+      fileResults = await linter.verify(linterOptions);
+    }
+
+    if (options.updateTodo) {
+      await linter.updateTodo(linterOptions, fileResults);
+    }
+
+    if (!filePaths.has(STDIN)) {
+      fileResults = await linter.processTodos(linterOptions, fileResults, options.fix);
+    }
+
+    resultsAccumulator.push(...fileResults);
   }
 
   let results = processResults(resultsAccumulator);
+
   if (results.errorCount > 0) {
     process.exitCode = 1;
   }
@@ -287,7 +327,7 @@ async function run() {
   if (options.printPending) {
     return printPending(results, options);
   } else {
-    if (results.errorCount || results.warningCount) {
+    if (results.errorCount || results.warningCount || (options.includeTodo && results.todoCount)) {
       let Printer = require('../lib/printers/default');
       let printer = new Printer(options);
       printer.print(results);
