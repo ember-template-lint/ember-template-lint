@@ -167,8 +167,6 @@ module.exports = {
 };
 ```
 
-For more details on configuration, including available configuration properties, see [Configuration](docs/configuration.md).
-
 ### Presets
 
 |                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
@@ -287,6 +285,10 @@ You can add a fixer to a rule. See [fixer documentation](docs/fixer.md) for more
 ### Sharing configs
 
 It is possible to share a config (`extends`) or plugin (custom rules) across projects. See [ember-template-lint-plugin-peopleconnect](https://github.com/peopleconnectus/ember-template-lint-plugin-peopleconnect) for an example.
+
+## Defining your own rules
+
+You can define and use your own custom rules using the plugin system. See [plugin documentation](docs/plugins.md) for more details.
 
 ## Semantic Versioning Policy
 

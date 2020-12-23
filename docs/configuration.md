@@ -150,7 +150,3 @@ An in-element instruction with the `-tree` suffix will apply to that element and
 ```
 
 Note that enabling a rule (`{{!-- template-lint-enable --}}`) that has been configured in-template (`{{!-- template-lint-configure --}}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{!-- template-lint-enable --}}` instruction.
-
-## Defining your own rules
-
-You can define and use your own custom rules using the plugin system. See [plugin documentation](docs/plugins.md) for more details.
