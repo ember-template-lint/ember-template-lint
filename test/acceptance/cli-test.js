@@ -9,6 +9,7 @@ const {
   readTodos,
   getTodoStorageDirPath,
 } = require('@ember-template-lint/todo-utils');
+const { differenceInDays, subDays } = require('date-fns');
 const execa = require('execa');
 
 const Project = require('../helpers/fake-project');
@@ -68,6 +69,10 @@ describe('ember-template-lint executable', function () {
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
+            --todo-days-to-warn         Number of days after its creation date that a todo
+                                        transitions into a warning                [number]
+            --todo-days-to-error        Number of days after its creation date that a todo
+                                        transitions into an error                 [number]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -113,6 +118,10 @@ describe('ember-template-lint executable', function () {
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
+            --todo-days-to-warn         Number of days after its creation date that a todo
+                                        transitions into a warning                [number]
+            --todo-days-to-error        Number of days after its creation date that a todo
+                                        transitions into an error                 [number]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -412,6 +421,10 @@ describe('ember-template-lint executable', function () {
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
+            --todo-days-to-warn         Number of days after its creation date that a todo
+                                        transitions into a warning                [number]
+            --todo-days-to-error        Number of days after its creation date that a todo
+                                        transitions into an error                 [number]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -1642,6 +1655,518 @@ describe('ember-template-lint executable', function () {
             1:5  todo  Non-translated string used  no-bare-strings
 
           ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+        `);
+      });
+
+      it('should error if daysToDecay.error is less than daysToDecay.warn in package.json', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeLintTodo({
+          warn: 10,
+          error: 5,
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        expect(result.stderr).toMatch(
+          'The `lintTodo` configuration in the package.json contains invalid values. The `warn` value must be less than the `error` value.'
+        );
+      });
+
+      it('should create todos with correct warn date set', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeLintTodo({
+          warn: 10,
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
+        });
+      });
+
+      it('should create todos with correct warn date set via option (overrides config value)', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeLintTodo({
+          warn: 10,
+        });
+
+        let result = await run(['.', '--update-todo', '--todo-days-to-warn', '30']);
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(30);
+        });
+      });
+
+      it('should create todos with correct error date set', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeLintTodo({
+          error: 10,
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+            10
+          );
+        });
+      });
+
+      it('should create todos with correct error date set via option (overrides config value)', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeLintTodo({
+          error: 10,
+        });
+
+        let result = await run(['.', '--update-todo', '--todo-days-to-error', '30']);
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+            30
+          );
+        });
+      });
+
+      it('should create todos with correct dates set for warn and error', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeLintTodo({
+          warn: 5,
+          error: 10,
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(5);
+          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+            10
+          );
+        });
+      });
+
+      it('should create todos with correct dates set for warn and error via options (overrides config values)', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeLintTodo({
+          warn: 5,
+          error: 10,
+        });
+
+        let result = await run([
+          '.',
+          '--update-todo',
+          '--todo-days-to-warn',
+          '10',
+          '--todo-days-to-error',
+          '20',
+        ]);
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
+          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+            20
+          );
+        });
+      });
+
+      it('should set to todo if warnDate is not expired', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        project.writeLintTodo({
+          warn: 5,
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        result = await run(['.', '--include-todo']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  todo  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+        `);
+      });
+
+      it('should set to todo if errorDate is not expired', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        project.writeLintTodo({
+          error: 5,
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        result = await run(['.', '--include-todo']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  todo  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+        `);
+      });
+
+      it('should set todo to warn if warnDate has expired via config', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        project.writeLintTodo({
+          warn: 5,
+        });
+
+        await run(['.', '--update-todo'], {
+          env: {
+            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+          },
+        });
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  warning  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (0 errors, 1 warnings)"
+        `);
+      });
+
+      it('should set todo to warn if warnDate has expired via option', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        await run(['.', '--update-todo', '--todo-days-to-warn', '5'], {
+          env: {
+            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+          },
+        });
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  warning  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (0 errors, 1 warnings)"
+        `);
+      });
+
+      it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        project.writeLintTodo({
+          warn: 5,
+          error: 10,
+        });
+
+        await run(['.', '--update-todo'], {
+          env: {
+            TODO_CREATED_DATE: subDays(new Date(), 7).toJSON(),
+          },
+        });
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  warning  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (0 errors, 1 warnings)"
+        `);
+      });
+
+      it('should set todo to error if errorDate has expired via config', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        project.writeLintTodo({
+          error: 5,
+        });
+
+        await run(['.', '--update-todo'], {
+          env: {
+            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+          },
+        });
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  error  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
+      });
+
+      it('should set todo to error if errorDate has expired via env var', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        await run(['.', '--update-todo', '--todo-days-to-error', '5'], {
+          env: {
+            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+          },
+        });
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  error  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
+      });
+
+      it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        project.writeLintTodo({
+          warn: 5,
+          error: 10,
+        });
+
+        await run(['.', '--update-todo'], {
+          env: {
+            TODO_CREATED_DATE: subDays(new Date(), 11).toJSON(),
+          },
+        });
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  error  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
+      });
+
+      it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        await run(
+          ['.', '--update-todo', '--todo-days-to-warn', '5', '--todo-days-to-error', '10'],
+          {
+            env: {
+              TODO_CREATED_DATE: subDays(new Date(), 11).toJSON(),
+            },
+          }
+        );
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  error  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (1 errors, 0 warnings)"
         `);
       });
     });

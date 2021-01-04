@@ -17,6 +17,7 @@ const isGlob = require('is-glob');
 const micromatch = require('micromatch');
 
 const Linter = require('../lib');
+const getDaysToDecay = require('../lib/helpers/get-todo-config');
 const processResults = require('../lib/helpers/process-results');
 
 const readFile = promisify(fs.readFile);
@@ -169,6 +170,14 @@ function parseArgv(_argv) {
         default: false,
         boolean: true,
       },
+      'todo-days-to-warn': {
+        describe: 'Number of days after its creation date that a todo transitions into a warning',
+        type: 'number',
+      },
+      'todo-days-to-error': {
+        describe: 'Number of days after its creation date that a todo transitions into an error',
+        type: 'number',
+      },
       'ignore-pattern': {
         describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
         type: 'array',
@@ -309,7 +318,7 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      await linter.updateTodo(linterOptions, fileResults);
+      await linter.updateTodo(linterOptions, fileResults, getDaysToDecay(options));
     }
 
     if (!filePaths.has(STDIN)) {
