@@ -19,7 +19,6 @@ function run(project, args, options = {}) {
 }
 
 describe('editors integration', function () {
-  setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
   setupEnvVar('LC_ALL', 'en_US');
 
