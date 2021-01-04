@@ -6,7 +6,7 @@ It's common to leverage linting not just for syntax adherence, but also to direc
 
 - new lint errors being introduced where they previously didn't exist
 - causing unintended delays to shipping new fixes and features
-- an "all or nothing" approach, where new rules require fixing before rollout.
+- an "all or nothing" approach, where new rules require fixing before rollout
 
 Having the ability to identify violations as `todo`s allows for this incremental roll out, while providing tools that allow maintainers to view the full list of todo violations.
 
