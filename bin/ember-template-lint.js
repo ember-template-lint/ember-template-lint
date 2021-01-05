@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const { getTodoStorageDirPath } = require('@ember-template-lint/todo-utils');
+const { getTodoStorageDirPath, getTodoConfig } = require('@ember-template-lint/todo-utils');
 const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -17,7 +17,6 @@ const isGlob = require('is-glob');
 const micromatch = require('micromatch');
 
 const Linter = require('../lib');
-const getDaysToDecay = require('../lib/helpers/get-todo-config');
 const processResults = require('../lib/helpers/process-results');
 
 const readFile = promisify(fs.readFile);
@@ -241,6 +240,20 @@ function printPending(results, options) {
   }
 }
 
+function getTodoConfigFromOptions(options) {
+  let todoConfig = {};
+
+  if (options.todoDaysToWarn) {
+    todoConfig.warn = options.todoDaysToWarn;
+  }
+
+  if (options.todoDaysToError) {
+    todoConfig.error = options.todoDaysToError;
+  }
+
+  return todoConfig;
+}
+
 async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
@@ -318,7 +331,11 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      await linter.updateTodo(linterOptions, fileResults, getDaysToDecay(options));
+      await linter.updateTodo(
+        linterOptions,
+        fileResults,
+        getTodoConfig(options.workingDirectory, getTodoConfigFromOptions(options))
+      );
     }
 
     if (!filePaths.has(STDIN)) {
