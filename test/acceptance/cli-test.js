@@ -1670,7 +1670,7 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 10,
           error: 5,
         });
@@ -1682,7 +1682,7 @@ describe('ember-template-lint executable', function () {
         );
       });
 
-      it('should create todos with correct warn date set', async function () {
+      it('should create todos with correct warn date set via package.json', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1695,7 +1695,7 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 10,
         });
 
@@ -1710,7 +1710,7 @@ describe('ember-template-lint executable', function () {
         });
       });
 
-      it('should create todos with correct warn date set via option (overrides config value)', async function () {
+      it('should create todos with correct warn date set via env var (overrides package.json)', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1723,11 +1723,15 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 10,
         });
 
-        let result = await run(['.', '--update-todo', '--todo-days-to-warn', '30']);
+        let result = await run(['.', '--update-todo'], {
+          env: {
+            TODO_DAYS_TO_WARN: '30',
+          },
+        });
 
         const todos = [...(await readTodos(project.baseDir)).values()];
 
@@ -1738,7 +1742,7 @@ describe('ember-template-lint executable', function () {
         });
       });
 
-      it('should create todos with correct error date set', async function () {
+      it('should create todos with correct warn date set via option (overrides env var)', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1751,7 +1755,39 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        project.writeLintTodo({
+        project.writeTodoConfig({
+          warn: 10,
+        });
+
+        let result = await run(['.', '--update-todo', '--todo-days-to-warn', '30'], {
+          env: {
+            TODO_DAYS_TO_WARN: 20,
+          },
+        });
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(30);
+        });
+      });
+
+      it('should create todos with correct error date set via package.json', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeTodoConfig({
           error: 10,
         });
 
@@ -1768,7 +1804,7 @@ describe('ember-template-lint executable', function () {
         });
       });
 
-      it('should create todos with correct error date set via option (overrides config value)', async function () {
+      it('should create todos with correct error date set via env var (overrides package.json)', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1781,11 +1817,15 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        project.writeLintTodo({
+        project.writeTodoConfig({
           error: 10,
         });
 
-        let result = await run(['.', '--update-todo', '--todo-days-to-error', '30']);
+        let result = await run(['.', '--update-todo'], {
+          env: {
+            TODO_DAYS_TO_ERROR: '30',
+          },
+        });
 
         const todos = [...(await readTodos(project.baseDir)).values()];
 
@@ -1798,7 +1838,7 @@ describe('ember-template-lint executable', function () {
         });
       });
 
-      it('should create todos with correct dates set for warn and error', async function () {
+      it('should create todos with correct error date set via option (overrides env var)', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1811,7 +1851,41 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        project.writeLintTodo({
+        project.writeTodoConfig({
+          error: 10,
+        });
+
+        let result = await run(['.', '--update-todo', '--todo-days-to-error', '30'], {
+          env: {
+            TODO_DAYS_TO_ERROR: 20,
+          },
+        });
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+            30
+          );
+        });
+      });
+
+      it('should create todos with correct dates set for warn and error via package.json', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeTodoConfig({
           warn: 5,
           error: 10,
         });
@@ -1830,7 +1904,7 @@ describe('ember-template-lint executable', function () {
         });
       });
 
-      it('should create todos with correct dates set for warn and error via options (overrides config values)', async function () {
+      it('should create todos with correct dates set for warn and error via env vars (overrides package.json)', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1843,19 +1917,57 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 5,
           error: 10,
         });
 
-        let result = await run([
-          '.',
-          '--update-todo',
-          '--todo-days-to-warn',
-          '10',
-          '--todo-days-to-error',
-          '20',
-        ]);
+        let result = await run(['.', '--update-todo'], {
+          env: {
+            TODO_DAYS_TO_WARN: 10,
+            TODO_DAYS_TO_ERROR: 20,
+          },
+        });
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
+          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+            20
+          );
+        });
+      });
+
+      it('should create todos with correct dates set for warn and error via options (overrides env vars)', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeTodoConfig({
+          warn: 5,
+          error: 10,
+        });
+
+        let result = await run(
+          ['.', '--update-todo', '--todo-days-to-warn', '10', '--todo-days-to-error', '20'],
+          {
+            env: {
+              TODO_DAYS_TO_WARN: 7,
+              TODO_DAYS_TO_ERROR: 11,
+            },
+          }
+        );
 
         const todos = [...(await readTodos(project.baseDir)).values()];
 
@@ -1883,7 +1995,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 5,
         });
 
@@ -1914,7 +2026,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        project.writeLintTodo({
+        project.writeTodoConfig({
           error: 5,
         });
 
@@ -1945,7 +2057,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 5,
         });
 
@@ -2011,7 +2123,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 5,
           error: 10,
         });
@@ -2047,7 +2159,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        project.writeLintTodo({
+        project.writeTodoConfig({
           error: 5,
         });
 
@@ -2113,7 +2225,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        project.writeLintTodo({
+        project.writeTodoConfig({
           warn: 5,
           error: 10,
         });
