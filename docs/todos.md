@@ -53,13 +53,13 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 }
 ```
 
-2. Via environment variables
+1. Via environment variables
 
 ```bash
 TODO_DAYS_TO_WARN="5" TODO_DAYS_TO_ERROR="10" ember-template-lint . --update-todo
 ```
 
-3. Via command line options
+1. Via command line options
 
 ```bash
 ember-template-lint . --update-todo --todo-days-to-warn=5 --todo-days-to-error=10
