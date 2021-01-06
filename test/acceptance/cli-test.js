@@ -2232,6 +2232,38 @@ describe('ember-template-lint executable', function () {
           },
         });
 
+        await run(['.', '--update-todo'], {
+          env: {
+            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+            TODO_DAYS_TO_ERROR: 5,
+          },
+        });
+
+        const result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:5  error  Non-translated string used  no-bare-strings
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
+      });
+
+      it('should set todo to error if errorDate has expired via option', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
         await run(['.', '--update-todo', '--todo-days-to-error', '5'], {
           env: {
             TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
