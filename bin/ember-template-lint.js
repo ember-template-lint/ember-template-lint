@@ -243,12 +243,12 @@ function printPending(results, options) {
 function getTodoConfigFromOptions(options) {
   let todoConfig = {};
 
-  if (options.todoDaysToWarn) {
-    todoConfig.warn = options.todoDaysToWarn;
+  if (Number.isInteger(options.todoDaysToWarn)) {
+    todoConfig.warn = options.todoDaysToWarn || undefined;
   }
 
-  if (options.todoDaysToError) {
-    todoConfig.error = options.todoDaysToError;
+  if (Number.isInteger(options.todoDaysToError)) {
+    todoConfig.error = options.todoDaysToError || undefined;
   }
 
   return todoConfig;

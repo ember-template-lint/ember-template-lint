@@ -1981,6 +1981,44 @@ describe('ember-template-lint executable', function () {
         });
       });
 
+      it('should create todos with correct dates set for error while excluding warn', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+        project.writeTodoConfig({
+          warn: 5,
+          error: 10,
+        });
+
+        let result = await run([
+          '.',
+          '--update-todo',
+          '--no-todo-days-to-warn',
+          '--todo-days-to-error',
+          '20',
+        ]);
+
+        const todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+
+        todos.forEach((todo) => {
+          expect(todo.warnDate).toBeFalsy();
+          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+            20
+          );
+        });
+      });
+
       it('should set to todo if warnDate is not expired', async function () {
         project.setConfig({
           rules: {
