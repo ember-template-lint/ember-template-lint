@@ -32,7 +32,7 @@ If an error is fixed manually, `ember-template-lint` will let you know that ther
 ember-template-lint . --fix
 ```
 
-### Assigning Due Dates
+### Configuring Due Dates
 
 TODOs can be created with optional due dates. These due dates allow for TODOs to, over a period of time, 'decay' the severity to a **warning** and/or **error** after a certain date. This helps ensure that TODOs are created but not forgotten, and can allow for better managing incremental roll-outs of large-scale or slow-to-fix rules.
 
