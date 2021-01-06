@@ -78,6 +78,18 @@ Ignore warnings / only report errors
 ember-template-lint "app/templates/application.hbs" --quiet
 ```
 
+Convert errors to TODOs in order to resolve at a later date
+
+```bash
+ember-template-lint . --update-todo
+```
+
+Include TODOs with other output results
+
+```bash
+ember-template-lint . --include-todo
+```
+
 Define custom config path
 
 ```bash
@@ -88,12 +100,6 @@ Read from stdin
 
 ```bash
 ember-template-lint --filename app/templates/application.hbs < app/templates/application.hbs
-```
-
-Print list of formatted rules for use with `pending` in config file
-
-```bash
-ember-template-lint "app/templates/application.hbs" --print-pending
 ```
 
 Specify custom ignore pattern `['**/dist/**', '**/tmp/**', '**/node_modules/**']` by default
@@ -142,6 +148,8 @@ DISABLE_GITHUB_ACTIONS_ANNOTATIONS=true ember-template-lint "app/templates/appli
 
 :warning: For those running `ember-template-lint` in Github Actions:
 There is an additional printer always used for Github Actions, if you'd like to disable it set the `DISABLE_GITHUB_ACTIONS_ANNOTATIONS` env var to `true`.
+
+For more information about the TODO functionality, see [the documentation](docs/todo.md).
 
 ## Configuration
 
