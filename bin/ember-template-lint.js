@@ -240,7 +240,7 @@ function printPending(results, options) {
   }
 }
 
-function getTodoConfigFromOptions(options) {
+function getTodoConfigFromCommandLineOptions(options) {
   let todoConfig = {};
 
   if (Number.isInteger(options.todoDaysToWarn)) {
@@ -334,7 +334,7 @@ async function run() {
       await linter.updateTodo(
         linterOptions,
         fileResults,
-        getTodoConfig(options.workingDirectory, getTodoConfigFromOptions(options))
+        getTodoConfig(options.workingDirectory, getTodoConfigFromCommandLineOptions(options))
       );
     }
 
