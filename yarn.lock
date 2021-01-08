@@ -278,14 +278,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ember-template-lint/todo-utils@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-4.1.0.tgz#dc097711f6cd490468b683c4329805c9bfbd4b5e"
-  integrity sha512-bfdIZ6SX8nLNLodkYOCU6C4VQU5VH1CheNrdIZiiM63xlg4eAnlYzlEn8h1JhPV8m/4sMl/zMTBrN73KcJVJKw==
+"@ember-template-lint/todo-utils@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-5.0.0.tgz#f2f71c75a09c815e2e86719844431f8f639f6edb"
+  integrity sha512-lho61ryxiPst56YTmtLKk3BqpFaVU/vtueTFkOhdXwT4/0zgO/AbzgBRd/Pvfcur8v4+Wr4VY3jtdIS6s3otug==
   dependencies:
     "@types/eslint" "^7.2.3"
     fs-extra "^9.0.1"
-    json-date-parser "^1.0.1"
     slash "^3.0.0"
 
 "@eslint/eslintrc@^0.2.2":
@@ -4068,11 +4067,6 @@ json-buffer@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.1.tgz#9338802a30d3b6605fbe0613e094008ca8c05a13"
   integrity sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
-
-json-date-parser@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/json-date-parser/-/json-date-parser-1.0.1.tgz#b70eb47c898f3b16643ad63ffb8d9620fd784f85"
-  integrity sha1-tw60fImPOxZkOtY/+42WIP14T4U=
 
 json-parse-better-errors@^1.0.1:
   version "1.0.2"
