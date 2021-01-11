@@ -87,6 +87,16 @@ module.exports = class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
+  writeTodoConfig(todoConfig) {
+    this.pkg = Object.assign({}, this.pkg, {
+      lintTodo: {
+        daysToDecay: todoConfig,
+      },
+    });
+
+    this.writeSync();
+  }
+
   chdir() {
     this._dirChanged = true;
 

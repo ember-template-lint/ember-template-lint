@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const { getTodoStorageDirPath } = require('@ember-template-lint/todo-utils');
+const { getTodoStorageDirPath, getTodoConfig } = require('@ember-template-lint/todo-utils');
 const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -169,6 +169,14 @@ function parseArgv(_argv) {
         default: false,
         boolean: true,
       },
+      'todo-days-to-warn': {
+        describe: 'Number of days after its creation date that a todo transitions into a warning',
+        type: 'number',
+      },
+      'todo-days-to-error': {
+        describe: 'Number of days after its creation date that a todo transitions into an error',
+        type: 'number',
+      },
       'ignore-pattern': {
         describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
         type: 'array',
@@ -230,6 +238,20 @@ function printPending(results, options) {
 
     console.log(`pending: ${pendingListString}`);
   }
+}
+
+function getTodoConfigFromCommandLineOptions(options) {
+  let todoConfig = {};
+
+  if (Number.isInteger(options.todoDaysToWarn)) {
+    todoConfig.warn = options.todoDaysToWarn || undefined;
+  }
+
+  if (Number.isInteger(options.todoDaysToError)) {
+    todoConfig.error = options.todoDaysToError || undefined;
+  }
+
+  return todoConfig;
 }
 
 async function run() {
@@ -309,7 +331,11 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      await linter.updateTodo(linterOptions, fileResults);
+      await linter.updateTodo(
+        linterOptions,
+        fileResults,
+        getTodoConfig(options.workingDirectory, getTodoConfigFromCommandLineOptions(options))
+      );
     }
 
     if (!filePaths.has(STDIN)) {

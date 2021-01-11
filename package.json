@@ -37,7 +37,7 @@
     ]
   },
   "dependencies": {
-    "@ember-template-lint/todo-utils": "^3.2.0",
+    "@ember-template-lint/todo-utils": "^5.0.0",
     "chalk": "^4.0.0",
     "ember-template-recast": "^5.0.1",
     "find-up": "^5.0.0",
@@ -53,6 +53,7 @@
     "@babel/parser": "^7.12.11",
     "@babel/traverse": "^7.12.10",
     "common-tags": "^1.8.0",
+    "date-fns": "^2.16.1",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
