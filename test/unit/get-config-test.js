@@ -674,7 +674,7 @@ describe('getProjectConfig', function () {
     expect(reprocessedConfig.rules).toEqual(expected);
   });
 
-  it('rules override extends', function () {
+  it('merges rules from plugins with rules from config', function () {
     let config = {
       plugins: [
         {
@@ -705,7 +705,7 @@ describe('getProjectConfig', function () {
     expect(processedConfig.rules).toEqual(expected);
   });
 
-  it('extends item overrides previous item', function () {
+  it('merges rules from plugins in the order declared in the array', function () {
     let config = {
       plugins: [
         {
