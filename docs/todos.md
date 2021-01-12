@@ -26,10 +26,10 @@ If you want to see TODOs as part of `ember-template-lint`'s output, you can incl
 ember-template-lint . --include-todo
 ```
 
-If an error is fixed manually, `ember-template-lint` will let you know that there's an outstanding TODO file. You can remove this file by running `--fix`
+If an error is fixed manually, `ember-template-lint` will let you know that there's an outstanding TODO file. You can remove this file by running `--update-todo`
 
 ```bash
-ember-template-lint . --fix
+ember-template-lint . --update-todo
 ```
 
 ### Configuring Due Dates
