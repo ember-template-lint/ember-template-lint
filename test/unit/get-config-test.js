@@ -673,6 +673,78 @@ describe('getProjectConfig', function () {
     let reprocessedConfig = getProjectConfig(project.baseDir, { config });
     expect(reprocessedConfig.rules).toEqual(expected);
   });
+
+  it('rules override extends', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended'],
+      rules: {
+        foo: false,
+      },
+    };
+
+    let expected = {
+      foo: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig(project.baseDir, { config });
+    expect(processedConfig.rules).toEqual(expected);
+  });
+
+  it('extends item overrides previous item', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+        {
+          name: 'bar',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: false,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended', 'bar:recommended'],
+    };
+
+    let expected = {
+      foo: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig(project.baseDir, { config });
+    expect(processedConfig.rules).toEqual(expected);
+  });
 });
 
 describe('getRuleFromString', function () {
