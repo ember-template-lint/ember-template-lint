@@ -70,7 +70,7 @@ module.exports = {
     'prefer-rest-params': 'error',
     'prefer-spread': 'error',
     'prefer-template': 'error',
-    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }], // Disallow unnecessary template literals.
+    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     radix: 'error',
     'require-atomic-updates': 'error',
     'require-await': 'error',

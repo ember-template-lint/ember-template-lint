@@ -258,6 +258,7 @@ async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
   let config;
+  let todoInfo;
 
   if (options.config) {
     try {
@@ -307,6 +308,14 @@ async function run() {
     return;
   }
 
+  if ((options.todoDaysToWarn || options.todoDaysToError) && !options.updateTodo) {
+    console.error(
+      'You must use `--update-todo` when using any of `--todo-days-to-warn` or `--todo-days-to-error`.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
   let resultsAccumulator = [];
@@ -331,11 +340,17 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      await linter.updateTodo(
-        linterOptions,
-        fileResults,
-        getTodoConfig(options.workingDirectory, getTodoConfigFromCommandLineOptions(options))
+      let todoConfig = getTodoConfig(
+        options.workingDirectory,
+        getTodoConfigFromCommandLineOptions(options)
       );
+
+      let [added] = await linter.updateTodo(linterOptions, fileResults, todoConfig);
+
+      todoInfo = {
+        added,
+        todoConfig,
+      };
     }
 
     if (!filePaths.has(STDIN)) {
@@ -354,10 +369,15 @@ async function run() {
   if (options.printPending) {
     return printPending(results, options);
   } else {
-    if (results.errorCount || results.warningCount || (options.includeTodo && results.todoCount)) {
+    if (
+      results.errorCount ||
+      results.warningCount ||
+      (options.includeTodo && results.todoCount) ||
+      (options.updateTodo && todoInfo.added)
+    ) {
       let Printer = require('../lib/printers/default');
       let printer = new Printer(options);
-      printer.print(results);
+      printer.print(results, todoInfo);
     }
   }
 }

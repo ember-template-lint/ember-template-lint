@@ -1466,6 +1466,22 @@ describe('ember-template-lint executable', function () {
         );
       });
 
+      it('errors if using either --todo-days-to-warn or --todo-days-to-error without --update-todo', async function () {
+        let result = await run(['.', '--todo-days-to-warn', '10']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toContain(
+          'You must use `--update-todo` when using any of `--todo-days-to-warn` or `--todo-days-to-error`.'
+        );
+
+        result = await run(['.', '--todo-days-to-error', '10']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toContain(
+          'You must use `--update-todo` when using any of `--todo-days-to-warn` or `--todo-days-to-error`.'
+        );
+      });
+
       it('generates no todos for no errors', async function () {
         project.setConfig({
           rules: {
@@ -1554,14 +1570,11 @@ describe('ember-template-lint executable', function () {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoStorageDir = getTodoStorageDirPath(project.baseDir);
-        let todos = fs.readdirSync(
-          path.posix.join(todoStorageDir, fs.readdirSync(todoStorageDir)[0])
-        );
+        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todos).toHaveLength(0);
+        expect(todoDirs).toHaveLength(0);
       });
 
       it('outputs empty summary for no todos or errors', async function () {
@@ -1606,6 +1619,91 @@ describe('ember-template-lint executable', function () {
         expect(result.stdout).toEqual('');
       });
 
+      it('with --update-todo, outputs todos created summary', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 TODOs created "`);
+      });
+
+      it('with --update-todo, outputs todos created summary with warn info', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--update-todo', '--todo-days-to-warn', '10']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 TODOs created (warn after 10 days)"`);
+      });
+
+      it('with --update-todo, outputs todos created summary with error info', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--update-todo', '--todo-days-to-error', '10']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 TODOs created (error after 10 days)"`);
+      });
+
+      it('with --update-todo, outputs todos created summary with warn and error info', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run([
+          '.',
+          '--update-todo',
+          '--todo-days-to-warn',
+          '5',
+          '--todo-days-to-error',
+          '10',
+        ]);
+
+        expect(result.stdout).toMatchInlineSnapshot(
+          `"✔ 1 TODOs created (warn after 5 and error after 10 days)"`
+        );
+      });
+
       it('with --include-todo param and --update-todo, outputs todos in results', async function () {
         project.setConfig({
           rules: {
@@ -1626,7 +1724,8 @@ describe('ember-template-lint executable', function () {
           "app/templates/application.hbs
             1:5  todo  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+          ✖ 1 problems (0 errors, 0 warnings, 1 todos)
+          ✔ 1 TODOs created "
         `);
       });
 
@@ -1679,7 +1778,7 @@ describe('ember-template-lint executable', function () {
         let result = await run(['.', '--update-todo']);
 
         expect(result.stderr).toMatch(
-          'The `lintTodo` configuration in the package.json contains invalid values. The `warn` value must be less than the `error` value.'
+          'The provided TODO configuration contains invalid values. The `warn` value (10) must be less than the `error` value (5).'
         );
       });
 
