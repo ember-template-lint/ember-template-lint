@@ -673,6 +673,78 @@ describe('getProjectConfig', function () {
     let reprocessedConfig = getProjectConfig(project.baseDir, { config });
     expect(reprocessedConfig.rules).toEqual(expected);
   });
+
+  it('merges rules from plugins with rules from config', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended'],
+      rules: {
+        foo: false,
+      },
+    };
+
+    let expected = {
+      foo: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig(project.baseDir, { config });
+    expect(processedConfig.rules).toEqual(expected);
+  });
+
+  it('merges rules from plugins in the order declared in the array', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+        {
+          name: 'bar',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: false,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended', 'bar:recommended'],
+    };
+
+    let expected = {
+      foo: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig(project.baseDir, { config });
+    expect(processedConfig.rules).toEqual(expected);
+  });
 });
 
 describe('getRuleFromString', function () {
