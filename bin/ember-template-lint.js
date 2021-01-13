@@ -310,7 +310,7 @@ async function run() {
 
   if ((options.todoDaysToWarn || options.todoDaysToError) && !options.updateTodo) {
     console.error(
-      'You must use `--update-todo` when using any of `--todo-days-to-warn` or `--todo-days-to-error`.'
+      'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
     );
     process.exitCode = 1;
     return;
