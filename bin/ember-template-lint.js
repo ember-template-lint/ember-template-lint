@@ -373,7 +373,9 @@ async function run() {
     let hasErrors = results.errorCount > 0;
     let hasWarnings = results.warningCount > 0;
     let hasTodos = options.includeTodo && results.todoCount;
-    let hasUpdatedTodos = options.updateTodo && (todoInfo.added || todoInfo.removed);
+    let hasUpdatedTodos =
+      options.updateTodo &&
+      (Number.isInteger(todoInfo.added) || Number.isInteger(todoInfo.removed));
 
     if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
       let Printer = require('../lib/printers/default');
