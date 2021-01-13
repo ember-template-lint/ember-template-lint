@@ -29,7 +29,7 @@ ember-template-lint . --include-todo
 If an error is fixed manually, `ember-template-lint` will let you know that there's an outstanding TODO file. You can remove this file by running `--update-todo`
 
 ```bash
-ember-template-lint . --update-todo
+ember-template-lint . --fix
 ```
 
 ### Configuring Due Dates
