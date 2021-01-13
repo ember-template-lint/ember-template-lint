@@ -1470,14 +1470,14 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toContain(
-          'You must use `--update-todo` when using any of `--todo-days-to-warn` or `--todo-days-to-error`.'
+          'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
         );
 
         result = await run(['.', '--todo-days-to-error', '10']);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toContain(
-          'You must use `--update-todo` when using any of `--todo-days-to-warn` or `--todo-days-to-error`.'
+          'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
         );
       });
 
