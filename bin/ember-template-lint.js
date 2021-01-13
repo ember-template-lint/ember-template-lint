@@ -345,10 +345,11 @@ async function run() {
         getTodoConfigFromCommandLineOptions(options)
       );
 
-      let [added] = await linter.updateTodo(linterOptions, fileResults, todoConfig);
+      let [added, removed] = await linter.updateTodo(linterOptions, fileResults, todoConfig);
 
       todoInfo = {
         added,
+        removed,
         todoConfig,
       };
     }
@@ -369,12 +370,12 @@ async function run() {
   if (options.printPending) {
     return printPending(results, options);
   } else {
-    if (
-      results.errorCount ||
-      results.warningCount ||
-      (options.includeTodo && results.todoCount) ||
-      (options.updateTodo && todoInfo.added)
-    ) {
+    let hasErrors = results.errorCount > 0;
+    let hasWarnings = results.warningCount > 0;
+    let hasTodos = options.includeTodo && results.todoCount;
+    let hasUpdatedTodos = options.updateTodo && (todoInfo.added || todoInfo.removed);
+
+    if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
       let Printer = require('../lib/printers/default');
       let printer = new Printer(options);
       printer.print(results, todoInfo);
