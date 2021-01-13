@@ -1592,7 +1592,7 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--update-todo']);
 
-        expect(result.stdout).toEqual('');
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created "`);
       });
 
       it('outputs empty summary for existing todos', async function () {
@@ -1616,6 +1616,25 @@ describe('ember-template-lint executable', function () {
         let result = await run(['.']);
 
         expect(result.stdout).toEqual('');
+      });
+
+      it('with --update-todo but no todos, outputs todos created summary', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>{{someString}}</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created "`);
       });
 
       it('with --update-todo, outputs todos created summary', async function () {
