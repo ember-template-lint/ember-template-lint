@@ -258,6 +258,7 @@ async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
   let config;
+  let todoInfo;
 
   if (options.config) {
     try {
@@ -307,6 +308,14 @@ async function run() {
     return;
   }
 
+  if ((options.todoDaysToWarn || options.todoDaysToError) && !options.updateTodo) {
+    console.error(
+      'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
   let resultsAccumulator = [];
@@ -331,11 +340,18 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      await linter.updateTodo(
-        linterOptions,
-        fileResults,
-        getTodoConfig(options.workingDirectory, getTodoConfigFromCommandLineOptions(options))
+      let todoConfig = getTodoConfig(
+        options.workingDirectory,
+        getTodoConfigFromCommandLineOptions(options)
       );
+
+      let [added, removed] = await linter.updateTodo(linterOptions, fileResults, todoConfig);
+
+      todoInfo = {
+        added,
+        removed,
+        todoConfig,
+      };
     }
 
     if (!filePaths.has(STDIN)) {
@@ -354,10 +370,17 @@ async function run() {
   if (options.printPending) {
     return printPending(results, options);
   } else {
-    if (results.errorCount || results.warningCount || (options.includeTodo && results.todoCount)) {
+    let hasErrors = results.errorCount > 0;
+    let hasWarnings = results.warningCount > 0;
+    let hasTodos = options.includeTodo && results.todoCount;
+    let hasUpdatedTodos =
+      options.updateTodo &&
+      (Number.isInteger(todoInfo.added) || Number.isInteger(todoInfo.removed));
+
+    if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
       let Printer = require('../lib/printers/default');
       let printer = new Printer(options);
-      printer.print(results);
+      printer.print(results, todoInfo);
     }
   }
 }
