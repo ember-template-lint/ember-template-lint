@@ -29,7 +29,6 @@ module.exports = {
     // Optional eslint rules:
     'array-callback-return': 'error',
     'block-scoped-var': 'error',
-    complexity: 'error',
     curly: 'error',
     eqeqeq: 'error',
     'func-style': ['error', 'declaration'],
@@ -49,7 +48,6 @@ module.exports = {
     'no-new-wrappers': 'error',
     'no-octal-escape': 'error',
     'no-return-assign': 'error',
-    'no-return-await': 'error',
     'no-self-compare': 'error',
     'no-sequences': 'error',
     'no-shadow-restricted-names': 'error',
