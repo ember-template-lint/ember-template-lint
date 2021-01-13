@@ -1593,7 +1593,7 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--update-todo']);
 
-        expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created "`);
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created, 0 todos removed"`);
       });
 
       it('outputs empty summary for existing todos', async function () {
@@ -1635,7 +1635,7 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--update-todo']);
 
-        expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created "`);
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created, 0 todos removed"`);
       });
 
       it('with --update-todo, outputs todos created summary', async function () {
@@ -1654,7 +1654,7 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--update-todo']);
 
-        expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 todos created "`);
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 todos created, 0 todos removed"`);
       });
 
       it('with --update-todo, outputs todos created summary with warn info', async function () {
@@ -1673,7 +1673,9 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--update-todo', '--todo-days-to-warn', '10']);
 
-        expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 todos created (warn after 10 days)"`);
+        expect(result.stdout).toMatchInlineSnapshot(
+          `"✔ 1 todos created, 0 todos removed (warn after 10 days)"`
+        );
       });
 
       it('with --update-todo, outputs todos created summary with error info', async function () {
@@ -1692,7 +1694,9 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--update-todo', '--todo-days-to-error', '10']);
 
-        expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 todos created (error after 10 days)"`);
+        expect(result.stdout).toMatchInlineSnapshot(
+          `"✔ 1 todos created, 0 todos removed (error after 10 days)"`
+        );
       });
 
       it('with --update-todo, outputs todos created summary with warn and error info', async function () {
@@ -1719,7 +1723,7 @@ describe('ember-template-lint executable', function () {
         ]);
 
         expect(result.stdout).toMatchInlineSnapshot(
-          `"✔ 1 todos created (warn after 5 and error after 10 days)"`
+          `"✔ 1 todos created, 0 todos removed (warn after 5, error after 10 days)"`
         );
       });
 
@@ -1744,7 +1748,7 @@ describe('ember-template-lint executable', function () {
             1:5  todo  Non-translated string used  no-bare-strings
 
           ✖ 1 problems (0 errors, 0 warnings, 1 todos)
-          ✔ 1 todos created "
+          ✔ 1 todos created, 0 todos removed"
         `);
       });
 
