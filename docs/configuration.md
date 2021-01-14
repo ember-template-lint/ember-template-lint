@@ -150,6 +150,8 @@ An in-element instruction with the `-tree` suffix will apply to that element and
 
 Note that enabling a rule (`{{!-- template-lint-enable --}}`) that has been configured in-template (`{{!-- template-lint-configure --}}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{!-- template-lint-enable --}}` instruction.
 
+A [shell script](./count-lint-violations.sh) is available for generating a list of rules and the number of times disable directive comments are used to disable each of them. This can be useful for identifying the largest sources of tech debt in a codebase.
+
 ## Configuring TODO `warn` and `error` values
 
 Configuring specific `warn` and `error` values for TODO creation is detailed in the [Configuring Due Dates section in the TODO docs](docs/todos.md).

@@ -55,6 +55,11 @@ generateRuleTests({
     '<select aria-labelledby="someIdValue" ></select>',
     '<select ...attributes></select>', // we are unable to correctly determine if this has a label or not, so we have to allow it
     '<select id="label-input" ...attributes ></select>',
+
+    // Hidden inputs are allowed.
+    '<input type="hidden"/>',
+    '<Input type="hidden" />',
+    '{{input type="hidden"}}',
   ],
 
   bad: [
@@ -137,6 +142,150 @@ generateRuleTests({
         line: 1,
         column: 18,
         source: '<input aria-label="Custom label">',
+      },
+    },
+    {
+      template: '<div><textarea /></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 5,
+        source: '<textarea />',
+      },
+    },
+    {
+      template: '<textarea />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<textarea />',
+      },
+    },
+    {
+      template: '<textarea title="some title value" />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<textarea title="some title value" />',
+      },
+    },
+    {
+      template: '<label><textarea /></label>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 7,
+        source: '<textarea />',
+      },
+    },
+    {
+      template: '<div>{{textarea}}</div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 5,
+        source: '{{textarea}}',
+      },
+    },
+    {
+      template: '<Textarea />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<Textarea />',
+      },
+    },
+    {
+      template: '<textarea aria-label="first label" aria-labelledby="second label" />',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<textarea aria-label="first label" aria-labelledby="second label" />',
+      },
+    },
+    {
+      template: '<textarea id="label-input" aria-label="second label" />',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<textarea id="label-input" aria-label="second label" />',
+      },
+    },
+    {
+      template: '<label>Textarea label<textarea aria-label="Custom label" /></label>',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 21,
+        source: '<textarea aria-label="Custom label" />',
+      },
+    },
+    {
+      template: '<div><select></select></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 5,
+        source: '<select></select>',
+      },
+    },
+    {
+      template: '<select></select>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<select></select>',
+      },
+    },
+    {
+      template: '<select title="some title value" />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<select title="some title value" />',
+      },
+    },
+    {
+      template: '<label><select></select></label>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 7,
+        source: '<select></select>',
+      },
+    },
+    {
+      template: '<select aria-label="first label" aria-labelledby="second label" />',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<select aria-label="first label" aria-labelledby="second label" />',
+      },
+    },
+    {
+      template: '<select id="label-input" aria-label="second label" />',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<select id="label-input" aria-label="second label" />',
+      },
+    },
+    {
+      template: '<label>Select label<select aria-label="Custom label" /></label>',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 19,
+        source: '<select aria-label="Custom label" />',
       },
     },
     {

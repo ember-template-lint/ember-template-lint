@@ -61,7 +61,7 @@ describe('getFilesToLint', function () {
 
   describe('when given a specific path', function () {
     it('returns a set including some files', async function () {
-      let files = await getFilesToLint(['application.hbs']);
+      let files = await getFilesToLint(project.baseDir, ['application.hbs']);
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain('application.hbs');
@@ -70,7 +70,7 @@ describe('getFilesToLint', function () {
     it('supports arbitrary extension when explictly passed', async function () {
       project.write({ 'foo.frizzle': 'whatever' });
 
-      let files = await getFilesToLint(['foo.frizzle']);
+      let files = await getFilesToLint(project.baseDir, ['foo.frizzle']);
 
       expect(files).toEqual(new Set(['foo.frizzle']));
     });

@@ -27,7 +27,7 @@ function removeExt(filePath) {
   return filePath.slice(0, -path.extname(filePath).length);
 }
 
-async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
+async function buildLinterOptions(workingDir, filePath, filename = '', isReadingStdin) {
   if (isReadingStdin) {
     let filePath = filename;
     let moduleId = removeExt(filePath);
@@ -36,18 +36,32 @@ async function buildLinterOptions(filePath, filename = '', isReadingStdin) {
     return { source, filePath, moduleId };
   } else {
     let moduleId = removeExt(filePath);
-    let source = await readFile(path.resolve(filePath), { encoding: 'utf8' });
+    let resolvedFilePath = path.resolve(workingDir, filePath);
+    let source = await readFile(resolvedFilePath, { encoding: 'utf8' });
 
     return { source, filePath, moduleId };
   }
 }
 
 function executeGlobby(workingDir, pattern, ignore) {
+  let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
+
   // `--no-ignore-pattern` results in `ignorePattern === [false]`
   let options =
     ignore[0] === false ? { cwd: workingDir } : { cwd: workingDir, gitignore: true, ignore };
 
-  return globby.sync(pattern, options).filter((filePath) => filePath.slice(-4) === '.hbs');
+  return globby
+    .sync(pattern, options)
+    .filter((filePath) => supportedExtensions.has(path.extname(filePath)));
+}
+
+function isFile(possibleFile) {
+  try {
+    let stat = fs.statSync(possibleFile);
+    return stat.isFile();
+  } catch {
+    return false;
+  }
 }
 
 function isFile(possibleFile) {
@@ -64,7 +78,7 @@ function expandFileGlobs(filePatterns, ignorePattern, glob = executeGlobby) {
   let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
 
   filePatterns.forEach((pattern) => {
-    let isLiteralPath = !isGlob(pattern) && isFile(pattern);
+    let isLiteralPath = !isGlob(pattern) && isFile(path.resolve(workingDir, pattern));
 
     if (isLiteralPath) {
       let isIgnored = micromatch.isMatch(pattern, ignorePattern);
