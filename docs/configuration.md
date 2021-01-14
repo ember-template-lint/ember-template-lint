@@ -17,7 +17,7 @@ module.exports = {
 ```
 
 This extends from the builtin recommended configuration ([lib/config/recommended.js](lib/config/recommended.js)),
-and also enables the `no-bare-strings` rule (see [here](docs/rule/no-bare-strings.md)).
+and also enables the `no-bare-strings` rule (see [here](rule/no-bare-strings.md)).
 
 Using this mechanism allows you to extend from the builtin, and modify specific rules as needed.
 
@@ -149,6 +149,8 @@ An in-element instruction with the `-tree` suffix will apply to that element and
 ```
 
 Note that enabling a rule (`{{!-- template-lint-enable --}}`) that has been configured in-template (`{{!-- template-lint-configure --}}`), will restore it to its default configuration rather than the modified in-template configuration for the scope of the `{{!-- template-lint-enable --}}` instruction.
+
+A [shell script](./count-lint-violations.sh) is available for generating a list of rules and the number of times disable directive comments are used to disable each of them. This can be useful for identifying the largest sources of tech debt in a codebase.
 
 ## Configuring TODO `warn` and `error` values
 

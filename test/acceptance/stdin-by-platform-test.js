@@ -9,7 +9,6 @@ const Project = require('../helpers/fake-project');
 const setupEnvVar = require('../helpers/setup-env-var');
 
 describe('ember-template-lint executable', function () {
-  setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
   setupEnvVar('LC_ALL', 'en_US');
 

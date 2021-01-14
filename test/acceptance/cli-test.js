@@ -18,7 +18,6 @@ const setupEnvVar = require('../helpers/setup-env-var');
 const ROOT = process.cwd();
 
 describe('ember-template-lint executable', function () {
-  setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
   setupEnvVar('LC_ALL', 'en_US');
 
@@ -2472,92 +2471,6 @@ describe('ember-template-lint executable', function () {
 
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
-      });
-    });
-
-    describe('with GITHUB_ACTIONS env var', function () {
-      setupEnvVar('GITHUB_ACTIONS', 'true');
-
-      it('should print GitHub Actions annotations', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.'], {
-          env: { GITHUB_ACTIONS: 'true' },
-        });
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:4  error  Non-translated string used  no-bare-strings',
-          '  1:24  error  Non-translated string used  no-bare-strings',
-          '  1:53  warning  HTML comment detected  no-html-comments',
-          '',
-          '✖ 3 problems (2 errors, 1 warnings)',
-          '::error file=app/templates/application.hbs,line=1,col=4::Non-translated string used',
-          '::error file=app/templates/application.hbs,line=1,col=24::Non-translated string used',
-          '::warning file=app/templates/application.hbs,line=1,col=53::HTML comment detected',
-        ]);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      describe('with --quiet param', function () {
-        it('should print GitHub Actions annotations', async function () {
-          project.setConfig({
-            rules: {
-              'no-bare-strings': true,
-              'no-html-comments': true,
-            },
-            pending: [
-              {
-                moduleId: 'app/templates/application',
-                only: ['no-html-comments'],
-              },
-            ],
-          });
-          project.write({
-            app: {
-              templates: {
-                'application.hbs':
-                  '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-              },
-            },
-          });
-
-          let result = await run(['.', '--quiet'], {
-            env: { GITHUB_ACTIONS: 'true' },
-          });
-
-          expect(result.exitCode).toEqual(1);
-          expect(result.stdout.split('\n')).toEqual([
-            'app/templates/application.hbs',
-            '  1:4  error  Non-translated string used  no-bare-strings',
-            '  1:24  error  Non-translated string used  no-bare-strings',
-            '',
-            '✖ 2 problems (2 errors, 0 warnings)',
-            '::error file=app/templates/application.hbs,line=1,col=4::Non-translated string used',
-            '::error file=app/templates/application.hbs,line=1,col=24::Non-translated string used',
-          ]);
-          expect(result.stderr).toBeFalsy();
-        });
       });
     });
   });

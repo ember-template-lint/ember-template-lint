@@ -1,3 +1,29 @@
+## v2.16.0 (2021-01-06)
+
+#### :rocket: Enhancement
+* [#1652](https://github.com/ember-template-lint/ember-template-lint/pull/1652) Add new rule `no-mut-helper` ([@collinadams](https://github.com/collinadams))
+* [#1653](https://github.com/ember-template-lint/ember-template-lint/pull/1653) Add autofixer for `no-redundant-landmark-role` rule ([@MelSumner](https://github.com/MelSumner))
+
+#### :bug: Bug Fix
+* [#1668](https://github.com/ember-template-lint/ember-template-lint/pull/1668) Remove explicit GitHub Actions reporter ([@Turbo87](https://github.com/Turbo87))
+
+#### :memo: Documentation
+* [#1657](https://github.com/ember-template-lint/ember-template-lint/pull/1657) Add example script for counting lint violation disable directive comments ([@bmish](https://github.com/bmish))
+* [#1676](https://github.com/ember-template-lint/ember-template-lint/pull/1676) Fix broken documentation links ([@Turbo87](https://github.com/Turbo87))
+* [#1664](https://github.com/ember-template-lint/ember-template-lint/pull/1664) Reorganize and improve the README ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* [#1670](https://github.com/ember-template-lint/ember-template-lint/pull/1670) Remove lerna-changelog dependency since it is provided and handled by release-it-lerna-changelog ([@bmish](https://github.com/bmish))
+
+#### Committers: 6
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Collin Adams ([@collinadams](https://github.com/collinadams))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.15.0 (2020-12-10)
 
 #### :boom: Breaking Change

@@ -138,16 +138,7 @@ Specify a config object to use instead of what exists locally
 ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
 
-Disable Github Actions custom printer (only relevant when running in Github Actions)
-
-```bash
-DISABLE_GITHUB_ACTIONS_ANNOTATIONS=true ember-template-lint "app/templates/application.hbs"
-```
-
 :bulb: Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
-
-:warning: For those running `ember-template-lint` in Github Actions:
-There is an additional printer always used for Github Actions, if you'd like to disable it set the `DISABLE_GITHUB_ACTIONS_ANNOTATIONS` env var to `true`.
 
 For more information about the TODO functionality, see [the documentation](docs/todo.md).
 
@@ -264,6 +255,7 @@ Each rule has emojis denoting:
 | :dress:                    | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                         |
 | :dress:                    | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                       |
 | :white_check_mark:         | [no-yield-only](./docs/rule/no-yield-only.md)                                               |
+|                            | [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                   |
 | :dress:                    | [quotes](./docs/rule/quotes.md)                                                             |
 | :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                                   |
 |                            | [require-each-key](./docs/rule/require-each-key.md)                                         |

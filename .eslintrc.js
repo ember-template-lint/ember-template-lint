@@ -117,10 +117,10 @@ module.exports = {
     // Unicorn rules:
     'unicorn/consistent-function-scoping': 'off',
     'unicorn/explicit-length-check': 'off',
-    'unicorn/no-fn-reference-in-iterator': 'off',
+    'unicorn/no-array-callback-reference': 'off',
+    'unicorn/no-array-reduce': 'off',
     'unicorn/no-lonely-if': 'off',
     'unicorn/no-null': 'off',
-    'unicorn/no-reduce': 'off',
     'unicorn/no-useless-undefined': 'off',
     'unicorn/prefer-ternary': 'off',
     'unicorn/prevent-abbreviations': 'off',
