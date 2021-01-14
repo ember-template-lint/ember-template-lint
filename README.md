@@ -261,8 +261,8 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)           |
 | :dress:                    | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                               |
 | :white_check_mark:         | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                             |
-| :dress:                    | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                         |
-| :dress:                    | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                       |
+|                            | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                         |
+|                            | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                       |
 | :white_check_mark:         | [no-yield-only](./docs/rule/no-yield-only.md)                                               |
 | :dress:                    | [quotes](./docs/rule/quotes.md)                                                             |
 | :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                                   |
