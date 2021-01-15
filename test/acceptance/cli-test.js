@@ -1800,7 +1800,7 @@ describe('ember-template-lint executable', function () {
         let result = await run(['.', '--update-todo']);
 
         expect(result.stderr).toMatch(
-          'The provided TODO configuration contains invalid values. The `warn` value (10) must be less than the `error` value (5).'
+          'The provided todo configuration contains invalid values. The `warn` value (10) must be less than the `error` value (5).'
         );
       });
 
