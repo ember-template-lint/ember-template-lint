@@ -93,7 +93,7 @@ ember-template-lint . --update-todo --todo-days-to-warn=2
 
 ### Due Date Workflows
 
-Converting errors to TODOs with `warn` and `error` dates that transition the todo to `warn` after 10 days and `error` after 20 days:
+Converting errors to todos with `warn` and `error` dates that transition the todo to `warn` after 10 days and `error` after 20 days:
 
 ```bash
 ember-template-lint . --update-todo --todo-days-to-warn=10 --todo-days-to-error=20
