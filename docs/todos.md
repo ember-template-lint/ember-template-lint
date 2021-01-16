@@ -1,4 +1,4 @@
-# TODOs
+# Todos
 
 Linting is a fundamental tool to help ensure the quality of a codebase. Ensuring there are as few linting errors as possible (ideally 0), is a useful measure of a baseline of code hygiene.
 
@@ -26,7 +26,7 @@ If you want to see TODOs as part of `ember-template-lint`'s output, you can incl
 ember-template-lint . --include-todo
 ```
 
-If an error is fixed manually, `ember-template-lint` will let you know that there's an outstanding TODO file. You can remove this file by running `--fix`
+If an error is fixed manually, `ember-template-lint` will let you know that there's an outstanding todo file. You can remove this file by running `--fix`
 
 ```bash
 ember-template-lint . --fix
@@ -36,7 +36,7 @@ ember-template-lint . --fix
 
 TODOs can be created with optional due dates. These due dates allow for TODOs to, over a period of time, 'decay' the severity to a **warning** and/or **error** after a certain date. This helps ensure that TODOs are created but not forgotten, and can allow for better managing incremental roll-outs of large-scale or slow-to-fix rules.
 
-Due dates can be configured in multiple ways, but all specify integers for `warn` and `error` to signify the number of days from the TODO created date to decay the severity.
+Due dates can be configured in multiple ways, but all specify integers for `warn` and `error` to signify the number of days from the todo created date to decay the severity.
 
 :bulb: Both `warn` and `error` are optional. The value for `warn` should be greater than the value of `error`.
 
@@ -93,13 +93,13 @@ ember-template-lint . --update-todo --todo-days-to-warn=2
 
 ### Due Date Workflows
 
-Converting errors to TODOs with `warn` and `error` dates that transition the TODO to `warn` after 10 days and `error` after 20 days:
+Converting errors to todos with `warn` and `error` dates that transition the todo to `warn` after 10 days and `error` after 20 days:
 
 ```bash
 ember-template-lint . --update-todo --todo-days-to-warn=10 --todo-days-to-error=20
 ```
 
-Converting errors to TODOs with `warn` and `error` dates that transition the TODO `error` after 20 days, but doesn't include a `warn` date:
+Converting errors to todos with `warn` and `error` dates that transition the todo `error` after 20 days, but doesn't include a `warn` date:
 
 ```bash
 ember-template-lint . --update-todo --no-todo-days-to-warn --todo-days-to-error=20

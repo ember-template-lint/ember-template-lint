@@ -152,6 +152,6 @@ Note that enabling a rule (`{{!-- template-lint-enable --}}`) that has been conf
 
 A [shell script](./count-lint-violations.sh) is available for generating a list of rules and the number of times disable directive comments are used to disable each of them. This can be useful for identifying the largest sources of tech debt in a codebase.
 
-## Configuring TODO `warn` and `error` values
+## Configuring todo `warn` and `error` values
 
-Configuring specific `warn` and `error` values for TODO creation is detailed in the [Configuring Due Dates section in the TODO docs](docs/todos.md).
+Configuring specific `warn` and `error` values for todo creation is detailed in the [Configuring Due Dates section in the todo docs](docs/todos.md).
