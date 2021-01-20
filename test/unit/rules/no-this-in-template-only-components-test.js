@@ -13,6 +13,12 @@ generateRuleTests({
     '<WelcomePage />',
     '<MyComponent @prop={{can "edit" @model}} />',
     '{{my-component model=model}}',
+    {
+      template: '{{my-component model=this.model}}',
+      meta: {
+        filePath: 'app/templates/route-template.hbs',
+      },
+    },
   ],
 
   bad: [
@@ -60,6 +66,21 @@ generateRuleTests({
         line: 1,
         column: 19,
         isFixable: false,
+      },
+    },
+    {
+      template: '{{my-component model=this.model}}',
+      fixedTemplate: '{{my-component model=@model}}',
+      meta: {
+        filePath: 'app/templates/components/some-component.hbs',
+      },
+      result: {
+        filePath: 'app/templates/components/some-component.hbs',
+        message: message('this.model', '@model'),
+        source: 'this.model',
+        line: 1,
+        column: 21,
+        isFixable: true,
       },
     },
   ],
