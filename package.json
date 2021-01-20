@@ -17,7 +17,7 @@
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "lint": "npm-run-all lint:* --continue-on-error",
-    "lint:docs": "markdownlint '**/*.md'",
+    "lint:docs": "markdownlint **/*.md",
     "lint:js": "eslint . --cache",
     "lint:package-json": "sort-package-json --check",
     "new": "node dev/new-rule/index.js",
