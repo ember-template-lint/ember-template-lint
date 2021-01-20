@@ -32,6 +32,12 @@ The `--fix` option will convert to named arguments:
 <h1>Hello {{@name}}!</h1>
 ```
 
+## Configuration
+
+* boolean -- `true` for enabled / `false` for disabled
+* object -- An object with the following keys:
+  * `validComponentExtensions` -- An array of component class extensions. Defaults to `[ '.js', '.ts' ]`
+
 ## Migration
 
 * use [ember-no-implicit-this-codemod](https://github.com/ember-codemods/ember-no-implicit-this-codemod)
