@@ -1,6 +1,6 @@
 # no-trailing-spaces
 
-:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
+:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 Disallow trailing whitespace at the end of lines.
 
