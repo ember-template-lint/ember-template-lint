@@ -238,6 +238,7 @@ Each rule has emojis denoting:
 | :wrench:                   | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                     |
 |                            | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                       |
 | :white_check_mark:         | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                 |
+| :wrench:                   | [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)   |
 | :nail_care:                | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                     |
 | :white_check_mark:         | [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                       |
 |                            | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                               |
