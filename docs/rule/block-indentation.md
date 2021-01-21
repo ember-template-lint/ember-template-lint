@@ -1,6 +1,6 @@
 # block-indentation
 
-:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
+:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 Good indentation is crucial for long-term maintenance of templates. For example, having blocks misaligned is a common cause of logic errors.
 
