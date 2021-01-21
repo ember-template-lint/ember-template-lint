@@ -21,7 +21,7 @@ const tablePlaceholder = /<!--RULES_TABLE_START-->[\S\s]*<!--RULES_TABLE_END-->/
 
 // Config/preset emojis.
 const EMOJI_STAR = ':white_check_mark:';
-const EMOJI_STYLISTIC = ':dress:';
+const EMOJI_STYLISTIC = ':nail_care:';
 const EMOJI_FIXABLE = ':wrench:';
 
 // Generate rule table contents.

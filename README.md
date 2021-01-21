@@ -167,7 +167,7 @@ For more detailed information see [configuration](docs/configuration.md).
 |                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
 | :----------------- | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
-| :dress:            | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
+| :nail_care:            | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
 
 ## Rules
 
@@ -181,17 +181,17 @@ Each rule has emojis denoting:
 |                            | Rule ID                                                                                     |
 | :------------------------- | :------------------------------------------------------------------------------------------ |
 |                            | [attribute-indentation](./docs/rule/attribute-indentation.md)                               |
-| :dress:                    | [block-indentation](./docs/rule/block-indentation.md)                                       |
+| :nail_care:                    | [block-indentation](./docs/rule/block-indentation.md)                                       |
 | :white_check_mark:         | [builtin-component-arguments](./docs/rule/builtin-component-arguments.md)                   |
 | :white_check_mark:         | [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                             |
 | :white_check_mark:         | [deprecated-inline-view-helper](./docs/rule/deprecated-inline-view-helper.md)               |
 | :white_check_mark:         | [deprecated-render-helper](./docs/rule/deprecated-render-helper.md)                         |
-| :dress:                    | [eol-last](./docs/rule/eol-last.md)                                                         |
+| :nail_care:                    | [eol-last](./docs/rule/eol-last.md)                                                         |
 | :wrench:                   | [inline-link-to](./docs/rule/inline-link-to.md)                                             |
-| :dress:                    | [linebreak-style](./docs/rule/linebreak-style.md)                                           |
+| :nail_care:                    | [linebreak-style](./docs/rule/linebreak-style.md)                                           |
 | :white_check_mark:         | [link-href-attributes](./docs/rule/link-href-attributes.md)                                 |
 | :white_check_mark::wrench: | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                       |
-| :dress:                    | [modifier-name-case](./docs/rule/modifier-name-case.md)                                     |
+| :nail_care:                    | [modifier-name-case](./docs/rule/modifier-name-case.md)                                     |
 | :white_check_mark:         | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                       |
 | :white_check_mark::wrench: | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                             |
 | :white_check_mark:         | [no-action](./docs/rule/no-action.md)                                                       |
@@ -227,7 +227,7 @@ Each rule has emojis denoting:
 |                            | [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                     |
 | :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                             |
 | :wrench:                   | [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md) |
-| :dress:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                           |
+| :nail_care:                    | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                           |
 | :white_check_mark:         | [no-negated-condition](./docs/rule/no-negated-condition.md)                                 |
 | :white_check_mark:         | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                               |
 | :white_check_mark:         | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                     |
@@ -244,18 +244,18 @@ Each rule has emojis denoting:
 | :white_check_mark::wrench: | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                     |
 |                            | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                       |
 | :white_check_mark:         | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                 |
-| :dress:                    | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                     |
+| :nail_care:                    | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                     |
 | :white_check_mark:         | [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                       |
 | :white_check_mark:         | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                               |
 | :white_check_mark:         | [no-unbound](./docs/rule/no-unbound.md)                                                     |
 | :white_check_mark:         | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)           |
-| :dress:                    | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                               |
+| :nail_care:                    | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                               |
 | :white_check_mark:         | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                             |
-| :dress:                    | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                         |
-| :dress:                    | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                       |
+| :nail_care:                    | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                         |
+| :nail_care:                    | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                       |
 | :white_check_mark:         | [no-yield-only](./docs/rule/no-yield-only.md)                                               |
 |                            | [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                   |
-| :dress:                    | [quotes](./docs/rule/quotes.md)                                                             |
+| :nail_care:                    | [quotes](./docs/rule/quotes.md)                                                             |
 | :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                                   |
 |                            | [require-each-key](./docs/rule/require-each-key.md)                                         |
 |                            | [require-form-method](./docs/rule/require-form-method.md)                                   |
@@ -263,7 +263,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [require-input-label](./docs/rule/require-input-label.md)                                   |
 | :white_check_mark:         | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                             |
 | :white_check_mark:         | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                             |
-| :dress:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                     |
+| :nail_care:                    | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                     |
 | :white_check_mark:         | [simple-unless](./docs/rule/simple-unless.md)                                               |
 | :white_check_mark:         | [splat-attributes-only](./docs/rule/splat-attributes-only.md)                               |
 | :white_check_mark:         | [style-concatenation](./docs/rule/style-concatenation.md)                                   |
@@ -379,10 +379,6 @@ You can add a fixer to a rule. See [fixer documentation](docs/fixer.md) for more
 ### Sharing configs
 
 It is possible to share a config (`extends`) or plugin (custom rules) across projects. See [ember-template-lint-plugin-peopleconnect](https://github.com/peopleconnectus/ember-template-lint-plugin-peopleconnect) for an example.
-
-## Defining your own rules
-
-You can define and use your own custom rules using the plugin system. See [plugin documentation](docs/plugins.md) for more details.
 
 ## Semantic Versioning Policy
 
