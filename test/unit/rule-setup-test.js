@@ -50,7 +50,7 @@ describe('rules setup is correct', function () {
     const CONFIG_MSG_RECOMMENDED =
       ":white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.";
     const CONFIG_MSG_STYLISTIC =
-      ":dress: The `extends: 'stylistic'` property in a configuration file enables this rule.";
+      ":nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.";
     const FIXABLE_NOTICE =
       ':wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.';
 

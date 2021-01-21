@@ -115,6 +115,7 @@ module.exports = {
     'prettier/prettier': 'error',
 
     // Unicorn rules:
+    'unicorn/consistent-destructuring': 'off',
     'unicorn/consistent-function-scoping': 'off',
     'unicorn/explicit-length-check': 'off',
     'unicorn/no-array-callback-reference': 'off',

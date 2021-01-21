@@ -79,4 +79,4 @@ This rule includes a fixer in order to handle the migration for you automaticall
 
 ## References
 
-* TODO: link to Ember issue folks can follow to know when this is fixed
+* Ember.js issue: <https://github.com/emberjs/ember.js/issues/18987>
