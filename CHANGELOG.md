@@ -1,3 +1,28 @@
+## v2.17.0 (2021-01-21)
+
+#### :rocket: Enhancement
+* [#1671](https://github.com/ember-template-lint/ember-template-lint/pull/1671) Add rule: `no-this-in-template-only-components` ([@dwickern](https://github.com/dwickern))
+* [#1356](https://github.com/ember-template-lint/ember-template-lint/pull/1356) Add rule: `no-yield-to-default` ([@rajasegar](https://github.com/rajasegar))
+
+#### :bug: Bug Fix
+* [#1678](https://github.com/ember-template-lint/ember-template-lint/pull/1678) Fix broken link to shell script ([@bmish](https://github.com/bmish))
+
+#### :memo: Documentation
+* [#1693](https://github.com/ember-template-lint/ember-template-lint/pull/1693) Add link to Ember.js issue for no-model-argument-in-route-templates rule ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :house: Internal
+* [#1702](https://github.com/ember-template-lint/ember-template-lint/pull/1702) Update `stylistic` config emoji ([@MelSumner](https://github.com/MelSumner))
+* [#1700](https://github.com/ember-template-lint/ember-template-lint/pull/1700) Fix `lint:docs` syntax on Windows ([@dwickern](https://github.com/dwickern))
+
+#### Committers: 6
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Derek Wickern ([@dwickern](https://github.com/dwickern))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.16.0 (2021-01-06)
 
 #### :rocket: Enhancement
