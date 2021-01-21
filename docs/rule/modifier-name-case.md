@@ -1,6 +1,6 @@
 # modifier-name-case
 
-:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
+:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 It is currently possible to invoke a modifier with multiple words in its name
 using camelCase: `{{didInsert}}` or using dasherized-case: `{{did-insert}}`.

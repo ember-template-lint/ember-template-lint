@@ -1,6 +1,6 @@
 # no-whitespace-within-word
 
-:dress: The `extends: 'stylistic'` property in a configuration file enables this rule.
+:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 In practice, the predominant issue raised by inline whitespace styling is that the resultant text 'formatting' is entirely visual in nature; the ability to discern the correct manner in which to read the text, and therefore, to correctly comprehend its meaning, is restricted to sighted users.
 
