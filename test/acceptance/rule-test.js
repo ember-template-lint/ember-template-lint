@@ -95,6 +95,53 @@ describe('rule public api', function () {
     });
   });
 
+  describe('async rule visitor support', function () {
+    generateRuleTests({
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'rule-with-async-visitor-hook': class extends Rule {
+              async visitor() {
+                await new Promise((resolve) => setTimeout(resolve, 10));
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use any <promise> HTML elements!',
+                      line: node.loc && node.loc.start.line,
+                      column: node.loc && node.loc.start.column,
+                      source: this.sourceForNode(node),
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'rule-with-async-visitor-hook',
+      config: true,
+
+      good: ['{{haha-wtf}}'],
+
+      bad: [
+        {
+          name: 'uses async visitor',
+          template: '<promise></promise>',
+          results: [
+            {
+              column: 0,
+              line: 1,
+              message: 'Do not use any <promise> HTML elements!',
+              source: '<promise></promise>',
+            },
+          ],
+        },
+      ],
+    });
+  });
+
   describe('mode === fix', function () {
     generateRuleTests({
       plugins: [
