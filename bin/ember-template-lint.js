@@ -258,7 +258,14 @@ async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
   let config;
-  let todoInfo;
+  let todoInfo = {
+    added: 0,
+    removed: 0,
+    todoConfig: options.updateTodo
+      ? getTodoConfig(options.workingDirectory, getTodoConfigFromCommandLineOptions(options))
+      : {},
+  };
+  let todosToAdd = false;
 
   if (options.config) {
     try {
@@ -340,18 +347,16 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      let todoConfig = getTodoConfig(
-        options.workingDirectory,
-        getTodoConfigFromCommandLineOptions(options)
+      let [added, removed] = await linter.updateTodo(
+        linterOptions,
+        fileResults,
+        todoInfo.todoConfig
       );
 
-      let [added, removed] = await linter.updateTodo(linterOptions, fileResults, todoConfig);
+      todosToAdd = true;
 
-      todoInfo = {
-        added,
-        removed,
-        todoConfig,
-      };
+      todoInfo.added += added;
+      todoInfo.removed += removed;
     }
 
     if (!filePaths.has(STDIN)) {
@@ -373,9 +378,7 @@ async function run() {
     let hasErrors = results.errorCount > 0;
     let hasWarnings = results.warningCount > 0;
     let hasTodos = options.includeTodo && results.todoCount;
-    let hasUpdatedTodos =
-      options.updateTodo &&
-      (Number.isInteger(todoInfo.added) || Number.isInteger(todoInfo.removed));
+    let hasUpdatedTodos = options.updateTodo && todosToAdd;
 
     if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
       let Printer = require('../lib/printers/default');

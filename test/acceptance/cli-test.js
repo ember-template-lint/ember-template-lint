@@ -1656,6 +1656,26 @@ describe('ember-template-lint executable', function () {
         expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 todos created, 0 todos removed"`);
       });
 
+      it('with --update-todo, outputs todos created summary for multiple errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+              'foo.hbs': '<div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`"✔ 2 todos created, 0 todos removed"`);
+      });
+
       it('with --update-todo, outputs todos created summary with warn info', async function () {
         project.setConfig({
           rules: {
