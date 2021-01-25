@@ -1,3 +1,12 @@
+## v3.0.0-beta.2 (2021-01-25)
+
+#### :rocket: Enhancement
+* [#1710](https://github.com/ember-template-lint/ember-template-lint/pull/1710) Adds `octane` config back as an alias of `recommended` ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.0.0-beta.1 (2021-01-25)
 
 #### :boom: Breaking Change
