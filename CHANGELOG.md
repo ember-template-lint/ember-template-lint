@@ -11,12 +11,14 @@
 
 #### :boom: Breaking Change
 * [#1697](https://github.com/ember-template-lint/ember-template-lint/pull/1697) Allow rule visitor to be an async function (remove `env` argument) ([@lifeart](https://github.com/lifeart))
+* [#1388](https://github.com/ember-template-lint/ember-template-lint/pull/1388) Remove automatic `TextNode` unwrapping by `attributeValue` functions in `ast-node-info` helper ([@josephdsumner](https://github.com/josephdsumner))
 
 #### :bug: Bug Fix
 * [#1706](https://github.com/ember-template-lint/ember-template-lint/pull/1706) Fixes todo creation messaging to include correct counts ([@scalvert](https://github.com/scalvert))
 
 #### Committers: 2
 - Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Joseph D. Sumner ([@josephdsumner](https://github.com/josephdsumner))
 - Steve Calvert ([@scalvert](https://github.com/scalvert))
 
 
