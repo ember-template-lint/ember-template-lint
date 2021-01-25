@@ -1,3 +1,16 @@
+## v3.0.0-beta.1 (2021-01-25)
+
+#### :boom: Breaking Change
+* [#1697](https://github.com/ember-template-lint/ember-template-lint/pull/1697) Allow rule visitor to be an async function (remove `env` argument) ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#1706](https://github.com/ember-template-lint/ember-template-lint/pull/1706) Fixes todo creation messaging to include correct counts ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.0.0-beta.0 (2021-01-14)
 
 #### :boom: Breaking Change
