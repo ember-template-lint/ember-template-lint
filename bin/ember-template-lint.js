@@ -261,11 +261,11 @@ async function run() {
   let todoInfo = {
     added: 0,
     removed: 0,
-    todoConfig: options.updateTodo
-      ? getTodoConfig(options.workingDirectory, getTodoConfigFromCommandLineOptions(options))
-      : {},
+    todoConfig: getTodoConfig(
+      options.workingDirectory,
+      getTodoConfigFromCommandLineOptions(options)
+    ),
   };
-  let todosToAdd = false;
 
   if (options.config) {
     try {
@@ -353,8 +353,6 @@ async function run() {
         todoInfo.todoConfig
       );
 
-      todosToAdd = true;
-
       todoInfo.added += added;
       todoInfo.removed += removed;
     }
@@ -378,7 +376,7 @@ async function run() {
     let hasErrors = results.errorCount > 0;
     let hasWarnings = results.warningCount > 0;
     let hasTodos = options.includeTodo && results.todoCount;
-    let hasUpdatedTodos = options.updateTodo && todosToAdd;
+    let hasUpdatedTodos = options.updateTodo;
 
     if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
       let Printer = require('../lib/printers/default');
