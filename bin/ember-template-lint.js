@@ -255,7 +255,13 @@ function getTodoConfigFromCommandLineOptions(options) {
 }
 
 function isOverridingConfig(options) {
-  return options.config || options.rule || options.noInlineConfig || options.noConfigPath;
+  return (
+    options.config ||
+    options.rule ||
+    options.noInlineConfig ||
+    options.noConfigPath ||
+    options.configPath !== '.template-lintrc.js'
+  );
 }
 
 async function run() {
