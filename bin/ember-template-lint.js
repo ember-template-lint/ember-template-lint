@@ -254,6 +254,16 @@ function getTodoConfigFromCommandLineOptions(options) {
   return todoConfig;
 }
 
+function isOverridingConfig(options) {
+  return (
+    options.config ||
+    options.rule ||
+    options.noInlineConfig ||
+    options.noConfigPath ||
+    options.configPath !== '.template-lintrc.js'
+  );
+}
+
 async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
@@ -350,7 +360,8 @@ async function run() {
       let [added, removed] = await linter.updateTodo(
         linterOptions,
         fileResults,
-        todoInfo.todoConfig
+        todoInfo.todoConfig,
+        isOverridingConfig(options)
       );
 
       todoInfo.added += added;

@@ -278,10 +278,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ember-template-lint/todo-utils@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-6.0.1.tgz#abe4916652b8e052ffc405dad8e265f098b0cb99"
-  integrity sha512-EAZ/9BQoWNcsX3mwpdxqtwNyHskTtpdImE/gEFrzDFfCK0Tho83V3j0ZdPGiW4TEXFP5yFcxOxy1ZQPL+En/5w==
+"@ember-template-lint/todo-utils@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-7.0.0.tgz#5ec2013e3ad060fff65078fe7b39fb35544cde83"
+  integrity sha512-0CZLCHIBziRFxg9Vq2xqTgSc+I+coVbqraCK3cBUhbMbRo8fl8y+O5toEDC8ze2a/zguB/qTUhqcg96j14xwSQ==
   dependencies:
     "@types/eslint" "^7.2.6"
     fs-extra "^9.0.1"
