@@ -36,7 +36,7 @@
     ]
   },
   "dependencies": {
-    "@ember-template-lint/todo-utils": "^6.0.1",
+    "@ember-template-lint/todo-utils": "^7.0.0",
     "chalk": "^4.0.0",
     "ember-template-recast": "^5.0.1",
     "find-up": "^5.0.0",
