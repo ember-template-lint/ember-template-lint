@@ -1524,7 +1524,7 @@ describe('ember-template-lint executable', function () {
         expect(todoStorageDirExists(project.baseDir)).toEqual(true);
       });
 
-      it('does not removed todos if custom config params are used', async function () {
+      it('does not remove todos if custom config params are used', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
