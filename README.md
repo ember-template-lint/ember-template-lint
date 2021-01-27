@@ -204,7 +204,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)       |
 | :white_check_mark:         | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)               |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                   |
-|                            | [no-down-event-binding](./docs/rule/no-down-event-binding.md)                               |
+| :white_check_mark:         | [no-down-event-binding](./docs/rule/no-down-event-binding.md)                               |
 | :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                           |
 | :white_check_mark:         | [no-duplicate-id](./docs/rule/no-duplicate-id.md)                                           |
 | :white_check_mark:         | [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)             |
