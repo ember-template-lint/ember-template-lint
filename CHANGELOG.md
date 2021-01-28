@@ -1,3 +1,13 @@
+## v2.18.0 (2021-01-28)
+
+#### :rocket: Enhancement
+* [#1716](https://github.com/ember-template-lint/ember-template-lint/pull/1716) Add `no-dynamic-subexpression-invocations`. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.17.0 (2021-01-21)
 
 #### :rocket: Enhancement
