@@ -13,6 +13,7 @@ generateRuleTests({
     '<div></div>',
     '<footer></footer>',
     '<p></p>',
+    '<head><meta charset="utf-8"></head>',
     {
       template: '<script></script>',
       config: ['html', 'meta', 'style'],

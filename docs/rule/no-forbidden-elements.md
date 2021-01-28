@@ -34,6 +34,12 @@ This rule **allows** the following:
 ```hbs
 <div></div>
 ```
+```hbs
+<head>
+  <meta charset="utf-8">
+</head>
+```
+
 
 ## Configuration
 
