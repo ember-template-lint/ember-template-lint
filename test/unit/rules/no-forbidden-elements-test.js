@@ -18,6 +18,13 @@ generateRuleTests({
       template: '<script></script>',
       config: ['html', 'meta', 'style'],
     },
+    {
+      template: '<meta>',
+      meta: {
+        filePath: 'app/templates/head.hbs',
+        moduleId: 'app/templates/head',
+      },
+    },
   ],
   bad: [
     {
