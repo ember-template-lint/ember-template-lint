@@ -254,13 +254,12 @@ function getTodoConfigFromCommandLineOptions(options) {
   return todoConfig;
 }
 
-function isOverridingConfig(options) {
-  return (
+function _isOverridingConfig(options) {
+  return Boolean(
     options.config ||
-    options.rule ||
-    options.noInlineConfig ||
-    options.noConfigPath ||
-    options.configPath !== '.template-lintrc.js'
+      options.rule ||
+      options.inlineConfig === false ||
+      options.configPath !== '.template-lintrc.js'
   );
 }
 
@@ -268,6 +267,7 @@ async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
   let config;
+  let isOverridingConfig = _isOverridingConfig(options);
   let todoInfo = {
     added: 0,
     removed: 0,
@@ -361,7 +361,7 @@ async function run() {
         linterOptions,
         fileResults,
         todoInfo.todoConfig,
-        isOverridingConfig(options)
+        isOverridingConfig
       );
 
       todoInfo.added += added;
@@ -369,7 +369,12 @@ async function run() {
     }
 
     if (!filePaths.has(STDIN)) {
-      fileResults = await linter.processTodos(linterOptions, fileResults, options.fix);
+      fileResults = await linter.processTodos(
+        linterOptions,
+        fileResults,
+        options.fix,
+        isOverridingConfig
+      );
     }
 
     resultsAccumulator.push(...fileResults);

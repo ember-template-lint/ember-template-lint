@@ -1568,6 +1568,43 @@ describe('ember-template-lint executable', function () {
         expect(todos).toHaveLength(3);
       });
 
+      it('does not remove todos if custom config params are used with subsequent invocations', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div>Bare strings are bad...</div>',
+              'foo.hbs': '<div>Bare strings are bad...</div><!-- violation -->',
+            },
+          },
+        });
+
+        await run(['.', '--update-todo']);
+
+        let todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(todos).toHaveLength(3);
+
+        let result = await run([
+          '.',
+          '--rule',
+          'no-html-comments:error',
+          '--update-todo',
+          '--no-inline-config',
+          '--no-config-path',
+        ]);
+
+        todos = [...(await readTodos(project.baseDir)).values()];
+
+        expect(result.exitCode).toEqual(0);
+        expect(todos).toHaveLength(3);
+      });
+
       it('errors if a todo item is no longer valid when running without params', async function () {
         project.setConfig({
           rules: {
