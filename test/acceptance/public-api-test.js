@@ -1476,7 +1476,6 @@ describe('public api', function () {
     });
 
     it("[.html] files with comments won't cause errors", async function () {
-      // reset config to default value
       project.setConfig();
 
       project.write({
