@@ -54,7 +54,7 @@
     "common-tags": "^1.8.0",
     "date-fns": "^2.16.1",
     "eslint": "^7.18.0",
-    "eslint-config-prettier": "^7.1.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.22.1",
