@@ -1,3 +1,29 @@
+## v3.0.0-beta.3 (2021-01-29)
+
+#### :bug: Bug Fix
+* [#1719](https://github.com/ember-template-lint/ember-template-lint/pull/1719) Fixes todo creation/removal when using scoped configurations. ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v2.18.0 (2021-01-28)
+
+#### :rocket: Enhancement
+* [#1716](https://github.com/ember-template-lint/ember-template-lint/pull/1716) Add `no-dynamic-subexpression-invocations`. ([@rwjblue](https://github.com/rwjblue))
+
+#### :bug: Bug Fix
+* [#1715](https://github.com/ember-template-lint/ember-template-lint/pull/1715) Prevent todo removal when using `--update-todo` a subset of normal project configuration ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#1711](https://github.com/ember-template-lint/ember-template-lint/pull/1711) Add missing changes to 3.0.0-beta.1 CHANGELOG ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v3.0.0-beta.2 (2021-01-25)
 
 #### :rocket: Enhancement
