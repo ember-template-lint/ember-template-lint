@@ -1325,7 +1325,6 @@ describe('public api', function () {
     });
 
     it('[.html] does not identify errors for ember-cli default tests/index.html (3.20)', async function () {
-      // reset config to default value
       project.setConfig();
 
       project.write({
