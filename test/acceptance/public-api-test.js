@@ -1475,5 +1475,36 @@ describe('public api', function () {
       expect(result.output).toEqual('\uFEFF<button type="button">LOL, Click me!</button>');
       expect(result.isFixed).toEqual(true);
     });
+
+    it("[.html] files with comments won't cause errors", async function () {
+      // reset config to default value
+      project.setConfig();
+
+      project.write({
+        app: {
+          'index.html': `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyApp</title>
+  </head>
+  <body>
+    <!-- COMMENT -->
+    <p>Foo</p>
+  </body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let results = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(results).toEqual([]);
+    });
   });
 });
