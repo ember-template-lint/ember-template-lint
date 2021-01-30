@@ -26,6 +26,7 @@ generateRuleTests({
     '<AwesomeThing role="none"></AwesomeThing>',
     '<AwesomeThing role="presentation"></AwesomeThing>',
     '<table role="textbox"></table>', // Random role on this element.
+    '<div role="{{if this.inModal "dialog" "contentinfo" }}"></div>',
     {
       config: {
         catchNonexistentRoles: false,
