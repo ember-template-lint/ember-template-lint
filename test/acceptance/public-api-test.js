@@ -1475,7 +1475,7 @@ describe('public api', function () {
       expect(result.isFixed).toEqual(true);
     });
 
-    it("[.html] files with comments won't cause errors", async function () {
+    it("DOCTYPE in [.html] files won't cause errors", async function () {
       project.setConfig();
 
       project.write({
