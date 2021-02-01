@@ -61,7 +61,7 @@ function executeGlobby(workingDir, pattern, ignore) {
 function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = executeGlobby) {
   let result = new Set();
 
-  filePatterns.forEach((pattern) => {
+  for (const pattern of filePatterns) {
     let isHBS = pattern.slice(-4) === '.hbs';
     let isLiteralPath = !isGlob(pattern) && fs.existsSync(path.resolve(workingDir, pattern));
 
@@ -72,11 +72,13 @@ function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = execute
         result.add(pattern);
       }
 
-      return;
+      continue;
     }
 
-    glob(workingDir, pattern, ignorePattern).forEach((filePath) => result.add(filePath));
-  });
+    for (const filePath of glob(workingDir, pattern, ignorePattern)) {
+      result.add(filePath);
+    }
+  }
 
   return result;
 }

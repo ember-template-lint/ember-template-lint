@@ -22,30 +22,30 @@ describe('rules setup is correct', function () {
   it('has correct rules reexport', function () {
     const defaultExport = require(rulesEntryPath);
     const exportedRules = Object.keys(defaultExport);
-    exportedRules.forEach((ruleName) => {
+    for (const ruleName of exportedRules) {
       let pathName = path.join(rulesEntryPath, `${ruleName}`);
       expect(defaultExport[ruleName]).toEqual(require(pathName));
-    });
+    }
     expect(expectedRules.length).toEqual(exportedRules.length);
     expect(exportedRules).toEqual([...exportedRules].sort());
   });
 
   it('has docs/rule reference for each item', function () {
     const ruleDocsFolder = path.join(__dirname, '..', '..', 'docs', 'rule');
-    expectedRules.forEach((ruleName) => {
+    for (const ruleName of expectedRules) {
       const docFileName = `${ruleName}.md`;
       const docFilePath = path.join(ruleDocsFolder, docFileName);
       expect(existsSync(docFilePath)).toBe(true);
-    });
+    }
   });
 
   it('All rules have test files', function () {
     const testsPath = path.join(__dirname, '..', 'unit', 'rules');
     const ruleFiles = new Set(readdirSync(testsPath).filter((name) => name.endsWith('-test.js')));
-    expectedRules.forEach((ruleFileName) => {
+    for (const ruleFileName of expectedRules) {
       const ruleTestFileName = `${ruleFileName}-test.js`;
       expect(ruleFiles.has(ruleTestFileName)).toBe(true);
-    });
+    }
   });
 
   it('should have the right contents (title, examples, notices, references) for each rule documentation file', function () {
@@ -58,7 +58,7 @@ describe('rules setup is correct', function () {
     const FIXABLE_NOTICE =
       ':wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.';
 
-    expectedRules.forEach((ruleName) => {
+    for (const ruleName of expectedRules) {
       const filePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
       const file = readFileSync(filePath, 'utf8');
 
@@ -89,6 +89,6 @@ describe('rules setup is correct', function () {
       } else {
         expect(file).not.toContain(FIXABLE_NOTICE);
       }
-    });
+    }
   });
 });

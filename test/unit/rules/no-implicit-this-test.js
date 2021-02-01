@@ -14,10 +14,11 @@ let statements = [
 ];
 
 let builtins = ARGLESS_BUILTIN_HELPERS.reduce((accumulator, helper) => {
-  return accumulator.concat([`{{${helper}}}`, `{{"inline: " (${helper})}}`]);
+  return [...accumulator, `{{${helper}}}`, `{{"inline: " (${helper})}}`];
 }, []);
 
-let good = builtins.concat([
+let good = [
+  ...builtins,
   '{{welcome-page}}',
   '<WelcomePage />',
   '<MyComponent @prop={{can "edit" @model}} />',
@@ -29,16 +30,18 @@ let good = builtins.concat([
     config: { allow: [/^data-test-.+/] },
     template: '{{foo-bar data-test-foo}}',
   },
-]);
+];
 
-statements.forEach((statement) => {
-  good.push(`${statement('@book')}`);
-  good.push(`${statement('@book.author')}`);
-  good.push(`${statement('this.book')}`);
-  good.push(`${statement('this.book.author')}`);
-  good.push(`{{#books as |book|}}${statement('book')}{{/books}}`);
-  good.push(`{{#books as |book|}}${statement('book.author')}{{/books}}`);
-});
+for (const statement of statements) {
+  good.push(
+    `${statement('@book')}`,
+    `${statement('@book.author')}`,
+    `${statement('this.book')}`,
+    `${statement('this.book.author')}`,
+    `{{#books as |book|}}${statement('book')}{{/books}}`,
+    `{{#books as |book|}}${statement('book.author')}{{/books}}`
+  );
+}
 
 generateRuleTests({
   name: 'no-implicit-this',

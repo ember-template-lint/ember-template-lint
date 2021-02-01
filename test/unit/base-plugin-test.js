@@ -397,7 +397,7 @@ describe('base plugin', function () {
         }
 
         visitor() {
-          let pluginContext = this;
+          let pluginContext = this; // eslint-disable-line unicorn/no-this-assignment
 
           return {
             ElementNode: {

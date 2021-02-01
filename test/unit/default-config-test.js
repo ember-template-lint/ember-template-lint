@@ -10,7 +10,7 @@ const DEFAULT_CONFIG_PATH = path.join(__dirname, '..', '..', 'lib', 'config');
 describe('default configurations', function () {
   let configFiles = fs.readdirSync(DEFAULT_CONFIG_PATH);
 
-  configFiles.forEach(function (file) {
+  for (const file of configFiles) {
     describe(file, function () {
       it('should contain only valid rules', function () {
         let config = require(path.join(DEFAULT_CONFIG_PATH, file));
@@ -32,5 +32,5 @@ describe('default configurations', function () {
         }
       });
     });
-  });
+  }
 });
