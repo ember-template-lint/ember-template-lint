@@ -1475,34 +1475,148 @@ describe('public api', function () {
       expect(result.isFixed).toEqual(true);
     });
 
-    it("DOCTYPE in [.html] files won't cause errors", async function () {
+    it("[.html] files with DOCTYPE using different casings won't cause errors", async function () {
       project.setConfig();
+
+      const templates = {
+        'DOCTYPE.html': `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <p>Foo</p>
+</body>
+</html>`,
+        'doctype.html': `
+<!doctype html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <p>Foo</p>
+</body>
+</html>`,
+        'DocType.html': `
+<!DocType html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <p>Foo</p>
+</body>
+</html>`,
+      };
+
+      project.write({
+        app: templates,
+      });
+
+      for (const path in templates) {
+        if (Object.prototype.hasOwnProperty.call(templates, path)) {
+          let templatePath = project.path(`app/${path}`);
+          let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+          let results = await linter.verify({
+            source: templateContents,
+            filePath: templatePath,
+            moduleId: templatePath.slice(0, -4),
+          });
+
+          expect(results).toEqual([]);
+        }
+      }
+    });
+
+    it('[.html] files with DOCTYPE are fixable and updated output includes original DOCTYPE if source includes it', async function () {
+      const templateContents = `
+<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button>LOL, Click me!</button>
+</body>
+</html>`;
 
       project.write({
         app: {
-          'index.html': `
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>MyApp</title>
-  </head>
-  <body>
-    <!-- COMMENT -->
-    <p>Foo</p>
-  </body>
-</html>`,
+          templates: {
+            'DOCTYPE.html': templateContents,
+          },
         },
       });
 
-      let templatePath = project.path('app/index.html');
-      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      let results = await linter.verify({
+      const templatePath = project.path('app/templates/DOCTYPE.html');
+
+      const result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
       });
 
-      expect(results).toEqual([]);
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual(`
+<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button type="button">LOL, Click me!</button>
+</body>
+</html>`);
+      expect(result.isFixed).toEqual(true);
+    });
+
+    it('[.html] files with DOCTYPE are fixable and updated output includes DOCTYPE and Byte Order Mark if source includes them', async function () {
+      const templateContents = `\uFEFF<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button>LOL, Click me!</button>
+</body>
+</html>`;
+
+      project.write({
+        app: {
+          templates: {
+            'DOCTYPE.html': templateContents,
+          },
+        },
+      });
+
+      const templatePath = project.path('app/templates/DOCTYPE.html');
+
+      const result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual(`\uFEFF<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button type="button">LOL, Click me!</button>
+</body>
+</html>`);
+      expect(result.isFixed).toEqual(true);
     });
   });
 });
