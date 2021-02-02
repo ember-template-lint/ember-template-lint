@@ -13,6 +13,18 @@ generateRuleTests({
     '{{something here="goes"}}',
     '<button onclick={{fn something "here"}}></button>',
     '{{@thing "somearg"}}',
+    '<Foo @bar="asdf" />',
+    '<Foo @bar={{"asdf"}} />',
+    '<Foo @bar={{true}} />',
+    '<Foo @bar={{false}} />',
+    '<Foo @bar={{undefined}} />',
+    '<Foo @bar={{null}} />',
+    '<Foo @bar={{1}} />',
+    '{{1}}',
+    '{{true}}',
+    '{{null}}',
+    '{{undefined}}',
+    '{{"foo"}}',
   ],
 
   bad: [
