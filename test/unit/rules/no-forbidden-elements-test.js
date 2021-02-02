@@ -117,5 +117,30 @@ generateRuleTests({
         source: '<script></script>',
       },
     },
+    {
+      template: '<html></html>',
+      meta: {
+        filePath: 'app/templates/head.hbs',
+        moduleId: 'app/templates/head',
+      },
+      result: {
+        filePath: 'app/templates/head.hbs',
+        moduleId: 'app/templates/head',
+        message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('html'),
+        line: 1,
+        column: 0,
+        source: '<html></html>',
+      },
+    },
+    {
+      template: '<head><html></html></head>',
+      result: {
+        moduleId: 'layout',
+        message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('html'),
+        line: 1,
+        column: 6,
+        source: '<html></html>',
+      },
+    },
   ],
 });
