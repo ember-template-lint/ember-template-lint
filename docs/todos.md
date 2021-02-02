@@ -12,15 +12,15 @@ Having the ability to identify violations as `todo`s allows for this incremental
 
 ## Usage
 
-TODOs are stored in a `.lint-todo` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
+todos are stored in a `.lint-todo` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
 
-To convert errors to TODOs, you can use the `--update-todo` option. This will convert all active errors to TODOs, hiding them from the linting output.
+To convert errors to todos, you can use the `--update-todo` option. This will convert all active errors to todos, hiding them from the linting output.
 
 ```bash
 ember-template-lint . --update-todo
 ```
 
-If you want to see TODOs as part of `ember-template-lint`'s output, you can include them
+If you want to see todos as part of `ember-template-lint`'s output, you can include them
 
 ```bash
 ember-template-lint . --include-todo
@@ -34,7 +34,7 @@ ember-template-lint . --fix
 
 ### Configuring Due Dates
 
-TODOs can be created with optional due dates. These due dates allow for TODOs to, over a period of time, 'decay' the severity to a **warning** and/or **error** after a certain date. This helps ensure that TODOs are created but not forgotten, and can allow for better managing incremental roll-outs of large-scale or slow-to-fix rules.
+todos can be created with optional due dates. These due dates allow for todos to, over a period of time, 'decay' the severity to a **warning** and/or **error** after a certain date. This helps ensure that todos are created but not forgotten, and can allow for better managing incremental roll-outs of large-scale or slow-to-fix rules.
 
 Due dates can be configured in multiple ways, but all specify integers for `warn` and `error` to signify the number of days from the todo created date to decay the severity.
 
@@ -42,28 +42,28 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 
 1. Via package.json configuration
 
-```json
-{
-  "lintTodo": {
-    "decayDays": {
-      "warn": 5,
-      "error": 10
-    }
-  }
-}
-```
+   ```json
+   {
+     "lintTodo": {
+       "decayDays": {
+         "warn": 5,
+         "error": 10
+       }
+     }
+   }
+   ```
 
 1. Via environment variables
 
-```bash
-TODO_DAYS_TO_WARN="5" TODO_DAYS_TO_ERROR="10" ember-template-lint . --update-todo
-```
+   ```bash
+   TODO_DAYS_TO_WARN="5" TODO_DAYS_TO_ERROR="10" ember-template-lint . --update-todo
+   ```
 
 1. Via command line options
 
-```bash
-ember-template-lint . --update-todo --todo-days-to-warn=5 --todo-days-to-error=10
-```
+   ```bash
+   ember-template-lint . --update-todo --todo-days-to-warn=5 --todo-days-to-error=10
+   ```
 
 In order of precedence:
 
@@ -89,7 +89,7 @@ If no values are provided in one of the options that have higher precedence, the
 ember-template-lint . --update-todo --todo-days-to-warn=2
 ```
 
-...the TODOs will be created with a `warn` date 2 days from the created date, and an `error` date 10 days from the created date.
+...the todos will be created with a `warn` date 2 days from the created date, and an `error` date 10 days from the created date.
 
 ### Due Date Workflows
 
