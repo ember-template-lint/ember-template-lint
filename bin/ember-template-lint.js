@@ -9,7 +9,11 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const { getTodoStorageDirPath, getTodoConfig } = require('@ember-template-lint/todo-utils');
+const {
+  ensureTodoConfig,
+  getTodoStorageDirPath,
+  getTodoConfig,
+} = require('@ember-template-lint/todo-utils');
 const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -331,6 +335,10 @@ async function run() {
     );
     process.exitCode = 1;
     return;
+  }
+
+  if (options.updateTodo) {
+    ensureTodoConfig(options.workingDirectory);
   }
 
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);

@@ -1481,6 +1481,37 @@ describe('ember-template-lint executable', function () {
         );
       });
 
+      it('writes todo config to package.json if run the first time and no config exists', async function () {
+        let result = await run(['.', '--update-todo']);
+        let pkg = JSON.parse(
+          readFileSync(path.join(project.baseDir, 'package.json'), {
+            encoding: 'utf8',
+          })
+        );
+
+        expect(result.exitCode).toEqual(0);
+        expect(pkg.lintTodo.daysToDecay).toEqual({
+          warn: 30,
+          error: 60,
+        });
+      });
+
+      it('does not write todo config to package.json if run the first time and config exists', async function () {
+        project.writeSync();
+        project.writeTodoConfig({
+          warn: 5,
+          error: 10,
+        });
+
+        let result = await run(['.', '--update-todo']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(project.pkg.lintTodo.daysToDecay).toEqual({
+          warn: 5,
+          error: 10,
+        });
+      });
+
       it('generates no todos for no errors', async function () {
         project.setConfig({
           rules: {
