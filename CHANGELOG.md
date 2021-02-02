@@ -1,3 +1,13 @@
+## v2.18.1 (2021-02-02)
+
+#### :bug: Bug Fix
+* [#1727](https://github.com/ember-template-lint/ember-template-lint/pull/1727) Fix `no-dynamic-subexpression-invocations` handling of `{{1}}` ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v2.18.0 (2021-01-28)
 
 #### :rocket: Enhancement
