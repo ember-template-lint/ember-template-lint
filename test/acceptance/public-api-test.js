@@ -1533,6 +1533,113 @@ describe('public api', function () {
       }
     });
 
+    it('[.html] <DOCTYPE html> (with newline) stripping does not affect line numbers for violations', async function () {
+      project.write({
+        app: {
+          'index.html': `<!-- LOLOLOLOLOLOL -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <button>LOL, Click me!</button>
+</body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      const result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -5),
+      });
+
+      expect(result).toEqual([
+        {
+          column: 2,
+          filePath: templatePath,
+          isFixable: true,
+          line: 8,
+          message: 'All `<button>` elements should have a valid `type` attribute',
+          moduleId: templatePath.slice(0, -5),
+          rule: 'require-button-type',
+          severity: 2,
+          source: '<button>LOL, Click me!</button>',
+        },
+      ]);
+    });
+
+    it('[.html] <DOCTYPE html> (with newline) stripping does not affect line numbers for violations', async function () {
+      project.write({
+        app: {
+          'index.html': `<!DOCTYPE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <button>LOL, Click me!</button>
+</body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      const result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -5),
+      });
+
+      expect(result).toEqual([
+        {
+          column: 2,
+          filePath: templatePath,
+          isFixable: true,
+          line: 7,
+          message: 'All `<button>` elements should have a valid `type` attribute',
+          moduleId: templatePath.slice(0, -5),
+          rule: 'require-button-type',
+          severity: 2,
+          source: '<button>LOL, Click me!</button>',
+        },
+      ]);
+    });
+
+    it('[.html] <DOCTYPE html> (no newlines) stripping does not affect line numbers for violations', async function () {
+      project.write({
+        app: {
+          'index.html': `<!DOCTYPE html><html><head><title>MyApp</title></head><body><button>LOL, Click me!</button></body></html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      const result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -5),
+      });
+
+      expect(result).toEqual([
+        {
+          column: 61,
+          filePath: templatePath,
+          isFixable: true,
+          line: 1,
+          message: 'All `<button>` elements should have a valid `type` attribute',
+          moduleId: templatePath.slice(0, -5),
+          rule: 'require-button-type',
+          severity: 2,
+          source: '<button>LOL, Click me!</button>',
+        },
+      ]);
+    });
+
     it('[.html] files with DOCTYPE are fixable and updated output includes original DOCTYPE if source includes it', async function () {
       const templateContents = `
 <!DoCtYpE html>
