@@ -1,6 +1,6 @@
 # require-has-block-helper
 
-In Ember 3.25 the properties `hasBlock` and `hasBlockParams` were deprecated. Their replacement is to use `has-block` and `has-block-params` helpers instead.
+In Ember 3.26 the properties `hasBlock` and `hasBlockParams` were deprecated. Their replacement is to use `has-block` and `has-block-params` helpers instead.
 
 This rule prevents the usage of `hasBlock` and `hasBlockParams` and suggests using `has-block` or `has-block-params` instead.
 
