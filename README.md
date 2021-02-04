@@ -255,7 +255,7 @@ Each rule has emojis denoting:
 | :white_check_mark::wrench: | [require-button-type](./docs/rule/require-button-type.md)                                   |
 |                            | [require-each-key](./docs/rule/require-each-key.md)                                         |
 |                            | [require-form-method](./docs/rule/require-form-method.md)                                   |
-|                            | [require-has-block-helper](./docs/rule/require-has-block-helper.md)                         |
+| :wrench:                   | [require-has-block-helper](./docs/rule/require-has-block-helper.md)                         |
 | :white_check_mark:         | [require-iframe-title](./docs/rule/require-iframe-title.md)                                 |
 |                            | [require-input-label](./docs/rule/require-input-label.md)                                   |
 |                            | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                             |
