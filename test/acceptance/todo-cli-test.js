@@ -5,6 +5,7 @@ const {
   todoStorageDirExists,
   readTodos,
   getTodoStorageDirPath,
+  writeTodos,
 } = require('@ember-template-lint/todo-utils');
 const { differenceInDays, subDays } = require('date-fns');
 
@@ -158,6 +159,52 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
       expect(todoStorageDirExists(project.baseDir)).toEqual(true);
+    });
+
+    it.only('does not remove todos from another engine', async function () {
+      project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+          'no-html-comments': true,
+        },
+      });
+      project.write({
+        app: {
+          templates: {
+            'application.hbs':
+              '<div>Bare strings are bad...</div><span>Very bad</span><!-- bad comment -->',
+          },
+        },
+      });
+
+      await writeTodos(project.baseDir, [
+        {
+          filePath: '{{path}}/app/controllers/settings.js',
+          messages: [
+            {
+              ruleId: 'no-prototype-builtins',
+              severity: 2,
+              message: "Do not access Object.prototype method 'hasOwnProperty' from target object.",
+              line: 25,
+              column: 21,
+              nodeType: 'CallExpression',
+              messageId: 'prototypeBuildIn',
+              endLine: 25,
+              endColumn: 35,
+            },
+          ],
+          errorCount: 1,
+          warningCount: 0,
+          fixableErrorCount: 0,
+          fixableWarningCount: 0,
+          source: '',
+        },
+      ]);
+
+      const result = await run(['.', '--update-todo']);
+
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout).toMatch(/.*✔ 3 todos created, 0 todos removed/);
     });
 
     it('does not remove todos if custom config params are used', async function () {
