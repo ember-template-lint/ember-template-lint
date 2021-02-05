@@ -313,7 +313,9 @@ describe('todo usage', () => {
 
       let result = await run(['.', '--update-todo']);
 
-      expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created, 0 todos removed"`);
+      expect(result.stdout).toMatchInlineSnapshot(
+        `"✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+      );
     });
 
     it('outputs empty summary for existing todos', async function () {
@@ -355,7 +357,9 @@ describe('todo usage', () => {
 
       let result = await run(['.', '--update-todo']);
 
-      expect(result.stdout).toMatchInlineSnapshot(`"✔ 0 todos created, 0 todos removed"`);
+      expect(result.stdout).toMatchInlineSnapshot(
+        `"✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+      );
     });
 
     it('with --update-todo, outputs todos created summary', async function () {
@@ -374,7 +378,9 @@ describe('todo usage', () => {
 
       let result = await run(['.', '--update-todo']);
 
-      expect(result.stdout).toMatchInlineSnapshot(`"✔ 1 todos created, 0 todos removed"`);
+      expect(result.stdout).toMatchInlineSnapshot(
+        `"✔ 1 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+      );
     });
 
     it('with --update-todo, outputs todos created summary for multiple errors', async function () {
@@ -394,7 +400,9 @@ describe('todo usage', () => {
 
       let result = await run(['.', '--update-todo']);
 
-      expect(result.stdout).toMatchInlineSnapshot(`"✔ 2 todos created, 0 todos removed"`);
+      expect(result.stdout).toMatchInlineSnapshot(
+        `"✔ 2 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+      );
     });
 
     it('with --update-todo, outputs todos created summary with warn info', async function () {
@@ -484,12 +492,12 @@ describe('todo usage', () => {
       let result = await run(['.', '--update-todo', '--include-todo']);
 
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  todo  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  todo  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (0 errors, 0 warnings, 1 todos)
-          ✔ 1 todos created, 0 todos removed"
-        `);
+        ✖ 1 problems (0 errors, 0 warnings, 1 todos)
+        ✔ 1 todos created, 0 todos removed (warn after 30, error after 60 days)"
+      `);
     });
 
     it('with --include-todo param and existing todos, outputs todos in results', async function () {
