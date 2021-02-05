@@ -8,7 +8,6 @@ List of elements & their corresponding roles:
 - main (main)
 - aside (complementary)
 - form (form, search)
-- main (main)
 - nav (navigation)
 - footer (contentinfo)
 
