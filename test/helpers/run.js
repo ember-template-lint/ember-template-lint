@@ -1,20 +1,12 @@
 const execa = require('execa');
 
-let project;
-
-function setProject(_project = undefined) {
-  project = _project;
-}
-
-function run(args, options = {}) {
+module.exports = function run(args, options = {}) {
   options.reject = false;
-  options.cwd = options.cwd || project.path('.');
+  options.cwd = options.cwd || process.cwd();
 
   return execa(
     process.execPath,
     [require.resolve('../../bin/ember-template-lint.js'), ...args],
     options
   );
-}
-
-module.exports = { setProject, run };
+};

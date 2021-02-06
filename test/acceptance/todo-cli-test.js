@@ -9,7 +9,7 @@ const {
 const { differenceInDays, subDays } = require('date-fns');
 
 const Project = require('../helpers/fake-project');
-const { setProject, run } = require('../helpers/run');
+const run = require('../helpers/run');
 const setupEnvVar = require('../helpers/setup-env-var');
 
 const ROOT = process.cwd();
@@ -22,15 +22,11 @@ describe('todo usage', () => {
   beforeEach(function () {
     project = Project.defaultSetup();
     project.chdir();
-
-    setProject(project);
   });
 
   afterEach(async function () {
     process.chdir(ROOT);
     await project.dispose();
-
-    setProject();
   });
 
   describe('with/without --update-todo and --include-todo params', function () {
