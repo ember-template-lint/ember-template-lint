@@ -41,6 +41,8 @@ This rule **allows** the following:
 
 ## Migration
 
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 * `{{hasBlock}}`-> `{{has-block}}
 * `{{hasBlockParams}}`-> `{{has-block-params}}
 * `{{#if hasBlock}} {{/if}}`-> `{{#if (has-block)}} {{/if}}`
