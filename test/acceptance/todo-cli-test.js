@@ -161,7 +161,7 @@ describe('todo usage', () => {
       expect(todoStorageDirExists(project.baseDir)).toEqual(true);
     });
 
-    it.only('does not remove todos from another engine', async function () {
+    it('does not remove todos from another engine', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
