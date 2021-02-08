@@ -95,10 +95,10 @@ generateRuleTests({
       template: '<button><details><summary>Some details</summary><p>!</p></details></button>',
 
       result: {
-        message: 'Do not use <details> inside <button>',
-        source: '<details><summary>Some details</summary><p>!</p></details>',
+        message: 'Do not use <summary> inside <button>',
+        source: '<summary>Some details</summary>',
         line: 1,
-        column: 8,
+        column: 17,
       },
     },
     {
