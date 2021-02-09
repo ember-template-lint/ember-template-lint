@@ -44,7 +44,7 @@ async function buildLinterOptions(workingDir, filePath, filename = '', isReading
 }
 
 function executeGlobby(workingDir, pattern, ignore) {
-  let supportedExtensions = new Set(['.hbs', '.html', '.handlebars']);
+  let supportedExtensions = new Set(['.hbs', '.handlebars']);
 
   // `--no-ignore-pattern` results in `ignorePattern === [false]`
   let options =
