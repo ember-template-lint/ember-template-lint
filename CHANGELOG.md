@@ -1,3 +1,25 @@
+## v3.0.0-beta.4 (2021-02-10)
+
+#### :boom: Breaking Change
+* [#1747](https://github.com/ember-template-lint/ember-template-lint/pull/1747) Avoid linting `.html` files by default ([@scalvert](https://github.com/scalvert))
+* [#1714](https://github.com/ember-template-lint/ember-template-lint/pull/1714) Update recommended config to include 'no-down-event-binding' ([@MelSumner](https://github.com/MelSumner))
+
+#### :bug: Bug Fix
+* [#1739](https://github.com/ember-template-lint/ember-template-lint/pull/1739) Fixes issue where todos were deleted from a different engine ([@scalvert](https://github.com/scalvert))
+* [#1722](https://github.com/ember-template-lint/ember-template-lint/pull/1722) No invalid roles fatal error fix ([@renatoi](https://github.com/renatoi))
+
+#### :memo: Documentation
+* [#1725](https://github.com/ember-template-lint/ember-template-lint/pull/1725) Fixes markdown bugs in todo documentation ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* [#1737](https://github.com/ember-template-lint/ember-template-lint/pull/1737) Moves todo tests to their own file ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 3
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Renato Iwashima ([@renatoi](https://github.com/renatoi))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.0.0-beta.3 (2021-01-29)
 
 #### :bug: Bug Fix
