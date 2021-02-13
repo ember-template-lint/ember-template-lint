@@ -1,3 +1,27 @@
+## v3.0.0-beta.5 (2021-02-13)
+
+#### :rocket: Enhancement
+* [#1736](https://github.com/ember-template-lint/ember-template-lint/pull/1736) Add fixer for require-has-block-helper rule ([@patocallaghan](https://github.com/patocallaghan))
+* [#1731](https://github.com/ember-template-lint/ember-template-lint/pull/1731) Add `require-has-block-helper` lint rule ([@patocallaghan](https://github.com/patocallaghan))
+
+#### :bug: Bug Fix
+* [#1749](https://github.com/ember-template-lint/ember-template-lint/pull/1749) Fixes invalid link resulting in 404 for todos docs. ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#1738](https://github.com/ember-template-lint/ember-template-lint/pull/1738) Removes duplicate main from `no-duplicate-landmarks` documentation ([@skaterdav85](https://github.com/skaterdav85))
+
+#### :house: Internal
+* [#1735](https://github.com/ember-template-lint/ember-template-lint/pull/1735) Add test to `no-invalid-meta` for ember-cli default value ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 5
+- David Tang ([@skaterdav85](https://github.com/skaterdav85))
+- Pat O'Callaghan ([@patocallaghan](https://github.com/patocallaghan))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
+
 ## v3.0.0-beta.4 (2021-02-10)
 
 #### :boom: Breaking Change
