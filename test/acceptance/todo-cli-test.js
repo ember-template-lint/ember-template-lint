@@ -619,9 +619,9 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
-      });
+      }
     });
 
     it('should create todos with correct warn date set via env var (overrides package.json)', async function () {
@@ -651,9 +651,9 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(30);
-      });
+      }
     });
 
     it('should create todos with correct warn date set via option (overrides env var)', async function () {
@@ -683,9 +683,9 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(30);
-      });
+      }
     });
 
     it('should create todos with correct error date set via package.json', async function () {
@@ -711,9 +711,9 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(10);
-      });
+      }
     });
 
     it('should create todos with correct error date set via env var (overrides package.json)', async function () {
@@ -743,9 +743,9 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(30);
-      });
+      }
     });
 
     it('should create todos with correct error date set via option (overrides env var)', async function () {
@@ -775,9 +775,9 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(30);
-      });
+      }
     });
 
     it('should create todos with correct dates set for warn and error via package.json', async function () {
@@ -804,10 +804,10 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(5);
         expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(10);
-      });
+      }
     });
 
     it('should create todos with correct dates set for warn and error via env vars (overrides package.json)', async function () {
@@ -839,10 +839,10 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
         expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(20);
-      });
+      }
     });
 
     it('should create todos with correct dates set for warn and error via options (overrides env vars)', async function () {
@@ -877,10 +877,10 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
         expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(20);
-      });
+      }
     });
 
     it('should create todos with correct dates set for error while excluding warn', async function () {
@@ -913,10 +913,10 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
 
-      todos.forEach((todo) => {
+      for (const todo of todos) {
         expect(todo.warnDate).toBeFalsy();
         expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(20);
-      });
+      }
     });
 
     it('should set to todo if warnDate is not expired', async function () {
