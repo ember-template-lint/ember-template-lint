@@ -20,14 +20,6 @@ This rule **forbids** the following:
 {{has-block-params "default"}}
 ```
 
-```hbs
-{{hasBlock "default"}}
-```
-
-```hbs
-{{hasBlockParams "default"}}
-```
-
 This rule **allows** the following:
 
 ```hbs
@@ -40,14 +32,6 @@ This rule **allows** the following:
 
 ```hbs
 {{has-block-params}}
-```
-
-```hbs
-{{hasBlock}}
-```
-
-```hbs
-{{hasBlockParams}}
 ```
 
 ## References
