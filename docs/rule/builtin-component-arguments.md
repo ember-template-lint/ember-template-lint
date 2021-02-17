@@ -46,6 +46,10 @@ This rule **allows** the following:
 * Add the `@` character in front of the relevant attributes to convert them
   into component argument
 
+## Related Rules
+
+- [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
+
 ## References
 
 * [`Input` component API documentation](https://api.emberjs.com/ember/release/classes/Ember.Templates.components/methods/Input?anchor=Input)

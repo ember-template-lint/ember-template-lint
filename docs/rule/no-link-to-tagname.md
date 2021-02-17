@@ -47,6 +47,8 @@ This rule **allows** the following:
 ## Related rules
 
 - [no-input-tagname](no-input-tagname.md)
+- [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
+
 
 ## References
 
