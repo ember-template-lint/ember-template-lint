@@ -12,7 +12,7 @@ Please note that this rule is only useful for Glimmer components or tagless
 this functionality built into the root element, which is not part of their
 templates.
 
-This rule also should not be used foo route/controller templates, because those
+This rule also should not be used for route/controller templates, because those
 don't support `...attributes`. Instead of unconditionally enabling this rule in
 your `.template-lintrc.js` file, you might want to consider using
 [`overrides`](../overrides.md) to only enable it for component templates (see
