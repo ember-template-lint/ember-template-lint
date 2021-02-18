@@ -23,6 +23,12 @@ const readFile = promisify(fs.readFile);
 
 const STDIN = '/dev/stdin';
 
+const NOOP_CONSOLE = {
+  log: () => {},
+  warn: () => {},
+  error: () => {},
+};
+
 function removeExt(filePath) {
   return filePath.slice(0, -path.extname(filePath).length);
 }
@@ -301,6 +307,7 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
+      console: options.quiet || options.json ? NOOP_CONSOLE : console,
     });
   } catch (error) {
     console.error(error.message);
