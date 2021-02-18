@@ -8,17 +8,17 @@ Plugins can define new rules and set up default configurations that can be exten
 
 Each plugin object can include these properties.
 
-* `name` -- `string` (required)
+- `name` -- `string` (required)
 
   The name of the plugin. Will be used to namespace any configuration objects.
 
-* `rules` -- `Object`
+- `rules` -- `Object`
 
   Object that defines new rules.
   Each key represents the name of the rule that is defined.
   Each value should be a Rule object. See [Rule APIs](#rule-apis) for more detail.
 
-* `configurations` -- `Object`
+- `configurations` -- `Object`
 
   Object that defines new configurations that can be extended.
   Each key represents the name of the configuration object.
@@ -111,12 +111,10 @@ module.exports = class NoEmptyComments extends Rule {
         if (node.value.trim() === '') {
           this.log({
             message: 'comments cannot be empty',
-            line: node.loc && node.loc.start.line,
-            column: node.loc && node.loc.start.column,
-            source: this.sourceForNode(node)
+            node,
           });
         }
-      }
+      },
     };
   }
 };
@@ -124,31 +122,32 @@ module.exports = class NoEmptyComments extends Rule {
 
 You can override the following methods on the base plugin class:
 
-* `function visitor(): visitorObject`
+- `function visitor(): visitorObject`
 
   The `visitor` function should return an object that maps Handlebars node types to functions. Whenever the Handlebars parser encounters a particular type of node, any handler function that you define for that node will be called on it. You can reference the [Handlebars Compiler API](https://github.com/wycats/handlebars.js/blob/master/docs/compiler-api.md) for more detail on the types of nodes and their interfaces.
 
 The base rule also has a few helper functions that can be useful in defining rule behavior:
 
-* `function log(options)`
+- `function log(options)`
 
   Report a lint error. The `log` function accepts an Object as its only argument, which can contain the following parameters:
-  * `message` -- `string`
+
+  - `message` -- `string`
     The error message to display.
-  * `line` -- `number`
+  - `line` -- `number`
     The line number of the error in the source string.
-  * `column` -- `number`
+  - `column` -- `number`
     The column number of the error in the source string.
-  * `source` -- `string`
+  - `source` -- `string`
     The source string that caused the error.
-  * `fix` -- `string`
+  - `fix` -- `string`
     An optional string to display with the recommended fix.
 
-* `function sourceForNode(node): string`
+- `function sourceForNode(node): string`
 
   Given a Handlebars AST node, return the string source of that node. Useful to generate `source` when logging errors with `log`.
 
-* `function isLocal(ASTNode): boolean`
+- `function isLocal(ASTNode): boolean`
 
   Given an AST node, check if it is derived from a local / block param.
 
@@ -162,63 +161,63 @@ You can access these helpers via:
 const helpers = require('ember-template-lint').ASTHelpers;
 ```
 
-* `function isConfigurationHtmlComment(node): boolean`
+- `function isConfigurationHtmlComment(node): boolean`
 
   Returns true if this node is an HTML comment that is meant to set linter configuration (i.e. `<!-- template-lint enabled=false -->`).
 
-* `function isNonConfigurationHtmlComment(node): boolean`
+- `function isNonConfigurationHtmlComment(node): boolean`
 
-  Returns true if this node is *not* an HTML comment that is meant to set linter configuration.
+  Returns true if this node is _not_ an HTML comment that is meant to set linter configuration.
 
-* `function isTextNode(node): boolean`
+- `function isTextNode(node): boolean`
 
   Returns true if this node is a `TextNode` node.
 
-* `function isCommentStatement(node): boolean`
+- `function isCommentStatement(node): boolean`
 
   Returns true if this node is a `CommentStatement` node.
 
-* `function isMustacheCommentStatement(node): boolean`
+- `function isMustacheCommentStatement(node): boolean`
 
   Returns true if this node is a `MustacheCommentStatement` node.
 
-* `function isElementNode(node): boolean`
+- `function isElementNode(node): boolean`
 
   Returns true if this node is an `ElementNode` node.
 
-* `function isComponentNode(node): boolean`
+- `function isComponentNode(node): boolean`
 
   Returns true if this node is a `ComponentNode` node.
 
-* `function isMustacheStatement(node): boolean`
+- `function isMustacheStatement(node): boolean`
 
   Returns true if this node is a `MustacheStatement` node.
 
-* `function isBlockStatement(node): boolean`
+- `function isBlockStatement(node): boolean`
 
   Returns true if this node is a `BlockStatement` node.
 
-* `function hasAttribute(node, attributeName): boolean`
+- `function hasAttribute(node, attributeName): boolean`
 
   Returns true if this node has an attribute whose name matches `attributeName`.
 
-* `function findAttribute(node, attributeName): Object`
+- `function findAttribute(node, attributeName): Object`
 
   Returns any attributes on the node with a name that matches `attributeName`.
 
-* `function isImgElement(node): boolean`
+- `function isImgElement(node): boolean`
 
   Returns true if this node is an `img` element.
 
-* `function isLinkElement(node): boolean`
+- `function isLinkElement(node): boolean`
 
   Returns true if this node is a link (`a`) element.
 
-* `function childrenFor(node): Object[]`
+- `function childrenFor(node): Object[]`
 
   Returns any child nodes of this node.
 
-* `function hasChildren(node): boolean`
+- `function hasChildren(node): boolean`
 
   Returns true if this node has any child nodes.
 
@@ -232,7 +231,7 @@ You access this helper via:
 const NodeMatcher = require('ember-template-lint').NodeMatcher;
 ```
 
-* `function match(testNode, ref): boolean`
+- `function match(testNode, ref): boolean`
 
   Pattern matches a test node against either an individual reference node OR
   an Array of reference nodes.
@@ -256,8 +255,8 @@ const NodeMatcher = require('ember-template-lint').NodeMatcher;
   and more succinct syntax than its conditional (`if`) counterpart because it
   does the following tasks on behalf of the rule:
 
-  * asserts the existence of relevant nodes, properties, values, etc.
-  * compounds the 'AND' logic dictated by a strict multi-comparison matching
+  - asserts the existence of relevant nodes, properties, values, etc.
+  - compounds the 'AND' logic dictated by a strict multi-comparison matching
 
   As an example, consider a rule designed to ensure that all `div` elements
   with the custom `class` attribute `foo` also have a `role` attribute of
@@ -266,8 +265,8 @@ const NodeMatcher = require('ember-template-lint').NodeMatcher;
   Example Target:
 
   ```html
-   <div class="foo"></div>
-   ```
+  <div class="foo"></div>
+  ```
 
   Example Code Context:
 
@@ -309,4 +308,3 @@ const NodeMatcher = require('ember-template-lint').NodeMatcher;
   ```
 
   TODO: complex example (multiple supported types of `links`?)
-  
