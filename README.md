@@ -203,6 +203,7 @@ Each rule has emojis denoting:
 |                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |
 | :white_check_mark:         | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     |
 |                            | [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               |
+|                            | [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     |
 | :white_check_mark:         | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                                 |
 | :white_check_mark:         | [no-down-event-binding](./docs/rule/no-down-event-binding.md)                                             |
