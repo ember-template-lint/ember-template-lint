@@ -52,6 +52,33 @@
 #### Committers: 1
 - Steve Calvert ([@scalvert](https://github.com/scalvert))
 
+## v2.19.0 (2021-02-18)
+
+#### :rocket: Enhancement
+* [#1759](https://github.com/ember-template-lint/ember-template-lint/pull/1759) Add new rule: `no-capital-arguments` ([@lifeart](https://github.com/lifeart))
+* [#1760](https://github.com/ember-template-lint/ember-template-lint/pull/1760) chore: Deprecating moduleId and moduleName in Rule base class ([@scalvert](https://github.com/scalvert))
+* [#1734](https://github.com/ember-template-lint/ember-template-lint/pull/1734) Add new rule: `no-unknown-arguments-for-builtin-components` ([@lifeart](https://github.com/lifeart))
+* [#1717](https://github.com/ember-template-lint/ember-template-lint/pull/1717) Allow `meta` in `<head>` contexts ([@MelSumner](https://github.com/MelSumner))
+* [#1672](https://github.com/ember-template-lint/ember-template-lint/pull/1672) Add new rule: `require-splattributes` ([@Turbo87](https://github.com/Turbo87))
+* [#1736](https://github.com/ember-template-lint/ember-template-lint/pull/1736) Add fixer for require-has-block-helper rule ([@patocallaghan](https://github.com/patocallaghan))
+* [#1731](https://github.com/ember-template-lint/ember-template-lint/pull/1731) Add `require-has-block-helper` lint rule ([@patocallaghan](https://github.com/patocallaghan))
+
+#### :memo: Documentation
+* [#1738](https://github.com/ember-template-lint/ember-template-lint/pull/1738) Removes duplicate main from `no-duplicate-landmarks` documentation ([@skaterdav85](https://github.com/skaterdav85))
+
+#### :house: Internal
+* [#1758](https://github.com/ember-template-lint/ember-template-lint/pull/1758) chore: fix require-has-block-helper readme linting error ([@lifeart](https://github.com/lifeart))
+* [#1735](https://github.com/ember-template-lint/ember-template-lint/pull/1735) Add test to `no-invalid-meta` for ember-cli default value ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 8
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- David Tang ([@skaterdav85](https://github.com/skaterdav85))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Pat O'Callaghan ([@patocallaghan](https://github.com/patocallaghan))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v2.18.0 (2021-01-28)
 
