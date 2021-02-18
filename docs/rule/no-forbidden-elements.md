@@ -35,10 +35,16 @@ This rule **allows** the following:
 <div></div>
 ```
 
+```hbs
+<head>
+  <meta charset="utf-8">
+</head>
+```
+
 ## Configuration
 
 * boolean - `true` to enable / `false` to disable
-  * array -- an array of strings to forbid, default: ['meta', 'style', 'html', 'style']
+  * array -- an array of strings to forbid, default: ['meta', 'style', 'html', 'script']
   * object -- An object with the following keys:
     * `forbidden` -- An array of forbidden element names
 
