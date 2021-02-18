@@ -2,10 +2,7 @@
 
 Anything that does not start with a lowercase letter (such as @Foo, @0, @! etc) is reserved argument names. This is purely speculative and the goal is to carve out some space for future features. If we don't end up needing them, we can always relax the restrictions down the road.
 
-
 '@arguments', '@args', '@block', '@else' - is reserved names, and also will be highlighted in this rule.
-
-:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 ## Examples
 
