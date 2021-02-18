@@ -11,7 +11,7 @@ generateRuleTests({
 
   bad: [
     {
-      template: '{{some-thing classNames="lol"}}',
+      template: '{{some-thing classBinding="lol:wat"}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -20,18 +20,18 @@ generateRuleTests({
               "column": 13,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Passing the \`classNames\` property as an argument within templates is not allowed.",
+              "message": "Passing the \`classBinding\` property as an argument within templates is not allowed.",
               "moduleId": "layout",
               "rule": "no-class-bindings",
               "severity": 2,
-              "source": "classNames=\\"lol\\"",
+              "source": "classBinding=\\"lol:wat\\"",
             },
           ]
         `);
       },
     },
     {
-      template: '<SomeThing @classNames="lol" />',
+      template: '<SomeThing @classBinding="lol:wat" />',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -40,11 +40,11 @@ generateRuleTests({
               "column": 11,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Passing the \`@classNames\` property as an argument within templates is not allowed.",
+              "message": "Passing the \`@classBinding\` property as an argument within templates is not allowed.",
               "moduleId": "layout",
               "rule": "no-class-bindings",
               "severity": 2,
-              "source": "@classNames=\\"lol\\"",
+              "source": "@classBinding=\\"lol:wat\\"",
             },
           ]
         `);

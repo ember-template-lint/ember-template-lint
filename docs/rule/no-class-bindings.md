@@ -1,53 +1,49 @@
 # no-class-bindings
 
-TODO: context about the problem goes here
+It is possible to pass `classBinding` and `classNameBindings` as arguments to a component when invoked with curly syntax.
 
-TODO: what the rule does goes here
+```hbs
+{{some-component classNameBindings="foo:truthy:falsy"}}
+```
+
+These arguments are merged into the class attribute on the class, regardless of whether or not the component is a classic component which contains the classNameBindings logic.
+
+This rule disallows components accepting either `classBinding` or `classNameBindings`.
 
 ## Examples
 
 This rule **forbids** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+{{some-thing classBinding="lol"}}no
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<SomeThing @classBinding="lol" />
+```
+
+```hbs
+{{some-thing classNameBindings="lol:foo:bar"}}
+```
+
+```hbs
+<SomeThing @classNameBindings="lol:foo:bar" />
 ```
 
 This rule **allows** the following:
 
 ```hbs
-{{!-- TODO: Example 1  --}}
+{{some-thing}}
 ```
 
 ```hbs
-{{!-- TODO: Example 2  --}}
+<SomeThing />
 ```
 
 ## Migration
 
-TODO: suggest any fast/automated techniques for fixing violations in a large codebase
-
-* TODO: suggestion on how to fix violations using find-and-replace / regexp
-* TODO: suggestion on how to fix violations using a codemod
-
-## Configuration
-
-TODO: exclude this section if the rule has no extra configuration
-
-* object -- containing the following properties:
-  * string -- `parameterName1` -- TODO: description of parameter including the possible values and default value
-  * boolean -- `parameterName2` -- TODO: description of parameter including the possible values and default value
-
-## Related Rules
-
-* [TODO-related-rule-name1](related-rule-name1.md)
-* [TODO-related-rule-name2](related-rule-name2.md)
+- find in templates and remove `classBinding` and/or `classNameBindings`.
 
 ## References
 
-* TODO: link to relevant documentation goes here
-* TODO: link to relevant function spec goes here
-* TODO: link to relevant guide goes here
+- [RFC-0691 - Deprecate classBinding and classNameBindings](https://github.com/emberjs/rfcs/blob/master/text/0691-deprecate-class-binding-and-class-name-bindings.md)
