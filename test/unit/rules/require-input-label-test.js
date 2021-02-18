@@ -28,6 +28,9 @@ generateRuleTests({
     '<label>Text here<Input /></label>',
     '<label>Text here {{input}}</label>',
     '<input id="label-input" ...attributes>',
+    '<textarea id="foo" />',
+    '<label for="textarea">Textarea Label</label><textarea id="textarea" />',
+    '<label>Textarea <textarea /></label>',
 
     // Hidden inputs are allowed.
     '<input type="hidden"/>',
@@ -169,6 +172,15 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: '<Input type={{myType}}/>',
+      },
+    },
+    {
+      template: '<textarea />',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<textarea />',
       },
     },
   ],
