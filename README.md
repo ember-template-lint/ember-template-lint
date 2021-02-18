@@ -195,6 +195,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           |
 |                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |
 |                            | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     |
+|                            | [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               |
 | :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                                 |
 |                            | [no-down-event-binding](./docs/rule/no-down-event-binding.md)                                             |
