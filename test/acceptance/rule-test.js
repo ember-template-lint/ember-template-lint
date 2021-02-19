@@ -184,13 +184,13 @@ describe('rule public api', function () {
                       });
                     }
 
-                    if (node.tag === 'MySpecialThingInferredClobbersExplicit') {
+                    if (node.tag === 'MySpecialThingInferredDoesNotClobberExplicit') {
                       this.log({
                         message: 'Unclobbered error message',
                         node,
                         line: 50,
                         column: 50,
-                        source: '<NotMySpecialThingInferredClobbersExplicit/>',
+                        source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
                       });
                     }
                   },
@@ -224,12 +224,12 @@ describe('rule public api', function () {
           },
         },
         {
-          template: '<MySpecialThingInferredClobbersExplicit/>',
+          template: '<MySpecialThingInferredDoesNotClobberExplicit/>',
           result: {
-            column: 0,
-            line: 1,
+            column: 50,
+            line: 50,
             message: 'Unclobbered error message',
-            source: '<MySpecialThingInferredClobbersExplicit/>',
+            source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
           },
         },
       ],
