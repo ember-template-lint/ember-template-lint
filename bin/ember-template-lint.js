@@ -169,6 +169,10 @@ function parseArgv(_argv) {
         describe: 'Prevent inline configuration comments from changing config or rules',
         boolean: true,
       },
+      'max-warnings': {
+        describe: 'Number of warnings to trigger nonzero exit code',
+        type: 'number',
+      },
     })
     .help()
     .version();
@@ -273,7 +277,11 @@ async function run() {
   }
 
   let results = processResults(resultsAccumulator);
-  if (results.errorCount > 0) {
+
+  if (
+    results.errorCount > 0 ||
+    (!options.quiet && options.maxWarnings && results.warningCount > options.maxWarnings)
+  ) {
     process.exitCode = 1;
   }
 
