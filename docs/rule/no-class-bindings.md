@@ -8,7 +8,7 @@ It is possible to pass `classBinding` and `classNameBindings` as arguments to a 
 
 These arguments are merged into the `class` attribute, whether or not the component is a classic component (which contains the `classNameBindings` logic).
 
-This rule disallows components accepting either `classBinding` or `classNameBindings`.
+This rule disallows use of `classBinding` or `classNameBindings` on components.
 
 ## Examples
 
