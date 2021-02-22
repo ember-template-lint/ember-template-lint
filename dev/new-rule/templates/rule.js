@@ -1,7 +1,7 @@
 'use strict';
 
-const Rule = require('./base');
 const AstNodeInfo = require('../helpers/ast-node-info');
+const Rule = require('./base');
 
 // TODO Change template to the real error message that you want to report
 const ERROR_MESSAGE = 'Error Message to Report';
@@ -17,9 +17,7 @@ module.exports = class PlaceholderForRuleClass extends Rule {
         if (failingCondition) {
           this.log({
             message: ERROR_MESSAGE,
-            line: node.loc && node.loc.start.line,
-            column: node.loc && node.loc.start.column,
-            source: this.sourceForNode(node),
+            node,
           });
         }
       },

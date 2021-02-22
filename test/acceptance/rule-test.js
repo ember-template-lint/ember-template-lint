@@ -204,4 +204,82 @@ describe('rule public api', function () {
       ],
     });
   });
+
+  describe('log results', function () {
+    generateRuleTests({
+      plugins: [
+        {
+          name: 'log-test',
+          rules: {
+            'log-result': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    if (node.tag === 'MySpecialThingExplicit') {
+                      this.log({
+                        message: 'Do not use MySpecialThingExplicit',
+                        line: node.loc && node.loc.start.line,
+                        column: node.loc && node.loc.start.column,
+                        source: this.sourceForNode(node),
+                      });
+                    }
+
+                    if (node.tag === 'MySpecialThingInferred') {
+                      this.log({
+                        message: 'Do not use MySpecialThingInferred',
+                        node,
+                      });
+                    }
+
+                    if (node.tag === 'MySpecialThingInferredDoesNotClobberExplicit') {
+                      this.log({
+                        message: 'Unclobbered error message',
+                        node,
+                        line: 50,
+                        column: 50,
+                        source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
+                      });
+                    }
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'log-result',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThingExplicit/>',
+          result: {
+            column: 0,
+            line: 1,
+            message: 'Do not use MySpecialThingExplicit',
+            source: '<MySpecialThingExplicit/>',
+          },
+        },
+        {
+          template: '<MySpecialThingInferred/>',
+          result: {
+            column: 0,
+            line: 1,
+            message: 'Do not use MySpecialThingInferred',
+            source: '<MySpecialThingInferred/>',
+          },
+        },
+        {
+          template: '<MySpecialThingInferredDoesNotClobberExplicit/>',
+          result: {
+            column: 50,
+            line: 50,
+            message: 'Unclobbered error message',
+            source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
+          },
+        },
+      ],
+    });
+  });
 });

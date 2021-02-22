@@ -68,6 +68,8 @@ describe('ember-template-lint executable', function () {
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config          Prevent inline configuration comments from
                                         changing config or rules                 [boolean]
+            --max-warnings              Number of warnings to trigger nonzero exit code
+                                                                                  [number]
             --help                      Show help                                [boolean]
             --version                   Show version number                      [boolean]"
         `);
@@ -117,6 +119,8 @@ describe('ember-template-lint executable', function () {
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config          Prevent inline configuration comments from
                                         changing config or rules                 [boolean]
+            --max-warnings              Number of warnings to trigger nonzero exit code
+                                                                                  [number]
             --help                      Show help                                [boolean]
             --version                   Show version number                      [boolean]"
         `);
@@ -420,6 +424,8 @@ describe('ember-template-lint executable', function () {
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config          Prevent inline configuration comments from
                                         changing config or rules                 [boolean]
+            --max-warnings              Number of warnings to trigger nonzero exit code
+                                                                                  [number]
             --help                      Show help                                [boolean]
             --version                   Show version number                      [boolean]"
         `);
@@ -1381,6 +1387,105 @@ describe('ember-template-lint executable', function () {
 
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('with --max-warnings param', function () {
+      it('should exit with error if warning count is greater than max-warnings', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': 'warn',
+            'no-html-comments': 'warn',
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['.', '--max-warnings=2']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should exit without error if warning count is less or equal to max-warnings', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': 'warn',
+            'no-html-comments': 'warn',
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['.', '--max-warnings=3']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stderr).toBeFalsy();
+        expect(result.stdout.split('\n')).toEqual([
+          'app/templates/application.hbs',
+          '  1:4  warning  Non-translated string used  no-bare-strings',
+          '  1:24  warning  Non-translated string used  no-bare-strings',
+          '  1:53  warning  HTML comment detected  no-html-comments',
+          '',
+          '✖ 3 problems (0 errors, 3 warnings)',
+        ]);
+      });
+
+      it('should exit with error if error count is greater than zero regardless of max-warnings', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': 'warn',
+            'no-html-comments': 'error',
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['.', '--max-warnings=1000']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot('""');
+      });
+    });
+
+    describe('with --max-warnings and --quiet param', function () {
+      it('should exit without error if warning count is more than max-warnings', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': 'warn',
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--max-warnings=1', '--quiet']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot('""');
+        expect(result.stderr).toMatchInlineSnapshot('""');
       });
     });
   });
