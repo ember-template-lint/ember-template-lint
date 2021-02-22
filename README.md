@@ -78,6 +78,12 @@ Ignore warnings / only report errors
 ember-template-lint "app/templates/application.hbs" --quiet
 ```
 
+Number of warnings to trigger nonzero exit code
+
+```bash
+ember-template-lint "app/templates/application.hbs" --max-warnings=2
+```
+
 Define custom config path
 
 ```bash
@@ -195,7 +201,9 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           |
 |                            | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |
 |                            | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     |
-| :car:                      | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             |
+|                            | [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               |
+| :wrench:                   | [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     |
+| :car::wrench:              | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             |
 | :white_check_mark:         | [no-debugger](./docs/rule/no-debugger.md)                                                                 |
 |                            | [no-down-event-binding](./docs/rule/no-down-event-binding.md)                                             |
 | :white_check_mark:         | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                                         |

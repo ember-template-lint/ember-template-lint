@@ -1,5 +1,7 @@
 # no-curly-component-invocation
 
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 :car: The `extends: 'octane'` property in a configuration file enables this rule.
 
 There are two ways to invoke a component in a template: curly component syntax
