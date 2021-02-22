@@ -1,5 +1,7 @@
 # no-class-bindings
 
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 It is possible to pass `classBinding` and `classNameBindings` as arguments to a component when invoked with curly syntax.
 
 ```hbs
