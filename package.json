@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@babel/parser": "^7.12.16",
-    "@babel/traverse": "^7.12.13",
+    "@babel/traverse": "^7.12.17",
     "common-tags": "^1.8.0",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.2.0",
