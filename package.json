@@ -69,7 +69,7 @@
     "prettier": "^2.2.1",
     "release-it": "^14.4.1",
     "release-it-lerna-changelog": "^3.1.0",
-    "sort-package-json": "^1.48.1"
+    "sort-package-json": "^1.49.0"
   },
   "engines": {
     "node": "10.* || >= 12.*"
