@@ -24,7 +24,7 @@
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
     "test:jest": "jest",
-    "update": "node ./scripts/update-rules.js"
+    "update:readme:": "node ./scripts/update-rules.js"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
