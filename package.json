@@ -76,7 +76,7 @@
     "yeoman-generator": "^5.0.1"
   },
   "engines": {
-    "node": "10.* || 12.* || >= 14.*"
+    "node": ">= 10.24 < 11 || 12.* || >= 14.*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
