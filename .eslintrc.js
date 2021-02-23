@@ -149,16 +149,5 @@ module.exports = {
         'import/no-dynamic-require': 'off',
       },
     },
-    {
-      files: ['dev/**/*.js'],
-      rules: {
-        'node/no-unpublished-require': [
-          'error',
-          {
-            allowModules: ['yeoman-generator', 'yeoman-environment'],
-          },
-        ],
-      },
-    },
   ],
 };
