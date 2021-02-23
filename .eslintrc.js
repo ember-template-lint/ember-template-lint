@@ -22,8 +22,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:node/recommended',
     'plugin:unicorn/recommended',
-    'prettier',
-    'prettier/unicorn',
+    'plugin:prettier/recommended',
   ],
   rules: {
     // Optional eslint rules:
@@ -111,8 +110,6 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
-
-    'prettier/prettier': 'error',
 
     // Unicorn rules:
     'unicorn/consistent-destructuring': 'off',

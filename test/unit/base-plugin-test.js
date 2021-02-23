@@ -6,6 +6,7 @@ const path = require('path');
 const { parse, transform } = require('ember-template-recast');
 
 const EditorConfigResolver = require('../../lib/get-editor-config');
+const { ConfigDefaults } = require('../../lib/helpers/rule-test-harness');
 const ruleNames = Object.keys(require('../../lib/rules'));
 const Project = require('../helpers/fake-project');
 const { determineRuleConfig } = require('./../../lib/get-config');
@@ -29,13 +30,15 @@ describe('base plugin', function () {
 
     for (let ruleConfig of rules) {
       let { Rule } = ruleConfig;
+
       let options = Object.assign(
         {},
         {
-          filePath: 'layout.hbs',
-          moduleId: 'layout',
-          moduleName: 'layout',
+          filePath: ConfigDefaults.filePath,
+          moduleId: ConfigDefaults.moduleId,
+          moduleName: ConfigDefaults.moduleName,
           rawSource: template,
+          workingDir: ConfigDefaults.workingDir,
           ruleNames,
         },
         ruleConfig
@@ -106,6 +109,67 @@ describe('base plugin', function () {
   });
 
   describe('rule APIs', function () {
+    it('can access filePath', async function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this.filePath).toBe('foo.hbs');
+        }
+      }
+
+      await runRules('foo', [
+        {
+          Rule: AwesomeRule,
+          name: 'awesome-rule',
+          config: true,
+          filePath: 'foo.hbs',
+        },
+      ]);
+    });
+
+    it('can access moduleName', async function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this._moduleName).toBe('foo/bar');
+        }
+      }
+
+      await runRules('foo', [
+        {
+          Rule: AwesomeRule,
+          name: 'awesome-rule',
+          config: true,
+          moduleName: 'foo/bar',
+        },
+      ]);
+    });
+
+    it('can access _rawSource', async function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this._rawSource).toBe('foo');
+        }
+      }
+
+      await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
+    });
+
+    it('can access workingDir', async function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this.workingDir).toBe('foo');
+        }
+      }
+
+      await runRules('foo', [
+        {
+          Rule: AwesomeRule,
+          name: 'awesome-rule',
+          config: true,
+          workingDir: 'foo',
+        },
+      ]);
+    });
+
     it('can access editorConfig', async function () {
       class AwesomeRule extends Rule {
         visitor() {

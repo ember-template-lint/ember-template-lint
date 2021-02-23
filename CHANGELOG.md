@@ -52,6 +52,23 @@
 #### Committers: 1
 - Steve Calvert ([@scalvert](https://github.com/scalvert))
 
+## v2.20.0 (2021-02-23)
+
+#### :rocket: Enhancement
+* [#1729](https://github.com/ember-template-lint/ember-template-lint/pull/1729) Make `this.filePath` and `this.workingDir` available to plugins ([@lifeart](https://github.com/lifeart))
+* [#1594](https://github.com/ember-template-lint/ember-template-lint/pull/1594) Implement autofixer for `no-curly-component-invocation` ([@lifeart](https://github.com/lifeart))
+* [#1774](https://github.com/ember-template-lint/ember-template-lint/pull/1774) Add fixer for `no-class-bindings` rule. ([@rwjblue](https://github.com/rwjblue))
+* [#1773](https://github.com/ember-template-lint/ember-template-lint/pull/1773) Add `--max-warnings` option ([@mukilane](https://github.com/mukilane))
+* [#1770](https://github.com/ember-template-lint/ember-template-lint/pull/1770) Add simplified mechanism for rules to log warnings and errors ([@scalvert](https://github.com/scalvert))
+* [#1769](https://github.com/ember-template-lint/ember-template-lint/pull/1769) Add new rule: `no-class-bindings` ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 5
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Mukil Elango ([@mukilane](https://github.com/mukilane))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v2.19.0 (2021-02-18)
 
 #### :rocket: Enhancement

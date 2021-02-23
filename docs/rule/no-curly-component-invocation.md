@@ -2,6 +2,8 @@
 
 :white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 There are two ways to invoke a component in a template: curly component syntax
 (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The
 difference between them is syntactical. You should favour angle bracket syntax
