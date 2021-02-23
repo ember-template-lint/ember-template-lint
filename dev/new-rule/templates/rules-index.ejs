@@ -1,0 +1,7 @@
+'use strict';
+
+module.exports = {
+<% rules.forEach((rule) => { -%>
+  <% if (rule.includes('-')) { _%>'<%= rule %>'<% } else { _%><%= rule %><% } _%>: require('./<%= rule %>'),
+<% }); _%>
+};

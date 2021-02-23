@@ -1,12 +1,10 @@
 'use strict';
 
-const AstNodeInfo = require('../helpers/ast-node-info');
 const Rule = require('./base');
 
-// TODO Change template to the real error message that you want to report
-const ERROR_MESSAGE = 'Error Message to Report';
+const ERROR_MESSAGE = 'TODO';
 
-module.exports = class PlaceholderForRuleClass extends Rule {
+module.exports = class <%- titleCase %> extends Rule {
   visitor() {
     return {
       // Simple template example: disallowed text present in TextNode
@@ -14,6 +12,7 @@ module.exports = class PlaceholderForRuleClass extends Rule {
         let source = this.sourceForNode(node);
         let disallowedText = 'DisallowedText';
         let failingCondition = source.includes(disallowedText);
+
         if (failingCondition) {
           this.log({
             message: ERROR_MESSAGE,

@@ -20,11 +20,11 @@
     "lint:docs": "markdownlint **/*.md",
     "lint:js": "eslint . --cache",
     "lint:package-json": "sort-package-json --check",
-    "new": "node dev/new-rule/index.js",
+    "new:rule": "node dev/new-rule/index.js",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
     "test:jest": "jest",
-    "update": "node ./scripts/update-rules.js"
+    "update:readme": "node ./scripts/update-rules.js"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
@@ -71,7 +71,9 @@
     "prettier": "^2.2.1",
     "release-it": "^14.4.1",
     "release-it-lerna-changelog": "^3.1.0",
-    "sort-package-json": "^1.49.0"
+    "sort-package-json": "^1.49.0",
+    "yeoman-environment": "^3.0.1",
+    "yeoman-generator": "^5.0.1"
   },
   "engines": {
     "node": "10.* || 12.* || >= 14.*"

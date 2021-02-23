@@ -1,11 +1,10 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/placeholder-for-dasherized-rule');
+const { ERROR_MESSAGE } = require('../../../lib/rules/<%- ruleId %>');
 
 generateRuleTests({
-  name: 'placeholder-for-dasherized-rule',
+  name: '<%- ruleId %>',
 
   config: true,
 
