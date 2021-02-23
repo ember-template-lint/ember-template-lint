@@ -2,6 +2,7 @@ const path = require('path');
 
 const chalk = require('chalk');
 const Generator = require('yeoman-generator');
+
 module.exports = class NewRuleGenerator extends Generator {
   async prompting() {
     this.log(`Generating ${chalk.bold.white('new ember-template-lint rule')}`);
