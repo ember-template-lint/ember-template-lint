@@ -5,6 +5,7 @@ const path = require('path');
 
 const prettier = require('prettier');
 
+const { rules: octaneRules } = require('../lib/config/octane');
 const { rules: recommendedRules } = require('../lib/config/recommended');
 const { rules: stylisticRules } = require('../lib/config/stylistic');
 const rules = require('../lib/rules');
@@ -21,6 +22,7 @@ const tablePlaceholder = /<!--RULES_TABLE_START-->[\S\s]*<!--RULES_TABLE_END-->/
 
 // Config/preset emojis.
 const EMOJI_STAR = ':white_check_mark:';
+const EMOJI_OCTANE = ':car:';
 const EMOJI_STYLISTIC = ':nail_care:';
 const EMOJI_FIXABLE = ':wrench:';
 
@@ -30,11 +32,13 @@ const rulesTableContent = Object.keys(rules)
   .map((ruleName) => {
     // Check which configs this rule is part of.
     const isRecommended = Object.prototype.hasOwnProperty.call(recommendedRules, ruleName);
+    const isOctane = Object.prototype.hasOwnProperty.call(octaneRules, ruleName);
     const isStylistic = Object.prototype.hasOwnProperty.call(stylisticRules, ruleName);
     const isFixable = isRuleFixable(ruleName);
 
     const emoji = [
       isRecommended ? EMOJI_STAR : '',
+      isOctane ? EMOJI_OCTANE : '',
       isStylistic ? EMOJI_STYLISTIC : '',
       isFixable ? EMOJI_FIXABLE : '',
     ].join('');
