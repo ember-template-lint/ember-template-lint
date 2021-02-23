@@ -20,7 +20,7 @@
     "lint:docs": "markdownlint **/*.md",
     "lint:js": "eslint . --cache",
     "lint:package-json": "sort-package-json --check",
-    "new": "node dev/new-rule/index.js",
+    "new:rule": "node dev/new-rule/index.js",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
     "test:jest": "jest",
