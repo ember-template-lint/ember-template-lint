@@ -246,7 +246,8 @@ describe('rule public api', function () {
           rules: {
             'no-html-in-files': class extends Rule {
               visitor() {
-                let fileMatches = path.join(this.workingDir, this.filePath) === 'foo/bar/baz.hbs';
+                let fileMatches =
+                  path.posix.join(this.workingDir, this.filePath) === 'foo/bar/baz.hbs';
 
                 return {
                   ElementNode(node) {
