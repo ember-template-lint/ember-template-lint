@@ -235,4 +235,64 @@ describe('rule public api', function () {
       ],
     });
   });
+
+  describe('local properties', function () {
+    generateRuleTests({
+      plugins: [
+        {
+          name: 'local-properties-test',
+          rules: {
+            'no-html-in-files': class extends Rule {
+              visitor() {
+                let fileMatches = this.filePath === 'foo/bar/baz.hbs';
+
+                return {
+                  ElementNode(node) {
+                    if (!fileMatches) {
+                      return;
+                    }
+
+                    this.log({
+                      message: 'Do not use any HTML elements!',
+                      line: node.loc && node.loc.start.line,
+                      column: node.loc && node.loc.start.column,
+                      source: this.sourceForNode(node),
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'no-html-in-files',
+      config: true,
+
+      bad: [
+        {
+          meta: {
+            filePath: 'foo/bar/baz.hbs',
+          },
+          template: '<div></div>',
+          verifyResults(results) {
+            expect(results).toMatchInlineSnapshot(`
+              Array [
+                Object {
+                  "column": 0,
+                  "filePath": "foo/bar/baz.hbs",
+                  "line": 1,
+                  "message": "Do not use any HTML elements!",
+                  "moduleId": "layout",
+                  "rule": "no-html-in-files",
+                  "severity": 2,
+                  "source": "<div></div>",
+                },
+              ]
+            `);
+          },
+        },
+      ],
+    });
+  });
 });
