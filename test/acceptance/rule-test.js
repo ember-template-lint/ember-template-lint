@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const Rule = require('../../lib/rules/base');
 const generateRuleTests = require('../helpers/rule-test-harness');
 
@@ -244,7 +246,7 @@ describe('rule public api', function () {
           rules: {
             'no-html-in-files': class extends Rule {
               visitor() {
-                let fileMatches = this.filePath === 'foo/bar/baz.hbs';
+                let fileMatches = path.join(this.workingDir, this.filePath) === 'foo/bar/baz.hbs';
 
                 return {
                   ElementNode(node) {
@@ -281,6 +283,29 @@ describe('rule public api', function () {
                 Object {
                   "column": 0,
                   "filePath": "foo/bar/baz.hbs",
+                  "line": 1,
+                  "message": "Do not use any HTML elements!",
+                  "moduleId": "layout",
+                  "rule": "no-html-in-files",
+                  "severity": 2,
+                  "source": "<div></div>",
+                },
+              ]
+            `);
+          },
+        },
+        {
+          meta: {
+            filePath: 'baz.hbs',
+            workingDir: 'foo/bar',
+          },
+          template: '<div></div>',
+          verifyResults(results) {
+            expect(results).toMatchInlineSnapshot(`
+              Array [
+                Object {
+                  "column": 0,
+                  "filePath": "baz.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
                   "moduleId": "layout",
