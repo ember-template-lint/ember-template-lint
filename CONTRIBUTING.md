@@ -38,11 +38,17 @@ If you are opening an issue to request a new feature, please provide:
 
 ```bash
 # create a new rule
-- yarn new rule-name
+- yarn new:rule rule-name
 
 # test rule
 - yarn test:jest rule-name
 
+```
+
+### Updating Rules Table in README
+
+```bash
+- yarn update:readme
 ```
 
 ### Supported Commands
@@ -50,7 +56,7 @@ If you are opening an issue to request a new feature, please provide:
 When working on the linter, you'll need to lint and test your work.
 For the linter, there are a few options:
 
-1. Lint everything at once -  `yarn lint`
+1. Lint everything at once - `yarn lint`
 2. Lint just the docs - `yarn lint:docs .` (to automatically fix issues, run `yarn lint:docs . --fix`)
 3. Lint just the js files - `yarn lint:js` (to automatically fix issues, run `yarn lint:js --fix`)
 
