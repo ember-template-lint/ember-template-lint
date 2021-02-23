@@ -29,7 +29,7 @@ describe('base plugin', function () {
     let ast = parse(template);
 
     for (let ruleConfig of rules) {
-      let { Rule, config } = ruleConfig;
+      let { Rule } = ruleConfig;
 
       let options = Object.assign(
         {},
@@ -43,14 +43,6 @@ describe('base plugin', function () {
         },
         ruleConfig
       );
-
-      let configKeys = Object.keys(config || {});
-
-      for (let key of configKeys) {
-        if (key in options) {
-          options[key] = config[key];
-        }
-      }
 
       options.configResolver = Object.assign({}, ruleConfig.configResolver, {
         editorConfig: () => {
@@ -125,9 +117,12 @@ describe('base plugin', function () {
       }
 
       runRules('foo', [
-        plugin(AwesomeRule, 'awesome-rule', {
+        {
+          Rule: AwesomeRule,
+          name: 'awesome-rule',
+          config: true,
           filePath: 'foo.hbs',
-        }),
+        },
       ]);
     });
 
@@ -139,9 +134,12 @@ describe('base plugin', function () {
       }
 
       runRules('foo', [
-        plugin(AwesomeRule, 'awesome-rule', {
+        {
+          Rule: AwesomeRule,
+          name: 'awesome-rule',
+          config: true,
           moduleName: 'foo/bar',
-        }),
+        },
       ]);
     });
 
@@ -155,7 +153,7 @@ describe('base plugin', function () {
       runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
 
-    it('can access rawSource', function () {
+    it('can access _rawSource', function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this._rawSource).toBe('foo');
@@ -172,7 +170,14 @@ describe('base plugin', function () {
         }
       }
 
-      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', { workingDir: 'foo' })]);
+      runRules('foo', [
+        {
+          Rule: AwesomeRule,
+          name: 'awesome-rule',
+          config: true,
+          workingDir: 'foo',
+        },
+      ]);
     });
 
     it('does not error when accessing editorConfig when no filePath is passed', function () {
