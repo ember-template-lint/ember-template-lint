@@ -3,7 +3,7 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'deprecated-link-to-positional-params',
+  name: 'no-link-to-positional-params',
 
   config: true,
 

@@ -1,6 +1,6 @@
-# deprecated-link-to-positional-params
+# no-link-to-positional-params
 
-Deprecates passing positional parameters into link-to in favor of named arguments.
+Disallows passing positional parameters into link-to in favor of named arguments.
 
 ## Examples
 
