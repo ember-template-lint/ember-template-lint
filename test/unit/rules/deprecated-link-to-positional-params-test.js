@@ -8,8 +8,8 @@ generateRuleTests({
   config: true,
 
   good: [
-    `<LinkTo @route="about">About Us</LinkTo>`,
-    `<LinkTo @route="post" @model={{@post}}>Read {{@post.title}}...</LinkTo>`,
+    '<LinkTo @route="about">About Us</LinkTo>',
+    '<LinkTo @route="post" @model={{@post}}>Read {{@post.title}}...</LinkTo>',
     `<LinkTo @route="post.comment" @models={{array post comment}}>
         Comment by {{comment.author.name}} on {{comment.date}}
       </LinkTo>`,
@@ -20,27 +20,27 @@ generateRuleTests({
 
   bad: [
     {
-      template: `{{link-to "about"}}`,
+      template: '{{link-to "about"}}',
       result: {
         message:
           'Invoking the `<LinkTo>` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (`@route`).',
         line: 1,
         column: 0,
-        source: `{{link-to "about"}}`,
+        source: '{{link-to "about"}}',
       },
     },
     {
-      template: `{{link-to "About Us" "about"}}`,
+      template: '{{link-to "About Us" "about"}}',
       result: {
         message: `Invoking the \`<LinkTo>\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`@route\`) and pass a
   block for the link's content.`,
         line: 1,
         column: 0,
-        source: `{{link-to "About Us" "about"}}`,
+        source: '{{link-to "About Us" "about"}}',
       },
     },
     {
-      template: `{{#link-to "about"}}About Us{{/link-to}}`,
+      template: '{{#link-to "about"}}About Us{{/link-to}}',
       result: {
         message:
           'Invoking the `<LinkTo>` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (`@route`).',
@@ -50,13 +50,13 @@ generateRuleTests({
       },
     },
     {
-      template: `{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}`,
+      template: '{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}',
       result: {
         message:
           'Invoking the `<LinkTo>` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (`@route`, `@model`).',
         line: 1,
         column: 0,
-        source: `{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}`,
+        source: '{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}',
       },
     },
     {
