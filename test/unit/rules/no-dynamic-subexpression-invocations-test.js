@@ -1,6 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const { ruleURL } = require('./../../../lib/rules/base');
 
 generateRuleTests({
   name: 'no-dynamic-subexpression-invocations',
@@ -43,6 +44,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{@thing \\"some-arg\\"}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -63,6 +65,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{this.foo}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -83,6 +86,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{@foo}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -103,6 +107,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{foo.bar}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -123,6 +128,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{@thing \\"some-arg\\"}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -144,6 +150,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{thing \\"some-arg\\"}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -164,6 +171,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{this.thing \\"some-arg\\"}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -184,6 +192,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{lol.other.path \\"some-arg\\"}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -204,6 +213,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "(this.foo)",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -224,6 +234,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{@thing \\"some-arg\\"}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);
@@ -244,6 +255,7 @@ generateRuleTests({
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
               "source": "{{@thing \\"some-arg\\"}}",
+              "url": "${ruleURL('no-dynamic-subexpression-invocations')}",
             },
           ]
         `);

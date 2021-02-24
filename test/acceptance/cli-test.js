@@ -5,6 +5,7 @@ const path = require('path');
 
 const execa = require('execa');
 
+const { ruleURL } = require('../../lib/rules/base');
 const Project = require('../helpers/fake-project');
 const setupEnvVar = require('../helpers/setup-env-var');
 
@@ -917,6 +918,7 @@ describe('ember-template-lint executable', function () {
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Here too!!',
+            url: ruleURL('no-bare-strings'),
           },
           {
             column: 25,
@@ -927,6 +929,7 @@ describe('ember-template-lint executable', function () {
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Bare strings are bad...',
+            url: ruleURL('no-bare-strings'),
           },
         ];
 
@@ -964,6 +967,7 @@ describe('ember-template-lint executable', function () {
             rule: 'require-button-type',
             severity: 2,
             source: '<button>Click me!</button>',
+            url: ruleURL('require-button-type'),
           },
         ];
 
@@ -1009,6 +1013,7 @@ describe('ember-template-lint executable', function () {
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Here too!!',
+            url: ruleURL('no-bare-strings'),
           },
           {
             column: 24,
@@ -1019,6 +1024,7 @@ describe('ember-template-lint executable', function () {
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Bare strings are bad...',
+            url: ruleURL('no-bare-strings'),
           },
         ];
 

@@ -1,6 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const { ruleURL } = require('./../../../lib/rules/base');
 
 generateRuleTests({
   name: 'no-model-argument-in-route-templates',
@@ -48,6 +49,7 @@ generateRuleTests({
               "rule": "no-model-argument-in-route-templates",
               "severity": 2,
               "source": "@model",
+              "url": "${ruleURL('no-model-argument-in-route-templates')}",
             },
           ]
         `);
@@ -69,6 +71,7 @@ generateRuleTests({
               "rule": "no-model-argument-in-route-templates",
               "severity": 2,
               "source": "@model.foo",
+              "url": "${ruleURL('no-model-argument-in-route-templates')}",
             },
           ]
         `);
@@ -90,6 +93,7 @@ generateRuleTests({
               "rule": "no-model-argument-in-route-templates",
               "severity": 2,
               "source": "@model.foo.bar",
+              "url": "${ruleURL('no-model-argument-in-route-templates')}",
             },
           ]
         `);
