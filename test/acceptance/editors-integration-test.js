@@ -50,7 +50,6 @@ describe('editors integration', function () {
           line: 1,
           message: 'Unexpected {{debugger}} usage.',
           filePath: 'template.hbs',
-          moduleId: 'template',
           rule: 'no-debugger',
           severity: 2,
           source: '{{debugger}}',

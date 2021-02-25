@@ -294,7 +294,6 @@ describe('public api', function () {
           line: 1,
           message: 'you must use double quotes in templates',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           rule: 'quotes',
           severity: 2,
           source: "class='mb4'",
@@ -429,7 +428,6 @@ describe('public api', function () {
         {
           message: 'Non-translated string used',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: 'Here too!!',
@@ -439,7 +437,6 @@ describe('public api', function () {
         {
           message: 'Non-translated string used',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 2,
           column: 5,
           source: 'Bare strings are bad...',
@@ -486,7 +483,6 @@ describe('public api', function () {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 2,
         column: 0,
         source: '<div>\n<p></p>\n</div>',
@@ -517,7 +513,6 @@ describe('public api', function () {
         message:
           "Ambiguous path 'barData' is not allowed. Use '@barData' if it is a named argument or 'this.barData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['barData'] }.",
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 2,
         column: 13,
         source: 'barData',
@@ -547,7 +542,6 @@ describe('public api', function () {
       let expected = {
         message: 'Non-translated string used',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 1,
         column: 5,
         source: 'bare string',
@@ -578,7 +572,6 @@ describe('public api', function () {
         {
           message: 'Non-translated string used',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           line: 1,
           column: 5,
           source: 'bare string',
@@ -589,7 +582,6 @@ describe('public api', function () {
           message:
             'Pending module (`some/path/here`) passes `block-indentation` rule. Please remove `block-indentation` from pending rules list.',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
         },
@@ -615,7 +607,6 @@ describe('public api', function () {
           line: 1,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
-          moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
@@ -656,7 +647,6 @@ describe('public api', function () {
           line: 1,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
-          moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
@@ -690,7 +680,6 @@ describe('public api', function () {
           rule: 'no-restricted-invocations',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           message: "Cannot use disallowed helper or component '{{foo}}'",
           line: 1,
           column: 17,
@@ -700,7 +689,6 @@ describe('public api', function () {
           rule: 'no-implicit-this',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           message:
             "Ambiguous path 'foo' is not allowed. Use '@foo' if it is a named argument or 'this.foo' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['foo'] }.",
           line: 1,
@@ -711,7 +699,6 @@ describe('public api', function () {
           rule: 'no-bare-strings',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           message: 'Non-translated string used',
           line: 1,
           column: 5,
@@ -753,7 +740,6 @@ describe('public api', function () {
           filePath: templatePath,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
-          moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
@@ -814,7 +800,6 @@ describe('public api', function () {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 2,
         column: 0,
         source: '<div>\n<p></p>\n</div>',
@@ -846,7 +831,6 @@ describe('public api', function () {
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         severity: 2,
       };
 
@@ -874,7 +858,6 @@ describe('public api', function () {
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         severity: 2,
       };
 
@@ -903,7 +886,6 @@ describe('public api', function () {
           line: 1,
           message: 'Non-translated string used',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           rule: 'no-bare-strings',
           severity: 1,
           source: 'Bare strings are bad',
@@ -912,7 +894,6 @@ describe('public api', function () {
           message:
             'Pending module (`some/path/here`) passes `no-html-comments` rule. Please remove `no-html-comments` from pending rules list.',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
         },
@@ -978,7 +959,6 @@ describe('public api', function () {
         {
           message: "Definition for rule 'missing-rule' was not found",
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           severity: 2,
         },
       ]);
@@ -1003,7 +983,6 @@ describe('public api', function () {
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1054,7 +1033,6 @@ describe('public api', function () {
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1090,7 +1068,6 @@ describe('public api', function () {
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1100,7 +1077,6 @@ describe('public api', function () {
         {
           message: 'Usage of triple curly brackets is unsafe',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 2,
           column: 2,
           source: '{{{this.myVar}}}',
@@ -1137,7 +1113,6 @@ describe('public api', function () {
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1387,7 +1362,6 @@ describe('public api', function () {
           line: 1,
           message: 'you must use double quotes in templates',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           rule: 'quotes',
           severity: 2,
           source: "class='mb4'",
