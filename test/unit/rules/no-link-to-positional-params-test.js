@@ -8,6 +8,14 @@ generateRuleTests({
   config: true,
 
   good: [
+    '{{#link-to route="about"}}About Us{{/link-to}}',
+    '{{#link-to route="post" model=@post}}Read {{@post.title}}...{{/link-to}}',
+    `{{#link-to route="post.comment" models=(array post comment)}}
+        Comment by {{comment.author.name}} on {{comment.date}}
+      {{/link-to}}`,
+    `{{#link-to route="posts" query=(hash direction="desc" showArchived=false)}}
+        Recent Posts
+      {{/link-to}}`,
     '<LinkTo @route="about">About Us</LinkTo>',
     '<LinkTo @route="post" @model={{@post}}>Read {{@post.title}}...</LinkTo>',
     `<LinkTo @route="post.comment" @models={{array post comment}}>
