@@ -235,6 +235,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                                             |
 | :white_check_mark:         | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                                         |
 | :white_check_mark:         | [no-invalid-role](./docs/rule/no-invalid-role.md)                                                         |
+|                            | [no-link-to-positional-params](./docs/rule/no-link-to-positional-params.md)                               |
 |                            | [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   |
 | :white_check_mark:         | [no-log](./docs/rule/no-log.md)                                                                           |
 | :wrench:                   | [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               |
