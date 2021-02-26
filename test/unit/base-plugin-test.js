@@ -35,8 +35,7 @@ describe('base plugin', function () {
         {},
         {
           filePath: ConfigDefaults.filePath,
-          moduleId: ConfigDefaults.moduleId,
-          moduleName: ConfigDefaults.moduleName,
+
           rawSource: template,
           workingDir: ConfigDefaults.workingDir,
           ruleNames,
@@ -122,23 +121,6 @@ describe('base plugin', function () {
           name: 'awesome-rule',
           config: true,
           filePath: 'foo.hbs',
-        },
-      ]);
-    });
-
-    it('can access moduleName', async function () {
-      class AwesomeRule extends Rule {
-        visitor() {
-          expect(this._moduleName).toBe('foo/bar');
-        }
-      }
-
-      await runRules('foo', [
-        {
-          Rule: AwesomeRule,
-          name: 'awesome-rule',
-          config: true,
-          moduleName: 'foo/bar',
         },
       ]);
     });
