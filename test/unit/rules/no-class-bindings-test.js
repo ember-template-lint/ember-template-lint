@@ -1,6 +1,7 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
+const { ruleURL } = require('./../../../lib/rules/base');
 
 generateRuleTests({
   name: 'no-class-bindings',
@@ -26,6 +27,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classBinding=\\"lol:wat\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -47,6 +49,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classBinding=\\"lol:wat\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -68,6 +71,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classNameBindings=\\"lol:foo:bar\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -89,6 +93,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo:bar\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -110,6 +115,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings={{@something}}",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -132,6 +138,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"isTruthy\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -154,6 +161,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo:bar\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -175,6 +183,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -196,6 +205,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo:bar\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -217,6 +227,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo:bar\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -238,6 +249,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -260,6 +272,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo other:true:false\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -283,6 +296,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classBinding=\\"first:yep\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
             Object {
               "column": 52,
@@ -294,6 +308,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "@classNameBindings=\\"lol:foo other:true:false\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -315,6 +330,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classBinding=\\"lol:wat\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -336,6 +352,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classBinding=\\"lol:truthy:falsey\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -358,6 +375,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classBinding=\\"lol:truthy:falsey other:yep:nope\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -379,6 +397,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classBinding=\\"lol:truthy:falsey\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -402,6 +421,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classBinding=\\"lol:truthy:falsey\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);
@@ -424,6 +444,7 @@ generateRuleTests({
               "rule": "no-class-bindings",
               "severity": 2,
               "source": "classBinding=\\"lol:truthy:falsey other:yep:nope\\"",
+              "url": "${ruleURL('no-class-bindings')}",
             },
           ]
         `);

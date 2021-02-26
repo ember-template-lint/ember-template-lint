@@ -6,6 +6,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 const Linter = require('../../lib');
+const { ruleURL } = require('../../lib/rules/base');
 const Project = require('../helpers/fake-project');
 const buildFakeConsole = require('./../helpers/console');
 
@@ -435,6 +436,7 @@ describe('public api', function () {
           source: 'Here too!!',
           rule: 'no-bare-strings',
           severity: 2,
+          url: ruleURL('no-bare-strings'),
         },
         {
           message: 'Non-translated string used',
@@ -445,6 +447,7 @@ describe('public api', function () {
           source: 'Bare strings are bad...',
           rule: 'no-bare-strings',
           severity: 2,
+          url: ruleURL('no-bare-strings'),
         },
       ];
 
@@ -492,6 +495,7 @@ describe('public api', function () {
         source: '<div>\n<p></p>\n</div>',
         rule: 'block-indentation',
         severity: 1,
+        url: ruleURL('block-indentation'),
       };
 
       expect(result).toEqual([expected]);
@@ -523,6 +527,7 @@ describe('public api', function () {
         source: 'barData',
         rule: 'no-implicit-this',
         severity: 1,
+        url: ruleURL('no-implicit-this'),
       };
 
       expect(result).toEqual([expected]);
@@ -553,6 +558,7 @@ describe('public api', function () {
         source: 'bare string',
         rule: 'no-bare-strings',
         severity: 1,
+        url: ruleURL('no-bare-strings'),
       };
 
       expect(result).toEqual([expected]);
@@ -584,6 +590,7 @@ describe('public api', function () {
           source: 'bare string',
           rule: 'no-bare-strings',
           severity: 2,
+          url: ruleURL('no-bare-strings'),
         },
         {
           message:
@@ -592,6 +599,7 @@ describe('public api', function () {
           moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
+          url: ruleURL('no-bare-strings'),
         },
       ];
 
@@ -619,6 +627,7 @@ describe('public api', function () {
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
+          url: ruleURL('no-implicit-this'),
         },
       ];
 
@@ -660,6 +669,7 @@ describe('public api', function () {
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
+          url: ruleURL('no-implicit-this'),
         },
       ];
 
@@ -695,6 +705,7 @@ describe('public api', function () {
           line: 1,
           column: 17,
           source: '{{foo}}',
+          url: ruleURL('no-restricted-invocations'),
         },
         {
           rule: 'no-implicit-this',
@@ -706,6 +717,7 @@ describe('public api', function () {
           line: 1,
           column: 19,
           source: 'foo',
+          url: ruleURL('no-implicit-this'),
         },
         {
           rule: 'no-bare-strings',
@@ -716,6 +728,7 @@ describe('public api', function () {
           line: 1,
           column: 5,
           source: 'bare string ',
+          url: ruleURL('no-bare-strings'),
         },
       ];
 
@@ -757,6 +770,7 @@ describe('public api', function () {
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
+          url: ruleURL('no-implicit-this'),
         },
       ];
 
@@ -820,6 +834,7 @@ describe('public api', function () {
         source: '<div>\n<p></p>\n</div>',
         rule: 'block-indentation',
         severity: 1,
+        url: ruleURL('block-indentation'),
       };
 
       expect(result).toEqual([expected]);
@@ -848,6 +863,7 @@ describe('public api', function () {
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
         severity: 2,
+        url: ruleURL('invalid-pending-module'),
       };
 
       expect(result).toEqual([expected]);
@@ -876,6 +892,7 @@ describe('public api', function () {
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
         severity: 2,
+        url: ruleURL('invalid-pending-module'),
       };
 
       expect(result).toEqual([expected]);
@@ -907,6 +924,7 @@ describe('public api', function () {
           rule: 'no-bare-strings',
           severity: 1,
           source: 'Bare strings are bad',
+          url: ruleURL('no-bare-strings'),
         },
         {
           message:
@@ -915,6 +933,7 @@ describe('public api', function () {
           moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
+          url: ruleURL('invalid-pending-module-rule'),
         },
       ];
 
@@ -1009,6 +1028,7 @@ describe('public api', function () {
           source: '{{component value="Hej"}}',
           rule: 'inline-component',
           severity: 2,
+          url: ruleURL('inline-component'),
         },
       ];
 
@@ -1060,6 +1080,7 @@ describe('public api', function () {
           source: '{{component value="Hej"}}',
           rule: 'inline-component',
           severity: 2,
+          url: ruleURL('inline-component'),
         },
       ];
 
@@ -1096,6 +1117,7 @@ describe('public api', function () {
           source: '{{component value="Hej"}}',
           rule: 'inline-component',
           severity: 2,
+          url: ruleURL('inline-component'),
         },
         {
           message: 'Usage of triple curly brackets is unsafe',
@@ -1106,6 +1128,7 @@ describe('public api', function () {
           source: '{{{this.myVar}}}',
           rule: 'no-triple-curlies',
           severity: 2,
+          url: ruleURL('no-triple-curlies'),
         },
       ];
 
@@ -1143,6 +1166,7 @@ describe('public api', function () {
           source: '{{component value="Hej"}}',
           rule: 'inline-component',
           severity: 2,
+          url: ruleURL('inline-component'),
         },
       ];
 
