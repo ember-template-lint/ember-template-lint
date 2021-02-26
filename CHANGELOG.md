@@ -1,3 +1,16 @@
+## v2.21.0 (2021-02-26)
+
+#### :rocket: Enhancement
+* [#1787](https://github.com/ember-template-lint/ember-template-lint/pull/1787) New rule: no-link-to-positional-params ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#1791](https://github.com/ember-template-lint/ember-template-lint/pull/1791) Revert no-class-bindings fixer. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v2.20.0 (2021-02-23)
 
 #### :rocket: Enhancement
