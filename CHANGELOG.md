@@ -52,68 +52,6 @@
 #### Committers: 1
 - Steve Calvert ([@scalvert](https://github.com/scalvert))
 
-## v2.20.0 (2021-02-23)
-
-#### :rocket: Enhancement
-* [#1729](https://github.com/ember-template-lint/ember-template-lint/pull/1729) Make `this.filePath` and `this.workingDir` available to plugins ([@lifeart](https://github.com/lifeart))
-* [#1594](https://github.com/ember-template-lint/ember-template-lint/pull/1594) Implement autofixer for `no-curly-component-invocation` ([@lifeart](https://github.com/lifeart))
-* [#1774](https://github.com/ember-template-lint/ember-template-lint/pull/1774) Add fixer for `no-class-bindings` rule. ([@rwjblue](https://github.com/rwjblue))
-* [#1773](https://github.com/ember-template-lint/ember-template-lint/pull/1773) Add `--max-warnings` option ([@mukilane](https://github.com/mukilane))
-* [#1770](https://github.com/ember-template-lint/ember-template-lint/pull/1770) Add simplified mechanism for rules to log warnings and errors ([@scalvert](https://github.com/scalvert))
-* [#1769](https://github.com/ember-template-lint/ember-template-lint/pull/1769) Add new rule: `no-class-bindings` ([@scalvert](https://github.com/scalvert))
-
-#### Committers: 5
-- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
-- Mukil Elango ([@mukilane](https://github.com/mukilane))
-- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
-- Steve Calvert ([@scalvert](https://github.com/scalvert))
-- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
-## v2.19.0 (2021-02-18)
-
-#### :rocket: Enhancement
-* [#1759](https://github.com/ember-template-lint/ember-template-lint/pull/1759) Add new rule: `no-capital-arguments` ([@lifeart](https://github.com/lifeart))
-* [#1760](https://github.com/ember-template-lint/ember-template-lint/pull/1760) chore: Deprecating moduleId and moduleName in Rule base class ([@scalvert](https://github.com/scalvert))
-* [#1734](https://github.com/ember-template-lint/ember-template-lint/pull/1734) Add new rule: `no-unknown-arguments-for-builtin-components` ([@lifeart](https://github.com/lifeart))
-* [#1717](https://github.com/ember-template-lint/ember-template-lint/pull/1717) Allow `meta` in `<head>` contexts ([@MelSumner](https://github.com/MelSumner))
-* [#1672](https://github.com/ember-template-lint/ember-template-lint/pull/1672) Add new rule: `require-splattributes` ([@Turbo87](https://github.com/Turbo87))
-* [#1736](https://github.com/ember-template-lint/ember-template-lint/pull/1736) Add fixer for require-has-block-helper rule ([@patocallaghan](https://github.com/patocallaghan))
-* [#1731](https://github.com/ember-template-lint/ember-template-lint/pull/1731) Add `require-has-block-helper` lint rule ([@patocallaghan](https://github.com/patocallaghan))
-
-#### :memo: Documentation
-* [#1738](https://github.com/ember-template-lint/ember-template-lint/pull/1738) Removes duplicate main from `no-duplicate-landmarks` documentation ([@skaterdav85](https://github.com/skaterdav85))
-
-#### :house: Internal
-* [#1758](https://github.com/ember-template-lint/ember-template-lint/pull/1758) chore: fix require-has-block-helper readme linting error ([@lifeart](https://github.com/lifeart))
-* [#1735](https://github.com/ember-template-lint/ember-template-lint/pull/1735) Add test to `no-invalid-meta` for ember-cli default value ([@rwjblue](https://github.com/rwjblue))
-
-#### Committers: 8
-- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
-- David Tang ([@skaterdav85](https://github.com/skaterdav85))
-- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
-- Pat O'Callaghan ([@patocallaghan](https://github.com/patocallaghan))
-- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
-- Steve Calvert ([@scalvert](https://github.com/scalvert))
-- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
-- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
-## v2.18.0 (2021-01-28)
-
-#### :rocket: Enhancement
-* [#1716](https://github.com/ember-template-lint/ember-template-lint/pull/1716) Add `no-dynamic-subexpression-invocations`. ([@rwjblue](https://github.com/rwjblue))
-
-#### :bug: Bug Fix
-* [#1715](https://github.com/ember-template-lint/ember-template-lint/pull/1715) Prevent todo removal when using `--update-todo` a subset of normal project configuration ([@scalvert](https://github.com/scalvert))
-
-#### :memo: Documentation
-* [#1711](https://github.com/ember-template-lint/ember-template-lint/pull/1711) Add missing changes to 3.0.0-beta.1 CHANGELOG ([@rwjblue](https://github.com/rwjblue))
-
-#### Committers: 3
-- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
-- Steve Calvert ([@scalvert](https://github.com/scalvert))
-- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
-
 ## v3.0.0-beta.2 (2021-01-25)
 
 #### :rocket: Enhancement
@@ -217,6 +155,62 @@
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 - [@jaydgruber](https://github.com/jaydgruber)
 
+## v2.21.0 (2021-02-26)
+
+#### :rocket: Enhancement
+* [#1787](https://github.com/ember-template-lint/ember-template-lint/pull/1787) New rule: no-link-to-positional-params ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#1791](https://github.com/ember-template-lint/ember-template-lint/pull/1791) Revert no-class-bindings fixer. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+## v2.20.0 (2021-02-23)
+
+#### :rocket: Enhancement
+* [#1729](https://github.com/ember-template-lint/ember-template-lint/pull/1729) Make `this.filePath` and `this.workingDir` available to plugins ([@lifeart](https://github.com/lifeart))
+* [#1594](https://github.com/ember-template-lint/ember-template-lint/pull/1594) Implement autofixer for `no-curly-component-invocation` ([@lifeart](https://github.com/lifeart))
+* [#1774](https://github.com/ember-template-lint/ember-template-lint/pull/1774) Add fixer for `no-class-bindings` rule. ([@rwjblue](https://github.com/rwjblue))
+* [#1773](https://github.com/ember-template-lint/ember-template-lint/pull/1773) Add `--max-warnings` option ([@mukilane](https://github.com/mukilane))
+* [#1770](https://github.com/ember-template-lint/ember-template-lint/pull/1770) Add simplified mechanism for rules to log warnings and errors ([@scalvert](https://github.com/scalvert))
+* [#1769](https://github.com/ember-template-lint/ember-template-lint/pull/1769) Add new rule: `no-class-bindings` ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 5
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Mukil Elango ([@mukilane](https://github.com/mukilane))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+## v2.19.0 (2021-02-18)
+
+#### :rocket: Enhancement
+* [#1759](https://github.com/ember-template-lint/ember-template-lint/pull/1759) Add new rule: `no-capital-arguments` ([@lifeart](https://github.com/lifeart))
+* [#1760](https://github.com/ember-template-lint/ember-template-lint/pull/1760) chore: Deprecating moduleId and moduleName in Rule base class ([@scalvert](https://github.com/scalvert))
+* [#1734](https://github.com/ember-template-lint/ember-template-lint/pull/1734) Add new rule: `no-unknown-arguments-for-builtin-components` ([@lifeart](https://github.com/lifeart))
+* [#1717](https://github.com/ember-template-lint/ember-template-lint/pull/1717) Allow `meta` in `<head>` contexts ([@MelSumner](https://github.com/MelSumner))
+* [#1672](https://github.com/ember-template-lint/ember-template-lint/pull/1672) Add new rule: `require-splattributes` ([@Turbo87](https://github.com/Turbo87))
+* [#1736](https://github.com/ember-template-lint/ember-template-lint/pull/1736) Add fixer for require-has-block-helper rule ([@patocallaghan](https://github.com/patocallaghan))
+* [#1731](https://github.com/ember-template-lint/ember-template-lint/pull/1731) Add `require-has-block-helper` lint rule ([@patocallaghan](https://github.com/patocallaghan))
+
+#### :memo: Documentation
+* [#1738](https://github.com/ember-template-lint/ember-template-lint/pull/1738) Removes duplicate main from `no-duplicate-landmarks` documentation ([@skaterdav85](https://github.com/skaterdav85))
+
+#### :house: Internal
+* [#1758](https://github.com/ember-template-lint/ember-template-lint/pull/1758) chore: fix require-has-block-helper readme linting error ([@lifeart](https://github.com/lifeart))
+* [#1735](https://github.com/ember-template-lint/ember-template-lint/pull/1735) Add test to `no-invalid-meta` for ember-cli default value ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 8
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- David Tang ([@skaterdav85](https://github.com/skaterdav85))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Pat O'Callaghan ([@patocallaghan](https://github.com/patocallaghan))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v2.18.1 (2021-02-02)
 
@@ -226,7 +220,6 @@
 #### Committers: 2
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
 
 ## v2.18.0 (2021-01-28)
 
