@@ -49,7 +49,7 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@babel/parser": "^7.12.16",
+    "@babel/parser": "^7.13.4",
     "@babel/traverse": "^7.12.17",
     "common-tags": "^1.8.0",
     "eslint": "^7.21.0",
