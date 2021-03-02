@@ -44,7 +44,6 @@
 * [#1714](https://github.com/ember-template-lint/ember-template-lint/pull/1714) Update recommended config to include 'no-down-event-binding' ([@MelSumner](https://github.com/MelSumner))
 * [#1697](https://github.com/ember-template-lint/ember-template-lint/pull/1697) Allow rule visitor to be an async function (remove `env` argument) ([@lifeart](https://github.com/lifeart))
 * [#1388](https://github.com/ember-template-lint/ember-template-lint/pull/1388) Remove automatic `TextNode` unwrapping by `attributeValue` functions in `ast-node-info` helper ([@josephdsumner](https://github.com/josephdsumner))
-* [#1647](https://github.com/ember-template-lint/ember-template-lint/pull/1647) Enable `no-model-argument-in-route-templates` as a `recommended` rule ([@bmish](https://github.com/bmish))
 * [#1643](https://github.com/ember-template-lint/ember-template-lint/pull/1643) Enable more `recommended` rules ([@bmish](https://github.com/bmish))
 * [#1642](https://github.com/ember-template-lint/ember-template-lint/pull/1642) Update `noImplicitThis` option default to true and `requireDash` option default to false in `no-curly-component-invocation` rule ([@bmish](https://github.com/bmish))
 * [#1639](https://github.com/ember-template-lint/ember-template-lint/pull/1639) Promote `octane` rules to `recommended` config and delete `octane` config ([@bmish](https://github.com/bmish))
