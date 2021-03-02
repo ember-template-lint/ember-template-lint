@@ -1300,7 +1300,6 @@ describe('public api', function () {
     });
 
     it('[.html] does not identify errors for ember-cli default tests/index.html (3.20)', async function () {
-      // reset config to default value
       project.setConfig();
 
       project.write({
@@ -1447,6 +1446,257 @@ describe('public api', function () {
 
       expect(result.messages).toEqual([]);
       expect(result.output).toEqual('\uFEFF<button type="button">LOL, Click me!</button>');
+      expect(result.isFixed).toEqual(true);
+    });
+
+    it("[.html] files with DOCTYPE using different casings won't cause errors", async function () {
+      project.setConfig();
+
+      const templates = {
+        'DOCTYPE.html': `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <p>Foo</p>
+</body>
+</html>`,
+        'doctype.html': `
+<!doctype html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <p>Foo</p>
+</body>
+</html>`,
+        'DocType.html': `
+<!DocType html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <p>Foo</p>
+</body>
+</html>`,
+      };
+
+      project.write({
+        app: templates,
+      });
+
+      for (const path in templates) {
+        if (Object.prototype.hasOwnProperty.call(templates, path)) {
+          let templatePath = project.path(`app/${path}`);
+          let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+          let results = await linter.verify({
+            source: templateContents,
+            filePath: templatePath,
+            moduleId: templatePath.slice(0, -4),
+          });
+
+          expect(results).toEqual([]);
+        }
+      }
+    });
+
+    it('[.html] <DOCTYPE html> (with newline) stripping does not affect line numbers for violations', async function () {
+      project.write({
+        app: {
+          'index.html': `<!-- LOLOLOLOLOLOL -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <button>LOL, Click me!</button>
+</body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      const result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -5),
+      });
+
+      expect(result).toEqual([
+        {
+          column: 2,
+          filePath: templatePath,
+          isFixable: true,
+          line: 8,
+          message: 'All `<button>` elements should have a valid `type` attribute',
+          moduleId: templatePath.slice(0, -5),
+          rule: 'require-button-type',
+          severity: 2,
+          source: '<button>LOL, Click me!</button>',
+        },
+      ]);
+    });
+
+    it('[.html] <DOCTYPE html> (with newline) stripping does not affect line numbers for violations', async function () {
+      project.write({
+        app: {
+          'index.html': `<!DOCTYPE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <button>LOL, Click me!</button>
+</body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      const result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -5),
+      });
+
+      expect(result).toEqual([
+        {
+          column: 2,
+          filePath: templatePath,
+          isFixable: true,
+          line: 7,
+          message: 'All `<button>` elements should have a valid `type` attribute',
+          moduleId: templatePath.slice(0, -5),
+          rule: 'require-button-type',
+          severity: 2,
+          source: '<button>LOL, Click me!</button>',
+        },
+      ]);
+    });
+
+    it('[.html] <DOCTYPE html> (no newlines) stripping does not affect line numbers for violations', async function () {
+      project.write({
+        app: {
+          'index.html': `<!DOCTYPE html><html><head><title>MyApp</title></head><body><button>LOL, Click me!</button></body></html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      const result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -5),
+      });
+
+      expect(result).toEqual([
+        {
+          column: 61,
+          filePath: templatePath,
+          isFixable: true,
+          line: 1,
+          message: 'All `<button>` elements should have a valid `type` attribute',
+          moduleId: templatePath.slice(0, -5),
+          rule: 'require-button-type',
+          severity: 2,
+          source: '<button>LOL, Click me!</button>',
+        },
+      ]);
+    });
+
+    it('[.html] files with DOCTYPE are fixable and updated output includes original DOCTYPE if source includes it', async function () {
+      const templateContents = `
+<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button>LOL, Click me!</button>
+</body>
+</html>`;
+
+      project.write({
+        app: {
+          templates: {
+            'DOCTYPE.html': templateContents,
+          },
+        },
+      });
+
+      const templatePath = project.path('app/templates/DOCTYPE.html');
+
+      const result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual(`
+<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button type="button">LOL, Click me!</button>
+</body>
+</html>`);
+      expect(result.isFixed).toEqual(true);
+    });
+
+    it('[.html] files with DOCTYPE are fixable and updated output includes DOCTYPE and Byte Order Mark if source includes them', async function () {
+      const templateContents = `\uFEFF<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button>LOL, Click me!</button>
+</body>
+</html>`;
+
+      project.write({
+        app: {
+          templates: {
+            'DOCTYPE.html': templateContents,
+          },
+        },
+      });
+
+      const templatePath = project.path('app/templates/DOCTYPE.html');
+
+      const result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual(`\uFEFF<!DoCtYpE html>
+<html>
+<head>
+  <title>MyApp</title>
+</head>
+<body>
+  <!-- COMMENT -->
+  <button type="button">LOL, Click me!</button>
+</body>
+</html>`);
       expect(result.isFixed).toEqual(true);
     });
   });
