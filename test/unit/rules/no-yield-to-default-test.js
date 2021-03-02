@@ -25,7 +25,6 @@ generateRuleTests({
     {
       template: '{{yield to="default"}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 8,
@@ -35,7 +34,6 @@ generateRuleTests({
     {
       template: '{{has-block "default"}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 12,
@@ -45,7 +43,6 @@ generateRuleTests({
     {
       template: '{{has-block-params "default"}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 19,
@@ -55,7 +52,6 @@ generateRuleTests({
     {
       template: '{{hasBlock "default"}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 11,
@@ -65,7 +61,6 @@ generateRuleTests({
     {
       template: '{{hasBlockParams "default"}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 17,
@@ -75,7 +70,6 @@ generateRuleTests({
     {
       template: '{{if (has-block "default")}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 16,
@@ -85,7 +79,6 @@ generateRuleTests({
     {
       template: '{{#if (has-block "default")}}{{/if}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 17,
@@ -95,7 +88,6 @@ generateRuleTests({
     {
       template: '{{if (has-block-params "default")}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 23,
@@ -105,7 +97,6 @@ generateRuleTests({
     {
       template: '{{#if (has-block-params "default")}}{{/if}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 24,
@@ -115,7 +106,6 @@ generateRuleTests({
     {
       template: '{{if (hasBlock "default")}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 15,
@@ -125,7 +115,6 @@ generateRuleTests({
     {
       template: '{{#if (hasBlock "default")}}{{/if}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 16,
@@ -135,7 +124,6 @@ generateRuleTests({
     {
       template: '{{if (hasBlockParams "default")}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 21,
@@ -145,7 +133,6 @@ generateRuleTests({
     {
       template: '{{#if (hasBlockParams "default")}}{{/if}}',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE,
         line: 1,
         column: 22,

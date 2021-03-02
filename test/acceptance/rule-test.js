@@ -79,7 +79,6 @@ describe('rule public api', function () {
                   "filePath": "layout.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
-                  "moduleId": "layout",
                   "rule": "no-elements",
                   "severity": 2,
                   "source": "<div></div>",
@@ -92,6 +91,53 @@ describe('rule public api', function () {
           name: 'can use verifyResults directly (with external snapshots)',
           template: '<div></div>',
           verifyResults: verifyWithExternalSnapshot,
+        },
+      ],
+    });
+  });
+
+  describe('async rule visitor support', function () {
+    generateRuleTests({
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'rule-with-async-visitor-hook': class extends Rule {
+              async visitor() {
+                await new Promise((resolve) => setTimeout(resolve, 10));
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use any <promise> HTML elements!',
+                      line: node.loc && node.loc.start.line,
+                      column: node.loc && node.loc.start.column,
+                      source: this.sourceForNode(node),
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'rule-with-async-visitor-hook',
+      config: true,
+
+      good: ['{{haha-wtf}}'],
+
+      bad: [
+        {
+          name: 'uses async visitor',
+          template: '<promise></promise>',
+          results: [
+            {
+              column: 0,
+              line: 1,
+              message: 'Do not use any <promise> HTML elements!',
+              source: '<promise></promise>',
+            },
+          ],
         },
       ],
     });
@@ -286,7 +332,6 @@ describe('rule public api', function () {
                   "filePath": "foo/bar/baz.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
-                  "moduleId": "layout",
                   "rule": "no-html-in-files",
                   "severity": 2,
                   "source": "<div></div>",
@@ -309,7 +354,6 @@ describe('rule public api', function () {
                   "filePath": "baz.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
-                  "moduleId": "layout",
                   "rule": "no-html-in-files",
                   "severity": 2,
                   "source": "<div></div>",

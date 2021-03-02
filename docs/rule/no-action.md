@@ -1,6 +1,6 @@
 # no-action
 
-:car: The `extends: 'octane'` property in a configuration file enables this rule.
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 What's wrong with `{{action}}`?
 

@@ -1,5 +1,7 @@
 # no-down-event-binding
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Many browser events have both an "up" and a "down" version that can be listened to (`key{up,down}`, `mouse{up,down}`, etc). For accessibility purposes, it's better to bind to the "up" event. This rule helps guide developers in the right direction by calling out binding to the "down" event.
 
 ## Examples

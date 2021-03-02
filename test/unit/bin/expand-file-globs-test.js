@@ -22,6 +22,19 @@ describe('expandFileGlobs', function () {
       expect(files).toEqual(new Set(['application.hbs']));
     });
 
+    it('resolves arbitrary file extensions (different working directory)', function () {
+      project.chdir();
+      project.write({ 'application.foobarbaz': 'almost empty' });
+
+      let ignorePatterns = [];
+      function glob() {
+        throw new Error('Should not use globbing for exact file matches');
+      }
+
+      let files = expandFileGlobs(project.baseDir, ['application.foobarbaz'], ignorePatterns, glob);
+      expect(files).toEqual(new Set(['application.foobarbaz']));
+    });
+
     it('respects a basic ignore option (different working directory)', function () {
       project.write({ 'application.hbs': 'almost empty' });
 
@@ -39,6 +52,19 @@ describe('expandFileGlobs', function () {
 
       let files = expandFileGlobs(project.baseDir, ['application.hbs', 'other.hbs'], []);
       expect(files).toEqual(new Set(['application.hbs']));
+    });
+
+    it('resolves arbitrary file extensions (within working directory)', function () {
+      project.chdir();
+      project.write({ 'application.foobarbaz': 'almost empty' });
+
+      let ignorePatterns = [];
+      function glob() {
+        throw new Error('Should not use globbing for exact file matches');
+      }
+
+      let files = expandFileGlobs(project.baseDir, ['application.foobarbaz'], ignorePatterns, glob);
+      expect(files).toEqual(new Set(['application.foobarbaz']));
     });
 
     it('respects a basic ignore option (within working directory)', function () {

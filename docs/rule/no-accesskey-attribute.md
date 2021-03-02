@@ -1,5 +1,7 @@
 # no-accesskey-attribute
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 :wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 Enforce no accesskey prop on element. Access keys are HTML attributes that allow web developers to assign keyboard shortcuts to elements. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreader and keyboard only users create accessibility complications so to avoid complications, access keys should not be used.

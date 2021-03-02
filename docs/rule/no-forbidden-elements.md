@@ -1,5 +1,7 @@
 # no-forbidden-elements
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule disallows the use of forbidden elements in template files.
 
 The rule is configurable so teams can add their own disallowed elements.

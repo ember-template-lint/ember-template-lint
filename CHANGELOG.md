@@ -1,3 +1,160 @@
+## v3.0.0-beta.5 (2021-02-13)
+
+#### :rocket: Enhancement
+* [#1736](https://github.com/ember-template-lint/ember-template-lint/pull/1736) Add fixer for require-has-block-helper rule ([@patocallaghan](https://github.com/patocallaghan))
+* [#1731](https://github.com/ember-template-lint/ember-template-lint/pull/1731) Add `require-has-block-helper` lint rule ([@patocallaghan](https://github.com/patocallaghan))
+
+#### :bug: Bug Fix
+* [#1749](https://github.com/ember-template-lint/ember-template-lint/pull/1749) Fixes invalid link resulting in 404 for todos docs. ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#1738](https://github.com/ember-template-lint/ember-template-lint/pull/1738) Removes duplicate main from `no-duplicate-landmarks` documentation ([@skaterdav85](https://github.com/skaterdav85))
+
+#### :house: Internal
+* [#1735](https://github.com/ember-template-lint/ember-template-lint/pull/1735) Add test to `no-invalid-meta` for ember-cli default value ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 5
+- David Tang ([@skaterdav85](https://github.com/skaterdav85))
+- Pat O'Callaghan ([@patocallaghan](https://github.com/patocallaghan))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
+
+## v3.0.0-beta.4 (2021-02-10)
+
+#### :boom: Breaking Change
+* [#1747](https://github.com/ember-template-lint/ember-template-lint/pull/1747) Avoid linting `.html` files by default ([@scalvert](https://github.com/scalvert))
+* [#1714](https://github.com/ember-template-lint/ember-template-lint/pull/1714) Update recommended config to include 'no-down-event-binding' ([@MelSumner](https://github.com/MelSumner))
+
+#### :bug: Bug Fix
+* [#1739](https://github.com/ember-template-lint/ember-template-lint/pull/1739) Fixes issue where todos were deleted from a different engine ([@scalvert](https://github.com/scalvert))
+* [#1722](https://github.com/ember-template-lint/ember-template-lint/pull/1722) No invalid roles fatal error fix ([@renatoi](https://github.com/renatoi))
+
+#### :memo: Documentation
+* [#1725](https://github.com/ember-template-lint/ember-template-lint/pull/1725) Fixes markdown bugs in todo documentation ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* [#1737](https://github.com/ember-template-lint/ember-template-lint/pull/1737) Moves todo tests to their own file ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 3
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Renato Iwashima ([@renatoi](https://github.com/renatoi))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v3.0.0-beta.3 (2021-01-29)
+
+#### :bug: Bug Fix
+* [#1719](https://github.com/ember-template-lint/ember-template-lint/pull/1719) Fixes todo creation/removal when using scoped configurations. ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+## v3.0.0-beta.2 (2021-01-25)
+
+#### :rocket: Enhancement
+* [#1710](https://github.com/ember-template-lint/ember-template-lint/pull/1710) Adds `octane` config back as an alias of `recommended` ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v3.0.0-beta.1 (2021-01-25)
+
+#### :boom: Breaking Change
+* [#1697](https://github.com/ember-template-lint/ember-template-lint/pull/1697) Allow rule visitor to be an async function (remove `env` argument) ([@lifeart](https://github.com/lifeart))
+* [#1388](https://github.com/ember-template-lint/ember-template-lint/pull/1388) Remove automatic `TextNode` unwrapping by `attributeValue` functions in `ast-node-info` helper ([@josephdsumner](https://github.com/josephdsumner))
+
+#### :bug: Bug Fix
+* [#1706](https://github.com/ember-template-lint/ember-template-lint/pull/1706) Fixes todo creation messaging to include correct counts ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Joseph D. Sumner ([@josephdsumner](https://github.com/josephdsumner))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v3.0.0-beta.0 (2021-01-14)
+
+#### :boom: Breaking Change
+* [#1647](https://github.com/ember-template-lint/ember-template-lint/pull/1647) Enable `no-model-argument-in-route-templates` as a `recommended` rule ([@bmish](https://github.com/bmish))
+* [#1643](https://github.com/ember-template-lint/ember-template-lint/pull/1643) Enable more `recommended` rules ([@bmish](https://github.com/bmish))
+* [#1642](https://github.com/ember-template-lint/ember-template-lint/pull/1642) Update `noImplicitThis` option default to true and `requireDash` option default to false in `no-curly-component-invocation` rule ([@bmish](https://github.com/bmish))
+* [#1639](https://github.com/ember-template-lint/ember-template-lint/pull/1639) Promote `octane` rules to `recommended` config and delete `octane` config ([@bmish](https://github.com/bmish))
+* [#1638](https://github.com/ember-template-lint/ember-template-lint/pull/1638) Add more rules to `stylistic` config ([@bmish](https://github.com/bmish))
+* [#1586](https://github.com/ember-template-lint/ember-template-lint/pull/1586) Add `no-aria-hidden-body` and `table-groups` rules to `a11y` config ([@MelSumner](https://github.com/MelSumner))
+* [#1549](https://github.com/ember-template-lint/ember-template-lint/pull/1549) Add `<textarea>` and `<select>` support to `require-input-label` rule ([@zelaznik](https://github.com/zelaznik))
+* [#1232](https://github.com/ember-template-lint/ember-template-lint/pull/1232) Add `.html` to supported file extensions ([@lifeart](https://github.com/lifeart))
+* [#1553](https://github.com/ember-template-lint/ember-template-lint/pull/1553) Convert `Linter.prototype.verify` and `Linter.prototype.verifyAndFix` to be async. ([@scalvert](https://github.com/scalvert))
+* [#1532](https://github.com/ember-template-lint/ember-template-lint/pull/1532) Add `s` and `u` elements to `no-obsolete-elements` rule elements list ([@bmish](https://github.com/bmish))
+* [#1535](https://github.com/ember-template-lint/ember-template-lint/pull/1535) Remove support for deprecated rule names ([@bmish](https://github.com/bmish))
+* [#1534](https://github.com/ember-template-lint/ember-template-lint/pull/1534) Enable `catchNonexistentRoles` by default on `no-invalid-role` rule ([@bmish](https://github.com/bmish))
+* [#1513](https://github.com/ember-template-lint/ember-template-lint/pull/1513) Fix `extends` overriding order ([@Turbo87](https://github.com/Turbo87))
+* [#1490](https://github.com/ember-template-lint/ember-template-lint/pull/1490) remove deprecated `whitelist` & `blacklist` configurations ([@jaydgruber](https://github.com/jaydgruber))
+* [#1463](https://github.com/ember-template-lint/ember-template-lint/pull/1463) ast-node-info: Remove trivial `isNode()` helpers ([@Turbo87](https://github.com/Turbo87))
+* [#1460](https://github.com/ember-template-lint/ember-template-lint/pull/1460) ast-node-info: Remove trivial `isElement()` helpers ([@Turbo87](https://github.com/Turbo87))
+* [#1452](https://github.com/ember-template-lint/ember-template-lint/pull/1452) Drop support for Node 13 ([@MelSumner](https://github.com/MelSumner))
+
+#### :rocket: Enhancement
+* [#1688](https://github.com/ember-template-lint/ember-template-lint/pull/1688) todos: Adds output feedback when creating TODOs ([@scalvert](https://github.com/scalvert))
+* [#1675](https://github.com/ember-template-lint/ember-template-lint/pull/1675) todos: Adding ability to set days to decay to warn/error ([@scalvert](https://github.com/scalvert))
+* [#1356](https://github.com/ember-template-lint/ember-template-lint/pull/1356) Add new rule: `no-yield-to-default` ([@rajasegar](https://github.com/rajasegar))
+* [#1665](https://github.com/ember-template-lint/ember-template-lint/pull/1665) todos: Hide pending option from help output ([@scalvert](https://github.com/scalvert))
+* [#1611](https://github.com/ember-template-lint/ember-template-lint/pull/1611) Implements new todo functionality (replaces pending) ([@renatoi](https://github.com/renatoi))
+* [#1652](https://github.com/ember-template-lint/ember-template-lint/pull/1652) Add new rule `no-mut-helper` ([@collinadams](https://github.com/collinadams))
+* [#1653](https://github.com/ember-template-lint/ember-template-lint/pull/1653) Add autofixer for `no-redundant-landmark-role` rule ([@MelSumner](https://github.com/MelSumner))
+* [#1596](https://github.com/ember-template-lint/ember-template-lint/pull/1596) Add new rule `no-model-argument-in-route-templates` ([@rwjblue](https://github.com/rwjblue))
+* [#1629](https://github.com/ember-template-lint/ember-template-lint/pull/1629) chore(deps): bump ember-template-recast from 4.2.1 to 5.0.1 ([@dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+* [#1623](https://github.com/ember-template-lint/ember-template-lint/pull/1623) Add new rule `splat-attributes-only` ([@Turbo87](https://github.com/Turbo87))
+* [#1620](https://github.com/ember-template-lint/ember-template-lint/pull/1620) Add new rule `no-down-event-binding` ([@alexlafroscia](https://github.com/alexlafroscia))
+* [#1595](https://github.com/ember-template-lint/ember-template-lint/pull/1595) Allow passing a top-level `meta` property ([@rwjblue](https://github.com/rwjblue))
+* [#632](https://github.com/ember-template-lint/ember-template-lint/pull/632) Add new rule `no-accesskey-attribute` ([@lifeart](https://github.com/lifeart))
+* [#1556](https://github.com/ember-template-lint/ember-template-lint/pull/1556) Allow linting individual files with arbitrary extensions. ([@rwjblue](https://github.com/rwjblue))
+* [#1549](https://github.com/ember-template-lint/ember-template-lint/pull/1549) Add `<textarea>` and `<select>` support to `require-input-label` rule ([@zelaznik](https://github.com/zelaznik))
+* [#1232](https://github.com/ember-template-lint/ember-template-lint/pull/1232) Add `.html` to supported file extensions ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#1683](https://github.com/ember-template-lint/ember-template-lint/pull/1683) todos: Update error message for resolved todos ([@MelSumner](https://github.com/MelSumner))
+* [#1687](https://github.com/ember-template-lint/ember-template-lint/pull/1687) Respect extends order and rules overrides ([@renatoi](https://github.com/renatoi))
+* [#1678](https://github.com/ember-template-lint/ember-template-lint/pull/1678) Fix broken link to shell script ([@bmish](https://github.com/bmish))
+* [#1668](https://github.com/ember-template-lint/ember-template-lint/pull/1668) Remove explicit GitHub Actions reporter ([@Turbo87](https://github.com/Turbo87))
+* [#1655](https://github.com/ember-template-lint/ember-template-lint/pull/1655) Revert "Enable `no-model-argument-in-route-templates` as a `recommended` rule" ([@rwjblue](https://github.com/rwjblue))
+* [#1606](https://github.com/ember-template-lint/ember-template-lint/pull/1606) Fix false positive with content within `{{#if}}`/`{{else}}` blocks in `no-duplicate-id` rule ([@MelSumner](https://github.com/MelSumner))
+* [#1605](https://github.com/ember-template-lint/ember-template-lint/pull/1605) Fix false positive in `no-invalid-link-title` when using a dynamic value surrounded by whitespace. ([@josephdsumner](https://github.com/josephdsumner))
+* [#1137](https://github.com/ember-template-lint/ember-template-lint/pull/1137) Prevent `no-unused-block-params` from flagging locals that are used within `{{template-lint-disable}}`ed content ([@lifeart](https://github.com/lifeart))
+* [#1513](https://github.com/ember-template-lint/ember-template-lint/pull/1513) Fix `extends` overriding order ([@Turbo87](https://github.com/Turbo87))
+
+#### :memo: Documentation
+* [#1666](https://github.com/ember-template-lint/ember-template-lint/pull/1666) Add documentation for TODOs ([@scalvert](https://github.com/scalvert))
+* [#1657](https://github.com/ember-template-lint/ember-template-lint/pull/1657) Add example script for counting lint violation disable directive comments ([@bmish](https://github.com/bmish))
+* [#1676](https://github.com/ember-template-lint/ember-template-lint/pull/1676) Fix broken documentation links ([@Turbo87](https://github.com/Turbo87))
+* [#1664](https://github.com/ember-template-lint/ember-template-lint/pull/1664) Reorganize and improve the README ([@scalvert](https://github.com/scalvert))
+* [#1630](https://github.com/ember-template-lint/ember-template-lint/pull/1630) Add element examples to `no-duplicate-attributes` ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#1689](https://github.com/ember-template-lint/ember-template-lint/pull/1689) Removes complexity and no-return-await rules ([@scalvert](https://github.com/scalvert))
+* [#1670](https://github.com/ember-template-lint/ember-template-lint/pull/1670) Remove lerna-changelog dependency since it is provided and handled by release-it-lerna-changelog ([@bmish](https://github.com/bmish))
+* [#1669](https://github.com/ember-template-lint/ember-template-lint/pull/1669) Re-roll yarn.lock from scratch ([@bmish](https://github.com/bmish))
+* [#1631](https://github.com/ember-template-lint/ember-template-lint/pull/1631) Add rootURL to ignore list for index.html ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 14
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Alex LaFroscia ([@alexlafroscia](https://github.com/alexlafroscia))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Collin Adams ([@collinadams](https://github.com/collinadams))
+- Joseph D. Sumner ([@josephdsumner](https://github.com/josephdsumner))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+- Renato Iwashima ([@renatoi](https://github.com/renatoi))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- Steve Zelaznik ([@zelaznik](https://github.com/zelaznik))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+- [@jaydgruber](https://github.com/jaydgruber)
+
 ## v2.21.0 (2021-02-26)
 
 #### :rocket: Enhancement
@@ -9,7 +166,6 @@
 #### Committers: 2
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 - Steve Calvert ([@scalvert](https://github.com/scalvert))
-
 
 ## v2.20.0 (2021-02-23)
 
@@ -27,7 +183,6 @@
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 - Steve Calvert ([@scalvert](https://github.com/scalvert))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
 
 ## v2.19.0 (2021-02-18)
 
@@ -57,7 +212,6 @@
 - Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
-
 ## v2.18.1 (2021-02-02)
 
 #### :bug: Bug Fix
@@ -66,7 +220,6 @@
 #### Committers: 2
 - Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
 
 ## v2.18.0 (2021-01-28)
 
@@ -101,7 +254,6 @@
 - Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
 - Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
 
 ## v2.16.0 (2021-01-06)
 

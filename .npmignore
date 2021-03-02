@@ -2,6 +2,7 @@
 /dist
 /docs
 /test
+/dev
 /scripts
 .*
 *.tgz

@@ -21,7 +21,7 @@ describe('recommended config', function () {
   });
 
   function ensureValid(source) {
-    it(`passes with: \`${source}\``, function () {
+    it(`passes with: \`${source}\``, async function () {
       let config = { extends: 'recommended' };
 
       let linter = new Linter({
@@ -29,7 +29,7 @@ describe('recommended config', function () {
         config,
       });
 
-      expect(linter.verify({ source, moduleId: 'some/thing.hbs' })).toEqual([]);
+      expect(await linter.verify({ source, moduleId: 'some/thing.hbs' })).toEqual([]);
     });
   }
 
@@ -44,7 +44,7 @@ describe('recommended config', function () {
   `);
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/230
-  ensureValid('{{#foo-bar as |baz|}}{{#baz.derp}}{{/baz.derp}}{{/foo-bar}}');
+  ensureValid('<FooBar as |baz|><baz.Derp></baz.Derp></FooBar>');
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/253
   ensureValid('<img alt="special thing" src={{some-dir/some-thing this.x}}>');
@@ -55,7 +55,7 @@ describe('recommended config', function () {
   @selected={{@pageSize}}
   @options={{this.availablePageSizes}}
   @searchEnabled={{false}}
-  @onchange={{action this.changePageSize}} as |size|
+  {{on 'change' this.changePageSize}} as |size|
 >
   {{size}}
 </PowerSelect>`);

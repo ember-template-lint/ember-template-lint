@@ -1,5 +1,7 @@
 # no-whitespace-for-layout
 
+:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+
 Formatting of text through the use of multiple whitespace is entirely visual, and therefore is incompatible with screen-reading assistive technology tools.
 
 The rule applies to the content of Handlebars AST TextNodes, and performs a RegExp search for two consecutive white space characters that might indicate the use of whitespace used for layout.

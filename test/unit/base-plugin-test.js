@@ -25,7 +25,7 @@ describe('base plugin', function () {
     await project.dispose();
   });
 
-  function runRules(template, rules) {
+  async function runRules(template, rules) {
     let ast = parse(template);
 
     for (let ruleConfig of rules) {
@@ -35,8 +35,7 @@ describe('base plugin', function () {
         {},
         {
           filePath: ConfigDefaults.filePath,
-          moduleId: ConfigDefaults.moduleId,
-          moduleName: ConfigDefaults.moduleName,
+
           rawSource: template,
           workingDir: ConfigDefaults.workingDir,
           ruleNames,
@@ -55,8 +54,8 @@ describe('base plugin', function () {
       });
 
       let rule = new Rule(options);
-
-      transform(ast, (env) => rule.getVisitor(env));
+      let visitor = await rule.getVisitor();
+      transform(ast, () => visitor);
     }
   }
 
@@ -109,14 +108,14 @@ describe('base plugin', function () {
   });
 
   describe('rule APIs', function () {
-    it('can access filePath', function () {
+    it('can access filePath', async function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this.filePath).toBe('foo.hbs');
         }
       }
 
-      runRules('foo', [
+      await runRules('foo', [
         {
           Rule: AwesomeRule,
           name: 'awesome-rule',
@@ -126,51 +125,24 @@ describe('base plugin', function () {
       ]);
     });
 
-    it('can access moduleName', function () {
-      class AwesomeRule extends Rule {
-        visitor() {
-          expect(this._moduleName).toBe('foo/bar');
-        }
-      }
-
-      runRules('foo', [
-        {
-          Rule: AwesomeRule,
-          name: 'awesome-rule',
-          config: true,
-          moduleName: 'foo/bar',
-        },
-      ]);
-    });
-
-    it('can access editorConfig', function () {
-      class AwesomeRule extends Rule {
-        visitor() {
-          expect(this.editorConfig.insert_final_newline).toBe(false);
-        }
-      }
-
-      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
-    });
-
-    it('can access _rawSource', function () {
+    it('can access _rawSource', async function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this._rawSource).toBe('foo');
         }
       }
 
-      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
+      await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
 
-    it('can access workingDir', function () {
+    it('can access workingDir', async function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this.workingDir).toBe('foo');
         }
       }
 
-      runRules('foo', [
+      await runRules('foo', [
         {
           Rule: AwesomeRule,
           name: 'awesome-rule',
@@ -180,31 +152,36 @@ describe('base plugin', function () {
       ]);
     });
 
-    it('does not error when accessing editorConfig when no filePath is passed', function () {
+    it('can access editorConfig', async function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          expect(this.editorConfig.insert_final_newline).toBe(false);
+        }
+      }
+
+      await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
+    });
+
+    it('does not error when accessing editorConfig when no filePath is passed', async function () {
       class AwesomeRule extends Rule {
         visitor() {
           expect(this.editorConfig.insert_final_newline).toBe(undefined);
         }
       }
 
-      runRules('foo', [
+      await runRules('foo', [
         { Rule: AwesomeRule, name: 'awesome-rule', config: true, filePath: undefined },
       ]);
     });
 
-    it('can access template-recast env', function () {
+    it('can access template-recast env', async function () {
       class AwesomeRule extends Rule {
         visitor(env) {
-          let { syntax } = env;
-          expect(syntax).toHaveProperty('parse');
-          expect(syntax).toHaveProperty('builders');
-          expect(syntax).toHaveProperty('print');
-          expect(syntax).toHaveProperty('traverse');
-          expect(syntax).toHaveProperty('Walker');
+          expect(env).toBe(undefined);
         }
       }
 
-      runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
+      await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
   });
 
@@ -227,8 +204,8 @@ describe('base plugin', function () {
       let template = config.template;
       let nodeSources = config.sources;
 
-      it(`can get raw source for \`${template}\``, function () {
-        runRules(template, [plugin(buildPlugin(visitor), 'fake', config)]);
+      it(`can get raw source for \`${template}\``, async function () {
+        await runRules(template, [plugin(buildPlugin(visitor), 'fake', config)]);
 
         expect(messages).toEqual(nodeSources);
       });
@@ -261,15 +238,15 @@ describe('base plugin', function () {
       },
     };
 
-    it('calls the "Template" node type', function () {
-      runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
+    it('calls the "Template" node type', async function () {
+      await runRules('<div>Foo</div>', [plugin(buildPlugin(visitor), 'fake', config)]);
 
       expect(wasCalled).toBe(true);
     });
   });
 
   describe('parses instructions', function () {
-    function processTemplate(template) {
+    async function processTemplate(template) {
       let Rule = buildPlugin({
         MustacheCommentStatement(node) {
           this.process(node);
@@ -283,12 +260,12 @@ describe('base plugin', function () {
         config = this._processInstructionNode(node);
       };
 
-      runRules(template, [plugin(Rule, 'fake', 'foo')]);
+      await runRules(template, [plugin(Rule, 'fake', 'foo')]);
     }
 
     function expectConfig(instruction, expectedConfig) {
-      it(`can parse \`${instruction}\``, function () {
-        processTemplate(`{{! ${instruction} }}`);
+      it(`can parse \`${instruction}\``, async function () {
+        await processTemplate(`{{! ${instruction} }}`);
         expect(config).toEqual(expectedConfig);
         expect(messages).toEqual([]);
       });
@@ -344,8 +321,8 @@ describe('base plugin', function () {
     expectConfig('', null);
 
     // Errors
-    it('logs an error when it encounters an unknown rule name', function () {
-      processTemplate(
+    it('logs an error when it encounters an unknown rule name', async function () {
+      await processTemplate(
         [
           '{{! template-lint-enable notarule }}',
           '{{! template-lint-disable fake norme meneither }}',
@@ -360,15 +337,15 @@ describe('base plugin', function () {
       ]);
     });
 
-    it("logs an error when it can't parse a configure instruction's JSON", function () {
-      processTemplate('{{! template-lint-configure fake { not: "json" ] }}');
+    it("logs an error when it can't parse a configure instruction's JSON", async function () {
+      await processTemplate('{{! template-lint-configure fake { not: "json" ] }}');
       expect(messages).toEqual([
         'malformed template-lint-configure instruction: `{ not: "json" ]` is not valid JSON',
       ]);
     });
 
-    it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', function () {
-      processTemplate(
+    it('logs an error when it encounters an unrecognized instruction starting with `template-lint`', async function () {
+      await processTemplate(
         [
           '{{! template-lint-bloober fake }}',
           '{{! template-lint- fake }}',
@@ -382,8 +359,8 @@ describe('base plugin', function () {
       ]);
     });
 
-    it('only logs syntax errors once across all rules', function () {
-      runRules(
+    it('only logs syntax errors once across all rules', async function () {
+      await runRules(
         '{{! template-lint-enable notarule }}{{! template-lint-disable meneither }}{{! template-lint-configure norme true }}',
         [
           plugin(buildPlugin({}), 'fake1'),
@@ -397,7 +374,7 @@ describe('base plugin', function () {
     });
 
     describe('allowInlineConfig: false', function () {
-      function processTemplate(template) {
+      async function processTemplate(template) {
         let Rule = buildPlugin({
           MustacheCommentStatement(node) {
             this.process(node);
@@ -411,19 +388,19 @@ describe('base plugin', function () {
           config = this._processInstructionNode(node);
         };
 
-        runRules(template, [
+        await runRules(template, [
           Object.assign({ allowInlineConfig: false }, plugin(Rule, 'fake', 'foo')),
         ]);
       }
 
-      it('inline config has no effect', function () {
-        processTemplate('{{! template-lint-disable fake }}');
+      it('inline config has no effect', async function () {
+        await processTemplate('{{! template-lint-disable fake }}');
 
         expect(config).toEqual(null);
       });
 
-      it('unknown rules do not throw an error', function () {
-        processTemplate(
+      it('unknown rules do not throw an error', async function () {
+        await processTemplate(
           [
             '{{! template-lint-enable notarule }}',
             '{{! template-lint-disable fake norme meneither }}',
@@ -497,12 +474,12 @@ describe('base plugin', function () {
       return FakeRule;
     }
 
-    function processTemplate(template, config) {
+    async function processTemplate(template, config) {
       if (config === undefined) {
         config = true;
       }
 
-      runRules(template, [plugin(buildPlugin(), 'fake', config)]);
+      await runRules(template, [plugin(buildPlugin(), 'fake', config)]);
     }
 
     beforeEach(function () {
@@ -516,8 +493,8 @@ describe('base plugin', function () {
       let expectedEvents = data.events;
       let config = data.config;
 
-      it(description, function () {
-        processTemplate(template, config);
+      it(description, async function () {
+        await processTemplate(template, config);
         expect(events).toEqual(expectedEvents);
         expect(messages).toEqual([]);
       });

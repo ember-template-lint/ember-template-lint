@@ -1,11 +1,9 @@
 'use strict';
-const { readFileSync } = require('fs');
 const fs = require('fs');
 const path = require('path');
 
-const execa = require('execa');
-
 const Project = require('../helpers/fake-project');
+const run = require('../helpers/run');
 const setupEnvVar = require('../helpers/setup-env-var');
 
 const ROOT = process.cwd();
@@ -57,8 +55,14 @@ describe('ember-template-lint executable', function () {
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
-            --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file                 [boolean]
+            --update-todo               Update list of linting todos by transforming lint
+                                        errors to todos         [boolean] [default: false]
+            --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
+            --todo-days-to-warn         Number of days after its creation date that a todo
+                                        transitions into a warning                [number]
+            --todo-days-to-error        Number of days after its creation date that a todo
+                                        transitions into an error                 [number]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -102,8 +106,14 @@ describe('ember-template-lint executable', function () {
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
-            --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file                 [boolean]
+            --update-todo               Update list of linting todos by transforming lint
+                                        errors to todos         [boolean] [default: false]
+            --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
+            --todo-days-to-warn         Number of days after its creation date that a todo
+                                        transitions into a warning                [number]
+            --todo-days-to-error        Number of days after its creation date that a todo
+                                        transitions into an error                 [number]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -207,6 +217,29 @@ describe('ember-template-lint executable', function () {
           ✖ 2 problems (2 errors, 0 warnings)"
         `);
         expect(result.stderr).toMatchInlineSnapshot('""');
+      });
+    });
+
+    describe('given path to single file with custom extension with errors', function () {
+      it('should print errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.fizzle': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+            },
+          },
+        });
+
+        let result = await run(['app/templates/application.fizzle']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
       });
     });
 
@@ -378,8 +411,14 @@ describe('ember-template-lint executable', function () {
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
                                         blank template-lintrc instead            [boolean]
-            --print-pending             Print list of formatted rules for use with
-                                        \`pending\` in config file                 [boolean]
+            --update-todo               Update list of linting todos by transforming lint
+                                        errors to todos         [boolean] [default: false]
+            --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
+            --todo-days-to-warn         Number of days after its creation date that a todo
+                                        transitions into a warning                [number]
+            --todo-days-to-error        Number of days after its creation date that a todo
+                                        transitions into an error                 [number]
             --ignore-pattern            Specify custom ignore pattern (can be disabled
                                         with --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
@@ -913,7 +952,6 @@ describe('ember-template-lint executable', function () {
             line: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
-            moduleId: 'app/templates/application',
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Here too!!',
@@ -923,7 +961,6 @@ describe('ember-template-lint executable', function () {
             line: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
-            moduleId: 'app/templates/application',
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Bare strings are bad...',
@@ -960,7 +997,6 @@ describe('ember-template-lint executable', function () {
             isFixable: true,
             message: 'All `<button>` elements should have a valid `type` attribute',
             filePath: 'app/components/click-me-button.hbs',
-            moduleId: 'app/components/click-me-button',
             rule: 'require-button-type',
             severity: 2,
             source: '<button>Click me!</button>',
@@ -1005,7 +1041,6 @@ describe('ember-template-lint executable', function () {
             line: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
-            moduleId: 'app/templates/application',
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Here too!!',
@@ -1015,7 +1050,6 @@ describe('ember-template-lint executable', function () {
             line: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
-            moduleId: 'app/templates/application',
             rule: 'no-bare-strings',
             severity: 2,
             source: 'Bare strings are bad...',
@@ -1219,10 +1253,22 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--print-pending']);
 
-        let expectedOutputData =
-          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings",\n      "no-html-comments"\n    ]\n  }\n]';
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "WARNING: Print pending is deprecated. Use --update-todo instead.
 
-        expect(result.stdout).toEqual(expectedOutputData);
+          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
+
+
+          pending: [
+            {
+              \\"moduleId\\": \\"app/templates/application\\",
+              \\"only\\": [
+                \\"no-bare-strings\\",
+                \\"no-html-comments\\"
+              ]
+            }
+          ]"
+        `);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -1250,10 +1296,14 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['.', '--print-pending']);
 
-        let expectedOutputData =
-          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: []';
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "WARNING: Print pending is deprecated. Use --update-todo instead.
 
-        expect(result.stdout).toEqual(expectedOutputData);
+          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
+
+
+          pending: []"
+        `);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -1279,10 +1329,21 @@ describe('ember-template-lint executable', function () {
         });
         let result = await run(['.', '--print-pending']);
 
-        let expectedOutputData =
-          'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n\npending: [\n  {\n    "moduleId": "app/templates/application",\n    "only": [\n      "no-bare-strings"\n    ]\n  }\n]';
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "WARNING: Print pending is deprecated. Use --update-todo instead.
 
-        expect(result.stdout).toEqual(expectedOutputData);
+          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
+
+
+          pending: [
+            {
+              \\"moduleId\\": \\"app/templates/application\\",
+              \\"only\\": [
+                \\"no-bare-strings\\"
+              ]
+            }
+          ]"
+        `);
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -1436,22 +1497,11 @@ describe('ember-template-lint executable', function () {
       expect(result.stdout).toBeFalsy();
       expect(result.stderr).toBeFalsy();
 
-      let fileContents = readFileSync(project.path('require-button-type.hbs'), {
+      let fileContents = fs.readFileSync(project.path('require-button-type.hbs'), {
         encoding: 'utf8',
       });
 
       expect(fileContents).toEqual('<button type="button">Klikk</button>');
     });
   });
-
-  function run(args, options = {}) {
-    options.reject = false;
-    options.cwd = options.cwd || project.path('.');
-
-    return execa(
-      process.execPath,
-      [require.resolve('../../bin/ember-template-lint.js'), ...args],
-      options
-    );
-  }
 });

@@ -9,6 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
+const { getTodoStorageDirPath, getTodoConfig } = require('@ember-template-lint/todo-utils');
+const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
 const isGlob = require('is-glob');
@@ -27,15 +29,19 @@ const NOOP_CONSOLE = {
   error: () => {},
 };
 
+function removeExt(filePath) {
+  return filePath.slice(0, -path.extname(filePath).length);
+}
+
 async function buildLinterOptions(workingDir, filePath, filename = '', isReadingStdin) {
   if (isReadingStdin) {
     let filePath = filename;
-    let moduleId = filePath.slice(0, -4);
+    let moduleId = removeExt(filePath);
     let source = await getStdin();
 
     return { source, filePath, moduleId };
   } else {
-    let moduleId = filePath.slice(0, -4);
+    let moduleId = removeExt(filePath);
     let resolvedFilePath = path.resolve(workingDir, filePath);
     let source = await readFile(resolvedFilePath, { encoding: 'utf8' });
 
@@ -43,35 +49,34 @@ async function buildLinterOptions(workingDir, filePath, filename = '', isReading
   }
 }
 
-function lintSource(linter, options, shouldFix) {
-  if (shouldFix) {
-    let { isFixed, output, messages } = linter.verifyAndFix(options);
-    if (isFixed) {
-      fs.writeFileSync(options.filePath, output);
-    }
-
-    return messages;
-  } else {
-    return linter.verify(options);
-  }
-}
-
 function executeGlobby(workingDir, pattern, ignore) {
+  let supportedExtensions = new Set(['.hbs', '.handlebars']);
+
   // `--no-ignore-pattern` results in `ignorePattern === [false]`
   let options =
     ignore[0] === false ? { cwd: workingDir } : { cwd: workingDir, gitignore: true, ignore };
 
-  return globby.sync(pattern, options).filter((filePath) => filePath.slice(-4) === '.hbs');
+  return globby
+    .sync(pattern, options)
+    .filter((filePath) => supportedExtensions.has(path.extname(filePath)));
+}
+
+function isFile(possibleFile) {
+  try {
+    let stat = fs.statSync(possibleFile);
+    return stat.isFile();
+  } catch {
+    return false;
+  }
 }
 
 function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = executeGlobby) {
   let result = new Set();
 
   for (const pattern of filePatterns) {
-    let isHBS = pattern.slice(-4) === '.hbs';
-    let isLiteralPath = !isGlob(pattern) && fs.existsSync(path.resolve(workingDir, pattern));
+    let isLiteralPath = !isGlob(pattern) && isFile(path.resolve(workingDir, pattern));
 
-    if (isHBS && isLiteralPath) {
+    if (isLiteralPath) {
       let isIgnored = micromatch.isMatch(pattern, ignorePattern);
 
       if (!isIgnored) {
@@ -157,8 +162,28 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'print-pending': {
-        describe: 'Print list of formatted rules for use with `pending` in config file',
+        describe:
+          'Print list of formatted rules for use with `pending` in config file (deprecated)',
         boolean: true,
+        hidden: true,
+      },
+      'update-todo': {
+        describe: 'Update list of linting todos by transforming lint errors to todos',
+        default: false,
+        boolean: true,
+      },
+      'include-todo': {
+        describe: 'Include todos in the results',
+        default: false,
+        boolean: true,
+      },
+      'todo-days-to-warn': {
+        describe: 'Number of days after its creation date that a todo transitions into a warning',
+        type: 'number',
+      },
+      'todo-days-to-error': {
+        describe: 'Number of days after its creation date that a todo transitions into an error',
+        type: 'number',
       },
       'ignore-pattern': {
         describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
@@ -209,7 +234,7 @@ function printPending(results, options) {
     }, new Set());
 
     if (failingRules.size > 0) {
-      pendingList.push({ moduleId: filePath.slice(0, -4), only: [...failingRules] });
+      pendingList.push({ moduleId: removeExt(filePath), only: [...failingRules] });
     }
   }
   let pendingListString = JSON.stringify(pendingList, null, 2);
@@ -217,6 +242,8 @@ function printPending(results, options) {
   if (options.json) {
     console.log(pendingListString);
   } else {
+    console.log(chalk.yellow('WARNING: Print pending is deprecated. Use --update-todo instead.\n'));
+
     console.log(
       'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
     );
@@ -225,10 +252,42 @@ function printPending(results, options) {
   }
 }
 
+function getTodoConfigFromCommandLineOptions(options) {
+  let todoConfig = {};
+
+  if (Number.isInteger(options.todoDaysToWarn)) {
+    todoConfig.warn = options.todoDaysToWarn || undefined;
+  }
+
+  if (Number.isInteger(options.todoDaysToError)) {
+    todoConfig.error = options.todoDaysToError || undefined;
+  }
+
+  return todoConfig;
+}
+
+function _isOverridingConfig(options) {
+  return Boolean(
+    options.config ||
+      options.rule ||
+      options.inlineConfig === false ||
+      options.configPath !== '.template-lintrc.js'
+  );
+}
+
 async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
   let config;
+  let isOverridingConfig = _isOverridingConfig(options);
+  let todoInfo = {
+    added: 0,
+    removed: 0,
+    todoConfig: getTodoConfig(
+      options.workingDirectory,
+      getTodoConfigFromCommandLineOptions(options)
+    ),
+  };
 
   if (options.config) {
     try {
@@ -260,6 +319,33 @@ async function run() {
     return;
   }
 
+  if (
+    linter.config.pending.length > 0 &&
+    fs.existsSync(getTodoStorageDirPath(options.workingDirectory))
+  ) {
+    console.error(
+      'Cannot use the `pending` config option in conjunction with lint todos. Please run with `--update-pending` to migrate to the new todos functionality.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (linter.config.pending.length > 0 && options.updateTodo) {
+    console.error(
+      'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if ((options.todoDaysToWarn || options.todoDaysToError) && !options.updateTodo) {
+    console.error(
+      'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
   let resultsAccumulator = [];
@@ -271,9 +357,40 @@ async function run() {
       filePaths.has(STDIN)
     );
 
-    let messages = lintSource(linter, linterOptions, options.fix);
+    let fileResults;
 
-    resultsAccumulator.push(...messages);
+    if (options.fix) {
+      let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
+      if (isFixed) {
+        fs.writeFileSync(linterOptions.filePath, output, { encoding: 'utf-8' });
+      }
+      fileResults = messages;
+    } else {
+      fileResults = await linter.verify(linterOptions);
+    }
+
+    if (options.updateTodo) {
+      let [added, removed] = await linter.updateTodo(
+        linterOptions,
+        fileResults,
+        todoInfo.todoConfig,
+        isOverridingConfig
+      );
+
+      todoInfo.added += added;
+      todoInfo.removed += removed;
+    }
+
+    if (!filePaths.has(STDIN)) {
+      fileResults = await linter.processTodos(
+        linterOptions,
+        fileResults,
+        options.fix,
+        isOverridingConfig
+      );
+    }
+
+    resultsAccumulator.push(...fileResults);
   }
 
   let results = processResults(resultsAccumulator);
@@ -288,10 +405,15 @@ async function run() {
   if (options.printPending) {
     return printPending(results, options);
   } else {
-    if (results.errorCount || results.warningCount) {
+    let hasErrors = results.errorCount > 0;
+    let hasWarnings = results.warningCount > 0;
+    let hasTodos = options.includeTodo && results.todoCount;
+    let hasUpdatedTodos = options.updateTodo;
+
+    if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
       let Printer = require('../lib/printers/default');
       let printer = new Printer(options);
-      printer.print(results);
+      printer.print(results, todoInfo);
     }
   }
 }

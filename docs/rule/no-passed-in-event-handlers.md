@@ -1,5 +1,7 @@
 # no-passed-in-event-handlers
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 It is possible to pass e.g. `@click` to an Ember component to override the
 default `click` event handler. For tagless components this will trigger an
 assertion though and can't be used as legitimate API, and for Glimmer

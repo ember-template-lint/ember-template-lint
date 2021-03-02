@@ -4,16 +4,6 @@ const { parse } = require('ember-template-recast');
 
 const AstNodeInfo = require('../../../lib/helpers/ast-node-info');
 
-describe('isImgElement', function () {
-  it('can detect an image tag', function () {
-    let tableAst = parse('<table></table>');
-    expect(AstNodeInfo.isImgElement(tableAst.body[0])).toBe(false);
-
-    let imgAst = parse('<img />');
-    expect(AstNodeInfo.isImgElement(imgAst.body[0])).toBe(true);
-  });
-});
-
 describe('hasChildren', function () {
   it('functions for empty input', function () {
     expect(AstNodeInfo.hasChildren(parse(''))).toBe(false);

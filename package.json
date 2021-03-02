@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "2.21.0",
+  "version": "3.0.0-beta.5",
   "description": "Linter for Ember or Handlebars templates.",
   "keywords": [],
   "homepage": "https://github.com/ember-template-lint/ember-template-lint",
@@ -20,11 +20,11 @@
     "lint:docs": "markdownlint **/*.md",
     "lint:js": "eslint . --cache",
     "lint:package-json": "sort-package-json --check",
-    "new": "node dev/new-rule/index.js",
+    "new:rule": "node dev/new-rule/index.js",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
     "test:jest": "jest",
-    "update": "node ./scripts/update-rules.js"
+    "update:readme": "node ./scripts/update-rules.js"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
@@ -36,6 +36,7 @@
     ]
   },
   "dependencies": {
+    "@ember-template-lint/todo-utils": "^8.0.0-beta.3",
     "chalk": "^4.0.0",
     "ember-template-recast": "^5.0.1",
     "find-up": "^5.0.0",
@@ -52,6 +53,7 @@
     "@babel/parser": "^7.13.4",
     "@babel/traverse": "^7.13.0",
     "common-tags": "^1.8.0",
+    "date-fns": "^2.16.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -69,10 +71,12 @@
     "prettier": "^2.2.1",
     "release-it": "^14.4.1",
     "release-it-lerna-changelog": "^3.1.0",
-    "sort-package-json": "^1.49.0"
+    "sort-package-json": "^1.49.0",
+    "yeoman-environment": "^3.0.1",
+    "yeoman-generator": "^5.0.1"
   },
   "engines": {
-    "node": "10.* || >= 12.*"
+    "node": ">= 10.24 < 11 || 12.* || >= 14.*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -93,7 +97,7 @@
     }
   },
   "volta": {
-    "node": "12.16.3",
+    "node": "12.18.3",
     "yarn": "1.22.4"
   }
 }

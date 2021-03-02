@@ -9,7 +9,7 @@ let linter = new TemplateLinter();
 let template = fs.readFileSync('some/path/to/template.hbs', {
   encoding: 'utf8',
 });
-let results = await linter.verify({ source: template, moduleId: 'template.hbs' });
+let results = await linter.verify({ source: template, filePath: 'some/path/to/template.hbs' });
 ```
 
 `results` will be an array of objects which have the following properties:
@@ -18,6 +18,6 @@ let results = await linter.verify({ source: template, moduleId: 'template.hbs' }
 - `message` - The message that should be output.
 - `line` - The line on which the error occurred.
 - `column` - The column on which the error occurred.
-- `moduleId` - The module path for the file containing the error.
+- `filePath` - The file path for the file containing the error.
 - `source` - The source that caused the error.
 - `fix` - An object describing how to fix the error.

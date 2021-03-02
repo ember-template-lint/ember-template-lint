@@ -26,6 +26,7 @@ generateRuleTests({
     '<AwesomeThing role="none"></AwesomeThing>',
     '<AwesomeThing role="presentation"></AwesomeThing>',
     '<table role="textbox"></table>', // Random role on this element.
+    '<div role="{{if this.inModal "dialog" "contentinfo" }}"></div>',
     {
       config: {
         catchNonexistentRoles: false,
@@ -83,6 +84,15 @@ generateRuleTests({
 
     {
       template: '<div role="command interface"></div>',
+      result: {
+        message: createNonexistentRoleErrorMessage('div'),
+        source: '<div role="command interface"></div>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<div role="command interface"></div>',
       config: {
         catchNonexistentRoles: true,
       },
@@ -95,9 +105,6 @@ generateRuleTests({
     },
     {
       template: '<div role="COMMAND INTERFACE"></div>',
-      config: {
-        catchNonexistentRoles: true,
-      },
       result: {
         message: createNonexistentRoleErrorMessage('div'),
         source: '<div role="COMMAND INTERFACE"></div>',

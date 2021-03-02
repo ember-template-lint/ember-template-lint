@@ -180,7 +180,10 @@ const SHARED_BAD = [
 generateRuleTests({
   name: 'no-curly-component-invocation',
 
-  config: true,
+  config: {
+    requireDash: true,
+    noImplicitThis: false,
+  },
 
   good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD],
   bad: [...SHARED_BAD],
@@ -191,6 +194,7 @@ generateRuleTests({
 
   config: {
     requireDash: false,
+    noImplicitThis: false,
   },
 
   good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD],
@@ -203,6 +207,7 @@ generateRuleTests({
   config: {
     disallow: ['disallowed'],
     requireDash: false,
+    noImplicitThis: false,
   },
 
   good: [
@@ -233,6 +238,7 @@ generateRuleTests({
   config: {
     allow: ['aaa-bbb', 'aaa/bbb'],
     requireDash: false,
+    noImplicitThis: false,
   },
 
   good: [
@@ -251,6 +257,7 @@ generateRuleTests({
 
   config: {
     requireDash: true,
+    noImplicitThis: false,
   },
 
   good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD, '{{foo bar=baz}}'],
@@ -261,6 +268,7 @@ generateRuleTests({
   name: 'no-curly-component-invocation',
 
   config: {
+    requireDash: false,
     noImplicitThis: true,
   },
 
@@ -379,22 +387,22 @@ generateRuleTests({
 describe('no-curly-component-invocation', () => {
   describe('parseConfig', () => {
     const TESTS = [
-      [true, { allow: [], disallow: [], requireDash: true, noImplicitThis: false }],
+      [true, { allow: [], disallow: [], requireDash: false, noImplicitThis: true }],
       [
         { allow: ['foo'] },
-        { allow: ['foo'], disallow: [], requireDash: true, noImplicitThis: false },
+        { allow: ['foo'], disallow: [], requireDash: false, noImplicitThis: true },
       ],
       [
         { requireDash: false },
-        { allow: [], disallow: [], requireDash: false, noImplicitThis: false },
+        { allow: [], disallow: [], requireDash: false, noImplicitThis: true },
       ],
       [
         { noImplicitThis: true },
-        { allow: [], disallow: [], requireDash: true, noImplicitThis: true },
+        { allow: [], disallow: [], requireDash: false, noImplicitThis: true },
       ],
       [
         { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false },
-        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false, noImplicitThis: false },
+        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false, noImplicitThis: true },
       ],
     ];
 
