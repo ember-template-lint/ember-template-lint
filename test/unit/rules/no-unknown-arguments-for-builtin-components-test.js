@@ -16,6 +16,8 @@ generateRuleTests({
     '<Input @value="foo" />',
     '<Textarea @value="hello" />',
     '<LinkTo @route="info" @model={{this.model}} />',
+    '<LinkTo @route="info" />',
+    '<LinkTo @query={{hash foo=bar}} />',
   ],
 
   bad: [
@@ -60,7 +62,7 @@ generateRuleTests({
     {
       template: '<LinkTo @model={{this.model}} />',
       result: {
-        message: REQUIRED_MESSAGE('LinkTo', ['route']),
+        message: REQUIRED_MESSAGE('LinkTo', ['route', 'query']),
         line: 1,
         column: 1,
         source: 'LinkTo',
