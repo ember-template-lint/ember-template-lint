@@ -1,3 +1,16 @@
+## v3.0.1 (2021-03-03)
+
+#### :bug: Bug Fix
+* [#1807](https://github.com/ember-template-lint/ember-template-lint/pull/1807) Remove `deprecated-each-syntax` from `recommended` config ([@rwjblue](https://github.com/rwjblue))
+* [#1806](https://github.com/ember-template-lint/ember-template-lint/pull/1806) Ensure `no-bare-strings` check's `placeholder` attribute for `<Input />` and `<Textarea />` ([@lifeart](https://github.com/lifeart))
+* [#1805](https://github.com/ember-template-lint/ember-template-lint/pull/1805) Ensure `no-unknown-arguments-for-builtin-components` allows `@query` only `<LinkTo>`'s ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+
 ## v3.0.0 (2021-03-02)
 
 ### Highlights
