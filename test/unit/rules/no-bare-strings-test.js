@@ -208,6 +208,28 @@ generateRuleTests({
     },
 
     {
+      template: '<Input @placeholder="{{foo}}hahaha trolol" />',
+
+      result: {
+        message: 'Non-translated string used in `@placeholder` argument',
+        line: 1,
+        column: 7,
+        source: 'hahaha trolol',
+      },
+    },
+
+    {
+      template: '<Textarea @placeholder="{{foo}}hahaha trolol" />',
+
+      result: {
+        message: 'Non-translated string used in `@placeholder` argument',
+        line: 1,
+        column: 10,
+        source: 'hahaha trolol',
+      },
+    },
+
+    {
       template: '<div role="contentinfo" aria-label="Contact, Policies and Legal"></div>',
 
       result: {
