@@ -191,7 +191,7 @@ Each rule has emojis denoting:
 |                            | [attribute-indentation](./docs/rule/attribute-indentation.md)                                             |
 | :nail_care:                | [block-indentation](./docs/rule/block-indentation.md)                                                     |
 | :white_check_mark:         | [builtin-component-arguments](./docs/rule/builtin-component-arguments.md)                                 |
-| :white_check_mark:         | [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                                           |
+|                            | [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                                           |
 | :white_check_mark:         | [deprecated-inline-view-helper](./docs/rule/deprecated-inline-view-helper.md)                             |
 | :white_check_mark:         | [deprecated-render-helper](./docs/rule/deprecated-render-helper.md)                                       |
 | :nail_care:                | [eol-last](./docs/rule/eol-last.md)                                                                       |
