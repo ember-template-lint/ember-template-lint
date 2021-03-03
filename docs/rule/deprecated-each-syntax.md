@@ -1,7 +1,5 @@
 # deprecated-each-syntax
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
-
 In Ember 2.0, support for using the `in` form of the `{{#each}}` helper
 has been removed.
 
