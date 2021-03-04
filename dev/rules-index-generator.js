@@ -5,7 +5,7 @@ const Generator = require('yeoman-generator');
 
 module.exports = class RulesIndexGenerator extends Generator {
   get rules() {
-    let rulesIndexPath = path.resolve(__dirname, '../lib/rules');
+    let rulesIndexPath = this.options.rulesIndexPath || path.resolve(__dirname, '../lib/rules');
 
     return fs
       .readdirSync(rulesIndexPath)
