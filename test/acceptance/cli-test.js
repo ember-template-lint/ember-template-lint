@@ -52,6 +52,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --sarif                     Format output as SARIF                   [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -105,6 +106,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --sarif                     Format output as SARIF                   [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -412,6 +414,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --sarif                     Format output as SARIF                   [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -1094,6 +1097,180 @@ describe('ember-template-lint executable', function () {
         expectedOutputData['app/templates/application.hbs'] = [];
 
         expect(result.exitCode).toEqual(0);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('with --sarif param', function () {
+      it('should print valid SARIF log with errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2> <div>Bare strings are bad...</div><!-- also bad! -->',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['--sarif', '.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "{
+            \\"version\\": \\"2.1.0\\",
+            \\"$schema\\": \\"http://json.schemastore.org/sarif-2.1.0-rtm.5\\",
+            \\"runs\\": [
+              {
+                \\"tool\\": {
+                  \\"driver\\": {
+                    \\"name\\": \\"ember-template-lint\\",
+                    \\"informationUri\\": \\"https://github.com/ember-template-lint/ember-template-lint\\",
+                    \\"rules\\": [
+                      {
+                        \\"id\\": \\"no-bare-strings\\",
+                        \\"helpUri\\": \\"https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-bare-strings.md\\"
+                      },
+                      {
+                        \\"id\\": \\"no-html-comments\\",
+                        \\"helpUri\\": \\"https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-html-comments.md\\"
+                      }
+                    ],
+                    \\"version\\": \\"3.0.1\\"
+                  }
+                },
+                \\"artifacts\\": [
+                  {
+                    \\"location\\": {
+                      \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\"
+                    }
+                  }
+                ],
+                \\"results\\": [
+                  {
+                    \\"level\\": \\"error\\",
+                    \\"message\\": {
+                      \\"text\\": \\"Non-translated string used\\"
+                    },
+                    \\"locations\\": [
+                      {
+                        \\"physicalLocation\\": {
+                          \\"artifactLocation\\": {
+                            \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\",
+                            \\"index\\": 0
+                          },
+                          \\"region\\": {
+                            \\"startLine\\": 1,
+                            \\"startColumn\\": 4,
+                            \\"snippet\\": {
+                              \\"text\\": \\"Here too!!\\"
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    \\"ruleId\\": \\"no-bare-strings\\",
+                    \\"ruleIndex\\": 0
+                  },
+                  {
+                    \\"level\\": \\"error\\",
+                    \\"message\\": {
+                      \\"text\\": \\"Non-translated string used\\"
+                    },
+                    \\"locations\\": [
+                      {
+                        \\"physicalLocation\\": {
+                          \\"artifactLocation\\": {
+                            \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\",
+                            \\"index\\": 0
+                          },
+                          \\"region\\": {
+                            \\"startLine\\": 1,
+                            \\"startColumn\\": 25,
+                            \\"snippet\\": {
+                              \\"text\\": \\"Bare strings are bad...\\"
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    \\"ruleId\\": \\"no-bare-strings\\",
+                    \\"ruleIndex\\": 0
+                  },
+                  {
+                    \\"level\\": \\"error\\",
+                    \\"message\\": {
+                      \\"text\\": \\"HTML comment detected\\"
+                    },
+                    \\"locations\\": [
+                      {
+                        \\"physicalLocation\\": {
+                          \\"artifactLocation\\": {
+                            \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\",
+                            \\"index\\": 0
+                          },
+                          \\"region\\": {
+                            \\"startLine\\": 1,
+                            \\"startColumn\\": 54,
+                            \\"snippet\\": {
+                              \\"text\\": \\"<!-- also bad! -->\\"
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    \\"ruleId\\": \\"no-html-comments\\",
+                    \\"ruleIndex\\": 1
+                  }
+                ]
+              }
+            ]
+          }"
+        `);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should include information about fixing', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
+
+        project.write({
+          app: {
+            components: {
+              'click-me-button.hbs': '<button>Click me!</button>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--json']);
+
+        let expectedOutputData = {};
+        expectedOutputData['app/components/click-me-button.hbs'] = [
+          {
+            column: 0,
+            line: 1,
+            isFixable: true,
+            message: 'All `<button>` elements should have a valid `type` attribute',
+            filePath: 'app/components/click-me-button.hbs',
+            rule: 'require-button-type',
+            severity: 2,
+            source: '<button>Click me!</button>',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });

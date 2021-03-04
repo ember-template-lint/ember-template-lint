@@ -148,6 +148,10 @@ function parseArgv(_argv) {
         describe: 'Format output as json',
         boolean: true,
       },
+      sarif: {
+        describe: 'Format output as SARIF',
+        boolean: true,
+      },
       verbose: {
         describe: 'Output errors with source description',
         boolean: true,
