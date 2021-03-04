@@ -1125,117 +1125,119 @@ describe('ember-template-lint executable', function () {
         let result = await run(['--sarif', '.']);
 
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "{
-            \\"version\\": \\"2.1.0\\",
-            \\"$schema\\": \\"http://json.schemastore.org/sarif-2.1.0-rtm.5\\",
-            \\"runs\\": [
+        expect(JSON.parse(result.stdout)).toEqual(
+          expect.objectContaining({
+            version: '2.1.0',
+            $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
+            runs: [
               {
-                \\"tool\\": {
-                  \\"driver\\": {
-                    \\"name\\": \\"ember-template-lint\\",
-                    \\"informationUri\\": \\"https://github.com/ember-template-lint/ember-template-lint\\",
-                    \\"rules\\": [
+                tool: {
+                  driver: {
+                    name: 'ember-template-lint',
+                    informationUri: 'https://github.com/ember-template-lint/ember-template-lint',
+                    rules: [
                       {
-                        \\"id\\": \\"no-bare-strings\\",
-                        \\"helpUri\\": \\"https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-bare-strings.md\\"
+                        id: 'no-bare-strings',
+                        helpUri:
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-bare-strings.md',
                       },
                       {
-                        \\"id\\": \\"no-html-comments\\",
-                        \\"helpUri\\": \\"https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-html-comments.md\\"
-                      }
+                        id: 'no-html-comments',
+                        helpUri:
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-html-comments.md',
+                      },
                     ],
-                    \\"version\\": \\"3.0.1\\"
-                  }
+                    version: '3.0.1',
+                  },
                 },
-                \\"artifacts\\": [
+                artifacts: [
                   {
-                    \\"location\\": {
-                      \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\"
-                    }
-                  }
+                    location: {
+                      uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                    },
+                  },
                 ],
-                \\"results\\": [
+                results: [
                   {
-                    \\"level\\": \\"error\\",
-                    \\"message\\": {
-                      \\"text\\": \\"Non-translated string used\\"
+                    level: 'error',
+                    message: {
+                      text: 'Non-translated string used',
                     },
-                    \\"locations\\": [
+                    locations: [
                       {
-                        \\"physicalLocation\\": {
-                          \\"artifactLocation\\": {
-                            \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\",
-                            \\"index\\": 0
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
                           },
-                          \\"region\\": {
-                            \\"startLine\\": 1,
-                            \\"startColumn\\": 4,
-                            \\"snippet\\": {
-                              \\"text\\": \\"Here too!!\\"
-                            }
-                          }
-                        }
-                      }
+                          region: {
+                            startLine: 1,
+                            startColumn: 4,
+                            snippet: {
+                              text: 'Here too!!',
+                            },
+                          },
+                        },
+                      },
                     ],
-                    \\"ruleId\\": \\"no-bare-strings\\",
-                    \\"ruleIndex\\": 0
+                    ruleId: 'no-bare-strings',
+                    ruleIndex: 0,
                   },
                   {
-                    \\"level\\": \\"error\\",
-                    \\"message\\": {
-                      \\"text\\": \\"Non-translated string used\\"
+                    level: 'error',
+                    message: {
+                      text: 'Non-translated string used',
                     },
-                    \\"locations\\": [
+                    locations: [
                       {
-                        \\"physicalLocation\\": {
-                          \\"artifactLocation\\": {
-                            \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\",
-                            \\"index\\": 0
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
                           },
-                          \\"region\\": {
-                            \\"startLine\\": 1,
-                            \\"startColumn\\": 25,
-                            \\"snippet\\": {
-                              \\"text\\": \\"Bare strings are bad...\\"
-                            }
-                          }
-                        }
-                      }
+                          region: {
+                            startLine: 1,
+                            startColumn: 25,
+                            snippet: {
+                              text: 'Bare strings are bad...',
+                            },
+                          },
+                        },
+                      },
                     ],
-                    \\"ruleId\\": \\"no-bare-strings\\",
-                    \\"ruleIndex\\": 0
+                    ruleId: 'no-bare-strings',
+                    ruleIndex: 0,
                   },
                   {
-                    \\"level\\": \\"error\\",
-                    \\"message\\": {
-                      \\"text\\": \\"HTML comment detected\\"
+                    level: 'error',
+                    message: {
+                      text: 'HTML comment detected',
                     },
-                    \\"locations\\": [
+                    locations: [
                       {
-                        \\"physicalLocation\\": {
-                          \\"artifactLocation\\": {
-                            \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-51502RNm0BJMIkVdt/fake-project/app/templates/application.hbs\\",
-                            \\"index\\": 0
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
                           },
-                          \\"region\\": {
-                            \\"startLine\\": 1,
-                            \\"startColumn\\": 54,
-                            \\"snippet\\": {
-                              \\"text\\": \\"<!-- also bad! -->\\"
-                            }
-                          }
-                        }
-                      }
+                          region: {
+                            startLine: 1,
+                            startColumn: 54,
+                            snippet: {
+                              text: '<!-- also bad! -->',
+                            },
+                          },
+                        },
+                      },
                     ],
-                    \\"ruleId\\": \\"no-html-comments\\",
-                    \\"ruleIndex\\": 1
-                  }
-                ]
-              }
-            ]
-          }"
-        `);
+                    ruleId: 'no-html-comments',
+                    ruleIndex: 1,
+                  },
+                ],
+              },
+            ],
+          })
+        );
         expect(result.stderr).toBeFalsy();
       });
 
