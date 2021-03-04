@@ -19,7 +19,7 @@ describe('generators', () => {
 
   it('generates the rules index file correctly', async () => {
     project.writeSync();
-    debugger;
+
     let rulesIndexPath = path.resolve(__dirname, '../../lib/rules');
     let expectedRulesIndex = fs.readFileSync(path.join(rulesIndexPath, 'index.js'), {
       encoding: 'utf-8',
