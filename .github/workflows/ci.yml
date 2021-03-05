@@ -50,6 +50,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: print node node-version
+        run: node --version
+
       - name: install dependencies
         run: yarn install --frozen-lockfile --ignore-engines
 
