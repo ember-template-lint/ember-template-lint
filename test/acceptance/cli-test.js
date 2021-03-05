@@ -52,7 +52,6 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
-            --sarif                     Format output as SARIF                   [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -106,7 +105,6 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
-            --sarif                     Format output as SARIF                   [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -414,7 +412,6 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
-            --sarif                     Format output as SARIF                   [boolean]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -1102,7 +1099,7 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with --sarif param', function () {
+    describe('with sarif formatter', function () {
       it('should print valid SARIF log with errors', async function () {
         project.setConfig({
           rules: {
@@ -1122,7 +1119,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['--sarif', '.']);
+        let result = await run(['--format', 'sarif', '.']);
 
         expect(result.exitCode).toEqual(1);
         expect(JSON.parse(result.stdout)).toEqual(
