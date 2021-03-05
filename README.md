@@ -146,6 +146,18 @@ Specify a config object to use instead of what exists locally
 ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
 
+Provide a custom formatter from a relative path
+
+```bash
+ember-template-lint --format ./my-shwanky-formatter.js
+```
+
+Provide a custom formatter from a formatter package
+
+```bash
+ember-template-lint --format ember-template-lint-formatter-snazzy
+```
+
 :bulb: Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
 
 For more information about the todo functionality, see [the documentation](docs/todos.md).
