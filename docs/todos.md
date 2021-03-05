@@ -91,6 +91,18 @@ ember-template-lint . --update-todo --todo-days-to-warn=2
 
 ...the todos will be created with a `warn` date 2 days from the created date, and an `error` date 10 days from the created date.
 
+### Disabling Due Dates
+
+If you don't want to use the due dates feature, keeping your todos indefinitely, you can disable them by adding the following config to your `package.json`:
+
+```json
+{
+  "lintTodo": {
+    "daysToDecay": null
+  }
+}
+```
+
 ### Due Date Workflows
 
 Converting errors to todos with `warn` and `error` dates that transition the todo to `warn` after 10 days and `error` after 20 days:
