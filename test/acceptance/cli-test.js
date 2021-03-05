@@ -1,10 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const { copy } = require('fs-extra');
 const path = require('path');
-
-const { ensureTodoStorageDir } = require('@ember-template-lint/todo-utils');
 
 const Project = require('../helpers/fake-project');
 const run = require('../helpers/run');
@@ -1521,7 +1518,6 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should be able to load printer from node_modules', async function () {
-        debugger;
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1546,12 +1542,12 @@ describe('ember-template-lint executable', function () {
         let nodeModulesDir = path.join(project.baseDir, 'node_modules');
         let formatterDir = path.join(nodeModulesDir, 'ember-template-lint-formatter-test');
 
-        await copy(
+        fs.symlinkSync(
           path.resolve(__dirname, '../fixtures/ember-template-lint-formatter-test'),
           formatterDir
         );
 
-        let result = await run(['.', '--format', 'test']);
+        let result = await run(['.', '--format', 'ember-template-lint-formatter-test']);
 
         expect(result.stdout).toMatchInlineSnapshot(`
           "Custom Printer Header
