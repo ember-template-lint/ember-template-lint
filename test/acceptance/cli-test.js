@@ -1543,7 +1543,7 @@ describe('ember-template-lint executable', function () {
         let formatterDir = path.join(nodeModulesDir, 'ember-template-lint-formatter-test');
 
         fs.symlinkSync(
-          path.resolve(__dirname, '../fixtures/ember-template-lint-formatter-test'),
+          path.resolve(__dirname, '..', 'fixtures', 'ember-template-lint-formatter-test'),
           formatterDir
         );
 
