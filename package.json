@@ -77,6 +77,9 @@
     "yeoman-generator": "^5.1.0",
     "yeoman-test": "^5.0.1"
   },
+  "resolutions": {
+    "tmp": "^0.2.1"
+  },
   "engines": {
     "node": ">= 10.24 < 11 || 12.* || >= 14.*"
   },
