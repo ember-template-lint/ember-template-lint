@@ -1539,12 +1539,26 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let nodeModulesDir = path.join(project.baseDir, 'node_modules');
-        let formatterDir = path.join(nodeModulesDir, 'ember-template-lint-formatter-test');
+        let fixturePath = path.resolve(
+          __dirname,
+          '..',
+          'fixtures',
+          'ember-template-lint-formatter-test'
+        );
+        let formatterDirPath = path.join(
+          project.baseDir,
+          'node_modules',
+          'ember-template-lint-formatter-test'
+        );
 
-        fs.symlinkSync(
-          path.resolve(__dirname, '..', 'fixtures', 'ember-template-lint-formatter-test'),
-          formatterDir
+        fs.mkdirSync(formatterDirPath);
+        fs.copyFileSync(
+          path.join(fixturePath, 'index.js'),
+          path.join(formatterDirPath, 'index.js')
+        );
+        fs.copyFileSync(
+          path.join(fixturePath, 'package.json'),
+          path.join(formatterDirPath, 'package.json')
         );
 
         let result = await run(['.', '--format', 'ember-template-lint-formatter-test']);
