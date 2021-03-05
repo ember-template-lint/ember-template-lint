@@ -1,6 +1,10 @@
 'use strict';
+
 const fs = require('fs');
+const { copy } = require('fs-extra');
 const path = require('path');
+
+const { ensureTodoStorageDir } = require('@ember-template-lint/todo-utils');
 
 const Project = require('../helpers/fake-project');
 const run = require('../helpers/run');
@@ -48,7 +52,7 @@ describe('ember-template-lint executable', function () {
                                         contents from STDIN                       [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --formatter                 Specify formatter to be used in printing output
+            --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
             --verbose                   Output errors with source description    [boolean]
@@ -101,7 +105,7 @@ describe('ember-template-lint executable', function () {
                                         contents from STDIN                       [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --formatter                 Specify formatter to be used in printing output
+            --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
             --verbose                   Output errors with source description    [boolean]
@@ -408,7 +412,7 @@ describe('ember-template-lint executable', function () {
                                         contents from STDIN                       [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
-            --formatter                 Specify formatter to be used in printing output
+            --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
             --verbose                   Output errors with source description    [boolean]
@@ -1390,175 +1394,9 @@ describe('ember-template-lint executable', function () {
         expect(result.stderr).toBeFalsy();
       });
     });
-    
-    describe('with --formatter options', function () {
-      it('should be able to load relative printer', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-          'custom-printer.js': `
-            class CustomPrinter {
-              constructor(options = {}) {
-                this.options = options;
-                this.console = options.console || console;
-              }
-
-              print(results) {
-                this.console.log(\`errors: \${results.errorCount}\`);
-                this.console.log(\`warnings: \${results.warningCount}\`);
-                this.console.log(\`fixable: \${(results.fixableErrorCount + results.fixableWarningCount)}\`);
-              }
-            }
-
-            module.exports = CustomPrinter;
-          `,
-        });
-
-        let result = await run(['.', '--formatter', './custom-printer.js']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "errors: 2
-          warnings: 1
-          fixable: 0"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should be able to load printer from node_modules', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--formatter', 'test']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "Custom Printer Header
-
-          errors: 2
-          warnings: 1
-          fixable: 0"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-    });
 
     describe('with --max-warnings param', function () {
       it('should exit with error if warning count is greater than max-warnings', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-          'custom-printer.js': `
-            class CustomPrinter {
-              constructor(options = {}) {
-                this.options = options;
-                this.console = options.console || console;
-              }
-
-              print(results) {
-                this.console.log(\`errors: \${results.errorCount}\`);
-                this.console.log(\`warnings: \${results.warningCount}\`);
-                this.console.log(\`fixable: \${(results.fixableErrorCount + results.fixableWarningCount)}\`);
-              }
-            }
-
-            module.exports = CustomPrinter;
-          `,
-        });
-
-        let result = await run(['.', '--formatter', './custom-printer.js']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "errors: 2
-          warnings: 1
-          fixable: 0"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should be able to load printer from node_modules', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--formatter', 'test']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "Custom Printer Header
-
-          errors: 2
-          warnings: 1
-          fixable: 0"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
         project.setConfig({
           rules: {
             'no-bare-strings': 'warn',
@@ -1630,6 +1468,99 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot('""');
+      });
+    });
+
+    describe('with --format options', function () {
+      it('should be able to load relative printer', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+          'custom-printer.js': `
+            class CustomPrinter {
+              constructor(options = {}) {
+                this.options = options;
+                this.console = options.console || console;
+              }
+
+              print(results) {
+                this.console.log(\`errors: \${results.errorCount}\`);
+                this.console.log(\`warnings: \${results.warningCount}\`);
+                this.console.log(\`fixable: \${(results.fixableErrorCount + results.fixableWarningCount)}\`);
+              }
+            }
+
+            module.exports = CustomPrinter;
+          `,
+        });
+
+        let result = await run(['.', '--format', './custom-printer.js']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "errors: 2
+          warnings: 1
+          fixable: 0"
+        `);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should be able to load printer from node_modules', async function () {
+        debugger;
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+          pending: [
+            {
+              moduleId: 'app/templates/application',
+              only: ['no-html-comments'],
+            },
+          ],
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let nodeModulesDir = path.join(project.baseDir, 'node_modules');
+        let formatterDir = path.join(nodeModulesDir, 'ember-template-lint-formatter-test');
+
+        await copy(
+          path.resolve(__dirname, '../fixtures/ember-template-lint-formatter-test'),
+          formatterDir
+        );
+
+        let result = await run(['.', '--format', 'test']);
+
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Custom Printer Header
+
+          errors: 2
+          warnings: 1
+          fixable: 0"
+        `);
+        expect(result.stderr).toBeFalsy();
       });
     });
 
