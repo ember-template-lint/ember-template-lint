@@ -1135,13 +1135,15 @@ describe('ember-template-lint executable', function () {
                     rules: [
                       {
                         id: 'no-bare-strings',
-                        helpUri:
-                          'https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-bare-strings.md',
+                        helpUri: expect.stringMatching(
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-bare-strings.md'
+                        ),
                       },
                       {
                         id: 'no-html-comments',
-                        helpUri:
-                          'https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-html-comments.md',
+                        helpUri: expect.stringMatching(
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-html-comments.md'
+                        ),
                       },
                     ],
                     version: '3.0.1',
