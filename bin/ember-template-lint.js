@@ -139,6 +139,11 @@ function parseArgv(_argv) {
         boolean: true,
         default: false,
       },
+      format: {
+        describe: 'Specify format to be used in printing output',
+        type: 'string',
+        default: 'pretty',
+      },
       json: {
         describe: 'Format output as json',
         boolean: true,
@@ -411,7 +416,7 @@ async function run() {
     let hasUpdatedTodos = options.updateTodo;
 
     if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
-      let Printer = require('../lib/printers/default');
+      let Printer = require('../lib/formatters/default');
       let printer = new Printer(options);
       printer.print(results, todoInfo);
     }
