@@ -18,6 +18,7 @@ generateRuleTests({
     '<form role="search"></form><form></form>',
     '<header></header><main></main><footer></footer>',
     '<nav aria-label="primary navigation"></nav><nav aria-label={{this.something}}></nav>',
+    '<img role="none"><img role="none">',
   ],
 
   bad: [
