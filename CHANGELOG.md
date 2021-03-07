@@ -1,3 +1,20 @@
+## v3.1.0 (2021-03-07)
+
+#### :rocket: Enhancement
+* [#1340](https://github.com/ember-template-lint/ember-template-lint/pull/1340) Add `--format` option to allow loading custom formatters ([@gabrielcsapo](https://github.com/gabrielcsapo))
+
+#### :bug: Bug Fix
+* [#1822](https://github.com/ember-template-lint/ember-template-lint/pull/1822) Prevent `no-duplicate-landmark-elements` false positive for non-landmark roles ([@rwjblue](https://github.com/rwjblue))
+
+#### :memo: Documentation
+* [#1816](https://github.com/ember-template-lint/ember-template-lint/pull/1816) docs: for disabling todos decay days ([@timiyay](https://github.com/timiyay))
+
+#### Committers: 3
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@timiyay](https://github.com/timiyay)
+
+
 ## v3.0.1 (2021-03-03)
 
 #### :bug: Bug Fix
