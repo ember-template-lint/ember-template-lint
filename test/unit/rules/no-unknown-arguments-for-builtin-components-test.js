@@ -86,5 +86,129 @@ generateRuleTests({
         },
       ],
     },
+
+    // LINK TO Deprecated Argument
+
+    {
+      template: '<LinkTo @route="info" @model={{this.model}} @tagName="button" />',
+      results: [
+        {
+          message: 'Passing the "@tagName" argument to <LinkTo /> is deprecated.',
+          line: 1,
+          column: 44,
+          source: '@tagName',
+        },
+      ],
+    },
+
+    {
+      template: '<LinkTo @route="info" @model={{this.model}} @elementId="superstar" />',
+      results: [
+        {
+          message:
+            'Passing the "@elementId" argument to <LinkTo /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<LinkTo id={{...}} />" instead of "<LinkTo @elementId={{...}} />".',
+          line: 1,
+          column: 44,
+          source: '@elementId',
+        },
+      ],
+    },
+
+    // LINK TO Deprecated Event
+
+    {
+      template: '<LinkTo @route="info" @model={{this.model}} @doubleClick={{action this.click}} />',
+      results: [
+        {
+          message:
+            'Passing the "@doubleClick" argument to <LinkTo /> is deprecated.\nInstead, please use the {{on}} modifier, i.e. "<LinkTo {{on "dblclick" ...}} />" instead of "<LinkTo @doubleClick={{...}} />".',
+          line: 1,
+          column: 44,
+          source: '@doubleClick',
+        },
+      ],
+    },
+
+    // Input Deprecated Argument
+
+    {
+      template: '<Input @value="1" @bubbles={{false}} />',
+      results: [
+        {
+          message: 'Passing the "@bubbles" argument to <Input /> is deprecated.',
+          line: 1,
+          column: 18,
+          source: '@bubbles',
+        },
+      ],
+    },
+
+    {
+      template: '<Input @value="1" @elementId="42" />',
+      results: [
+        {
+          message:
+            'Passing the "@elementId" argument to <Input /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<Input id={{...}} />" instead of "<Input @elementId={{...}} />".',
+          line: 1,
+          column: 18,
+          source: '@elementId',
+        },
+      ],
+    },
+
+    // Input Deprecated Event
+
+    {
+      template: '<Input @value="1" @key-up={{ths.onKeyUp}} />',
+      results: [
+        {
+          message:
+            'Passing the "@key-up" argument to <Input /> is deprecated.\nInstead, please use the {{on}} modifier, i.e. "<Input {{on "keyup" ...}} />" instead of "<Input @key-up={{...}} />".',
+          line: 1,
+          column: 18,
+          source: '@key-up',
+        },
+      ],
+    },
+
+    // Textarea Deprecated Argument
+    {
+      template: '<Textarea @value="1" @bubbles={{false}} />',
+      results: [
+        {
+          message: 'Passing the "@bubbles" argument to <Textarea /> is deprecated.',
+          line: 1,
+          column: 21,
+          source: '@bubbles',
+        },
+      ],
+    },
+
+    {
+      template: '<Textarea @value="1" @elementId="42" />',
+      results: [
+        {
+          message:
+            'Passing the "@elementId" argument to <Textarea /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<Textarea id={{...}} />" instead of "<Textarea @elementId={{...}} />".',
+          line: 1,
+          column: 21,
+          source: '@elementId',
+        },
+      ],
+    },
+    // Textarea Deprecated Event
+
+    {
+      template: '<Textarea @value="1" @key-up={{ths.onKeyUp}} />',
+      results: [
+        {
+          message:
+            'Passing the "@key-up" argument to <Textarea /> is deprecated.\nInstead, please use the {{on}} modifier, i.e. "<Textarea {{on "keyup" ...}} />" instead of "<Textarea @key-up={{...}} />".',
+          line: 1,
+          column: 21,
+          source: '@key-up',
+        },
+      ],
+    },
   ],
 });
