@@ -1,3 +1,14 @@
+## v3.1.1 (2021-03-07)
+
+#### :bug: Bug Fix
+* [#1823](https://github.com/ember-template-lint/ember-template-lint/pull/1823) Fix suggestions for deprecated events and argument names in `no-unknown-built-in-component-arguments` ([@lifeart](https://github.com/lifeart))
+* [#1824](https://github.com/ember-template-lint/ember-template-lint/pull/1824) Add missing ARIA roles to `no-invalid-role` ([@Windvis](https://github.com/Windvis))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Sam Van Campenhout ([@Windvis](https://github.com/Windvis))
+
+
 ## v3.1.0 (2021-03-07)
 
 #### :rocket: Enhancement
