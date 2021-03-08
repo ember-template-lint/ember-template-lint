@@ -52,6 +52,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -105,6 +106,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -412,6 +414,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -1097,10 +1100,46 @@ describe('ember-template-lint executable', function () {
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
+
+      it('should include information about fixing', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
+
+        project.write({
+          app: {
+            components: {
+              'click-me-button.hbs': '<button>Click me!</button>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--json']);
+
+        let expectedOutputData = {};
+        expectedOutputData['app/components/click-me-button.hbs'] = [
+          {
+            column: 0,
+            line: 1,
+            isFixable: true,
+            message: 'All `<button>` elements should have a valid `type` attribute',
+            filePath: 'app/components/click-me-button.hbs',
+            rule: 'require-button-type',
+            severity: 2,
+            source: '<button>Click me!</button>',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
     });
 
     describe('with sarif formatter', function () {
-      it('should print valid SARIF log with errors', async function () {
+      it('should output sarif log to default path (in project working directory)', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1120,9 +1159,16 @@ describe('ember-template-lint executable', function () {
         });
 
         let result = await run(['--format', 'sarif', '.']);
+        let sarifOutputPattern = /Report\swrit{2}en\sto\s(.*\/ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
+        let sarifLog = JSON.parse(
+          fs.readFileSync(result.stdout.match(sarifOutputPattern)[1], {
+            encoding: 'utf-8',
+          })
+        );
 
         expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(
+        expect(result.stdout).toMatch(sarifOutputPattern);
+        expect(sarifLog).toEqual(
           expect.objectContaining({
             version: '2.1.0',
             $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
@@ -1240,39 +1286,303 @@ describe('ember-template-lint executable', function () {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should include information about fixing', async function () {
+      it('should output sarif log to custom relative path', async function () {
         project.setConfig({
           rules: {
-            'require-button-type': true,
+            'no-bare-strings': true,
+            'no-html-comments': true,
           },
         });
-
         project.write({
           app: {
-            components: {
-              'click-me-button.hbs': '<button>Click me!</button>',
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2> <div>Bare strings are bad...</div><!-- also bad! -->',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
             },
           },
         });
 
-        let result = await run(['.', '--json']);
-
-        let expectedOutputData = {};
-        expectedOutputData['app/components/click-me-button.hbs'] = [
-          {
-            column: 0,
-            line: 1,
-            isFixable: true,
-            message: 'All `<button>` elements should have a valid `type` attribute',
-            filePath: 'app/components/click-me-button.hbs',
-            rule: 'require-button-type',
-            severity: 2,
-            source: '<button>Click me!</button>',
-          },
-        ];
+        let result = await run(['.', '--format', 'sarif', '--output-file', 'my-custom-file.sarif']);
+        let sarifOutputPattern = /Report\swrit{2}en\sto\s(.*\/my-custom-file.sarif)/;
+        let sarifLog = JSON.parse(
+          fs.readFileSync(result.stdout.match(sarifOutputPattern)[1], {
+            encoding: 'utf-8',
+          })
+        );
 
         expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stdout).toMatch(sarifOutputPattern);
+        expect(sarifLog).toEqual(
+          expect.objectContaining({
+            version: '2.1.0',
+            $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
+            runs: [
+              {
+                tool: {
+                  driver: {
+                    name: 'ember-template-lint',
+                    informationUri: 'https://github.com/ember-template-lint/ember-template-lint',
+                    rules: [
+                      {
+                        id: 'no-bare-strings',
+                        helpUri: expect.stringMatching(
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-bare-strings.md'
+                        ),
+                      },
+                      {
+                        id: 'no-html-comments',
+                        helpUri: expect.stringMatching(
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-html-comments.md'
+                        ),
+                      },
+                    ],
+                    version: '3.0.1',
+                  },
+                },
+                artifacts: [
+                  {
+                    location: {
+                      uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                    },
+                  },
+                ],
+                results: [
+                  {
+                    level: 'error',
+                    message: {
+                      text: 'Non-translated string used',
+                    },
+                    locations: [
+                      {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
+                          },
+                          region: {
+                            startLine: 1,
+                            startColumn: 4,
+                            snippet: {
+                              text: 'Here too!!',
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    ruleId: 'no-bare-strings',
+                    ruleIndex: 0,
+                  },
+                  {
+                    level: 'error',
+                    message: {
+                      text: 'Non-translated string used',
+                    },
+                    locations: [
+                      {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
+                          },
+                          region: {
+                            startLine: 1,
+                            startColumn: 25,
+                            snippet: {
+                              text: 'Bare strings are bad...',
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    ruleId: 'no-bare-strings',
+                    ruleIndex: 0,
+                  },
+                  {
+                    level: 'error',
+                    message: {
+                      text: 'HTML comment detected',
+                    },
+                    locations: [
+                      {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
+                          },
+                          region: {
+                            startLine: 1,
+                            startColumn: 54,
+                            snippet: {
+                              text: '<!-- also bad! -->',
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    ruleId: 'no-html-comments',
+                    ruleIndex: 1,
+                  },
+                ],
+              },
+            ],
+          })
+        );
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should output sarif log to custom absolute path', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2> <div>Bare strings are bad...</div><!-- also bad! -->',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run([
+          '.',
+          '--format',
+          'sarif',
+          '--output-file',
+          path.join(project.baseDir, 'subdir', 'my-custom-file.sarif'),
+        ]);
+        let sarifOutputPattern = /Report\swrit{2}en\sto\s(.*\/subdir\/my-custom-file.sarif)/;
+        let sarifLog = JSON.parse(
+          fs.readFileSync(result.stdout.match(sarifOutputPattern)[1], {
+            encoding: 'utf-8',
+          })
+        );
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatch(sarifOutputPattern);
+        expect(sarifLog).toEqual(
+          expect.objectContaining({
+            version: '2.1.0',
+            $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
+            runs: [
+              {
+                tool: {
+                  driver: {
+                    name: 'ember-template-lint',
+                    informationUri: 'https://github.com/ember-template-lint/ember-template-lint',
+                    rules: [
+                      {
+                        id: 'no-bare-strings',
+                        helpUri: expect.stringMatching(
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-bare-strings.md'
+                        ),
+                      },
+                      {
+                        id: 'no-html-comments',
+                        helpUri: expect.stringMatching(
+                          'https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-html-comments.md'
+                        ),
+                      },
+                    ],
+                    version: '3.0.1',
+                  },
+                },
+                artifacts: [
+                  {
+                    location: {
+                      uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                    },
+                  },
+                ],
+                results: [
+                  {
+                    level: 'error',
+                    message: {
+                      text: 'Non-translated string used',
+                    },
+                    locations: [
+                      {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
+                          },
+                          region: {
+                            startLine: 1,
+                            startColumn: 4,
+                            snippet: {
+                              text: 'Here too!!',
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    ruleId: 'no-bare-strings',
+                    ruleIndex: 0,
+                  },
+                  {
+                    level: 'error',
+                    message: {
+                      text: 'Non-translated string used',
+                    },
+                    locations: [
+                      {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
+                          },
+                          region: {
+                            startLine: 1,
+                            startColumn: 25,
+                            snippet: {
+                              text: 'Bare strings are bad...',
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    ruleId: 'no-bare-strings',
+                    ruleIndex: 0,
+                  },
+                  {
+                    level: 'error',
+                    message: {
+                      text: 'HTML comment detected',
+                    },
+                    locations: [
+                      {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                            index: 0,
+                          },
+                          region: {
+                            startLine: 1,
+                            startColumn: 54,
+                            snippet: {
+                              text: '<!-- also bad! -->',
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    ruleId: 'no-html-comments',
+                    ruleIndex: 1,
+                  },
+                ],
+              },
+            ],
+          })
+        );
         expect(result.stderr).toBeFalsy();
       });
     });

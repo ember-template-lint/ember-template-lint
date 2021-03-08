@@ -148,6 +148,11 @@ function parseArgv(_argv) {
         describe: 'Format output as json',
         boolean: true,
       },
+      'output-file': {
+        describe: 'Specify file to write report to',
+        type: 'string',
+        implies: 'format',
+      },
       verbose: {
         describe: 'Output errors with source description',
         boolean: true,
