@@ -146,7 +146,7 @@ Specify a config object to use instead of what exists locally
 ember-template-lint --config '{ "rules": { "no-implicit-this": { "severity": 2, "config": true } } }' test/fixtures/no-implicit-this-allow-with-regexp/app/templates
 ```
 
-Specify a config file to run a certain set of rules
+Specify a configuration to override the normally loaded config file:
 
 ```bash
 ember-template-lint . --config='{"extends": "a11y"}'
