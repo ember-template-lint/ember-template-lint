@@ -198,13 +198,14 @@ describe('', () => {
   });
 
   it('should output sarif log to default path (in project working directory)', function () {
-    let sarifWindowsPattern = /Report\swritten\sto\s(.*\\Temp\\ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
+    let sarifWindowsPattern = /Report\swritten\sto\s(.*\\ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
     let sarifUnixPattern = /Report\swrit{2}en\sto\s(.*\/ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
     let pattern = IS_WINDOWS ? sarifWindowsPattern : sarifUnixPattern;
     let formatter = new Sarif(
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
+            console.log('tmp dir:', str);
             let sarifLog = JSON.parse(
               fs.readFileSync(str.match(pattern)[1], {
                 encoding: 'utf-8',
@@ -230,6 +231,7 @@ describe('', () => {
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
+            console.log('tmp dir:', str);
             let sarifLog = JSON.parse(
               fs.readFileSync(str.match(pattern)[1], {
                 encoding: 'utf-8',
@@ -257,6 +259,7 @@ describe('', () => {
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
+            console.log('tmp dir:', str);
             let sarifLog = JSON.parse(
               fs.readFileSync(str.match(pattern)[1], {
                 encoding: 'utf-8',
