@@ -68,16 +68,18 @@ const SARIF_LOG_MATCHER = {
           rules: [
             {
               id: 'no-bare-strings',
-              helpUri:
-                'https://github.com/ember-template-lint/ember-template-lint/blob/3.0.1/docs/rule/no-bare-strings.md',
+              helpUri: expect.stringMatching(
+                `https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-bare-strings.md`
+              ),
             },
             {
               id: 'no-html-comments',
-              helpUri:
-                'https://github.com/ember-template-lint/ember-template-lint/blob/3.0.1/docs/rule/no-html-comments.md',
+              helpUri: expect.stringMatching(
+                `https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-html-comments.md`
+              ),
             },
           ],
-          version: '3.0.1',
+          version: expect.stringMatching('.*'),
         },
       },
       artifacts: [
@@ -204,6 +206,7 @@ describe('', () => {
                 encoding: 'utf-8',
               })
             );
+            debugger;
 
             expect(str).toMatch(sarifOutputPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));

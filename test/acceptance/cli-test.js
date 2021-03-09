@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const sarifLogMatcher = require('../fixtures/sarif-log-matcher');
 const Project = require('../helpers/fake-project');
 const run = require('../helpers/run');
 const setupEnvVar = require('../helpers/setup-env-var');
