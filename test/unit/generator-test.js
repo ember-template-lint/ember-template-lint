@@ -17,7 +17,8 @@ describe('generators', () => {
     await project.dispose();
   });
 
-  it('generates the rules index file correctly', async () => {
+  it('generates the rules index file correctly', async function () {
+    jest.setTimeout(10000);
     project.writeSync();
 
     let rulesIndexPath = path.resolve(__dirname, '../../lib/rules');

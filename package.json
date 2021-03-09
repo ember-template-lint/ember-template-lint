@@ -36,6 +36,9 @@
       "<rootDir>/test/**/*-test.js"
     ]
   },
+  "resolutions": {
+    "tmp": "^0.2.1"
+  },
   "dependencies": {
     "@ember-template-lint/todo-utils": "^8.0.0-beta.3",
     "chalk": "^4.0.0",
@@ -76,9 +79,6 @@
     "yeoman-environment": "^3.1.0",
     "yeoman-generator": "^5.1.0",
     "yeoman-test": "^5.0.1"
-  },
-  "resolutions": {
-    "tmp": "^0.2.1"
   },
   "engines": {
     "node": ">= 10.24 < 11 || 12.* || >= 14.*"
