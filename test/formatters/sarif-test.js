@@ -179,7 +179,7 @@ const DEFAULT_OPTIONS = {
   quiet: false,
   updateTodo: false,
   verbose: false,
-  workingDirectory: undefined,
+  workingDir: undefined,
 };
 
 describe('', () => {
@@ -211,7 +211,7 @@ describe('', () => {
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
           },
         },
-        workingDirectory: project.baseDir,
+        workingDir: project.baseDir,
       })
     );
 
@@ -236,7 +236,7 @@ describe('', () => {
         },
 
         outputFile: 'my-custom-file.sarif',
-        workingDirectory: project.baseDir,
+        workingDir: project.baseDir,
       })
     );
 
@@ -261,7 +261,7 @@ describe('', () => {
         },
 
         outputFile: path.join(project.baseDir, 'subdir', 'my-custom-file.sarif'),
-        workingDirectory: project.baseDir,
+        workingDir: project.baseDir,
       })
     );
 
@@ -278,7 +278,7 @@ describe('', () => {
         },
 
         isInteractive: false,
-        workingDirectory: project.baseDir,
+        workingDir: project.baseDir,
       })
     );
 
