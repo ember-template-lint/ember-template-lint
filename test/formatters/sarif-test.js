@@ -201,8 +201,6 @@ describe('', () => {
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            // eslint-disable-next-line no-console
-            console.log('tmp dir:', str);
             let sarifLog = JSON.parse(
               fs.readFileSync(str.match(sarifPattern)[1], {
                 encoding: 'utf-8',
@@ -226,8 +224,6 @@ describe('', () => {
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            // eslint-disable-next-line no-console
-            console.log('tmp dir:', str);
             let sarifLog = JSON.parse(
               fs.readFileSync(str.match(sarifPattern)[1], {
                 encoding: 'utf-8',
@@ -253,8 +249,6 @@ describe('', () => {
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            // eslint-disable-next-line no-console
-            console.log('tmp dir:', str);
             let sarifLog = JSON.parse(
               fs.readFileSync(str.match(sarifPattern)[1], {
                 encoding: 'utf-8',
