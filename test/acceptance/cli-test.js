@@ -52,6 +52,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -105,6 +106,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -412,6 +414,7 @@ describe('ember-template-lint executable', function () {
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --json                      Format output as json                    [boolean]
+            --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
                                         the current working directory.
@@ -1094,6 +1097,42 @@ describe('ember-template-lint executable', function () {
         expectedOutputData['app/templates/application.hbs'] = [];
 
         expect(result.exitCode).toEqual(0);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('should include information about fixing', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
+
+        project.write({
+          app: {
+            components: {
+              'click-me-button.hbs': '<button>Click me!</button>',
+            },
+          },
+        });
+
+        let result = await run(['.', '--json']);
+
+        let expectedOutputData = {};
+        expectedOutputData['app/components/click-me-button.hbs'] = [
+          {
+            column: 0,
+            line: 1,
+            isFixable: true,
+            message: 'All `<button>` elements should have a valid `type` attribute',
+            filePath: 'app/components/click-me-button.hbs',
+            rule: 'require-button-type',
+            severity: 2,
+            source: '<button>Click me!</button>',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
         expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
