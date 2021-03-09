@@ -16,8 +16,8 @@ describe('generators', () => {
   });
 
   afterEach(async function () {
-    await project.dispose();
     process.chdir(ROOT);
+    await project.dispose();
   });
 
   it('generates the rules index file correctly', async function () {
