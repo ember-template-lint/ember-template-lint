@@ -4,8 +4,6 @@ const path = require('path');
 const Sarif = require('../../lib/formatters/sarif');
 const Project = require('../helpers/fake-project');
 
-const IS_WINDOWS = process.platform === 'win32';
-
 const RESULTS = {
   files: {
     'app/templates/application.hbs': {
