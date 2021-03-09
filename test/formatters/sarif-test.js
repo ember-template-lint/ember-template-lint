@@ -4,6 +4,8 @@ const path = require('path');
 const Sarif = require('../../lib/formatters/sarif');
 const Project = require('../helpers/fake-project');
 
+const IS_WINDOWS = process.platform === 'win32';
+
 const RESULTS = {
   files: {
     'app/templates/application.hbs': {
@@ -196,18 +198,20 @@ describe('', () => {
   });
 
   it('should output sarif log to default path (in project working directory)', function () {
-    let sarifOutputPattern = /Report\swrit{2}en\sto\s(.*\/ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
+    let sarifWindowsPattern = /Report\swritten\sto\s(.*\\Temp\\ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
+    let sarifUnixPattern = /Report\swrit{2}en\sto\s(.*\/ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
+    let pattern = IS_WINDOWS ? sarifWindowsPattern : sarifUnixPattern;
     let formatter = new Sarif(
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
             let sarifLog = JSON.parse(
-              fs.readFileSync(str.match(sarifOutputPattern)[1], {
+              fs.readFileSync(str.match(pattern)[1], {
                 encoding: 'utf-8',
               })
             );
 
-            expect(str).toMatch(sarifOutputPattern);
+            expect(str).toMatch(pattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
           },
         },
@@ -219,18 +223,20 @@ describe('', () => {
   });
 
   it('should output sarif log to custom relative path', function () {
-    let sarifOutputPattern = /Report\swrit{2}en\sto\s(.*\/my-custom-file.sarif)/;
+    let sarifWindowsPattern = /Report\swrit{2}en\sto\s(.*\\my-custom-file.sarif)/;
+    let sarifUnixPattern = /Report\swrit{2}en\sto\s(.*\/my-custom-file.sarif)/;
+    let pattern = IS_WINDOWS ? sarifWindowsPattern : sarifUnixPattern;
     let formatter = new Sarif(
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
             let sarifLog = JSON.parse(
-              fs.readFileSync(str.match(sarifOutputPattern)[1], {
+              fs.readFileSync(str.match(pattern)[1], {
                 encoding: 'utf-8',
               })
             );
 
-            expect(str).toMatch(sarifOutputPattern);
+            expect(str).toMatch(pattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
           },
         },
@@ -244,18 +250,20 @@ describe('', () => {
   });
 
   it('should output sarif log to custom absolute path', function () {
-    let sarifOutputPattern = /Report\swrit{2}en\sto\s(.*\/subdir\/my-custom-file.sarif)/;
+    let sarifWindowsPattern = /Report\swrit{2}en\sto\s(.*\\subdir\\my-custom-file.sarif)/;
+    let sarifUnixPattern = /Report\swrit{2}en\sto\s(.*\/subdir\/my-custom-file.sarif)/;
+    let pattern = IS_WINDOWS ? sarifWindowsPattern : sarifUnixPattern;
     let formatter = new Sarif(
       Object.assign(DEFAULT_OPTIONS, {
         console: {
           log(str) {
             let sarifLog = JSON.parse(
-              fs.readFileSync(str.match(sarifOutputPattern)[1], {
+              fs.readFileSync(str.match(pattern)[1], {
                 encoding: 'utf-8',
               })
             );
 
-            expect(str).toMatch(sarifOutputPattern);
+            expect(str).toMatch(pattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
           },
         },
