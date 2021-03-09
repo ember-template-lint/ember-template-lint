@@ -206,7 +206,6 @@ describe('', () => {
                 encoding: 'utf-8',
               })
             );
-            debugger;
 
             expect(str).toMatch(sarifOutputPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
