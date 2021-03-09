@@ -13,10 +13,6 @@ describe('generators', () => {
     project = new Project();
   });
 
-  afterEach(async function () {
-    await project.dispose();
-  });
-
   it('generates the rules index file correctly', async function () {
     jest.setTimeout(10000);
     project.writeSync();
