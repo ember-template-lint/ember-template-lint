@@ -6,11 +6,18 @@ const helpers = require('yeoman-test');
 const RulesIndexGenerator = require('../../dev/rules-index-generator');
 const Project = require('../helpers/fake-project');
 
+const ROOT = process.cwd();
+
 describe('generators', () => {
   let project = null;
 
   beforeEach(function () {
     project = new Project();
+  });
+
+  afterEach(async function () {
+    await project.dispose();
+    process.chdir(ROOT);
   });
 
   it('generates the rules index file correctly', async function () {
