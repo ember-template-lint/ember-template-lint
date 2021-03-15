@@ -8066,13 +8066,14 @@ yeoman-generator@^5.2.0:
     shelljs "^0.8.4"
     text-table "^0.2.0"
 
-yeoman-test@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/yeoman-test/-/yeoman-test-5.0.1.tgz#d3f91238839e79b3c6ca987b3c31e52b19a6652e"
-  integrity sha512-2qY5Uac00N6BsDodQwx062zu7bnPtA0FXgWblRvK0+RrfcYr8ofuXNX8P9uqrW3sAqju896QpN6aGeRQpI0IDg==
+yeoman-test@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/yeoman-test/-/yeoman-test-5.1.0.tgz#c4b8ff11176f599db0eb2e1be41d3701934def8f"
+  integrity sha512-lcXcNRleJrIhohoKcRwmj9i8JO0lsYTySprwCfgZV1THeHJRqUsBEhHVgMr7DVB+coMoIkxk99wpn/bsOvpz4w==
   dependencies:
     inquirer "^7.3.3"
     lodash "^4.17.19"
+    mem-fs-editor "^8.0.0"
     sinon "^9.0.2"
 
 yocto-queue@^0.1.0:
