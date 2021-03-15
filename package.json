@@ -75,7 +75,7 @@
     "sort-package-json": "^1.49.0",
     "yeoman-environment": "^3.1.0",
     "yeoman-generator": "^5.2.0",
-    "yeoman-test": "^5.0.1"
+    "yeoman-test": "^5.1.0"
   },
   "engines": {
     "node": ">= 10.24 < 11 || 12.* || >= 14.*"
