@@ -30,26 +30,34 @@ generateRuleTests({
 
     {
       config: {
-        ignore: ['click'],
+        ignore: {
+          Foo: ['click'],
+        },
       },
       template: '<Foo @click={{this.handleClick}} />',
     },
     {
       config: {
-        ignore: ['click'],
+        ignore: {
+          foo: ['click'],
+        },
       },
       template: '{{foo click=this.handleClick}}',
     },
     {
       config: {
-        ignore: ['submit'],
+        ignore: {
+          Foo: ['submit'],
+        },
       },
       template: '<Foo @submit={{this.handleClick}} />',
     },
 
     {
       config: {
-        ignore: ['submit'],
+        ignore: {
+          foo: ['submit'],
+        },
       },
       template: '{{foo submit=this.handleClick}}',
     },
