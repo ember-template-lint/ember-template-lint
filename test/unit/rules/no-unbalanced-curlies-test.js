@@ -8,7 +8,15 @@ generateRuleTests({
 
   config: true,
 
-  good: ['{foo}', '{{foo}}', '{{{foo}}}', '{{{foo\n}}}', '\\{{foo}}'],
+  good: [
+    '{foo}',
+    '{{foo}}',
+    '{{{foo}}}',
+    '{{{foo\n}}}',
+    '\\{{foo}}',
+    '\\{{foo}}\\{{foo}}',
+    '\\{{foo}}{{foo}}',
+  ],
 
   bad: [
     {
