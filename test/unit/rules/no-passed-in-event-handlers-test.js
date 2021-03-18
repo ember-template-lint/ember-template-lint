@@ -6,7 +6,7 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 generateRuleTests({
   name: 'no-passed-in-event-handlers',
 
-  config: 'true',
+  config: true,
   good: [
     '<Foo />',
     '<Foo @onClick={{this.handleClick}} />',
@@ -27,6 +27,40 @@ generateRuleTests({
     '{{foo random=true}}',
     '{{input click=this.handleClick}}',
     '{{textarea click=this.handleClick}}',
+
+    {
+      config: {
+        ignore: {
+          Foo: ['click'],
+        },
+      },
+      template: '<Foo @click={{this.handleClick}} />',
+    },
+    {
+      config: {
+        ignore: {
+          foo: ['click'],
+        },
+      },
+      template: '{{foo click=this.handleClick}}',
+    },
+    {
+      config: {
+        ignore: {
+          Foo: ['submit'],
+        },
+      },
+      template: '<Foo @submit={{this.handleClick}} />',
+    },
+
+    {
+      config: {
+        ignore: {
+          foo: ['submit'],
+        },
+      },
+      template: '{{foo submit=this.handleClick}}',
+    },
   ],
   bad: [
     {

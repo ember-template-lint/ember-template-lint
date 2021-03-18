@@ -44,6 +44,29 @@ This rule **allows** the following:
 {{foo onClick=this.handleClick}}
 ```
 
+## Configuration
+
+- boolean - `true` to enable / `false` to disable
+
+  - object -- An object with the following keys:
+
+    - `ignore` -- An object with the following keys/values:
+
+      - key: string -- The name of the element or mustache statement to ignore event handlers for
+      - value: array -- Event handler names. Event handler names should exclude the @ when specifying those intended for named arguments. This rule will ensure both non-named arguments and named arguments are both ignored appropriately.
+
+      eg.
+
+      Given the following configuration:
+
+      ```json
+      {
+        "ignore": {
+          "MyButton": ["click"]
+        }
+      }
+      ```
+
 ## Migration
 
 - create explicit component APIs for these events (e.g. `@click` -> `@onClick`)
