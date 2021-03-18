@@ -67,8 +67,6 @@ This rule **allows** the following:
       }
       ```
 
-      Both `click` and `@click` will be ignore as violations of this rule.
-
 ## Migration
 
 - create explicit component APIs for these events (e.g. `@click` -> `@onClick`)
