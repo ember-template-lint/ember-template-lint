@@ -241,5 +241,27 @@ generateRuleTests({
         isFixable: true,
       },
     },
+    {
+      template: '{{#if (or isLoading hasLoadFailed hasBlock)}}...{{/if}}',
+      fixedTemplate: '{{#if (or isLoading hasLoadFailed (has-block))}}...{{/if}}',
+      result: {
+        message: getErrorMessage('hasBlock'),
+        line: 1,
+        column: 34,
+        source: 'hasBlock',
+        isFixable: true,
+      },
+    },
+    {
+      template: '{{#if (or isLoading hasLoadFailed hasBlockParams)}}...{{/if}}',
+      fixedTemplate: '{{#if (or isLoading hasLoadFailed (has-block-params))}}...{{/if}}',
+      result: {
+        message: getErrorMessage('hasBlockParams'),
+        line: 1,
+        column: 34,
+        source: 'hasBlockParams',
+        isFixable: true,
+      },
+    },
   ],
 });
