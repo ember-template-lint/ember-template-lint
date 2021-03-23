@@ -1,3 +1,40 @@
+## v3.2.0 (2021-03-23)
+
+#### :rocket: Enhancement
+* [#1857](https://github.com/ember-template-lint/ember-template-lint/pull/1857) Adding ignore option to `no-passed-in-event-handlers` ([@scalvert](https://github.com/scalvert))
+* [#1812](https://github.com/ember-template-lint/ember-template-lint/pull/1812) Adding SARIF formatter ([@scalvert](https://github.com/scalvert))
+* [#1810](https://github.com/ember-template-lint/ember-template-lint/pull/1810) Add rules index generator ([@scalvert](https://github.com/scalvert))
+* [#1340](https://github.com/ember-template-lint/ember-template-lint/pull/1340) Add `--format` option to allow loading custom formatters ([@gabrielcsapo](https://github.com/gabrielcsapo))
+
+#### :bug: Bug Fix
+* [#1862](https://github.com/ember-template-lint/ember-template-lint/pull/1862) Fix `require-has-block-helper` rule autofix when multiple parameters present ([@bertdeblock](https://github.com/bertdeblock))
+* [#1850](https://github.com/ember-template-lint/ember-template-lint/pull/1850) Only catch exact matches of title and link text in `no-invalid-link-title` rule ([@bmish](https://github.com/bmish))
+* [#1823](https://github.com/ember-template-lint/ember-template-lint/pull/1823) Fix suggestions for deprecated events and argument names in `no-unknown-built-in-component-arguments` ([@lifeart](https://github.com/lifeart))
+* [#1824](https://github.com/ember-template-lint/ember-template-lint/pull/1824) Add missing ARIA roles to `no-invalid-role` ([@Windvis](https://github.com/Windvis))
+* [#1822](https://github.com/ember-template-lint/ember-template-lint/pull/1822) Prevent `no-duplicate-landmark-elements` false positive for non-landmark roles ([@rwjblue](https://github.com/rwjblue))
+
+#### :memo: Documentation
+* [#1832](https://github.com/ember-template-lint/ember-template-lint/pull/1832) Add `--config` example to README.md. ([@MelSumner](https://github.com/MelSumner))
+* [#1816](https://github.com/ember-template-lint/ember-template-lint/pull/1816) docs: for disabling todos decay days ([@timiyay](https://github.com/timiyay))
+
+#### :house: Internal
+* [#1837](https://github.com/ember-template-lint/ember-template-lint/pull/1837) Resolve `no-missing-require` lint error ([@bertdeblock](https://github.com/bertdeblock))
+* [#1836](https://github.com/ember-template-lint/ember-template-lint/pull/1836) Make sure newly generated rules don't trigger lint errors ([@bertdeblock](https://github.com/bertdeblock))
+* [#1834](https://github.com/ember-template-lint/ember-template-lint/pull/1834) Upgrading @ember-template-lint-todo-utils to 8.0.0 ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 10
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Sam Van Campenhout ([@Windvis](https://github.com/Windvis))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+- [@timiyay](https://github.com/timiyay)
+
+
 ## v3.1.1 (2021-03-07)
 
 #### :bug: Bug Fix
