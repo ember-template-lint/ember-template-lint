@@ -39,7 +39,7 @@
   "dependencies": {
     "@ember-template-lint/todo-utils": "^8.0.0",
     "chalk": "^4.0.0",
-    "date-fns": "^2.19.0",
+    "date-fns": "^2.20.1",
     "ember-template-recast": "^5.0.1",
     "find-up": "^5.0.0",
     "fuse.js": "^6.4.6",
