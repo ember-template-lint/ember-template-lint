@@ -71,6 +71,7 @@ const SHARED_BAD = [
       {
         message: generateError('foo-bar'),
         line: 1,
+        isFixable: false,
         column: 0,
         source: '{{foo-bar}}',
       },
@@ -83,6 +84,7 @@ const SHARED_BAD = [
         message: generateError('nested/component'),
         line: 1,
         column: 0,
+        isFixable: false,
         source: '{{nested/component}}',
       },
     ],
@@ -93,6 +95,7 @@ const SHARED_BAD = [
       {
         message: generateError('foo-bar'),
         line: 1,
+        isFixable: false,
         column: 0,
         source: '{{foo-bar bar=baz}}',
       },
@@ -105,6 +108,7 @@ const SHARED_BAD = [
         message: generateError('foo.bar'),
         line: 1,
         column: 0,
+        isFixable: false,
         source: '{{foo.bar bar=baz}}',
       },
     ],
@@ -115,6 +119,7 @@ const SHARED_BAD = [
       {
         message: generateError('link-to'),
         line: 1,
+        isFixable: false,
         column: 0,
         source: '{{link-to "bar" "foo"}}',
       },
@@ -127,6 +132,7 @@ const SHARED_BAD = [
         message: generateError('link-to'),
         line: 1,
         column: 0,
+        isFixable: false,
         source: '{{#link-to "foo"}}bar{{/link-to}}',
       },
     ],
@@ -138,6 +144,7 @@ const SHARED_BAD = [
         message: generateError('input'),
         line: 1,
         column: 0,
+        isFixable: false,
         source: '{{input type="text" value=this.model.name}}',
       },
     ],
@@ -149,6 +156,7 @@ const SHARED_BAD = [
         message: generateError('textarea'),
         line: 1,
         column: 0,
+        isFixable: false,
         source: '{{textarea value=this.model.body}}',
       },
     ],
@@ -162,6 +170,7 @@ const SHARED_BAD = [
         message: generateError('heading'),
         line: 1,
         column: 0,
+        isFixable: true,
         source: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
       },
     ],
@@ -171,7 +180,10 @@ const SHARED_BAD = [
 generateRuleTests({
   name: 'no-curly-component-invocation',
 
-  config: true,
+  config: {
+    requireDash: true,
+    noImplicitThis: false,
+  },
 
   good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD],
   bad: [...SHARED_BAD],
@@ -182,6 +194,7 @@ generateRuleTests({
 
   config: {
     requireDash: false,
+    noImplicitThis: false,
   },
 
   good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD],
@@ -194,6 +207,7 @@ generateRuleTests({
   config: {
     disallow: ['disallowed'],
     requireDash: false,
+    noImplicitThis: false,
   },
 
   good: [
@@ -209,6 +223,7 @@ generateRuleTests({
         {
           message: generateError('disallowed'),
           line: 1,
+          isFixable: false,
           column: 0,
           source: '{{disallowed}}',
         },
@@ -223,6 +238,7 @@ generateRuleTests({
   config: {
     allow: ['aaa-bbb', 'aaa/bbb'],
     requireDash: false,
+    noImplicitThis: false,
   },
 
   good: [
@@ -241,6 +257,7 @@ generateRuleTests({
 
   config: {
     requireDash: true,
+    noImplicitThis: false,
   },
 
   good: [...SHARED_MOSTLY_GOOD, ...SHARED_GOOD, '{{foo bar=baz}}'],
@@ -251,6 +268,7 @@ generateRuleTests({
   name: 'no-curly-component-invocation',
 
   config: {
+    requireDash: false,
     noImplicitThis: true,
   },
 
@@ -263,6 +281,7 @@ generateRuleTests({
         {
           message: generateError('foo'),
           line: 1,
+          isFixable: false,
           column: 0,
           source: '{{foo}}',
         },
@@ -275,6 +294,7 @@ generateRuleTests({
           message: generateError('foo.bar'),
           line: 1,
           column: 0,
+          isFixable: false,
           source: '{{foo.bar}}',
         },
       ],
@@ -282,25 +302,107 @@ generateRuleTests({
   ],
 });
 
+// fixers tests
+
+generateRuleTests({
+  name: 'no-curly-component-invocation',
+  config: true,
+  bad: [
+    {
+      template: '{{#foo-bar}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar></FooBar>',
+    },
+    {
+      template: '{{#foo-bar a=1 b=true c=undefined d=null}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar @a={{1}} @b={{true}} @c={{undefined}} @d={{null}}></FooBar>',
+    },
+    {
+      template: '{{#foo-bar tagName=""}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar @tagName=""></FooBar>',
+    },
+    {
+      template: '{{#foo-bar tagName=" "}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar @tagName=" "></FooBar>',
+    },
+    {
+      template: '{{#foo-bar tagName=(hash tag="")}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar @tagName={{hash tag=""}}></FooBar>',
+    },
+    {
+      template: '{{#foo-bar a="str"}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar @a="str"></FooBar>',
+    },
+    {
+      template: '{{#foo-bar/baz/boo-foo a="str"}}{{/foo-bar/baz/boo-foo}}',
+      fixedTemplate: '<FooBar::Baz::BooFoo @a="str"></FooBar::Baz::BooFoo>',
+    },
+    {
+      template: '{{#foo-bar a=(array 1 2 3)}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar @a={{array 1 2 3}}></FooBar>',
+    },
+    {
+      template: '{{#foo-bar as |foo-baz|}}{{foo-baz}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar as |foo-baz|>{{foo-baz}}</FooBar>',
+    },
+    {
+      template:
+        '{{#foo-bar as |foo-baz|}}{{#foo-baz as |foo-boo|}}{{foo-boo}}{{/foo-baz}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar as |foo-baz|><foo-baz as |foo-boo|>{{foo-boo}}</foo-baz></FooBar>',
+    },
+    {
+      template: '{{#foo-bar as |foo-baz|}}{{foos-baz}}{{/foo-bar}}',
+      fixedTemplate: '<FooBar as |foo-baz|>{{foos-baz}}</FooBar>',
+    },
+    {
+      template: '{{#this.foo-bar as |foo-baz|}}{{foos-baz}}{{/this.foo-bar}}',
+      fixedTemplate: '<this.foo-bar as |foo-baz|>{{foos-baz}}</this.foo-bar>',
+    },
+    {
+      template: '{{#this.fooBar as |foo-baz|}}{{foos-baz}}{{/this.fooBar}}',
+      fixedTemplate: '<this.fooBar as |foo-baz|>{{foos-baz}}</this.fooBar>',
+    },
+    {
+      template: '{{#@foo-bar as |foo-baz|}}{{foos-baz}}{{/@foo-bar}}',
+      fixedTemplate: '<@foo-bar as |foo-baz|>{{foos-baz}}</@foo-bar>',
+    },
+    {
+      template: '{{#@fooBar as |foo-baz|}}{{foos-baz}}{{/@fooBar}}',
+      fixedTemplate: '<@fooBar as |foo-baz|>{{foos-baz}}</@fooBar>',
+    },
+    {
+      template:
+        '{{#let (component "foo") as |my-component|}}{{#my-component}}{{/my-component}}{{/let}}',
+      fixedTemplate:
+        '{{#let (component "foo") as |my-component|}}<my-component></my-component>{{/let}}',
+    },
+    {
+      template:
+        "{{#some-thing foo=(concat true null undefined 42 (my-helper value) 'lol-' something ' ' 'wtf')}}{{/some-thing}}",
+      fixedTemplate:
+        '<SomeThing @foo="truenullundefined42{{my-helper value}}lol-{{something}} wtf"></SomeThing>',
+    },
+  ],
+});
+
 describe('no-curly-component-invocation', () => {
   describe('parseConfig', () => {
     const TESTS = [
-      [true, { allow: [], disallow: [], requireDash: true, noImplicitThis: false }],
+      [true, { allow: [], disallow: [], requireDash: false, noImplicitThis: true }],
       [
         { allow: ['foo'] },
-        { allow: ['foo'], disallow: [], requireDash: true, noImplicitThis: false },
+        { allow: ['foo'], disallow: [], requireDash: false, noImplicitThis: true },
       ],
       [
         { requireDash: false },
-        { allow: [], disallow: [], requireDash: false, noImplicitThis: false },
+        { allow: [], disallow: [], requireDash: false, noImplicitThis: true },
       ],
       [
         { noImplicitThis: true },
-        { allow: [], disallow: [], requireDash: true, noImplicitThis: true },
+        { allow: [], disallow: [], requireDash: false, noImplicitThis: true },
       ],
       [
         { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false },
-        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false, noImplicitThis: false },
+        { allow: ['foo'], disallow: ['bar', 'baz'], requireDash: false, noImplicitThis: true },
       ],
     ];
 

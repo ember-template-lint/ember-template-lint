@@ -19,7 +19,6 @@ function run(project, args, options = {}) {
 }
 
 describe('editors integration', function () {
-  setupEnvVar('GITHUB_ACTIONS', null);
   setupEnvVar('FORCE_COLOR', '0');
   setupEnvVar('LC_ALL', 'en_US');
 
@@ -51,7 +50,6 @@ describe('editors integration', function () {
           line: 1,
           message: 'Unexpected {{debugger}} usage.',
           filePath: 'template.hbs',
-          moduleId: 'template',
           rule: 'no-debugger',
           severity: 2,
           source: '{{debugger}}',

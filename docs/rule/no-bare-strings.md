@@ -25,7 +25,6 @@ This rule **allows** the following:
 * array -- an array of allowlisted strings
 * object -- An object with the following keys:
   * `allowlist` -- An array of allowlisted strings
-  * `whitelist` -- Deprecated, use `allowlist`. If both are provided, `whitelist` will be ignored.
   * `globalAttributes` -- An array of attributes to check on every element.
   * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name.
 

@@ -46,9 +46,9 @@ describe('isInteractiveElement', function () {
     '<audio controls></audio>': 'an <audio> element with the `controls` attribute',
   };
 
-  nonInteractive.forEach(function (template) {
+  for (const template of nonInteractive) {
     testTemplate(template, false);
-  });
+  }
 
   // eslint-disable-next-line wrap-iife
   (function () {
@@ -64,11 +64,11 @@ describe('isInteractiveElement', function () {
       return isInteractiveElement.reason(ast.body[0]);
     }
 
-    nonInteractive.forEach(function (template) {
+    for (const template of nonInteractive) {
       it(`${template} should have a reason of \`null\``, function () {
         expect(test(template)).toBe(null);
       });
-    });
+    }
 
     // eslint-disable-next-line wrap-iife
     (function () {

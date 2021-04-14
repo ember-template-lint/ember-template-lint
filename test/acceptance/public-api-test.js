@@ -285,7 +285,7 @@ describe('public api', function () {
       await project.dispose();
     });
 
-    it('returns whether the source has been fixed + an array of remaining issues with the provided template', function () {
+    it('returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
@@ -294,14 +294,13 @@ describe('public api', function () {
           line: 1,
           message: 'you must use double quotes in templates',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           rule: 'quotes',
           severity: 2,
           source: "class='mb4'",
         },
       ];
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -312,7 +311,7 @@ describe('public api', function () {
       expect(result.isFixed).toEqual(false);
     });
 
-    it('ensures template parsing errors are only reported once (not once per-rule)', function () {
+    it('ensures template parsing errors are only reported once (not once per-rule)', async function () {
       let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
       project.write({
         app: {
@@ -324,7 +323,7 @@ describe('public api', function () {
 
       let templatePath = project.path('app/templates/other.hbs');
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -335,7 +334,7 @@ describe('public api', function () {
       expect(result.messages[0].fatal).toEqual(true);
     });
 
-    it('includes updated output when fixable', function () {
+    it('includes updated output when fixable', async function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
       project.write({
@@ -348,7 +347,7 @@ describe('public api', function () {
 
       let templatePath = project.path('app/templates/other.hbs');
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -359,7 +358,7 @@ describe('public api', function () {
       expect(result.isFixed).toEqual(true);
     });
 
-    it('updated output includes byte order mark if input source includes it', function () {
+    it('updated output includes byte order mark if input source includes it', async function () {
       let templateContents = '\uFEFF<button>LOL, Click me!</button>';
 
       project.write({
@@ -372,7 +371,7 @@ describe('public api', function () {
 
       let templatePath = project.path('app/templates/other.hbs');
 
-      let result = linter.verifyAndFix({
+      let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -422,14 +421,13 @@ describe('public api', function () {
       await project.dispose();
     });
 
-    it('returns an array of issues with the provided template', function () {
+    it('returns an array of issues with the provided template', async function () {
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
         {
           message: 'Non-translated string used',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: 'Here too!!',
@@ -439,7 +437,6 @@ describe('public api', function () {
         {
           message: 'Non-translated string used',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 2,
           column: 5,
           source: 'Bare strings are bad...',
@@ -448,7 +445,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -457,16 +454,16 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('returns a "fatal" result object if an error occurs during parsing', function () {
+    it('returns a "fatal" result object if an error occurs during parsing', async function () {
       let template = '<div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
       });
 
       expect(result[0].fatal).toBe(true);
     });
 
-    it('triggers warnings when severity is set to warn', function () {
+    it('triggers warnings when severity is set to warn', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -476,7 +473,7 @@ describe('public api', function () {
 
       let template = ['<div>', '<p></p>', '</div>'].join('\n');
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -486,7 +483,6 @@ describe('public api', function () {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 2,
         column: 0,
         source: '<div>\n<p></p>\n</div>',
@@ -497,7 +493,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('allows custom severity level for rules along with custom config', function () {
+    it('allows custom severity level for rules along with custom config', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -507,7 +503,7 @@ describe('public api', function () {
 
       let template = ['<div>', '{{fooData}}{{barData}}', '</div>'].join('\n');
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -517,7 +513,6 @@ describe('public api', function () {
         message:
           "Ambiguous path 'barData' is not allowed. Use '@barData' if it is a named argument or 'this.barData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['barData'] }.",
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 2,
         column: 13,
         source: 'barData',
@@ -528,7 +523,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('defaults all messages to warning severity level when module listed in pending', function () {
+    it('defaults all messages to warning severity level when module listed in pending', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -538,7 +533,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -547,7 +542,6 @@ describe('public api', function () {
       let expected = {
         message: 'Non-translated string used',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 1,
         column: 5,
         source: 'bare string',
@@ -558,7 +552,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('does not exclude errors when other rules are marked as pending', function () {
+    it('does not exclude errors when other rules are marked as pending', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -568,7 +562,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -578,7 +572,6 @@ describe('public api', function () {
         {
           message: 'Non-translated string used',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           line: 1,
           column: 5,
           source: 'bare string',
@@ -589,7 +582,6 @@ describe('public api', function () {
           message:
             'Pending module (`some/path/here`) passes `block-indentation` rule. Please remove `block-indentation` from pending rules list.',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
         },
@@ -598,11 +590,11 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides - base case', function () {
+    it('Works with overrides - base case', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -615,7 +607,6 @@ describe('public api', function () {
           line: 1,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
-          moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
@@ -625,7 +616,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides with custom warning severity', function () {
+    it('Works with overrides with custom warning severity', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -643,7 +634,7 @@ describe('public api', function () {
         },
       });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -656,7 +647,6 @@ describe('public api', function () {
           line: 1,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
-          moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
@@ -666,7 +656,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works for older syntax without custom severity', function () {
+    it('Works for older syntax without custom severity', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -679,7 +669,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string {{foo}} {{baz}}</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -690,7 +680,6 @@ describe('public api', function () {
           rule: 'no-restricted-invocations',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           message: "Cannot use disallowed helper or component '{{foo}}'",
           line: 1,
           column: 17,
@@ -700,7 +689,6 @@ describe('public api', function () {
           rule: 'no-implicit-this',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           message:
             "Ambiguous path 'foo' is not allowed. Use '@foo' if it is a named argument or 'this.foo' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['foo'] }.",
           line: 1,
@@ -711,7 +699,6 @@ describe('public api', function () {
           rule: 'no-bare-strings',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           message: 'Non-translated string used',
           line: 1,
           column: 5,
@@ -722,7 +709,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Works with overrides with custom warning severity object', function () {
+    it('Works with overrides with custom warning severity object', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -740,7 +727,7 @@ describe('public api', function () {
         },
       });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -753,7 +740,6 @@ describe('public api', function () {
           filePath: templatePath,
           message:
             "Ambiguous path 'fooData' is not allowed. Use '@fooData' if it is a named argument or 'this.fooData' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['fooData'] }.",
-          moduleId: templatePath.slice(0, -4),
           rule: 'no-implicit-this',
           severity: 2,
           source: 'fooData',
@@ -763,7 +749,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('Should not trigger the lint error over custom overrides', function () {
+    it('Should not trigger the lint error over custom overrides', async function () {
       let templatePath = project.path('app/templates/components/foo.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
 
@@ -784,7 +770,7 @@ describe('public api', function () {
         },
       });
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
@@ -793,7 +779,7 @@ describe('public api', function () {
       expect(result).toEqual([]);
     });
 
-    it('triggers warnings when specific rule is marked as pending', function () {
+    it('triggers warnings when specific rule is marked as pending', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -804,7 +790,7 @@ describe('public api', function () {
 
       let template = ['<div>', '<p></p>', '</div>'].join('\n');
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -814,7 +800,6 @@ describe('public api', function () {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         line: 2,
         column: 0,
         source: '<div>\n<p></p>\n</div>',
@@ -825,7 +810,7 @@ describe('public api', function () {
       expect(result).toEqual([expected]);
     });
 
-    it('module listed via moduleId in pending passes an error results', function () {
+    it('module listed via moduleId in pending passes an error results', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -835,7 +820,7 @@ describe('public api', function () {
       });
 
       let template = '<div></div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -846,14 +831,13 @@ describe('public api', function () {
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         severity: 2,
       };
 
       expect(result).toEqual([expected]);
     });
 
-    it('module listed as object via rule exclusion in pending passes an error results', function () {
+    it('module listed as object via rule exclusion in pending passes an error results', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -863,7 +847,7 @@ describe('public api', function () {
       });
 
       let template = '<div></div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -874,14 +858,13 @@ describe('public api', function () {
         message:
           'Pending module (`some/path/here`) passes all rules. Please remove `some/path/here` from pending list.',
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
         severity: 2,
       };
 
       expect(result).toEqual([expected]);
     });
 
-    it('triggers error if pending rule is passing', function () {
+    it('triggers error if pending rule is passing', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -891,7 +874,7 @@ describe('public api', function () {
       });
 
       let template = '<div>Bare strings are bad</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -903,7 +886,6 @@ describe('public api', function () {
           line: 1,
           message: 'Non-translated string used',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           rule: 'no-bare-strings',
           severity: 1,
           source: 'Bare strings are bad',
@@ -912,7 +894,6 @@ describe('public api', function () {
           message:
             'Pending module (`some/path/here`) passes `no-html-comments` rule. Please remove `no-html-comments` from pending rules list.',
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           rule: 'invalid-pending-module-rule',
           severity: 2,
         },
@@ -921,7 +902,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('does not include errors when marked as ignored', function () {
+    it('does not include errors when marked as ignored', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -931,7 +912,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -940,7 +921,7 @@ describe('public api', function () {
       expect(result).toEqual([]);
     });
 
-    it('does not include errors when marked as ignored using glob', function () {
+    it('does not include errors when marked as ignored using glob', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -950,7 +931,7 @@ describe('public api', function () {
       });
 
       let template = '<div>bare string</div>';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -959,7 +940,7 @@ describe('public api', function () {
       expect(result).toEqual([]);
     });
 
-    it('shows a "rule not found" error if a rule definition is not found"', function () {
+    it('shows a "rule not found" error if a rule definition is not found"', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
@@ -968,7 +949,7 @@ describe('public api', function () {
       });
 
       let template = '';
-      let result = linter.verify({
+      let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
         moduleId: 'some/path/here',
@@ -978,7 +959,6 @@ describe('public api', function () {
         {
           message: "Definition for rule 'missing-rule' was not found",
           filePath: 'some/path/here.hbs',
-          moduleId: 'some/path/here',
           severity: 2,
         },
       ]);
@@ -996,14 +976,13 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1012,7 +991,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1021,12 +1000,12 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('allow you to disable plugin rules inline', function () {
+    it('allow you to disable plugin rules inline', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'disabled-rule.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1047,14 +1026,13 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1063,7 +1041,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1083,14 +1061,13 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1100,7 +1077,6 @@ describe('public api', function () {
         {
           message: 'Usage of triple curly brackets is unsafe',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 2,
           column: 2,
           source: '{{{this.myVar}}}',
@@ -1109,7 +1085,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1130,14 +1106,13 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [
         {
           message: 'The inline form of component is not allowed',
           filePath: templatePath,
-          moduleId: templatePath.slice(0, -4),
           line: 1,
           column: 4,
           source: '{{component value="Hej"}}',
@@ -1146,7 +1121,7 @@ describe('public api', function () {
         },
       ];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1167,12 +1142,12 @@ describe('public api', function () {
       });
     });
 
-    it('returns plugin rule issues', function () {
+    it('returns plugin rule issues', async function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
 
-      let result = linter.verify({
+      let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
         moduleId: templatePath.slice(0, -4),
@@ -1245,6 +1220,234 @@ describe('public api', function () {
       let result = Linter.errorsToMessages('file/path', []);
 
       expect(result).toEqual('');
+    });
+  });
+
+  describe('Linter able to lint and fix .html files', function () {
+    let linter;
+
+    beforeEach(function () {
+      project.setConfig({
+        rules: {
+          quotes: ['error', 'double'],
+          'require-button-type': 'error',
+        },
+      });
+
+      project.write({
+        app: {
+          templates: {
+            'application.html': "<input class='mb4'>",
+            'other.html': '<button>LOL, Click me!</button>',
+          },
+        },
+      });
+
+      linter = new Linter({
+        console: mockConsole,
+        configPath: project.path('.template-lintrc.js'),
+      });
+    });
+
+    afterEach(async function () {
+      await project.dispose();
+    });
+
+    it('[.html] does not identify errors for ember-cli default app/index.html (3.20)', async function () {
+      // reset config to default value
+      project.setConfig();
+
+      project.write({
+        app: {
+          'index.html': `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyApp</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{content-for "head"}}
+
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/my-app.css">
+
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/my-app.js"></script>
+
+    {{content-for "body-footer"}}
+  </body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('app/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let results = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(results).toEqual([]);
+    });
+
+    it('[.html] does not identify errors for ember-cli default tests/index.html (3.20)', async function () {
+      // reset config to default value
+      project.setConfig();
+
+      project.write({
+        tests: {
+          'index.html': `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyApp Tests</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{content-for "head"}}
+    {{content-for "test-head"}}
+
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/my-app.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
+
+    {{content-for "head-footer"}}
+    {{content-for "test-head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+    {{content-for "test-body"}}
+
+    <script src="/testem.js" integrity=""></script>
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/test-support.js"></script>
+    <script src="{{rootURL}}assets/my-app.js"></script>
+    <script src="{{rootURL}}assets/tests.js"></script>
+
+    {{content-for "body-footer"}}
+    {{content-for "test-body-footer"}}
+  </body>
+</html>`,
+        },
+      });
+
+      let templatePath = project.path('tests/index.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let results = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(results).toEqual([]);
+    });
+
+    it('[.html] returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
+      let templatePath = project.path('app/templates/application.html');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          column: 7,
+          line: 1,
+          message: 'you must use double quotes in templates',
+          filePath: templatePath,
+          rule: 'quotes',
+          severity: 2,
+          source: "class='mb4'",
+        },
+      ];
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual(expected);
+      expect(result.output).toEqual(templateContents);
+      expect(result.isFixed).toEqual(false);
+    });
+
+    it('[.html] ensures template parsing errors are only reported once (not once per-rule)', async function () {
+      let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
+      project.write({
+        app: {
+          templates: {
+            'other.html': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.html');
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages.length).toEqual(1);
+      expect(result.messages[0].message).toEqual("ach doesn't match each - 1:3");
+      expect(result.messages[0].fatal).toEqual(true);
+    });
+
+    it('[.html] includes updated output when fixable', async function () {
+      let templateContents = '<button>LOL, Click me!</button>';
+
+      project.write({
+        app: {
+          templates: {
+            'other.html': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.html');
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual('<button type="button">LOL, Click me!</button>');
+      expect(result.isFixed).toEqual(true);
+    });
+
+    it('[.html] updated output includes byte order mark if input source includes it', async function () {
+      let templateContents = '\uFEFF<button>LOL, Click me!</button>';
+
+      project.write({
+        app: {
+          templates: {
+            'other.html': templateContents,
+          },
+        },
+      });
+
+      let templatePath = project.path('app/templates/other.html');
+
+      let result = await linter.verifyAndFix({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result.messages).toEqual([]);
+      expect(result.output).toEqual('\uFEFF<button type="button">LOL, Click me!</button>');
+      expect(result.isFixed).toEqual(true);
     });
   });
 });

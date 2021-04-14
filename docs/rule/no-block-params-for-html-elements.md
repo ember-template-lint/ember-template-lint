@@ -1,5 +1,7 @@
 # no-block-params-for-html-elements
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Block parameters (`<Checkbox as |checkbox|>`) are only useful when invoking
 components. When they are used on regular HTML elements they are useless and an
 indicator of a potential bug.

@@ -1,5 +1,7 @@
 # no-forbidden-elements
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule disallows the use of forbidden elements in template files.
 
 The rule is configurable so teams can add their own disallowed elements.
@@ -35,10 +37,16 @@ This rule **allows** the following:
 <div></div>
 ```
 
+```hbs
+<head>
+  <meta charset="utf-8">
+</head>
+```
+
 ## Configuration
 
 * boolean - `true` to enable / `false` to disable
-  * array -- an array of strings to forbid, default: ['meta', 'style', 'html', 'style']
+  * array -- an array of strings to forbid, default: ['meta', 'style', 'html', 'script']
   * object -- An object with the following keys:
     * `forbidden` -- An array of forbidden element names
 

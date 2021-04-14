@@ -32,10 +32,7 @@ This rule **allows** the following:
 
 The following values are valid configuration:
 
-* string -- `strict` for enabled and validating both noopener `and` noreferrer
-* boolean `true` to maintain backwards compatibility with previous versions of `ember-template-lint` that validate noopener `or` noreferrer
-
-If you are supporting Firefox, you should use `strict`.
+* boolean (enable / disable) when `true` requires both `noopener` and `noreferrer`
 
 ## References
 

@@ -111,9 +111,7 @@ module.exports = class NoEmptyComments extends Rule {
         if (node.value.trim() === '') {
           this.log({
             message: 'comments cannot be empty',
-            line: node.loc && node.loc.start.line,
-            column: node.loc && node.loc.start.column,
-            source: this.sourceForNode(node)
+            node,
           });
         }
       }
@@ -170,34 +168,6 @@ const helpers = require('ember-template-lint').ASTHelpers;
 
   Returns true if this node is *not* an HTML comment that is meant to set linter configuration.
 
-* `function isTextNode(node): boolean`
-
-  Returns true if this node is a `TextNode` node.
-
-* `function isCommentStatement(node): boolean`
-
-  Returns true if this node is a `CommentStatement` node.
-
-* `function isMustacheCommentStatement(node): boolean`
-
-  Returns true if this node is a `MustacheCommentStatement` node.
-
-* `function isElementNode(node): boolean`
-
-  Returns true if this node is an `ElementNode` node.
-
-* `function isComponentNode(node): boolean`
-
-  Returns true if this node is a `ComponentNode` node.
-
-* `function isMustacheStatement(node): boolean`
-
-  Returns true if this node is a `MustacheStatement` node.
-
-* `function isBlockStatement(node): boolean`
-
-  Returns true if this node is a `BlockStatement` node.
-
 * `function hasAttribute(node, attributeName): boolean`
 
   Returns true if this node has an attribute whose name matches `attributeName`.
@@ -205,14 +175,6 @@ const helpers = require('ember-template-lint').ASTHelpers;
 * `function findAttribute(node, attributeName): Object`
 
   Returns any attributes on the node with a name that matches `attributeName`.
-
-* `function isImgElement(node): boolean`
-
-  Returns true if this node is an `img` element.
-
-* `function isLinkElement(node): boolean`
-
-  Returns true if this node is a link (`a`) element.
 
 * `function childrenFor(node): Object[]`
 

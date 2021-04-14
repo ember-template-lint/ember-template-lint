@@ -35,9 +35,11 @@ This rule **forbids** the following:
 <plaintext></plaintext>
 <rb></rb>
 <rtc></rtc>
+<s></s>
 <spacer></spacer>
 <strike></strike>
 <tt></tt>
+<u></u>
 <xmp></xmp>
 ```
 
@@ -49,5 +51,6 @@ This rule **allows** anything that is not an obsolete element.
 
 ## References
 
-* [no-obsolete-elements](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)
+* [HTML non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)
+* [HTML5 obsolete features](https://dev.w3.org/html5/pf-summary/obsolete.html)
 * [Failure of Success Criterion 2.2.2 due to using the blink element](https://www.w3.org/TR/WCAG20-TECHS/failures.html#F47)

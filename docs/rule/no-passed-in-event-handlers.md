@@ -1,5 +1,7 @@
 # no-passed-in-event-handlers
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+
 It is possible to pass e.g. `@click` to an Ember component to override the
 default `click` event handler. For tagless components this will trigger an
 assertion though and can't be used as legitimate API, and for Glimmer
@@ -41,6 +43,29 @@ This rule **allows** the following:
 ```hbs
 {{foo onClick=this.handleClick}}
 ```
+
+## Configuration
+
+- boolean - `true` to enable / `false` to disable
+
+  - object -- An object with the following keys:
+
+    - `ignore` -- An object with the following keys/values:
+
+      - key: string -- The name of the element or mustache statement to ignore event handlers for
+      - value: array -- Event handler names. Event handler names should exclude the @ when specifying those intended for named arguments. This rule will ensure both non-named arguments and named arguments are both ignored appropriately.
+
+      eg.
+
+      Given the following configuration:
+
+      ```json
+      {
+        "ignore": {
+          "MyButton": ["click"]
+        }
+      }
+      ```
 
 ## Migration
 

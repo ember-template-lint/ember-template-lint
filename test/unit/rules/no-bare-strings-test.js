@@ -8,7 +8,6 @@ describe('imports', () => {
     expect(rule.DEFAULT_CONFIG).toEqual(
       expect.objectContaining({
         allowlist: expect.arrayContaining(['&lpar;']),
-        whitelist: expect.arrayContaining(['&lpar;']),
         globalAttributes: expect.arrayContaining(['title']),
         elementAttributes: expect.any(Object),
       })
@@ -76,7 +75,7 @@ generateRuleTests({
     '<div placeholder="wat?"></div>',
 
     {
-      // config as array is whitelist of chars
+      // config as array is allowlist of chars
       config: ['/', '"'],
       template: '{{t "foo"}} / "{{name}}"',
     },
@@ -112,18 +111,6 @@ generateRuleTests({
       // combine bare string with a variable
       config: ['X'],
       template: '<input placeholder="{{foo}}X">',
-    },
-
-    {
-      // deprecated `whitelist` config
-      config: { whitelist: ['Z'] },
-      template: '<p>Z</p>',
-    },
-
-    {
-      // `allowlist` supercedes deprecated `whitelist` config
-      config: { allowlist: ['Y'], whitelist: ['Z'] },
-      template: '<p>Y</p>',
     },
 
     '<foo-bar>\n</foo-bar>',
@@ -194,6 +181,50 @@ generateRuleTests({
         message: 'Non-translated string used in `placeholder` attribute',
         line: 1,
         column: 7,
+        source: 'hahaha trolol',
+      },
+    },
+
+    {
+      template: '<Input placeholder="{{foo}}hahaha trolol" />',
+
+      result: {
+        message: 'Non-translated string used in `placeholder` attribute',
+        line: 1,
+        column: 7,
+        source: 'hahaha trolol',
+      },
+    },
+
+    {
+      template: '<Textarea placeholder="{{foo}}hahaha trolol" />',
+
+      result: {
+        message: 'Non-translated string used in `placeholder` attribute',
+        line: 1,
+        column: 10,
+        source: 'hahaha trolol',
+      },
+    },
+
+    {
+      template: '<Input @placeholder="{{foo}}hahaha trolol" />',
+
+      result: {
+        message: 'Non-translated string used in `@placeholder` argument',
+        line: 1,
+        column: 7,
+        source: 'hahaha trolol',
+      },
+    },
+
+    {
+      template: '<Textarea @placeholder="{{foo}}hahaha trolol" />',
+
+      result: {
+        message: 'Non-translated string used in `@placeholder` argument',
+        line: 1,
+        column: 10,
         source: 'hahaha trolol',
       },
     },
@@ -282,34 +313,6 @@ generateRuleTests({
           line: 2,
           column: 9,
           source: 'trolol',
-        },
-      ],
-    },
-
-    {
-      // deprecated `whitelist` config - rule still logs normally
-      config: { whitelist: ['Z'] },
-      template: '<p>Y</p>',
-      results: [
-        {
-          message: 'Non-translated string used',
-          line: 1,
-          column: 3,
-          source: 'Y',
-        },
-      ],
-    },
-
-    {
-      // `allowlist` supercedes deprecated `whitelist` config
-      config: { allowlist: ['Y'], whitelist: ['Z'] },
-      template: '<p>Z</p>',
-      results: [
-        {
-          message: 'Non-translated string used',
-          line: 1,
-          column: 3,
-          source: 'Z',
         },
       ],
     },

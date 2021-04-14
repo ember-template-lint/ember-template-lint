@@ -1,0 +1,27 @@
+'use strict';
+
+const Rule = require('./base');
+
+const ERROR_MESSAGE = 'TODO';
+
+module.exports = class <%- titleCase %> extends Rule {
+  visitor() {
+    return {
+      // Simple template example: disallowed text present in TextNode
+      TextNode(node) {
+        let source = this.sourceForNode(node);
+        let disallowedText = 'DisallowedText';
+        let failingCondition = source.includes(disallowedText);
+
+        if (failingCondition) {
+          this.log({
+            message: ERROR_MESSAGE,
+            node,
+          });
+        }
+      },
+    };
+  }
+};
+
+module.exports.ERROR_MESSAGE = ERROR_MESSAGE;

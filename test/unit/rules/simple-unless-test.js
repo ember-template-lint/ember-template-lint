@@ -65,25 +65,6 @@ generateRuleTests({
       },
       template: '{{unless (eq (not foo) bar) baz}}',
     },
-
-    {
-      // deprecated `whitelist` config
-      config: {
-        maxHelpers: 1,
-        whitelist: ['or'],
-      },
-      template: '{{unless (or foo bar)}}',
-    },
-
-    {
-      // `allowlist` supercedes deprecated `whitelist` config
-      config: {
-        maxHelpers: 1,
-        allowlist: ['and'],
-        whitelist: ['or'],
-      },
-      template: '{{unless (and foo bar)}}',
-    },
   ],
 
   bad: [
@@ -392,43 +373,6 @@ generateRuleTests({
           source: '{{unless (... (four ...',
           line: 1,
           column: 27,
-        },
-      ],
-    },
-
-    {
-      // deprecated `whitelist` config
-      config: {
-        maxHelpers: 1,
-        whitelist: ['or'],
-      },
-      template: '{{unless (and foo bar)}}',
-      results: [
-        {
-          message:
-            'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: or',
-          line: 1,
-          column: 9,
-          source: '{{unless (and ...',
-        },
-      ],
-    },
-
-    {
-      // `allowlist` supercedes deprecated `whitelist` config
-      config: {
-        maxHelpers: 1,
-        allowlist: ['and'],
-        whitelist: ['or'],
-      },
-      template: '{{unless (or foo bar)}}',
-      results: [
-        {
-          message:
-            'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: and',
-          line: 1,
-          column: 9,
-          source: '{{unless (or ...',
         },
       ],
     },

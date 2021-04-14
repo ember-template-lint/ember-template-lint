@@ -1,5 +1,8 @@
 # no-redundant-landmark-role
 
+:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 If a landmark element is used, any role provided will either be redundant or incorrect.
 This rule adds support for landmark elements, to ensure that no role attribute is placed on any of
 the landmark elements, with a few exceptions.

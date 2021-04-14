@@ -31,7 +31,7 @@ describe('get-config', function () {
       },
     };
 
-    let actual = getProjectConfig({ config });
+    let actual = getProjectConfig(project.baseDir, { config });
     expect(actual.rules).toEqual({
       foo: { config: 'bar', severity: 2 },
       baz: { config: 'derp', severity: 2 },
@@ -46,7 +46,7 @@ describe('get-config', function () {
       },
     };
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       config: {
         rules: {
           foo: 'warn',
@@ -58,7 +58,7 @@ describe('get-config', function () {
   });
 
   it('shows rules being "upgraded" to the new syntax when the config is in the old syntax', function () {
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       config: {
         rules: {
           foo: true,
@@ -90,7 +90,7 @@ describe('get-config', function () {
       },
     };
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       config: {
         rules: {
           foo: ['warn', { allow: [1, 2, 3] }],
@@ -118,7 +118,7 @@ describe('get-config', function () {
     project.setConfig(expected);
     project.chdir();
 
-    let actual = getProjectConfig({});
+    let actual = getProjectConfig(project.baseDir, {});
 
     expect(actual.rules).toEqual({
       foo: { config: 'bar', severity: 2 },
@@ -138,7 +138,7 @@ describe('get-config', function () {
     )};`;
     project.chdir();
 
-    let actual = getProjectConfig({ configPath: 'some-other-path.js' });
+    let actual = getProjectConfig(project.baseDir, { configPath: 'some-other-path.js' });
 
     expect(actual.rules).toEqual({
       foo: { config: 'bar', severity: 2 },
@@ -158,7 +158,9 @@ describe('get-config', function () {
     )};`;
     project.writeSync();
 
-    let actual = getProjectConfig({ configPath: project.path('some-other-path.js') });
+    let actual = getProjectConfig(project.baseDir, {
+      configPath: project.path('some-other-path.js'),
+    });
 
     expect(actual.rules).toEqual({
       foo: { config: 'bar', severity: 2 },
@@ -167,7 +169,7 @@ describe('get-config', function () {
   });
 
   it('can specify that it extends a default configuration', function () {
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       config: {
         extends: 'recommended',
       },
@@ -179,7 +181,7 @@ describe('get-config', function () {
   it('can extend and override a default configuration', function () {
     let expected = recommendedConfig;
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       config: {
         extends: 'recommended',
         rules: {
@@ -193,7 +195,7 @@ describe('get-config', function () {
   });
 
   it('migrates rules in the config root into `rules` property', function () {
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console: buildFakeConsole(),
       config: {
         'no-bare-strings': false,
@@ -206,7 +208,7 @@ describe('get-config', function () {
   it('rules in the config root trigger a deprecation', function () {
     let console = buildFakeConsole();
 
-    getProjectConfig({
+    getProjectConfig(project.baseDir, {
       console,
       config: {
         'no-bare-strings': true,
@@ -219,7 +221,7 @@ describe('get-config', function () {
   it('warns for unknown rules', function () {
     let console = buildFakeConsole();
 
-    getProjectConfig({
+    getProjectConfig(project.baseDir, {
       console,
       config: {
         rules: {
@@ -234,7 +236,7 @@ describe('get-config', function () {
   it('warns for unknown extends', function () {
     let console = buildFakeConsole();
 
-    getProjectConfig({
+    getProjectConfig(project.baseDir, {
       console,
       config: {
         extends: ['recommended', 'plugin1:wrong-extend'],
@@ -270,7 +272,7 @@ describe('get-config', function () {
 
     project.chdir();
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console,
     });
 
@@ -301,7 +303,7 @@ describe('get-config', function () {
 
     project.chdir();
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console,
       config: {
         extends: ['my-awesome-thing:stylistic'],
@@ -314,7 +316,7 @@ describe('get-config', function () {
   });
 
   it('extending multiple configurations allows subsequent configs to override earlier ones', function () {
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       config: {
         extends: ['recommended', 'myplugin:recommended'],
 
@@ -337,7 +339,7 @@ describe('get-config', function () {
   });
 
   it('extending multiple configurations merges all rules', function () {
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       config: {
         extends: ['myplugin:first', 'myplugin:second'],
 
@@ -370,7 +372,7 @@ describe('get-config', function () {
   it('can specify plugin without rules', function () {
     let console = buildFakeConsole();
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console,
       config: {
         extends: 'myplugin:basic-configuration',
@@ -398,7 +400,7 @@ describe('get-config', function () {
     let wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
     expect(function () {
-      getProjectConfig({
+      getProjectConfig(project.baseDir, {
         config: {
           plugins: [wrongPluginPath],
         },
@@ -409,7 +411,7 @@ describe('get-config', function () {
   it('validates non-default loaded rules', function () {
     let console = buildFakeConsole();
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console,
 
       config: {
@@ -435,7 +437,7 @@ describe('get-config', function () {
   it('can chain extends and load rules across chained plugins', function () {
     let console = buildFakeConsole();
 
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console,
 
       config: {
@@ -504,7 +506,7 @@ describe('get-config', function () {
     config.plugins[0].configurations.recommended = config;
 
     let console = buildFakeConsole();
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console,
       config,
     });
@@ -535,7 +537,7 @@ describe('get-config', function () {
     plugin.configurations.recommended.plugins = [plugin];
 
     let console = buildFakeConsole();
-    let actual = getProjectConfig({
+    let actual = getProjectConfig(project.baseDir, {
       console,
 
       config: {
@@ -551,7 +553,7 @@ describe('get-config', function () {
 
   it('getting config is idempotent', function () {
     let console = buildFakeConsole();
-    let firstPass = getProjectConfig({
+    let firstPass = getProjectConfig(project.baseDir, {
       console,
       config: {
         rules: {
@@ -569,7 +571,7 @@ describe('get-config', function () {
       },
     });
     let firstPassJSON = JSON.stringify(firstPass);
-    let secondPass = getProjectConfig({
+    let secondPass = getProjectConfig(project.baseDir, {
       console,
       config: firstPass,
     });
@@ -588,7 +590,7 @@ describe('get-config', function () {
 
     let cloned = JSON.parse(JSON.stringify(config));
 
-    let actual = getProjectConfig(config);
+    let actual = getProjectConfig(project.baseDir, config);
 
     expect(Object.keys(actual.rules).length).toBeTruthy();
     expect(config).toEqual(cloned);
@@ -614,13 +616,29 @@ describe('determineRuleConfig', function () {
 
 describe('resolveProjectConfig', function () {
   it('should return an empty object when options.config is set explicitly false', function () {
-    const config = resolveProjectConfig({ config: false });
+    let project = Project.defaultSetup();
 
-    expect(config).toEqual({});
+    try {
+      const config = resolveProjectConfig(project.baseDir, { config: false });
+
+      expect(config).toEqual({});
+    } finally {
+      project.dispose();
+    }
   });
 });
 
 describe('getProjectConfig', function () {
+  let project = null;
+
+  beforeEach(function () {
+    project = Project.defaultSetup();
+  });
+
+  afterEach(async function () {
+    await project.dispose();
+  });
+
   it('processing config is idempotent', function () {
     let config = {
       plugins: [
@@ -649,11 +667,83 @@ describe('getProjectConfig', function () {
       bar: { config: false, severity: 0 },
     };
 
-    let processedConfig = getProjectConfig({ config });
+    let processedConfig = getProjectConfig(project.baseDir, { config });
     expect(processedConfig.rules).toEqual(expected);
 
-    let reprocessedConfig = getProjectConfig({ config });
+    let reprocessedConfig = getProjectConfig(project.baseDir, { config });
     expect(reprocessedConfig.rules).toEqual(expected);
+  });
+
+  it('merges rules from plugins with rules from config', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended'],
+      rules: {
+        foo: false,
+      },
+    };
+
+    let expected = {
+      foo: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig(project.baseDir, { config });
+    expect(processedConfig.rules).toEqual(expected);
+  });
+
+  it('merges rules from plugins in the order declared in the array', function () {
+    let config = {
+      plugins: [
+        {
+          name: 'foo',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: true,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+        {
+          name: 'bar',
+          configurations: {
+            recommended: {
+              rules: {
+                foo: false,
+              },
+            },
+          },
+          rules: {
+            foo: class Rule {},
+          },
+        },
+      ],
+      extends: ['foo:recommended', 'bar:recommended'],
+    };
+
+    let expected = {
+      foo: { config: false, severity: 0 },
+    };
+
+    let processedConfig = getProjectConfig(project.baseDir, { config });
+    expect(processedConfig.rules).toEqual(expected);
   });
 });
 

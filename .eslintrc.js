@@ -22,18 +22,16 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:node/recommended',
     'plugin:unicorn/recommended',
-    'prettier',
-    'prettier/unicorn',
+    'plugin:prettier/recommended',
   ],
   rules: {
     // Optional eslint rules:
     'array-callback-return': 'error',
     'block-scoped-var': 'error',
-    complexity: 'error',
     curly: 'error',
     eqeqeq: 'error',
     'func-style': ['error', 'declaration'],
-    'id-denylist': ['error', 'whitelist', 'blacklist'],
+    'id-denylist': ['error', 'whitelist', 'whiteList', 'blacklist', 'blackList'],
     'new-parens': 'error',
     'no-async-promise-executor': 'error',
     'no-console': 'error',
@@ -49,7 +47,6 @@ module.exports = {
     'no-new-wrappers': 'error',
     'no-octal-escape': 'error',
     'no-return-assign': 'error',
-    'no-return-await': 'error',
     'no-self-compare': 'error',
     'no-sequences': 'error',
     'no-shadow-restricted-names': 'error',
@@ -72,7 +69,7 @@ module.exports = {
     'prefer-rest-params': 'error',
     'prefer-spread': 'error',
     'prefer-template': 'error',
-    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }], // Disallow unnecessary template literals.
+    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     radix: 'error',
     'require-atomic-updates': 'error',
     'require-await': 'error',
@@ -114,15 +111,16 @@ module.exports = {
       },
     ],
 
-    'prettier/prettier': 'error',
-
     // Unicorn rules:
+    'unicorn/consistent-destructuring': 'off',
     'unicorn/consistent-function-scoping': 'off',
     'unicorn/explicit-length-check': 'off',
-    'unicorn/no-fn-reference-in-iterator': 'off',
+    'unicorn/no-array-callback-reference': 'off',
+    'unicorn/no-array-reduce': 'off',
+    'unicorn/no-lonely-if': 'off',
     'unicorn/no-null': 'off',
-    'unicorn/no-reduce': 'off',
     'unicorn/no-useless-undefined': 'off',
+    'unicorn/prefer-ternary': 'off',
     'unicorn/prevent-abbreviations': 'off',
   },
 
@@ -146,17 +144,6 @@ module.exports = {
       },
       rules: {
         'import/no-dynamic-require': 'off',
-      },
-    },
-    {
-      files: [
-        'lib/rules/no-bare-strings.js',
-        'lib/rules/simple-unless.js',
-        'test/unit/rules/no-bare-strings-test.js',
-        'test/unit/rules/simple-unless-test.js',
-      ],
-      rules: {
-        'id-denylist': 'off',
       },
     },
   ],

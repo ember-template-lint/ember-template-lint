@@ -36,7 +36,7 @@ const DEFAULT_TEMPLATE_LINTRC = `
 'use strict';
 
 module.exports = {
-  extends: 'octane'
+  extends: 'recommended'
 };
 `;
 
@@ -67,6 +67,10 @@ module.exports = class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
+  getConfig() {
+    return require(path.join(this.baseDir, '.template-lintrc'));
+  }
+
   setEditorConfig(value = DEFAULT_EDITOR_CONFIG) {
     this.files['.editorconfig'] = value;
 
@@ -80,6 +84,16 @@ module.exports = class FakeProject extends FixturifyProject {
   // behave like a TempDir from broccoli-test-helper
   write(dirJSON) {
     Object.assign(this.files, dirJSON);
+    this.writeSync();
+  }
+
+  writeTodoConfig(todoConfig) {
+    this.pkg = Object.assign({}, this.pkg, {
+      lintTodo: {
+        daysToDecay: todoConfig,
+      },
+    });
+
     this.writeSync();
   }
 

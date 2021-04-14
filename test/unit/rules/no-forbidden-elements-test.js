@@ -13,16 +13,22 @@ generateRuleTests({
     '<div></div>',
     '<footer></footer>',
     '<p></p>',
+    '<head><meta charset="utf-8"></head>',
     {
       template: '<script></script>',
       config: ['html', 'meta', 'style'],
+    },
+    {
+      template: '<meta>',
+      meta: {
+        filePath: 'app/templates/head.hbs',
+      },
     },
   ],
   bad: [
     {
       template: '<script></script>',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('script'),
         line: 1,
         column: 0,
@@ -32,7 +38,6 @@ generateRuleTests({
     {
       template: '<html></html>',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('html'),
         line: 1,
         column: 0,
@@ -42,7 +47,6 @@ generateRuleTests({
     {
       template: '<style></style>',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('style'),
         line: 1,
         column: 0,
@@ -52,7 +56,6 @@ generateRuleTests({
     {
       template: '<meta charset="utf-8">',
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('meta'),
         line: 1,
         column: 0,
@@ -65,7 +68,6 @@ generateRuleTests({
         forbidden: ['div'],
       },
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('div'),
         line: 1,
         column: 0,
@@ -76,7 +78,6 @@ generateRuleTests({
       template: '<div></div>',
       config: ['div'],
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('div'),
         line: 1,
         column: 0,
@@ -87,11 +88,45 @@ generateRuleTests({
       template: '<Foo />',
       config: ['Foo'],
       result: {
-        moduleId: 'layout',
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('Foo'),
         line: 1,
         column: 0,
         source: '<Foo />',
+      },
+    },
+    {
+      template: '<script></script>',
+      meta: {
+        filePath: 'app/templates/head.hbs',
+      },
+      result: {
+        filePath: 'app/templates/head.hbs',
+        message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('script'),
+        line: 1,
+        column: 0,
+        source: '<script></script>',
+      },
+    },
+    {
+      template: '<html></html>',
+      meta: {
+        filePath: 'app/templates/head.hbs',
+      },
+      result: {
+        filePath: 'app/templates/head.hbs',
+        message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('html'),
+        line: 1,
+        column: 0,
+        source: '<html></html>',
+      },
+    },
+    {
+      template: '<head><html></html></head>',
+      result: {
+        message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('html'),
+        line: 1,
+        column: 6,
+        source: '<html></html>',
       },
     },
   ],

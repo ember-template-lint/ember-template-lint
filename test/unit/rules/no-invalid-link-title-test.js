@@ -14,9 +14,15 @@ generateRuleTests({
     '<LinkTo>{{foo}} more</LinkTo>',
     '<LinkTo @title="nice title">Something else</LinkTo>',
     '<LinkTo title="great titles!">Whatever, don\'t judge me</LinkTo>',
+    '<LinkTo title="Download the video">Download</LinkTo>',
     '<a href="https://myurl.com" title="New to Ember? Read the full tutorial for the best experience">Read the Tutorial</a>',
     '<a href="./whatever" title={{foo}}>Hello!</a>',
     '{{#link-to "blah.route.here" title="awesome title"}}Some thing else here{{/link-to}}',
+    `
+      <LinkTo @query={{hash page=@pagination.prevPage}} local-class="prev" @rel="prev" @title="previous page" data-test-pagination-prev>
+        {{svg-jar "left-pag"}}
+      </LinkTo>
+    `,
   ],
 
   bad: [
