@@ -320,15 +320,15 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/require-button-type.hbs
-            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`--fix\` to remove this todo from the todo list.  invalid-todo-violation-rule
+        "app/templates/require-button-type.hbs
+          -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --fix\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
-          ✖ 1 problems (1 errors, 0 warnings)
-            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-        `);
+        ✖ 1 problems (1 errors, 0 warnings)
+          1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+      `);
 
       // run fix, and expect that this will delete the outstanding todo item
-      await run(['.', '--fix']);
+      await run(['app/templates/require-button-type.hbs', '--fix']);
 
       // run normally again and expect no error
       result = await run(['.']);
