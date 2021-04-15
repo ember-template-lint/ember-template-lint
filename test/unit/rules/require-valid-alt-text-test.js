@@ -25,6 +25,13 @@ generateRuleTests({
     '<img alt="" role="none">',
     '<img alt="" role="presentation">',
 
+    // Valid words containing redundant words.
+    '<img alt="logout">',
+    '<img alt="photography">',
+    '<img alt="picturesque">',
+    '<img alt="pilgrimage">',
+    '<img alt="spacers">',
+
     '<img ...attributes>',
 
     '<input type="image" alt="some-alt">',
