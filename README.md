@@ -90,8 +90,6 @@ Number of warnings to trigger nonzero exit code
 ember-template-lint "app/templates/application.hbs" --max-warnings=2
 ```
 
-Define custom config path
-
 Include TODOs with other output results
 
 ```bash
