@@ -420,11 +420,12 @@ async function run() {
     let hasTodos = options.includeTodo && results.todoCount;
     let hasUpdatedTodos = options.updateTodo;
 
-    if (hasErrors || hasWarnings || hasTodos || hasUpdatedTodos) {
-      let Printer = require('../lib/formatters/default');
-      let printer = new Printer(options);
-      printer.print(results, todoInfo);
-    }
+    let Printer = require('../lib/formatters/default');
+    let printer = new Printer({
+      ...options,
+      hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
+    });
+    printer.print(results, todoInfo);
   }
 }
 
