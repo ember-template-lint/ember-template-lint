@@ -51,7 +51,8 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json                    [boolean]
+            --json                      Format output as json
+                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -105,7 +106,8 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json                    [boolean]
+            --json                      Format output as json
+                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -413,7 +415,8 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json                    [boolean]
+            --json                      Format output as json
+                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -1508,6 +1511,53 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('with --format options', function () {
+      it('should print valid JSON string with errors', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run(['--format', 'json', '.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toMatchInlineSnapshot(`
+          Object {
+            "app/templates/application.hbs": Array [
+              Object {
+                "column": 4,
+                "filePath": "app/templates/application.hbs",
+                "line": 1,
+                "message": "Non-translated string used",
+                "rule": "no-bare-strings",
+                "severity": 2,
+                "source": "Here too!!",
+              },
+              Object {
+                "column": 25,
+                "filePath": "app/templates/application.hbs",
+                "line": 1,
+                "message": "Non-translated string used",
+                "rule": "no-bare-strings",
+                "severity": 2,
+                "source": "Bare strings are bad...",
+              },
+            ],
+          }
+        `);
+        expect(result.stderr).toBeFalsy();
+      });
+
       it('should always emit a SARIF file even when there are no errors/warnings', async function () {
         project.setConfig({
           rules: {
