@@ -1508,6 +1508,25 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('with --format options', function () {
+      it('should always emit a SARIF file even when there are no errors/warnings', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+            'no-html-comments': true,
+          },
+        });
+        project.writeSync();
+
+        let result = await run(['.', '--format', 'sarif', '--output-file', 'my-results.sarif'], {
+          env: {
+            IS_TTY: '1',
+          },
+        });
+
+        expect(result.exitCode).toEqual(0);
+        expect(fs.existsSync(path.join(project.baseDir, 'my-results.sarif'))).toEqual(true);
+      });
+
       it('should be able to load relative printer', async function () {
         project.setConfig({
           rules: {
