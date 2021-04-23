@@ -38,7 +38,7 @@ todos can be created with optional due dates. These due dates allow for todos to
 
 Due dates can be configured in multiple ways, but all specify integers for `warn` and `error` to signify the number of days from the todo created date to decay the severity.
 
-:bulb: Both `warn` and `error` are optional. The value for `warn` should be greater than the value of `error`.
+:bulb: Both `warn` and `error` are optional. The value for `warn` should be lower than the value of `error`.
 
 1. Via package.json configuration
 
