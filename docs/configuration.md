@@ -154,4 +154,4 @@ A [shell script](./count-lint-violations.sh) is available for generating a list 
 
 ## Configuring todo `warn` and `error` values
 
-Configuring specific `warn` and `error` values for todo creation is detailed in the [Configuring Due Dates section in the todo docs](docs/todos.md).
+Configuring specific `warn` and `error` values for todo creation is detailed in the [Configuring Due Dates section in the todo docs](todos.md).
