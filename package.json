@@ -43,7 +43,7 @@
     "ember-template-recast": "^5.0.1",
     "find-up": "^5.0.0",
     "fuse.js": "^6.4.6",
-    "get-stdin": "^8.0.0",
+    "get-stdin": "^9.0.0",
     "globby": "^11.0.3",
     "is-glob": "^4.0.1",
     "micromatch": "^4.0.4",
