@@ -146,6 +146,7 @@ function parseArgv(_argv) {
       },
       json: {
         describe: 'Format output as json',
+        deprecated: 'Use --format=json instead',
         boolean: true,
       },
       'output-file': {
