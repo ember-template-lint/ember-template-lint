@@ -1,3 +1,26 @@
+## v3.3.0 (2021-04-26)
+
+#### :rocket: Enhancement
+* [#1907](https://github.com/ember-template-lint/ember-template-lint/pull/1907) Deprecate `--json` option in favor of `--format=json`. ([@rwjblue](https://github.com/rwjblue))
+* [#1895](https://github.com/ember-template-lint/ember-template-lint/pull/1895) Updating stale todo message with more targeted --fix instructions ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#1904](https://github.com/ember-template-lint/ember-template-lint/pull/1904) Ensures we always emit output file even with empty results ([@scalvert](https://github.com/scalvert))
+* [#1897](https://github.com/ember-template-lint/ember-template-lint/pull/1897) Allow words containing redundant words for `require-valid-alt-text` rule ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :memo: Documentation
+* [#1901](https://github.com/ember-template-lint/ember-template-lint/pull/1901) Fix invalid link in `docs/configuration.md` ([@bartocc](https://github.com/bartocc))
+* [#1906](https://github.com/ember-template-lint/ember-template-lint/pull/1906) Fix typo in TODO documentation ([@Willibaur](https://github.com/Willibaur))
+
+#### Committers: 6
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Julien Palmas ([@bartocc](https://github.com/bartocc))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- William Bautista ([@Willibaur](https://github.com/Willibaur))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v3.2.0 (2021-03-23)
 
 #### :rocket: Enhancement
