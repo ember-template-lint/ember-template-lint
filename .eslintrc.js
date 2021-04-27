@@ -79,6 +79,13 @@ module.exports = {
 
     'eslint-comments/no-unused-disable': 'error',
 
+    'node/no-unpublished-require': [
+      'error',
+      {
+        allowModules: ['@microsoft/jest-sarif'],
+      },
+    ],
+
     'filenames/match-regex': ['error', '^.?[a-z0-9-]+$'], // Kebab-case.
 
     // Optional import rules:

@@ -209,6 +209,7 @@ describe('', () => {
 
             expect(str).toMatch(sarifPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
+            expect(sarifLog).toBeValidSarifLog();
           },
         },
         workingDir: project.baseDir,
@@ -232,6 +233,7 @@ describe('', () => {
 
             expect(str).toMatch(sarifPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
+            expect(sarifLog).toBeValidSarifLog();
           },
         },
 
@@ -257,6 +259,7 @@ describe('', () => {
 
             expect(str).toMatch(sarifPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
+            expect(sarifLog).toBeValidSarifLog();
           },
         },
 
@@ -273,7 +276,10 @@ describe('', () => {
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            expect(JSON.parse(str)).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
+            let sarifLog = JSON.parse(str);
+
+            expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
+            expect(sarifLog).toBeValidSarifLog();
           },
         },
 
