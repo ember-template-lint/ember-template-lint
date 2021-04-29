@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const Sarif = require('../../lib/formatters/sarif');
+const SarifFormatter = require('../../lib/formatters/sarif');
 const Project = require('../helpers/fake-project');
 
 const RESULTS = {
@@ -197,7 +197,7 @@ describe('', () => {
 
   it('should output sarif log to default path (in project working directory)', function () {
     let sarifPattern = /Report\swrit{2}en\sto\s(.*ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
-    let formatter = new Sarif(
+    let formatter = new SarifFormatter(
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
@@ -219,9 +219,34 @@ describe('', () => {
     formatter.print(RESULTS);
   });
 
+  it('should always output a SARIF file if options.outputFile is specified', function () {
+    let sarifPattern = /Report\swrit{2}en\sto\s(.*foo\.sarif)/;
+    let formatter = new SarifFormatter(
+      Object.assign({}, DEFAULT_OPTIONS, {
+        console: {
+          log(str) {
+            let sarifLog = JSON.parse(
+              fs.readFileSync(str.match(sarifPattern)[1], {
+                encoding: 'utf-8',
+              })
+            );
+
+            expect(str).toMatch(sarifPattern);
+            expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
+            expect(sarifLog).toBeValidSarifLog();
+          },
+        },
+        workingDir: project.baseDir,
+        outputFile: 'foo.sarif',
+      })
+    );
+
+    formatter.print(RESULTS);
+  });
+
   it('should output sarif log to custom relative path', function () {
     let sarifPattern = /Report\swrit{2}en\sto\s(.*my-custom-file.sarif)/;
-    let formatter = new Sarif(
+    let formatter = new SarifFormatter(
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
@@ -247,7 +272,7 @@ describe('', () => {
 
   it('should output sarif log to custom absolute path', function () {
     let sarifPattern = /Report\swrit{2}en\sto\s(.*subdir(\/|\\)my-custom-file.sarif)/;
-    let formatter = new Sarif(
+    let formatter = new SarifFormatter(
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
@@ -272,7 +297,7 @@ describe('', () => {
   });
 
   it('should output sarif log JSON not using TTY', function () {
-    let formatter = new Sarif(
+    let formatter = new SarifFormatter(
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
