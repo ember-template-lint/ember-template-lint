@@ -32,6 +32,9 @@
       "<rootDir>/node_modules/",
       "<rootDir>/test/"
     ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/jest-setup.js"
+    ],
     "testMatch": [
       "<rootDir>/test/**/*-test.js"
     ]
@@ -54,6 +57,7 @@
   "devDependencies": {
     "@babel/parser": "^7.13.11",
     "@babel/traverse": "^7.13.17",
+    "@microsoft/jest-sarif": "^1.0.0-beta.0",
     "common-tags": "^1.8.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
