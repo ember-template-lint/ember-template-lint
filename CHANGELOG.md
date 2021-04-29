@@ -1,3 +1,16 @@
+## v3.3.1 (2021-04-29)
+
+#### :bug: Bug Fix
+* [#1922](https://github.com/ember-template-lint/ember-template-lint/pull/1922) Allows SARIF output to always write to a file if outputFile is present ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* [#1919](https://github.com/ember-template-lint/ember-template-lint/pull/1919) Adds @microsoft/jest-sarif to validate SARIF file format ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 2
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v3.3.0 (2021-04-26)
 
 #### :rocket: Enhancement
