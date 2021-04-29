@@ -33,7 +33,7 @@
       "<rootDir>/test/"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/jest-setup.js"
+      "<rootDir>/test/jest-setup.js"
     ],
     "testMatch": [
       "<rootDir>/test/**/*-test.js"
