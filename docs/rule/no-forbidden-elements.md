@@ -49,6 +49,8 @@ This rule **allows** the following:
   * array -- an array of strings to forbid, default: ['meta', 'style', 'html', 'script']
   * object -- An object with the following keys:
     * `forbidden` -- An array of forbidden element names
+    * `extendForbidden` -- An array of forbidden strings that extends the default set of forbidden elements instead of replacing it
+    * `message` -- A custom message to be displayed in place of the default error message
 
 ## References
 

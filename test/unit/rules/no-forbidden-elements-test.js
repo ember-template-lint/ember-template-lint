@@ -28,6 +28,31 @@ generateRuleTests({
   bad: [
     {
       template: '<script></script>',
+      config: {
+        extendForbidden: ['div'],
+        message: 'A forbidden element was used. Please refer to the docs for further details.',
+      },
+      result: {
+        message: 'A forbidden element was used. Please refer to the docs for further details.',
+        line: 1,
+        column: 0,
+        source: '<script></script>',
+      },
+    },
+    {
+      template: '<div></div>',
+      config: {
+        extendForbidden: ['div'],
+      },
+      result: {
+        message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('div'),
+        line: 1,
+        column: 0,
+        source: '<div></div>',
+      },
+    },
+    {
+      template: '<script></script>',
       result: {
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('script'),
         line: 1,
