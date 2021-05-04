@@ -222,6 +222,7 @@ Each rule has emojis denoting:
 | :white_check_mark::wrench: | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           |
 | :white_check_mark:         | [no-action](./docs/rule/no-action.md)                                                                     |
 |                            | [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |
+|                            | [no-action-on-submit-button](./docs/rule/no-action-on-submit-button.md)                                   |
 | :white_check_mark:         | [no-args-paths](./docs/rule/no-args-paths.md)                                                             |
 | :white_check_mark:         | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           |
 | :white_check_mark::wrench: | [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 |
