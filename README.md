@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/ember-template-lint.svg)](https://badge.fury.io/js/ember-template-lint)
 [![Build Status](https://github.com/ember-template-lint/ember-template-lint/workflows/CI/badge.svg)](https://github.com/ember-template-lint/ember-template-lint/actions?query=workflow%3ACI)
 
-Ember Template Lint is a library that will lint your handlebars template and return error results.
+`ember-template-lint` is a library that will lint your handlebars template and return error results.
 
 For example, if the rule [`no-bare-strings`](docs/rule/no-bare-strings.md) is enabled, this template would be
 in violation:
