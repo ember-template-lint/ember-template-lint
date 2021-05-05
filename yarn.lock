@@ -410,12 +410,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ember-template-lint/todo-utils@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-8.0.0.tgz#db18b2bbc26fb372062d827138b7e1bb659a30ae"
-  integrity sha512-bqULTNLWr93SRfM+MkPFN4qdYvdzmvwiPBaHpxQM67qnZ1BCs4Mr7zV8GF8OSmSKbyPNMAN2ZyxsPbNRbN6o3g==
+"@ember-template-lint/todo-utils@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-8.1.0.tgz#0fe8ef9ebd1948dea34d27d89a2e245687bb57d9"
+  integrity sha512-fnxDli4RfYGVBXc64D0fg7ifkSrNE8J/ee4eqQLzTrsUJbisWMlmU2NTHm990XcZkulYkCnkiLKERU/k1tx5IQ==
   dependencies:
-    "@types/eslint" "^7.2.7"
+    "@types/eslint" "^7.2.10"
     fs-extra "^9.1.0"
     slash "^3.0.0"
     tslib "^2.1.0"
@@ -1076,10 +1076,10 @@
     "@types/node" "*"
     "@types/responselike" "*"
 
-"@types/eslint@^7.2.7":
-  version "7.2.7"
-  resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.2.7.tgz#f7ef1cf0dceab0ae6f9a976a0a9af14ab1baca26"
-  integrity sha512-EHXbc1z2GoQRqHaAT7+grxlTJ3WE2YNeD6jlpPoRc83cCoThRY+NUWjCUZaYmk51OICkPXn2hhphcWcWXgNW0Q==
+"@types/eslint@^7.2.10":
+  version "7.2.10"
+  resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.2.10.tgz#4b7a9368d46c0f8cd5408c23288a59aa2394d917"
+  integrity sha512-kUEPnMKrqbtpCq/KTaGFFKAcz6Ethm2EjCoKIDaCmfRBWLbFuTcOJfTlorwbnboXBzahqWLgUp1BQeKHiJzPUQ==
   dependencies:
     "@types/estree" "*"
     "@types/json-schema" "*"
