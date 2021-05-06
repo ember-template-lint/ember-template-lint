@@ -340,7 +340,7 @@ describe('todo usage', () => {
       expect(todoDirs).toHaveLength(0);
     });
 
-    it('errors if a todo item has expired when running without params', async function () {
+    it('removes expired todo file if a todo item has expired when running without params', async function () {
       project.setConfig({
         rules: {
           'require-button-type': true,

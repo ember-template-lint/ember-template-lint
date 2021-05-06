@@ -26,13 +26,13 @@ If you want to see todos as part of `ember-template-lint`'s output, you can incl
 ember-template-lint . --include-todo
 ```
 
-If an error is fixed manually, `ember-template-lint` will let you know that there's an expired todo file. You'll see this error:
+If an error is fixed manually, `ember-template-lint` will let you know that there's a stale todo file. You'll see this error:
 
 ```bash
-error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
+error  Todo violation passes no-vague-rules rule. Please run `ember-template-lint /path/to/file.hbs --clean-todo` to remove this todo from the todo list.
 ```
 
-You can fix this error/remove the expired todo file by running `--clean-todo`
+You can fix this error/remove the stale todo file by running `--clean-todo`
 
 ```bash
 ember-template-lint . --clean-todo
