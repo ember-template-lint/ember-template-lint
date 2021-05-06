@@ -328,12 +328,81 @@ describe('todo usage', () => {
       `);
 
       // run fix, and expect that this will delete the outstanding todo item
-      await run(['app/templates/require-button-type.hbs', '--clean-todo']);
+      await run(['app/templates/require-button-type.hbs', '--fix']);
 
       // run normally again and expect no error
       result = await run(['.']);
 
       let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout).toEqual('');
+      expect(todoDirs).toHaveLength(0);
+    });
+
+    it('errors if a todo item has expired when running without params', async function () {
+      project.setConfig({
+        rules: {
+          'require-button-type': true,
+        },
+      });
+
+      project.write({
+        app: {
+          templates: {
+            'require-button-type.hbs': '<button>Check Expiration</button>',
+          },
+        },
+      });
+
+      // change the date so errorDate is before today
+      project.writeTodoConfig({
+        error: 5,
+      });
+
+      // generate todo based on existing error
+      await run(['.', '--update-todo'], {
+        env: {
+          TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+        },
+      });
+
+      // run normally and expect an error for not running --clean-todo
+      let result = await run(['.']);
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "app/templates/require-button-type.hbs
+          1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
+          -:-  error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
+
+        ✖ 2 problems (2 errors, 0 warnings)
+          2 errors and 0 warnings potentially fixable with the \`--fix\` option."
+      `);
+
+      // run clean-todo, and expect that this will delete the expired todo item
+      await run(['app/templates/require-button-type.hbs', '--clean-todo']);
+
+      // run normally again and expect only the error
+      result = await run(['.']);
+
+      let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout).toMatchInlineSnapshot(`
+      "app/templates/require-button-type.hbs
+        1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
+
+      ✖ 1 problems (1 errors, 0 warnings)
+        1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+    `);
+      expect(todoDirs).toHaveLength(0);
+
+      // run fix, and expect that this will fix the auto-fixable error
+      await run(['app/templates/require-button-type.hbs', '--fix']);
+
+      // run normally again and expect no errors and no todos
+      result = await run(['.']);
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toEqual('');
@@ -1083,7 +1152,7 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error if errorDate has expired via config', async function () {
+    it('should set todo to error and provide expired message if errorDate has expired via config', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -1113,11 +1182,14 @@ describe('todo usage', () => {
       expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/application.hbs
             1:5  error  Non-translated string used  no-bare-strings
+            -:-  error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
 
-          ✖ 1 problems (1 errors, 0 warnings)"
+          ✖ 1 problems (1 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
     });
 
+    // TODO update this test to add expired message
     it('should set todo to error if errorDate has expired via env var', async function () {
       project.setConfig({
         rules: {
@@ -1150,7 +1222,8 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error if errorDate has expired via option', async function () {
+    // TODO update this test to include expired message
+    it('should set todo to error and display an expired todo message if errorDate has expired via option', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -1181,6 +1254,7 @@ describe('todo usage', () => {
         `);
     });
 
+    // TODO update this test to show expired message
     it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
       project.setConfig({
         rules: {
@@ -1217,6 +1291,7 @@ describe('todo usage', () => {
         `);
     });
 
+    // TODO update this test to show expired message
     it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
       project.setConfig({
         rules: {
