@@ -23,6 +23,8 @@ generateRuleTests({
     '{{42}}',
     '{{null}}',
     '{{undefined}}',
+    '{{this.view}}',
+    '{{@view}}',
   ],
 
   bad: [
