@@ -1184,12 +1184,11 @@ describe('todo usage', () => {
             1:5  error  Non-translated string used  no-bare-strings
             -:-  error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
 
-          ✖ 1 problems (1 errors, 0 warnings)
+          ✖ 2 problems (2 errors, 0 warnings)
             1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
     });
 
-    // TODO update this test to add expired message
     it('should set todo to error if errorDate has expired via env var', async function () {
       project.setConfig({
         rules: {
@@ -1217,12 +1216,13 @@ describe('todo usage', () => {
       expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/application.hbs
             1:5  error  Non-translated string used  no-bare-strings
+            -:-  error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
 
-          ✖ 1 problems (1 errors, 0 warnings)"
+          ✖ 2 problems (2 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
     });
 
-    // TODO update this test to include expired message
     it('should set todo to error and display an expired todo message if errorDate has expired via option', async function () {
       project.setConfig({
         rules: {
@@ -1249,12 +1249,13 @@ describe('todo usage', () => {
       expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/application.hbs
             1:5  error  Non-translated string used  no-bare-strings
+            -:-  error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
 
-          ✖ 1 problems (1 errors, 0 warnings)"
+          ✖ 2 problems (2 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
     });
 
-    // TODO update this test to show expired message
     it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
       project.setConfig({
         rules: {
@@ -1286,12 +1287,13 @@ describe('todo usage', () => {
       expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/application.hbs
             1:5  error  Non-translated string used  no-bare-strings
+            -:-  error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
 
-          ✖ 1 problems (1 errors, 0 warnings)"
+          ✖ 2 problems (2 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
     });
 
-    // TODO update this test to show expired message
     it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
       project.setConfig({
         rules: {
@@ -1318,8 +1320,10 @@ describe('todo usage', () => {
       expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/application.hbs
             1:5  error  Non-translated string used  no-bare-strings
+            -:-  error  Expired todos exist. Please run \`ember-template-lint --clean-todo\` to remove expired todos.  expired-todo-rule
 
-          ✖ 1 problems (1 errors, 0 warnings)"
+          ✖ 2 problems (2 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
         `);
     });
   });
