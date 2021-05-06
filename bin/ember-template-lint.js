@@ -189,7 +189,7 @@ function parseArgv(_argv) {
         boolean: true,
       },
       'clean-todo': {
-        describe: 'Removes todos that are expired or invalid',
+        describe: 'Remove expired and invalid todo files',
         default: false,
         boolean: true,
       },
