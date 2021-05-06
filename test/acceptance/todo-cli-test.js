@@ -355,13 +355,13 @@ describe('todo usage', () => {
         },
       });
 
-      // change the date so errorDate is before today
       project.writeTodoConfig({
         error: 5,
       });
 
       // generate todo based on existing error
       await run(['.', '--update-todo'], {
+        // change the date so errorDate is before today
         env: {
           TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
         },
@@ -1256,7 +1256,7 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
+    it('should set todo to error and display an expired todo message if both warnDate and errorDate have expired via config', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -1294,7 +1294,7 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
+    it('should set todo to error and display expired todo message if both warnDate and errorDate have expired via options', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
