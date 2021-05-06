@@ -1141,7 +1141,7 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error and provide expired message if errorDate has expired via config', async function () {
+    it('should set todo to error if errorDate has expired via config', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -1208,7 +1208,7 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error and display an expired todo message if errorDate has expired via option', async function () {
+    it('should set todo to error if errorDate has expired via option', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -1239,7 +1239,7 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error and display an expired todo message if both warnDate and errorDate have expired via config', async function () {
+    it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -1275,7 +1275,7 @@ describe('todo usage', () => {
         `);
     });
 
-    it('should set todo to error and display expired todo message if both warnDate and errorDate have expired via options', async function () {
+    it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
