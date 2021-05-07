@@ -280,7 +280,7 @@ Each rule has emojis denoting:
 | :white_check_mark:         | [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                                     |
 | :white_check_mark:         | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                                             |
 | :white_check_mark:         | [no-unbound](./docs/rule/no-unbound.md)                                                                   |
-| :white_check_mark:         | [no-unknown-arguments-for-builtin-components](./docs/rule/no-unknown-arguments-for-builtin-components.md) |
+| :white_check_mark::wrench: | [no-unknown-arguments-for-builtin-components](./docs/rule/no-unknown-arguments-for-builtin-components.md) |
 | :white_check_mark:         | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         |
 | :nail_care:                | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |
 | :white_check_mark:         | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           |
