@@ -1,3 +1,18 @@
+## v3.4.0 (2021-05-07)
+
+#### :rocket: Enhancement
+* [#1933](https://github.com/ember-template-lint/ember-template-lint/pull/1933) Adds `--clean-todo` option to provide separate functionality to cleanup stale and expired todos ([@MelSumner](https://github.com/MelSumner))
+
+#### :bug: Bug Fix
+* [#1933](https://github.com/ember-template-lint/ember-template-lint/pull/1933) Adds `--clean-todo` option to provide separate functionality to cleanup stale and expired todos ([@MelSumner](https://github.com/MelSumner))
+
+#### :memo: Documentation
+* [#1918](https://github.com/ember-template-lint/ember-template-lint/pull/1918) Update some wording in README.md ([@MelSumner](https://github.com/MelSumner))
+
+#### Committers: 1
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+
+
 ## v3.3.1 (2021-04-29)
 
 #### :bug: Bug Fix
