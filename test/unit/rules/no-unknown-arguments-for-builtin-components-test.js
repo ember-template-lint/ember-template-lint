@@ -125,7 +125,8 @@ generateRuleTests({
 
     {
       template: '<LinkTo @route="info" @model={{this.model}} @doubleClick={{action this.click}} />',
-      fixedTemplate: '<LinkTo @route="info" @model={{this.model}} {{on "dblclick" (action this.click)}} />',
+      fixedTemplate:
+        '<LinkTo @route="info" @model={{this.model}} {{on "dblclick" (action this.click)}} />',
       results: [
         {
           message:
