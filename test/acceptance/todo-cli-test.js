@@ -367,8 +367,10 @@ describe('todo usage', () => {
         },
       });
 
-      // run normally and expect an error for not running --clean-todo
+      // run normally and expect the issue to be back in the error state and there to be no todo
       let result = await run(['.']);
+
+      let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
@@ -378,23 +380,6 @@ describe('todo usage', () => {
         ✖ 1 problems (1 errors, 0 warnings)
           1 errors and 0 warnings potentially fixable with the \`--fix\` option."
       `);
-
-      // run clean-todo, and expect that this will delete the expired todo item
-      await run(['app/templates/require-button-type.hbs', '--clean-todo']);
-
-      // run normally again and expect only the error
-      result = await run(['.']);
-
-      let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
-      expect(result.exitCode).toEqual(1);
-      expect(result.stdout).toMatchInlineSnapshot(`
-      "app/templates/require-button-type.hbs
-        1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
-
-      ✖ 1 problems (1 errors, 0 warnings)
-        1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-    `);
       expect(todoDirs).toHaveLength(0);
     });
 
