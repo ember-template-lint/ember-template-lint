@@ -321,7 +321,7 @@ describe('todo usage', () => {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
         "app/templates/require-button-type.hbs
-          -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --fix\` to remove this todo from the todo list.  invalid-todo-violation-rule
+          -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
         ✖ 1 problems (1 errors, 0 warnings)
           1 errors and 0 warnings potentially fixable with the \`--fix\` option."
@@ -337,6 +337,49 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toEqual('');
+      expect(todoDirs).toHaveLength(0);
+    });
+
+    it('removes expired todo file if a todo item has expired when running without params', async function () {
+      project.setConfig({
+        rules: {
+          'require-button-type': true,
+        },
+      });
+
+      project.write({
+        app: {
+          templates: {
+            'require-button-type.hbs': '<button>Check Expiration</button>',
+          },
+        },
+      });
+
+      project.writeTodoConfig({
+        error: 5,
+      });
+
+      // generate todo based on existing error
+      await run(['.', '--update-todo'], {
+        // change the date so errorDate is before today
+        env: {
+          TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+        },
+      });
+
+      // run normally and expect the issue to be back in the error state and there to be no todo
+      let result = await run(['.']);
+
+      let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "app/templates/require-button-type.hbs
+          1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
+
+        ✖ 1 problems (1 errors, 0 warnings)
+          1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+      `);
       expect(todoDirs).toHaveLength(0);
     });
 

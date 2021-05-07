@@ -64,6 +64,8 @@ describe('ember-template-lint executable', function () {
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
+            --clean-todo                Remove expired and invalid todo files
+                                                                [boolean] [default: false]
             --todo-days-to-warn         Number of days after its creation date that a todo
                                         transitions into a warning                [number]
             --todo-days-to-error        Number of days after its creation date that a todo
@@ -118,6 +120,8 @@ describe('ember-template-lint executable', function () {
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
+            --clean-todo                Remove expired and invalid todo files
                                                                 [boolean] [default: false]
             --todo-days-to-warn         Number of days after its creation date that a todo
                                         transitions into a warning                [number]
@@ -427,6 +431,8 @@ describe('ember-template-lint executable', function () {
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
+                                                                [boolean] [default: false]
+            --clean-todo                Remove expired and invalid todo files
                                                                 [boolean] [default: false]
             --todo-days-to-warn         Number of days after its creation date that a todo
                                         transitions into a warning                [number]
