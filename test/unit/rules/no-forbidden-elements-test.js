@@ -29,7 +29,7 @@ generateRuleTests({
     {
       template: '<script></script>',
       config: {
-        extendForbidden: ['div'],
+        additionalForbidden: ['div'],
         message: 'A forbidden element was used. Please refer to the docs for further details.',
       },
       result: {
@@ -42,7 +42,7 @@ generateRuleTests({
     {
       template: '<div></div>',
       config: {
-        extendForbidden: ['div'],
+        additionalForbidden: ['div'],
       },
       result: {
         message: ERROR_MESSAGE_FORBIDDEN_ELEMENTS('div'),
