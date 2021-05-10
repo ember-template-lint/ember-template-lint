@@ -1,3 +1,16 @@
+## v3.4.1 (2021-05-10)
+
+#### :bug: Bug Fix
+* [#1945](https://github.com/ember-template-lint/ember-template-lint/pull/1945) Fixes `--clean-todo` flag to actually do the cleaning ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#1900](https://github.com/ember-template-lint/ember-template-lint/pull/1900) Fixed typo in README ([@MelSumner](https://github.com/MelSumner))
+
+#### Committers: 2
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.4.0 (2021-05-07)
 
 #### :rocket: Enhancement
