@@ -401,7 +401,7 @@ async function run() {
       fileResults = await linter.processTodos(
         linterOptions,
         fileResults,
-        options.fix,
+        options.fix || options.cleanTodo,
         isOverridingConfig
       );
     }

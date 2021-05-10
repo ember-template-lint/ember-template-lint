@@ -288,7 +288,7 @@ describe('todo usage', () => {
       expect(todos).toHaveLength(3);
     });
 
-    it('errors if a todo item is no longer valid when running without params', async function () {
+    it('errors if a todo item is no longer valid when running without params, and cleans using --fix', async function () {
       project.setConfig({
         rules: {
           'require-button-type': true,
@@ -329,6 +329,58 @@ describe('todo usage', () => {
 
       // run fix, and expect that this will delete the outstanding todo item
       await run(['app/templates/require-button-type.hbs', '--fix']);
+
+      // run normally again and expect no error
+      result = await run(['.']);
+
+      let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout).toEqual('');
+      expect(todoDirs).toHaveLength(0);
+    });
+
+    it('errors if a todo item is no longer valid when running without params, and cleans using --clean-todo', async function () {
+      project.setConfig({
+        rules: {
+          'require-button-type': true,
+        },
+      });
+
+      project.write({
+        app: {
+          templates: {
+            'require-button-type.hbs': '<button>Klikk</button>',
+          },
+        },
+      });
+
+      // generate todo based on existing error
+      await run(['.', '--update-todo']);
+
+      // mimic fixing the error manually via user interaction
+      project.write({
+        app: {
+          templates: {
+            'require-button-type.hbs': '<button type="submit">Klikk</button>',
+          },
+        },
+      });
+
+      // run normally and expect an error for not running --fix
+      let result = await run(['.']);
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "app/templates/require-button-type.hbs
+          -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+
+        ✖ 1 problems (1 errors, 0 warnings)
+          1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+      `);
+
+      // run fix, and expect that this will delete the outstanding todo item
+      await run(['app/templates/require-button-type.hbs', '--clean-todo']);
 
       // run normally again and expect no error
       result = await run(['.']);
