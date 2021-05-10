@@ -9,7 +9,7 @@ For example, if the rule [`no-bare-strings`](docs/rule/no-bare-strings.md) is en
 in violation:
 
 ```hbs
-{{!-- app/components/my-thing/template.hbs  --}}
+{{! app/components/my-thing/template.hbs  }}
 <div>A bare string</div>
 ```
 

@@ -196,7 +196,8 @@ describe('', () => {
   });
 
   it('should output sarif log to default path (in project working directory)', function () {
-    let sarifPattern = /Report\swrit{2}en\sto\s(.*ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
+    let sarifPattern =
+      /Report\swrit{2}en\sto\s(.*ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
     let formatter = new SarifFormatter(
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
