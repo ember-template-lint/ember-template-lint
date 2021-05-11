@@ -392,7 +392,7 @@ describe('todo usage', () => {
       expect(todoDirs).toHaveLength(0);
     });
 
-    it('removes expired todo file if a todo item has expired when running without params', async function () {
+    it('removes expired todo file if a todo item has expired when running with --clean-todo', async function () {
       project.setConfig({
         rules: {
           'require-button-type': true,
@@ -420,7 +420,7 @@ describe('todo usage', () => {
       });
 
       // run normally and expect the issue to be back in the error state and there to be no todo
-      let result = await run(['.']);
+      let result = await run(['.', '--clean-todo']);
 
       let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
 
