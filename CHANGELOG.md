@@ -1,3 +1,12 @@
+## v3.4.2 (2021-05-11)
+
+#### :bug: Bug Fix
+* [#1947](https://github.com/ember-template-lint/ember-template-lint/pull/1947) Moves expired todo removal under the `--clean-todo` flag ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.4.1 (2021-05-10)
 
 #### :bug: Bug Fix
