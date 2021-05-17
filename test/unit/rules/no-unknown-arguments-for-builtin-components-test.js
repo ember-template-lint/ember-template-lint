@@ -28,6 +28,7 @@ generateRuleTests({
         line: 1,
         column: 7,
         source: '@valuee',
+        isFixable: false,
       },
     },
     {
@@ -37,6 +38,7 @@ generateRuleTests({
         line: 1,
         column: 10,
         source: '@valuee',
+        isFixable: false,
       },
     },
     {
@@ -46,6 +48,7 @@ generateRuleTests({
         line: 1,
         column: 21,
         source: '@valuee',
+        isFixable: false,
       },
     },
 
@@ -56,6 +59,7 @@ generateRuleTests({
         line: 1,
         column: 21,
         source: '@madel',
+        isFixable: false,
       },
     },
 
@@ -97,12 +101,14 @@ generateRuleTests({
           line: 1,
           column: 44,
           source: '@tagName',
+          isFixable: false,
         },
       ],
     },
 
     {
       template: '<LinkTo @route="info" @model={{this.model}} @elementId="superstar" />',
+      fixedTemplate: '<LinkTo @route="info" @model={{this.model}} id="superstar" />',
       results: [
         {
           message:
@@ -110,6 +116,7 @@ generateRuleTests({
           line: 1,
           column: 44,
           source: '@elementId',
+          isFixable: true,
         },
       ],
     },
@@ -118,6 +125,8 @@ generateRuleTests({
 
     {
       template: '<LinkTo @route="info" @model={{this.model}} @doubleClick={{action this.click}} />',
+      fixedTemplate:
+        '<LinkTo @route="info" @model={{this.model}} {{on "dblclick" (action this.click)}} />',
       results: [
         {
           message:
@@ -125,6 +134,7 @@ generateRuleTests({
           line: 1,
           column: 44,
           source: '@doubleClick',
+          isFixable: true,
         },
       ],
     },
@@ -139,12 +149,14 @@ generateRuleTests({
           line: 1,
           column: 18,
           source: '@bubbles',
+          isFixable: false,
         },
       ],
     },
 
     {
-      template: '<Input @value="1" @elementId="42" />',
+      template: '<Input @value="1" @elementId="42" @disabled="disabled" />',
+      fixedTemplate: '<Input @value="1" id="42" disabled="disabled" />',
       results: [
         {
           message:
@@ -152,6 +164,15 @@ generateRuleTests({
           line: 1,
           column: 18,
           source: '@elementId',
+          isFixable: true,
+        },
+        {
+          message:
+            'Passing the "@disabled" argument to <Input /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<Input disabled={{...}} />" instead of "<Input @disabled={{...}} />".',
+          line: 1,
+          column: 34,
+          source: '@disabled',
+          isFixable: true,
         },
       ],
     },
@@ -160,6 +181,7 @@ generateRuleTests({
 
     {
       template: '<Input @value="1" @key-up={{ths.onKeyUp}} />',
+      fixedTemplate: '<Input @value="1" {{on "keyup" ths.onKeyUp}} />',
       results: [
         {
           message:
@@ -167,6 +189,7 @@ generateRuleTests({
           line: 1,
           column: 18,
           source: '@key-up',
+          isFixable: true,
         },
       ],
     },
@@ -180,12 +203,14 @@ generateRuleTests({
           line: 1,
           column: 21,
           source: '@bubbles',
+          isFixable: false,
         },
       ],
     },
 
     {
       template: '<Textarea @value="1" @elementId="42" />',
+      fixedTemplate: '<Textarea @value="1" id="42" />',
       results: [
         {
           message:
@@ -193,6 +218,7 @@ generateRuleTests({
           line: 1,
           column: 21,
           source: '@elementId',
+          isFixable: true,
         },
       ],
     },
@@ -200,6 +226,7 @@ generateRuleTests({
 
     {
       template: '<Textarea @value="1" @key-up={{ths.onKeyUp}} />',
+      fixedTemplate: '<Textarea @value="1" {{on "keyup" ths.onKeyUp}} />',
       results: [
         {
           message:
@@ -207,6 +234,7 @@ generateRuleTests({
           line: 1,
           column: 21,
           source: '@key-up',
+          isFixable: true,
         },
       ],
     },
