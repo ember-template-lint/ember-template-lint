@@ -20,7 +20,7 @@ const readmeContent = fs.readFileSync(pathReadme, 'utf8');
 const tablePlaceholder = /<!--RULES_TABLE_START-->[\S\s]*<!--RULES_TABLE_END-->/;
 
 // Config/preset emojis.
-const EMOJI_STAR = ':white_check_mark:';
+const EMOJI_RECOMMENDED = ':white_check_mark:';
 const EMOJI_STYLISTIC = ':nail_care:';
 const EMOJI_FIXABLE = ':wrench:';
 
@@ -32,23 +32,18 @@ const rulesTableContent = Object.keys(rules)
     const isRecommended = Object.prototype.hasOwnProperty.call(recommendedRules, ruleName);
     const isStylistic = Object.prototype.hasOwnProperty.call(stylisticRules, ruleName);
     const isFixable = isRuleFixable(ruleName);
-
-    const emoji = [
-      isRecommended ? EMOJI_STAR : '',
-      isStylistic ? EMOJI_STYLISTIC : '',
-      isFixable ? EMOJI_FIXABLE : '',
-    ].join('');
-
     const url = `./docs/rule/${ruleName}.md`;
     const link = `[${ruleName}](${url})`;
 
-    return `| ${emoji} | ${link} |`;
+    return `| ${link} | ${isRecommended ? EMOJI_RECOMMENDED : ''} | ${
+      isStylistic ? EMOJI_STYLISTIC : ''
+    } | ${isFixable ? EMOJI_FIXABLE : ''} |`;
   })
   .join('\n');
 
 const readmeNewContent = readmeContent.replace(
   tablePlaceholder,
-  `<!--RULES_TABLE_START-->\n\n|    | Rule ID |\n|:---|:--------|\n${rulesTableContent}\n\n<!--RULES_TABLE_END-->`
+  `<!--RULES_TABLE_START-->\n\n| Name | ${EMOJI_RECOMMENDED} | ${EMOJI_STYLISTIC} | ${EMOJI_FIXABLE} |\n|:--------|:---|:---|:---|\n${rulesTableContent}\n\n<!--RULES_TABLE_END-->`
 );
 
 const readmeFormattedNewContent = prettier.format(readmeNewContent, prettierConfig);
