@@ -280,6 +280,7 @@ Each rule has emojis denoting:
 | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     |     |
 | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     |     |
 | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | ✅  |     |     |     |
+| [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           |     |     |     |     |
 | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       |     | 💅  | ⌨️  |     |
 | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                                     |     | 💅  | ⌨️  |     |
 | [no-yield-only](./docs/rule/no-yield-only.md)                                                             | ✅  |     |     |     |
