@@ -8264,10 +8264,10 @@ yeoman-environment@^3.1.0:
     through2 "^4.0.2"
     untildify "^4.0.0"
 
-yeoman-generator@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/yeoman-generator/-/yeoman-generator-5.2.0.tgz#0260d9472c87d6f32c394f9376900cbcfd6627ba"
-  integrity sha512-LCHaYrcgtC4NpYAkritCEteuDSjBdhsQNYrssZjnK0okRFvroMXDX4//CA1RfVsjCHKi4Df6lILOUYCRiYKG4g==
+yeoman-generator@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/yeoman-generator/-/yeoman-generator-5.3.0.tgz#06ec2d00a2521e299b2581b6ed0eaed01c928187"
+  integrity sha512-OE+qDs/c5V3HP29hUlyUO7ejpLSJX93LZ+KFRmyYmPMvcbnsdHynF6LyOh0vLPuqsi/x50MxZfob/EIQ06E4EQ==
   dependencies:
     chalk "^4.1.0"
     dargs "^7.0.0"
