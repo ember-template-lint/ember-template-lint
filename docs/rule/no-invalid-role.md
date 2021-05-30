@@ -20,6 +20,11 @@ This rule **forbids** the following:
 ```
 
 ```hbs
+<button role="presentation">
+</button>
+```
+
+```hbs
 <ul role="none">
 </ul>
 ```

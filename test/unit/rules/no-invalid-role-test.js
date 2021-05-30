@@ -81,7 +81,42 @@ generateRuleTests({
         column: 0,
       },
     },
-
+    {
+      template: '<button role="presentation"></button>',
+      result: {
+        message: createErrorMessageDisallowedRoleForElement('button'),
+        source: '<button role="presentation"></button>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<button role="none"></button>',
+      result: {
+        message: createErrorMessageDisallowedRoleForElement('button'),
+        source: '<button role="none"></button>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<label role="presentation"></label>',
+      result: {
+        message: createErrorMessageDisallowedRoleForElement('label'),
+        source: '<label role="presentation"></label>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<label role="none"></label>',
+      result: {
+        message: createErrorMessageDisallowedRoleForElement('label'),
+        source: '<label role="none"></label>',
+        line: 1,
+        column: 0,
+      },
+    },
     {
       template: '<div role="command interface"></div>',
       result: {
