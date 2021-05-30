@@ -22,6 +22,9 @@ If it's not a meaningful image, it should have an empty alt attribute value and 
 
 Numbers are not considered valid alt text, and this rule disallows using only numbers in alt text.
 
+If `src` has a dynamic value, `alt` must also have a dynamic value. If `src` changes and `alt` does not, the
+alternative text is no longer describing the content correctly.
+
 This rule **forbids** the following:
 
 ```hbs
@@ -32,6 +35,8 @@ This rule **forbids** the following:
 <img src="baz" alt="Picture of baz fixing a bug." />
 <img src="b52.jpg" alt="52" />
 <img src="foo" alt="foo as a banana" role="presentation">
+<img src={{url}} alt="something">
+<img alt="path/to/zoey.jpg" src="https://www.bar.com/lol/{{item}}">
 ```
 
 This rule **allows** the following:
@@ -43,6 +48,9 @@ This rule **allows** the following:
 <img src="baz" alt="Baz taking a {{photo}}" /> // This is valid since photo is a variable name.
 <img src="b52.jpg" alt="b52 bomber jet" />
 <img src="foo" alt="" role="presentation"> // This is valid because it has a role of presentation.
+<img src={{url}} alt={{picture}}>
+<img src="https://www.blah.com/item/{{item}}" alt="{{item}}">
+<img src="https://www.blah.com/item/{{item}}" alt="blah of {{item}}">
 ```
 
 ### `<object>`
@@ -101,3 +109,5 @@ This rule **allows** the following:
 * [WCAG Criterion 1.1.1 - Non-text Content](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)
 * [HTML 5.2 spec - the img element](https://www.w3.org/TR/html5/semantics-embedded-content.html#the-img-element)
 * [Failure of Success Criterion 1.1.1 due to providing a text alternative that is not null (e.g., alt="spacer" or alt="image") for images that should be ignored by assistive technology](https://www.w3.org/WAI/WCAG21/Techniques/failures/F39)
+* [Failure of Success Criterion 1.1.1 and 4.1.2 due to not updating text alternatives when changes to non-text content occur](https://www.w3.org/WAI/WCAG21/Techniques/failures/F20)
+* [Understanding Success Criterion 4.1.2: Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)

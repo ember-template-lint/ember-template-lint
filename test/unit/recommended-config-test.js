@@ -47,7 +47,7 @@ describe('recommended config', function () {
   ensureValid('<FooBar as |baz|><baz.Derp></baz.Derp></FooBar>');
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/253
-  ensureValid('<img alt="special thing" src={{some-dir/some-thing this.x}}>');
+  ensureValid('<img alt={{alt}} src={{some-dir/some-thing this.x}}>');
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/443
   ensureValid(`

@@ -22,6 +22,12 @@ generateRuleTests({
     '<img alt="name {{picture}}">',
     '<img aria-hidden="true">',
     '<img alt="{{picture}}">',
+    '<img src={{url}} alt={{picture}}>',
+    '<img src="{{url}}" alt="{{picture}}">',
+    '<img src={{url}} alt="{{picture}}">',
+    '<img src="{{url}}" alt={{picture}}>',
+    '<img src="https://www.blah.com/item/{{item}}" alt="{{item}}">',
+    '<img src="https://www.blah.com/item/{{item}}" alt="blah of {{item}}">',
     '<img alt="" role="none">',
     '<img alt="" role="presentation">',
 
@@ -105,6 +111,33 @@ generateRuleTests({
       result: {
         message: 'The alt text must not be the same as the image source',
         source: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="path/to/zoey.jpg" src={{url}}>',
+      result: {
+        message: 'If src has a dynamic value, alt must also have a dynamic value',
+        source: '<img alt="path/to/zoey.jpg" src={{url}}>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="path/to/zoey.jpg" src="{{url}}">',
+      result: {
+        message: 'If src has a dynamic value, alt must also have a dynamic value',
+        source: '<img alt="path/to/zoey.jpg" src="{{url}}">',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<img alt="path/to/zoey.jpg" src="https://www.bar.com/lol/{{item}}">',
+      result: {
+        message: 'If src has a dynamic value, alt must also have a dynamic value',
+        source: '<img alt="path/to/zoey.jpg" src="https://www.bar.com/lol/{{item}}">',
         line: 1,
         column: 0,
       },
