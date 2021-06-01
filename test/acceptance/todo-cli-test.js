@@ -1,4 +1,6 @@
 const fs = require('fs');
+const { unlink } = require('fs-extra');
+const { join } = require('path');
 
 const {
   ensureTodoStorageDir,
@@ -55,6 +57,38 @@ describe('todo usage', () => {
 
       expect(todoStorageDirExists(project.baseDir)).toEqual(false);
       expect(result.stdout).toBeTruthy();
+    });
+
+    it('errors when lintTodo config is present in package.json and there is a .lint-todorc.js file', async function () {
+      // set the config for .lint-todorc.js
+      project.setTodoLintConfig({
+        daysToDecay: {
+          'warn': 4,
+          'error': 8
+        },
+      });
+      // set the daysToDecay in the package.json file
+      project.writeTodoConfigInPackageJson({
+        warn: 5,
+        error: 10,
+      });
+      // write an app template file so we have something to run the linter on
+      project.write({
+        app: {
+          templates: {
+            'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+          },
+        },
+      });
+
+      // try to run the linter
+      let result = await run(['.']);
+
+      // expect that it should error because we have daysToDecay in both package.json and .lint-todorc.js
+      expect(result.exitCode).toEqual(1);
+      expect(result.stderr).toContain(
+        'You cannot have todo configurations in both package.json and .lint-todorc.js. Please move the configuration from the package.json to the .lint-todorc.js'
+      );
     });
 
     it('errors when config.pending and `.lint-todo` dir coexist', async function () {
@@ -407,7 +441,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         error: 5,
       });
 
@@ -667,6 +701,7 @@ describe('todo usage', () => {
     });
 
     it('should error if daysToDecay.error is less than daysToDecay.warn in package.json', async function () {
+      await unlink(join(project.baseDir, '.todo-lintrc.js'));
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -679,7 +714,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 10,
         error: 5,
       });
@@ -704,7 +739,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 10,
       });
 
@@ -732,7 +767,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 10,
       });
 
@@ -764,7 +799,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 10,
       });
 
@@ -796,7 +831,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         error: 10,
       });
 
@@ -824,7 +859,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         error: 10,
       });
 
@@ -856,7 +891,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         error: 10,
       });
 
@@ -888,7 +923,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
         error: 10,
       });
@@ -918,7 +953,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
         error: 10,
       });
@@ -953,7 +988,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
         error: 10,
       });
@@ -991,7 +1026,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
         error: 10,
       });
@@ -1028,7 +1063,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
       });
 
@@ -1059,7 +1094,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         error: 5,
       });
 
@@ -1090,7 +1125,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
       });
 
@@ -1156,7 +1191,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
         error: 10,
       });
@@ -1192,7 +1227,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         error: 5,
       });
 
@@ -1290,7 +1325,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.writeTodoConfigInPackageJson({
         warn: 5,
         error: 10,
       });
