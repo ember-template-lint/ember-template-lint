@@ -41,11 +41,15 @@ module.exports = {
 `;
 
 // it's not default, but if the .lint-todorc.js file exists, this is the format
-const TODO_LINTRC = `
+const LINT_TODORC = `
 'use strict';
 
 module.exports = {
   'ember-template-lint': {
+    daysToDecay: {
+      warn: 3,
+      error: 6
+    }
   }
 };
 `;
@@ -56,7 +60,7 @@ module.exports = class FakeProject extends FixturifyProject {
 
     project.files['.template-lintrc.js'] = DEFAULT_TEMPLATE_LINTRC;
     project.files['.editorconfig'] = DEFAULT_EDITOR_CONFIG;
-    project.files['.lint-todorc.js'] = TODO_LINTRC;
+    project.files['.lint-todorc.js'] = LINT_TODORC;
 
     project.writeSync();
 
@@ -91,16 +95,16 @@ module.exports = class FakeProject extends FixturifyProject {
   setTodoLintConfig(todoConfig) {
     let todoConfigFileContents =
       todoConfig === undefined
-        ? TODO_LINTRC
-        : `module.exports = { 'ember-template-lint': ${JSON.stringify(todoConfig, null, 2)}}`;
+        ? LINT_TODORC
+        : `module.exports = { 'ember-template-lint': { ${JSON.stringify(todoConfig, null, 2)} } }`;
 
     this.files['.lint-todorc.js'] = todoConfigFileContents;
 
     this.writeSync();
   }
 
-  getTodoConfig() {
-    return require(path.join(this.baseDir, '.lint-todorc'));
+  getTodoLintConfig() {
+    return require(path.join(this.baseDir, '.lint-todorc.js'));
   }
 
   path(subPath) {

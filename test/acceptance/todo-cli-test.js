@@ -63,8 +63,8 @@ describe('todo usage', () => {
       // set the config for .lint-todorc.js
       project.setTodoLintConfig({
         daysToDecay: {
-          'warn': 4,
-          'error': 8
+          warn: 4,
+          error: 8,
         },
       });
       // set the daysToDecay in the package.json file
@@ -701,7 +701,8 @@ describe('todo usage', () => {
     });
 
     it('should error if daysToDecay.error is less than daysToDecay.warn in package.json', async function () {
-      await unlink(join(project.baseDir, '.todo-lintrc.js'));
+      await unlink(join(project.baseDir, '.lint-todorc.js'));
+
       project.setConfig({
         rules: {
           'no-bare-strings': true,
