@@ -294,6 +294,7 @@ Each rule has emojis denoting:
 | [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | :white_check_mark: |             |          |
 | [require-input-label](./docs/rule/require-input-label.md)                                                 | :white_check_mark: |             |          |
 | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | :white_check_mark: |             |          |
+| [require-presentational-children](./docs/rule/require-presentational-children.md)                                           | :white_check_mark: |             |          |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |                    |             |          |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | :white_check_mark: |             |          |
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |                    | :nail_care: |          |
