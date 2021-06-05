@@ -22,12 +22,6 @@ generateRuleTests({
       </li>
     </ul>
     `,
-    `
-    <ul role="presentation">
-      <li>Date of birth:</li>
-      <li>January 1, 3456</li>
-    </ul>
-    `,
   ],
 
   bad: [
