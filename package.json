@@ -67,7 +67,7 @@
     "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-unicorn": "^31.0.0",
+    "eslint-plugin-unicorn": "^33.0.1",
     "execa": "^5.1.1",
     "fixturify-project": "^2.1.1",
     "jest": "^27.0.4",
