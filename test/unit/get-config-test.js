@@ -615,15 +615,37 @@ describe('determineRuleConfig', function () {
 });
 
 describe('resolveProjectConfig', function () {
-  it('should return an empty object when options.config is set explicitly false', function () {
+  it('should return an empty object when options.configPath is set explicitly false', function () {
     let project = Project.defaultSetup();
 
     try {
-      const config = resolveProjectConfig(project.baseDir, { config: false });
+      const config = resolveProjectConfig(project.baseDir, { configPath: false });
 
       expect(config).toEqual({});
     } finally {
       project.dispose();
+    }
+  });
+
+  it('should search for config relative to the specified working directory', function () {
+    let project1 = Project.defaultSetup();
+    let project2 = Project.defaultSetup();
+
+    project1.chdir();
+
+    project2.setConfig({
+      extends: 'foo',
+    });
+
+    try {
+      const config = resolveProjectConfig(project2.baseDir, {});
+
+      expect(config).toEqual({
+        extends: 'foo',
+      });
+    } finally {
+      project1.dispose();
+      project2.dispose();
     }
   });
 });
