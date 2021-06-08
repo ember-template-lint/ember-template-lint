@@ -407,7 +407,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         error: 5,
       });
 
@@ -679,7 +679,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 10,
         error: 5,
       });
@@ -704,7 +704,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 10,
       });
 
@@ -732,7 +732,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 10,
       });
 
@@ -764,7 +764,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 10,
       });
 
@@ -796,7 +796,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         error: 10,
       });
 
@@ -824,7 +824,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         error: 10,
       });
 
@@ -856,7 +856,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         error: 10,
       });
 
@@ -888,7 +888,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
         error: 10,
       });
@@ -918,7 +918,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
         error: 10,
       });
@@ -953,7 +953,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
         error: 10,
       });
@@ -991,7 +991,7 @@ describe('todo usage', () => {
           },
         },
       });
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
         error: 10,
       });
@@ -1028,7 +1028,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
       });
 
@@ -1059,7 +1059,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         error: 5,
       });
 
@@ -1090,7 +1090,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
       });
 
@@ -1156,7 +1156,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
         error: 10,
       });
@@ -1192,7 +1192,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         error: 5,
       });
 
@@ -1290,7 +1290,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.writeTodoConfig({
+      project.setLegacyTodoConfig({
         warn: 5,
         error: 10,
       });

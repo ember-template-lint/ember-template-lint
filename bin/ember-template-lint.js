@@ -301,6 +301,7 @@ async function run() {
     removed: 0,
     todoConfig: getTodoConfig(
       options.workingDirectory,
+      'ember-template-lint',
       getTodoConfigFromCommandLineOptions(options)
     ),
   };
