@@ -717,659 +717,722 @@ describe('todo usage', () => {
         `);
     });
 
-    for (const { isLegacy, setTodoConfig } of [
+    for (const { name, isLegacy, setTodoConfig } of [
       {
+        name: 'Legacy todo configuration',
         isLegacy: true,
         setTodoConfig: (daysToDecay) => project.setLegacyPackageJsonTodoConfig(daysToDecay),
       },
       {
+        name: 'Package.json todo configuration',
         isLegacy: false,
-        setTodoConfig: (daysToDecay) =>
-          project.setPackageJsonTodoConfig('ember-template-lint', daysToDecay),
+        setTodoConfig: (daysToDecay, daysToDecayByRule) =>
+          project.setPackageJsonTodoConfig('ember-template-lint', daysToDecay, daysToDecayByRule),
       },
       {
+        name: '.lint-todorc.js todo configuration',
         isLegacy: false,
-        setTodoConfig: (daysToDecay) => project.setLintTodorc('ember-template-lint', daysToDecay),
+        setTodoConfig: (daysToDecay, daysToDecayByRule) =>
+          project.setLintTodorc('ember-template-lint', daysToDecay, daysToDecayByRule),
       },
     ]) {
-      it('removes expired todo file if a todo item has expired when running with --clean-todo', async function () {
-        project.setConfig({
-          rules: {
-            'require-button-type': true,
-          },
-        });
-
-        project.write({
-          app: {
-            templates: {
-              'require-button-type.hbs': '<button>Check Expiration</button>',
+      describe(name, () => {
+        it('removes expired todo file if a todo item has expired when running with --clean-todo', async function () {
+          project.setConfig({
+            rules: {
+              'require-button-type': true,
             },
-          },
-        });
+          });
 
-        setTodoConfig({
-          error: 5,
-        });
+          project.write({
+            app: {
+              templates: {
+                'require-button-type.hbs': '<button>Check Expiration</button>',
+              },
+            },
+          });
 
-        // generate todo based on existing error
-        await run(['.', '--update-todo'], {
-          // change the date so errorDate is before today
-          env: {
-            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
-          },
-        });
+          setTodoConfig({
+            error: 5,
+          });
 
-        // run normally and expect the issue to be back in the error state and there to be no todo
-        let result = await run(['.', '--clean-todo']);
+          // generate todo based on existing error
+          await run(['.', '--update-todo'], {
+            // change the date so errorDate is before today
+            env: {
+              TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+            },
+          });
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+          // run normally and expect the issue to be back in the error state and there to be no todo
+          let result = await run(['.', '--clean-todo']);
 
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+          expect(result.exitCode).toEqual(1);
+          expect(result.stdout).toMatchInlineSnapshot(`
               "app/templates/require-button-type.hbs
                 1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
 
               ✖ 1 problems (1 errors, 0 warnings)
                 1 errors and 0 warnings potentially fixable with the \`--fix\` option."
             `);
-        expect(todoDirs).toHaveLength(0);
-      });
-
-      it('should error if daysToDecay.error is less than daysToDecay.warn in package.json', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
+          expect(todoDirs).toHaveLength(0);
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should error if daysToDecay.error is less than daysToDecay.warn in package.json', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
-        setTodoConfig({
-          warn: 10,
-          error: 5,
-        });
-
-        let result = await run(['.', '--update-todo']);
-
-        expect(result.stderr).toMatch(
-          'The provided todo configuration contains invalid values. The `warn` value (10) must be less than the `error` value (5).'
-        );
-      });
-
-      it('should create todos with correct warn date set via package.json', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
             },
-          },
-        });
-        setTodoConfig({
-          warn: 10,
-        });
+          });
+          setTodoConfig({
+            warn: 10,
+            error: 5,
+          });
 
-        let result = await run(['.', '--update-todo']);
+          let result = await run(['.', '--update-todo']);
 
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
-        }
-      });
-
-      it('should create todos with correct warn date set via env var (overrides package.json)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
-            },
-          },
-        });
-        setTodoConfig({
-          warn: 10,
-        });
-
-        let result = await run(['.', '--update-todo'], {
-          env: {
-            TODO_DAYS_TO_WARN: '30',
-          },
-        });
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(30);
-        }
-      });
-
-      it('should create todos with correct warn date set via option (overrides env var)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
-            },
-          },
-        });
-        setTodoConfig({
-          warn: 10,
-        });
-
-        let result = await run(['.', '--update-todo', '--todo-days-to-warn', '30'], {
-          env: {
-            TODO_DAYS_TO_WARN: 20,
-          },
-        });
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(30);
-        }
-      });
-
-      it('should create todos with correct error date set via package.json', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
-            },
-          },
-        });
-        setTodoConfig({
-          error: 10,
-        });
-
-        let result = await run(['.', '--update-todo']);
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
-            10
+          expect(result.stderr).toMatch(
+            'The provided todo configuration contains invalid values. The `warn` value (10) must be less than the `error` value (5).'
           );
-        }
-      });
-
-      it('should create todos with correct error date set via env var (overrides package.json)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should create todos with correct warn date set via package.json', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
-        setTodoConfig({
-          error: 10,
-        });
-
-        let result = await run(['.', '--update-todo'], {
-          env: {
-            TODO_DAYS_TO_ERROR: '30',
-          },
-        });
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
-            30
-          );
-        }
-      });
-
-      it('should create todos with correct error date set via option (overrides env var)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
             },
-          },
-        });
-        setTodoConfig({
-          error: 10,
-        });
+          });
+          setTodoConfig({
+            warn: 10,
+          });
 
-        let result = await run(['.', '--update-todo', '--todo-days-to-error', '30'], {
-          env: {
-            TODO_DAYS_TO_ERROR: 20,
-          },
-        });
+          let result = await run(['.', '--update-todo']);
 
-        const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = [...(await readTodos(project.baseDir)).values()];
 
-        expect(result.exitCode).toEqual(0);
+          expect(result.exitCode).toEqual(0);
 
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
-            30
-          );
-        }
-      });
-
-      it('should create todos with correct dates set for warn and error via package.json', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
-            },
-          },
-        });
-        setTodoConfig({
-          warn: 5,
-          error: 10,
-        });
-
-        let result = await run(['.', '--update-todo']);
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(5);
-          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
-            10
-          );
-        }
-      });
-
-      it('should create todos with correct dates set for warn and error via env vars (overrides package.json)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
-            },
-          },
-        });
-        setTodoConfig({
-          warn: 5,
-          error: 10,
-        });
-
-        let result = await run(['.', '--update-todo'], {
-          env: {
-            TODO_DAYS_TO_WARN: 10,
-            TODO_DAYS_TO_ERROR: 20,
-          },
-        });
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
-          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
-            20
-          );
-        }
-      });
-
-      it('should create todos with correct dates set for warn and error via options (overrides env vars)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
-            },
-          },
-        });
-        setTodoConfig({
-          warn: 5,
-          error: 10,
-        });
-
-        let result = await run(
-          ['.', '--update-todo', '--todo-days-to-warn', '10', '--todo-days-to-error', '20'],
-          {
-            env: {
-              TODO_DAYS_TO_WARN: 7,
-              TODO_DAYS_TO_ERROR: 11,
-            },
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(
+              10
+            );
           }
-        );
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(10);
-          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
-            20
-          );
-        }
-      });
-
-      it('should create todos with correct dates set for error while excluding warn', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should create todos with correct warn date set via env var (overrides package.json)', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
-        setTodoConfig({
-          warn: 5,
-          error: 10,
-        });
-
-        let result = await run([
-          '.',
-          '--update-todo',
-          '--no-todo-days-to-warn',
-          '--todo-days-to-error',
-          '20',
-        ]);
-
-        const todos = [...(await readTodos(project.baseDir)).values()];
-
-        expect(result.exitCode).toEqual(0);
-
-        for (const todo of todos) {
-          expect(todo.warnDate).toBeFalsy();
-          expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
-            20
-          );
-        }
-      });
-
-      it('should set to todo if warnDate is not expired', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
             },
-          },
+          });
+          setTodoConfig({
+            warn: 10,
+          });
+
+          let result = await run(['.', '--update-todo'], {
+            env: {
+              TODO_DAYS_TO_WARN: '30',
+            },
+          });
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(
+              30
+            );
+          }
         });
 
-        setTodoConfig({
-          warn: 5,
+        it('should create todos with correct warn date set via option (overrides env var)', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            warn: 10,
+          });
+
+          let result = await run(['.', '--update-todo', '--todo-days-to-warn', '30'], {
+            env: {
+              TODO_DAYS_TO_WARN: 20,
+            },
+          });
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(
+              30
+            );
+          }
         });
 
-        let result = await run(['.', '--update-todo']);
+        it('should create todos with correct error date set via package.json', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            error: 10,
+          });
 
-        result = await run(['.', '--include-todo']);
+          let result = await run(['.', '--update-todo']);
 
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+              10
+            );
+          }
+        });
+
+        it('should create todos with correct error date set via env var (overrides package.json)', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            error: 10,
+          });
+
+          let result = await run(['.', '--update-todo'], {
+            env: {
+              TODO_DAYS_TO_ERROR: '30',
+            },
+          });
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+              30
+            );
+          }
+        });
+
+        it('should create todos with correct error date set via option (overrides env var)', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            error: 10,
+          });
+
+          let result = await run(['.', '--update-todo', '--todo-days-to-error', '30'], {
+            env: {
+              TODO_DAYS_TO_ERROR: 20,
+            },
+          });
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+              30
+            );
+          }
+        });
+
+        it('should create todos with correct dates set for warn and error via package.json', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            warn: 5,
+            error: 10,
+          });
+
+          let result = await run(['.', '--update-todo']);
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(
+              5
+            );
+            expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+              10
+            );
+          }
+        });
+
+        it('should create todos with correct dates set for warn and error via env vars (overrides package.json)', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            warn: 5,
+            error: 10,
+          });
+
+          let result = await run(['.', '--update-todo'], {
+            env: {
+              TODO_DAYS_TO_WARN: 10,
+              TODO_DAYS_TO_ERROR: 20,
+            },
+          });
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(
+              10
+            );
+            expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+              20
+            );
+          }
+        });
+
+        it('should create todos with correct dates set for warn and error via options (overrides env vars)', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            warn: 5,
+            error: 10,
+          });
+
+          let result = await run(
+            ['.', '--update-todo', '--todo-days-to-warn', '10', '--todo-days-to-error', '20'],
+            {
+              env: {
+                TODO_DAYS_TO_WARN: 7,
+                TODO_DAYS_TO_ERROR: 11,
+              },
+            }
+          );
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(
+              10
+            );
+            expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+              20
+            );
+          }
+        });
+
+        it('should create todos with correct dates set for error while excluding warn', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+          setTodoConfig({
+            warn: 5,
+            error: 10,
+          });
+
+          let result = await run([
+            '.',
+            '--update-todo',
+            '--no-todo-days-to-warn',
+            '--todo-days-to-error',
+            '20',
+          ]);
+
+          const todos = [...(await readTodos(project.baseDir)).values()];
+
+          expect(result.exitCode).toEqual(0);
+
+          for (const todo of todos) {
+            expect(todo.warnDate).toBeFalsy();
+            expect(differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))).toEqual(
+              20
+            );
+          }
+        });
+
+        it('should set to todo if warnDate is not expired', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
+            },
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
+
+          setTodoConfig({
+            warn: 5,
+          });
+
+          let result = await run(['.', '--update-todo']);
+
+          result = await run(['.', '--include-todo']);
+
+          expect(result.exitCode).toEqual(0);
+          expect(result.stdout).toMatchInlineSnapshot(`
                 "app/templates/application.hbs
                   1:5  todo  Non-translated string used  no-bare-strings
 
                 ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
               `);
-      });
-
-      it('should set to todo if errorDate is not expired', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should set to todo if errorDate is not expired', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
 
-        setTodoConfig({
-          error: 5,
-        });
+          setTodoConfig({
+            error: 5,
+          });
 
-        let result = await run(['.', '--update-todo']);
+          let result = await run(['.', '--update-todo']);
 
-        result = await run(['.', '--include-todo']);
+          result = await run(['.', '--include-todo']);
 
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          expect(result.exitCode).toEqual(0);
+          expect(result.stdout).toMatchInlineSnapshot(`
                 "app/templates/application.hbs
                   1:5  todo  Non-translated string used  no-bare-strings
 
                 ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
               `);
-      });
-
-      it('should set todo to warn if warnDate has expired via config', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should set todo to warn if warnDate has expired via config', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
 
-        setTodoConfig({
-          warn: 5,
-        });
+          setTodoConfig({
+            warn: 5,
+          });
 
-        await run(['.', '--update-todo'], {
-          env: {
-            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
-          },
-        });
+          await run(['.', '--update-todo'], {
+            env: {
+              TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+            },
+          });
 
-        const result = await run(['.']);
+          const result = await run(['.']);
 
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          expect(result.exitCode).toEqual(0);
+          expect(result.stdout).toMatchInlineSnapshot(`
                 "app/templates/application.hbs
                   1:5  warning  Non-translated string used  no-bare-strings
 
                 ✖ 1 problems (0 errors, 1 warnings)"
               `);
-      });
-
-      it('should set todo to warn if warnDate has expired via option', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should set todo to warn if warnDate has expired via option', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
 
-        await run(['.', '--update-todo', '--todo-days-to-warn', '5'], {
-          env: {
-            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
-          },
-        });
+          await run(['.', '--update-todo', '--todo-days-to-warn', '5'], {
+            env: {
+              TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+            },
+          });
 
-        const result = await run(['.']);
+          const result = await run(['.']);
 
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          expect(result.exitCode).toEqual(0);
+          expect(result.stdout).toMatchInlineSnapshot(`
                 "app/templates/application.hbs
                   1:5  warning  Non-translated string used  no-bare-strings
 
                 ✖ 1 problems (0 errors, 1 warnings)"
               `);
-      });
-
-      it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
 
-        setTodoConfig({
-          warn: 5,
-          error: 10,
-        });
+          setTodoConfig({
+            warn: 5,
+            error: 10,
+          });
 
-        await run(['.', '--update-todo'], {
-          env: {
-            TODO_CREATED_DATE: subDays(new Date(), 7).toJSON(),
-          },
-        });
+          await run(['.', '--update-todo'], {
+            env: {
+              TODO_CREATED_DATE: subDays(new Date(), 7).toJSON(),
+            },
+          });
 
-        const result = await run(['.']);
+          const result = await run(['.']);
 
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          expect(result.exitCode).toEqual(0);
+          expect(result.stdout).toMatchInlineSnapshot(`
                 "app/templates/application.hbs
                   1:5  warning  Non-translated string used  no-bare-strings
 
                 ✖ 1 problems (0 errors, 1 warnings)"
               `);
-      });
-
-      it('should set todo to error if errorDate has expired via config', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should set todo to error if errorDate has expired via config', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
 
-        setTodoConfig({
-          error: 5,
-        });
+          setTodoConfig({
+            error: 5,
+          });
 
-        await run(['.', '--update-todo'], {
-          env: {
-            TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
-          },
-        });
+          await run(['.', '--update-todo'], {
+            env: {
+              TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
+            },
+          });
 
-        const result = await run(['.']);
+          const result = await run(['.']);
 
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          expect(result.exitCode).toEqual(1);
+          expect(result.stdout).toMatchInlineSnapshot(`
                 "app/templates/application.hbs
                   1:5  error  Non-translated string used  no-bare-strings
 
                 ✖ 1 problems (1 errors, 0 warnings)"
               `);
-      });
-
-      it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
         });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div>Bare strings are bad...</div>',
+
+        it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
+          project.setConfig({
+            rules: {
+              'no-bare-strings': true,
             },
-          },
-        });
+          });
+          project.write({
+            app: {
+              templates: {
+                'application.hbs': '<div>Bare strings are bad...</div>',
+              },
+            },
+          });
 
-        setTodoConfig({
-          warn: 5,
-          error: 10,
-        });
+          setTodoConfig({
+            warn: 5,
+            error: 10,
+          });
 
-        await run(['.', '--update-todo'], {
-          env: {
-            TODO_CREATED_DATE: subDays(new Date(), 11).toJSON(),
-          },
-        });
+          await run(['.', '--update-todo'], {
+            env: {
+              TODO_CREATED_DATE: subDays(new Date(), 11).toJSON(),
+            },
+          });
 
-        const result = await run(['.']);
+          const result = await run(['.']);
 
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toMatchInlineSnapshot(`
+          expect(result.exitCode).toEqual(1);
+          expect(result.stdout).toMatchInlineSnapshot(`
                 "app/templates/application.hbs
                   1:5  error  Non-translated string used  no-bare-strings
 
                 ✖ 1 problems (1 errors, 0 warnings)"
               `);
+        });
+
+        if (!isLegacy) {
+          it('should set todos to correct dates for specific rules', async () => {
+            project.setConfig({
+              rules: {
+                'no-bare-strings': true,
+              },
+            });
+            project.write({
+              app: {
+                templates: {
+                  'application.hbs': '<div>Bare strings are bad...</div>',
+                },
+              },
+            });
+
+            setTodoConfig(
+              {
+                warn: 5,
+                error: 10,
+              },
+              {
+                'no-bare-strings': {
+                  warn: 10,
+                  error: 20,
+                },
+              }
+            );
+
+            let result = await run(['.', '--update-todo']);
+
+            const todos = [...(await readTodos(project.baseDir)).values()];
+
+            expect(result.exitCode).toEqual(0);
+
+            for (const todo of todos) {
+              expect(differenceInDays(new Date(todo.warnDate), new Date(todo.createdDate))).toEqual(
+                10
+              );
+              expect(
+                differenceInDays(new Date(todo.errorDate), new Date(todo.createdDate))
+              ).toEqual(20);
+            }
+          });
+        }
       });
     }
   });
