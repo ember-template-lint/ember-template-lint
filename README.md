@@ -16,25 +16,21 @@ in violation:
 When the `ember-template-lint` executable is run, we would have a single result indicating that
 the `no-bare-strings` rule found an error.
 
+## Requirements
+
+- [Node.js](https://nodejs.org/) `>= 10.24 < 11 || 12.* || >= 14.*`
+
 ## Installation
-
-This library is installed by default with new Ember apps, so check your `package.json` file before installing to see if you need to install it.
-
-To install ember-template-lint
-
-With npm:
 
 ```bash
 npm install --save-dev ember-template-lint
 ```
 
-With yarn:
-
 ```bash
-yarn add ember-template-lint --dev
+yarn add --dev ember-template-lint
 ```
 
-Node.js `10 || 12 || >=14` is required.
+Note: this library is installed by default with new Ember apps.
 
 ## Usage
 
