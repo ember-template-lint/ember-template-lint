@@ -31,6 +31,38 @@ describe('todo usage', () => {
   });
 
   describe('with/without --update-todo and --include-todo params', function () {
+    it('errors if todo config exists in both package.json and .lint-todorc.js', async function () {
+      project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+        },
+      });
+      project.write({
+        app: {
+          templates: {
+            'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
+          },
+        },
+      });
+
+      project.setLegacyPackageJsonTodoConfig({
+        warn: 5,
+        error: 10,
+      });
+
+      project.setLintTodorc({
+        warn: 5,
+        error: 10,
+      });
+
+      let result = await run(['.']);
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stderr).toMatchInlineSnapshot(
+        `"You cannot have todo configurations in both package.json and .lint-todorc.js. Please move the configuration from the package.json to the .lint-todorc.js"`
+      );
+    });
+
     it('does not create `.lint-todo` dir without --update-todo param', async function () {
       project.setConfig({
         rules: {
@@ -716,7 +748,6 @@ describe('todo usage', () => {
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
     });
-
     for (const { name, isLegacy, setTodoConfig } of [
       {
         name: 'Legacy todo configuration',
