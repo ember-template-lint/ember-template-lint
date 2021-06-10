@@ -99,7 +99,7 @@ generateRuleTests({
         message: ERROR_MESSAGE,
         line: 1,
         column: 7,
-        source: '<input />',
+        source: '<input>',
       },
     },
     {
