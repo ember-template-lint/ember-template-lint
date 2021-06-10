@@ -94,7 +94,7 @@ generateRuleTests({
       },
     },
     {
-      template: '<label><input /></label>',
+      template: '<label><input></label>',
       result: {
         message: ERROR_MESSAGE,
         line: 1,
