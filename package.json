@@ -74,7 +74,7 @@
     "markdownlint-cli": "^0.27.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
-    "release-it": "^14.7.0",
+    "release-it": "^14.8.0",
     "release-it-lerna-changelog": "^3.1.0",
     "sort-package-json": "^1.50.0",
     "yeoman-environment": "^3.1.0",
