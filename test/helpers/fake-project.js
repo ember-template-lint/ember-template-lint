@@ -87,7 +87,7 @@ module.exports = class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
-  setLegacyPackageJsonTodoConfig(daysToDecay) {
+  setShorthandPackageJsonTodoConfig(daysToDecay) {
     this.pkg = Object.assign({}, this.pkg, {
       lintTodo: {
         daysToDecay,

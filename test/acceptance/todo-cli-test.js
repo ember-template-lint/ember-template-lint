@@ -45,7 +45,7 @@ describe('todo usage', () => {
         },
       });
 
-      project.setLegacyPackageJsonTodoConfig({
+      project.setShorthandPackageJsonTodoConfig({
         warn: 5,
         error: 10,
       });
@@ -750,9 +750,9 @@ describe('todo usage', () => {
     });
     for (const { name, isLegacy, setTodoConfig } of [
       {
-        name: 'Legacy todo configuration',
+        name: 'Shorthand todo configuration',
         isLegacy: true,
-        setTodoConfig: (daysToDecay) => project.setLegacyPackageJsonTodoConfig(daysToDecay),
+        setTodoConfig: (daysToDecay) => project.setShorthandPackageJsonTodoConfig(daysToDecay),
       },
       {
         name: 'Package.json todo configuration',
