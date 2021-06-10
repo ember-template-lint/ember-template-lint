@@ -811,7 +811,7 @@ describe('todo usage', () => {
           expect(todoDirs).toHaveLength(0);
         });
 
-        it('should error if daysToDecay.error is less than daysToDecay.warn in package.json', async function () {
+        it('should error if daysToDecay.error is less than daysToDecay.warn in config', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -836,7 +836,7 @@ describe('todo usage', () => {
           );
         });
 
-        it('should create todos with correct warn date set via package.json', async function () {
+        it('should create todos with correct warn date set via config', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -866,7 +866,7 @@ describe('todo usage', () => {
           }
         });
 
-        it('should create todos with correct warn date set via env var (overrides package.json)', async function () {
+        it('should create todos with correct warn date set via env var (overrides config)', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -934,7 +934,7 @@ describe('todo usage', () => {
           }
         });
 
-        it('should create todos with correct error date set via package.json', async function () {
+        it('should create todos with correct error date set via config', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -964,7 +964,7 @@ describe('todo usage', () => {
           }
         });
 
-        it('should create todos with correct error date set via env var (overrides package.json)', async function () {
+        it('should create todos with correct error date set via env var (overrides config)', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -1032,7 +1032,7 @@ describe('todo usage', () => {
           }
         });
 
-        it('should create todos with correct dates set for warn and error via package.json', async function () {
+        it('should create todos with correct dates set for warn and error via config', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
@@ -1066,7 +1066,7 @@ describe('todo usage', () => {
           }
         });
 
-        it('should create todos with correct dates set for warn and error via env vars (overrides package.json)', async function () {
+        it('should create todos with correct dates set for warn and error via env vars (overrides config)', async function () {
           project.setConfig({
             rules: {
               'no-bare-strings': true,
