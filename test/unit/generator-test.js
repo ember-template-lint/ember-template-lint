@@ -10,8 +10,8 @@ const Project = require('../helpers/fake-project');
 
 const ROOT = process.cwd();
 
-if (Number(process.versions.node.split('.')[0]) > 10) {
-  describe('generators', () => {
+describe('generators', () => {
+  if (Number(process.versions.node.split('.')[0]) > 10) {
     let project = null;
 
     beforeEach(function () {
@@ -42,5 +42,9 @@ if (Number(process.versions.node.split('.')[0]) > 10) {
 
       expect(generatedRulesIndex).toEqual(expectedRulesIndex);
     });
-  });
-}
+  } else {
+    it('only runs in node 10 to satisfy jest', () => {
+      expect(true).toEqual(true);
+    });
+  }
+});
