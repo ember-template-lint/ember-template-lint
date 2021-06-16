@@ -1,3 +1,32 @@
+## v3.5.0 (2021-06-16)
+
+#### :rocket: Enhancement
+* [#1972](https://github.com/ember-template-lint/ember-template-lint/pull/1972) Adding extra tests to no-invalid-role rule ([@faith-or](https://github.com/faith-or))
+* [#1993](https://github.com/ember-template-lint/ember-template-lint/pull/1993) feat(todos): Adds support for configuring todo decay days by rule ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#1994](https://github.com/ember-template-lint/ember-template-lint/pull/1994) Fix `require-input-label` to allow inputs within a `<label>` to have an `id` attribute ([@MelSumner](https://github.com/MelSumner))
+* [#1992](https://github.com/ember-template-lint/ember-template-lint/pull/1992) Resolved issue where test was looking for directories incorrectly ([@MelSumner](https://github.com/MelSumner))
+
+#### :memo: Documentation
+* [#1972](https://github.com/ember-template-lint/ember-template-lint/pull/1972) Adding extra tests to no-invalid-role rule ([@faith-or](https://github.com/faith-or))
+* [#1997](https://github.com/ember-template-lint/ember-template-lint/pull/1997) Add `Requirements` section to README ([@bmish](https://github.com/bmish))
+* [#1874](https://github.com/ember-template-lint/ember-template-lint/pull/1874) Document the A11Y preset ([@bertdeblock](https://github.com/bertdeblock))
+* [#1985](https://github.com/ember-template-lint/ember-template-lint/pull/1985) Fix some broken links on `CONFIGURATION.md` ([@nwhittaker](https://github.com/nwhittaker))
+* [#1954](https://github.com/ember-template-lint/ember-template-lint/pull/1954) Improve columns for README rules table ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1962](https://github.com/ember-template-lint/ember-template-lint/pull/1962) Upgrading yeoman-environment to 3.4.1 ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 6
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Faith ([@faith-or](https://github.com/faith-or))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Nathan Whittaker ([@nwhittaker](https://github.com/nwhittaker))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.4.2 (2021-05-11)
 
 #### :bug: Bug Fix
