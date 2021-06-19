@@ -13,6 +13,7 @@ describe('interpolate', function () {
   });
   it('replaces data as expected', function () {
     expect(interpolate(INPUT_STRING, { def: 'def' })).toStrictEqual('abc def ghi');
+    expect(interpolate('<<%def%>>', { def: 'def' })).toStrictEqual('<def>');
     expect(interpolate('<%abc%> def <%ghi%>', { abc: 'abc', ghi: 'ghi' })).toStrictEqual(
       'abc def ghi'
     );
