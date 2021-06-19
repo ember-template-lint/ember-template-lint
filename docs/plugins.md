@@ -141,6 +141,34 @@ The base rule also has a few helper functions that can be useful in defining rul
     The source string that caused the error.
   * `fix` -- `string`
     An optional string to display with the recommended fix.
+  * `data` -- `object`
+    [Placeholder](#using-message-placeholders) data for `message`.
+
+#### Using message placeholders
+
+If your rule allows for a custom error `message`, consider providing one or more placeholders so that users can define richer custom error messages.
+```javascript
+this.log({
+  // Will print "My default message with data".
+  message: 'My default message with <%placeholder%>',
+  node,
+  data: {
+    placeholder: 'data',
+  },
+});
+```
+```javascript
+// .template-lintrc.js
+module.exports = {
+  extends: 'recommended',
+  rules: {
+    'my-custom-rule': {
+      // Will print "My custom message can also use the data".
+      message: 'My custom message can also use the <%placeholder%>',
+    },
+  },
+};;
+```
 
 * `function sourceForNode(node): string`
 
