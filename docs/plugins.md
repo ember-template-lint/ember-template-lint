@@ -301,4 +301,3 @@ const NodeMatcher = require('ember-template-lint').NodeMatcher;
   ```
 
   TODO: complex example (multiple supported types of `links`?)
-  
