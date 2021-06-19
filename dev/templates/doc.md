@@ -41,6 +41,13 @@ TODO: exclude this section if the rule has no extra configuration
   - string -- `parameterName1` -- TODO: description of parameter including the possible values and default value
   - boolean -- `parameterName2` -- TODO: description of parameter including the possible values and default value
 
+### [Message placeholders](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/plugins.md#using-message-placeholders)
+
+TODO: exclude this section if the rule has no use for message placeholders.
+
+The following placeholders can be used in the custom message:
+* `placeholder1`: TODO: description of this placeholder
+
 ## Related Rules
 
 - [TODO-related-rule-name1](related-rule-name1.md)
