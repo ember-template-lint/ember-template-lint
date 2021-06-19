@@ -245,7 +245,7 @@ describe('rule public api', function () {
                     if (node.tag === 'MySpecialThingWithParameters') {
                       this.log({
                         message:
-                          'Do not use MySpecialThingWithParameters {{someDataToInterpolate}} {{someMoreDataToInterpolate}}',
+                          'Do not use MySpecialThingWithParameters <%someDataToInterpolate%> <%someMoreDataToInterpolate%>',
                         node,
                         data: {
                           someDataToInterpolate: 'something',
