@@ -147,6 +147,7 @@ The base rule also has a few helper functions that can be useful in defining rul
 #### Using message placeholders
 
 If your rule allows for a custom error `message`, consider providing one or more placeholders so that users can define richer custom error messages.
+
 ```javascript
 this.log({
   // Will print "My default message with data".
@@ -157,6 +158,7 @@ this.log({
   },
 });
 ```
+
 ```javascript
 // .template-lintrc.js
 module.exports = {
