@@ -41,7 +41,7 @@ TODO: exclude this section if the rule has no extra configuration
   - string -- `parameterName1` -- TODO: description of parameter including the possible values and default value
   - boolean -- `parameterName2` -- TODO: description of parameter including the possible values and default value
 
-### [Message placeholders](docs/plugins.md#using-message-placeholders)
+### [Message placeholders](/docs/plugins.md#using-message-placeholders)
 
 TODO: exclude this section if the rule has no use for message placeholders.
 
