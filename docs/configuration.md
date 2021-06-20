@@ -34,7 +34,7 @@ module.exports = {
 
 ### Message placeholders
 
-When working with rules that allow you to define a custom error message you can use [message placeholders](docs/plugins.md#using-message-placeholders) to add contextual information to your custom error message. Placeholders exposed by a rule are available in each rule’s documentation. For example [`no-restricted-invocation](docs/rule/no-restricted-invocations.md) can be configured as follows:
+When working with rules that allow you to define a custom error message you can use [message placeholders](plugins.md#using-message-placeholders) to add contextual information to your custom error message. Placeholders exposed by a rule are available in each rule’s documentation. For example [`no-restricted-invocation`](rule/no-restricted-invocations.md) can be configured as follows:
 
 ```javascript
 // .template-lintrc.js
