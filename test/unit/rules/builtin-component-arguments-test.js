@@ -40,8 +40,8 @@ generateRuleTests({
       result: {
         message: generateErrorMessage('Textarea', 'value'),
         line: 1,
-        column: 11,
-        source: 'value',
+        column: 10,
+        source: 'value="Tomster"',
       },
     },
   ],
