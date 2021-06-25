@@ -13,6 +13,7 @@ generateRuleTests({
     '<input type="text" size="10" />',
     '<Input @type="text" size="10" />',
     '<Input @type="checkbox" @checked={{true}} />',
+    '<Textarea @value="Tomster" />',
   ],
 
   bad: [
@@ -32,6 +33,15 @@ generateRuleTests({
         line: 1,
         column: 24,
         source: 'checked',
+      },
+    },
+    {
+      template: '<Textarea value="Tomster" />',
+      result: {
+        message: generateErrorMessage('Textarea', 'value'),
+        line: 1,
+        column: 11,
+        source: 'value',
       },
     },
   ],
