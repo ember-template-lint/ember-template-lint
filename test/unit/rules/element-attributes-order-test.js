@@ -28,7 +28,6 @@ generateRuleTests({
       template: '<div ...attributes @a="1"></div>',
       result: {
         message: 'Argument @a="1" must go before attributes, modifiers and splattributes',
-        moduleId: 'layout',
         source: '@a="1"',
         line: 1,
         column: 19,
@@ -38,7 +37,6 @@ generateRuleTests({
       template: '<div contenteditable @a="1"></div>',
       result: {
         message: 'Argument @a="1" must go before attributes, modifiers and splattributes',
-        moduleId: 'layout',
         source: '@a="1"',
         line: 1,
         column: 21,
@@ -48,7 +46,6 @@ generateRuleTests({
       template: '<div {{did-render this.someAction}} @a="1"></div>',
       result: {
         message: 'Argument @a="1" must go before attributes, modifiers and splattributes',
-        moduleId: 'layout',
         source: '@a="1"',
         line: 1,
         column: 36,
@@ -58,7 +55,6 @@ generateRuleTests({
       template: '<div ...attributes {{did-render this.someAction}}></div>',
       result: {
         message: 'Splattributes ...attributes must go after modifiers',
-        moduleId: 'layout',
         source: '...attributes',
         line: 1,
         column: 5,
@@ -68,7 +64,6 @@ generateRuleTests({
       template: '<div {{did-render this.someAction}} aria-label="button"></div>',
       result: {
         message: 'Modifier {{did-render this.someAction}} must go after attributes',
-        moduleId: 'layout',
         source: '{{did-render this.someAction}}',
         line: 1,
         column: 5,

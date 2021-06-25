@@ -36,3 +36,7 @@ This rule **allows** the following:
 <MyComponent @name="1" {{did-render this.someAction}} />
 <MyComponent @name="1" bar="baz" />
 ```
+
+## References
+
+* [eslint-plugin-vue/rules/attributes-order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/attributes-order.md)
