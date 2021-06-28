@@ -70,7 +70,7 @@
     "eslint-plugin-unicorn": "^31.0.0",
     "execa": "^5.1.1",
     "fixturify-project": "^2.1.1",
-    "jest": "^27.0.4",
+    "jest": "^27.0.5",
     "markdownlint-cli": "^0.27.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
