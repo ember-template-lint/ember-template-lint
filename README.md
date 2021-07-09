@@ -16,25 +16,21 @@ in violation:
 When the `ember-template-lint` executable is run, we would have a single result indicating that
 the `no-bare-strings` rule found an error.
 
+## Requirements
+
+- [Node.js](https://nodejs.org/) `>= 10.24 < 11 || 12.* || >= 14.*`
+
 ## Installation
-
-This library is installed by default with new Ember apps, so check your `package.json` file before installing to see if you need to install it.
-
-To install ember-template-lint
-
-With npm:
 
 ```bash
 npm install --save-dev ember-template-lint
 ```
 
-With yarn:
-
 ```bash
-yarn add ember-template-lint --dev
+yarn add --dev ember-template-lint
 ```
 
-Node.js `10 || 12 || >=14` is required.
+Note: this library is installed by default with new Ember apps.
 
 ## Usage
 
@@ -187,7 +183,20 @@ module.exports = {
 For more detailed information see [configuration](docs/configuration.md).
 
 ### Presets
+|                    | Name                                     | Description                                                                                                                                                                                                                                                                                     |
+| :----------------- | :--------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :white_check_mark: | [recommended](lib/config/recommended.js) | Enables the recommended rules.                                                                                                                                                                                                                                                                  |
+| :nail_care:        | [stylistic](lib/config/stylistic.js)     | Enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1).           |
+| :keyboard:         | [a11y](lib/config/a11y.js)               | Enables A11Y rules. Its goal is to include **all** A11Y related rules, therefore it does not follow the same SemVer policy as the other presets. Please see [versioning](https://github.com/ember-template-lint/ember-template-lint/blob/master/dev/versioning.md#exemptions) for more details. |
 
+## Rules
+
+Each rule has emojis denoting:
+
+- what configuration it belongs to
+- :wrench: if some problems reported by the rule are automatically fixable by the `--fix` command line option
+
+<!--RULES_TABLE_START-->
 | Name                                                                                                      | :white_check_mark: | :nail_care: | :keyboard: | :wrench: |
 | :-------------------------------------------------------------------------------------------------------- | :----------------- | :---------- | :--------- | -------- |
 | [attribute-indentation](./docs/rule/attribute-indentation.md)                                             |                    |             |            |          |

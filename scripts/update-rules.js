@@ -5,6 +5,7 @@ const path = require('path');
 
 const prettier = require('prettier');
 
+const { rules: a11yRules } = require('../lib/config/a11y');
 const { rules: recommendedRules } = require('../lib/config/recommended');
 const { rules: stylisticRules } = require('../lib/config/stylistic');
 const rules = require('../lib/rules');
@@ -20,6 +21,7 @@ const readmeContent = fs.readFileSync(pathReadme, 'utf8');
 const tablePlaceholder = /<!--RULES_TABLE_START-->[\S\s]*<!--RULES_TABLE_END-->/;
 
 // Config/preset emojis.
+const EMOJI_A11Y = ':keyboard:';
 const EMOJI_RECOMMENDED = ':white_check_mark:';
 const EMOJI_STYLISTIC = ':nail_care:';
 const EMOJI_FIXABLE = ':wrench:';
@@ -29,6 +31,7 @@ const rulesTableContent = Object.keys(rules)
   .sort()
   .map((ruleName) => {
     // Check which configs this rule is part of.
+    const isA11y = Object.prototype.hasOwnProperty.call(a11yRules, ruleName);
     const isRecommended = Object.prototype.hasOwnProperty.call(recommendedRules, ruleName);
     const isStylistic = Object.prototype.hasOwnProperty.call(stylisticRules, ruleName);
     const isFixable = isRuleFixable(ruleName);
@@ -37,13 +40,13 @@ const rulesTableContent = Object.keys(rules)
 
     return `| ${link} | ${isRecommended ? EMOJI_RECOMMENDED : ''} | ${
       isStylistic ? EMOJI_STYLISTIC : ''
-    } | ${isFixable ? EMOJI_FIXABLE : ''} |`;
+    } | ${isA11y ? EMOJI_A11Y : ''} | ${isFixable ? EMOJI_FIXABLE : ''} |`;
   })
   .join('\n');
 
 const readmeNewContent = readmeContent.replace(
   tablePlaceholder,
-  `<!--RULES_TABLE_START-->\n\n| Name | ${EMOJI_RECOMMENDED} | ${EMOJI_STYLISTIC} | ${EMOJI_FIXABLE} |\n|:--------|:---|:---|:---|\n${rulesTableContent}\n\n<!--RULES_TABLE_END-->`
+  `<!--RULES_TABLE_START-->\n\n| Name | ${EMOJI_RECOMMENDED} | ${EMOJI_STYLISTIC} | ${EMOJI_A11Y} | ${EMOJI_FIXABLE} |\n|:--------|:---|:---|:---|\n${rulesTableContent}\n\n<!--RULES_TABLE_END-->`
 );
 
 const readmeFormattedNewContent = prettier.format(readmeNewContent, prettierConfig);
