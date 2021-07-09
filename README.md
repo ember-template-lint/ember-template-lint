@@ -183,6 +183,7 @@ module.exports = {
 For more detailed information see [configuration](docs/configuration.md).
 
 ### Presets
+
 |                    | Name                                     | Description                                                                                                                                                                                                                                                                                     |
 | :----------------- | :--------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | :white_check_mark: | [recommended](lib/config/recommended.js) | Enables the recommended rules.                                                                                                                                                                                                                                                                  |
@@ -197,6 +198,7 @@ Each rule has emojis denoting:
 - :wrench: if some problems reported by the rule are automatically fixable by the `--fix` command line option
 
 <!--RULES_TABLE_START-->
+
 | Name                                                                                                      | :white_check_mark: | :nail_care: | :keyboard: | :wrench: |
 | :-------------------------------------------------------------------------------------------------------- | :----------------- | :---------- | :--------- | -------- |
 | [attribute-indentation](./docs/rule/attribute-indentation.md)                                             |                    |             |            |          |
