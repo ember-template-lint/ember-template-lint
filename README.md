@@ -188,121 +188,107 @@ For more detailed information see [configuration](docs/configuration.md).
 
 ### Presets
 
-|                    | Name                                     | Description                                                                                                                                                                                                                                                                          |
-| :----------------- | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| :white_check_mark: | [recommended](lib/config/recommended.js) | enables the recommended rules                                                                                                                                                                                                                                                        |
-| :nail_care:        | [stylistic](lib/config/stylistic.js)     | enables stylistic rules for those who aren't ready to adopt [ember-template-lint-plugin-prettier](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) (including stylistic rules that were previously in the `recommended` preset in ember-template-lint v1) |
-
-## Rules
-
-Each rule has emojis denoting:
-
-- what configuration it belongs to
-- :wrench: if some problems reported by the rule are automatically fixable by the `--fix` command line option
-
-<!--RULES_TABLE_START-->
-
-| Name                                                                                                      | :white_check_mark: | :nail_care: | :wrench: |
-| :-------------------------------------------------------------------------------------------------------- | :----------------- | :---------- | :------- |
-| [attribute-indentation](./docs/rule/attribute-indentation.md)                                             |                    |             |          |
-| [block-indentation](./docs/rule/block-indentation.md)                                                     |                    | :nail_care: |          |
-| [builtin-component-arguments](./docs/rule/builtin-component-arguments.md)                                 | :white_check_mark: |             |          |
-| [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                                           |                    |             |          |
-| [deprecated-inline-view-helper](./docs/rule/deprecated-inline-view-helper.md)                             | :white_check_mark: |             |          |
-| [deprecated-render-helper](./docs/rule/deprecated-render-helper.md)                                       | :white_check_mark: |             |          |
-| [eol-last](./docs/rule/eol-last.md)                                                                       |                    | :nail_care: |          |
-| [inline-link-to](./docs/rule/inline-link-to.md)                                                           |                    |             | :wrench: |
-| [linebreak-style](./docs/rule/linebreak-style.md)                                                         |                    | :nail_care: |          |
-| [link-href-attributes](./docs/rule/link-href-attributes.md)                                               | :white_check_mark: |             |          |
-| [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                                     | :white_check_mark: |             | :wrench: |
-| [modifier-name-case](./docs/rule/modifier-name-case.md)                                                   |                    | :nail_care: |          |
-| [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                                     | :white_check_mark: |             |          |
-| [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           | :white_check_mark: |             | :wrench: |
-| [no-action](./docs/rule/no-action.md)                                                                     | :white_check_mark: |             |          |
-| [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |                    |             |          |
-| [no-args-paths](./docs/rule/no-args-paths.md)                                                             | :white_check_mark: |             |          |
-| [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | :white_check_mark: |             |          |
-| [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 | :white_check_mark: |             | :wrench: |
-| [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           | :white_check_mark: |             |          |
-| [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |                    |             |          |
-| [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     | :white_check_mark: |             |          |
-| [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               |                    |             |          |
-| [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     |                    |             |          |
-| [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             | :white_check_mark: |             | :wrench: |
-| [no-debugger](./docs/rule/no-debugger.md)                                                                 | :white_check_mark: |             |          |
-| [no-down-event-binding](./docs/rule/no-down-event-binding.md)                                             | :white_check_mark: |             |          |
-| [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                                         | :white_check_mark: |             |          |
-| [no-duplicate-id](./docs/rule/no-duplicate-id.md)                                                         | :white_check_mark: |             |          |
-| [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)                           | :white_check_mark: |             |          |
-| [no-dynamic-subexpression-invocations](./docs/rule/no-dynamic-subexpression-invocations.md)               |                    |             |          |
-| [no-element-event-actions](./docs/rule/no-element-event-actions.md)                                       |                    |             |          |
-| [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                               | :white_check_mark: |             |          |
-| [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                                             | :white_check_mark: |             |          |
-| [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                                       | :white_check_mark: |             |          |
-| [no-html-comments](./docs/rule/no-html-comments.md)                                                       | :white_check_mark: |             |          |
-| [no-implicit-this](./docs/rule/no-implicit-this.md)                                                       | :white_check_mark: |             |          |
-| [no-index-component-invocation](./docs/rule/no-index-component-invocation.md)                             | :white_check_mark: |             |          |
-| [no-inline-styles](./docs/rule/no-inline-styles.md)                                                       | :white_check_mark: |             |          |
-| [no-input-block](./docs/rule/no-input-block.md)                                                           | :white_check_mark: |             |          |
-| [no-input-tagname](./docs/rule/no-input-tagname.md)                                                       | :white_check_mark: |             |          |
-| [no-invalid-block-param-definition](./docs/rule/no-invalid-block-param-definition.md)                     | :white_check_mark: |             |          |
-| [no-invalid-interactive](./docs/rule/no-invalid-interactive.md)                                           | :white_check_mark: |             |          |
-| [no-invalid-link-text](./docs/rule/no-invalid-link-text.md)                                               | :white_check_mark: |             |          |
-| [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                                             | :white_check_mark: |             |          |
-| [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                                         | :white_check_mark: |             |          |
-| [no-invalid-role](./docs/rule/no-invalid-role.md)                                                         | :white_check_mark: |             |          |
-| [no-link-to-positional-params](./docs/rule/no-link-to-positional-params.md)                               | :white_check_mark: |             |          |
-| [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   |                    |             |          |
-| [no-log](./docs/rule/no-log.md)                                                                           | :white_check_mark: |             |          |
-| [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               |                    |             | :wrench: |
-| [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                                         |                    | :nail_care: |          |
-| [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             |                    |             |          |
-| [no-negated-condition](./docs/rule/no-negated-condition.md)                                               | :white_check_mark: |             |          |
-| [no-nested-interactive](./docs/rule/no-nested-interactive.md)                                             | :white_check_mark: |             |          |
-| [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                                   | :white_check_mark: |             |          |
-| [no-nested-splattributes](./docs/rule/no-nested-splattributes.md)                                         | :white_check_mark: |             |          |
-| [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                               | :white_check_mark: |             |          |
-| [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                                       | :white_check_mark: |             |          |
-| [no-partial](./docs/rule/no-partial.md)                                                                   | :white_check_mark: |             |          |
-| [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                                 | :white_check_mark: |             |          |
-| [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)                     | :white_check_mark: |             | :wrench: |
-| [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                               | :white_check_mark: |             |          |
-| [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                                     | :white_check_mark: |             |          |
-| [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                                         | :white_check_mark: |             |          |
-| [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                                         | :white_check_mark: |             | :wrench: |
-| [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                                   | :white_check_mark: |             | :wrench: |
-| [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                                     |                    |             |          |
-| [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                               | :white_check_mark: |             |          |
-| [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)                 |                    |             | :wrench: |
-| [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |                    | :nail_care: |          |
-| [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                                     | :white_check_mark: |             |          |
-| [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                                             | :white_check_mark: |             |          |
-| [no-unbound](./docs/rule/no-unbound.md)                                                                   | :white_check_mark: |             |          |
-| [no-unknown-arguments-for-builtin-components](./docs/rule/no-unknown-arguments-for-builtin-components.md) | :white_check_mark: |             |          |
-| [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | :white_check_mark: |             |          |
-| [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |                    | :nail_care: |          |
-| [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | :white_check_mark: |             |          |
-| [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       |                    | :nail_care: |          |
-| [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                                     |                    | :nail_care: |          |
-| [no-yield-only](./docs/rule/no-yield-only.md)                                                             | :white_check_mark: |             |          |
-| [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 |                    |             |          |
-| [quotes](./docs/rule/quotes.md)                                                                           |                    | :nail_care: |          |
-| [require-button-type](./docs/rule/require-button-type.md)                                                 | :white_check_mark: |             | :wrench: |
-| [require-each-key](./docs/rule/require-each-key.md)                                                       |                    |             |          |
-| [require-form-method](./docs/rule/require-form-method.md)                                                 |                    |             |          |
-| [require-has-block-helper](./docs/rule/require-has-block-helper.md)                                       | :white_check_mark: |             | :wrench: |
-| [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | :white_check_mark: |             |          |
-| [require-input-label](./docs/rule/require-input-label.md)                                                 | :white_check_mark: |             |          |
-| [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | :white_check_mark: |             |          |
-| [require-presentational-children](./docs/rule/require-presentational-children.md)                         | :white_check_mark: |             |          |
-| [require-splattributes](./docs/rule/require-splattributes.md)                                             |                    |             |          |
-| [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | :white_check_mark: |             |          |
-| [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |                    | :nail_care: |          |
-| [simple-unless](./docs/rule/simple-unless.md)                                                             | :white_check_mark: |             |          |
-| [splat-attributes-only](./docs/rule/splat-attributes-only.md)                                             | :white_check_mark: |             |          |
-| [style-concatenation](./docs/rule/style-concatenation.md)                                                 | :white_check_mark: |             |          |
-| [table-groups](./docs/rule/table-groups.md)                                                               | :white_check_mark: |             |          |
-| [template-length](./docs/rule/template-length.md)                                                         |                    |             |          |
+| Name                                                                                                      | :white_check_mark: | :nail_care: | :keyboard: | :wrench: |
+| :-------------------------------------------------------------------------------------------------------- | :----------------- | :---------- | :--------- | -------- |
+| [attribute-indentation](./docs/rule/attribute-indentation.md)                                             |                    |             |            |          |
+| [block-indentation](./docs/rule/block-indentation.md)                                                     |                    | :nail_care: |            |          |
+| [builtin-component-arguments](./docs/rule/builtin-component-arguments.md)                                 | :white_check_mark: |             |            |          |
+| [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                                           |                    |             |            |          |
+| [deprecated-inline-view-helper](./docs/rule/deprecated-inline-view-helper.md)                             | :white_check_mark: |             |            |          |
+| [deprecated-render-helper](./docs/rule/deprecated-render-helper.md)                                       | :white_check_mark: |             |            |          |
+| [eol-last](./docs/rule/eol-last.md)                                                                       |                    | :nail_care: |            |          |
+| [inline-link-to](./docs/rule/inline-link-to.md)                                                           |                    |             |            | :wrench: |
+| [linebreak-style](./docs/rule/linebreak-style.md)                                                         |                    | :nail_care: |            |          |
+| [link-href-attributes](./docs/rule/link-href-attributes.md)                                               | :white_check_mark: |             | :keyboard: |          |
+| [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                                     | :white_check_mark: |             |            | :wrench: |
+| [modifier-name-case](./docs/rule/modifier-name-case.md)                                                   |                    | :nail_care: |            |          |
+| [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                                     | :white_check_mark: |             | :keyboard: |          |
+| [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           | :white_check_mark: |             | :keyboard: | :wrench: |
+| [no-action](./docs/rule/no-action.md)                                                                     | :white_check_mark: |             |            |          |
+| [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |                    |             |            |          |
+| [no-args-paths](./docs/rule/no-args-paths.md)                                                             | :white_check_mark: |             |            |          |
+| [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | :white_check_mark: |             |            |          |
+| [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 | :white_check_mark: |             | :keyboard: | :wrench: |
+| [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           | :white_check_mark: |             |            |          |
+| [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |                    |             |            |          |
+| [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     | :white_check_mark: |             |            |          |
+| [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               |                    |             |            |          |
+| [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     |                    |             |            |          |
+| [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             | :white_check_mark: |             |            | :wrench: |
+| [no-debugger](./docs/rule/no-debugger.md)                                                                 | :white_check_mark: |             |            |          |
+| [no-down-event-binding](./docs/rule/no-down-event-binding.md)                                             | :white_check_mark: |             | :keyboard: |          |
+| [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                                         | :white_check_mark: |             | :keyboard: |          |
+| [no-duplicate-id](./docs/rule/no-duplicate-id.md)                                                         | :white_check_mark: |             | :keyboard: |          |
+| [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)                           | :white_check_mark: |             | :keyboard: |          |
+| [no-dynamic-subexpression-invocations](./docs/rule/no-dynamic-subexpression-invocations.md)               |                    |             |            |          |
+| [no-element-event-actions](./docs/rule/no-element-event-actions.md)                                       |                    |             |            |          |
+| [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                               | :white_check_mark: |             |            |          |
+| [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                                             | :white_check_mark: |             |            |          |
+| [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                                       | :white_check_mark: |             | :keyboard: |          |
+| [no-html-comments](./docs/rule/no-html-comments.md)                                                       | :white_check_mark: |             |            |          |
+| [no-implicit-this](./docs/rule/no-implicit-this.md)                                                       | :white_check_mark: |             |            |          |
+| [no-index-component-invocation](./docs/rule/no-index-component-invocation.md)                             | :white_check_mark: |             |            |          |
+| [no-inline-styles](./docs/rule/no-inline-styles.md)                                                       | :white_check_mark: |             |            |          |
+| [no-input-block](./docs/rule/no-input-block.md)                                                           | :white_check_mark: |             |            |          |
+| [no-input-tagname](./docs/rule/no-input-tagname.md)                                                       | :white_check_mark: |             |            |          |
+| [no-invalid-block-param-definition](./docs/rule/no-invalid-block-param-definition.md)                     | :white_check_mark: |             |            |          |
+| [no-invalid-interactive](./docs/rule/no-invalid-interactive.md)                                           | :white_check_mark: |             | :keyboard: |          |
+| [no-invalid-link-text](./docs/rule/no-invalid-link-text.md)                                               | :white_check_mark: |             | :keyboard: |          |
+| [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                                             | :white_check_mark: |             | :keyboard: |          |
+| [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                                         | :white_check_mark: |             | :keyboard: |          |
+| [no-invalid-role](./docs/rule/no-invalid-role.md)                                                         | :white_check_mark: |             | :keyboard: |          |
+| [no-link-to-positional-params](./docs/rule/no-link-to-positional-params.md)                               | :white_check_mark: |             |            |          |
+| [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   |                    |             |            |          |
+| [no-log](./docs/rule/no-log.md)                                                                           | :white_check_mark: |             |            |          |
+| [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               |                    |             |            | :wrench: |
+| [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                                         |                    | :nail_care: |            |          |
+| [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             |                    |             |            |          |
+| [no-negated-condition](./docs/rule/no-negated-condition.md)                                               | :white_check_mark: |             |            |          |
+| [no-nested-interactive](./docs/rule/no-nested-interactive.md)                                             | :white_check_mark: |             | :keyboard: |          |
+| [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                                   | :white_check_mark: |             | :keyboard: |          |
+| [no-nested-splattributes](./docs/rule/no-nested-splattributes.md)                                         | :white_check_mark: |             |            |          |
+| [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                               | :white_check_mark: |             | :keyboard: |          |
+| [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                                       | :white_check_mark: |             |            |          |
+| [no-partial](./docs/rule/no-partial.md)                                                                   | :white_check_mark: |             |            |          |
+| [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                                 | :white_check_mark: |             |            |          |
+| [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)                     | :white_check_mark: |             |            | :wrench: |
+| [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                               | :white_check_mark: |             | :keyboard: |          |
+| [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                                     | :white_check_mark: |             |            |          |
+| [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                                         | :white_check_mark: |             |            |          |
+| [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                                         | :white_check_mark: |             |            | :wrench: |
+| [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                                   | :white_check_mark: |             | :keyboard: | :wrench: |
+| [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                                     |                    |             |            |          |
+| [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                               | :white_check_mark: |             |            |          |
+| [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)                 |                    |             |            | :wrench: |
+| [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |                    | :nail_care: |            |          |
+| [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                                     | :white_check_mark: |             |            |          |
+| [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                                             | :white_check_mark: |             |            |          |
+| [no-unbound](./docs/rule/no-unbound.md)                                                                   | :white_check_mark: |             |            |          |
+| [no-unknown-arguments-for-builtin-components](./docs/rule/no-unknown-arguments-for-builtin-components.md) | :white_check_mark: |             |            |          |
+| [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | :white_check_mark: |             |            |          |
+| [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |                    | :nail_care: |            |          |
+| [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | :white_check_mark: |             |            |          |
+| [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       |                    | :nail_care: | :keyboard: |          |
+| [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                                     |                    | :nail_care: | :keyboard: |          |
+| [no-yield-only](./docs/rule/no-yield-only.md)                                                             | :white_check_mark: |             |            |          |
+| [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 |                    |             |            |          |
+| [quotes](./docs/rule/quotes.md)                                                                           |                    | :nail_care: |            |          |
+| [require-button-type](./docs/rule/require-button-type.md)                                                 | :white_check_mark: |             |            | :wrench: |
+| [require-each-key](./docs/rule/require-each-key.md)                                                       |                    |             |            |          |
+| [require-form-method](./docs/rule/require-form-method.md)                                                 |                    |             |            |          |
+| [require-has-block-helper](./docs/rule/require-has-block-helper.md)                                       | :white_check_mark: |             |            | :wrench: |
+| [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | :white_check_mark: |             | :keyboard: |          |
+| [require-input-label](./docs/rule/require-input-label.md)                                                 | :white_check_mark: |             | :keyboard: |          |
+| [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | :white_check_mark: |             | :keyboard: |          |
+| [require-presentational-children](./docs/rule/require-presentational-children.md)                         | :white_check_mark: |             |            |          |
+| [require-splattributes](./docs/rule/require-splattributes.md)                                             |                    |             |            |          |
+| [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | :white_check_mark: |             | :keyboard: |          |
+| [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |                    | :nail_care: |            |          |
+| [simple-unless](./docs/rule/simple-unless.md)                                                             | :white_check_mark: |             |            |          |
+| [splat-attributes-only](./docs/rule/splat-attributes-only.md)                                             | :white_check_mark: |             |            |          |
+| [style-concatenation](./docs/rule/style-concatenation.md)                                                 | :white_check_mark: |             |            |          |
+| [table-groups](./docs/rule/table-groups.md)                                                               | :white_check_mark: |             | :keyboard: |          |
+| [template-length](./docs/rule/template-length.md)                                                         |                    |             |            |          |
 
 <!--RULES_TABLE_END-->
 
