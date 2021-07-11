@@ -9,7 +9,11 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const { getTodoStorageDirPath, getTodoConfig } = require('@ember-template-lint/todo-utils');
+const {
+  getTodoStorageDirPath,
+  getTodoConfig,
+  validateConfig,
+} = require('@ember-template-lint/todo-utils');
 const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -296,14 +300,6 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
-  let todoInfo = {
-    added: 0,
-    removed: 0,
-    todoConfig: getTodoConfig(
-      options.workingDirectory,
-      getTodoConfigFromCommandLineOptions(options)
-    ),
-  };
 
   if (options.config) {
     try {
@@ -319,7 +315,25 @@ async function run() {
     options.configPath = false;
   }
 
+  let todoConfigResult = validateConfig(options.workingDirectory);
+
+  if (!todoConfigResult.isValid) {
+    console.error(todoConfigResult.message);
+    process.exitCode = 1;
+    return;
+  }
+
   let linter;
+  let todoInfo = {
+    added: 0,
+    removed: 0,
+    todoConfig: getTodoConfig(
+      options.workingDirectory,
+      'ember-template-lint',
+      getTodoConfigFromCommandLineOptions(options)
+    ),
+  };
+
   try {
     linter = new Linter({
       workingDir: options.workingDirectory,
