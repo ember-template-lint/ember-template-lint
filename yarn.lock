@@ -4976,14 +4976,7 @@ lodash@4.17.21, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-log-symbols@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-4.0.0.tgz#69b3cc46d20f448eccdb75ea1fa733d9e821c920"
-  integrity sha512-FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==
-  dependencies:
-    chalk "^4.0.0"
-
-log-symbols@^4.1.0:
+log-symbols@^4.0.0, log-symbols@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-4.1.0.tgz#3fbdbb95b4683ac9fc785111e792e558d4abd503"
   integrity sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==
@@ -7776,10 +7769,10 @@ yargs@^16.0.3, yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yeoman-environment@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/yeoman-environment/-/yeoman-environment-3.4.1.tgz#b0591790f90c31bb85c55378931041e8055343c9"
-  integrity sha512-Bu3kN5sTOyAcbO/cKEQf6KOxsLta9oRF59saLOKnt3OQM+hXapnWaAHcrat3dygd6l34KjxwM5AMJp09TDa8yw==
+yeoman-environment@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/yeoman-environment/-/yeoman-environment-3.5.1.tgz#222e53e3623d90ac285ba86181c110d855aaa33c"
+  integrity sha512-XIJoCQDNlttjFubWL+tpf+t1MkFUdsqwtJvR2qhfzhHi8Z7ZzAwiBPgCtTiLK1mwPTfqzV/V0E9l7zX7hrhBdg==
   dependencies:
     "@npmcli/arborist" "^2.2.2"
     are-we-there-yet "^1.1.5"
