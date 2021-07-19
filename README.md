@@ -207,7 +207,7 @@ Each rule has emojis denoting:
 | [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                                           |                    |             |            |          |
 | [deprecated-inline-view-helper](./docs/rule/deprecated-inline-view-helper.md)                             | :white_check_mark: |             |            |          |
 | [deprecated-render-helper](./docs/rule/deprecated-render-helper.md)                                       | :white_check_mark: |             |            |          |
-| [eol-last](./docs/rule/eol-last.md)                                                                       |                    | :nail_care: |            |          |
+| [eol-last](./docs/rule/eol-last.md)                                                                       |                    | :nail_care: |            | :wrench: |
 | [inline-link-to](./docs/rule/inline-link-to.md)                                                           |                    |             |            | :wrench: |
 | [linebreak-style](./docs/rule/linebreak-style.md)                                                         |                    | :nail_care: |            |          |
 | [link-href-attributes](./docs/rule/link-href-attributes.md)                                               | :white_check_mark: |             | :keyboard: |          |

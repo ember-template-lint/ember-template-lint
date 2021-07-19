@@ -43,23 +43,27 @@ generateRuleTests({
     {
       config: 'always',
       template: 'test',
+      fixedTemplate: 'test\n',
 
       result: {
         message: 'template must end with newline',
         line: 1,
         column: 0,
         source: 'test',
+        isFixable: true,
       },
     },
     {
       config: 'never',
       template: 'test\n',
+      fixedTemplate: 'test',
 
       result: {
         message: 'template cannot end with newline',
         line: 1,
         column: 0,
         source: 'test\n',
+        isFixable: true,
       },
     },
     {
@@ -75,6 +79,7 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: 'test',
+        isFixable: true,
       },
     },
     {
@@ -90,6 +95,7 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: 'test\n',
+        isFixable: true,
       },
     },
     // test the re-entering of yielded content
@@ -103,6 +109,7 @@ generateRuleTests({
         line: 1,
         column: 0,
         source: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
+        isFixable: true,
       },
     },
   ],
