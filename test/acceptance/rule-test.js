@@ -241,6 +241,18 @@ describe('rule public api', function () {
                         source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
                       });
                     }
+
+                    if (node.tag === 'MySpecialThingWithParameters') {
+                      this.log({
+                        message:
+                          'Do not use MySpecialThingWithParameters <%someDataToInterpolate%> <%someMoreDataToInterpolate%>',
+                        node,
+                        data: {
+                          someDataToInterpolate: 'something',
+                          someMoreDataToInterpolate: 'somethingMore',
+                        },
+                      });
+                    }
                   },
                 };
               }
@@ -253,6 +265,19 @@ describe('rule public api', function () {
       config: true,
 
       bad: [
+        {
+          template: '<MySpecialThingWithParameters/>',
+          result: {
+            column: 0,
+            line: 1,
+            message: 'Do not use MySpecialThingWithParameters something somethingMore',
+            source: '<MySpecialThingWithParameters/>',
+            data: {
+              someDataToInterpolate: 'something',
+              someMoreDataToInterpolate: 'somethingMore',
+            },
+          },
+        },
         {
           template: '<MySpecialThingExplicit/>',
           result: {

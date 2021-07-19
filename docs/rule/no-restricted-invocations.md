@@ -38,6 +38,11 @@ One of these:
   * `names` - string[] - helpers or components to disallow (using kebab-case names like `nested-scope/component-name`)
   * `message` - string - custom error message to report for violations (typically a deprecation notice / explanation of why not to use it and a recommended replacement)
 
+### [Message placeholders](/docs/plugins.md#using-message-placeholders)
+
+The following placeholders can be used in the custom message:
+* `componentOrHelperName`: the name of the component or helper which violates this rule.
+
 ## Related Rules
 
 * [ember/no-restricted-service-injections](https://github.com/ember-cli/eslint-plugin-ember/blob/master/docs/rules/no-restricted-service-injections.md)
