@@ -9,10 +9,6 @@ Disallows passing positional parameters into link-to in favor of named arguments
 This rule **forbids** the following:
 
 ```hbs
-{{link-to "about"}}
-```
-
-```hbs
 {{link-to "About Us" "about"}}
 ```
 
