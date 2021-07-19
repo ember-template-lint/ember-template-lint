@@ -23,6 +23,9 @@ generateRuleTests({
     '{{42}}',
     '{{null}}',
     '{{undefined}}',
+    '{{this.view}}',
+    '{{@view}}',
+    '{{#let this.prop as |view|}} {{view}} {{/let}}',
   ],
 
   bad: [
