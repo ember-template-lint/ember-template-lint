@@ -78,7 +78,7 @@
     "release-it-lerna-changelog": "^3.1.0",
     "sort-package-json": "^1.50.0",
     "yeoman-environment": "^3.5.1",
-    "yeoman-generator": "^5.3.0",
+    "yeoman-generator": "^5.4.0",
     "yeoman-test": "^5.1.0"
   },
   "engines": {
