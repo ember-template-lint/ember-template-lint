@@ -83,6 +83,15 @@ generateRuleTests({
       {{/unless}}
     `,
     `
+      {{#let blah.id as |footerId|}}
+        {{#if this.foo}}
+          <div id={{footerId}}></div>
+        {{else}}
+          <span id={{footerId}}></span>
+        {{/if}}
+      {{/let}}
+    `,
+    `
       {{#let 'foobar' as |footerId|}}
         {{#if this.foo}}
           <div id={{footerId}}></div>
@@ -118,6 +127,16 @@ generateRuleTests({
       {{else}}
         <div id="nested"></div>
       {{/if}}
+    `,
+    `
+      <MyComponent as |inputProperties|>
+        <Input id={{inputProperties.id}} />
+        <div id={{inputProperties.abc}} />
+      </MyComponent>
+
+      <MyComponent as |inputProperties|>
+        <Input id={{inputProperties.id}} />
+      </MyComponent>
     `,
   ],
 
@@ -407,6 +426,20 @@ generateRuleTests({
         line: 9,
         column: 13,
         source: 'id="nested"',
+      },
+    },
+    {
+      template: `
+        <MyComponent as |inputProperties|>
+          <Input id={{inputProperties.id}} />
+          <Input id={{inputProperties.id}} />
+        </MyComponent>
+      `,
+      result: {
+        message: ERROR_MESSAGE,
+        line: 4,
+        column: 17,
+        source: 'id={{inputProperties.id}}',
       },
     },
   ],
