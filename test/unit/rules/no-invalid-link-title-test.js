@@ -29,7 +29,7 @@ generateRuleTests({
     {
       template: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
       result: {
-        message: 'Title attribute values should not be the same as the link text.',
+        message: 'Title attribute values should not be the same as or part of the link text.',
         source: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
         line: 1,
         column: 0,
@@ -38,7 +38,7 @@ generateRuleTests({
     {
       template: '<LinkTo title="quickstart">Quickstart</LinkTo>',
       result: {
-        message: 'Title attribute values should not be the same as the link text.',
+        message: 'Title attribute values should not be the same as or part of the link text.',
         source: '<LinkTo title="quickstart">Quickstart</LinkTo>',
         line: 1,
         column: 0,
@@ -56,7 +56,7 @@ generateRuleTests({
     {
       template: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
       result: {
-        message: 'Title attribute values should not be the same as the link text.',
+        message: 'Title attribute values should not be the same as or part of the link text.',
         source: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
         line: 1,
         column: 0,
@@ -65,8 +65,35 @@ generateRuleTests({
     {
       template: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
       result: {
-        message: 'Title attribute values should not be the same as the link text.',
+        message: 'Title attribute values should not be the same as or part of the link text.',
         source: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<a href="https://myurl.com" title="Tutorial">Read the Tutorial</a>',
+      result: {
+        message: 'Title attribute values should not be the same as or part of the link text.',
+        source: '<a href="https://myurl.com" title="Tutorial">Read the Tutorial</a>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<LinkTo title="Tutorial">Read the Tutorial</LinkTo>',
+      result: {
+        message: 'Title attribute values should not be the same as or part of the link text.',
+        source: '<LinkTo title="Tutorial">Read the Tutorial</LinkTo>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '{{#link-to title="Tutorial"}}Read the Tutorial{{/link-to}}',
+      result: {
+        message: 'Title attribute values should not be the same as or part of the link text.',
+        source: '{{#link-to title="Tutorial"}}Read the Tutorial{{/link-to}}',
         line: 1,
         column: 0,
       },
