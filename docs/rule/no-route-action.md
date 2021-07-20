@@ -43,3 +43,9 @@ Instead, use controller actions as the following:
 ```hbs
 <CustomComponent onUpdate={{fn this.updateFoo 'bar'}} />
 ```
+
+## References
+
+* [ember-route-action-helper](https://github.com/DockYard/ember-route-action-helper)
+* [Ember guides/Controllers](https://guides.emberjs.com/release/routing/controllers/)
+* [Ember Best Practices: What are controllers good for?](https://dockyard.com/blog/2017/06/16/ember-best-practices-what-are-controllers-good-for)
