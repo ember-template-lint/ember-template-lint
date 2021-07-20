@@ -269,6 +269,7 @@ Each rule has emojis denoting:
 | [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                                         | :white_check_mark: |             |            | :wrench: |
 | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                                   | :white_check_mark: |             | :keyboard: | :wrench: |
 | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                                     |                    |             |            |          |
+| [no-route-action](./docs/rule/no-route-action.md)                                                         |                    |             |            |          |
 | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                               | :white_check_mark: |             |            |          |
 | [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)                 |                    |             |            | :wrench: |
 | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |                    | :nail_care: |            |          |
