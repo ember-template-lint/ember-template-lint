@@ -19,17 +19,17 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<CustomComponent onUpdate={{route-action 'foo'}} />
+<CustomComponent @onUpdate={{route-action 'foo'}} />
 ```
 
 ```hbs
-<CustomComponent onUpdate={{route-action 'foo' 'bar'}} />
+<CustomComponent @onUpdate={{route-action 'foo' 'bar'}} />
 ```
 
 Instead, use controller actions as the following:
 
 ```hbs
-{{custom-component onUpdate=(this.updateFoo)}}
+{{custom-component onUpdate=this.updateFoo}}
 ```
 
 ```hbs
@@ -37,11 +37,11 @@ Instead, use controller actions as the following:
 ```
 
 ```hbs
-<CustomComponent onUpdate={{this.updateFoo}} />
+<CustomComponent @onUpdate={{this.updateFoo}} />
 ```
 
 ```hbs
-<CustomComponent onUpdate={{fn this.updateFoo 'bar'}} />
+<CustomComponent @onUpdate={{fn this.updateFoo 'bar'}} />
 ```
 
 ## References

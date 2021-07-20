@@ -11,15 +11,15 @@ generateRuleTests({
     // SubExpression
     `{{custom-component onUpdate=(action 'updateFoo')}}`,
     `{{custom-component onUpdate=(fn this.updateFoo 'bar')}}`,
-    `{{custom-component onUpdate=(this.updateFoo)}}`,
-    `<CustomComponent onUpdate={{if true (action 'updateFoo')}} />`,
-    `<CustomComponent onUpdate={{if true (fn this.updateFoo 'bar')}} />`,
-    `<CustomComponent onUpdate={{if true (this.updateFoo)}} />`,
+    `{{custom-component onUpdate=this.updateFoo}}`,
+    `<CustomComponent @onUpdate={{if true (action 'updateFoo')}} />`,
+    `<CustomComponent @onUpdate={{if true (fn this.updateFoo 'bar')}} />`,
+    `<CustomComponent @onUpdate={{if true (this.updateFoo)}} />`,
 
     // MustacheStatement
-    `<CustomComponent onUpdate={{action 'updateFoo'}} />`,
-    `<CustomComponent onUpdate={{fn this.updateFoo 'bar'}} />`,
-    `<CustomComponent onUpdate={{this.updateFoo}} />`,
+    `<CustomComponent @onUpdate={{action 'updateFoo'}} />`,
+    `<CustomComponent @onUpdate={{fn this.updateFoo 'bar'}} />`,
+    `<CustomComponent @onUpdate={{this.updateFoo}} />`,
 
     // ElementModifierStatement
     `<div {{action 'updateFoo'}}></div>`,
@@ -33,12 +33,12 @@ generateRuleTests({
   bad: [
     // SubExpression
     {
-      template: `<CustomComponent onUpdate={{if true (route-action 'updateFoo' 'bar')}} />`,
+      template: `<CustomComponent @onUpdate={{if true (route-action 'updateFoo' 'bar')}} />`,
       result: {
         message:
           'Do not use `route-action` as (route-action ...). Instead, use controller actions.',
         line: 1,
-        column: 36,
+        column: 37,
         source: "(route-action 'updateFoo' 'bar')",
       },
     },
@@ -56,23 +56,23 @@ generateRuleTests({
     // MustacheStatement
     {
       template: `<CustomComponent
-        onUpdate={{route-action 'updateFoo'}}
+        @onUpdate={{route-action 'updateFoo'}}
       />`,
       result: {
         message:
           'Do not use `route-action` as {{route-action ...}}. Instead, use controller actions.',
         line: 2,
-        column: 17,
+        column: 18,
         source: "{{route-action 'updateFoo'}}",
       },
     },
     {
-      template: `<CustomComponent onUpdate={{route-action 'updateFoo' 'bar'}} />`,
+      template: `<CustomComponent @onUpdate={{route-action 'updateFoo' 'bar'}} />`,
       result: {
         message:
           'Do not use `route-action` as {{route-action ...}}. Instead, use controller actions.',
         line: 1,
-        column: 26,
+        column: 27,
         source: "{{route-action 'updateFoo' 'bar'}}",
       },
     },
