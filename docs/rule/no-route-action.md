@@ -1,6 +1,6 @@
 # no-route-action
 
-This rule disallows the usage of route-action.
+This rule disallows the usage of `route-action`.
 
 [ember-route-action-helper](https://github.com/DockYard/ember-route-action-helper) is a popular addon that it's only purpose was to avoid creating controllers, something we no longer have a desire to do given the current state of the framework.
 
