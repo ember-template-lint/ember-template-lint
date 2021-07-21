@@ -11,6 +11,14 @@ Most route actions should either be sent to the controller first or encapsulated
 This rule **forbids** the following:
 
 ```hbs
+<CustomComponent @onUpdate={{route-action 'updateFoo'}} />
+```
+
+```hbs
+<CustomComponent @onUpdate={{route-action 'updateFoo' 'bar'}} />
+```
+
+```hbs
 {{custom-component onUpdate=(route-action 'updateFoo')}}
 ```
 
@@ -18,15 +26,26 @@ This rule **forbids** the following:
 {{custom-component onUpdate=(route-action 'updateFoo' 'bar')}}
 ```
 
+With the given route:
+```js
+// app/routes/foo.js
+export default class extends Route {
+  @action
+  updateFoo(baz) {
+    // ...
+  }
+}
+```
+
+This rule **allows** the following:
+
 ```hbs
-<CustomComponent @onUpdate={{route-action 'foo'}} />
+<CustomComponent @onUpdate={{this.updateFoo}} />
 ```
 
 ```hbs
-<CustomComponent @onUpdate={{route-action 'foo' 'bar'}} />
+<CustomComponent @onUpdate={{fn this.updateFoo 'bar'}} />
 ```
-
-Instead, use controller actions as the following:
 
 ```hbs
 {{custom-component onUpdate=this.updateFoo}}
@@ -36,12 +55,87 @@ Instead, use controller actions as the following:
 {{custom-component onUpdate=(fn this.updateFoo 'bar')}}
 ```
 
-```hbs
-<CustomComponent @onUpdate={{this.updateFoo}} />
+With the given controller:
+```js
+// app/controllers/foo.js
+export default class extends Controller {
+  @action
+  updateFoo(baz) {
+    // ...
+  }
+}
+```
+
+## Migration
+
+The example below shows how to migrate from route-action to controller actions.
+
+**Before**
+
+```js
+// app/routes/posts.js
+export default class extends Route {
+  model(params) {
+    return this.store.query('post', { page: params.page })
+  }
+
+  @action
+  goToPage(pageNum) {
+    this.transitionTo({ queryParams: { page: pageNum } });
+  }
+}
+```
+
+```js
+// app/controllers/posts.js
+export default class extends Controller {
+  queryParams = ['page'];
+  page = 1;
+}
 ```
 
 ```hbs
-<CustomComponent @onUpdate={{fn this.updateFoo 'bar'}} />
+{{#each @model as |post|}}
+  <Post @title={{post.title}} @content={{post.content}} />
+{{/each}}
+
+<button {{action (route-action 'goToPage' 1)}}>1</button>
+<button {{action (route-action 'goToPage' 2)}}>2</button>
+<button {{action (route-action 'goToPage' 3)}}>3</button>
+```
+
+**After**
+
+```js
+// app/routes/posts.js
+export default class extends Route {
+  model(params) {
+    return this.store.query('post', { page: params.page })
+  }
+}
+```
+
+```js
+// app/controllers/posts.js
+export default class extends Controller {
+  queryParams = ['page'];
+  page = 1;
+
+  @action
+  goToPage(pageNum) {
+    this.transitionToRoute({ queryParams: { page: pageNum } });
+  }
+}
+```
+
+```hbs
+{{#each @model as |post|}}
+  <Post @title={{post.title}} @content={{post.content}} />
+{{/each}}
+
+<button {{on 'click' (fn this.goToPage 1)}}>1</button>
+<button {{on 'click' (fn this.goToPage 2)}}>2</button>
+<button {{on 'click' (fn this.goToPage 3)}}>3</button>
 ```
 
 ## References
