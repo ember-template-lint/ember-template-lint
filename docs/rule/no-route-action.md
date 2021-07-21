@@ -2,7 +2,7 @@
 
 This rule disallows the usage of `route-action`.
 
-[ember-route-action-helper](https://github.com/DockYard/ember-route-action-helper) was a popular addon used to avoid creating controllers just to add actions to routes. Given the changes in Ember since ember-route-action-helper was useful, controllers are now a useful pattern we want to encourage and discourage the use of route-action.
+[ember-route-action-helper](https://github.com/DockYard/ember-route-action-helper) was a popular addon used to add actions to a route without creating a separate controller. Given the changes in Ember since ember-route-action-helper was a widely used pattern, controllers are now encouraged and we want to discourage the use of route-action.
 
 Most route actions should either be sent to the controller first or encapsulated within a downstream component instead. We should never be escaping the DDAU hierarchy to lob actions up to the route.
 
