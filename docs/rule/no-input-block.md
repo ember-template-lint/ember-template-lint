@@ -1,6 +1,6 @@
 # no-input-block
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Use of the block form of the handlebars `input` helper will result in an error at runtime.
 

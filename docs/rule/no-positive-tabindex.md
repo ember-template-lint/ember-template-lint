@@ -1,6 +1,6 @@
 # no-positive-tabindex
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 ## `<* tabindex>`
 

@@ -1,6 +1,6 @@
 # self-closing-void-elements
 
-:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 HTML has no self-closing tags. The HTML5 parser will ignore self-closing tag in the case of [void elements](https://www.w3.org/TR/html-markup/syntax.html#void-elements) (tags that shouldn't have a "closing tag"). Although the parser will ignore it, it's
 unnecessary and can lead to confusion with SVG/XML code.

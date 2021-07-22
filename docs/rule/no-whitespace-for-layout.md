@@ -1,6 +1,6 @@
 # no-whitespace-for-layout
 
-:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 Formatting of text through the use of multiple whitespace is entirely visual, and therefore is incompatible with screen-reading assistive technology tools.
 
