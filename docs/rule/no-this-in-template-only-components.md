@@ -2,7 +2,7 @@
 
 There is no `this` context in template-only components.
 
-:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 ## Examples
 

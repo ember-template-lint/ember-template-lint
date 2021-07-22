@@ -21,10 +21,10 @@ const readmeContent = fs.readFileSync(pathReadme, 'utf8');
 const tablePlaceholder = /<!--RULES_TABLE_START-->[\S\s]*<!--RULES_TABLE_END-->/;
 
 // Config/preset emojis.
-const EMOJI_A11Y = ':keyboard:';
-const EMOJI_RECOMMENDED = ':white_check_mark:';
-const EMOJI_STYLISTIC = ':nail_care:';
-const EMOJI_FIXABLE = ':wrench:';
+const EMOJI_A11Y = '⌨️';
+const EMOJI_RECOMMENDED = '✅';
+const EMOJI_STYLISTIC = '💅';
+const EMOJI_FIXABLE = '🔧';
 
 // Generate rule table contents.
 const rulesTableContent = Object.keys(rules)

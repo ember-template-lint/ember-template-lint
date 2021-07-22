@@ -1,6 +1,6 @@
 # deprecated-render-helper
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 In Ember 2.6 and newer, support for using the `{{render}}` helper has been deprecated.
 

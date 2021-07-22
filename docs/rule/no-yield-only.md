@@ -1,6 +1,6 @@
 # no-yield-only
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Templates that only contain a single `{{yield}}` instruction are not required
 and increase the total template payload size.

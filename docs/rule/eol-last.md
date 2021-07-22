@@ -1,6 +1,6 @@
 # eol-last
 
-:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 Require or disallow newline at the end of files.
 

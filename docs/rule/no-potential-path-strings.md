@@ -1,6 +1,6 @@
 # no-potential-path-strings
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 It might happen sometimes that `{{` and `}}` are forgotten when invoking a
 component, and the string that is passed was actually supposed to be a property
