@@ -400,21 +400,22 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      let [added, removed] = await linter.updateTodo(
+      let { addedCount, removedCount } = linter.updateTodo(
         linterOptions,
         fileResults,
         todoInfo.todoConfig,
         isOverridingConfig
       );
 
-      todoInfo.added += added;
-      todoInfo.removed += removed;
+      todoInfo.added += addedCount;
+      todoInfo.removed += removedCount;
     }
 
     if (!filePaths.has(STDIN)) {
-      fileResults = await linter.processTodos(
+      fileResults = linter.processTodos(
         linterOptions,
         fileResults,
+        todoInfo.todoConfig,
         options.fix || options.cleanTodo,
         isOverridingConfig
       );
