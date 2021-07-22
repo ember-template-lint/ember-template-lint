@@ -15,6 +15,10 @@ generateRuleTests({
     `<CustomComponent @onUpdate={{if true (action 'updateFoo')}} />`,
     `<CustomComponent @onUpdate={{if true (fn this.updateFoo 'bar')}} />`,
     `<CustomComponent @onUpdate={{if true (this.updateFoo)}} />`,
+    `{{yield (hash
+      someProp="someVal"
+      updateFoo=(fn this.updateFoo)
+    )}}`,
 
     // MustacheStatement
     `<CustomComponent @onUpdate={{action 'updateFoo'}} />`,
@@ -50,6 +54,19 @@ generateRuleTests({
         line: 1,
         column: 28,
         source: "(route-action 'updateFoo' 'bar')",
+      },
+    },
+    {
+      template: `{{yield (hash
+        someProp="someVal"
+        updateFoo=(route-action 'updateFoo')
+      )}}`,
+      result: {
+        message:
+          'Do not use `route-action` as (route-action ...). Instead, use controller actions.',
+        line: 3,
+        column: 18,
+        source: "(route-action 'updateFoo')",
       },
     },
 
