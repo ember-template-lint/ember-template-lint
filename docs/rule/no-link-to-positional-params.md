@@ -1,6 +1,6 @@
 # no-link-to-positional-params
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Disallows passing positional parameters into link-to in favor of named arguments.
 

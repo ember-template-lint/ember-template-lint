@@ -1,6 +1,6 @@
 # no-heading-inside-button
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Assistive technology allows users to browse a page by heading elements (`<h1>` - `<h6>`). However, if those heading elements are nested inside of button elements, they will automatically be marked as presentational by browsers. Any HTML element where ["children presentational" is true](https://w3c.github.io/aria/#button) should be coerced by the browser to be presentational, and therefore not included in the accessibility tree.
 

@@ -1,6 +1,6 @@
 # builtin-component-arguments
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 The builtin `Input` component has several arguments that match attributes
 of the lower-case `input` HTML element. These arguments should be set via e.g.
