@@ -1,3 +1,17 @@
+## v3.5.1 (2021-07-23)
+
+#### :bug: Bug Fix
+* [#2032](https://github.com/ember-template-lint/ember-template-lint/pull/2032) Fixes the SARIF formatter to correctly filter output by severity ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#2031](https://github.com/ember-template-lint/ember-template-lint/pull/2031) Switch from github emojis to standard emojis ([@bmish](https://github.com/bmish))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.5.0 (2021-06-16)
 
 #### :rocket: Enhancement
