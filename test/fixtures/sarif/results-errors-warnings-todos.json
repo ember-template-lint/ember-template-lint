@@ -1,0 +1,51 @@
+{
+  "files": {
+    "app/templates/application.hbs": {
+      "filePath": "app/templates/application.hbs",
+      "messages": [
+        {
+          "rule": "no-bare-strings",
+          "severity": 2,
+          "filePath": "app/templates/application.hbs",
+          "message": "Non-translated string used",
+          "line": 1,
+          "column": 4,
+          "source": "Here too!!"
+        },
+        {
+          "rule": "no-bare-strings",
+          "severity": 1,
+          "filePath": "app/templates/application.hbs",
+          "message": "Non-translated string used",
+          "line": 1,
+          "column": 24,
+          "source": "Bare strings are bad..."
+        },
+        {
+          "rule": "no-html-comments",
+          "severity": -1,
+          "filePath": "app/templates/application.hbs",
+          "message": "HTML comment detected",
+          "line": 1,
+          "column": 53,
+          "source": "<!-- bad html comment! -->",
+          "fix": {
+            "text": "{{! bad html comment! }}"
+          }
+        }
+      ],
+      "errorCount": 2,
+      "warningCount": 1,
+      "todoCount": 0,
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
+      "fixableTodoCount": 0
+    }
+  },
+  "errorCount": 2,
+  "warningCount": 1,
+  "todoCount": 0,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
+  "fixableTodoCount": 0
+}

@@ -4,58 +4,6 @@ const path = require('path');
 const SarifFormatter = require('../../lib/formatters/sarif');
 const Project = require('../helpers/fake-project');
 
-const RESULTS = {
-  files: {
-    'app/templates/application.hbs': {
-      filePath: 'app/templates/application.hbs',
-      messages: [
-        {
-          rule: 'no-bare-strings',
-          severity: 2,
-          filePath: 'app/templates/application.hbs',
-          message: 'Non-translated string used',
-          line: 1,
-          column: 4,
-          source: 'Here too!!',
-        },
-        {
-          rule: 'no-bare-strings',
-          severity: 2,
-          filePath: 'app/templates/application.hbs',
-          message: 'Non-translated string used',
-          line: 1,
-          column: 24,
-          source: 'Bare strings are bad...',
-        },
-        {
-          rule: 'no-html-comments',
-          severity: 1,
-          filePath: 'app/templates/application.hbs',
-          message: 'HTML comment detected',
-          line: 1,
-          column: 53,
-          source: '<!-- bad html comment! -->',
-          fix: {
-            text: '{{! bad html comment! }}',
-          },
-        },
-      ],
-      errorCount: 2,
-      warningCount: 1,
-      todoCount: 0,
-      fixableErrorCount: 0,
-      fixableWarningCount: 0,
-      fixableTodoCount: 0,
-    },
-  },
-  errorCount: 2,
-  warningCount: 1,
-  todoCount: 0,
-  fixableErrorCount: 0,
-  fixableWarningCount: 0,
-  fixableTodoCount: 0,
-};
-
 const SARIF_LOG_MATCHER = {
   version: '2.1.0',
   $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
@@ -182,6 +130,14 @@ const DEFAULT_OPTIONS = {
   workingDir: undefined,
 };
 
+function getFixture(fixtureName) {
+  return JSON.parse(
+    fs.readFileSync(path.join(__dirname, '..', 'fixtures', 'sarif', `${fixtureName}.json`), {
+      encoding: 'utf-8',
+    })
+  );
+}
+
 describe('', () => {
   let project;
 
@@ -193,6 +149,71 @@ describe('', () => {
   afterEach(async function () {
     process.chdir(ROOT);
     await project.dispose();
+  });
+
+  it('should output sarif log with errors only', function () {
+    let formatter = new SarifFormatter(
+      Object.assign({}, DEFAULT_OPTIONS, {
+        console: {
+          log(str) {
+            let sarifLog = JSON.parse(str);
+
+            expect(sarifLog.runs[0].results).toHaveLength(1);
+            expect(sarifLog).toBeValidSarifLog();
+          },
+        },
+
+        quiet: true,
+        isInteractive: false,
+        workingDir: project.baseDir,
+      })
+    );
+
+    let results = getFixture('results-errors-warnings-todos');
+    formatter.print(results);
+  });
+
+  it('should output sarif log with errors and warnings', function () {
+    let formatter = new SarifFormatter(
+      Object.assign({}, DEFAULT_OPTIONS, {
+        console: {
+          log(str) {
+            let sarifLog = JSON.parse(str);
+
+            expect(sarifLog.runs[0].results).toHaveLength(2);
+            expect(sarifLog).toBeValidSarifLog();
+          },
+        },
+
+        isInteractive: false,
+        workingDir: project.baseDir,
+      })
+    );
+
+    let results = getFixture('results-errors-warnings-todos');
+    formatter.print(results);
+  });
+
+  it('should output sarif log with errors and warnings and todos', function () {
+    let formatter = new SarifFormatter(
+      Object.assign({}, DEFAULT_OPTIONS, {
+        console: {
+          log(str) {
+            let sarifLog = JSON.parse(str);
+
+            expect(sarifLog.runs[0].results).toHaveLength(3);
+            expect(sarifLog).toBeValidSarifLog();
+          },
+        },
+
+        includeTodo: true,
+        isInteractive: false,
+        workingDir: project.baseDir,
+      })
+    );
+
+    let results = getFixture('results-errors-warnings-todos');
+    formatter.print(results);
   });
 
   it('should output sarif log to default path (in project working directory)', function () {
@@ -217,7 +238,8 @@ describe('', () => {
       })
     );
 
-    formatter.print(RESULTS);
+    let results = getFixture('results-errors-warnings');
+    formatter.print(results);
   });
 
   it('should always output a SARIF file if options.outputFile is specified', function () {
@@ -242,7 +264,8 @@ describe('', () => {
       })
     );
 
-    formatter.print(RESULTS);
+    let results = getFixture('results-errors-warnings');
+    formatter.print(results);
   });
 
   it('should output sarif log to custom relative path', function () {
@@ -268,7 +291,8 @@ describe('', () => {
       })
     );
 
-    formatter.print(RESULTS);
+    let results = getFixture('results-errors-warnings');
+    formatter.print(results);
   });
 
   it('should output sarif log to custom absolute path', function () {
@@ -294,7 +318,8 @@ describe('', () => {
       })
     );
 
-    formatter.print(RESULTS);
+    let results = getFixture('results-errors-warnings');
+    formatter.print(results);
   });
 
   it('should output sarif log JSON not using TTY', function () {
@@ -314,6 +339,7 @@ describe('', () => {
       })
     );
 
-    formatter.print(RESULTS);
+    let results = getFixture('results-errors-warnings');
+    formatter.print(results);
   });
 });
