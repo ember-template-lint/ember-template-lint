@@ -81,6 +81,14 @@ This rule **allows** the following:
 * another option is to add an aria-label to the input element.
 * wrapping the input element in a label element is also allowed; however this is less flexible for styling purposes, so use with awareness.
 
+## Configuration
+
+ The following values are valid configuration:
+
+* boolean - `true` to enable / `false` to disable
+* object -- An object with the following keys:
+  * `allow` -- An array of component names for that may be used as label replacement
+
 ## References
 
 * [Understanding Success Criterion 1.3.1: Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)

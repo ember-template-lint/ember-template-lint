@@ -63,6 +63,15 @@ generateRuleTests({
     '<input type="hidden"/>',
     '<Input type="hidden" />',
     '{{input type="hidden"}}',
+
+    {
+      config: { allow: ['CustomLabel'] },
+      template: '<CustomLabel><input /></CustomLabel>',
+    },
+    {
+      config: { allow: [/web-label/] },
+      template: '<web-label><input /></web-label>',
+    },
   ],
 
   bad: [
