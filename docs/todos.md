@@ -53,7 +53,7 @@ Due dates can be configured on a per-rule basis as well with the `daysToDecayByR
    ```json
    {
      "lintTodo": {
-       "decayDays": {
+       "daysToDecay": {
          "warn": 5,
          "error": 10
        }
@@ -97,7 +97,7 @@ If no values are provided in one of the options that have higher precedence, the
 ```json
 {
   "lintTodo": {
-    "decayDays": {
+    "daysToDecay": {
       "warn": 5,
       "error": 10
     }
