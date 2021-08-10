@@ -61,7 +61,7 @@ Due dates can be configured on a per-rule basis as well with the `daysToDecayByR
    }
    ```
 
-2. Via `.lint-todorc.js`
+1. Via `.lint-todorc.js`
 
   ```js
   module.exports = {
@@ -75,13 +75,13 @@ Due dates can be configured on a per-rule basis as well with the `daysToDecayByR
   };
   ```
 
-3. Via environment variables
+1. Via environment variables
 
    ```bash
    TODO_DAYS_TO_WARN="5" TODO_DAYS_TO_ERROR="10" ember-template-lint . --update-todo
    ```
 
-4. Via command line options
+1. Via command line options
 
    ```bash
    ember-template-lint . --update-todo --todo-days-to-warn=5 --todo-days-to-error=10
