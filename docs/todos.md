@@ -12,7 +12,7 @@ Having the ability to identify violations as `todo`s allows for this incremental
 
 ## Usage
 
-todos are stored in a `.lint-todo` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
+todos are stored in a `.lint-todo/` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
 
 To convert errors to todos, you can use the `--update-todo` option. This will convert all active errors to todos, hiding them from the linting output.
 
@@ -44,9 +44,11 @@ todos can be created with optional due dates. These due dates allow for todos to
 
 Due dates can be configured in multiple ways, but all specify integers for `warn` and `error` to signify the number of days from the todo created date to decay the severity.
 
+Due dates can be configured on a per-rule basis as well with the `daysToDecayByRule` option.  See examples below.
+
 :bulb: Both `warn` and `error` are optional. The value for `warn` should be lower than the value of `error`.
 
-1. Via package.json configuration
+1. Via `package.json`
 
    ```json
    {
@@ -59,13 +61,27 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
    }
    ```
 
-1. Via environment variables
+2. Via `.lint-todorc.js`
+
+  ```js
+  module.exports = {
+    'ember-template-lint': {
+      daysToDecay: { warn: 5, error: 10 },
+      daysToDecayByRule: {
+        'no-action': { warn: 10, error: 20 },
+        'no-implicit-this': { warn: 20, error: 30 },
+      }
+    }
+  };
+  ```
+
+3. Via environment variables
 
    ```bash
    TODO_DAYS_TO_WARN="5" TODO_DAYS_TO_ERROR="10" ember-template-lint . --update-todo
    ```
 
-1. Via command line options
+4. Via command line options
 
    ```bash
    ember-template-lint . --update-todo --todo-days-to-warn=5 --todo-days-to-error=10
