@@ -61,16 +61,16 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 
 1. Via `.lint-todorc.js`
 
-  ```js
-  module.exports = {
-    'ember-template-lint': {
-      daysToDecay: {
-        warn: 5,
-        error: 10
-      }
-    }
-  };
-  ```
+   ```js
+   module.exports = {
+     'ember-template-lint': {
+       daysToDecay: {
+         warn: 5,
+         error: 10,
+       },
+     },
+   };
+   ```
 
 1. Via environment variables
 
@@ -87,7 +87,7 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 In order of precedence:
 
 - command line options override both environment variables and package.json configuration values
-- environment variables override package.json configuration values
+- environment variables override package.json/.lint-todorc.js configuration values
 
 If no values are provided in one of the options that have higher precedence, the value from the next level of precedence will act as the default. For example, if you've specified the following values in the package.json configuration...
 
@@ -112,7 +112,7 @@ ember-template-lint . --update-todo --todo-days-to-warn=2
 
 ### Configuring Due Dates for Individual Rules
 
-Due dates can be configured on a per-rule basis with the `daysToDecayByRule` option.  See examples below.
+Due dates can be configured on a per-rule basis with the `daysToDecayByRule` option. See examples below.
 
 1. Via `package.json`
 
@@ -124,33 +124,33 @@ Due dates can be configured on a per-rule basis with the `daysToDecayByRule` opt
          "error": 10
        },
        "daysToDecayByRule": {
-        "no-implicit-this": {
-          "warn": 10,
-          "error": 20
-        },
-      }
+         "no-implicit-this": {
+           "warn": 10,
+           "error": 20
+         }
+       }
      }
    }
    ```
 
 1. Via `.lint-todorc.js`
 
-  ```js
+   ```js
    module.exports = {
-    'ember-template-lint': {
-      daysToDecay: {
-        warn: 5,
-        error: 10
-      },
-      daysToDecayByRule: {
-        'no-action': {
-          warn: 10,
-          error: 20
-        },
-      }
-    }
-  };
-  ```
+     'ember-template-lint': {
+       daysToDecay: {
+         warn: 5,
+         error: 10,
+       },
+       daysToDecayByRule: {
+         'no-action': {
+           warn: 10,
+           error: 20,
+         },
+       },
+     },
+   };
+   ```
 
 ### Disabling Due Dates
 
