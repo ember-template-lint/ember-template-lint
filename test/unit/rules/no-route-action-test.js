@@ -25,11 +25,6 @@ generateRuleTests({
     `<CustomComponent @onUpdate={{fn this.updateFoo 'bar'}} />`,
     `<CustomComponent @onUpdate={{this.updateFoo}} />`,
 
-    // ElementModifierStatement
-    `<div {{action 'updateFoo'}}></div>`,
-    `<div {{fn this.updateFoo 'bar'}}></div>`,
-    `<div {{this.updateFoo}}></div>`,
-
     // Other
     `<div></div>`,
   ],
@@ -91,18 +86,6 @@ generateRuleTests({
         line: 1,
         column: 27,
         source: "{{route-action 'updateFoo' 'bar'}}",
-      },
-    },
-
-    // ElementModifierStatement
-    {
-      template: `<div {{route-action 'updateFoo'}}></div>`,
-      result: {
-        message:
-          'Do not use `route-action` as <div {{route-action ...}} />. Instead, use controller actions.',
-        line: 1,
-        column: 5,
-        source: "{{route-action 'updateFoo'}}",
       },
     },
   ],
