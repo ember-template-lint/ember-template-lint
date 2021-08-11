@@ -12,7 +12,7 @@ Having the ability to identify violations as `todo`s allows for this incremental
 
 ## Usage
 
-todos are stored in a `.lint-todo` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
+todos are stored in a `.lint-todo/` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
 
 To convert errors to todos, you can use the `--update-todo` option. This will convert all active errors to todos, hiding them from the linting output.
 
@@ -46,17 +46,30 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 
 :bulb: Both `warn` and `error` are optional. The value for `warn` should be lower than the value of `error`.
 
-1. Via package.json configuration
+1. Via `package.json`
 
    ```json
    {
      "lintTodo": {
-       "decayDays": {
+       "daysToDecay": {
          "warn": 5,
          "error": 10
        }
      }
    }
+   ```
+
+1. Via `.lint-todorc.js`
+
+   ```js
+   module.exports = {
+     'ember-template-lint': {
+       daysToDecay: {
+         warn: 5,
+         error: 10,
+       },
+     },
+   };
    ```
 
 1. Via environment variables
@@ -74,14 +87,14 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 In order of precedence:
 
 - command line options override both environment variables and package.json configuration values
-- environment variables override package.json configuration values
+- environment variables override package.json/.lint-todorc.js configuration values
 
 If no values are provided in one of the options that have higher precedence, the value from the next level of precedence will act as the default. For example, if you've specified the following values in the package.json configuration...
 
 ```json
 {
   "lintTodo": {
-    "decayDays": {
+    "daysToDecay": {
       "warn": 5,
       "error": 10
     }
@@ -96,6 +109,48 @@ ember-template-lint . --update-todo --todo-days-to-warn=2
 ```
 
 ...the todos will be created with a `warn` date 2 days from the created date, and an `error` date 10 days from the created date.
+
+### Configuring Due Dates for Individual Rules
+
+Due dates can be configured on a per-rule basis with the `daysToDecayByRule` option. See examples below.
+
+1. Via `package.json`
+
+   ```json
+   {
+     "lintTodo": {
+       "daysToDecay": {
+         "warn": 5,
+         "error": 10
+       },
+       "daysToDecayByRule": {
+         "no-implicit-this": {
+           "warn": 10,
+           "error": 20
+         }
+       }
+     }
+   }
+   ```
+
+1. Via `.lint-todorc.js`
+
+   ```js
+   module.exports = {
+     'ember-template-lint': {
+       daysToDecay: {
+         warn: 5,
+         error: 10,
+       },
+       daysToDecayByRule: {
+         'no-action': {
+           warn: 10,
+           error: 20,
+         },
+       },
+     },
+   };
+   ```
 
 ### Disabling Due Dates
 
