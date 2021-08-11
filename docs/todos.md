@@ -44,8 +44,6 @@ todos can be created with optional due dates. These due dates allow for todos to
 
 Due dates can be configured in multiple ways, but all specify integers for `warn` and `error` to signify the number of days from the todo created date to decay the severity.
 
-Due dates can be configured on a per-rule basis as well with the `daysToDecayByRule` option.  See examples below.
-
 :bulb: Both `warn` and `error` are optional. The value for `warn` should be lower than the value of `error`.
 
 1. Via `package.json`
@@ -66,10 +64,9 @@ Due dates can be configured on a per-rule basis as well with the `daysToDecayByR
   ```js
   module.exports = {
     'ember-template-lint': {
-      daysToDecay: { warn: 5, error: 10 },
-      daysToDecayByRule: {
-        'no-action': { warn: 10, error: 20 },
-        'no-implicit-this': { warn: 20, error: 30 },
+      daysToDecay: {
+        warn: 5,
+        error: 10
       }
     }
   };
@@ -112,6 +109,48 @@ ember-template-lint . --update-todo --todo-days-to-warn=2
 ```
 
 ...the todos will be created with a `warn` date 2 days from the created date, and an `error` date 10 days from the created date.
+
+### Configuring Due Dates for Individual Rules
+
+Due dates can be configured on a per-rule basis with the `daysToDecayByRule` option.  See examples below.
+
+1. Via `package.json`
+
+   ```json
+   {
+     "lintTodo": {
+       "daysToDecay": {
+         "warn": 5,
+         "error": 10
+       },
+       "daysToDecayByRule": {
+        "no-implicit-this": {
+          "warn": 10,
+          "error": 20
+        },
+      }
+     }
+   }
+   ```
+
+1. Via `.lint-todorc.js`
+
+  ```js
+   module.exports = {
+    'ember-template-lint': {
+      daysToDecay: {
+        warn: 5,
+        error: 10
+      },
+      daysToDecayByRule: {
+        'no-action': {
+          warn: 10,
+          error: 20
+        },
+      }
+    }
+  };
+  ```
 
 ### Disabling Due Dates
 
