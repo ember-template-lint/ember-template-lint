@@ -10,7 +10,7 @@ const { ConfigDefaults } = require('../../lib/helpers/rule-test-harness');
 const ruleNames = Object.keys(require('../../lib/rules'));
 const Project = require('../helpers/fake-project');
 const { determineRuleConfig } = require('./../../lib/get-config');
-const Rule = require('./../../lib/rules/base');
+const Rule = require('./../../lib/rules/_base');
 
 describe('base plugin', function () {
   let project, editorConfigResolver;

@@ -1,6 +1,6 @@
 const { createEnv } = require('yeoman-environment');
 
-const AVAILABLE_GENERATORS = ['new-rule', 'rules-index'];
+const AVAILABLE_GENERATORS = ['new-rule'];
 
 async function main() {
   let generatorName = process.argv.slice(2);
