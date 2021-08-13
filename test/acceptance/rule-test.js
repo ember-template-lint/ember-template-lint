@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const Rule = require('../../lib/rules/base');
+const Rule = require('../../lib/rules/_base');
 const generateRuleTests = require('../helpers/rule-test-harness');
 
 function verifyWithExternalSnapshot(results) {

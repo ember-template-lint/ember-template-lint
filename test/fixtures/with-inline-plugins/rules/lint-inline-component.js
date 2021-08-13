@@ -1,6 +1,6 @@
 'use strict';
 
-let Rule = require('../../../../lib/rules/base');
+let Rule = require('../../../../lib/rules/_base');
 
 let message = 'The inline form of component is not allowed';
 
