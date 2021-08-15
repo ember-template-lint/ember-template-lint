@@ -3,9 +3,9 @@ const fs = require('fs');
 const {
   ensureTodoStorageDir,
   todoStorageDirExists,
-  readTodos,
   getTodoStorageDirPath,
   writeTodos,
+  readTodoData,
 } = require('@ember-template-lint/todo-utils');
 const { differenceInDays, subDays } = require('date-fns');
 
@@ -166,9 +166,9 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      const result = await readTodos(project.baseDir);
+      const result = readTodoData(project.baseDir);
 
-      expect(result.size).toEqual(0);
+      expect(result).toHaveLength(0);
     });
 
     it('generates todos for existing errors', async function () {
@@ -193,6 +193,46 @@ describe('todo usage', () => {
       expect(todoStorageDirExists(project.baseDir)).toEqual(true);
     });
 
+    it('generates todos for existing errors, and correctly reports todo severity when file is edited to trigger fuzzy match', async function () {
+      project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+          'no-html-comments': true,
+        },
+      });
+      project.write({
+        app: {
+          templates: {
+            'application.hbs':
+              '<div>Bare strings are bad...</div><span>Very bad</span><!-- bad comment -->',
+          },
+        },
+      });
+
+      let result = await run(['.', '--update-todo']);
+
+      expect(result.exitCode).toEqual(0);
+      expect(todoStorageDirExists(project.baseDir)).toEqual(true);
+      expect(readTodoData(project.baseDir)).toHaveLength(3);
+
+      project.write({
+        app: {
+          templates: {
+            'application.hbs': `
+
+              <div>Bare strings are bad...</div><span>Very bad</span>
+
+              <!-- bad comment -->`,
+          },
+        },
+      });
+
+      result = await run(['.']);
+
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout).toEqual('');
+    });
+
     it('does not remove todos from another engine', async function () {
       project.setConfig({
         rules: {
@@ -209,26 +249,21 @@ describe('todo usage', () => {
         },
       });
 
-      await writeTodos(project.baseDir, [
+      writeTodos(project.baseDir, [
         {
+          engine: 'ember-template-lint',
           filePath: '{{path}}/app/controllers/settings.js',
-          messages: [
-            {
-              ruleId: 'no-prototype-builtins',
-              severity: 2,
-              message: "Do not access Object.prototype method 'hasOwnProperty' from target object.",
+          ruleId: 'no-prototype-builtins',
+          range: {
+            start: {
               line: 25,
               column: 21,
-              nodeType: 'CallExpression',
-              messageId: 'prototypeBuildIn',
-              endLine: 25,
-              endColumn: 35,
             },
-          ],
-          errorCount: 1,
-          warningCount: 0,
-          fixableErrorCount: 0,
-          fixableWarningCount: 0,
+            end: {
+              line: 25,
+              column: 35,
+            },
+          },
           source: '',
         },
       ]);
@@ -256,7 +291,7 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      let todos = [...(await readTodos(project.baseDir)).values()];
+      let todos = readTodoData(project.baseDir);
 
       expect(todos).toHaveLength(2);
 
@@ -278,7 +313,7 @@ describe('todo usage', () => {
         '--no-config-path',
       ]);
 
-      todos = [...(await readTodos(project.baseDir)).values()];
+      todos = readTodoData(project.baseDir);
 
       expect(todos).toHaveLength(3);
     });
@@ -301,7 +336,7 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      let todos = [...(await readTodos(project.baseDir)).values()];
+      let todos = readTodoData(project.baseDir);
 
       expect(todos).toHaveLength(3);
 
@@ -314,7 +349,7 @@ describe('todo usage', () => {
         '--no-config-path',
       ]);
 
-      todos = [...(await readTodos(project.baseDir)).values()];
+      todos = readTodoData(project.baseDir);
 
       expect(result.exitCode).toEqual(0);
       expect(todos).toHaveLength(3);
@@ -758,13 +793,13 @@ describe('todo usage', () => {
         name: 'Package.json todo configuration',
         isLegacy: false,
         setTodoConfig: (daysToDecay, daysToDecayByRule) =>
-          project.setPackageJsonTodoConfig('ember-template-lint', daysToDecay, daysToDecayByRule),
+          project.setPackageJsonTodoConfig(daysToDecay, daysToDecayByRule),
       },
       {
         name: '.lint-todorc.js todo configuration',
         isLegacy: false,
         setTodoConfig: (daysToDecay, daysToDecayByRule) =>
-          project.setLintTodorc('ember-template-lint', daysToDecay, daysToDecayByRule),
+          project.setLintTodorc(daysToDecay, daysToDecayByRule),
       },
     ]) {
       describe(name, () => {
@@ -855,7 +890,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -889,7 +924,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -923,7 +958,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -953,7 +988,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -987,7 +1022,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -1021,7 +1056,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -1052,7 +1087,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -1091,7 +1126,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -1133,7 +1168,7 @@ describe('todo usage', () => {
             }
           );
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -1173,7 +1208,7 @@ describe('todo usage', () => {
             '20',
           ]);
 
-          const todos = [...(await readTodos(project.baseDir)).values()];
+          const todos = readTodoData(project.baseDir);
 
           expect(result.exitCode).toEqual(0);
 
@@ -1450,7 +1485,7 @@ describe('todo usage', () => {
 
             let result = await run(['.', '--update-todo']);
 
-            const todos = [...(await readTodos(project.baseDir)).values()];
+            const todos = readTodoData(project.baseDir);
 
             expect(result.exitCode).toEqual(0);
 
