@@ -51,9 +51,11 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
    ```json
    {
      "lintTodo": {
-       "daysToDecay": {
-         "warn": 5,
-         "error": 10
+       "ember-template-lint": {
+         "daysToDecay": {
+           "warn": 5,
+           "error": 10
+         }
        }
      }
    }
@@ -94,9 +96,11 @@ If no values are provided in one of the options that have higher precedence, the
 ```json
 {
   "lintTodo": {
-    "daysToDecay": {
-      "warn": 5,
-      "error": 10
+    "ember-template-lint": {
+      "daysToDecay": {
+        "warn": 5,
+        "error": 10
+      }
     }
   }
 }
@@ -119,14 +123,16 @@ Due dates can be configured on a per-rule basis with the `daysToDecayByRule` opt
    ```json
    {
      "lintTodo": {
-       "daysToDecay": {
-         "warn": 5,
-         "error": 10
-       },
-       "daysToDecayByRule": {
-         "no-implicit-this": {
-           "warn": 10,
-           "error": 20
+       "ember-template-lint": {
+         "daysToDecay": {
+           "warn": 5,
+           "error": 10
+         },
+         "daysToDecayByRule": {
+           "no-implicit-this": {
+             "warn": 10,
+             "error": 20
+           }
          }
        }
      }
@@ -143,7 +149,7 @@ Due dates can be configured on a per-rule basis with the `daysToDecayByRule` opt
          error: 10,
        },
        daysToDecayByRule: {
-         'no-action': {
+         'no-implicit-this': {
            warn: 10,
            error: 20,
          },
@@ -159,7 +165,9 @@ If you don't want to use the due dates feature, keeping your todos indefinitely,
 ```json
 {
   "lintTodo": {
-    "daysToDecay": null
+    "ember-template-lint": {
+      "daysToDecay": null
+    }
   }
 }
 ```
