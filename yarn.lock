@@ -7887,10 +7887,10 @@ yeoman-environment@^3.5.1:
     textextensions "^5.12.0"
     untildify "^4.0.0"
 
-yeoman-generator@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/yeoman-generator/-/yeoman-generator-5.4.0.tgz#2121966fcd9a9ae8ee50f158df27846308fc3ad9"
-  integrity sha512-ZOzoe8pAenTw8q7X3TdG3u5S7EM/ErCNue7Jvcb/ZDfank6Nnu3J249PtgTbyAuN+VYVZ/VVFIAJxjlrqJpldQ==
+yeoman-generator@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/yeoman-generator/-/yeoman-generator-5.4.1.tgz#cbde2b2f1ee5a624b05723b060cf79ce27c6946d"
+  integrity sha512-ZlO++ByvxiapJo3TZy1/Bx5S2LRnNoQ7IMnJRjMtP6bWP1BldfoPMJAP4PztQOc6okufBFDUVR9Yjt6MB2G9YA==
   dependencies:
     chalk "^4.1.0"
     dargs "^7.0.0"
