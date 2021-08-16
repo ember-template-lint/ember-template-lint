@@ -51,6 +51,13 @@ describe('editors integration', function () {
           message: 'Unexpected {{debugger}} usage.',
           filePath: 'template.hbs',
           rule: 'no-debugger',
+          ruleMeta: {
+            description: 'disallows `{{debugger}}` in templates',
+            category: 'Best Practices', // 'Stylistic Issues', 'Deprecated Rules', 'Possible Error', 'Best Practices',
+            presets: { recommended: true },
+            url: 'https://github.com/ember-template-lint/ember-template-lint/blog/master/docs/rules/no-debugger.md',
+            fixable: false,
+          },
           severity: 2,
           source: '{{debugger}}',
         },
