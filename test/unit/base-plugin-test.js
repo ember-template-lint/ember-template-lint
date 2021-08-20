@@ -74,6 +74,7 @@ describe('base plugin', function () {
       process(node) {
         this.log({
           message: 'Node source',
+          node,
           line: node.loc && node.loc.start.line,
           column: node.loc && node.loc.start.column,
           source: this.sourceForNode(node),
