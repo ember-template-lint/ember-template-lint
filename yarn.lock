@@ -7832,10 +7832,10 @@ yargs@^16.0.3, yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yeoman-environment@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/yeoman-environment/-/yeoman-environment-3.5.1.tgz#222e53e3623d90ac285ba86181c110d855aaa33c"
-  integrity sha512-XIJoCQDNlttjFubWL+tpf+t1MkFUdsqwtJvR2qhfzhHi8Z7ZzAwiBPgCtTiLK1mwPTfqzV/V0E9l7zX7hrhBdg==
+yeoman-environment@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/yeoman-environment/-/yeoman-environment-3.6.0.tgz#91267ced0d474c4dec330b83f232e72e796c0730"
+  integrity sha512-X16N9lhzRdUKFT8MZrpwjLDKsdgAUqh4VPR2wAXeAqjJJaUxYBxCQGFxtZVTf3vbyNuIHXPunwOLtK60bpapbg==
   dependencies:
     "@npmcli/arborist" "^2.2.2"
     are-we-there-yet "^1.1.5"
