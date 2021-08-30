@@ -214,6 +214,11 @@ function parseArgv(_argv) {
         describe: 'Prevent inline configuration comments from changing config or rules',
         boolean: true,
       },
+      'print-config': {
+        describe: 'Print the configuration for the given file',
+        default: false,
+        boolean: true,
+      },
       'max-warnings': {
         describe: 'Number of warnings to trigger nonzero exit code',
         type: 'number',
@@ -378,6 +383,14 @@ async function run() {
 
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
+  if (options.printConfig) {
+    if (filePaths.size > 1) {
+      console.error('The --print-config option must be used with exactly one file name.');
+      process.exitCode = 1;
+      return;
+    }
+  }
+
   let resultsAccumulator = [];
   for (let relativeFilePath of filePaths) {
     let linterOptions = await buildLinterOptions(
@@ -388,6 +401,14 @@ async function run() {
     );
 
     let fileResults;
+
+    if (options.printConfig) {
+      let fileConfig = linter.getConfigForFile(linterOptions);
+
+      console.log(JSON.stringify(fileConfig, null, 2));
+      process.exitCode = 0;
+      return;
+    }
 
     if (options.fix) {
       let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
