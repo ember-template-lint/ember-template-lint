@@ -133,6 +133,8 @@ The base rule also has a few helper functions that can be useful in defining rul
   Report a lint error. The `log` function accepts an Object as its only argument, which can contain the following parameters:
   * `message` -- `string`
     The error message to display.
+  * `node` -- `ASTNode`
+    The node that the error applies to.
   * `line` -- `number`
     The line number of the error in the source string.
   * `column` -- `number`
