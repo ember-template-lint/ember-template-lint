@@ -210,5 +210,21 @@ generateRuleTests({
         },
       ],
     },
+
+    // LinkTo unknown argument
+
+    {
+      template:
+        ' <LinkTo class="auk-search-results-list__item" @route={{@route}} @models={{this.models}} @random="test" @query={{@query}} ...attributes >Hello</LinkTo>',
+      results: [
+        {
+          message:
+            '"@random" is unknown argument for <LinkTo /> component. Did you mean "@dragOver"?',
+          line: 1,
+          column: 89,
+          source: '@random',
+        },
+      ],
+    },
   ],
 });
