@@ -13,7 +13,7 @@ This rule warns about `Input` component invocations that use the following attri
 * `type`
 * `value`
 
-The builtin `Textarea` component has several arguments that match attributes
+The builtin `Textarea` component has several arguments that match properties
 of the lower-case `textarea` HTML element. These arguments should be set via e.g.
 `@value`, instead of `value`, but it is easy to forget and can cause subtle
 issues.
