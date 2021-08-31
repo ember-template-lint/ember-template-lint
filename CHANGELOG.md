@@ -1,3 +1,28 @@
+
+## v3.6.0 (2021-08-15)
+
+#### :rocket: Enhancement
+* [#2033](https://github.com/ember-template-lint/ember-template-lint/pull/2033) Upgrades to latest todo-utils to include new fuzzy matching functionality ([@scalvert](https://github.com/scalvert))
+* [#2030](https://github.com/ember-template-lint/ember-template-lint/pull/2030) Implement `no-route-action` rule ([@thiagofesta](https://github.com/thiagofesta))
+
+#### :bug: Bug Fix
+* [#2064](https://github.com/ember-template-lint/ember-template-lint/pull/2064) Removed modifier support for `no-route-action` rule ([@thiagofesta](https://github.com/thiagofesta))
+* [#2024](https://github.com/ember-template-lint/ember-template-lint/pull/2024) Fix no-duplicate-id rule false positive with block param ([@faith-or](https://github.com/faith-or))
+
+#### :memo: Documentation
+* [#2063](https://github.com/ember-template-lint/ember-template-lint/pull/2063) Update docs with .lint-todorc.js ([@tylerbecks](https://github.com/tylerbecks))
+
+#### :house: Internal
+* [#2065](https://github.com/ember-template-lint/ember-template-lint/pull/2065) Export rules and configs using `requireindex` ([@bmish](https://github.com/bmish))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Faith Or ([@faith-or](https://github.com/faith-or))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- Thiago Festa ([@thiagofesta](https://github.com/thiagofesta))
+- Tyler Becks ([@tylerbecks](https://github.com/tylerbecks))
+
+
 ## v3.5.1 (2021-07-23)
 
 #### :bug: Bug Fix

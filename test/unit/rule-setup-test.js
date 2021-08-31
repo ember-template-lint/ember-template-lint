@@ -13,7 +13,7 @@ describe('rules setup is correct', function () {
   const files = readdirSync(rulesEntryPath);
   const expectedRules = files
     .filter((fileName) => {
-      return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
+      return fileName.endsWith('.js') && !['_base.js', 'index.js'].includes(fileName);
     })
     .map((fileName) => fileName.replace('.js', ''));
 
@@ -25,7 +25,6 @@ describe('rules setup is correct', function () {
       expect(defaultExport[ruleName]).toEqual(require(pathName));
     }
     expect(expectedRules.length).toEqual(exportedRules.length);
-    expect(exportedRules).toEqual([...exportedRules].sort());
   });
 
   it('has docs/rule reference for each item', function () {
