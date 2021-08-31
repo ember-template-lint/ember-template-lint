@@ -75,6 +75,8 @@ describe('ember-template-lint executable', function () {
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config          Prevent inline configuration comments from
                                         changing config or rules                 [boolean]
+            --print-config              Print the configuration for the given file
+                                                                [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
                                                                                   [number]
             --help                      Show help                                [boolean]
@@ -132,6 +134,8 @@ describe('ember-template-lint executable', function () {
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config          Prevent inline configuration comments from
                                         changing config or rules                 [boolean]
+            --print-config              Print the configuration for the given file
+                                                                [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
                                                                                   [number]
             --help                      Show help                                [boolean]
@@ -443,6 +447,8 @@ describe('ember-template-lint executable', function () {
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config          Prevent inline configuration comments from
                                         changing config or rules                 [boolean]
+            --print-config              Print the configuration for the given file
+                                                                [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
                                                                                   [number]
             --help                      Show help                                [boolean]
@@ -1513,6 +1519,72 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot('""');
+      });
+    });
+
+    describe('with --print-config option', function () {
+      it('should error if more than one file passed to --print-config', async function () {
+        project.write({
+          app: {
+            templates: {
+              components: {
+                'foo.hbs': '{{fooData}}',
+                'bar.hbs': '{{barData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run([
+          'app/templates/components/foo.hbs',
+          'app/templates/components/bar.hbs',
+          '--print-config',
+        ]);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot(
+          `"The --print-config option must be used with exactly one file name."`
+        );
+      });
+
+      it('should print config for file', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': 'warn',
+            'no-html-comments': 'error',
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['app/templates/application.hbs', '--print-config']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+"{
+  \\"rules\\": {
+    \\"no-bare-strings\\": {
+      \\"config\\": true,
+      \\"severity\\": 1
+    },
+    \\"no-html-comments\\": {
+      \\"config\\": true,
+      \\"severity\\": 2
+    }
+  },
+  \\"pending\\": [],
+  \\"overrides\\": [],
+  \\"ignore\\": [],
+  \\"plugins\\": {},
+  \\"loadedRules\\": {}
+}"
+`);
       });
     });
 
