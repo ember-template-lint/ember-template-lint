@@ -1,4 +1,20 @@
 
+
+## v3.7.0 (2021-09-07)
+
+#### :rocket: Enhancement
+* [#2080](https://github.com/ember-template-lint/ember-template-lint/pull/2080) Add `require-valid-named-block-naming-format` rule ([@bertdeblock](https://github.com/bertdeblock))
+* [#2079](https://github.com/ember-template-lint/ember-template-lint/pull/2079) Adding `--print-config` option to CLI ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#2052](https://github.com/ember-template-lint/ember-template-lint/pull/2052) Ensure `deprecated-inline-view-helper` allows named blocks named `"view"` ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.6.0 (2021-08-15)
 
 #### :rocket: Enhancement
