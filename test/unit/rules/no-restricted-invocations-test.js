@@ -11,7 +11,7 @@ generateRuleTests({
     'nested-scope/foo-bar',
     {
       names: ['deprecated-component'],
-      message: 'This component is deprecated; use component ABC instead.',
+      message: '<%componentOrHelperName%> component is deprecated; use component ABC instead.',
     },
   ],
 
@@ -54,230 +54,299 @@ generateRuleTests({
       template: '{{foo}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{foo}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '<Foo />',
 
       result: {
-        message: "Cannot use disallowed helper or component '<Foo />'",
+        message: 'Cannot use disallowed helper or component "<Foo />"',
         source: '<Foo />',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '<Foo />',
+        },
       },
     },
     {
       template: '{{foo foo=bar}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{foo foo=bar}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{foo foo=(baz)}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{foo foo=(baz)}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{#foo}}{{/foo}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{#foo}}{{/foo}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{#foo foo=bar}}{{/foo}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{#foo foo=bar}}{{/foo}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{#foo foo=(baz)}}{{/foo}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{#foo foo=(baz)}}{{/foo}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{component "foo"}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{component "foo"}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{component "foo" foo=bar}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{component "foo" foo=bar}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{component "foo" foo=(baz)}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{component "foo" foo=(baz)}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{#component "foo"}}{{/component}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{#component "foo"}}{{/component}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{#component "foo" foo=bar}}{{/component}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{#component "foo" foo=bar}}{{/component}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{#component "foo" foo=(baz)}}{{/component}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '{{#component "foo" foo=(baz)}}{{/component}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{yield (component "foo")}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '(component "foo")',
         line: 1,
         column: 8,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{yield (component "foo" foo=bar)}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '(component "foo" foo=bar)',
         line: 1,
         column: 8,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{yield (component "foo" foo=(baz))}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '(component "foo" foo=(baz))',
         line: 1,
         column: 8,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{yield (baz (foo (baz) bar))}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '(foo (baz) bar)',
         line: 1,
         column: 13,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{yield (baz (baz (baz) (foo)))}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '(foo)',
         line: 1,
         column: 24,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{yield (baz (baz (baz) foo=(foo)))}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '(foo)',
         line: 1,
         column: 28,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{#baz as |bar|}}{{bar foo=(foo)}}{{/baz}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
+        message: 'Cannot use disallowed helper or component "{{foo}}"',
         source: '(foo)',
         line: 1,
         column: 27,
+        data: {
+          componentOrHelperName: '{{foo}}',
+        },
       },
     },
     {
       template: '{{nested-scope/foo-bar}}',
 
       result: {
-        message: "Cannot use disallowed helper or component '{{nested-scope/foo-bar}}'",
+        message: 'Cannot use disallowed helper or component "{{nested-scope/foo-bar}}"',
         source: '{{nested-scope/foo-bar}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{nested-scope/foo-bar}}',
+        },
       },
     },
     {
       template: '<NestedScope::FooBar/>',
 
       result: {
-        message: "Cannot use disallowed helper or component '<NestedScope::FooBar />'",
+        message: 'Cannot use disallowed helper or component "<NestedScope::FooBar />"',
         source: '<NestedScope::FooBar/>',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '<NestedScope::FooBar />',
+        },
       },
     },
     {
       template: '{{deprecated-component}}',
 
       result: {
-        message: 'This component is deprecated; use component ABC instead.',
+        message: '{{deprecated-component}} component is deprecated; use component ABC instead.',
         source: '{{deprecated-component}}',
         line: 1,
         column: 0,
+        data: {
+          componentOrHelperName: '{{deprecated-component}}',
+        },
       },
     },
   ],

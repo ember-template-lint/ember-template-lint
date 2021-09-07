@@ -32,6 +32,25 @@ module.exports = {
 };
 ```
 
+### Message placeholders
+
+When working with rules that allow you to define a custom error message you can use [message placeholders](plugins.md#using-message-placeholders) to add contextual information to your custom error message. Placeholders exposed by a rule are available in each rule’s documentation. For example [`no-restricted-invocations`](rule/no-restricted-invocations.md) can be configured as follows:
+
+```javascript
+// .template-lintrc.js
+module.exports = {
+  extends: 'recommended',
+  rules: {
+    'no-restricted-invocations': {
+      // Will print "My custom message can also use the data".
+      names: ['deprecated-component'],
+      // Will print: "{{deprecated-component}} component is deprecated; use component ABC instead."
+      message: '<%componentOrHelperName%> component is deprecated; use component ABC instead.',
+    },
+  },
+};
+```
+
 ## Configuration Properties
 
 The following properties are allowed in the root of the `.template-lintrc.js` configuration file:

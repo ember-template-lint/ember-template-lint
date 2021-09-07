@@ -680,10 +680,13 @@ describe('public api', function () {
           rule: 'no-restricted-invocations',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          message: "Cannot use disallowed helper or component '{{foo}}'",
+          message: 'Cannot use disallowed helper or component "{{foo}}"',
           line: 1,
           column: 17,
           source: '{{foo}}',
+          data: {
+            componentOrHelperName: '{{foo}}',
+          },
         },
         {
           rule: 'no-implicit-this',
