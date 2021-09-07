@@ -219,7 +219,7 @@ generateRuleTests({
       results: [
         {
           message:
-            '"@random" is unknown argument for <LinkTo /> component. Did you mean "@dragOver"?',
+            '"@random" is not a known argument for <LinkTo /> component. Did you mean "@dragOver"?',
           line: 1,
           column: 89,
           source: '@random',
