@@ -76,7 +76,7 @@
     "prettier": "^2.4.0",
     "release-it": "^14.11.5",
     "release-it-lerna-changelog": "^3.1.0",
-    "sort-package-json": "^1.50.0",
+    "sort-package-json": "^1.51.0",
     "yeoman-environment": "^3.6.0",
     "yeoman-generator": "^5.4.2",
     "yeoman-test": "^5.1.0"
