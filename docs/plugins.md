@@ -273,4 +273,10 @@ const NodeMatcher = require('ember-template-lint').NodeMatcher;
   ```
 
   TODO: complex example (multiple supported types of `links`?)
-  
+
+## Discoverability
+
+Add these `keywords` to your plugin's `package.json` file to make it easy for others to find:
+
+* `ember-template-lint`
+* `ember-template-lint-plugin`
