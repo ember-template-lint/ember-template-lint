@@ -2,7 +2,13 @@
   "name": "ember-template-lint",
   "version": "3.7.0",
   "description": "Linter for Ember or Handlebars templates.",
-  "keywords": [],
+  "keywords": [
+    "ember",
+    "ember.js",
+    "handlebars",
+    "lint",
+    "linter"
+  ],
   "homepage": "https://github.com/ember-template-lint/ember-template-lint",
   "bugs": {
     "url": "https://github.com/ember-template-lint/ember-template-lint/issues"
