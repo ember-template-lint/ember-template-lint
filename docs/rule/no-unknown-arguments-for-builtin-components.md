@@ -2,7 +2,7 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
-:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 The builtin components `LinkTo`, `Input`, `Textarea` has list of allowed arguments, and some argument names may be mistyped, this rule trying to highlight possible typos, checking for unknown arguments, also, some components has conflicted and required arguments, rule addressing this behavior.
 
