@@ -13,7 +13,7 @@ describe('rules setup is correct', function () {
   const files = readdirSync(rulesEntryPath);
   const expectedRules = files
     .filter((fileName) => {
-      return fileName.endsWith('.js') && !['base.js', 'index.js'].includes(fileName);
+      return fileName.endsWith('.js') && !['_base.js', 'index.js'].includes(fileName);
     })
     .map((fileName) => fileName.replace('.js', ''));
 
@@ -25,7 +25,6 @@ describe('rules setup is correct', function () {
       expect(defaultExport[ruleName]).toEqual(require(pathName));
     }
     expect(expectedRules.length).toEqual(exportedRules.length);
-    expect(exportedRules).toEqual([...exportedRules].sort());
   });
 
   it('has docs/rule reference for each item', function () {
@@ -48,11 +47,11 @@ describe('rules setup is correct', function () {
 
   it('should have the right contents (title, examples, notices, references) for each rule documentation file', function () {
     const CONFIG_MSG_RECOMMENDED =
-      ":white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.";
+      "✅ The `extends: 'recommended'` property in a configuration file enables this rule.";
     const CONFIG_MSG_STYLISTIC =
-      ":nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.";
+      "💅 The `extends: 'stylistic'` property in a configuration file enables this rule.";
     const FIXABLE_NOTICE =
-      ':wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.';
+      '🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.';
 
     for (const ruleName of expectedRules) {
       const filePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);

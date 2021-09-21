@@ -45,14 +45,6 @@ If you are opening an issue to request a new feature, please provide:
 
 ```
 
-### Updating rules index file
-
-```bash
-# update rules index file
-- yarn update:rules-index
-
-```
-
 ### Updating Rules Table in README
 
 ```bash

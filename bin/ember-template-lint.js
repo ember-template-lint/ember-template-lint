@@ -9,7 +9,11 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const { getTodoStorageDirPath, getTodoConfig } = require('@ember-template-lint/todo-utils');
+const {
+  getTodoStorageDirPath,
+  getTodoConfig,
+  validateConfig,
+} = require('@ember-template-lint/todo-utils');
 const chalk = require('chalk');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -210,6 +214,11 @@ function parseArgv(_argv) {
         describe: 'Prevent inline configuration comments from changing config or rules',
         boolean: true,
       },
+      'print-config': {
+        describe: 'Print the configuration for the given file',
+        default: false,
+        boolean: true,
+      },
       'max-warnings': {
         describe: 'Number of warnings to trigger nonzero exit code',
         type: 'number',
@@ -296,14 +305,6 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
-  let todoInfo = {
-    added: 0,
-    removed: 0,
-    todoConfig: getTodoConfig(
-      options.workingDirectory,
-      getTodoConfigFromCommandLineOptions(options)
-    ),
-  };
 
   if (options.config) {
     try {
@@ -319,7 +320,25 @@ async function run() {
     options.configPath = false;
   }
 
+  let todoConfigResult = validateConfig(options.workingDirectory);
+
+  if (!todoConfigResult.isValid) {
+    console.error(todoConfigResult.message);
+    process.exitCode = 1;
+    return;
+  }
+
   let linter;
+  let todoInfo = {
+    added: 0,
+    removed: 0,
+    todoConfig: getTodoConfig(
+      options.workingDirectory,
+      'ember-template-lint',
+      getTodoConfigFromCommandLineOptions(options)
+    ),
+  };
+
   try {
     linter = new Linter({
       workingDir: options.workingDirectory,
@@ -364,6 +383,14 @@ async function run() {
 
   let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
 
+  if (options.printConfig) {
+    if (filePaths.size > 1) {
+      console.error('The --print-config option must be used with exactly one file name.');
+      process.exitCode = 1;
+      return;
+    }
+  }
+
   let resultsAccumulator = [];
   for (let relativeFilePath of filePaths) {
     let linterOptions = await buildLinterOptions(
@@ -374,6 +401,14 @@ async function run() {
     );
 
     let fileResults;
+
+    if (options.printConfig) {
+      let fileConfig = linter.getConfigForFile(linterOptions);
+
+      console.log(JSON.stringify(fileConfig, null, 2));
+      process.exitCode = 0;
+      return;
+    }
 
     if (options.fix) {
       let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
@@ -386,22 +421,23 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      let [added, removed] = await linter.updateTodo(
+      let { addedCount, removedCount } = linter.updateTodo(
         linterOptions,
         fileResults,
         todoInfo.todoConfig,
         isOverridingConfig
       );
 
-      todoInfo.added += added;
-      todoInfo.removed += removed;
+      todoInfo.added += addedCount;
+      todoInfo.removed += removedCount;
     }
 
     if (!filePaths.has(STDIN)) {
-      fileResults = await linter.processTodos(
+      fileResults = linter.processTodos(
         linterOptions,
         fileResults,
-        options.fix,
+        todoInfo.todoConfig,
+        options.fix || options.cleanTodo,
         isOverridingConfig
       );
     }

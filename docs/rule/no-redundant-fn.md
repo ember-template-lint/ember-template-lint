@@ -1,6 +1,6 @@
 # no-redundant-fn
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 The `fn` helper can be used to bind arguments to another function. Using it
 without any arguments is redundant because then the inner function could just
@@ -29,7 +29,7 @@ This rule **allows** the following:
 
 ## Migration
 
-:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 ## References
 

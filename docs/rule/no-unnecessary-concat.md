@@ -1,6 +1,6 @@
 # no-unnecessary-concat
 
-:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 This rule forbids unnecessary use of quotes (`""`) around expressions like `{{myValue}}`.
 

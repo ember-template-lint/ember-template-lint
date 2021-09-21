@@ -1,6 +1,6 @@
 # no-invalid-meta
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 This rule checks for these meta tag issues:
 

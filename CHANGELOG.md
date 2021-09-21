@@ -1,3 +1,109 @@
+
+
+## v3.7.0 (2021-09-07)
+
+#### :rocket: Enhancement
+* [#2080](https://github.com/ember-template-lint/ember-template-lint/pull/2080) Add `require-valid-named-block-naming-format` rule ([@bertdeblock](https://github.com/bertdeblock))
+* [#2079](https://github.com/ember-template-lint/ember-template-lint/pull/2079) Adding `--print-config` option to CLI ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#2052](https://github.com/ember-template-lint/ember-template-lint/pull/2052) Ensure `deprecated-inline-view-helper` allows named blocks named `"view"` ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v3.6.0 (2021-08-15)
+
+#### :rocket: Enhancement
+* [#2033](https://github.com/ember-template-lint/ember-template-lint/pull/2033) Upgrades to latest todo-utils to include new fuzzy matching functionality ([@scalvert](https://github.com/scalvert))
+* [#2030](https://github.com/ember-template-lint/ember-template-lint/pull/2030) Implement `no-route-action` rule ([@thiagofesta](https://github.com/thiagofesta))
+
+#### :bug: Bug Fix
+* [#2064](https://github.com/ember-template-lint/ember-template-lint/pull/2064) Removed modifier support for `no-route-action` rule ([@thiagofesta](https://github.com/thiagofesta))
+* [#2024](https://github.com/ember-template-lint/ember-template-lint/pull/2024) Fix no-duplicate-id rule false positive with block param ([@faith-or](https://github.com/faith-or))
+
+#### :memo: Documentation
+* [#2063](https://github.com/ember-template-lint/ember-template-lint/pull/2063) Update docs with .lint-todorc.js ([@tylerbecks](https://github.com/tylerbecks))
+
+#### :house: Internal
+* [#2065](https://github.com/ember-template-lint/ember-template-lint/pull/2065) Export rules and configs using `requireindex` ([@bmish](https://github.com/bmish))
+
+#### Committers: 5
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Faith Or ([@faith-or](https://github.com/faith-or))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+- Thiago Festa ([@thiagofesta](https://github.com/thiagofesta))
+- Tyler Becks ([@tylerbecks](https://github.com/tylerbecks))
+
+
+## v3.5.1 (2021-07-23)
+
+#### :bug: Bug Fix
+* [#2032](https://github.com/ember-template-lint/ember-template-lint/pull/2032) Fixes the SARIF formatter to correctly filter output by severity ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#2031](https://github.com/ember-template-lint/ember-template-lint/pull/2031) Switch from github emojis to standard emojis ([@bmish](https://github.com/bmish))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v3.5.0 (2021-06-16)
+
+#### :rocket: Enhancement
+* [#1972](https://github.com/ember-template-lint/ember-template-lint/pull/1972) Adding extra tests to no-invalid-role rule ([@faith-or](https://github.com/faith-or))
+* [#1993](https://github.com/ember-template-lint/ember-template-lint/pull/1993) feat(todos): Adds support for configuring todo decay days by rule ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#1994](https://github.com/ember-template-lint/ember-template-lint/pull/1994) Fix `require-input-label` to allow inputs within a `<label>` to have an `id` attribute ([@MelSumner](https://github.com/MelSumner))
+* [#1992](https://github.com/ember-template-lint/ember-template-lint/pull/1992) Resolved issue where test was looking for directories incorrectly ([@MelSumner](https://github.com/MelSumner))
+
+#### :memo: Documentation
+* [#1972](https://github.com/ember-template-lint/ember-template-lint/pull/1972) Adding extra tests to no-invalid-role rule ([@faith-or](https://github.com/faith-or))
+* [#1997](https://github.com/ember-template-lint/ember-template-lint/pull/1997) Add `Requirements` section to README ([@bmish](https://github.com/bmish))
+* [#1874](https://github.com/ember-template-lint/ember-template-lint/pull/1874) Document the A11Y preset ([@bertdeblock](https://github.com/bertdeblock))
+* [#1985](https://github.com/ember-template-lint/ember-template-lint/pull/1985) Fix some broken links on `CONFIGURATION.md` ([@nwhittaker](https://github.com/nwhittaker))
+* [#1954](https://github.com/ember-template-lint/ember-template-lint/pull/1954) Improve columns for README rules table ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#1962](https://github.com/ember-template-lint/ember-template-lint/pull/1962) Upgrading yeoman-environment to 3.4.1 ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 6
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Faith ([@faith-or](https://github.com/faith-or))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Nathan Whittaker ([@nwhittaker](https://github.com/nwhittaker))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v3.4.2 (2021-05-11)
+
+#### :bug: Bug Fix
+* [#1947](https://github.com/ember-template-lint/ember-template-lint/pull/1947) Moves expired todo removal under the `--clean-todo` flag ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+## v3.4.1 (2021-05-10)
+
+#### :bug: Bug Fix
+* [#1945](https://github.com/ember-template-lint/ember-template-lint/pull/1945) Fixes `--clean-todo` flag to actually do the cleaning ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#1900](https://github.com/ember-template-lint/ember-template-lint/pull/1900) Fixed typo in README ([@MelSumner](https://github.com/MelSumner))
+
+#### Committers: 2
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.4.0 (2021-05-07)
 
 #### :rocket: Enhancement

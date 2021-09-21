@@ -1,6 +1,6 @@
 # no-unknown-arguments-for-builtin-components
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 :wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 

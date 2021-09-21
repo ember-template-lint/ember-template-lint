@@ -1,6 +1,6 @@
 # quotes
 
-:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 Enforce the consistent use of either double or single quotes.
 

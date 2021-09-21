@@ -1,6 +1,6 @@
 # no-negated-condition
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 It can be hard to reason about negated conditions:
 

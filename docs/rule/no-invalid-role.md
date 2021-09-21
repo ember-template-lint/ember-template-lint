@@ -1,6 +1,6 @@
 # no-invalid-role
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 This rule checks for invalid element/role combinations.
 
@@ -17,6 +17,11 @@ This rule **forbids** the following:
 ```hbs
 <table role="presentation">
 </table>
+```
+
+```hbs
+<button role="presentation">
+</button>
 ```
 
 ```hbs

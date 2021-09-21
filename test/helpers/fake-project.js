@@ -87,14 +87,48 @@ module.exports = class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
-  writeTodoConfig(todoConfig) {
+  setShorthandPackageJsonTodoConfig(daysToDecay) {
     this.pkg = Object.assign({}, this.pkg, {
       lintTodo: {
-        daysToDecay: todoConfig,
+        daysToDecay,
       },
     });
 
     this.writeSync();
+  }
+
+  setPackageJsonTodoConfig(daysToDecay, daysToDecayByRule) {
+    const todoConfig = {
+      lintTodo: {
+        'ember-template-lint': {
+          daysToDecay,
+        },
+      },
+    };
+
+    if (daysToDecayByRule) {
+      todoConfig.lintTodo['ember-template-lint'].daysToDecayByRule = daysToDecayByRule;
+    }
+
+    this.pkg = Object.assign({}, this.pkg, todoConfig);
+
+    this.writeSync();
+  }
+
+  setLintTodorc(daysToDecay, daysToDecayByRule) {
+    const todoConfig = {
+      'ember-template-lint': {
+        daysToDecay,
+      },
+    };
+
+    if (daysToDecayByRule) {
+      todoConfig['ember-template-lint'].daysToDecayByRule = daysToDecayByRule;
+    }
+
+    this.write({
+      '.lint-todorc.js': `module.exports = ${JSON.stringify(todoConfig, null, 2)}`,
+    });
   }
 
   chdir() {
