@@ -23,7 +23,7 @@ This rule warns about `Textarea` component invocations that use the following at
 * `value`
 
 Please note that this rule currently only warns about these three attributes on
-the `Input`, `Textarea` components, but might be extended in the future to also warn about
+the `Input`, and one property on the `Textarea` components, but might be extended in the future to also warn about
 other attributes or builtin components.
 
 ## Examples
