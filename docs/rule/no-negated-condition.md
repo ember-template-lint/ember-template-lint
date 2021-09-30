@@ -2,7 +2,7 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
-It can be hard to reason about negated conditions:
+Negated conditions can be hard to reason about and require additional nesting/parenthesis around the condition:
 
 * `if (not condition)`
 * `unless (not condition)`
