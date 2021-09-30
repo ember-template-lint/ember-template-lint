@@ -382,6 +382,9 @@ Options:
 
   describe('reading from stdin', function () {
     describe('given no path', function () {
+      setupEnvVar('CI', null);
+      setupEnvVar('GITHUB_ACTIONS', null);
+
       it('should print errors', async function () {
         project.setConfig({
           rules: {
