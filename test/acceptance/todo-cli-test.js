@@ -355,7 +355,7 @@ describe('todo usage', () => {
       expect(todos).toHaveLength(3);
     });
 
-    it('errors if a todo item is no longer valid when running without params, and cleans using --fix', async function () {
+    it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans using --fix', async function () {
       project.setConfig({
         rules: {
           'require-button-type': true,
@@ -382,8 +382,8 @@ describe('todo usage', () => {
         },
       });
 
-      // run normally and expect an error for not running --fix
-      let result = await run(['.']);
+      // run normally with --no-clean-todo and expect an error for not running --fix
+      let result = await run(['.', '--no-clean-todo']);
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
@@ -407,7 +407,7 @@ describe('todo usage', () => {
       expect(todoDirs).toHaveLength(0);
     });
 
-    it('errors if a todo item is no longer valid when running without params, and cleans using --clean-todo', async function () {
+    it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans without --no-clean-todo', async function () {
       project.setConfig({
         rules: {
           'require-button-type': true,
@@ -434,8 +434,8 @@ describe('todo usage', () => {
         },
       });
 
-      // run normally and expect an error for not running --fix
-      let result = await run(['.']);
+      // run normally with --no-clean-todo and expect an error for not running --fix
+      let result = await run(['.', '--no-clean-todo']);
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
@@ -447,7 +447,7 @@ describe('todo usage', () => {
       `);
 
       // run fix, and expect that this will delete the outstanding todo item
-      await run(['app/templates/require-button-type.hbs', '--clean-todo']);
+      await run(['app/templates/require-button-type.hbs']);
 
       // run normally again and expect no error
       result = await run(['.']);

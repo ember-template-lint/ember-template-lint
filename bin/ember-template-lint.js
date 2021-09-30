@@ -194,7 +194,7 @@ function parseArgv(_argv) {
       },
       'clean-todo': {
         describe: 'Remove expired and invalid todo files',
-        default: false,
+        default: true,
         boolean: true,
       },
       'todo-days-to-warn': {
