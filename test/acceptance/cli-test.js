@@ -26,6 +26,9 @@ describe('ember-template-lint executable', function () {
   });
 
   describe('basic usage', function () {
+    setupEnvVar('CI', null);
+    setupEnvVar('GITHUB_ACTIONS', null);
+
     describe('without any parameters', function () {
       it('should emit help text', async function () {
         let result = await run([]);

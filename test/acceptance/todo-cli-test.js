@@ -355,108 +355,222 @@ describe('todo usage', () => {
       expect(todos).toHaveLength(3);
     });
 
-    it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans using --fix', async function () {
-      project.setConfig({
-        rules: {
-          'require-button-type': true,
-        },
-      });
+    describe('cleaning todos in CI', () => {
+      setupEnvVar('CI', true);
+      setupEnvVar('GITHUB_ACTIONS', true);
 
-      project.write({
-        app: {
-          templates: {
-            'require-button-type.hbs': '<button>Klikk</button>',
+      it('errors if a todo item is no longer valid when running without params, and cleans using --fix', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
           },
-        },
-      });
+        });
 
-      // generate todo based on existing error
-      await run(['.', '--update-todo']);
-
-      // mimic fixing the error manually via user interaction
-      project.write({
-        app: {
-          templates: {
-            'require-button-type.hbs': '<button type="submit">Klikk</button>',
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button>Klikk</button>',
+            },
           },
-        },
+        });
+
+        // generate todo based on existing error
+        await run(['.', '--update-todo']);
+
+        // mimic fixing the error manually via user interaction
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button type="submit">Klikk</button>',
+            },
+          },
+        });
+
+        // run normally and expect an error for not running --fix
+        let result = await run(['.']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+"app/templates/require-button-type.hbs
+  -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+
+✖ 1 problems (1 errors, 0 warnings)
+  1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+`);
+
+        // run fix, and expect that this will delete the outstanding todo item
+        await run(['app/templates/require-button-type.hbs', '--fix']);
+
+        // run normally again and expect no error
+        result = await run(['.']);
+
+        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(todoDirs).toHaveLength(0);
       });
 
-      // run normally with --no-clean-todo and expect an error for not running --fix
-      let result = await run(['.', '--no-clean-todo']);
+      it('errors if a todo item is no longer valid when running without params, and cleans using --clean-todo', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
 
-      expect(result.exitCode).toEqual(1);
-      expect(result.stdout).toMatchInlineSnapshot(`
-        "app/templates/require-button-type.hbs
-          -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button>Klikk</button>',
+            },
+          },
+        });
 
-        ✖ 1 problems (1 errors, 0 warnings)
-          1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-      `);
+        // generate todo based on existing error
+        await run(['.', '--update-todo']);
 
-      // run fix, and expect that this will delete the outstanding todo item
-      await run(['app/templates/require-button-type.hbs', '--fix']);
+        // mimic fixing the error manually via user interaction
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button type="submit">Klikk</button>',
+            },
+          },
+        });
 
-      // run normally again and expect no error
-      result = await run(['.']);
+        // run normally and expect an error for not running --fix
+        let result = await run(['.']);
 
-      let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+"app/templates/require-button-type.hbs
+  -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
-      expect(result.exitCode).toEqual(0);
-      expect(result.stdout).toEqual('');
-      expect(todoDirs).toHaveLength(0);
+✖ 1 problems (1 errors, 0 warnings)
+  1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+`);
+
+        // run fix, and expect that this will delete the outstanding todo item
+        await run(['app/templates/require-button-type.hbs', '--clean-todo']);
+
+        // run normally again and expect no error
+        result = await run(['.']);
+
+        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(todoDirs).toHaveLength(0);
+      });
     });
 
-    it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans without --no-clean-todo', async function () {
-      project.setConfig({
-        rules: {
-          'require-button-type': true,
-        },
-      });
+    describe('cleaning todos not in CI', () => {
+      setupEnvVar('CI', null);
+      setupEnvVar('GITHUB_ACTIONS', null);
 
-      project.write({
-        app: {
-          templates: {
-            'require-button-type.hbs': '<button>Klikk</button>',
+      it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans using --fix', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
           },
-        },
-      });
+        });
 
-      // generate todo based on existing error
-      await run(['.', '--update-todo']);
-
-      // mimic fixing the error manually via user interaction
-      project.write({
-        app: {
-          templates: {
-            'require-button-type.hbs': '<button type="submit">Klikk</button>',
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button>Klikk</button>',
+            },
           },
-        },
+        });
+
+        // generate todo based on existing error
+        await run(['.', '--update-todo']);
+
+        // mimic fixing the error manually via user interaction
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button type="submit">Klikk</button>',
+            },
+          },
+        });
+
+        // run normally with --no-clean-todo and expect an error for not running --fix
+        let result = await run(['.', '--no-clean-todo']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/require-button-type.hbs
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+
+          ✖ 1 problems (1 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+        `);
+
+        // run fix, and expect that this will delete the outstanding todo item
+        await run(['app/templates/require-button-type.hbs', '--fix']);
+
+        // run normally again and expect no error
+        result = await run(['.']);
+
+        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(todoDirs).toHaveLength(0);
       });
 
-      // run normally with --no-clean-todo and expect an error for not running --fix
-      let result = await run(['.', '--no-clean-todo']);
+      it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans without --no-clean-todo', async function () {
+        project.setConfig({
+          rules: {
+            'require-button-type': true,
+          },
+        });
 
-      expect(result.exitCode).toEqual(1);
-      expect(result.stdout).toMatchInlineSnapshot(`
-        "app/templates/require-button-type.hbs
-          -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button>Klikk</button>',
+            },
+          },
+        });
 
-        ✖ 1 problems (1 errors, 0 warnings)
-          1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-      `);
+        // generate todo based on existing error
+        await run(['.', '--update-todo']);
 
-      // run fix, and expect that this will delete the outstanding todo item
-      await run(['app/templates/require-button-type.hbs']);
+        // mimic fixing the error manually via user interaction
+        project.write({
+          app: {
+            templates: {
+              'require-button-type.hbs': '<button type="submit">Klikk</button>',
+            },
+          },
+        });
 
-      // run normally again and expect no error
-      result = await run(['.']);
+        // run normally with --no-clean-todo and expect an error for not running --fix
+        let result = await run(['.', '--no-clean-todo']);
 
-      let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/require-button-type.hbs
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
-      expect(result.exitCode).toEqual(0);
-      expect(result.stdout).toEqual('');
-      expect(todoDirs).toHaveLength(0);
+          ✖ 1 problems (1 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+        `);
+
+        // run fix, and expect that this will delete the outstanding todo item
+        await run(['app/templates/require-button-type.hbs']);
+
+        // run normally again and expect no error
+        result = await run(['.']);
+
+        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toEqual('');
+        expect(todoDirs).toHaveLength(0);
+      });
     });
 
     it('outputs empty summary for no todos or errors', async function () {

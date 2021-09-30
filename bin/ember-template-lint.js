@@ -15,6 +15,7 @@ const {
   validateConfig,
 } = require('@ember-template-lint/todo-utils');
 const chalk = require('chalk');
+const ci = require('ci-info');
 const getStdin = require('get-stdin');
 const globby = require('globby');
 const isGlob = require('is-glob');
@@ -194,7 +195,7 @@ function parseArgv(_argv) {
       },
       'clean-todo': {
         describe: 'Remove expired and invalid todo files',
-        default: true,
+        default: !ci.isCI,
         boolean: true,
       },
       'todo-days-to-warn': {
