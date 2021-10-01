@@ -1,5 +1,33 @@
 
 
+
+## v3.8.0 (2021-10-01)
+
+#### :rocket: Enhancement
+* [#2115](https://github.com/ember-template-lint/ember-template-lint/pull/2115) Converting --clean-todo to a default, providing --no-clean-todo option ([@scalvert](https://github.com/scalvert))
+* [#2020](https://github.com/ember-template-lint/ember-template-lint/pull/2020) Add `--fix` support for `eol-last` rule ([@rwjblue](https://github.com/rwjblue))
+
+#### :bug: Bug Fix
+* [#2051](https://github.com/ember-template-lint/ember-template-lint/pull/2051) Bugfix: resolved issue with incorrect button type in form during template fix ([@lifeart](https://github.com/lifeart))
+* [#2088](https://github.com/ember-template-lint/ember-template-lint/pull/2088) Bugfix: fixes fuzzy messages arguments suggestion ([@lifeart](https://github.com/lifeart))
+* [#1863](https://github.com/ember-template-lint/ember-template-lint/pull/1863) Fix `undefined` error message for `no-link-to-positional-params` rule ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :memo: Documentation
+* [#2116](https://github.com/ember-template-lint/ember-template-lint/pull/2116) Slight tweak to explanation in `no-negated-condition` doc ([@bmish](https://github.com/bmish))
+* [#2104](https://github.com/ember-template-lint/ember-template-lint/pull/2104) Mention package.json keywords for plugin discoverability ([@bmish](https://github.com/bmish))
+* [#2099](https://github.com/ember-template-lint/ember-template-lint/pull/2099) Add ember/lint keywords to package.json ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2073](https://github.com/ember-template-lint/ember-template-lint/pull/2073) Ensures all log calls include `node` ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 5
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.7.0 (2021-09-07)
 
 #### :rocket: Enhancement
