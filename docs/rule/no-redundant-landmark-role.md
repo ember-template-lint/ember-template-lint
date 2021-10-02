@@ -1,6 +1,7 @@
 # no-redundant-landmark-role
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 If a landmark element is used, any role provided will either be redundant or incorrect.
