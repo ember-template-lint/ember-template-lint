@@ -63,9 +63,28 @@ generateRuleTests({
     '<input type="hidden"/>',
     '<Input type="hidden" />',
     '{{input type="hidden"}}',
+
+    {
+      config: { labelTags: ['CustomLabel'] },
+      template: '<CustomLabel><input /></CustomLabel>',
+    },
+    {
+      config: { labelTags: [/web-label/] },
+      template: '<web-label><input /></web-label>',
+    },
   ],
 
   bad: [
+    {
+      config: { labelTags: [/web-label/] },
+      template: '<my-label><input /></my-label>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 10,
+        source: '<input />',
+      },
+    },
     {
       template: '<div><input /></div>',
       result: {
