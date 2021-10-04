@@ -252,6 +252,7 @@ generateRuleTests({
           line: 1,
           column: 89,
           source: '@random',
+          isFixable: false,
         },
       ],
     },
