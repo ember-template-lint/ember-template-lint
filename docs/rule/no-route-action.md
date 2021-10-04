@@ -27,6 +27,7 @@ This rule **forbids** the following:
 ```
 
 With the given route:
+
 ```js
 // app/routes/foo.js
 export default class extends Route {
@@ -56,6 +57,7 @@ This rule **allows** the following:
 ```
 
 With the given controller:
+
 ```js
 // app/controllers/foo.js
 export default class extends Controller {
@@ -70,7 +72,7 @@ export default class extends Controller {
 
 The example below shows how to migrate from route-action to controller actions.
 
-**Before**
+### Before
 
 ```js
 // app/routes/posts.js
@@ -104,7 +106,7 @@ export default class extends Controller {
 <button {{action (route-action 'goToPage' 3)}}>3</button>
 ```
 
-**After**
+### After
 
 ```js
 // app/routes/posts.js

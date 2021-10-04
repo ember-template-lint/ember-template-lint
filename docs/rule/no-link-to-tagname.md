@@ -49,7 +49,6 @@ This rule **allows** the following:
 - [no-input-tagname](no-input-tagname.md)
 - [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
 
-
 ## References
 
 - [Ember guides/LinkTo component](https://guides.emberjs.com/release/routing/linking-between-routes/#toc_the-linkto--component)

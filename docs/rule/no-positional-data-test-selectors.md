@@ -6,7 +6,6 @@
 
 ## Motivation
 
-
 [ember-test-selectors](https://github.com/simplabs/ember-test-selectors) is a very popular library that enables better element selectors for testing.
 
 One of the features that had been added to ember-test-selectors over the years was to allow passing a positional argument to curly component invocations as a shorthand (to avoid having to also add a named argument value).
