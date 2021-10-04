@@ -56,7 +56,6 @@ This rule **allows** the following:
 <Input @type="checkbox" @checked={{true}} />
 ```
 
-
 ```hbs
 <Textarea @value="Hello, Tom!" /></Textarea>
 ```
@@ -68,7 +67,7 @@ This rule **allows** the following:
 
 ## Related Rules
 
-- [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
+* [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
 
 ## References
 

@@ -23,8 +23,10 @@
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "lint": "npm-run-all lint:* --continue-on-error",
-    "lint:docs": "markdownlint **/*.md",
+    "lint:docs": "markdownlint '**/*.md'",
+    "lint:docs:fix": "yarn lint:docs --fix",
     "lint:js": "eslint . --cache",
+    "lint:js:fix": "yarn lint:js --fix",
     "lint:package-json": "npmPkgJsonLint .",
     "lint:package-json-sorting": "sort-package-json --check",
     "lint:package-json-sorting:fix": "sort-package-json package.json",
