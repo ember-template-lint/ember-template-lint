@@ -1,6 +1,6 @@
 # no-multiple-empty-lines
 
-:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
 Some developers prefer to have multiple blank lines removed, while others feel
 that it helps improve readability. Whitespace is useful for separating logical

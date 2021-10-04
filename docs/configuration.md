@@ -16,7 +16,7 @@ module.exports = {
 };
 ```
 
-This extends from the builtin recommended configuration ([lib/config/recommended.js](lib/config/recommended.js)),
+This extends from the builtin recommended configuration ([lib/config/recommended.js](../lib/config/recommended.js)),
 and also enables the `no-bare-strings` rule (see [here](rule/no-bare-strings.md)).
 
 Using this mechanism allows you to extend from the builtin, and modify specific rules as needed.
@@ -40,9 +40,9 @@ The following properties are allowed in the root of the `.template-lintrc.js` co
 | ----------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- | --- |
 | `rules`     | `Object`               | This is an object containing rule specific configuration (see details for each rule below).                                                                              |     |     |
 | `extends`   | `string`\|`string[]`   | Either a string or an array of strings. Each string allows you to specify an internally curated list of rules (we suggest `recommended` here).                           |     |     |
-| `ignore`    | `string[]`\|`glob[]`   | An array of module id's that are to be completely ignored. See [ignore documentation](docs/ignore.md) for more details.                                                  |     |     |
-| `plugins`   | `string[]`\|`object[]` | An array of plugin objects or strings that resolve to files that export plugin objects. See [plugin documentation](docs/plugins.md) for more details.                    |     |     |
-| `overrides` | `Array`                | An array of overrides that would allow overriding of specific rules for user specified files/folders. See [overrides documentation](docs/overrides.md) for more details. |     |     |
+| `ignore`    | `string[]`\|`glob[]`   | An array of module id's that are to be completely ignored. See [ignore documentation](ignore.md) for more details.                                                  |     |     |
+| `plugins`   | `string[]`\|`object[]` | An array of plugin objects or strings that resolve to files that export plugin objects. See [plugin documentation](plugins.md) for more details.                    |     |     |
+| `overrides` | `Array`                | An array of overrides that would allow overriding of specific rules for user specified files/folders. See [overrides documentation](overrides.md) for more details. |     |     |
 
 ## Severity Levels
 

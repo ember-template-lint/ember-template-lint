@@ -13,6 +13,7 @@ generateRuleTests({
 
   good: [
     '<label>LabelText<input /></label>',
+    '<label>LabelText<input id="foo" /></label>',
     '<label><input />LabelText</label>',
     '<label>LabelText<Input /></label>',
     '<label><Input />LabelText</label>',
@@ -24,7 +25,9 @@ generateRuleTests({
     '<input ...attributes/>', // we are unable to correctly determine if this has a label or not, so we have to allow it
     '<Input ...attributes />',
     '<Input id="foo" />',
+    '<label>text<Input id="foo" /></label>',
     '{{input id="foo"}}',
+    '<label>text{{input id="foo"}}</label>',
     '<label>Text here<Input /></label>',
     '<label>Text here {{input}}</label>',
     '<input id="label-input" ...attributes>',

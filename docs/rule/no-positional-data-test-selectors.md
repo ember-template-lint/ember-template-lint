@@ -1,8 +1,11 @@
 # no-positional-data-test-selectors
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 ## Motivation
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
 
 [ember-test-selectors](https://github.com/simplabs/ember-test-selectors) is a very popular library that enables better element selectors for testing.
 
@@ -35,8 +38,6 @@ And suggests using the following instead:
 {{#foo-bar data-test-blah=true}}
 {{/foo-bar}}
 ```
-
-:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 ## References
 

@@ -32,6 +32,7 @@ generateRuleTests({
         message: 'Template length of 3 is smaller than 10',
         line: 1,
         column: 0,
+        source: 'testing\ntoo-short template\n',
       },
     },
     {
@@ -42,6 +43,7 @@ generateRuleTests({
         message: 'Template length of 5 exceeds 3',
         line: 1,
         column: 0,
+        source: 'test\nthis\nand\nthis\n',
       },
     },
   ],

@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const Rule = require('../../lib/rules/base');
+const Rule = require('../../lib/rules/_base');
 const generateRuleTests = require('../helpers/rule-test-harness');
 
 function verifyWithExternalSnapshot(results) {
@@ -22,9 +22,7 @@ describe('rule public api', function () {
                   ElementNode(node) {
                     this.log({
                       message: 'Do not use any HTML elements!',
-                      line: node.loc && node.loc.start.line,
-                      column: node.loc && node.loc.start.column,
-                      source: this.sourceForNode(node),
+                      node,
                     });
                   },
                 };
@@ -109,9 +107,7 @@ describe('rule public api', function () {
                   ElementNode(node) {
                     this.log({
                       message: 'Do not use any <promise> HTML elements!',
-                      line: node.loc && node.loc.start.line,
-                      column: node.loc && node.loc.start.column,
-                      source: this.sourceForNode(node),
+                      node,
                     });
                   },
                 };
@@ -163,9 +159,7 @@ describe('rule public api', function () {
                       this.log({
                         isFixable: true,
                         message: 'Do not use MySpecialThing',
-                        line: node.loc && node.loc.start.line,
-                        column: node.loc && node.loc.start.column,
-                        source: this.sourceForNode(node),
+                        node,
                       });
                     }
                   },
@@ -219,9 +213,7 @@ describe('rule public api', function () {
                     if (node.tag === 'MySpecialThingExplicit') {
                       this.log({
                         message: 'Do not use MySpecialThingExplicit',
-                        line: node.loc && node.loc.start.line,
-                        column: node.loc && node.loc.start.column,
-                        source: this.sourceForNode(node),
+                        node,
                       });
                     }
 
@@ -303,9 +295,7 @@ describe('rule public api', function () {
 
                     this.log({
                       message: 'Do not use any HTML elements!',
-                      line: node.loc && node.loc.start.line,
-                      column: node.loc && node.loc.start.column,
-                      source: this.sourceForNode(node),
+                      node,
                     });
                   },
                 };

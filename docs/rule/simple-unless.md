@@ -1,6 +1,6 @@
 # simple-unless
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 This rule strongly advises against `{{unless}}` blocks in the following situations:
 

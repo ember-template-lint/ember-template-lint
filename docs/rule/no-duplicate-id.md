@@ -1,6 +1,6 @@
 # no-duplicate-id
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Valid HTML requires that `id` attribute values are unique.
 
@@ -22,6 +22,17 @@ This rule **allows** the following:
 
 ```hbs
 <div id="concat-{{this.divId}}"></div>
+```
+
+```hbs
+<MyComponent as |inputProperties|>
+  <Input id={{inputProperties.id}} />
+  <div id={{inputProperties.abc}} />
+</MyComponent>
+
+<MyComponent as |inputProperties|>
+  <Input id={{inputProperties.id}} />
+</MyComponent>
 ```
 
 ## Migration

@@ -2,7 +2,7 @@
 
 Linting is a fundamental tool to help ensure the quality of a codebase. Ensuring there are as few linting errors as possible (ideally 0), is a useful measure of a baseline of code hygiene.
 
-It's common to leverage linting not just for syntax adherence, but also to direct developers to employ standardized patterns. As such, it's a fairly routine activity to introduce new lint rules into a codebase. This introduction, while necessary, can cause unintended friction, such as:
+It's common to leverage linting not only for syntax adherence, but also to direct developers to employ standardized patterns. As such, it's a fairly routine activity to introduce new lint rules into a codebase. This introduction, while necessary, can cause unintended friction, such as:
 
 - new lint errors being introduced where they previously didn't exist
 - causing unintended delays to shipping new fixes and features
@@ -12,7 +12,7 @@ Having the ability to identify violations as `todo`s allows for this incremental
 
 ## Usage
 
-todos are stored in a `.lint-todo` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
+todos are stored in a `.lint-todo/` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
 
 To convert errors to todos, you can use the `--update-todo` option. This will convert all active errors to todos, hiding them from the linting output.
 
@@ -26,10 +26,16 @@ If you want to see todos as part of `ember-template-lint`'s output, you can incl
 ember-template-lint . --include-todo
 ```
 
-If an error is fixed manually, `ember-template-lint` will let you know that there's an outstanding todo file. You can remove this file by running `--fix`
+If an error is fixed manually, `ember-template-lint` will let you know that there's a stale todo file. You'll see this error:
 
 ```bash
-ember-template-lint . --fix
+error  Todo violation passes no-vague-rules rule. Please run `ember-template-lint /path/to/file.hbs --clean-todo` to remove this todo from the todo list.
+```
+
+You can fix this error/remove the stale todo file by running `--clean-todo`
+
+```bash
+ember-template-lint . --clean-todo
 ```
 
 ### Configuring Due Dates
@@ -40,17 +46,32 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 
 :bulb: Both `warn` and `error` are optional. The value for `warn` should be lower than the value of `error`.
 
-1. Via package.json configuration
+1. Via `package.json`
 
    ```json
    {
      "lintTodo": {
-       "decayDays": {
-         "warn": 5,
-         "error": 10
+       "ember-template-lint": {
+         "daysToDecay": {
+           "warn": 5,
+           "error": 10
+         }
        }
      }
    }
+   ```
+
+1. Via `.lint-todorc.js`
+
+   ```js
+   module.exports = {
+     'ember-template-lint': {
+       daysToDecay: {
+         warn: 5,
+         error: 10,
+       },
+     },
+   };
    ```
 
 1. Via environment variables
@@ -68,16 +89,18 @@ Due dates can be configured in multiple ways, but all specify integers for `warn
 In order of precedence:
 
 - command line options override both environment variables and package.json configuration values
-- environment variables override package.json configuration values
+- environment variables override package.json/.lint-todorc.js configuration values
 
 If no values are provided in one of the options that have higher precedence, the value from the next level of precedence will act as the default. For example, if you've specified the following values in the package.json configuration...
 
 ```json
 {
   "lintTodo": {
-    "decayDays": {
-      "warn": 5,
-      "error": 10
+    "ember-template-lint": {
+      "daysToDecay": {
+        "warn": 5,
+        "error": 10
+      }
     }
   }
 }
@@ -91,6 +114,50 @@ ember-template-lint . --update-todo --todo-days-to-warn=2
 
 ...the todos will be created with a `warn` date 2 days from the created date, and an `error` date 10 days from the created date.
 
+### Configuring Due Dates for Individual Rules
+
+Due dates can be configured on a per-rule basis with the `daysToDecayByRule` option. See examples below.
+
+1. Via `package.json`
+
+   ```json
+   {
+     "lintTodo": {
+       "ember-template-lint": {
+         "daysToDecay": {
+           "warn": 5,
+           "error": 10
+         },
+         "daysToDecayByRule": {
+           "no-implicit-this": {
+             "warn": 10,
+             "error": 20
+           }
+         }
+       }
+     }
+   }
+   ```
+
+1. Via `.lint-todorc.js`
+
+   ```js
+   module.exports = {
+     'ember-template-lint': {
+       daysToDecay: {
+         warn: 5,
+         error: 10,
+       },
+       daysToDecayByRule: {
+         'no-implicit-this': {
+           warn: 10,
+           error: 20,
+         },
+       },
+     },
+   };
+   ```
+
 ### Disabling Due Dates
 
 If you don't want to use the due dates feature, keeping your todos indefinitely, you can disable them by adding the following config to your `package.json`:
@@ -98,7 +165,9 @@ If you don't want to use the due dates feature, keeping your todos indefinitely,
 ```json
 {
   "lintTodo": {
-    "daysToDecay": null
+    "ember-template-lint": {
+      "daysToDecay": null
+    }
   }
 }
 ```

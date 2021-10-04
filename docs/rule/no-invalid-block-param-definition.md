@@ -1,6 +1,6 @@
 # no-invalid-block-param-definition
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 There are a few common failure scenarios when using angle bracket components that use block parameters. This rule attempts to identify these pitfalls.
 

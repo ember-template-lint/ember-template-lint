@@ -85,5 +85,9 @@ generateRuleTests({
         isFixable: true,
       },
     },
+    {
+      template: '<form><button></button></form>',
+      fixedTemplate: '<form><button type="submit"></button></form>',
+    },
   ],
 });

@@ -1,6 +1,6 @@
 # no-duplicate-landmark-elements
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 If multiple landmark elements of the same type are found on a page, they must each have a unique label (provided by aria-label or aria-labelledby).
 
