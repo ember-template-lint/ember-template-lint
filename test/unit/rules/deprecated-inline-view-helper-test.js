@@ -26,6 +26,9 @@ generateRuleTests({
     '{{has-block "view"}}',
     '{{yield to="view"}}',
     '{{#if (has-block "view")}}{{yield to="view"}}{{/if}}',
+    '{{this.view}}',
+    '{{@view}}',
+    '{{#let this.prop as |view|}} {{view}} {{/let}}',
   ],
 
   bad: [
