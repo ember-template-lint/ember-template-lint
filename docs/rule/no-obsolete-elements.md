@@ -1,6 +1,6 @@
 # no-obsolete-elements
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Some elements are entirely obsolete and must not be used by authors.
 

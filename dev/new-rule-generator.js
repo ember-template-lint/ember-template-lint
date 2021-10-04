@@ -45,21 +45,6 @@ module.exports = class NewRuleGenerator extends Generator {
       this.destinationPath(`docs/rule/${this.options.ruleId}.md`),
       this.options
     );
-
-    this.updateRulesIndex(this.options);
-  }
-
-  updateRulesIndex() {
-    let rulesIndexPath = this.destinationPath('lib/rules/index.js');
-    // eslint-disable-next-line import/no-dynamic-require
-    let rules = Object.keys(require(rulesIndexPath));
-
-    rules.push(this.options.ruleId);
-    rules.sort();
-
-    this.options.rules = rules;
-
-    this.fs.copyTpl(this.templatePath('rules-index.ejs'), rulesIndexPath, this.options);
   }
 };
 

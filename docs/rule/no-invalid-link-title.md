@@ -1,6 +1,6 @@
 # no-invalid-link-title
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 The `title` attribute is a useful way to give users extra context for a link. However, this content should be complementary content and should not be the exact same value as the link text.
 

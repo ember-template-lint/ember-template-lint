@@ -97,17 +97,17 @@ module.exports = class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
-  setPackageJsonTodoConfig(engine, daysToDecay, daysToDecayByRule) {
+  setPackageJsonTodoConfig(daysToDecay, daysToDecayByRule) {
     const todoConfig = {
       lintTodo: {
-        [engine]: {
+        'ember-template-lint': {
           daysToDecay,
         },
       },
     };
 
     if (daysToDecayByRule) {
-      todoConfig.lintTodo[engine].daysToDecayByRule = daysToDecayByRule;
+      todoConfig.lintTodo['ember-template-lint'].daysToDecayByRule = daysToDecayByRule;
     }
 
     this.pkg = Object.assign({}, this.pkg, todoConfig);
@@ -115,15 +115,15 @@ module.exports = class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
-  setLintTodorc(engine, daysToDecay, daysToDecayByRule) {
+  setLintTodorc(daysToDecay, daysToDecayByRule) {
     const todoConfig = {
-      [engine]: {
+      'ember-template-lint': {
         daysToDecay,
       },
     };
 
     if (daysToDecayByRule) {
-      todoConfig[engine].daysToDecayByRule = daysToDecayByRule;
+      todoConfig['ember-template-lint'].daysToDecayByRule = daysToDecayByRule;
     }
 
     this.write({

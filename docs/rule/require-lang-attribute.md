@@ -1,6 +1,6 @@
 # require-lang-attribute
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 A missing `lang` attribute can cause an application to fail legal conformance for digital accessibility requirements.
 

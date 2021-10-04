@@ -52,7 +52,8 @@ generateRuleTests({
     {
       template: '<LinkTo @route="foo" @madel={{this.content}} />',
       result: {
-        message: '"@madel" is unknown argument for <LinkTo /> component. Did you mean "@model"?',
+        message:
+          '"@madel" is not a known argument for the <LinkTo /> component. Did you mean "@model"?',
         line: 1,
         column: 21,
         source: '@madel',
@@ -207,6 +208,22 @@ generateRuleTests({
           line: 1,
           column: 21,
           source: '@key-up',
+        },
+      ],
+    },
+
+    // LinkTo unknown argument
+
+    {
+      template:
+        ' <LinkTo class="auk-search-results-list__item" @route={{@route}} @models={{this.models}} @random="test" @query={{@query}} ...attributes >Hello</LinkTo>',
+      results: [
+        {
+          message:
+            '"@random" is not a known argument for the <LinkTo /> component. Did you mean "@dragOver"?',
+          line: 1,
+          column: 89,
+          source: '@random',
         },
       ],
     },

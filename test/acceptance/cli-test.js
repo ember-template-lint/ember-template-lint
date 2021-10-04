@@ -26,60 +26,65 @@ describe('ember-template-lint executable', function () {
   });
 
   describe('basic usage', function () {
+    setupEnvVar('CI', null);
+    setupEnvVar('GITHUB_ACTIONS', null);
+
     describe('without any parameters', function () {
       it('should emit help text', async function () {
         let result = await run([]);
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`
-          "ember-template-lint [options] [files..]
+"ember-template-lint [options] [files..]
 
-          Options:
-            --config-path               Define a custom config path
-                                                 [string] [default: \\".template-lintrc.js\\"]
-            --config                    Define a custom configuration to be used - (e.g.
-                                        '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
-                                                                                  [string]
-            --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
-                                                                                  [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
-            --fix                       Fix any errors that are reported as fixable
-                                                                [boolean] [default: false]
-            --format                    Specify format to be used in printing output
-                                                              [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
-            --output-file               Specify file to write report to           [string]
-            --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
-                                                                   [string] [default: \\".\\"]
-            --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
-            --update-todo               Update list of linting todos by transforming lint
-                                        errors to todos         [boolean] [default: false]
-            --include-todo              Include todos in the results
-                                                                [boolean] [default: false]
-            --clean-todo                Remove expired and invalid todo files
-                                                                [boolean] [default: false]
-            --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
-            --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
-            --max-warnings              Number of warnings to trigger nonzero exit code
-                                                                                  [number]
-            --help                      Show help                                [boolean]
-            --version                   Show version number                      [boolean]"
-        `);
+Options:
+  --config-path               Define a custom config path
+                                       [string] [default: \\".template-lintrc.js\\"]
+  --config                    Define a custom configuration to be used - (e.g.
+                              '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
+                                                                        [string]
+  --quiet                     Ignore warnings and only show errors     [boolean]
+  --rule                      Specify a rule and its severity to add that rule
+                              to loaded rules - (e.g. \`no-implicit-this:error\`
+                              or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+                                                                        [string]
+  --filename                  Used to indicate the filename to be assumed for
+                              contents from STDIN                       [string]
+  --fix                       Fix any errors that are reported as fixable
+                                                      [boolean] [default: false]
+  --format                    Specify format to be used in printing output
+                                                    [string] [default: \\"pretty\\"]
+  --json                      Format output as json
+                               [deprecated: Use --format=json instead] [boolean]
+  --output-file               Specify file to write report to           [string]
+  --verbose                   Output errors with source description    [boolean]
+  --working-directory, --cwd  Path to a directory that should be considered as
+                              the current working directory.
+                                                         [string] [default: \\".\\"]
+  --no-config-path            Does not use the local template-lintrc, will use a
+                              blank template-lintrc instead            [boolean]
+  --update-todo               Update list of linting todos by transforming lint
+                              errors to todos         [boolean] [default: false]
+  --include-todo              Include todos in the results
+                                                      [boolean] [default: false]
+  --clean-todo                Remove expired and invalid todo files
+                                                       [boolean] [default: true]
+  --todo-days-to-warn         Number of days after its creation date that a todo
+                              transitions into a warning                [number]
+  --todo-days-to-error        Number of days after its creation date that a todo
+                              transitions into an error                 [number]
+  --ignore-pattern            Specify custom ignore pattern (can be disabled
+                              with --no-ignore-pattern)
+              [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+  --no-inline-config          Prevent inline configuration comments from
+                              changing config or rules                 [boolean]
+  --print-config              Print the configuration for the given file
+                                                      [boolean] [default: false]
+  --max-warnings              Number of warnings to trigger nonzero exit code
+                                                                        [number]
+  --help                      Show help                                [boolean]
+  --version                   Show version number                      [boolean]"
+`);
       });
     });
 
@@ -89,54 +94,56 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "ember-template-lint [options] [files..]
+"ember-template-lint [options] [files..]
 
-          Options:
-            --config-path               Define a custom config path
-                                                 [string] [default: \\".template-lintrc.js\\"]
-            --config                    Define a custom configuration to be used - (e.g.
-                                        '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
-                                                                                  [string]
-            --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
-                                                                                  [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
-            --fix                       Fix any errors that are reported as fixable
-                                                                [boolean] [default: false]
-            --format                    Specify format to be used in printing output
-                                                              [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
-            --output-file               Specify file to write report to           [string]
-            --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
-                                                                   [string] [default: \\".\\"]
-            --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
-            --update-todo               Update list of linting todos by transforming lint
-                                        errors to todos         [boolean] [default: false]
-            --include-todo              Include todos in the results
-                                                                [boolean] [default: false]
-            --clean-todo                Remove expired and invalid todo files
-                                                                [boolean] [default: false]
-            --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
-            --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
-            --max-warnings              Number of warnings to trigger nonzero exit code
-                                                                                  [number]
-            --help                      Show help                                [boolean]
-            --version                   Show version number                      [boolean]"
-        `);
+Options:
+  --config-path               Define a custom config path
+                                       [string] [default: \\".template-lintrc.js\\"]
+  --config                    Define a custom configuration to be used - (e.g.
+                              '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
+                                                                        [string]
+  --quiet                     Ignore warnings and only show errors     [boolean]
+  --rule                      Specify a rule and its severity to add that rule
+                              to loaded rules - (e.g. \`no-implicit-this:error\`
+                              or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+                                                                        [string]
+  --filename                  Used to indicate the filename to be assumed for
+                              contents from STDIN                       [string]
+  --fix                       Fix any errors that are reported as fixable
+                                                      [boolean] [default: false]
+  --format                    Specify format to be used in printing output
+                                                    [string] [default: \\"pretty\\"]
+  --json                      Format output as json
+                               [deprecated: Use --format=json instead] [boolean]
+  --output-file               Specify file to write report to           [string]
+  --verbose                   Output errors with source description    [boolean]
+  --working-directory, --cwd  Path to a directory that should be considered as
+                              the current working directory.
+                                                         [string] [default: \\".\\"]
+  --no-config-path            Does not use the local template-lintrc, will use a
+                              blank template-lintrc instead            [boolean]
+  --update-todo               Update list of linting todos by transforming lint
+                              errors to todos         [boolean] [default: false]
+  --include-todo              Include todos in the results
+                                                      [boolean] [default: false]
+  --clean-todo                Remove expired and invalid todo files
+                                                       [boolean] [default: true]
+  --todo-days-to-warn         Number of days after its creation date that a todo
+                              transitions into a warning                [number]
+  --todo-days-to-error        Number of days after its creation date that a todo
+                              transitions into an error                 [number]
+  --ignore-pattern            Specify custom ignore pattern (can be disabled
+                              with --no-ignore-pattern)
+              [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+  --no-inline-config          Prevent inline configuration comments from
+                              changing config or rules                 [boolean]
+  --print-config              Print the configuration for the given file
+                                                      [boolean] [default: false]
+  --max-warnings              Number of warnings to trigger nonzero exit code
+                                                                        [number]
+  --help                      Show help                                [boolean]
+  --version                   Show version number                      [boolean]"
+`);
       });
     });
   });
@@ -375,6 +382,9 @@ describe('ember-template-lint executable', function () {
 
   describe('reading from stdin', function () {
     describe('given no path', function () {
+      setupEnvVar('CI', null);
+      setupEnvVar('GITHUB_ACTIONS', null);
+
       it('should print errors', async function () {
         project.setConfig({
           rules: {
@@ -400,54 +410,56 @@ describe('ember-template-lint executable', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeFalsy();
         expect(result.stderr).toMatchInlineSnapshot(`
-          "ember-template-lint [options] [files..]
+"ember-template-lint [options] [files..]
 
-          Options:
-            --config-path               Define a custom config path
-                                                 [string] [default: \\".template-lintrc.js\\"]
-            --config                    Define a custom configuration to be used - (e.g.
-                                        '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
-                                                                                  [string]
-            --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
-                                                                                  [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
-            --fix                       Fix any errors that are reported as fixable
-                                                                [boolean] [default: false]
-            --format                    Specify format to be used in printing output
-                                                              [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
-            --output-file               Specify file to write report to           [string]
-            --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
-                                                                   [string] [default: \\".\\"]
-            --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
-            --update-todo               Update list of linting todos by transforming lint
-                                        errors to todos         [boolean] [default: false]
-            --include-todo              Include todos in the results
-                                                                [boolean] [default: false]
-            --clean-todo                Remove expired and invalid todo files
-                                                                [boolean] [default: false]
-            --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
-            --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
-            --max-warnings              Number of warnings to trigger nonzero exit code
-                                                                                  [number]
-            --help                      Show help                                [boolean]
-            --version                   Show version number                      [boolean]"
-        `);
+Options:
+  --config-path               Define a custom config path
+                                       [string] [default: \\".template-lintrc.js\\"]
+  --config                    Define a custom configuration to be used - (e.g.
+                              '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
+                                                                        [string]
+  --quiet                     Ignore warnings and only show errors     [boolean]
+  --rule                      Specify a rule and its severity to add that rule
+                              to loaded rules - (e.g. \`no-implicit-this:error\`
+                              or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+                                                                        [string]
+  --filename                  Used to indicate the filename to be assumed for
+                              contents from STDIN                       [string]
+  --fix                       Fix any errors that are reported as fixable
+                                                      [boolean] [default: false]
+  --format                    Specify format to be used in printing output
+                                                    [string] [default: \\"pretty\\"]
+  --json                      Format output as json
+                               [deprecated: Use --format=json instead] [boolean]
+  --output-file               Specify file to write report to           [string]
+  --verbose                   Output errors with source description    [boolean]
+  --working-directory, --cwd  Path to a directory that should be considered as
+                              the current working directory.
+                                                         [string] [default: \\".\\"]
+  --no-config-path            Does not use the local template-lintrc, will use a
+                              blank template-lintrc instead            [boolean]
+  --update-todo               Update list of linting todos by transforming lint
+                              errors to todos         [boolean] [default: false]
+  --include-todo              Include todos in the results
+                                                      [boolean] [default: false]
+  --clean-todo                Remove expired and invalid todo files
+                                                       [boolean] [default: true]
+  --todo-days-to-warn         Number of days after its creation date that a todo
+                              transitions into a warning                [number]
+  --todo-days-to-error        Number of days after its creation date that a todo
+                              transitions into an error                 [number]
+  --ignore-pattern            Specify custom ignore pattern (can be disabled
+                              with --no-ignore-pattern)
+              [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+  --no-inline-config          Prevent inline configuration comments from
+                              changing config or rules                 [boolean]
+  --print-config              Print the configuration for the given file
+                                                      [boolean] [default: false]
+  --max-warnings              Number of warnings to trigger nonzero exit code
+                                                                        [number]
+  --help                      Show help                                [boolean]
+  --version                   Show version number                      [boolean]"
+`);
       });
     });
 
@@ -1513,6 +1525,72 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot('""');
+      });
+    });
+
+    describe('with --print-config option', function () {
+      it('should error if more than one file passed to --print-config', async function () {
+        project.write({
+          app: {
+            templates: {
+              components: {
+                'foo.hbs': '{{fooData}}',
+                'bar.hbs': '{{barData}}',
+              },
+            },
+          },
+        });
+
+        let result = await run([
+          'app/templates/components/foo.hbs',
+          'app/templates/components/bar.hbs',
+          '--print-config',
+        ]);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot(
+          `"The --print-config option must be used with exactly one file name."`
+        );
+      });
+
+      it('should print config for file', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': 'warn',
+            'no-html-comments': 'error',
+          },
+        });
+        project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+            },
+          },
+        });
+
+        let result = await run(['app/templates/application.hbs', '--print-config']);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toMatchInlineSnapshot(`
+"{
+  \\"rules\\": {
+    \\"no-bare-strings\\": {
+      \\"config\\": true,
+      \\"severity\\": 1
+    },
+    \\"no-html-comments\\": {
+      \\"config\\": true,
+      \\"severity\\": 2
+    }
+  },
+  \\"pending\\": [],
+  \\"overrides\\": [],
+  \\"ignore\\": [],
+  \\"plugins\\": {},
+  \\"loadedRules\\": {}
+}"
+`);
       });
     });
 

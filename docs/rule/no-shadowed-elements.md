@@ -1,6 +1,6 @@
 # no-shadowed-elements
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 This rule prevents ambiguity in situations where a yielded block param which starts with a lower case letter is also
 used within the block itself as an element name.

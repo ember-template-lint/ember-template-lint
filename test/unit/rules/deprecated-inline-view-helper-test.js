@@ -23,6 +23,9 @@ generateRuleTests({
     '{{42}}',
     '{{null}}',
     '{{undefined}}',
+    '{{has-block "view"}}',
+    '{{yield to="view"}}',
+    '{{#if (has-block "view")}}{{yield to="view"}}{{/if}}',
   ],
 
   bad: [
