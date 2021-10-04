@@ -49,6 +49,7 @@
   "dependencies": {
     "@ember-template-lint/todo-utils": "^10.0.0",
     "@lifeart/ember-extract-inline-templates": "^2.0.0",
+    "@babel/parser": "^7.15.7",
     "chalk": "^4.1.2",
     "ci-info": "^3.2.0",
     "date-fns": "^2.24.0",
@@ -65,7 +66,6 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@babel/parser": "^7.15.7",
     "@babel/traverse": "^7.15.4",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
     "common-tags": "^1.8.0",
