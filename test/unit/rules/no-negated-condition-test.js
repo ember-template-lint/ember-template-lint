@@ -100,74 +100,86 @@ generateRuleTests({
     // if ...
     {
       template: '{{#if (not condition)}}<img>{{/if}}',
+      fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
         source: '{{#if (not condition)}}<img>{{/if}}',
         line: 1,
         column: 0,
+        isFixable: true,
       },
     },
 
     // if ... else ...
     {
-      template: '{{#if (not condition)}}<img>{{else}}<img>{{/if}}',
+      template: '{{#if (not condition)}}<img>{{else}}<input>{{/if}}',
+      fixedTemplate: '{{#if condition}}<input>{{else}}<img>{{/if}}',
 
       result: {
         message: ERROR_MESSAGE_FLIP_IF,
-        source: '{{#if (not condition)}}<img>{{else}}<img>{{/if}}',
+        source: '{{#if (not condition)}}<img>{{else}}<input>{{/if}}',
         line: 1,
         column: 0,
+        isFixable: true,
       },
     },
 
     // unless ...
     {
       template: '{{#unless (not condition)}}<img>{{/unless}}',
+      fixedTemplate: '{{#if condition}}<img>{{/if}}',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
         source: '{{#unless (not condition)}}<img>{{/unless}}',
         line: 1,
         column: 0,
+        isFixable: true,
       },
     },
 
     // unless ... else ...
     {
-      template: '{{#unless (not condition)}}<img>{{else}}<img>{{/unless}}',
+      template: '{{#unless (not condition)}}<img>{{else}}<input>{{/unless}}',
+      fixedTemplate: '{{#if condition}}<img>{{else}}<input>{{/if}}',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        source: '{{#unless (not condition)}}<img>{{else}}<img>{{/unless}}',
+        source: '{{#unless (not condition)}}<img>{{else}}<input>{{/unless}}',
         line: 1,
         column: 0,
+        isFixable: true,
       },
     },
 
     // unless ... else if ...
     {
-      template: '{{#unless (not condition)}}<img>{{else if (not condition)}}<img>{{/unless}}',
+      template: '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}',
+      fixedTemplate: '{{#if condition}}<img>{{else if (not condition)}}<input>{{/if}}',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
-        source: '{{#unless (not condition)}}<img>{{else if (not condition)}}<img>{{/unless}}',
+        source: '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}',
         line: 1,
         column: 0,
+        isFixable: true,
       },
     },
 
     // unless ... else if ... else ...
     {
       template:
-        '{{#unless (not condition)}}<img>{{else if (not condition)}}<img>{{else}}<img>{{/unless}}',
+        '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/unless}}',
+      fixedTemplate: '{{#if condition}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/if}}',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
         source:
-          '{{#unless (not condition)}}<img>{{else if (not condition)}}<img>{{else}}<img>{{/unless}}',
+          '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/unless}}',
         line: 1,
         column: 0,
+        isFixable: true,
       },
     },
 
@@ -175,24 +187,29 @@ generateRuleTests({
     {
       template:
         '{{#if condition}}{{else}}{{! some comment }}{{#if (not condition)}}<img>{{/if}}{{/if}}',
+      fixedTemplate:
+        '{{#if condition}}{{else}}{{! some comment }}{{#unless condition}}<img>{{/unless}}{{/if}}',
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
         source: '{{#if (not condition)}}<img>{{/if}}',
         line: 1,
         column: 44,
+        isFixable: true,
       },
     },
 
     // Nested inside the body of an `else` block (without preceding comment):
     {
       template: '{{#if condition}}{{else}}{{#if (not condition)}}<img>{{/if}}{{/if}}',
+      fixedTemplate: '{{#if condition}}{{else}}{{#unless condition}}<img>{{/unless}}{{/if}}',
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
         source: '{{#if (not condition)}}<img>{{/if}}',
         line: 1,
         column: 25,
+        isFixable: true,
       },
     },
 
@@ -203,48 +220,56 @@ generateRuleTests({
     // if ...
     {
       template: '<img class={{if (not condition) "some-class"}}>',
+      fixedTemplate: '<img class={{unless condition "some-class"}}>',
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
         source: '{{if (not condition) "some-class"}}',
         line: 1,
         column: 11,
+        isFixable: true,
       },
     },
 
     // if ... else ...
     {
       template: '<img class={{if (not condition) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{if condition "other-class" "some-class"}}>',
 
       result: {
         message: ERROR_MESSAGE_FLIP_IF,
         source: '{{if (not condition) "some-class" "other-class"}}',
         line: 1,
         column: 11,
+        isFixable: true,
       },
     },
 
     // unless ...
     {
       template: '<img class={{unless (not condition) "some-class"}}>',
+      fixedTemplate: '<img class={{if condition "some-class"}}>',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
         source: '{{unless (not condition) "some-class"}}',
         line: 1,
         column: 11,
+        isFixable: true,
       },
     },
 
     // unless ... else ...
     {
       template: '<img class={{unless (not condition) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{if condition "some-class" "other-class"}}>',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
         source: '{{unless (not condition) "some-class" "other-class"}}',
         line: 1,
         column: 11,
+        isFixable: true,
       },
     },
 
@@ -255,48 +280,56 @@ generateRuleTests({
     // if ...
     {
       template: '{{input class=(if (not condition) "some-class")}}',
+      fixedTemplate: '{{input class=(unless condition "some-class")}}',
 
       result: {
         message: ERROR_MESSAGE_USE_UNLESS,
         source: '(if (not condition) "some-class")',
         line: 1,
         column: 14,
+        isFixable: true,
       },
     },
 
     // if ... else ...
     {
       template: '{{input class=(if (not condition) "some-class" "other-class")}}',
+      fixedTemplate: '{{input class=(if condition "other-class" "some-class")}}',
 
       result: {
         message: ERROR_MESSAGE_FLIP_IF,
         source: '(if (not condition) "some-class" "other-class")',
         line: 1,
         column: 14,
+        isFixable: true,
       },
     },
 
     // unless ...
     {
       template: '{{input class=(unless (not condition) "some-class")}}',
+      fixedTemplate: '{{input class=(if condition "some-class")}}',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
         source: '(unless (not condition) "some-class")',
         line: 1,
         column: 14,
+        isFixable: true,
       },
     },
 
     // unless ... else ...
     {
       template: '{{input class=(unless (not condition) "some-class" "other-class")}}',
+      fixedTemplate: '{{input class=(if condition "some-class" "other-class")}}',
 
       result: {
         message: ERROR_MESSAGE_USE_IF,
         source: '(unless (not condition) "some-class" "other-class")',
         line: 1,
         column: 14,
+        isFixable: true,
       },
     },
   ],
