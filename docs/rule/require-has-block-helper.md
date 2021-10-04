@@ -2,6 +2,8 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 In Ember 3.26 the properties `hasBlock` and `hasBlockParams` were deprecated. Their replacement is to use `has-block` and `has-block-params` helpers instead.
 
 This rule prevents the usage of `hasBlock` and `hasBlockParams` and suggests using `has-block` or `has-block-params` instead.
@@ -43,8 +45,6 @@ This rule **allows** the following:
 ```
 
 ## Migration
-
-🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 - `{{hasBlock}}`-> `{{has-block}}
 - `{{hasBlockParams}}`-> `{{has-block-params}}

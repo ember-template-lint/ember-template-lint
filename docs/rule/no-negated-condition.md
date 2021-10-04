@@ -2,7 +2,9 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
-It can be hard to reason about negated conditions:
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
+Negated conditions can be hard to reason about and require additional nesting/parenthesis around the condition:
 
 * `if (not condition)`
 * `unless (not condition)`

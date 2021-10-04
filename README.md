@@ -207,7 +207,7 @@ Each rule has emojis denoting:
 | [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                                           |     |     |     |     |
 | [deprecated-inline-view-helper](./docs/rule/deprecated-inline-view-helper.md)                             | ✅  |     |     |     |
 | [deprecated-render-helper](./docs/rule/deprecated-render-helper.md)                                       | ✅  |     |     |     |
-| [eol-last](./docs/rule/eol-last.md)                                                                       |     | 💅  |     |     |
+| [eol-last](./docs/rule/eol-last.md)                                                                       |     | 💅  |     | 🔧  |
 | [inline-link-to](./docs/rule/inline-link-to.md)                                                           |     |     |     | 🔧  |
 | [linebreak-style](./docs/rule/linebreak-style.md)                                                         |     | 💅  |     |     |
 | [link-href-attributes](./docs/rule/link-href-attributes.md)                                               | ✅  |     | ⌨️  |     |
@@ -254,7 +254,7 @@ Each rule has emojis denoting:
 | [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               |     |     |     | 🔧  |
 | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                                         |     | 💅  |     |     |
 | [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             |     |     |     |     |
-| [no-negated-condition](./docs/rule/no-negated-condition.md)                                               | ✅  |     |     |     |
+| [no-negated-condition](./docs/rule/no-negated-condition.md)                                               | ✅  |     |     | 🔧  |
 | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                                             | ✅  |     | ⌨️  |     |
 | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                                   | ✅  |     | ⌨️  |     |
 | [no-nested-splattributes](./docs/rule/no-nested-splattributes.md)                                         | ✅  |     |     |     |
@@ -280,8 +280,10 @@ Each rule has emojis denoting:
 | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     |     |
 | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     |     |
 | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | ✅  |     |     |     |
+| [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           |     |     |     |     |
 | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       |     | 💅  | ⌨️  |     |
 | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                                     |     | 💅  | ⌨️  |     |
+| [no-with](./docs/rule/no-with.md)                                                                         |     |     |     |     |
 | [no-yield-only](./docs/rule/no-yield-only.md)                                                             | ✅  |     |     |     |
 | [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 |     |     |     |     |
 | [quotes](./docs/rule/quotes.md)                                                                           |     | 💅  |     |     |
