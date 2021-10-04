@@ -1,6 +1,6 @@
 # require-presentational-children
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 There are roles that require all children to be presentational. This rule checks if descendants of this element with this role type are presentational. By default, browsers are required to add `role="presentation"` to all descendants, but we should not rely on browsers to do this.
 
