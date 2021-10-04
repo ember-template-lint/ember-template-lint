@@ -288,6 +288,7 @@ Each rule has emojis denoting:
 | [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 |     |     |     |     |
 | [quotes](./docs/rule/quotes.md)                                                                           |     | 💅  |     |     |
 | [require-button-type](./docs/rule/require-button-type.md)                                                 | ✅  |     |     | 🔧  |
+| [require-context-role](./docs/rule/require-context-role.md)                                               |     |     | ⌨️  |     |
 | [require-each-key](./docs/rule/require-each-key.md)                                                       |     |     |     |     |
 | [require-form-method](./docs/rule/require-form-method.md)                                                 |     |     |     |     |
 | [require-has-block-helper](./docs/rule/require-has-block-helper.md)                                       | ✅  |     |     | 🔧  |
