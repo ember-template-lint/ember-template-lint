@@ -87,7 +87,7 @@ This rule **allows** the following:
 
 * boolean - `true` to enable / `false` to disable
 * object -- An object with the following keys:
-  * `allow` -- An array of component names for that may be used as label replacement
+  * `allow` -- An array of component names for that may be used as label replacements (in addition to the HTML `label` tag)
 
 ## References
 
