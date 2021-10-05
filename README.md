@@ -233,7 +233,7 @@ Each rule has emojis denoting:
 | [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)                           | ✅  |     | ⌨️  |     |
 | [no-dynamic-subexpression-invocations](./docs/rule/no-dynamic-subexpression-invocations.md)               |     |     |     |     |
 | [no-element-event-actions](./docs/rule/no-element-event-actions.md)                                       |     |     |     |     |
-| [no-empty-headings](./docs/rule/no-empty-headings.md)                                                     | ✅  |     | ⌨️  |     |
+| [no-empty-headings](./docs/rule/no-empty-headings.md)                                                     |     |     | ⌨️  |     |
 | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                               | ✅  |     |     |     |
 | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                                             | ✅  |     |     |     |
 | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                                       | ✅  |     | ⌨️  |     |
