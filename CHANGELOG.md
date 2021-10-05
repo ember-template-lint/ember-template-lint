@@ -1,6 +1,40 @@
 
 
 
+
+## v3.9.0 (2021-10-05)
+
+#### :rocket: Enhancement
+* [#1982](https://github.com/ember-template-lint/ember-template-lint/pull/1982) Add new rule `require-presentational-children` ([@faith-or](https://github.com/faith-or))
+* [#636](https://github.com/ember-template-lint/ember-template-lint/pull/636) Add new rule `require-context-role` ([@lifeart](https://github.com/lifeart))
+* [#1955](https://github.com/ember-template-lint/ember-template-lint/pull/1955) Add new rule `no-valueless-arguments` ([@Windvis](https://github.com/Windvis))
+* [#1841](https://github.com/ember-template-lint/ember-template-lint/pull/1841) Add new rule `no-with` ([@bertdeblock](https://github.com/bertdeblock))
+* [#2053](https://github.com/ember-template-lint/ember-template-lint/pull/2053) Add `labelTags` option for custom label components to `require-input-label` rule ([@lifeart](https://github.com/lifeart))
+* [#2118](https://github.com/ember-template-lint/ember-template-lint/pull/2118) Add autofixer to `no-negated-condition` rule ([@bmish](https://github.com/bmish))
+* [#1935](https://github.com/ember-template-lint/ember-template-lint/pull/1935) Add autofixer to `no-unknown-arguments-for-builtin-components` rule ([@dwickern](https://github.com/dwickern))
+* [#2013](https://github.com/ember-template-lint/ember-template-lint/pull/2013) Add `Textarea` support to `builtin-component-arguments` rule ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* [#1934](https://github.com/ember-template-lint/ember-template-lint/pull/1934) Fix false positives in `deprecated-inline-view-helper` rule ([@dwickern](https://github.com/dwickern))
+* [#1851](https://github.com/ember-template-lint/ember-template-lint/pull/1851) Fix false positive with slash symbol in `no-unbound` rule ([@lifeart](https://github.com/lifeart))
+* [#1861](https://github.com/ember-template-lint/ember-template-lint/pull/1861) Fix false positive with local `log` in `no-log` rule ([@bertdeblock](https://github.com/bertdeblock))
+* [#1864](https://github.com/ember-template-lint/ember-template-lint/pull/1864) Add `has-block-params` as built-in helper to `no-implicit-this` rule ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :memo: Documentation
+* [#2119](https://github.com/ember-template-lint/ember-template-lint/pull/2119) Stricter validation of rule doc notices ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2107](https://github.com/ember-template-lint/ember-template-lint/pull/2107) Move helpers located in `_internal` folder to main `helpers` folder ([@bertdeblock](https://github.com/bertdeblock))
+
+#### Committers: 6
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Derek Wickern ([@dwickern](https://github.com/dwickern))
+- Faith Or ([@faith-or](https://github.com/faith-or))
+- Sam Van Campenhout ([@Windvis](https://github.com/Windvis))
+
+
 ## v3.8.0 (2021-10-01)
 
 #### :rocket: Enhancement
