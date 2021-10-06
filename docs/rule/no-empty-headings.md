@@ -13,7 +13,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<div role="heading"></div>
+<div role="heading" aria-level="1"></div>
 ```
 
 ```hbs
@@ -31,7 +31,7 @@ This rule **allows** the following:
 ```
 
 ```hbs
-<div role="heading">Heading Content</div>
+<div role="heading" aria-level="1">Heading Content</div>
 ```
 
 ```hbs

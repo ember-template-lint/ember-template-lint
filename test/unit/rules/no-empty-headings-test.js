@@ -18,10 +18,10 @@ generateRuleTests({
     '<h1 hidden><span>Valid Heading</span></h1>',
     '<h1><span aria-hidden="true">Hidden text</span><span>Visible text</span></h1>',
     '<h1><span aria-hidden="true">Hidden text</span>Visible text</h1>',
-    '<div role="heading">Accessible Text</div>',
-    '<div role="heading"><span>Accessible Text</span></div>',
-    '<div role="heading"><span aria-hidden="true">Hidden text</span><span>Visible text</span></div>',
-    '<div role="heading"><span aria-hidden="true">Hidden text</span>Visible text</div>',
+    '<div role="heading" aria-level="1">Accessible Text</div>',
+    '<div role="heading" aria-level="1"><span>Accessible Text</span></div>',
+    '<div role="heading" aria-level="1"><span aria-hidden="true">Hidden text</span><span>Visible text</span></div>',
+    '<div role="heading" aria-level="1"><span aria-hidden="true">Hidden text</span>Visible text</div>',
   ],
 
   bad: [
@@ -82,28 +82,30 @@ generateRuleTests({
       },
     },
     {
-      template: '<div role="heading"></div>',
+      template: '<div role="heading" aria-level="1"></div>',
       result: {
         message: ERROR_MESSAGE,
-        source: '<div role="heading"></div>',
+        source: '<div role="heading" aria-level="1"></div>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<div role="heading"><span aria-hidden="true">Inaccessible text</span></div>',
+      template:
+        '<div role="heading" aria-level="1"><span aria-hidden="true">Inaccessible text</span></div>',
       result: {
         message: ERROR_MESSAGE,
-        source: '<div role="heading"><span aria-hidden="true">Inaccessible text</span></div>',
+        source:
+          '<div role="heading" aria-level="1"><span aria-hidden="true">Inaccessible text</span></div>',
         line: 1,
         column: 0,
       },
     },
     {
-      template: '<div role="heading"><span hidden>Inaccessible text</span></div>',
+      template: '<div role="heading" aria-level="1"><span hidden>Inaccessible text</span></div>',
       result: {
         message: ERROR_MESSAGE,
-        source: '<div role="heading"><span hidden>Inaccessible text</span></div>',
+        source: '<div role="heading" aria-level="1"><span hidden>Inaccessible text</span></div>',
         line: 1,
         column: 0,
       },
