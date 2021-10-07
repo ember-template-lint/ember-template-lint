@@ -83,6 +83,15 @@ generateRuleTests({
       },
     },
     {
+      template: '<a aria-labelledby=" " href="https://myurl.com">Click here</a>',
+      result: {
+        message: 'Links should have descriptive text',
+        source: '<a aria-labelledby=" " href="https://myurl.com">Click here</a>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
       template: '<a aria-label="Click here" href="https://myurl.com">Click here</a>',
       result: {
         message: 'Links should have descriptive text',
