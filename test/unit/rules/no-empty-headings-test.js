@@ -22,6 +22,10 @@ generateRuleTests({
     '<div role="heading" aria-level="1"><span>Accessible Text</span></div>',
     '<div role="heading" aria-level="1"><span aria-hidden="true">Hidden text</span><span>Visible text</span></div>',
     '<div role="heading" aria-level="1"><span aria-hidden="true">Hidden text</span>Visible text</div>',
+    '<div></div>',
+    '<p></p>',
+    '<span></span>',
+    '<header></header>',
   ],
 
   bad: [
