@@ -26,6 +26,10 @@ generateRuleTests({
     '<p></p>',
     '<span></span>',
     '<header></header>',
+    '<h2>{{component value="Hej"}}</h2>',
+    '<h2><span>{{component value="Hej"}}</span></h2>',
+    '<h2><div><span>{{component value="Hej"}}</span></div></h2>',
+    '<h2><span>Some text{{component value="Hej"}}</span></h2>',
   ],
 
   bad: [
@@ -70,6 +74,15 @@ generateRuleTests({
       result: {
         message: ERROR_MESSAGE,
         source: '<h1><span hidden>Inaccessible text</span></h1>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<h1><span hidden>{{@title}}</span></h1>',
+      result: {
+        message: ERROR_MESSAGE,
+        source: '<h1><span hidden>{{@title}}</span></h1>',
         line: 1,
         column: 0,
       },

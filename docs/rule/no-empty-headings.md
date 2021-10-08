@@ -42,6 +42,10 @@ This rule **allows** the following:
 <h* hidden>Heading Content</h*>
 ```
 
+```hbs
+<h*>{{component value="Heading Content"}}</h*>
+```
+
 ## Migration
 
 If violations are found, remediation should be planned to ensure text content is present and visible and/or screen-reader accessible. Setting `aria-hidden="false"` or removing `hidden` attributes from the element(s) containing heading text may serve as a quickfix.
