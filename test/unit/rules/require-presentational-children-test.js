@@ -22,6 +22,11 @@ generateRuleTests({
       </li>
     </ul>
     `,
+    `
+    <svg role="img">
+      <title>Title here</title>
+      <circle cx="10" cy="10" r="10"></circle>
+    </svg>`,
   ],
 
   bad: [
