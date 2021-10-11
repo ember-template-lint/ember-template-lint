@@ -6,11 +6,11 @@ Screen readers call up a dialog box that has a list of links from the page, whic
 
 Additionally, when a link contains no content at all, the link's href ends up as the accessible name. This results in a poor experience and requires the user to resort to trial and error to determine the purpose of the link.
 
-This rule disallows links without accessible content and checks for content containing a few default words ("click here" and "more"). The list of disallowed words is configurable so additional words can be added as appropriate for your project. Disallowed list: click here, more info, read more, more.
+This rule checks links containing a few default words("click here" and "more"), and is configurable so additional words can be added as appropriate for your project. Disallowed list: click here, more info, read more, more. With the `allowEmptyLinks` rule option set to `false`, this rule also disallows links without accessible content.
 
 ## Examples
 
-This rule **forbids** the following:
+### This rule **forbids** the following:
 
 ```hbs
 <LinkTo>click here</LinkTo>
@@ -20,6 +20,7 @@ This rule **forbids** the following:
 <a href={{link}}>more</a>
 ```
 
+With `allowEmptyLinks = false`
 ```hbs
 <LinkTo></LinkTo>
 ```
@@ -28,7 +29,7 @@ This rule **forbids** the following:
 <a href={{link}}></a>
 ```
 
-This rule **allows** the following:
+### This rule **allows** the following:
 
 ```hbs
 <LinkTo>Click here to read more about common accessibility failures</LinkTo>
@@ -38,6 +39,7 @@ This rule **allows** the following:
 <a href={{link}}>Read more about semantic html</a>
 ```
 
+With `allowEmptyLinks = false`
 ```hbs
 <a href={{link}} aria-label="Read more about semantic html">...</a>
 ```
