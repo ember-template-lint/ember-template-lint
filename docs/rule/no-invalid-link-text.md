@@ -10,7 +10,7 @@ This rule checks links containing a few default words("click here" and "more"), 
 
 ## Examples
 
-### This rule **forbids** the following:
+This rule **forbids** the following:
 
 ```hbs
 <LinkTo>click here</LinkTo>
@@ -20,7 +20,8 @@ This rule checks links containing a few default words("click here" and "more"), 
 <a href={{link}}>more</a>
 ```
 
-With `allowEmptyLinks = false`
+*With `allowEmptyLinks = false`*
+
 ```hbs
 <LinkTo></LinkTo>
 ```
@@ -29,7 +30,7 @@ With `allowEmptyLinks = false`
 <a href={{link}}></a>
 ```
 
-### This rule **allows** the following:
+This rule **allows** the following:
 
 ```hbs
 <LinkTo>Click here to read more about common accessibility failures</LinkTo>
@@ -39,7 +40,8 @@ With `allowEmptyLinks = false`
 <a href={{link}}>Read more about semantic html</a>
 ```
 
-With `allowEmptyLinks = false`
+*With `allowEmptyLinks = false`*
+
 ```hbs
 <a href={{link}} aria-label="Read more about semantic html">...</a>
 ```
