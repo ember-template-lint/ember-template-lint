@@ -20,7 +20,7 @@ This rule **forbids** the following:
 <a href={{link}}>more</a>
 ```
 
-*With `allowEmptyLinks = false`*
+*With `allowEmptyLinks: false`*
 
 ```hbs
 <LinkTo></LinkTo>
@@ -40,11 +40,17 @@ This rule **allows** the following:
 <a href={{link}}>Read more about semantic html</a>
 ```
 
-*With `allowEmptyLinks = false`*
+*With `allowEmptyLinks: false`*
 
 ```hbs
 <a href={{link}} aria-label="Read more about semantic html">...</a>
 ```
+
+## Configuration
+
+* boolean -- `true` for enabled / `false` for disabled
+* object -- Containing the following values:
+  * `allowEmptyLinks` - When `false`, empty links are not allowed. Defaults to `true`.
 
 ## References
 
