@@ -19,7 +19,7 @@ The roles that require all children to be presentational are:
 * switch
 * tab
 
-Please note that children of `<svg>` tags will not be checked by this rule, as they have somewhat special semantics. 
+Please note that children of `<svg>` tags will not be checked by this rule, as they have somewhat special semantics.
 
 ## Examples
 
