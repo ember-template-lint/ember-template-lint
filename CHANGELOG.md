@@ -2,6 +2,21 @@
 
 
 
+
+## v3.10.0 (2021-10-13)
+
+#### :rocket: Enhancement
+* [#2126](https://github.com/ember-template-lint/ember-template-lint/pull/2126) Add new rule `no-empty-headings` ([@glnster](https://github.com/glnster))
+* [#2127](https://github.com/ember-template-lint/ember-template-lint/pull/2127) Add `allowEmptyLinks` option (default `true`) to `no-invalid-link-text` rule ([@glnster](https://github.com/glnster))
+
+#### :bug: Bug Fix
+* [#2137](https://github.com/ember-template-lint/ember-template-lint/pull/2137) Skip SVG elements in `require-presentational-children` rule ([@mydea](https://github.com/mydea))
+
+#### Committers: 2
+- Francesco Novy ([@mydea](https://github.com/mydea))
+- Glenn Cueto ([@glnster](https://github.com/glnster))
+
+
 ## v3.9.0 (2021-10-05)
 
 #### :rocket: Enhancement
