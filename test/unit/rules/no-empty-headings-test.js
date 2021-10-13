@@ -26,10 +26,10 @@ generateRuleTests({
     '<p></p>',
     '<span></span>',
     '<header></header>',
-    '<h2>{{component value="Hej"}}</h2>',
-    '<h2><span>{{component value="Hej"}}</span></h2>',
-    '<h2><div><span>{{component value="Hej"}}</span></div></h2>',
-    '<h2><span>Some text{{component value="Hej"}}</span></h2>',
+    '<h2>{{@title}}</h2>',
+    '<h2><span>{{@title}}</span></h2>',
+    '<h2><div><span>{{@title}}</span></div></h2>',
+    '<h2><span>Some text{{@title}}</span></h2>',
   ],
 
   bad: [
