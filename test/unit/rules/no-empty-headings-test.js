@@ -27,7 +27,7 @@ generateRuleTests({
     '<span></span>',
     '<header></header>',
     '<h2>{{@title}}</h2>',
-    '<h2>{{#component}}some text{{/component}}</h2>',
+    '<h2>{{#component}}{{/component}}</h2>',
     '<h2><span>{{@title}}</span></h2>',
     '<h2><div><span>{{@title}}</span></div></h2>',
     '<h2><span>Some text{{@title}}</span></h2>',
