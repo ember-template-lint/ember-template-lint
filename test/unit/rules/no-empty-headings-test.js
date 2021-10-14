@@ -57,6 +57,24 @@ generateRuleTests({
       },
     },
     {
+      template: '<h1><div><span></span></div></h1>',
+      result: {
+        message: ERROR_MESSAGE,
+        source: '<h1><div><span></span></div></h1>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<h1><span></span><span></span></h1>',
+      result: {
+        message: ERROR_MESSAGE,
+        source: '<h1><span></span><span></span></h1>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
       template: '<h1> &nbsp; <div aria-hidden="true">Some hidden text</div></h1>',
       result: {
         message: ERROR_MESSAGE,
