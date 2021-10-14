@@ -26,11 +26,15 @@ generateRuleTests({
     '<p></p>',
     '<span></span>',
     '<header></header>',
+    '<h2><CustomComponent /></h2>',
     '<h2>{{@title}}</h2>',
     '<h2>{{#component}}{{/component}}</h2>',
     '<h2><span>{{@title}}</span></h2>',
+    '<h2><div><CustomComponent /></div></h2>',
+    '<h2><div></div><CustomComponent /></h2>',
     '<h2><div><span>{{@title}}</span></div></h2>',
     '<h2><span>Some text{{@title}}</span></h2>',
+    '<h2><span><div></div>{{@title}}</span></h2>',
   ],
 
   bad: [
@@ -44,10 +48,10 @@ generateRuleTests({
       },
     },
     {
-      template: '<h1> \n &nbsp;</h1>',
+      template: '<h1><span></span></h1>',
       result: {
         message: ERROR_MESSAGE,
-        source: '<h1> \n &nbsp;</h1>',
+        source: '<h1><span></span></h1>',
         line: 1,
         column: 0,
       },
@@ -93,6 +97,15 @@ generateRuleTests({
       result: {
         message: ERROR_MESSAGE,
         source: '<h1><span hidden>{{#component}}Inaccessible text{{/component}}</span></h1>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<h1><span hidden><CustomComponent>Inaccessible text</CustomComponent></span></h1>',
+      result: {
+        message: ERROR_MESSAGE,
+        source: '<h1><span hidden><CustomComponent>Inaccessible text</CustomComponent></span></h1>',
         line: 1,
         column: 0,
       },
