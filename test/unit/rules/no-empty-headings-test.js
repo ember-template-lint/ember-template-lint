@@ -48,10 +48,28 @@ generateRuleTests({
       },
     },
     {
+      template: '<h1> \n &nbsp;</h1>',
+      result: {
+        message: ERROR_MESSAGE,
+        source: '<h1> \n &nbsp;</h1>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
       template: '<h1><span></span></h1>',
       result: {
         message: ERROR_MESSAGE,
         source: '<h1><span></span></h1>',
+        line: 1,
+        column: 0,
+      },
+    },
+    {
+      template: '<h1><span> \n &nbsp;</span></h1>',
+      result: {
+        message: ERROR_MESSAGE,
+        source: '<h1><span> \n &nbsp;</span></h1>',
         line: 1,
         column: 0,
       },
