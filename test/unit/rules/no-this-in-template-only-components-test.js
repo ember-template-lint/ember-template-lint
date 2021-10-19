@@ -8,6 +8,10 @@ generateRuleTests({
 
   config: true,
 
+  meta: {
+    filePath: 'app/components/foo.hbs',
+  },
+
   good: [
     '{{welcome-page}}',
     '<WelcomePage />',
@@ -27,6 +31,8 @@ generateRuleTests({
       fixedTemplate: '{{my-component model=@model}}',
 
       result: {
+        filePath: 'app/components/foo.hbs',
+        moduleId: 'layout',
         message: message('this.model', '@model'),
         source: 'this.model',
         line: 1,
@@ -39,6 +45,8 @@ generateRuleTests({
       fixedTemplate: '{{my-component action=(action @myAction)}}',
 
       result: {
+        filePath: 'app/components/foo.hbs',
+        moduleId: 'layout',
         message: message('this.myAction', '@myAction'),
         source: 'this.myAction',
         line: 1,
@@ -51,6 +59,8 @@ generateRuleTests({
       fixedTemplate: '<MyComponent @prop={{can "edit" @model}} />',
 
       result: {
+        filePath: 'app/components/foo.hbs',
+        moduleId: 'layout',
         message: message('this.model', '@model'),
         source: 'this.model',
         line: 1,
@@ -61,6 +71,8 @@ generateRuleTests({
     {
       template: '{{input id=(concat this.elementId "-username")}}',
       result: {
+        filePath: 'app/components/foo.hbs',
+        moduleId: 'layout',
         message: message('this.elementId', '@elementId'),
         source: 'this.elementId',
         line: 1,
@@ -76,6 +88,39 @@ generateRuleTests({
       },
       result: {
         filePath: 'app/templates/components/some-component.hbs',
+        moduleId: 'layout',
+        message: message('this.model', '@model'),
+        source: 'this.model',
+        line: 1,
+        column: 21,
+        isFixable: true,
+      },
+    },
+    {
+      template: '{{my-component model=this.model}}',
+      fixedTemplate: '{{my-component model=@model}}',
+      meta: {
+        filePath: 'tests/dummy/app/templates/components/some-component.hbs',
+      },
+      result: {
+        filePath: 'tests/dummy/app/templates/components/some-component.hbs',
+        moduleId: 'layout',
+        message: message('this.model', '@model'),
+        source: 'this.model',
+        line: 1,
+        column: 21,
+        isFixable: true,
+      },
+    },
+    {
+      template: '{{my-component model=this.model}}',
+      fixedTemplate: '{{my-component model=@model}}',
+      meta: {
+        filePath: 'app/pods/components/some-component/template.hbs',
+      },
+      result: {
+        filePath: 'app/pods/components/some-component/template.hbs',
+        moduleId: 'layout',
         message: message('this.model', '@model'),
         source: 'this.model',
         line: 1,
