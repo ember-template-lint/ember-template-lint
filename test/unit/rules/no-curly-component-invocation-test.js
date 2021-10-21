@@ -1,5 +1,11 @@
+const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
 const { parseConfig } = require('../../../lib/rules/no-curly-component-invocation');
 const generateRuleTests = require('../../helpers/rule-test-harness');
+
+function generateError(name) {
+  let angleBracketName = transformTagName(name);
+  return `You are using the component {{${name}}} with curly component syntax. You should use <${angleBracketName}> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['${name}'] }\`.`;
+}
 
 const SHARED_MOSTLY_GOOD = [
   '{{foo}}',
@@ -61,59 +67,131 @@ const SHARED_GOOD = [
 const SHARED_BAD = [
   {
     template: '{{foo-bar}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('foo-bar'),
+        line: 1,
+        endColumn: 11,
+        endLine: 1,
+        isFixable: false,
+        column: 0,
+        source: '{{foo-bar}}',
+      },
+    ],
   },
   {
     template: '{{nested/component}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('nested/component'),
+        line: 1,
+        column: 0,
+        endColumn: 20,
+        endLine: 1,
+        isFixable: false,
+        source: '{{nested/component}}',
+      },
+    ],
   },
   {
     template: '{{foo-bar bar=baz}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('foo-bar'),
+        line: 1,
+        endColumn: 19,
+        endLine: 1,
+        isFixable: false,
+        column: 0,
+        source: '{{foo-bar bar=baz}}',
+      },
+    ],
   },
   {
     template: '{{foo.bar bar=baz}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('foo.bar'),
+        line: 1,
+        column: 0,
+        endColumn: 19,
+        endLine: 1,
+        isFixable: false,
+        source: '{{foo.bar bar=baz}}',
+      },
+    ],
   },
   {
     template: '{{link-to "bar" "foo"}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('link-to'),
+        line: 1,
+        endColumn: 23,
+        endLine: 1,
+        isFixable: false,
+        column: 0,
+        source: '{{link-to "bar" "foo"}}',
+      },
+    ],
   },
   {
     template: '{{#link-to "foo"}}bar{{/link-to}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('link-to'),
+        line: 1,
+        column: 0,
+        endColumn: 33,
+        endLine: 1,
+        isFixable: false,
+        source: '{{#link-to "foo"}}bar{{/link-to}}',
+      },
+    ],
   },
   {
     template: '{{input type="text" value=this.model.name}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('input'),
+        line: 1,
+        column: 0,
+        endColumn: 43,
+        endLine: 1,
+        isFixable: false,
+        source: '{{input type="text" value=this.model.name}}',
+      },
+    ],
   },
   {
     template: '{{textarea value=this.model.body}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('textarea'),
+        line: 1,
+        column: 0,
+        endColumn: 34,
+        endLine: 1,
+        isFixable: false,
+        source: '{{textarea value=this.model.body}}',
+      },
+    ],
   },
 
   // real world examples
   {
     template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
-    },
+    results: [
+      {
+        message: generateError('heading'),
+        line: 1,
+        column: 0,
+        endColumn: 61,
+        endLine: 1,
+        isFixable: true,
+        source: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
+      },
+    ],
   },
 ];
 
@@ -159,24 +237,17 @@ generateRuleTests({
     ...SHARED_BAD,
     {
       template: '{{disallowed}}',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 14,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": false,
-              "line": 1,
-              "message": "You are using the component {{disallowed}} with curly component syntax. You should use <Disallowed> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['disallowed'] }\`.",
-              "rule": "no-curly-component-invocation",
-              "severity": 2,
-              "source": "{{disallowed}}",
-            },
-          ]
-        `);
-      },
+      results: [
+        {
+          message: generateError('disallowed'),
+          line: 1,
+          endColumn: 14,
+          endLine: 1,
+          isFixable: false,
+          column: 0,
+          source: '{{disallowed}}',
+        },
+      ],
     },
   ],
 });
@@ -226,45 +297,31 @@ generateRuleTests({
     ...SHARED_BAD,
     {
       template: '{{foo}}',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 7,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": false,
-              "line": 1,
-              "message": "You are using the component {{foo}} with curly component syntax. You should use <Foo> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['foo'] }\`.",
-              "rule": "no-curly-component-invocation",
-              "severity": 2,
-              "source": "{{foo}}",
-            },
-          ]
-        `);
-      },
+      results: [
+        {
+          message: generateError('foo'),
+          line: 1,
+          endColumn: 7,
+          endLine: 1,
+          isFixable: false,
+          column: 0,
+          source: '{{foo}}',
+        },
+      ],
     },
     {
       template: '{{foo.bar}}',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 11,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": false,
-              "line": 1,
-              "message": "You are using the component {{foo.bar}} with curly component syntax. You should use <Foo.Bar> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['foo.bar'] }\`.",
-              "rule": "no-curly-component-invocation",
-              "severity": 2,
-              "source": "{{foo.bar}}",
-            },
-          ]
-        `);
-      },
+      results: [
+        {
+          message: generateError('foo.bar'),
+          line: 1,
+          column: 0,
+          endColumn: 11,
+          endLine: 1,
+          isFixable: false,
+          source: '{{foo.bar}}',
+        },
+      ],
     },
   ],
 });
