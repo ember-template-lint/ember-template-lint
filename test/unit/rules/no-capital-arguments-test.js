@@ -1,5 +1,6 @@
 'use strict';
 
+const { ERROR_MESSAGE_RESERVED } = require('../../../lib/rules/no-capital-arguments');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -94,8 +95,13 @@ generateRuleTests({
     ...['@arguments', '@args', '@block', '@else'].map((el) => {
       return {
         template: `{{${el}}}`,
-        verifyResults(results) {
-          expect(results).toMatchSnapshot();
+        result: {
+          message: ERROR_MESSAGE_RESERVED(el),
+          line: 1,
+          column: 3,
+          endColumn: el.length + 2,
+          endLine: 1,
+          source: el.slice(1),
         },
       };
     }),
@@ -103,8 +109,13 @@ generateRuleTests({
     ...['@arguments', '@args', '@block', '@else'].map((el) => {
       return {
         template: `<MyComponent ${el}={{42}} />`,
-        verifyResults(results) {
-          expect(results).toMatchSnapshot();
+        result: {
+          message: ERROR_MESSAGE_RESERVED(el),
+          line: 1,
+          column: 13,
+          endColumn: el.length + 20,
+          endLine: 1,
+          source: el.slice(1),
         },
       };
     }),
