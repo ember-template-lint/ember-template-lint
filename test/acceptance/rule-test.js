@@ -42,11 +42,10 @@ describe('rule public api', function () {
           name: 'uses static result - multiple',
           template: '<div></div><div></div>',
           results: [
+            // does not need endLine/endColumn when using `results` style
             {
               column: 0,
               line: 1,
-              endColumn: 11,
-              endLine: 1,
               message: 'Do not use any HTML elements!',
               source: '<div></div>',
             },
@@ -61,13 +60,23 @@ describe('rule public api', function () {
           ],
         },
         {
-          name: 'uses static result - multiple',
+          name: 'uses static result',
           template: '<div></div>',
           result: {
             column: 0,
             line: 1,
             endColumn: 11,
             endLine: 1,
+            message: 'Do not use any HTML elements!',
+            source: '<div></div>',
+          },
+        },
+        {
+          name: 'uses static result - does not need endLine/endColumn',
+          template: '<div></div>',
+          result: {
+            column: 0,
+            line: 1,
             message: 'Do not use any HTML elements!',
             source: '<div></div>',
           },
