@@ -1,8 +1,5 @@
 'use strict';
 
-const {
-  CONFLICT_MESSAGE,
-} = require('../../../lib/rules/no-unknown-arguments-for-builtin-components');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
