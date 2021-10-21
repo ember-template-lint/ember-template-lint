@@ -46,6 +46,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 25,
+              "endColumn": 40,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#treeitem.",
@@ -64,6 +66,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"columnheader\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#columnheader.",
@@ -82,6 +86,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"gridcell\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#gridcell.",
@@ -100,6 +106,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"listitem\\" but it is missing the required (immediate) parent element of \\"[group, list]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#listitem.",
@@ -118,6 +126,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#menuitem.",
@@ -136,6 +146,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"menuitemcheckbox\\" but it is missing the required (immediate) parent element of \\"[menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#menuitemcheckbox.",
@@ -154,6 +166,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"menuitemradio\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#menuitemradio.",
@@ -172,6 +186,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"option\\" but it is missing the required (immediate) parent element of \\"[listbox]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#option.",
@@ -190,6 +206,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"row\\" but it is missing the required (immediate) parent element of \\"[grid, rowgroup, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#row.",
@@ -208,6 +226,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"rowgroup\\" but it is missing the required (immediate) parent element of \\"[grid]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#rowgroup.",
@@ -226,6 +246,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 26,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"rowheader\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#rowheader.",
@@ -244,6 +266,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"tab\\" but it is missing the required (immediate) parent element of \\"[tablist]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#tab.",
@@ -262,6 +286,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#treeitem.",

@@ -28,6 +28,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 14,
+              "endColumn": 18,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Attribute data-foo should be either quoted or wrapped in mustaches",
@@ -47,6 +49,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 17,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Argument @blah should be either quoted or wrapped in mustaches",

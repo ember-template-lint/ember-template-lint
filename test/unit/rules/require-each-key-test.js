@@ -23,6 +23,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 54,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "{{#each}} helper requires a valid key value to avoid performance issues",
@@ -41,6 +43,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 69,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "{{#each}} helper requires a valid key value to avoid performance issues",
@@ -59,6 +63,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 61,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "{{#each}} helper requires a valid key value to avoid performance issues",

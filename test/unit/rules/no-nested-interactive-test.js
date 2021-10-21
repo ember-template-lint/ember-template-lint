@@ -48,6 +48,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 18,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use an <a> element with the \`href\` attribute inside an <a> element with the \`href\` attribute",
@@ -67,6 +69,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 18,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <button> inside an <a> element with the \`href\` attribute",
@@ -86,6 +90,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 14,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use an <a> element with the \`href\` attribute inside <button>",
@@ -105,6 +111,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 14,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <button> inside <button>",
@@ -124,6 +132,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <input> inside <button>",
@@ -143,6 +153,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 66,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <details> inside <button>",
@@ -163,6 +175,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 79,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <embed> inside <button>",
@@ -182,6 +196,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 68,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <iframe> inside <button>",
@@ -201,6 +217,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <select> inside <button>",
@@ -220,6 +238,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <textarea> inside <button>",
@@ -239,6 +259,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use an element with the \`tabindex\` attribute inside <button>",
@@ -258,6 +280,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use an <img> element with the \`usemap\` attribute inside <button>",
@@ -277,6 +301,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 18,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <button> inside an <object> element with the \`usemap\` attribute",
@@ -299,6 +325,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 45,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <my-special-input> inside <button>",
@@ -319,6 +347,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 14,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use multiple interactive elements inside a single \`<label>\`",
@@ -344,6 +374,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 2,
+              "endColumn": 9,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Do not use multiple interactive elements inside a single \`<label>\`",

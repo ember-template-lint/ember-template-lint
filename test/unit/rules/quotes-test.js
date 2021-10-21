@@ -42,6 +42,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 18,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "you must use double quotes in templates",
@@ -62,6 +64,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 16,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "you must use double quotes in templates",
@@ -82,6 +86,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "you must use double quotes in templates",
@@ -102,6 +108,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 18,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "you must use single quotes in templates",
@@ -122,6 +130,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 16,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "you must use single quotes in templates",
@@ -142,6 +152,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "you must use single quotes in templates",

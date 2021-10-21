@@ -23,6 +23,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Only \`...attributes\` can be applied to elements",

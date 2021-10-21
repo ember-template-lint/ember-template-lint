@@ -33,6 +33,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 75,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Title attribute values should not be the same as the link text.",
@@ -51,6 +53,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 46,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Title attribute values should not be the same as the link text.",
@@ -69,6 +73,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 47,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Specifying title as both an attribute and an argument to <LinkTo /> is invalid.",
@@ -87,6 +93,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 59,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Title attribute values should not be the same as the link text.",
@@ -105,6 +113,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 73,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Title attribute values should not be the same as the link text.",

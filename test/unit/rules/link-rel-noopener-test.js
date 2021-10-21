@@ -33,6 +33,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 42,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
@@ -55,6 +57,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 57,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
@@ -76,6 +80,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 57,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
@@ -97,6 +103,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 59,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
@@ -119,6 +127,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 57,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,

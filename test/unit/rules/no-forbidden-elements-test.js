@@ -32,6 +32,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <script> detected. Do not use forbidden elements.",
@@ -50,6 +52,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <html> detected. Do not use forbidden elements.",
@@ -68,6 +72,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 15,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <style> detected. Do not use forbidden elements.",
@@ -86,6 +92,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <meta> detected. Do not use forbidden elements.",
@@ -107,6 +115,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 11,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <div> detected. Do not use forbidden elements.",
@@ -126,6 +136,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 11,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <div> detected. Do not use forbidden elements.",
@@ -145,6 +157,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <Foo> detected. Do not use forbidden elements.",
@@ -166,6 +180,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "app/templates/head.hbs",
               "line": 1,
               "message": "Use of <script> detected. Do not use forbidden elements.",
@@ -187,6 +203,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "app/templates/head.hbs",
               "line": 1,
               "message": "Use of <html> detected. Do not use forbidden elements.",
@@ -205,6 +223,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of <html> detected. Do not use forbidden elements.",

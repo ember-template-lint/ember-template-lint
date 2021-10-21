@@ -18,6 +18,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Passing the \`classBinding\` property as an argument within templates is not allowed.",
@@ -37,6 +39,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Passing the \`@classBinding\` property as an argument within templates is not allowed.",
@@ -56,6 +60,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 44,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Passing the \`classNameBindings\` property as an argument within templates is not allowed.",
@@ -75,6 +81,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Passing the \`@classNameBindings\` property as an argument within templates is not allowed.",

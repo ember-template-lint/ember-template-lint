@@ -18,6 +18,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage. The {{input}} helper may only be used inline.",

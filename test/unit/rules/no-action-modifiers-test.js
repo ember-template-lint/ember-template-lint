@@ -29,6 +29,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
@@ -48,6 +50,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
@@ -68,6 +72,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",

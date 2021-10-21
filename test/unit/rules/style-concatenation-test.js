@@ -25,6 +25,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
@@ -44,6 +46,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 38,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
@@ -63,6 +67,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 37,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
@@ -82,6 +88,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 57,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",

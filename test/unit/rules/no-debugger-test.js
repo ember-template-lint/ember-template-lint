@@ -18,6 +18,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 12,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{debugger}} usage.",
@@ -37,6 +39,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 12,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{debugger}} usage.",
@@ -56,6 +60,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{debugger}} usage.",

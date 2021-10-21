@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 29,
+              "endColumn": 49,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The handlebars \`mut(attr)\` helper should only have one argument passed to it. To pass a value, use: \`(action (mut attr) value)\`.",
@@ -43,6 +45,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 32,
+              "endColumn": 52,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The handlebars \`mut(attr)\` helper should only have one argument passed to it. To pass a value, use: \`(action (mut attr) value)\`.",
@@ -62,6 +66,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 17,
+              "endColumn": 37,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The handlebars \`mut(attr)\` helper should only have one argument passed to it. To pass a value, use: \`(action (mut attr) value)\`.",

@@ -4,6 +4,8 @@ exports[`rule public api general test harness support no-elements can use verify
 Array [
   Object {
     "column": 0,
+    "endColumn": 11,
+    "endLine": 1,
     "filePath": "layout.hbs",
     "line": 1,
     "message": "Do not use any HTML elements!",

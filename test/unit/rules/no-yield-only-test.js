@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "{{yield}}-only templates are not allowed",
@@ -43,6 +45,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "{{yield}}-only templates are not allowed",
@@ -62,6 +66,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 2,
+              "endColumn": 11,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "{{yield}}-only templates are not allowed",

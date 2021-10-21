@@ -44,6 +44,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -62,6 +64,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 12,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -81,6 +85,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -99,6 +105,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 19,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -118,6 +126,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -136,6 +146,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -154,6 +166,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 63,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -172,6 +186,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 58,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -190,6 +206,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 46,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -208,6 +226,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 39,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -226,6 +246,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 74,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -244,6 +266,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 81,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -263,6 +287,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 95,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -281,6 +307,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -300,6 +328,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 90,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
@@ -318,6 +348,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 78,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",

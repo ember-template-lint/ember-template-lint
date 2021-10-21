@@ -28,6 +28,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
@@ -46,6 +48,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 40,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
@@ -64,6 +68,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 11,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
@@ -82,6 +88,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
@@ -100,6 +108,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 40,
+              "endColumn": 80,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
@@ -118,6 +128,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 38,
+              "endColumn": 76,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
@@ -137,6 +149,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 42,
+              "endColumn": 84,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",

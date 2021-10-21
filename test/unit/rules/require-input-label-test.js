@@ -79,6 +79,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -97,6 +99,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -115,6 +119,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -133,6 +139,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -151,6 +159,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -169,6 +179,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -187,6 +199,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -205,6 +219,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 63,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -223,6 +239,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 50,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -241,6 +259,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 18,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -259,6 +279,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -277,6 +299,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -295,6 +319,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -313,6 +339,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -331,6 +359,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -349,6 +379,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -367,6 +399,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -385,6 +419,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 12,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -403,6 +439,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 37,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -421,6 +459,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -439,6 +479,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -457,6 +499,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 12,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -475,6 +519,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 68,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -493,6 +539,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 55,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -511,6 +559,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 59,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -529,6 +579,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -547,6 +599,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -565,6 +619,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -583,6 +639,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements require a valid associated label.",
@@ -601,6 +659,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 66,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -619,6 +679,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 53,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",
@@ -637,6 +699,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 55,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "form elements should not have multiple labels.",

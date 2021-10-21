@@ -26,6 +26,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{log}} usage.",
@@ -45,6 +47,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 38,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{log}} usage.",
@@ -64,6 +68,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{log}} usage.",
@@ -83,6 +89,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{log}} usage.",
@@ -102,6 +110,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 36,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{log}} usage.",
@@ -121,6 +131,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 34,
+              "endColumn": 49,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{log}} usage.",
@@ -141,6 +153,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 51,
+              "endColumn": 78,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{log}} usage.",

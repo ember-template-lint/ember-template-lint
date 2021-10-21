@@ -23,6 +23,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 1,
+              "endColumn": 10,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Usage of triple curly brackets is unsafe",

@@ -79,6 +79,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -97,6 +99,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -115,6 +119,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 16,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -133,6 +139,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -151,6 +159,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 23,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -172,6 +182,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -191,6 +203,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -210,6 +224,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 16,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -229,6 +245,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -248,6 +266,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 23,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
@@ -269,6 +289,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
@@ -288,6 +310,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
@@ -307,6 +331,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 16,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
@@ -326,6 +352,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
@@ -345,6 +373,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 23,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",

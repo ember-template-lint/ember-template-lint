@@ -235,6 +235,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 12,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -275,6 +277,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 12,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -310,6 +314,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 7,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -341,6 +347,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 8,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -373,6 +381,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 8,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -403,6 +413,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 6,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -431,6 +443,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 6,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -454,6 +468,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -473,6 +489,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -492,6 +510,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 53,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -511,6 +531,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 60,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -530,6 +552,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -548,6 +572,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 47,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -566,6 +592,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -584,6 +612,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 47,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -602,6 +632,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -620,6 +652,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -638,6 +672,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
@@ -656,6 +692,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
@@ -679,6 +717,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 16,
+              "endLine": 5,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
@@ -707,6 +747,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 4,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have a table group (thead, tbody or tfoot).",
@@ -736,6 +778,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 5,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
@@ -769,6 +813,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 7,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
@@ -801,6 +847,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 14,
+              "endLine": 6,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",

@@ -31,6 +31,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tabindex values must be negative numeric.",
@@ -50,6 +52,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",
@@ -69,6 +73,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tabindex values must be negative numeric.",
@@ -88,6 +94,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tabindex values must be negative numeric.",
@@ -107,6 +115,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 38,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Tabindex values must be negative numeric.",
@@ -126,6 +136,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",
@@ -145,6 +157,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 42,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",
@@ -164,6 +178,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 42,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",
@@ -183,6 +199,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 39,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",
@@ -202,6 +220,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 45,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",
@@ -221,6 +241,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",
@@ -240,6 +262,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 46,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid positive integer values for tabindex.",

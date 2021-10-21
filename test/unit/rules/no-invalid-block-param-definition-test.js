@@ -57,6 +57,8 @@ as
           Array [
             Object {
               "column": 0,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage in \\"<Foo |a>\\". Missing \\" as \\" keyword before block symbol \\"|\\". Missing second (closing) \\"|\\" block symbol.",
@@ -75,6 +77,8 @@ as
           Array [
             Object {
               "column": 0,
+              "endColumn": 15,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage in \\"<Foo | a>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
@@ -93,6 +97,8 @@ as
           Array [
             Object {
               "column": 0,
+              "endColumn": 15,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage in \\"<Foo |a|>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
@@ -111,6 +117,8 @@ as
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage in \\"<Foo | a |>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
@@ -129,6 +137,8 @@ as
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage in \\"<Foo | a |>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
@@ -147,6 +157,8 @@ as
           Array [
             Object {
               "column": 0,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage in \\"<Foo a|>\\". Missing \\" as \\" keyword before block symbol \\"|\\". Missing \\"|\\" block symbol after \\" as \\" keyword.",
@@ -165,6 +177,8 @@ as
           Array [
             Object {
               "column": 0,
+              "endColumn": 15,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected block usage in \\"<Foo a |>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",

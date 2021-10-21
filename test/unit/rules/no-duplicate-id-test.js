@@ -1,6 +1,5 @@
 'use strict';
 
-const ERROR_MESSAGE = require('../../../lib/rules/no-duplicate-id').ERROR_MESSAGE;
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -148,6 +147,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 37,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -166,6 +167,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 43,
+              "endColumn": 53,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -184,6 +187,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -202,6 +207,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 31,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -220,6 +227,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -238,6 +247,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -256,6 +267,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 22,
+              "endColumn": 56,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -274,6 +287,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 39,
+              "endColumn": 49,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -292,6 +307,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 26,
+              "endColumn": 60,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -310,6 +327,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 39,
+              "endColumn": 53,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -328,6 +347,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 28,
+              "endColumn": 62,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -346,6 +367,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 39,
+              "endColumn": 55,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -364,6 +387,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 34,
+              "endColumn": 68,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -382,6 +407,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 18,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -400,6 +427,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 28,
+              "endColumn": 39,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -418,6 +447,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 36,
+              "endColumn": 55,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -437,6 +468,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 47,
+              "endColumn": 77,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -455,6 +488,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 34,
+              "endColumn": 59,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -473,6 +508,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 45,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -491,6 +528,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 32,
+              "endColumn": 42,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -509,6 +548,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 32,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -527,6 +568,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 32,
+              "endColumn": 50,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "ID attribute values must be unique",
@@ -552,6 +595,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 32,
+              "endLine": 4,
               "filePath": "layout.hbs",
               "line": 4,
               "message": "ID attribute values must be unique",
@@ -575,6 +620,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 15,
+              "endColumn": 25,
+              "endLine": 4,
               "filePath": "layout.hbs",
               "line": 4,
               "message": "ID attribute values must be unique",
@@ -595,20 +642,34 @@ generateRuleTests({
         <div id={{this.divId00}}></div>
       {{/if}}
     `,
-      results: [
-        {
-          message: ERROR_MESSAGE,
-          line: 4,
-          column: 13,
-          source: 'id={{this.divId00}}',
-        },
-        {
-          message: ERROR_MESSAGE,
-          line: 6,
-          column: 13,
-          source: 'id={{this.divId00}}',
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 13,
+              "endColumn": 32,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{this.divId00}}",
+            },
+            Object {
+              "column": 13,
+              "endColumn": 32,
+              "endLine": 6,
+              "filePath": "layout.hbs",
+              "line": 6,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{this.divId00}}",
+            },
+          ]
+        `);
+      },
     },
     {
       template: `
@@ -624,6 +685,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 26,
+              "endLine": 7,
               "filePath": "layout.hbs",
               "line": 7,
               "message": "ID attribute values must be unique",
@@ -651,6 +714,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 24,
+              "endLine": 9,
               "filePath": "layout.hbs",
               "line": 9,
               "message": "ID attribute values must be unique",
@@ -674,6 +739,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 17,
+              "endColumn": 42,
+              "endLine": 4,
               "filePath": "layout.hbs",
               "line": 4,
               "message": "ID attribute values must be unique",

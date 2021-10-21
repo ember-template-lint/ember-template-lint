@@ -35,6 +35,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 14,
+              "endLine": 4,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "More than 1 blank line not allowed.",
@@ -56,6 +58,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 14,
+              "endLine": 6,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "More than 1 blank line not allowed.",
@@ -81,6 +85,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 14,
+              "endLine": 6,
               "filePath": "layout.hbs",
               "line": 4,
               "message": "More than 3 blank lines not allowed.",

@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -42,6 +44,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -61,6 +65,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 17,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -79,6 +85,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 22,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -98,6 +106,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -116,6 +126,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -134,6 +146,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 16,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <nav> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -152,6 +166,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <header> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -170,6 +186,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
@@ -188,6 +206,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 24,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Nested landmark elements on <footer> detected. Landmark elements should not be nested within landmark elements of the same name.",

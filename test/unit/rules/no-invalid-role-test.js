@@ -40,6 +40,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <ul> detected. Semantic elements should not be used for presentation.",
@@ -58,6 +60,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <ol> detected. Semantic elements should not be used for presentation.",
@@ -76,6 +80,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <li> detected. Semantic elements should not be used for presentation.",
@@ -94,6 +100,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <table> detected. Semantic elements should not be used for presentation.",
@@ -112,6 +120,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <table> detected. Semantic elements should not be used for presentation.",
@@ -130,6 +140,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 37,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <button> detected. Semantic elements should not be used for presentation.",
@@ -148,6 +160,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <button> detected. Semantic elements should not be used for presentation.",
@@ -166,6 +180,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <label> detected. Semantic elements should not be used for presentation.",
@@ -184,6 +200,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of presentation role on <label> detected. Semantic elements should not be used for presentation.",
@@ -202,6 +220,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
@@ -223,6 +243,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
@@ -241,6 +263,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",

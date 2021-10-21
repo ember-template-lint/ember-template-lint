@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The use of \`{{with}}\` has been deprecated. Please see the deprecation guide at https://deprecations.emberjs.com/v3.x/#toc_ember-glimmer-with-syntax.",
@@ -44,6 +46,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 103,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The use of \`{{with}}\` has been deprecated. Please see the deprecation guide at https://deprecations.emberjs.com/v3.x/#toc_ember-glimmer-with-syntax.",

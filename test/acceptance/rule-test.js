@@ -42,6 +42,7 @@ describe('rule public api', function () {
           name: 'uses static result - multiple',
           template: '<div></div><div></div>',
           results: [
+            // does not need endLine/endColumn when using `results` style
             {
               column: 0,
               line: 1,
@@ -51,13 +52,27 @@ describe('rule public api', function () {
             {
               column: 11,
               line: 1,
+              endColumn: 22,
+              endLine: 1,
               message: 'Do not use any HTML elements!',
               source: '<div></div>',
             },
           ],
         },
         {
-          name: 'uses static result - multiple',
+          name: 'uses static result',
+          template: '<div></div>',
+          result: {
+            column: 0,
+            line: 1,
+            endColumn: 11,
+            endLine: 1,
+            message: 'Do not use any HTML elements!',
+            source: '<div></div>',
+          },
+        },
+        {
+          name: 'uses static result - does not need endLine/endColumn',
           template: '<div></div>',
           result: {
             column: 0,
@@ -74,6 +89,8 @@ describe('rule public api', function () {
               Array [
                 Object {
                   "column": 0,
+                  "endColumn": 11,
+                  "endLine": 1,
                   "filePath": "layout.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
@@ -130,6 +147,8 @@ describe('rule public api', function () {
             {
               column: 0,
               line: 1,
+              endColumn: 19,
+              endLine: 1,
               message: 'Do not use any <promise> HTML elements!',
               source: '<promise></promise>',
             },
@@ -179,6 +198,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 17,
+            endLine: 1,
             isFixable: true,
             message: 'Do not use MySpecialThing',
             source: '<MySpecialThing/>',
@@ -190,6 +211,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 46,
+            endLine: 1,
             isFixable: true,
             message: 'Do not use MySpecialThing',
             source: '<MySpecialThing>contents here</MySpecialThing>',
@@ -250,6 +273,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 25,
+            endLine: 1,
             message: 'Do not use MySpecialThingExplicit',
             source: '<MySpecialThingExplicit/>',
           },
@@ -259,6 +284,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 25,
+            endLine: 1,
             message: 'Do not use MySpecialThingInferred',
             source: '<MySpecialThingInferred/>',
           },
@@ -268,6 +295,8 @@ describe('rule public api', function () {
           result: {
             column: 50,
             line: 50,
+            endColumn: 47,
+            endLine: 1,
             message: 'Unclobbered error message',
             source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
           },
@@ -319,6 +348,8 @@ describe('rule public api', function () {
               Array [
                 Object {
                   "column": 0,
+                  "endColumn": 11,
+                  "endLine": 1,
                   "filePath": "foo/bar/baz.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
@@ -341,6 +372,8 @@ describe('rule public api', function () {
               Array [
                 Object {
                   "column": 0,
+                  "endColumn": 11,
+                  "endLine": 1,
                   "filePath": "baz.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",

@@ -28,6 +28,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 15,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Arguments (@value) should not be used on HTML elements (<div>).",
@@ -46,6 +48,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 11,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Arguments (@value) should not be used on HTML elements (<div>).",
@@ -64,6 +68,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Arguments (@src) should not be used on HTML elements (<img>).",

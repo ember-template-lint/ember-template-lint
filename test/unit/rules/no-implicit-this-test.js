@@ -58,6 +58,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 2,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
@@ -76,6 +78,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 2,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'book-details' is not allowed. Use '@book-details' if it is a named argument or 'this.book-details' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book-details'] }.",
@@ -94,6 +98,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 2,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'book.author' is not allowed. Use '@book.author' if it is a named argument or 'this.book.author' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book.author'] }.",
@@ -112,6 +118,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 9,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
@@ -130,6 +138,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
@@ -148,6 +158,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'can.do' is not allowed. Use '@can.do' if it is a named argument or 'this.can.do' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['can.do'] }.",
@@ -167,6 +179,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'can.do' is not allowed. Use '@can.do' if it is a named argument or 'this.can.do' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['can.do'] }.",
@@ -185,6 +199,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 2,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'session.user.name' is not allowed. Use '@session.user.name' if it is a named argument or 'this.session.user.name' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['session.user.name'] }.",
@@ -203,6 +219,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 38,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous path 'session.user.name' is not allowed. Use '@session.user.name' if it is a named argument or 'this.session.user.name' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['session.user.name'] }.",

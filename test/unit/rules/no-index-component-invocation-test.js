@@ -29,6 +29,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 2,
+              "endColumn": 11,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`{{foo/index ...\` to \`{{foo ...\`",
@@ -47,6 +49,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`{{component \\"foo/index\\" ...\` to \`{{component \\"foo\\" ...\`",
@@ -65,6 +69,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 3,
+              "endColumn": 12,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`{{#foo/index ...\` to \`{{#foo ...\`",
@@ -83,6 +89,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`{{#component \\"foo/index\\" ...\` to \`{{#component \\"foo\\" ...\`",
@@ -101,6 +109,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`(component \\"foo/index\\" ...\` to \`(component \\"foo\\" ...\`",
@@ -119,6 +129,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 26,
+              "endColumn": 37,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`(component \\"foo/index\\" ...\` to \`(component \\"foo\\" ...\`",
@@ -137,6 +149,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`<Foo::Index ...\` to \`<Foo ...\`",
@@ -155,6 +169,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`<Foo::Bar::Index ...\` to \`<Foo::Bar ...\`",
@@ -173,6 +189,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Replace \`<Foo::Index ...\` to \`<Foo ...\`",

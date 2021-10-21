@@ -23,6 +23,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Potential path in attribute string detected. Did you mean {{this.picture}}?",
@@ -41,6 +43,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 9,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Potential path in attribute string detected. Did you mean {{this.picture}}?",
@@ -59,6 +63,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 14,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Potential path in attribute string detected. Did you mean {{@img}}?",
@@ -77,6 +83,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 9,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Potential path in attribute string detected. Did you mean {{@img}}?",
@@ -95,6 +103,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 20,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Potential path in attribute string detected. Did you mean {{@bar}}?",
@@ -113,6 +123,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 20,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Potential path in attribute string detected. Did you mean {{this.bar}}?",

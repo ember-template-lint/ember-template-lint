@@ -25,6 +25,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 42,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
@@ -45,6 +47,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 24,
+              "endColumn": 47,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
@@ -65,6 +69,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
