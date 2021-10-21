@@ -1,6 +1,9 @@
 'use strict';
 
-const { OBSOLETE_ELEMENTS } = require('../../../lib/rules/no-obsolete-elements');
+const {
+  ERROR_MESSAGE_OBSOLETE_ELEMENT,
+  OBSOLETE_ELEMENTS,
+} = require('../../../lib/rules/no-obsolete-elements');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -20,8 +23,13 @@ generateRuleTests({
     const html = VOID_ELEMENTS.includes(element) ? `<${element}>` : `<${element}></${element}>`;
     return {
       template: html,
-      verifyResults(results) {
-        expect(results).toMatchSnapshot();
+      result: {
+        message: ERROR_MESSAGE_OBSOLETE_ELEMENT(element),
+        source: html,
+        line: 1,
+        column: 0,
+        endLine: 1,
+        endColumn: html.length,
       },
     };
   }),
