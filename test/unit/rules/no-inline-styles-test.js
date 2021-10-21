@@ -5,9 +5,13 @@ const generateRuleTests = require('../../helpers/rule-test-harness');
 function mapBadStyleExampleToTestRule(inlineStyle) {
   return {
     template: `<div ${inlineStyle}></div>`,
-
-    verifyResults(results) {
-      expect(results).toMatchSnapshot();
+    result: {
+      message: 'elements cannot have inline styles',
+      source: inlineStyle,
+      line: 1,
+      column: 5,
+      endColumn: inlineStyle.length + 5,
+      endLine: 1,
     },
   };
 }
