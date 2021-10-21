@@ -1,7 +1,6 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const { errorMessage } = require('./../../../lib/rules/require-context-role');
 
 generateRuleTests({
   name: 'require-context-role',

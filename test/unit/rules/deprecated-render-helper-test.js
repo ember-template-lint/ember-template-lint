@@ -1,6 +1,5 @@
 'use strict';
 
-const { message } = require('../../../lib/rules/deprecated-render-helper');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

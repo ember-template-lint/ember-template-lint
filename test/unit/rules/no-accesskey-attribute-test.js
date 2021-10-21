@@ -1,7 +1,6 @@
 'use strict';
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
-const { errorMessage: message } = require('./../../../lib/rules/no-accesskey-attribute');
 
 generateRuleTests({
   name: 'no-accesskey-attribute',

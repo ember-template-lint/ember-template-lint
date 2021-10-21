@@ -1,9 +1,6 @@
 'use strict';
 
-const { DEPRECATION_URL } = require('../../../lib/rules/deprecated-each-syntax');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const message = `Deprecated {{#each}} usage. See the deprecation guide at ${DEPRECATION_URL}`;
 
 generateRuleTests({
   name: 'deprecated-each-syntax',

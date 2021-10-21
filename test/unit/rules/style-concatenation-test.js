@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/style-concatenation');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

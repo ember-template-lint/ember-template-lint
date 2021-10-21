@@ -1,9 +1,6 @@
 'use strict';
 
-const {
-  createErrorMessage,
-  FORMAT,
-} = require('../../../lib/rules/require-valid-named-block-naming-format');
+const { FORMAT } = require('../../../lib/rules/require-valid-named-block-naming-format');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

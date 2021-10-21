@@ -1,6 +1,5 @@
 'use strict';
 
-const { getErrorMessage } = require('../../../lib/rules/require-has-block-helper');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

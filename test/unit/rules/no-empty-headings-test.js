@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-empty-headings');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -68,7 +67,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<h1> 
+              "source": "<h1>
            &nbsp;</h1>",
             },
           ]
@@ -105,7 +104,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<h1><span> 
+              "source": "<h1><span>
            &nbsp;</span></h1>",
             },
           ]

@@ -1,6 +1,5 @@
 'use strict';
 
-const { message, generateMessageWithAlternative } = require('../../../lib/rules/no-mut-helper');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 const setterAlternative = '`{{set}}`';

@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-extra-mut-helper-argument');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

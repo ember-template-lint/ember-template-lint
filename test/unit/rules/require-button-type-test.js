@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/require-button-type');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

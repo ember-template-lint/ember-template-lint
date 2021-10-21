@@ -1,6 +1,5 @@
 'use strict';
 
-const { generateErrorMessage } = require('../../../lib/rules/builtin-component-arguments');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

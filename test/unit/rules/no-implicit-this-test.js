@@ -1,6 +1,6 @@
 'use strict';
 
-const { ARGLESS_BUILTIN_HELPERS, message } = require('../../../lib/rules/no-implicit-this');
+const { ARGLESS_BUILTIN_HELPERS } = require('../../../lib/rules/no-implicit-this');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 let statements = [

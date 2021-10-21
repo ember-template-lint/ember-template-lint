@@ -2,7 +2,6 @@
 
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-whitespace-within-word');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

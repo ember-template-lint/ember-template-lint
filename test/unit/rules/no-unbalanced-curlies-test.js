@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-unbalanced-curlies');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

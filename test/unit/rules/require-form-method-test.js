@@ -1,6 +1,5 @@
 'use strict';
 
-const { makeErrorMessage } = require('../../../lib/rules/require-form-method');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

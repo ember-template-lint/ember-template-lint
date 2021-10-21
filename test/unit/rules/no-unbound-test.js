@@ -1,6 +1,5 @@
 'use strict';
 
-const { message } = require('../../../lib/rules/no-unbound');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

@@ -1,6 +1,5 @@
 'use strict';
 
-const { createErrorMessage } = require('../../../lib/rules/no-redundant-landmark-role');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

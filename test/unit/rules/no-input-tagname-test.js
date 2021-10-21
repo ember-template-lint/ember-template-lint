@@ -1,6 +1,5 @@
 'use strict';
 
-const { message } = require('../../../lib/rules/no-input-tagname');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

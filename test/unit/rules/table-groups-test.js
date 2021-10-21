@@ -1,10 +1,6 @@
 'use strict';
 
-const {
-  message,
-  orderingMessage,
-  createTableGroupsErrorMessage,
-} = require('../../../lib/rules/table-groups');
+const { createTableGroupsErrorMessage } = require('../../../lib/rules/table-groups');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

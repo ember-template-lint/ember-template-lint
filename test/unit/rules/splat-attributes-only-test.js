@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/splat-attributes-only');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

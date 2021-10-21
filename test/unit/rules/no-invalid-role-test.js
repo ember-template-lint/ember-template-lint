@@ -1,9 +1,6 @@
 'use strict';
 
-const rule = require('../../../lib/rules/no-invalid-role');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const { createErrorMessageDisallowedRoleForElement, createNonexistentRoleErrorMessage } = rule;
 
 generateRuleTests({
   name: 'no-invalid-role',

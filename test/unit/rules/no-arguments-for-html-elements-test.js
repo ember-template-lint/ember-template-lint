@@ -1,6 +1,5 @@
 'use strict';
 
-const { makeError } = require('../../../lib/rules/no-arguments-for-html-elements');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({

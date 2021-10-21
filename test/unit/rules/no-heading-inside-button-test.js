@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-heading-inside-button');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
