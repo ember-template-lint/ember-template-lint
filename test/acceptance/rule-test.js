@@ -45,12 +45,16 @@ describe('rule public api', function () {
             {
               column: 0,
               line: 1,
+              endColumn: 11,
+              endLine: 1,
               message: 'Do not use any HTML elements!',
               source: '<div></div>',
             },
             {
               column: 11,
               line: 1,
+              endColumn: 22,
+              endLine: 1,
               message: 'Do not use any HTML elements!',
               source: '<div></div>',
             },
@@ -62,6 +66,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 11,
+            endLine: 1,
             message: 'Do not use any HTML elements!',
             source: '<div></div>',
           },
@@ -132,6 +138,8 @@ describe('rule public api', function () {
             {
               column: 0,
               line: 1,
+              endColumn: 19,
+              endLine: 1,
               message: 'Do not use any <promise> HTML elements!',
               source: '<promise></promise>',
             },
@@ -181,6 +189,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 17,
+            endLine: 1,
             isFixable: true,
             message: 'Do not use MySpecialThing',
             source: '<MySpecialThing/>',
@@ -192,6 +202,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 46,
+            endLine: 1,
             isFixable: true,
             message: 'Do not use MySpecialThing',
             source: '<MySpecialThing>contents here</MySpecialThing>',
@@ -252,6 +264,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 25,
+            endLine: 1,
             message: 'Do not use MySpecialThingExplicit',
             source: '<MySpecialThingExplicit/>',
           },
@@ -261,6 +275,8 @@ describe('rule public api', function () {
           result: {
             column: 0,
             line: 1,
+            endColumn: 25,
+            endLine: 1,
             message: 'Do not use MySpecialThingInferred',
             source: '<MySpecialThingInferred/>',
           },
@@ -270,6 +286,8 @@ describe('rule public api', function () {
           result: {
             column: 50,
             line: 50,
+            endColumn: 47,
+            endLine: 1,
             message: 'Unclobbered error message',
             source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
           },

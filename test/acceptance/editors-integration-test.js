@@ -47,6 +47,8 @@ describe('editors integration', function () {
       expectedOutputData['template.hbs'] = [
         {
           column: 0,
+          endColumn: 12,
+          endLine: 1,
           line: 1,
           message: 'Unexpected {{debugger}} usage.',
           filePath: 'template.hbs',

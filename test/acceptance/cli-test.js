@@ -981,6 +981,8 @@ describe('ember-template-lint executable', function () {
           {
             column: 4,
             line: 1,
+            endColumn: 14,
+            endLine: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
             rule: 'no-bare-strings',
@@ -990,6 +992,8 @@ describe('ember-template-lint executable', function () {
           {
             column: 25,
             line: 1,
+            endColumn: 48,
+            endLine: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
             rule: 'no-bare-strings',
@@ -1025,6 +1029,8 @@ describe('ember-template-lint executable', function () {
           {
             column: 0,
             line: 1,
+            endColumn: 26,
+            endLine: 1,
             isFixable: true,
             message: 'All `<button>` elements should have a valid `type` attribute',
             filePath: 'app/components/click-me-button.hbs',
@@ -1070,6 +1076,8 @@ describe('ember-template-lint executable', function () {
           {
             column: 4,
             line: 1,
+            endColumn: 14,
+            endLine: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
             rule: 'no-bare-strings',
@@ -1079,6 +1087,8 @@ describe('ember-template-lint executable', function () {
           {
             column: 24,
             line: 1,
+            endColumn: 47,
+            endLine: 1,
             message: 'Non-translated string used',
             filePath: 'app/templates/application.hbs',
             rule: 'no-bare-strings',
@@ -1144,6 +1154,8 @@ describe('ember-template-lint executable', function () {
           {
             column: 0,
             line: 1,
+            endColumn: 26,
+            endLine: 1,
             isFixable: true,
             message: 'All `<button>` elements should have a valid `type` attribute',
             filePath: 'app/components/click-me-button.hbs',
