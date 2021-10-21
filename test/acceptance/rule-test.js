@@ -74,6 +74,8 @@ describe('rule public api', function () {
               Array [
                 Object {
                   "column": 0,
+                  "endColumn": 11,
+                  "endLine": 1,
                   "filePath": "layout.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
@@ -319,6 +321,8 @@ describe('rule public api', function () {
               Array [
                 Object {
                   "column": 0,
+                  "endColumn": 11,
+                  "endLine": 1,
                   "filePath": "foo/bar/baz.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
@@ -341,6 +345,8 @@ describe('rule public api', function () {
               Array [
                 Object {
                   "column": 0,
+                  "endColumn": 11,
+                  "endLine": 1,
                   "filePath": "baz.hbs",
                   "line": 1,
                   "message": "Do not use any HTML elements!",
