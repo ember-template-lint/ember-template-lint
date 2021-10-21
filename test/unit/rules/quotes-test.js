@@ -37,66 +37,120 @@ generateRuleTests({
       config: 'double',
       template: "{{component 'test'}}",
 
-      result: {
-        message: 'you must use double quotes in templates',
-        line: 1,
-        column: 12,
-        source: "{{component 'test'}}",
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{component 'test'}}",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'double',
       template: "{{hello x='test'}}",
 
-      result: {
-        message: 'you must use double quotes in templates',
-        line: 1,
-        column: 10,
-        source: "x='test'",
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "x='test'",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'double',
       template: "<input type='checkbox'>",
 
-      result: {
-        message: 'you must use double quotes in templates',
-        line: 1,
-        column: 7,
-        source: "type='checkbox'",
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "type='checkbox'",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'single',
       template: '{{component "test"}}',
 
-      result: {
-        message: 'you must use single quotes in templates',
-        line: 1,
-        column: 12,
-        source: '{{component "test"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use single quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{component \\"test\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'single',
       template: '{{hello x="test"}}',
 
-      result: {
-        message: 'you must use single quotes in templates',
-        line: 1,
-        column: 10,
-        source: 'x="test"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use single quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "x=\\"test\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'single',
       template: '<input type="checkbox">',
 
-      result: {
-        message: 'you must use single quotes in templates',
-        line: 1,
-        column: 7,
-        source: 'type="checkbox"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use single quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "type=\\"checkbox\\"",
+            },
+          ]
+        `);
       },
     },
   ],

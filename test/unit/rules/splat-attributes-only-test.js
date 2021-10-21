@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/splat-attributes-only');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -19,11 +18,20 @@ generateRuleTests({
     {
       template: '<div ...arguments></div>',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '...arguments',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Only \`...attributes\` can be applied to elements",
+              "rule": "splat-attributes-only",
+              "severity": 2,
+              "source": "...arguments",
+            },
+          ]
+        `);
       },
     },
   ],

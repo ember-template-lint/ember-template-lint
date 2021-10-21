@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-yield-only');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -20,31 +19,58 @@ generateRuleTests({
     {
       template: '{{yield}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{yield}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "{{yield}}-only templates are not allowed",
+              "rule": "no-yield-only",
+              "severity": 2,
+              "source": "{{yield}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '     {{yield}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{yield}}',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "{{yield}}-only templates are not allowed",
+              "rule": "no-yield-only",
+              "severity": 2,
+              "source": "{{yield}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '\n  {{yield}}\n     ',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{yield}}',
-        line: 2,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "{{yield}}-only templates are not allowed",
+              "rule": "no-yield-only",
+              "severity": 2,
+              "source": "{{yield}}",
+            },
+          ]
+        `);
       },
     },
   ],

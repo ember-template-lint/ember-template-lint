@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/style-concatenation');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -21,41 +20,77 @@ generateRuleTests({
     {
       template: '<img style="{{myStyle}}">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: 'style="{{myStyle}}"',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Concatenated styles must be marked as \`htmlSafe\`.",
+              "rule": "style-concatenation",
+              "severity": 2,
+              "source": "style=\\"{{myStyle}}\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img style="background-image: {{url}}">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: 'style="background-image: {{url}}"',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Concatenated styles must be marked as \`htmlSafe\`.",
+              "rule": "style-concatenation",
+              "severity": 2,
+              "source": "style=\\"background-image: {{url}}\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img style="{{background-image url}}">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: 'style="{{background-image url}}"',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Concatenated styles must be marked as \`htmlSafe\`.",
+              "rule": "style-concatenation",
+              "severity": 2,
+              "source": "style=\\"{{background-image url}}\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img style={{concat knownSafeStyle1 ";" knownSafeStyle2}}>',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: 'style={{concat knownSafeStyle1 ";" knownSafeStyle2}}',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Concatenated styles must be marked as \`htmlSafe\`.",
+              "rule": "style-concatenation",
+              "severity": 2,
+              "source": "style={{concat knownSafeStyle1 \\";\\" knownSafeStyle2}}",
+            },
+          ]
+        `);
       },
     },
   ],

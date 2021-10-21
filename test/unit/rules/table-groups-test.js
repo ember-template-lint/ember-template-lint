@@ -1,10 +1,6 @@
 'use strict';
 
-const {
-  message,
-  orderingMessage,
-  createTableGroupsErrorMessage,
-} = require('../../../lib/rules/table-groups');
+const { createTableGroupsErrorMessage } = require('../../../lib/rules/table-groups');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -234,12 +230,30 @@ generateRuleTests({
       <colgroup></colgroup>
       </table>
       `,
-      result: {
-        column: 6,
-        line: 2,
-        message: 'Tables must have a table group (thead, tbody or tfoot).',
-        source:
-          '<table>\n      {{#if showCaption}}\n        <thead>Some Name</thead>\n      {{/if}}\n      {{#if foo}}\n        <span>12</span>\n      {{else}}\n        <p>text</p>\n      {{/if}}\n      <colgroup></colgroup>\n      </table>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                {{#if showCaption}}
+                  <thead>Some Name</thead>
+                {{/if}}
+                {{#if foo}}
+                  <span>12</span>
+                {{else}}
+                  <p>text</p>
+                {{/if}}
+                <colgroup></colgroup>
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -256,12 +270,30 @@ generateRuleTests({
       <colgroup></colgroup>
       </table>
       `,
-      result: {
-        column: 6,
-        line: 2,
-        message: 'Tables must have a table group (thead, tbody or tfoot).',
-        source:
-          '<table>\n      {{#if showCaption}}\n        <div>Some Name</div>\n      {{/if}}\n      {{#if foo}}\n        <span>12</span>\n      {{else}}\n        <p>text</p>\n      {{/if}}\n      <colgroup></colgroup>\n      </table>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                {{#if showCaption}}
+                  <div>Some Name</div>
+                {{/if}}
+                {{#if foo}}
+                  <span>12</span>
+                {{else}}
+                  <p>text</p>
+                {{/if}}
+                <colgroup></colgroup>
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -273,12 +305,25 @@ generateRuleTests({
       {{/if}}
       </table>
       `,
-      result: {
-        message,
-        source:
-          '<table>\n      {{#if foo}}\n        {{else}}\n        <div></div>\n      {{/if}}\n      </table>',
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                {{#if foo}}
+                  {{else}}
+                  <div></div>
+                {{/if}}
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -291,12 +336,26 @@ generateRuleTests({
       {{/unless}}
       </table>
       `,
-      result: {
-        message,
-        source:
-          '<table>\n      {{#unless foo}}\n        <div>\n          <tr></tr>\n        </div>\n      {{/unless}}\n      </table>',
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                {{#unless foo}}
+                  <div>
+                    <tr></tr>
+                  </div>
+                {{/unless}}
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -309,12 +368,26 @@ generateRuleTests({
       {{/if}}
       </table>
       `,
-      result: {
-        message,
-        source:
-          '<table>\n      {{#if foo}}\n        <div>\n          <tr></tr>\n        </div>\n      {{/if}}\n      </table>',
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                {{#if foo}}
+                  <div>
+                    <tr></tr>
+                  </div>
+                {{/if}}
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -325,12 +398,24 @@ generateRuleTests({
       {{/unless}}
       </table>
       `,
-      result: {
-        message,
-        source:
-          '<table>\n      {{#unless foo}}\n        {{some-component}}\n      {{/unless}}\n      </table>',
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                {{#unless foo}}
+                  {{some-component}}
+                {{/unless}}
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -341,125 +426,245 @@ generateRuleTests({
       {{/something}}
       </table>
       `,
-      result: {
-        message,
-        source:
-          '<table>\n      {{#something foo}}\n        <tbody></tbody>\n      {{/something}}\n      </table>',
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                {{#something foo}}
+                  <tbody></tbody>
+                {{/something}}
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table><tr><td>Foo</td></tr></table>',
 
-      result: {
-        message,
-        source: '<table><tr><td>Foo</td></tr></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table><tr><td>Foo</td></tr></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table>{{some-component}}</table>',
 
-      result: {
-        message,
-        source: '<table>{{some-component}}</table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>{{some-component}}</table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
 
-      result: {
-        message,
-        source: '<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>{{#each foo as |bar|}}{{bar}}{{/each}}</table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table>' + '<tr></tr>' + '<tbody><tr><td>Foo</td></tr></tbody>' + '</table>',
 
-      result: {
-        message,
-        source: '<table>' + '<tr></tr>' + '<tbody><tr><td>Foo</td></tr></tbody>' + '</table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table><tr></tr><tbody><tr><td>Foo</td></tr></tbody></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table> whitespace<thead></thead></table>',
 
-      result: {
-        message,
-        source: '<table> whitespace<thead></thead></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table> whitespace<thead></thead></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table>{{some-component tagName="div"}}</table>',
-      result: {
-        message,
-        source: '<table>{{some-component tagName="div"}}</table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>{{some-component tagName=\\"div\\"}}</table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table>{{some-component otherProp="tbody"}}</table>',
-      result: {
-        message,
-        source: '<table>{{some-component otherProp="tbody"}}</table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>{{some-component otherProp=\\"tbody\\"}}</table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table><SomeComponent @tagName="div" /></table>',
-      result: {
-        message,
-        source: '<table><SomeComponent @tagName="div" /></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table><SomeComponent @tagName=\\"div\\" /></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table><SomeComponent @otherProp="tbody" /></table>',
-      result: {
-        message,
-        source: '<table><SomeComponent @otherProp="tbody" /></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table><SomeComponent @otherProp=\\"tbody\\" /></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table>some text</table>',
-      result: {
-        message,
-        source: '<table>some text</table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>some text</table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table><tfoot /><thead /></table>',
-      result: {
-        message: orderingMessage,
-        source: '<table><tfoot /><thead /></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table><tfoot /><thead /></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table><tbody /><caption /></table>',
-      result: {
-        message: orderingMessage,
-        source: '<table><tbody /><caption /></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table><tbody /><caption /></table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -469,14 +674,23 @@ generateRuleTests({
           <colgroup />
         </table>
       `,
-      result: {
-        message: orderingMessage,
-        source: `<table>
-          <tbody />
-          <colgroup />
-        </table>`,
-        line: 2,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                    <tbody />
+                    <colgroup />
+                  </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -488,13 +702,22 @@ generateRuleTests({
         <Nested::SomethingElse />
       </table>
       `,
-      result: {
-        message,
-        source: `<table>
-        <Nested::SomethingElse />
-      </table>`,
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have a table group (thead, tbody or tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                  <Nested::SomethingElse />
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -508,14 +731,23 @@ generateRuleTests({
         <Nested::MyThead />
       </table>
       `,
-      result: {
-        message: orderingMessage,
-        source: `<table>
-        <Nested::MyTfoot />
-        <Nested::MyThead />
-      </table>`,
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                  <Nested::MyTfoot />
+                  <Nested::MyThead />
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -532,16 +764,25 @@ generateRuleTests({
         <Nested::Body />
       </table>
       `,
-      result: {
-        message: orderingMessage,
-        source: `<table>
-        <Nested::HeadOrFoot />
-        <Nested::Body />
-        <Nested::HeadOrFoot/>
-        <Nested::Body />
-      </table>`,
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                  <Nested::HeadOrFoot />
+                  <Nested::Body />
+                  <Nested::HeadOrFoot/>
+                  <Nested::Body />
+                </table>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -555,15 +796,24 @@ generateRuleTests({
         <tbody />
       </table>
       `,
-      result: {
-        message: orderingMessage,
-        source: `<table>
-        <thead />
-        <Nested::MyTbody @tagName="caption" />
-        <tbody />
-      </table>`,
-        line: 2,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Tables must have table groups in the correct order (caption, colgroup, thead, tbody then tfoot).",
+              "rule": "table-groups",
+              "severity": 2,
+              "source": "<table>
+                  <thead />
+                  <Nested::MyTbody @tagName=\\"caption\\" />
+                  <tbody />
+                </table>",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -1,9 +1,6 @@
 'use strict';
 
-const rule = require('../../../lib/rules/no-negated-condition');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const { ERROR_MESSAGE_FLIP_IF, ERROR_MESSAGE_USE_IF, ERROR_MESSAGE_USE_UNLESS } = rule;
 
 generateRuleTests({
   name: 'no-negated-condition',
@@ -102,12 +99,21 @@ generateRuleTests({
       template: '{{#if (not condition)}}<img>{{/if}}',
       fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_UNLESS,
-        source: '{{#if (not condition)}}<img>{{/if}}',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`if (not condition)\` to \`unless condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not condition)}}<img>{{/if}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -116,12 +122,21 @@ generateRuleTests({
       template: '{{#if (not condition)}}<img>{{else}}<input>{{/if}}',
       fixedTemplate: '{{#if condition}}<input>{{else}}<img>{{/if}}',
 
-      result: {
-        message: ERROR_MESSAGE_FLIP_IF,
-        source: '{{#if (not condition)}}<img>{{else}}<input>{{/if}}',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`{{if (not condition)}} {{prop1}} {{else}} {{prop2}} {{/if}}\` to \`{{if condition}} {{prop2}} {{else}} {{prop1}} {{/if}}\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not condition)}}<img>{{else}}<input>{{/if}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -130,12 +145,21 @@ generateRuleTests({
       template: '{{#unless (not condition)}}<img>{{/unless}}',
       fixedTemplate: '{{#if condition}}<img>{{/if}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source: '{{#unless (not condition)}}<img>{{/unless}}',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not condition)}}<img>{{/unless}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -144,12 +168,21 @@ generateRuleTests({
       template: '{{#unless (not condition)}}<img>{{else}}<input>{{/unless}}',
       fixedTemplate: '{{#if condition}}<img>{{else}}<input>{{/if}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source: '{{#unless (not condition)}}<img>{{else}}<input>{{/unless}}',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not condition)}}<img>{{else}}<input>{{/unless}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -158,12 +191,21 @@ generateRuleTests({
       template: '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}',
       fixedTemplate: '{{#if condition}}<img>{{else if (not condition)}}<input>{{/if}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source: '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -173,13 +215,21 @@ generateRuleTests({
         '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/unless}}',
       fixedTemplate: '{{#if condition}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/if}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source:
-          '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/unless}}',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/unless}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -190,12 +240,21 @@ generateRuleTests({
       fixedTemplate:
         '{{#if condition}}{{else}}{{! some comment }}{{#unless condition}}<img>{{/unless}}{{/if}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_UNLESS,
-        source: '{{#if (not condition)}}<img>{{/if}}',
-        line: 1,
-        column: 44,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 44,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`if (not condition)\` to \`unless condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not condition)}}<img>{{/if}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -204,12 +263,21 @@ generateRuleTests({
       template: '{{#if condition}}{{else}}{{#if (not condition)}}<img>{{/if}}{{/if}}',
       fixedTemplate: '{{#if condition}}{{else}}{{#unless condition}}<img>{{/unless}}{{/if}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_UNLESS,
-        source: '{{#if (not condition)}}<img>{{/if}}',
-        line: 1,
-        column: 25,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 25,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`if (not condition)\` to \`unless condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not condition)}}<img>{{/if}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -222,12 +290,21 @@ generateRuleTests({
       template: '<img class={{if (not condition) "some-class"}}>',
       fixedTemplate: '<img class={{unless condition "some-class"}}>',
 
-      result: {
-        message: ERROR_MESSAGE_USE_UNLESS,
-        source: '{{if (not condition) "some-class"}}',
-        line: 1,
-        column: 11,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`if (not condition)\` to \`unless condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{if (not condition) \\"some-class\\"}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -236,12 +313,21 @@ generateRuleTests({
       template: '<img class={{if (not condition) "some-class" "other-class"}}>',
       fixedTemplate: '<img class={{if condition "other-class" "some-class"}}>',
 
-      result: {
-        message: ERROR_MESSAGE_FLIP_IF,
-        source: '{{if (not condition) "some-class" "other-class"}}',
-        line: 1,
-        column: 11,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`{{if (not condition)}} {{prop1}} {{else}} {{prop2}} {{/if}}\` to \`{{if condition}} {{prop2}} {{else}} {{prop1}} {{/if}}\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{if (not condition) \\"some-class\\" \\"other-class\\"}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -250,12 +336,21 @@ generateRuleTests({
       template: '<img class={{unless (not condition) "some-class"}}>',
       fixedTemplate: '<img class={{if condition "some-class"}}>',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source: '{{unless (not condition) "some-class"}}',
-        line: 1,
-        column: 11,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{unless (not condition) \\"some-class\\"}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -264,12 +359,21 @@ generateRuleTests({
       template: '<img class={{unless (not condition) "some-class" "other-class"}}>',
       fixedTemplate: '<img class={{if condition "some-class" "other-class"}}>',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source: '{{unless (not condition) "some-class" "other-class"}}',
-        line: 1,
-        column: 11,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{unless (not condition) \\"some-class\\" \\"other-class\\"}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -282,12 +386,21 @@ generateRuleTests({
       template: '{{input class=(if (not condition) "some-class")}}',
       fixedTemplate: '{{input class=(unless condition "some-class")}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_UNLESS,
-        source: '(if (not condition) "some-class")',
-        line: 1,
-        column: 14,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 14,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`if (not condition)\` to \`unless condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "(if (not condition) \\"some-class\\")",
+            },
+          ]
+        `);
       },
     },
 
@@ -296,12 +409,21 @@ generateRuleTests({
       template: '{{input class=(if (not condition) "some-class" "other-class")}}',
       fixedTemplate: '{{input class=(if condition "other-class" "some-class")}}',
 
-      result: {
-        message: ERROR_MESSAGE_FLIP_IF,
-        source: '(if (not condition) "some-class" "other-class")',
-        line: 1,
-        column: 14,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 14,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`{{if (not condition)}} {{prop1}} {{else}} {{prop2}} {{/if}}\` to \`{{if condition}} {{prop2}} {{else}} {{prop1}} {{/if}}\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "(if (not condition) \\"some-class\\" \\"other-class\\")",
+            },
+          ]
+        `);
       },
     },
 
@@ -310,12 +432,21 @@ generateRuleTests({
       template: '{{input class=(unless (not condition) "some-class")}}',
       fixedTemplate: '{{input class=(if condition "some-class")}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source: '(unless (not condition) "some-class")',
-        line: 1,
-        column: 14,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 14,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "(unless (not condition) \\"some-class\\")",
+            },
+          ]
+        `);
       },
     },
 
@@ -324,12 +455,21 @@ generateRuleTests({
       template: '{{input class=(unless (not condition) "some-class" "other-class")}}',
       fixedTemplate: '{{input class=(if condition "some-class" "other-class")}}',
 
-      result: {
-        message: ERROR_MESSAGE_USE_IF,
-        source: '(unless (not condition) "some-class" "other-class")',
-        line: 1,
-        column: 14,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 14,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "(unless (not condition) \\"some-class\\" \\"other-class\\")",
+            },
+          ]
+        `);
       },
     },
   ],

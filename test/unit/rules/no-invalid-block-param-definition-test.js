@@ -52,72 +52,128 @@ as
   bad: [
     {
       template: '<Foo |a></Foo>',
-      result: {
-        line: 1,
-        column: 0,
-        message:
-          'Unexpected block usage in "<Foo |a>". Missing " as " keyword before block symbol "|". Missing second (closing) "|" block symbol.',
-        source: '<Foo |a>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected block usage in \\"<Foo |a>\\". Missing \\" as \\" keyword before block symbol \\"|\\". Missing second (closing) \\"|\\" block symbol.",
+              "rule": "no-invalid-block-param-definition",
+              "severity": 2,
+              "source": "<Foo |a>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo | a></Foo>',
-      result: {
-        line: 1,
-        column: 0,
-        message:
-          'Unexpected block usage in "<Foo | a>". Missing " as " keyword before block symbol "|".',
-        source: '<Foo | a>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected block usage in \\"<Foo | a>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
+              "rule": "no-invalid-block-param-definition",
+              "severity": 2,
+              "source": "<Foo | a>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo |a|></Foo>',
-      result: {
-        line: 1,
-        column: 0,
-        message:
-          'Unexpected block usage in "<Foo |a|>". Missing " as " keyword before block symbol "|".',
-        source: '<Foo |a|>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected block usage in \\"<Foo |a|>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
+              "rule": "no-invalid-block-param-definition",
+              "severity": 2,
+              "source": "<Foo |a|>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo | a |></Foo>',
-      result: {
-        line: 1,
-        column: 0,
-        message:
-          'Unexpected block usage in "<Foo | a |>". Missing " as " keyword before block symbol "|".',
-        source: '<Foo | a |>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected block usage in \\"<Foo | a |>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
+              "rule": "no-invalid-block-param-definition",
+              "severity": 2,
+              "source": "<Foo | a |>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo | a |></Foo>',
-      result: {
-        line: 1,
-        column: 0,
-        message:
-          'Unexpected block usage in "<Foo | a |>". Missing " as " keyword before block symbol "|".',
-        source: '<Foo | a |>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected block usage in \\"<Foo | a |>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
+              "rule": "no-invalid-block-param-definition",
+              "severity": 2,
+              "source": "<Foo | a |>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo a|></Foo>',
-      result: {
-        line: 1,
-        column: 0,
-        message:
-          'Unexpected block usage in "<Foo a|>". Missing " as " keyword before block symbol "|". Missing "|" block symbol after " as " keyword.',
-        source: '<Foo a|>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected block usage in \\"<Foo a|>\\". Missing \\" as \\" keyword before block symbol \\"|\\". Missing \\"|\\" block symbol after \\" as \\" keyword.",
+              "rule": "no-invalid-block-param-definition",
+              "severity": 2,
+              "source": "<Foo a|>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo a |></Foo>',
-      result: {
-        line: 1,
-        column: 0,
-        message:
-          'Unexpected block usage in "<Foo a |>". Missing " as " keyword before block symbol "|".',
-        source: '<Foo a |>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected block usage in \\"<Foo a |>\\". Missing \\" as \\" keyword before block symbol \\"|\\".",
+              "rule": "no-invalid-block-param-definition",
+              "severity": 2,
+              "source": "<Foo a |>",
+            },
+          ]
+        `);
       },
     },
   ],

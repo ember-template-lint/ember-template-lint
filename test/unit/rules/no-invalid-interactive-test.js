@@ -60,32 +60,59 @@ generateRuleTests({
     {
       template: '<div {{on "click" this.actionName}}>...</div>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 5,
-        source: '<div {{on "click" this.actionName}}>...</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<div {{on \\"click\\" this.actionName}}>...</div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div {{action "foo"}}></div>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 5,
-        source: '<div {{action "foo"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<div {{action \\"foo\\"}}></div>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<div onclick={{action "foo"}}></div>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 5,
-        source: '<div onclick={{action "foo"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<div onclick={{action \\"foo\\"}}></div>",
+            },
+          ]
+        `);
       },
     },
 
@@ -93,22 +120,40 @@ generateRuleTests({
       // This example is detected solely based on the DOM event attribute name.
       template: '<div onclick={{pipe-action "foo"}}></div>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 5,
-        source: '<div onclick={{pipe-action "foo"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<div onclick={{pipe-action \\"foo\\"}}></div>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<div onsubmit={{action "foo"}}></div>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 5,
-        source: '<div onsubmit={{action "foo"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<div onsubmit={{action \\"foo\\"}}></div>",
+            },
+          ]
+        `);
       },
     },
 
@@ -116,33 +161,60 @@ generateRuleTests({
       // Any usage of the `action` helper will be caught, regardless of the attribute name.
       template: '<div randomAttribute={{action "foo"}}></div>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 5,
-        source: '<div randomAttribute={{action "foo"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<div randomAttribute={{action \\"foo\\"}}></div>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<form {{action "foo" on="click"}}></form>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 6,
-        source: '<form {{action "foo" on="click"}}></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<form {{action \\"foo\\" on=\\"click\\"}}></form>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<div {{action "foo" on="submit"}}></div>',
 
-      result: {
-        message: 'Interaction added to non-interactive element',
-        line: 1,
-        column: 5,
-        source: '<div {{action "foo" on="submit"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Interaction added to non-interactive element",
+              "rule": "no-invalid-interactive",
+              "severity": 2,
+              "source": "<div {{action \\"foo\\" on=\\"submit\\"}}></div>",
+            },
+          ]
+        `);
       },
     },
   ],

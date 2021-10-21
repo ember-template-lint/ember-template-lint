@@ -1,6 +1,5 @@
 'use strict';
 
-const { getErrorMessage } = require('../../../lib/rules/require-has-block-helper');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -24,243 +23,441 @@ generateRuleTests({
     {
       template: '{{hasBlock}}',
       fixedTemplate: '{{has-block}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 2,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{hasBlockParams}}',
       fixedTemplate: '{{has-block-params}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 2,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if hasBlock "true" "false"}}',
       fixedTemplate: '{{if (has-block) "true" "false"}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 5,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if hasBlockParams "true" "false"}}',
       fixedTemplate: '{{if (has-block-params) "true" "false"}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 5,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (hasBlock) "true" "false"}}',
       fixedTemplate: '{{if (has-block) "true" "false"}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 6,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (hasBlockParams) "true" "false"}}',
       fixedTemplate: '{{if (has-block-params) "true" "false"}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 6,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (hasBlock "inverse") "true" "false"}}',
       fixedTemplate: '{{if (has-block "inverse") "true" "false"}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 6,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (hasBlockParams "inverse") "true" "false"}}',
       fixedTemplate: '{{if (has-block-params "inverse") "true" "false"}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 6,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component test=(if hasBlock "true")}}',
       fixedTemplate: '{{component test=(if (has-block) "true")}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 21,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component test=(if hasBlockParams "true")}}',
       fixedTemplate: '{{component test=(if (has-block-params) "true")}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 21,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if hasBlock}}{{/if}}',
       fixedTemplate: '{{#if (has-block)}}{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 6,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if hasBlockParams}}{{/if}}',
       fixedTemplate: '{{#if (has-block-params)}}{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 6,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (hasBlock)}}{{/if}}',
       fixedTemplate: '{{#if (has-block)}}{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 7,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (hasBlockParams)}}{{/if}}',
       fixedTemplate: '{{#if (has-block-params)}}{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 7,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (hasBlock "inverse")}}{{/if}}',
       fixedTemplate: '{{#if (has-block "inverse")}}{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 7,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (hasBlockParams "inverse")}}{{/if}}',
       fixedTemplate: '{{#if (has-block-params "inverse")}}{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 7,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button name={{hasBlock}}></button>',
       fixedTemplate: '<button name={{has-block}}></button>',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 15,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button name={{hasBlockParams}}></button>',
       fixedTemplate: '<button name={{has-block-params}}></button>',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 15,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button name={{hasBlock "inverse"}}></button>',
       fixedTemplate: '<button name={{has-block "inverse"}}></button>',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 15,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button name={{hasBlockParams "inverse"}}></button>',
       fixedTemplate: '<button name={{has-block-params "inverse"}}></button>',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 15,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (or isLoading hasLoadFailed hasBlock)}}...{{/if}}',
       fixedTemplate: '{{#if (or isLoading hasLoadFailed (has-block))}}...{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlock'),
-        line: 1,
-        column: 34,
-        source: 'hasBlock',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 34,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlock\` is deprecated. Use the \`has-block\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlock",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (or isLoading hasLoadFailed hasBlockParams)}}...{{/if}}',
       fixedTemplate: '{{#if (or isLoading hasLoadFailed (has-block-params))}}...{{/if}}',
-      result: {
-        message: getErrorMessage('hasBlockParams'),
-        line: 1,
-        column: 34,
-        source: 'hasBlockParams',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 34,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`hasBlockParams\` is deprecated. Use the \`has-block-params\` helper instead.",
+              "rule": "require-has-block-helper",
+              "severity": 2,
+              "source": "hasBlockParams",
+            },
+          ]
+        `);
       },
     },
   ],

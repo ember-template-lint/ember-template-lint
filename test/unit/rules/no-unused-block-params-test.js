@@ -90,20 +90,38 @@ generateRuleTests({
     {
       template: '{{#each cats as |cat|}}Dogs{{/each}}',
 
-      result: {
-        message: "'cat' is defined but never used",
-        source: 'Dogs',
-        line: 1,
-        column: 23,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 23,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "'cat' is defined but never used",
+              "rule": "no-unused-block-params",
+              "severity": 2,
+              "source": "Dogs",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#each cats as |cat index|}}{{cat}}{{/each}}',
-      result: {
-        message: "'index' is defined but never used",
-        source: '{{cat}}',
-        line: 1,
-        column: 29,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 29,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "'index' is defined but never used",
+              "rule": "no-unused-block-params",
+              "severity": 2,
+              "source": "{{cat}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -113,11 +131,20 @@ generateRuleTests({
         '{{index}}: {{life}}' +
         '{{/each}}' +
         '{{/each}}',
-      result: {
-        message: "'index' is defined but never used",
-        source: '{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}',
-        line: 1,
-        column: 29,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 29,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "'index' is defined but never used",
+              "rule": "no-unused-block-params",
+              "severity": 2,
+              "source": "{{#each cat.lives as |life index|}}{{index}}: {{life}}{{/each}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -126,11 +153,20 @@ generateRuleTests({
         '{{partial "cat"}}' +
         '{{#each cat.lives as |life|}}Life{{/each}}' +
         '{{/each}}',
-      result: {
-        message: "'life' is defined but never used",
-        source: 'Life',
-        line: 1,
-        column: 75,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 75,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "'life' is defined but never used",
+              "rule": "no-unused-block-params",
+              "severity": 2,
+              "source": "Life",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-unbalanced-curlies');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -21,74 +20,155 @@ generateRuleTests({
   bad: [
     {
       template: 'foo}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 3,
-        source: 'foo}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 3,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{foo}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 4,
-        source: '{foo}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "{foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'foo}}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 3,
-        source: 'foo}}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 3,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "foo}}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{foo}}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 4,
-        source: '{foo}}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "{foo}}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{foo\n}}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 2,
-        column: 1,
-        source: '{foo\n}}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 1,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "{foo
+          }}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{foo\n}}}\nbar',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 2,
-        column: 1,
-        source: '{foo\n}}}\nbar',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 1,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "{foo
+          }}}
+          bar",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{foo\r\nbar\r\n\r\nbaz}}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 4,
-        column: 4,
-        source: '{foo\r\nbar\r\n\r\nbaz}}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "{foo
+          bar
+
+          baz}}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{foo\rbar\r\rbaz}}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 4,
-        column: 4,
-        source: '{foo\rbar\r\rbaz}}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "Unbalanced curlies detected",
+              "rule": "no-unbalanced-curlies",
+              "severity": 2,
+              "source": "{foo
+          bar
+
+          baz}}}",
+            },
+          ]
+        `);
       },
     },
   ],

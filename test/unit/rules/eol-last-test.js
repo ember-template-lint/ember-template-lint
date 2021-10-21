@@ -45,12 +45,21 @@ generateRuleTests({
       template: 'test',
       fixedTemplate: 'test\n',
 
-      result: {
-        message: 'template must end with newline',
-        line: 1,
-        column: 0,
-        source: 'test',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template must end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test",
+            },
+          ]
+        `);
       },
     },
     {
@@ -58,12 +67,22 @@ generateRuleTests({
       template: 'test\n',
       fixedTemplate: 'test',
 
-      result: {
-        message: 'template cannot end with newline',
-        line: 1,
-        column: 0,
-        source: 'test\n',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test
+          ",
+            },
+          ]
+        `);
       },
     },
     {
@@ -74,12 +93,21 @@ generateRuleTests({
         editorConfig: { insert_final_newline: true },
       },
 
-      result: {
-        message: 'template must end with newline',
-        line: 1,
-        column: 0,
-        source: 'test',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template must end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test",
+            },
+          ]
+        `);
       },
     },
     {
@@ -90,12 +118,22 @@ generateRuleTests({
         editorConfig: { insert_final_newline: false },
       },
 
-      result: {
-        message: 'template cannot end with newline',
-        line: 1,
-        column: 0,
-        source: 'test\n',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test
+          ",
+            },
+          ]
+        `);
       },
     },
     // test the re-entering of yielded content
@@ -104,12 +142,24 @@ generateRuleTests({
       config: 'never',
       template: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
 
-      result: {
-        message: 'template cannot end with newline',
-        line: 1,
-        column: 0,
-        source: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "{{#my-component}}
+            test
+          {{/my-component}}
+          ",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-yield-to-default');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -24,119 +23,236 @@ generateRuleTests({
   bad: [
     {
       template: '{{yield to="default"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 8,
-        source: 'to="default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "to=\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{has-block "default"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 12,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{has-block-params "default"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 19,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{hasBlock "default"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 11,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{hasBlockParams "default"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 17,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 17,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (has-block "default")}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 16,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 16,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (has-block "default")}}{{/if}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 17,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 17,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (has-block-params "default")}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 23,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 23,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (has-block-params "default")}}{{/if}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 24,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 24,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (hasBlock "default")}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 15,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (hasBlock "default")}}{{/if}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 16,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 16,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (hasBlockParams "default")}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 21,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if (hasBlockParams "default")}}{{/if}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 22,
-        source: '"default"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 22,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A block named \\"default\\" is not valid",
+              "rule": "no-yield-to-default",
+              "severity": 2,
+              "source": "\\"default\\"",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -18,11 +18,20 @@ generateRuleTests({
     {
       template: '\n {{{foo}}}',
 
-      result: {
-        message: 'Usage of triple curly brackets is unsafe',
-        source: '{{{foo}}}',
-        line: 2,
-        column: 1,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 1,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Usage of triple curly brackets is unsafe",
+              "rule": "no-triple-curlies",
+              "severity": 2,
+              "source": "{{{foo}}}",
+            },
+          ]
+        `);
       },
     },
   ],

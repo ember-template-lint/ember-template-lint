@@ -23,21 +23,39 @@ generateRuleTests({
     {
       template: '<div data-foo=asdf></div>',
 
-      result: {
-        column: 14,
-        line: 1,
-        message: 'Attribute data-foo should be either quoted or wrapped in mustaches',
-        source: '<div data-foo=asdf></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 14,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Attribute data-foo should be either quoted or wrapped in mustaches",
+              "rule": "no-quoteless-attributes",
+              "severity": 2,
+              "source": "<div data-foo=asdf></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<SomeThing @blah=asdf />',
 
-      result: {
-        column: 17,
-        line: 1,
-        message: 'Argument @blah should be either quoted or wrapped in mustaches',
-        source: '<SomeThing @blah=asdf />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 17,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Argument @blah should be either quoted or wrapped in mustaches",
+              "rule": "no-quoteless-attributes",
+              "severity": 2,
+              "source": "<SomeThing @blah=asdf />",
+            },
+          ]
+        `);
       },
     },
   ],

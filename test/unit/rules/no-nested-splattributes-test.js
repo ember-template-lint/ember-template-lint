@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-nested-splattributes');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -23,11 +22,20 @@ generateRuleTests({
         '    ...\n' +
         '  </div>\n' +
         '</div>\n',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 2,
-        column: 7,
-        source: '...attributes',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Nested splattributes are not allowed",
+              "rule": "no-nested-splattributes",
+              "severity": 2,
+              "source": "...attributes",
+            },
+          ]
+        `);
       },
     },
     {
@@ -39,11 +47,20 @@ generateRuleTests({
         '    </div>\n' +
         '  </div>\n' +
         '</div>\n',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 3,
-        column: 9,
-        source: '...attributes',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Nested splattributes are not allowed",
+              "rule": "no-nested-splattributes",
+              "severity": 2,
+              "source": "...attributes",
+            },
+          ]
+        `);
       },
     },
   ],

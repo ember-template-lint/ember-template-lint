@@ -2,7 +2,6 @@
 
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-whitespace-within-word');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -26,56 +25,110 @@ generateRuleTests({
     {
       template: 'W e l c o m e',
 
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: 'W e l c o m e',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Excess whitespace in layout detected.",
+              "rule": "no-whitespace-within-word",
+              "severity": 2,
+              "source": "W e l c o m e",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'W&nbsp;e&nbsp;l&nbsp;c&nbsp;o&nbsp;m&nbsp;e',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: 'W&nbsp;e&nbsp;l&nbsp;c&nbsp;o&nbsp;m&nbsp;e',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Excess whitespace in layout detected.",
+              "rule": "no-whitespace-within-word",
+              "severity": 2,
+              "source": "W&nbsp;e&nbsp;l&nbsp;c&nbsp;o&nbsp;m&nbsp;e",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'Wel c o me',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: 'Wel c o me',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Excess whitespace in layout detected.",
+              "rule": "no-whitespace-within-word",
+              "severity": 2,
+              "source": "Wel c o me",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'Wel&nbsp;c&emsp;o&nbsp;me',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: 'Wel&nbsp;c&emsp;o&nbsp;me',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Excess whitespace in layout detected.",
+              "rule": "no-whitespace-within-word",
+              "severity": 2,
+              "source": "Wel&nbsp;c&emsp;o&nbsp;me",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>W e l c o m e</div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: 'W e l c o m e',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Excess whitespace in layout detected.",
+              "rule": "no-whitespace-within-word",
+              "severity": 2,
+              "source": "W e l c o m e",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>Wel c o me</div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: 'Wel c o me',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Excess whitespace in layout detected.",
+              "rule": "no-whitespace-within-word",
+              "severity": 2,
+              "source": "Wel c o me",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -19,31 +19,58 @@ generateRuleTests({
     {
       template: 'test ',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 1,
-        column: 4,
-        source: 'test ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "test ",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'test \n',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 1,
-        column: 4,
-        source: 'test ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "test ",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'test\n' + ' \n',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 2,
-        column: 0,
-        source: ' ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": " ",
+            },
+          ]
+        `);
       },
     },
     // test the re-entering of yielded content
@@ -51,11 +78,20 @@ generateRuleTests({
     {
       template: '{{#my-component}}\n' + '  test \n' + '{{/my-component}}',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 2,
-        column: 6,
-        source: '  test ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "  test ",
+            },
+          ]
+        `);
       },
     },
   ],

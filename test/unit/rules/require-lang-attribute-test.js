@@ -1,6 +1,5 @@
 'use strict';
 
-const { ERROR_MESSAGE } = require('../../../lib/rules/require-lang-attribute');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -13,20 +12,38 @@ generateRuleTests({
   bad: [
     {
       template: '<html></html>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<html></html>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a non-null value",
+              "rule": "require-lang-attribute",
+              "severity": 2,
+              "source": "<html></html>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<html lang=""></html>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<html lang=""></html>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a non-null value",
+              "rule": "require-lang-attribute",
+              "severity": 2,
+              "source": "<html lang=\\"\\"></html>",
+            },
+          ]
+        `);
       },
     },
   ],

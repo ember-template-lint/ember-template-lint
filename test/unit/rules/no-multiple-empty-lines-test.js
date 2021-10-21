@@ -30,21 +30,45 @@ generateRuleTests({
     {
       template: '<div>foo</div>\n\n\n<div>bar</div>',
 
-      result: {
-        message: 'More than 1 blank line not allowed.',
-        line: 2,
-        column: 0,
-        source: '\n\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "More than 1 blank line not allowed.",
+              "rule": "no-multiple-empty-lines",
+              "severity": 2,
+              "source": "
+
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
 
-      result: {
-        message: 'More than 1 blank line not allowed.',
-        line: 2,
-        column: 0,
-        source: '\n\n\n\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "More than 1 blank line not allowed.",
+              "rule": "no-multiple-empty-lines",
+              "severity": 2,
+              "source": "
+
+
+
+          ",
+            },
+          ]
+        `);
       },
     },
     {
@@ -52,11 +76,22 @@ generateRuleTests({
 
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
 
-      result: {
-        message: 'More than 3 blank lines not allowed.',
-        line: 4,
-        column: 0,
-        source: '\n\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "More than 3 blank lines not allowed.",
+              "rule": "no-multiple-empty-lines",
+              "severity": 2,
+              "source": "
+
+          ",
+            },
+          ]
+        `);
       },
     },
   ],

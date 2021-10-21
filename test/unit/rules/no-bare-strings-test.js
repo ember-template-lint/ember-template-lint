@@ -124,141 +124,261 @@ generateRuleTests({
   bad: [
     {
       template: '<p>{{"Hello!"}}</p>',
-      result: {
-        message: 'Non-translated string used',
-        line: 1,
-        column: 3,
-        source: 'Hello!',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 3,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "Hello!",
+            },
+          ]
+        `);
       },
     },
     {
       template: '\n howdy',
 
-      result: {
-        message: 'Non-translated string used',
-        line: 1,
-        column: 0,
-        source: '\n howdy',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "
+           howdy",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>\n  1234\n</div>',
 
-      result: {
-        message: 'Non-translated string used',
-        line: 1,
-        column: 5,
-        source: '\n  1234\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "
+            1234
+          ",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<a title="hahaha trolol"></a>',
 
-      result: {
-        message: 'Non-translated string used in `title` attribute',
-        line: 1,
-        column: 3,
-        source: 'hahaha trolol',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 3,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`title\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<input placeholder="trolol">',
 
-      result: {
-        message: 'Non-translated string used in `placeholder` attribute',
-        line: 1,
-        column: 7,
-        source: 'trolol',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "trolol",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<input placeholder="{{foo}}hahaha trolol">',
 
-      result: {
-        message: 'Non-translated string used in `placeholder` attribute',
-        line: 1,
-        column: 7,
-        source: 'hahaha trolol',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<Input placeholder="{{foo}}hahaha trolol" />',
 
-      result: {
-        message: 'Non-translated string used in `placeholder` attribute',
-        line: 1,
-        column: 7,
-        source: 'hahaha trolol',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<Textarea placeholder="{{foo}}hahaha trolol" />',
 
-      result: {
-        message: 'Non-translated string used in `placeholder` attribute',
-        line: 1,
-        column: 10,
-        source: 'hahaha trolol',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<Input @placeholder="{{foo}}hahaha trolol" />',
 
-      result: {
-        message: 'Non-translated string used in `@placeholder` argument',
-        line: 1,
-        column: 7,
-        source: 'hahaha trolol',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`@placeholder\` argument",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<Textarea @placeholder="{{foo}}hahaha trolol" />',
 
-      result: {
-        message: 'Non-translated string used in `@placeholder` argument',
-        line: 1,
-        column: 10,
-        source: 'hahaha trolol',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`@placeholder\` argument",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<div role="contentinfo" aria-label="Contact, Policies and Legal"></div>',
 
-      result: {
-        message: 'Non-translated string used in `aria-label` attribute',
-        line: 1,
-        column: 24,
-        source: 'Contact, Policies and Legal',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 24,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`aria-label\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "Contact, Policies and Legal",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<div contenteditable role="searchbox" aria-placeholder="Search for things"></div>',
 
-      result: {
-        message: 'Non-translated string used in `aria-placeholder` attribute',
-        line: 1,
-        column: 38,
-        source: 'Search for things',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 38,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`aria-placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "Search for things",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<div role="region" aria-roledescription="slide"></div>',
 
-      result: {
-        message: 'Non-translated string used in `aria-roledescription` attribute',
-        line: 1,
-        column: 19,
-        source: 'slide',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`aria-roledescription\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "slide",
+            },
+          ]
+        `);
       },
     },
 
@@ -266,11 +386,20 @@ generateRuleTests({
       template:
         '<div role="slider" aria-valuetext="Off" tabindex="0" aria-valuemin="0" aria-valuenow="0" aria-valuemax="3"></div>',
 
-      result: {
-        message: 'Non-translated string used in `aria-valuetext` attribute',
-        line: 1,
-        column: 19,
-        source: 'Off',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`aria-valuetext\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "Off",
+            },
+          ]
+        `);
       },
     },
 
@@ -278,11 +407,20 @@ generateRuleTests({
       config: { globalAttributes: ['data-foo'] },
       template: '<div data-foo="derpy"></div>',
 
-      result: {
-        message: 'Non-translated string used in `data-foo` attribute',
-        line: 1,
-        column: 5,
-        source: 'derpy',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`data-foo\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "derpy",
+            },
+          ]
+        `);
       },
     },
 
@@ -290,11 +428,20 @@ generateRuleTests({
       config: { elementAttributes: { img: ['data-alt'] } },
       template: '<img data-alt="some alternate here">',
 
-      result: {
-        message: 'Non-translated string used in `data-alt` attribute',
-        line: 1,
-        column: 5,
-        source: 'some alternate here',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`data-alt\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "some alternate here",
+            },
+          ]
+        `);
       },
     },
 
