@@ -6,11 +6,8 @@ function mapBadStyleExampleToTestRule(inlineStyle) {
   return {
     template: `<div ${inlineStyle}></div>`,
 
-    result: {
-      message: 'elements cannot have inline styles',
-      source: inlineStyle,
-      line: 1,
-      column: 5,
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
     },
   };
 }

@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no-inline-styles <div style=""></div>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 5,
+    "endColumn": 13,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "elements cannot have inline styles",
+    "rule": "no-inline-styles",
+    "severity": 2,
+    "source": "style=\\"\\"",
+  },
+]
+`;
+
+exports[`no-inline-styles <div style="{{foo}} {{bar}}"></div>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 5,
+    "endColumn": 28,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "elements cannot have inline styles",
+    "rule": "no-inline-styles",
+    "severity": 2,
+    "source": "style=\\"{{foo}} {{bar}}\\"",
+  },
+]
+`;
+
+exports[`no-inline-styles <div style="color:blue;margin-left:30px;"></div>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 5,
+    "endColumn": 41,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "elements cannot have inline styles",
+    "rule": "no-inline-styles",
+    "severity": 2,
+    "source": "style=\\"color:blue;margin-left:30px;\\"",
+  },
+]
+`;
+
+exports[`no-inline-styles <div style="width: 100px"></div>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 5,
+    "endColumn": 25,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "elements cannot have inline styles",
+    "rule": "no-inline-styles",
+    "severity": 2,
+    "source": "style=\\"width: 100px\\"",
+  },
+]
+`;
+
+exports[`no-inline-styles <div style={{foo}}></div>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 5,
+    "endColumn": 18,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "elements cannot have inline styles",
+    "rule": "no-inline-styles",
+    "severity": 2,
+    "source": "style={{foo}}",
+  },
+]
+`;
+
+exports[`no-inline-styles <div style></div>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 5,
+    "endColumn": 10,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "elements cannot have inline styles",
+    "rule": "no-inline-styles",
+    "severity": 2,
+    "source": "style",
+  },
+]
+`;
