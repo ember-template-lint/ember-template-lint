@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no-capital-arguments <MyComponent @args={{42}} />: logs errors 1`] = `
+Array [
+  Object {
+    "column": 13,
+    "endColumn": 25,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@args is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "args",
+  },
+]
+`;
+
+exports[`no-capital-arguments <MyComponent @arguments={{42}} />: logs errors 1`] = `
+Array [
+  Object {
+    "column": 13,
+    "endColumn": 30,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@arguments is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "arguments",
+  },
+]
+`;
+
+exports[`no-capital-arguments <MyComponent @block={{42}} />: logs errors 1`] = `
+Array [
+  Object {
+    "column": 13,
+    "endColumn": 26,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@block is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "block",
+  },
+]
+`;
+
+exports[`no-capital-arguments <MyComponent @else={{42}} />: logs errors 1`] = `
+Array [
+  Object {
+    "column": 13,
+    "endColumn": 25,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@else is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "else",
+  },
+]
+`;
+
+exports[`no-capital-arguments {{@args}}: logs errors 1`] = `
+Array [
+  Object {
+    "column": 3,
+    "endColumn": 7,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@args is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "args",
+  },
+]
+`;
+
+exports[`no-capital-arguments {{@arguments}}: logs errors 1`] = `
+Array [
+  Object {
+    "column": 3,
+    "endColumn": 12,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@arguments is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "arguments",
+  },
+]
+`;
+
+exports[`no-capital-arguments {{@block}}: logs errors 1`] = `
+Array [
+  Object {
+    "column": 3,
+    "endColumn": 8,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@block is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "block",
+  },
+]
+`;
+
+exports[`no-capital-arguments {{@else}}: logs errors 1`] = `
+Array [
+  Object {
+    "column": 3,
+    "endColumn": 7,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "@else is reserved argument name, try to use another",
+    "rule": "no-capital-arguments",
+    "severity": 2,
+    "source": "else",
+  },
+]
+`;
