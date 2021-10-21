@@ -219,15 +219,24 @@ generateRuleTests({
     ...SHARED_BAD,
     {
       template: '{{disallowed}}',
-      results: [
-        {
-          message: generateError('disallowed'),
-          line: 1,
-          isFixable: false,
-          column: 0,
-          source: '{{disallowed}}',
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "You are using the component {{disallowed}} with curly component syntax. You should use <Disallowed> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['disallowed'] }\`.",
+              "rule": "no-curly-component-invocation",
+              "severity": 2,
+              "source": "{{disallowed}}",
+            },
+          ]
+        `);
+      },
     },
   ],
 });
@@ -277,27 +286,45 @@ generateRuleTests({
     ...SHARED_BAD,
     {
       template: '{{foo}}',
-      results: [
-        {
-          message: generateError('foo'),
-          line: 1,
-          isFixable: false,
-          column: 0,
-          source: '{{foo}}',
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "You are using the component {{foo}} with curly component syntax. You should use <Foo> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['foo'] }\`.",
+              "rule": "no-curly-component-invocation",
+              "severity": 2,
+              "source": "{{foo}}",
+            },
+          ]
+        `);
+      },
     },
     {
       template: '{{foo.bar}}',
-      results: [
-        {
-          message: generateError('foo.bar'),
-          line: 1,
-          column: 0,
-          isFixable: false,
-          source: '{{foo.bar}}',
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 11,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "You are using the component {{foo.bar}} with curly component syntax. You should use <Foo.Bar> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['foo.bar'] }\`.",
+              "rule": "no-curly-component-invocation",
+              "severity": 2,
+              "source": "{{foo.bar}}",
+            },
+          ]
+        `);
+      },
     },
   ],
 });

@@ -37,6 +37,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 38,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <h2>",
@@ -55,6 +57,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 61,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <img>",
@@ -75,6 +79,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 82,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <button>",
@@ -84,6 +90,8 @@ generateRuleTests({
             },
             Object {
               "column": 0,
+              "endColumn": 82,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <img>",

@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",
@@ -42,6 +44,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",
@@ -60,6 +64,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",
@@ -78,6 +84,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",
@@ -96,6 +104,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",
@@ -114,6 +124,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 13,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",
@@ -132,6 +144,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",
@@ -150,6 +164,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 66,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Buttons should not contain heading elements",

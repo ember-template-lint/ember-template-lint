@@ -129,6 +129,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 3,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used",
@@ -148,6 +150,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used",
@@ -168,6 +172,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used",
@@ -190,6 +196,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 3,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`title\` attribute",
@@ -210,6 +218,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 26,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`placeholder\` attribute",
@@ -230,6 +240,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 40,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`placeholder\` attribute",
@@ -250,6 +262,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 40,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`placeholder\` attribute",
@@ -270,6 +284,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`placeholder\` attribute",
@@ -290,6 +306,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`@placeholder\` argument",
@@ -310,6 +328,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 44,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`@placeholder\` argument",
@@ -330,6 +350,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 24,
+              "endColumn": 63,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`aria-label\` attribute",
@@ -350,6 +372,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 38,
+              "endColumn": 73,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`aria-placeholder\` attribute",
@@ -370,6 +394,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 46,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`aria-roledescription\` attribute",
@@ -391,6 +417,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 38,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`aria-valuetext\` attribute",
@@ -412,6 +440,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`data-foo\` attribute",
@@ -433,6 +463,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Non-translated string used in \`data-alt\` attribute",
@@ -448,20 +480,35 @@ generateRuleTests({
     {
       // multiple bare strings are all logged
       template: '<div>Bady\n  <input placeholder="trolol">\n</div>',
-      results: [
-        {
-          message: 'Non-translated string used',
-          line: 1,
-          column: 5,
-          source: 'Bady\n  ',
-        },
-        {
-          message: 'Non-translated string used in `placeholder` attribute',
-          line: 2,
-          column: 9,
-          source: 'trolol',
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "endColumn": 2,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "Bady
+            ",
+            },
+            Object {
+              "column": 9,
+              "endColumn": 28,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "trolol",
+            },
+          ]
+        `);
+      },
     },
   ],
 });

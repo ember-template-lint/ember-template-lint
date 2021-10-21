@@ -25,6 +25,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 3,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unbalanced curlies detected",
@@ -43,6 +45,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 4,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unbalanced curlies detected",
@@ -61,6 +65,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 3,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unbalanced curlies detected",
@@ -79,6 +85,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 4,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unbalanced curlies detected",
@@ -97,6 +105,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 1,
+              "endColumn": 3,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Unbalanced curlies detected",
@@ -116,6 +126,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 1,
+              "endColumn": 3,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Unbalanced curlies detected",
@@ -136,6 +148,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 4,
+              "endColumn": 6,
+              "endLine": 4,
               "filePath": "layout.hbs",
               "line": 4,
               "message": "Unbalanced curlies detected",
@@ -157,6 +171,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 4,
+              "endColumn": 6,
+              "endLine": 4,
               "filePath": "layout.hbs",
               "line": 4,
               "message": "Unbalanced curlies detected",

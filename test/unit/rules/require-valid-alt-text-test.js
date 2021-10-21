@@ -65,6 +65,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "All \`<img>\` tags must have an alt attribute",
@@ -84,6 +86,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "All \`<img>\` tags must have an alt attribute",
@@ -103,6 +107,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
@@ -122,6 +128,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
@@ -140,6 +148,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The alt text must not be the same as the image source",
@@ -159,6 +169,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "All <input> elements with type=\\"image\\" must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
@@ -177,6 +189,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.",
@@ -195,6 +209,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 10,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.",
@@ -213,6 +229,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Each area of an image map must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
@@ -232,6 +250,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
@@ -251,6 +271,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
@@ -270,6 +292,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
@@ -289,6 +313,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
@@ -308,6 +334,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
@@ -327,6 +355,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "A number is not valid alt text",
@@ -345,6 +375,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
@@ -363,6 +395,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 59,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",

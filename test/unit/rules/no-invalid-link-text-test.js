@@ -48,6 +48,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 42,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -66,6 +68,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -84,6 +88,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -103,6 +109,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -122,6 +130,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -141,6 +151,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 4,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -161,6 +173,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 61,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -180,6 +194,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 62,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -199,6 +215,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 66,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -218,6 +236,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -237,6 +257,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 9,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -257,6 +279,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",
@@ -276,6 +300,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 12,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Links should have descriptive text",

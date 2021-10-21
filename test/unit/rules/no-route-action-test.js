@@ -38,6 +38,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 37,
+              "endColumn": 69,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
@@ -56,6 +58,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 28,
+              "endColumn": 60,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
@@ -77,6 +81,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 18,
+              "endColumn": 44,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
@@ -99,6 +105,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 18,
+              "endColumn": 46,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Do not use \`route-action\` as {{route-action ...}}. Instead, use controller actions.",
@@ -117,6 +125,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 61,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use \`route-action\` as {{route-action ...}}. Instead, use controller actions.",

@@ -70,6 +70,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Event handler methods like \`click\` should not be passed in as a component arguments",
@@ -89,6 +91,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Event handler methods like \`keyPress\` should not be passed in as a component arguments",
@@ -108,6 +112,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Event handler methods like \`submit\` should not be passed in as a component arguments",
@@ -127,6 +133,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Event handler methods like \`click\` should not be passed in as a component arguments",
@@ -146,6 +154,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Event handler methods like \`keyPress\` should not be passed in as a component arguments",
@@ -165,6 +175,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 29,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Event handler methods like \`submit\` should not be passed in as a component arguments",

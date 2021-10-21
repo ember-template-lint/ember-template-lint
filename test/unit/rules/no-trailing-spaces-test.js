@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 4,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "line cannot end with space",
@@ -43,6 +45,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 4,
+              "endColumn": 0,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "line cannot end with space",
@@ -62,6 +66,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "line cannot end with space",
@@ -83,6 +89,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 6,
+              "endColumn": 17,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "line cannot end with space",

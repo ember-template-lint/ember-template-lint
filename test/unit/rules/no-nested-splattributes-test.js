@@ -27,6 +27,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 20,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Nested splattributes are not allowed",
@@ -52,6 +54,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 9,
+              "endColumn": 22,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Nested splattributes are not allowed",

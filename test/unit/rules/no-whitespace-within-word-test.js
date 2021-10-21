@@ -30,6 +30,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Excess whitespace in layout detected.",
@@ -48,6 +50,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Excess whitespace in layout detected.",
@@ -66,6 +70,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 10,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Excess whitespace in layout detected.",
@@ -84,6 +90,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Excess whitespace in layout detected.",
@@ -102,6 +110,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 18,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Excess whitespace in layout detected.",
@@ -120,6 +130,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 5,
+              "endColumn": 15,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Excess whitespace in layout detected.",

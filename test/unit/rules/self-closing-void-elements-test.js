@@ -100,6 +100,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<area>",
@@ -122,6 +124,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<base>",
@@ -144,6 +148,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<br>",
@@ -166,6 +172,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<col>",
@@ -188,6 +196,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 10,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<command>",
@@ -210,6 +220,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<embed>",
@@ -232,6 +244,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<hr>",
@@ -254,6 +268,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<img>",
@@ -276,6 +292,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<input>",
@@ -298,6 +316,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<keygen>",
@@ -320,6 +340,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<link>",
@@ -342,6 +364,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<meta>",
@@ -364,6 +388,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<param>",
@@ -386,6 +412,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<source>",
@@ -408,6 +436,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<track>",
@@ -431,6 +461,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<wbr>",
@@ -454,6 +486,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<area/>",
@@ -477,6 +511,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<base/>",
@@ -500,6 +536,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 4,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<br/>",
@@ -523,6 +561,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<col/>",
@@ -546,6 +586,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<command/>",
@@ -569,6 +611,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<embed/>",
@@ -592,6 +636,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 4,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<hr/>",
@@ -615,6 +661,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<img/>",
@@ -638,6 +686,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<input/>",
@@ -661,6 +711,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<keygen/>",
@@ -684,6 +736,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<link/>",
@@ -707,6 +761,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<meta/>",
@@ -730,6 +786,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<param/>",
@@ -753,6 +811,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<source/>",
@@ -776,6 +836,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<track/>",
@@ -799,6 +861,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<wbr/>",

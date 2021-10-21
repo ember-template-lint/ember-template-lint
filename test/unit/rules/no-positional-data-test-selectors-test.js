@@ -79,6 +79,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 10,
+              "endLine": 6,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,

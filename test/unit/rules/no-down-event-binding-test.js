@@ -26,6 +26,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
@@ -44,6 +46,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 34,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
@@ -63,6 +67,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 54,
+              "endColumn": 63,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
@@ -82,6 +88,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",

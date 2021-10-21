@@ -33,6 +33,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Template length of 3 is smaller than 10",
@@ -55,6 +57,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 5,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Template length of 5 exceeds 3",

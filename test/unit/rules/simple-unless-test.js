@@ -79,6 +79,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 9,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
@@ -98,6 +100,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 9,
+              "endColumn": 18,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
@@ -117,6 +121,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 9,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
@@ -142,6 +148,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
@@ -161,6 +169,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
@@ -186,6 +196,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
@@ -211,6 +223,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
@@ -238,6 +252,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
@@ -265,6 +281,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
@@ -286,6 +304,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 5,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Using an \`{{else unless}}\` block should be avoided.",
@@ -309,6 +329,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
@@ -332,6 +354,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
@@ -357,6 +381,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
@@ -380,6 +406,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 46,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2",
@@ -404,6 +432,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0",
@@ -426,22 +456,34 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      results: [
-        {
-          message:
-            'Using {{unless}} in combination with other helpers should be avoided. Allowed helper: test',
-          source: '{{unless (one ...',
-          line: 1,
-          column: 10,
-        },
-        {
-          message:
-            'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1',
-          source: '{{unless (... (test ...',
-          line: 1,
-          column: 15,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helper: test",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (one ...",
+            },
+            Object {
+              "column": 15,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (... (test ...",
+            },
+          ]
+        `);
+      },
     },
     {
       config: {
@@ -459,6 +501,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 38,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2",
@@ -486,6 +530,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 15,
+              "endColumn": 26,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Restricted helper: two",
@@ -508,22 +554,34 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      results: [
-        {
-          message:
-            'Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four',
-          source: '{{unless (... (two ...',
-          line: 1,
-          column: 15,
-        },
-        {
-          message:
-            'Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four',
-          source: '{{unless (... (four ...',
-          line: 1,
-          column: 27,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (... (two ...",
+            },
+            Object {
+              "column": 27,
+              "endColumn": 38,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (... (four ...",
+            },
+          ]
+        `);
+      },
     },
   ],
 });

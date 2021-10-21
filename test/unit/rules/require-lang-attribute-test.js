@@ -17,6 +17,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 13,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The \`<html>\` element must have the \`lang\` attribute with a non-null value",
@@ -35,6 +37,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The \`<html>\` element must have the \`lang\` attribute with a non-null value",

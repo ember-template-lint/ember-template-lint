@@ -26,6 +26,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": false,
               "line": 1,
@@ -45,6 +47,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 10,
+              "endColumn": 34,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": false,
               "line": 1,
@@ -64,6 +68,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 45,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": false,
               "line": 1,
@@ -84,6 +90,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 44,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": false,
               "line": 1,
@@ -104,6 +112,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 1,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Arguments \\"@route\\" or \\"@query\\" is required for <LinkTo /> component.",
@@ -118,50 +128,82 @@ generateRuleTests({
 
     {
       template: '<LinkTo @route="info" @model={{this.model}} @models={{this.models}} />',
-      results: [
-        {
-          message: CONFLICT_MESSAGE('@model', ['model', 'models']),
-          line: 1,
-          column: 22,
-          source: '@model',
-        },
-        {
-          message: CONFLICT_MESSAGE('@models', ['model', 'models']),
-          line: 1,
-          column: 44,
-          source: '@models',
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 22,
+              "endColumn": 43,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "\\"@model\\" conflicts with \\"@models\\", only one should exists.",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@model",
+            },
+            Object {
+              "column": 44,
+              "endColumn": 67,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "\\"@models\\" conflicts with \\"@model\\", only one should exists.",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@models",
+            },
+          ]
+        `);
+      },
     },
 
     // LINK TO Deprecated Argument
 
     {
       template: '<LinkTo @route="info" @model={{this.model}} @tagName="button" />',
-      results: [
-        {
-          message: 'Passing the "@tagName" argument to <LinkTo /> is deprecated.',
-          line: 1,
-          column: 44,
-          source: '@tagName',
-          isFixable: false,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 44,
+              "endColumn": 61,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "Passing the \\"@tagName\\" argument to <LinkTo /> is deprecated.",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@tagName",
+            },
+          ]
+        `);
+      },
     },
 
     {
       template: '<LinkTo @route="info" @model={{this.model}} @elementId="superstar" />',
       fixedTemplate: '<LinkTo @route="info" @model={{this.model}} id="superstar" />',
-      results: [
-        {
-          message:
-            'Passing the "@elementId" argument to <LinkTo /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<LinkTo id={{...}} />" instead of "<LinkTo @elementId={{...}} />".',
-          line: 1,
-          column: 44,
-          source: '@elementId',
-          isFixable: true,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 44,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Passing the \\"@elementId\\" argument to <LinkTo /> is deprecated.
+          Instead, please pass the attribute directly, i.e. \\"<LinkTo id={{...}} />\\" instead of \\"<LinkTo @elementId={{...}} />\\".",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@elementId",
+            },
+          ]
+        `);
+      },
     },
 
     // LINK TO Deprecated Event
@@ -170,54 +212,86 @@ generateRuleTests({
       template: '<LinkTo @route="info" @model={{this.model}} @doubleClick={{action this.click}} />',
       fixedTemplate:
         '<LinkTo @route="info" @model={{this.model}} {{on "dblclick" (action this.click)}} />',
-      results: [
-        {
-          message:
-            'Passing the "@doubleClick" argument to <LinkTo /> is deprecated.\nInstead, please use the {{on}} modifier, i.e. "<LinkTo {{on "dblclick" ...}} />" instead of "<LinkTo @doubleClick={{...}} />".',
-          line: 1,
-          column: 44,
-          source: '@doubleClick',
-          isFixable: true,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 44,
+              "endColumn": 78,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Passing the \\"@doubleClick\\" argument to <LinkTo /> is deprecated.
+          Instead, please use the {{on}} modifier, i.e. \\"<LinkTo {{on \\"dblclick\\" ...}} />\\" instead of \\"<LinkTo @doubleClick={{...}} />\\".",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@doubleClick",
+            },
+          ]
+        `);
+      },
     },
 
     // Input Deprecated Argument
 
     {
       template: '<Input @value="1" @bubbles={{false}} />',
-      results: [
-        {
-          message: 'Passing the "@bubbles" argument to <Input /> is deprecated.',
-          line: 1,
-          column: 18,
-          source: '@bubbles',
-          isFixable: false,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 18,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "Passing the \\"@bubbles\\" argument to <Input /> is deprecated.",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@bubbles",
+            },
+          ]
+        `);
+      },
     },
 
     {
       template: '<Input @value="1" @elementId="42" @disabled="disabled" />',
       fixedTemplate: '<Input @value="1" id="42" disabled="disabled" />',
-      results: [
-        {
-          message:
-            'Passing the "@elementId" argument to <Input /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<Input id={{...}} />" instead of "<Input @elementId={{...}} />".',
-          line: 1,
-          column: 18,
-          source: '@elementId',
-          isFixable: true,
-        },
-        {
-          message:
-            'Passing the "@disabled" argument to <Input /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<Input disabled={{...}} />" instead of "<Input @disabled={{...}} />".',
-          line: 1,
-          column: 34,
-          source: '@disabled',
-          isFixable: true,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 18,
+              "endColumn": 33,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Passing the \\"@elementId\\" argument to <Input /> is deprecated.
+          Instead, please pass the attribute directly, i.e. \\"<Input id={{...}} />\\" instead of \\"<Input @elementId={{...}} />\\".",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@elementId",
+            },
+            Object {
+              "column": 34,
+              "endColumn": 54,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Passing the \\"@disabled\\" argument to <Input /> is deprecated.
+          Instead, please pass the attribute directly, i.e. \\"<Input disabled={{...}} />\\" instead of \\"<Input @disabled={{...}} />\\".",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@disabled",
+            },
+          ]
+        `);
+      },
     },
 
     // Input Deprecated Event
@@ -225,61 +299,97 @@ generateRuleTests({
     {
       template: '<Input @value="1" @key-up={{ths.onKeyUp}} />',
       fixedTemplate: '<Input @value="1" {{on "keyup" ths.onKeyUp}} />',
-      results: [
-        {
-          message:
-            'Passing the "@key-up" argument to <Input /> is deprecated.\nInstead, please use the {{on}} modifier, i.e. "<Input {{on "keyup" ...}} />" instead of "<Input @key-up={{...}} />".',
-          line: 1,
-          column: 18,
-          source: '@key-up',
-          isFixable: true,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 18,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Passing the \\"@key-up\\" argument to <Input /> is deprecated.
+          Instead, please use the {{on}} modifier, i.e. \\"<Input {{on \\"keyup\\" ...}} />\\" instead of \\"<Input @key-up={{...}} />\\".",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@key-up",
+            },
+          ]
+        `);
+      },
     },
 
     // Textarea Deprecated Argument
     {
       template: '<Textarea @value="1" @bubbles={{false}} />',
-      results: [
-        {
-          message: 'Passing the "@bubbles" argument to <Textarea /> is deprecated.',
-          line: 1,
-          column: 21,
-          source: '@bubbles',
-          isFixable: false,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "endColumn": 39,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "Passing the \\"@bubbles\\" argument to <Textarea /> is deprecated.",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@bubbles",
+            },
+          ]
+        `);
+      },
     },
 
     {
       template: '<Textarea @value="1" @elementId="42" />',
       fixedTemplate: '<Textarea @value="1" id="42" />',
-      results: [
-        {
-          message:
-            'Passing the "@elementId" argument to <Textarea /> is deprecated.\nInstead, please pass the attribute directly, i.e. "<Textarea id={{...}} />" instead of "<Textarea @elementId={{...}} />".',
-          line: 1,
-          column: 21,
-          source: '@elementId',
-          isFixable: true,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Passing the \\"@elementId\\" argument to <Textarea /> is deprecated.
+          Instead, please pass the attribute directly, i.e. \\"<Textarea id={{...}} />\\" instead of \\"<Textarea @elementId={{...}} />\\".",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@elementId",
+            },
+          ]
+        `);
+      },
     },
     // Textarea Deprecated Event
 
     {
       template: '<Textarea @value="1" @key-up={{ths.onKeyUp}} />',
       fixedTemplate: '<Textarea @value="1" {{on "keyup" ths.onKeyUp}} />',
-      results: [
-        {
-          message:
-            'Passing the "@key-up" argument to <Textarea /> is deprecated.\nInstead, please use the {{on}} modifier, i.e. "<Textarea {{on "keyup" ...}} />" instead of "<Textarea @key-up={{...}} />".',
-          line: 1,
-          column: 21,
-          source: '@key-up',
-          isFixable: true,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "endColumn": 44,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Passing the \\"@key-up\\" argument to <Textarea /> is deprecated.
+          Instead, please use the {{on}} modifier, i.e. \\"<Textarea {{on \\"keyup\\" ...}} />\\" instead of \\"<Textarea @key-up={{...}} />\\".",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@key-up",
+            },
+          ]
+        `);
+      },
     },
 
     // LinkTo unknown argument
@@ -287,16 +397,24 @@ generateRuleTests({
     {
       template:
         ' <LinkTo class="auk-search-results-list__item" @route={{@route}} @models={{this.models}} @random="test" @query={{@query}} ...attributes >Hello</LinkTo>',
-      results: [
-        {
-          message:
-            '"@random" is not a known argument for the <LinkTo /> component. Did you mean "@dragOver"?',
-          line: 1,
-          column: 89,
-          source: '@random',
-          isFixable: false,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 89,
+              "endColumn": 103,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "\\"@random\\" is not a known argument for the <LinkTo /> component. Did you mean \\"@dragOver\\"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@random",
+            },
+          ]
+        `);
+      },
     },
   ],
 });

@@ -103,6 +103,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 10,
+              "endLine": 1,
               "filePath": "app/templates/components/foo/layout.hbs",
               "line": 1,
               "message": "Unexpected {{outlet}} usage. Only use {{outlet}} within a route template.",
@@ -126,6 +128,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 10,
+              "endLine": 1,
               "filePath": "app/templates/foo/-mything.hbs",
               "line": 1,
               "message": "Unexpected {{outlet}} usage. Only use {{outlet}} within a route template.",
@@ -149,6 +153,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 10,
+              "endLine": 1,
               "filePath": "app/components/foo/layout.hbs",
               "line": 1,
               "message": "Unexpected {{outlet}} usage. Only use {{outlet}} within a route template.",

@@ -19,53 +19,88 @@ generateRuleTests({
     {
       template: '<iframe title="foo" /><iframe title="foo" />',
 
-      results: [
-        {
-          message: 'This title is not unique. #1',
-          source: 'title="foo"',
-          line: 1,
-          column: 8,
-        },
-        {
-          message:
-            '<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1',
-          source: '<iframe title="foo" />',
-          line: 1,
-          column: 22,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "This title is not unique. #1",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "title=\\"foo\\"",
+            },
+            Object {
+              "column": 22,
+              "endColumn": 44,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<iframe> elements must have a unique title property. Value title=\\"foo\\" already used for different iframe. #1",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "<iframe title=\\"foo\\" />",
+            },
+          ]
+        `);
+      },
     },
     {
       template:
         '<iframe title="foo" /><iframe title="boo" /><iframe title="foo" /><iframe title="boo" />',
-      results: [
-        {
-          message: 'This title is not unique. #1',
-          source: 'title="foo"',
-          line: 1,
-          column: 8,
-        },
-        {
-          message:
-            '<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1',
-          source: '<iframe title="foo" />',
-          line: 1,
-          column: 44,
-        },
-        {
-          message: 'This title is not unique. #2',
-          source: 'title="boo"',
-          line: 1,
-          column: 30,
-        },
-        {
-          message:
-            '<iframe> elements must have a unique title property. Value title="boo" already used for different iframe. #2',
-          source: '<iframe title="boo" />',
-          line: 1,
-          column: 66,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "This title is not unique. #1",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "title=\\"foo\\"",
+            },
+            Object {
+              "column": 44,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<iframe> elements must have a unique title property. Value title=\\"foo\\" already used for different iframe. #1",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "<iframe title=\\"foo\\" />",
+            },
+            Object {
+              "column": 30,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "This title is not unique. #2",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "title=\\"boo\\"",
+            },
+            Object {
+              "column": 66,
+              "endColumn": 88,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<iframe> elements must have a unique title property. Value title=\\"boo\\" already used for different iframe. #2",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "<iframe title=\\"boo\\" />",
+            },
+          ]
+        `);
+      },
     },
     {
       template: '<iframe src="12" />',
@@ -75,6 +110,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<iframe> elements must have a unique title property.",
@@ -94,6 +131,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<iframe> elements must have a unique title property.",
@@ -113,6 +152,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 37,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<iframe> elements must have a unique title property.",
@@ -132,6 +173,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<iframe> elements must have a unique title property.",

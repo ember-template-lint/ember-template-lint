@@ -60,6 +60,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoke component directly instead of using \`component\` helper",
@@ -80,6 +82,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 48,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoke component directly instead of using \`component\` helper",
@@ -100,6 +104,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 44,
+              "endColumn": 79,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoke component directly instead of using \`component\` helper",

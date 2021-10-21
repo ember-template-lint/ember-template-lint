@@ -23,6 +23,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a tags must have an href attribute",

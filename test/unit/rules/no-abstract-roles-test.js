@@ -21,6 +21,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "command is an abstract role, and is not a valid value for the role attribute.",
@@ -40,6 +42,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "composite is an abstract role, and is not a valid value for the role attribute.",
@@ -59,6 +63,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "input is an abstract role, and is not a valid value for the role attribute.",
@@ -78,6 +84,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "landmark is an abstract role, and is not a valid value for the role attribute.",
@@ -97,6 +105,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "range is an abstract role, and is not a valid value for the role attribute.",
@@ -116,6 +126,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "roletype is an abstract role, and is not a valid value for the role attribute.",
@@ -135,6 +147,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "section is an abstract role, and is not a valid value for the role attribute.",
@@ -154,6 +168,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "sectionhead is an abstract role, and is not a valid value for the role attribute.",
@@ -173,6 +189,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "select is an abstract role, and is not a valid value for the role attribute.",
@@ -192,6 +210,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "structure is an abstract role, and is not a valid value for the role attribute.",
@@ -211,6 +231,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "widget is an abstract role, and is not a valid value for the role attribute.",
@@ -230,6 +252,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "window is an abstract role, and is not a valid value for the role attribute.",

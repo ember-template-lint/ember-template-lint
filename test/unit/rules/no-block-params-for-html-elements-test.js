@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 26,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Block parameters on <div> elements are disallowed",
@@ -42,6 +44,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Block parameters on <div> elements are disallowed",

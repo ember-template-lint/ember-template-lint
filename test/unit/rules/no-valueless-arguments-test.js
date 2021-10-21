@@ -20,6 +20,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 15,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named arguments should have an explicitly assigned value.",
@@ -38,6 +40,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 15,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named arguments should have an explicitly assigned value.",
@@ -56,6 +60,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 15,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Named arguments should have an explicitly assigned value.",

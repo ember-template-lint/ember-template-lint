@@ -24,6 +24,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 27,
+              "endColumn": 44,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
@@ -42,6 +44,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 23,
+              "endColumn": 39,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
@@ -60,6 +64,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 34,
+              "endColumn": 50,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",

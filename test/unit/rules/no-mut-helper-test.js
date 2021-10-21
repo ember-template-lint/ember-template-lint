@@ -39,6 +39,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 22,
+              "endColumn": 53,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -57,6 +59,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 21,
+              "endColumn": 56,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -75,6 +79,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 22,
+              "endColumn": 47,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -94,6 +100,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 36,
+              "endColumn": 72,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -113,6 +121,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 29,
+              "endColumn": 55,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -131,6 +141,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 26,
+              "endColumn": 66,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -149,6 +161,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 38,
+              "endColumn": 63,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -167,6 +181,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 29,
+              "endColumn": 46,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -186,6 +202,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 29,
+              "endColumn": 59,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -204,6 +222,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 42,
+              "endColumn": 67,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -222,6 +242,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 25,
+              "endColumn": 57,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -244,6 +266,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 49,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -267,6 +291,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 12,
+              "endColumn": 59,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -286,6 +312,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 31,
+              "endColumn": 70,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
@@ -308,6 +336,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 31,
+              "endColumn": 70,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action or \`{{set}}\` instead.",

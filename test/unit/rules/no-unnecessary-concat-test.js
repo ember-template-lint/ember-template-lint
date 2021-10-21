@@ -18,6 +18,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unnecessary string concatenation. Use {{clazz}} instead of \\"{{clazz}}\\".",
@@ -32,21 +34,34 @@ generateRuleTests({
     {
       template: '<img src="{{url}}" alt="{{t "alternate-text"}}">',
 
-      results: [
-        {
-          message: 'Unnecessary string concatenation. Use {{url}} instead of "{{url}}".',
-          source: '"{{url}}"',
-          line: 1,
-          column: 9,
-        },
-        {
-          message:
-            'Unnecessary string concatenation. Use {{t "alternate-text"}} instead of "{{t "alternate-text"}}".',
-          source: '"{{t "alternate-text"}}"',
-          line: 1,
-          column: 23,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "endColumn": 18,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unnecessary string concatenation. Use {{url}} instead of \\"{{url}}\\".",
+              "rule": "no-unnecessary-concat",
+              "severity": 2,
+              "source": "\\"{{url}}\\"",
+            },
+            Object {
+              "column": 23,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unnecessary string concatenation. Use {{t \\"alternate-text\\"}} instead of \\"{{t \\"alternate-text\\"}}\\".",
+              "rule": "no-unnecessary-concat",
+              "severity": 2,
+              "source": "\\"{{t \\"alternate-text\\"}}\\"",
+            },
+          ]
+        `);
+      },
     },
   ],
 });

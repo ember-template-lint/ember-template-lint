@@ -23,6 +23,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 17,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Ambiguous element used (\`div\`)",

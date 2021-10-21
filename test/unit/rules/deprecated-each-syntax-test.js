@@ -22,6 +22,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 45,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{#each posts as |post|}}",
@@ -44,6 +46,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 32,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{#each posts as |item|}}",

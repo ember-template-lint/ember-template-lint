@@ -26,6 +26,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 7,
+              "endColumn": 16,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`didInsert\` with \`did-insert\`.",
@@ -44,6 +46,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 22,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`didInsert\` with \`did-insert\`.",
@@ -62,6 +66,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 51,
+              "endColumn": 62,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`doSomething\` with \`do-something\`.",

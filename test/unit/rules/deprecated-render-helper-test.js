@@ -28,6 +28,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{ken-griffey}}",
@@ -50,6 +52,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{baseball-player model=pitcher}}",

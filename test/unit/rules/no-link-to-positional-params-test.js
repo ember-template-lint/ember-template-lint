@@ -34,6 +34,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 30,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
@@ -52,6 +54,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 68,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
@@ -70,6 +74,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 31,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
@@ -88,6 +94,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 39,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
@@ -106,6 +114,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 45,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`). The content should be passed along as a block.",
@@ -124,6 +134,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`). The content should be passed along as a block.",
@@ -142,6 +154,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 76,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`, \`query\` using the \`hash\` helper). The content should be passed along as a block.",
@@ -161,6 +175,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 78,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`).",
@@ -179,6 +195,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 40,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`).",
@@ -197,6 +215,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 48,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`).",
@@ -215,6 +235,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 54,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`).",
@@ -233,6 +255,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 60,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`).",
@@ -252,6 +276,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 85,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`, \`query\` using the \`hash\` helper).",
@@ -270,6 +296,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 60,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`).",
@@ -290,6 +318,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 18,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`).",
@@ -312,6 +342,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 18,
+              "endLine": 3,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`query\` using the \`hash\` helper).",

@@ -22,6 +22,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
@@ -41,6 +43,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
@@ -60,6 +64,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
@@ -79,6 +85,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
@@ -98,6 +106,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 41,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
@@ -117,6 +127,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 8,
+              "endColumn": 39,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",

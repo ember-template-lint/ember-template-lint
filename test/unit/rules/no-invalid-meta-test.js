@@ -34,6 +34,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 67,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta redirect should not have a delay value greater than zero",
@@ -53,6 +55,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 43,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta refresh should have a delay greater than 72000 seconds",
@@ -72,6 +76,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 49,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta viewport should not restrict user-scalable",
@@ -91,6 +97,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta viewport should not restrict user-scalable",
@@ -110,6 +118,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 50,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta viewport should not restrict user-scalable",
@@ -130,6 +140,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 89,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta viewport should not set a maximum scale on content",
@@ -150,6 +162,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
@@ -169,6 +183,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 25,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
@@ -188,6 +204,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
@@ -207,6 +225,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
@@ -226,6 +246,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "a meta content attribute cannot be defined if the name, property, itemprop nor the http-equiv attributes are defined",

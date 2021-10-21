@@ -95,6 +95,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 23,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "'cat' is defined but never used",
@@ -113,6 +115,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 29,
+              "endColumn": 36,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "'index' is defined but never used",
@@ -136,6 +140,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 29,
+              "endColumn": 92,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "'index' is defined but never used",
@@ -158,6 +164,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 75,
+              "endColumn": 79,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "'life' is defined but never used",

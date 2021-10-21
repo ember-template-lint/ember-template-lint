@@ -33,6 +33,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{awful-fishsticks}}",
@@ -55,6 +57,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 23,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{bad-fishsticks}}",
@@ -77,6 +81,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{terrible.fishsticks}}",
@@ -99,6 +105,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 19,
+              "endColumn": 35,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{foo-bar baz=qux.qaz}}",
@@ -121,6 +129,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 69,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "<div data-foo={{hallo}}></div>",
@@ -143,6 +153,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 11,
+              "endColumn": 27,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "fix": Object {
                 "text": "{{#foo-bar derp=whoops}}{{/foo-bar}}",

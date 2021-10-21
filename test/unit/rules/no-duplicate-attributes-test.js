@@ -32,6 +32,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 53,
+              "endColumn": 72,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the MustacheStatement.",
@@ -55,6 +57,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 55,
+              "endColumn": 74,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the BlockStatement.",
@@ -75,6 +79,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 15,
+              "endColumn": 26,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Duplicate attribute 'class' found in the Element.",
@@ -96,6 +102,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 80,
+              "endColumn": 99,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the SubExpression.",
@@ -117,6 +125,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 87,
+              "endColumn": 106,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the SubExpression.",

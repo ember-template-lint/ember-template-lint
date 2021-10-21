@@ -28,6 +28,8 @@ generateRuleTests({
         source: html,
         line: 1,
         column: 0,
+        endLine: 1,
+        endColumn: 11,
       },
     };
   }),

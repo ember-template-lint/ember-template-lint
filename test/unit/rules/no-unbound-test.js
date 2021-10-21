@@ -18,6 +18,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 0,
+              "endColumn": 15,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{unbound}} usage.",
@@ -37,6 +39,8 @@ generateRuleTests({
           Array [
             Object {
               "column": 15,
+              "endColumn": 28,
+              "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unexpected {{unbound}} usage.",
