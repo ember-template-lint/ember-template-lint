@@ -1,0 +1,481 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no-obsolete-elements <acronym></acronym>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 19,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <acronym> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<acronym></acronym>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <applet></applet>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 17,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <applet> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<applet></applet>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <basefont></basefont>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 21,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <basefont> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<basefont></basefont>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <bgsound></bgsound>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 19,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <bgsound> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<bgsound></bgsound>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <big></big>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 11,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <big> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<big></big>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <blink></blink>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 15,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <blink> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<blink></blink>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <center></center>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 17,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <center> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<center></center>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <dir></dir>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 11,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <dir> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<dir></dir>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <font></font>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 13,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <font> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<font></font>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <frame></frame>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 15,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <frame> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<frame></frame>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <frameset></frameset>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 21,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <frameset> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<frameset></frameset>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <isindex></isindex>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 19,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <isindex> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<isindex></isindex>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <keygen>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 8,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <keygen> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<keygen>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <listing></listing>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 19,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <listing> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<listing></listing>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <marquee></marquee>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 19,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <marquee> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<marquee></marquee>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <menuitem></menuitem>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 21,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <menuitem> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<menuitem></menuitem>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <multicol></multicol>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 21,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <multicol> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<multicol></multicol>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <nextid></nextid>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 17,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <nextid> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<nextid></nextid>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <nobr></nobr>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 13,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <nobr> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<nobr></nobr>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <noembed></noembed>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 19,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <noembed> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<noembed></noembed>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <noframes></noframes>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 21,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <noframes> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<noframes></noframes>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <plaintext></plaintext>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 23,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <plaintext> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<plaintext></plaintext>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <rb></rb>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 9,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <rb> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<rb></rb>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <rtc></rtc>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 11,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <rtc> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<rtc></rtc>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <s></s>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 7,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <s> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<s></s>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <spacer></spacer>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 17,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <spacer> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<spacer></spacer>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <strike></strike>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 17,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <strike> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<strike></strike>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <tt></tt>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 9,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <tt> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<tt></tt>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <u></u>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 7,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <u> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<u></u>",
+  },
+]
+`;
+
+exports[`no-obsolete-elements <xmp></xmp>: logs errors 1`] = `
+Array [
+  Object {
+    "column": 0,
+    "endColumn": 11,
+    "endLine": 1,
+    "filePath": "layout.hbs",
+    "line": 1,
+    "message": "Use of <xmp> detected. Do not use deprecated elements.",
+    "rule": "no-obsolete-elements",
+    "severity": 2,
+    "source": "<xmp></xmp>",
+  },
+]
+`;
