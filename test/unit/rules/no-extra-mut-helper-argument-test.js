@@ -20,31 +20,58 @@ generateRuleTests({
     {
       template: '{{my-component click=(action (mut isClicked true))}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '(mut isClicked true)',
-        line: 1,
-        column: 29,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 29,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The handlebars \`mut(attr)\` helper should only have one argument passed to it. To pass a value, use: \`(action (mut attr) value)\`.",
+              "rule": "no-extra-mut-helper-argument",
+              "severity": 2,
+              "source": "(mut isClicked true)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{my-component isClickedMutable=(mut isClicked true)}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '(mut isClicked true)',
-        line: 1,
-        column: 32,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 32,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The handlebars \`mut(attr)\` helper should only have one argument passed to it. To pass a value, use: \`(action (mut attr) value)\`.",
+              "rule": "no-extra-mut-helper-argument",
+              "severity": 2,
+              "source": "(mut isClicked true)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button {{action (mut isClicked true)}}></button>',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '(mut isClicked true)',
-        line: 1,
-        column: 17,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 17,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The handlebars \`mut(attr)\` helper should only have one argument passed to it. To pass a value, use: \`(action (mut attr) value)\`.",
+              "rule": "no-extra-mut-helper-argument",
+              "severity": 2,
+              "source": "(mut isClicked true)",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -28,12 +28,21 @@ generateRuleTests({
       template: '<a href="/some/where" target="_blank"></a>',
       fixedTemplate: '<a href="/some/where" target="_blank" rel="noopener noreferrer"></a>',
 
-      result: {
-        isFixable: true,
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
-        source: '<a href="/some/where" target="_blank"></a>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "rule": "link-rel-noopener",
+              "severity": 2,
+              "source": "<a href=\\"/some/where\\" target=\\"_blank\\"></a>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -41,36 +50,63 @@ generateRuleTests({
       fixedTemplate:
         '<a href="/some/where" target="_blank" rel="nofollow noopener noreferrer"></a>',
 
-      result: {
-        isFixable: true,
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
-        source: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "rule": "link-rel-noopener",
+              "severity": 2,
+              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"nofollow\\"></a>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<a href="/some/where" target="_blank" rel="noopener"></a>',
       fixedTemplate: '<a href="/some/where" target="_blank" rel="noopener noreferrer"></a>',
 
-      result: {
-        isFixable: true,
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
-        source: '<a href="/some/where" target="_blank" rel="noopener"></a>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "rule": "link-rel-noopener",
+              "severity": 2,
+              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"noopener\\"></a>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
       fixedTemplate: '<a href="/some/where" target="_blank" rel="noopener noreferrer"></a>',
 
-      result: {
-        isFixable: true,
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
-        source: '<a href="/some/where" target="_blank" rel="noreferrer"></a>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "rule": "link-rel-noopener",
+              "severity": 2,
+              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"noreferrer\\"></a>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -78,12 +114,21 @@ generateRuleTests({
       fixedTemplate:
         '<a href="/some/where" target="_blank" rel="nofollow noopener noreferrer"></a>',
 
-      result: {
-        isFixable: true,
-        message: 'links with target="_blank" must have rel="noopener noreferrer"',
-        source: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "rule": "link-rel-noopener",
+              "severity": 2,
+              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"nofollow\\"></a>",
+            },
+          ]
+        `);
       },
     },
   ],

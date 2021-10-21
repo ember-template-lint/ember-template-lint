@@ -19,27 +19,45 @@ generateRuleTests({
     {
       template: '<!-- comment here -->',
 
-      result: {
-        message: 'HTML comment detected',
-        source: '<!-- comment here -->',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{! comment here }}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "{{! comment here }}",
+              },
+              "line": 1,
+              "message": "HTML comment detected",
+              "rule": "no-html-comments",
+              "severity": 2,
+              "source": "<!-- comment here -->",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<!--comment here-->',
 
-      result: {
-        message: 'HTML comment detected',
-        source: '<!--comment here-->',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{!comment here}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "{{!comment here}}",
+              },
+              "line": 1,
+              "message": "HTML comment detected",
+              "rule": "no-html-comments",
+              "severity": 2,
+              "source": "<!--comment here-->",
+            },
+          ]
+        `);
       },
     },
   ],

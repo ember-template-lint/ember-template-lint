@@ -42,11 +42,20 @@ generateRuleTests({
     {
       template: '<SiteHeader onclick={{action "myAction"}} @user={{this.user}} />',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: 'onclick={{action "myAction"}}',
-        line: 1,
-        column: 12,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use HTML element event properties like \`onclick\`. Instead, use the \`on\` modifier.",
+              "rule": "no-element-event-actions",
+              "severity": 2,
+              "source": "onclick={{action \\"myAction\\"}}",
+            },
+          ]
+        `);
       },
     },
   ],

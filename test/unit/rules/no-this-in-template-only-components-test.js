@@ -26,46 +26,82 @@ generateRuleTests({
       template: '{{my-component model=this.model}}',
       fixedTemplate: '{{my-component model=@model}}',
 
-      result: {
-        message: message('this.model', '@model'),
-        source: 'this.model',
-        line: 1,
-        column: 21,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Usage of 'this' in path 'this.model' is not allowed in a template-only component. Use '@model' if it is a named argument or create a component.js for this component.",
+              "rule": "no-this-in-template-only-components",
+              "severity": 2,
+              "source": "this.model",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{my-component action=(action this.myAction)}}',
       fixedTemplate: '{{my-component action=(action @myAction)}}',
 
-      result: {
-        message: message('this.myAction', '@myAction'),
-        source: 'this.myAction',
-        line: 1,
-        column: 30,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 30,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Usage of 'this' in path 'this.myAction' is not allowed in a template-only component. Use '@myAction' if it is a named argument or create a component.js for this component.",
+              "rule": "no-this-in-template-only-components",
+              "severity": 2,
+              "source": "this.myAction",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<MyComponent @prop={{can "edit" this.model}} />',
       fixedTemplate: '<MyComponent @prop={{can "edit" @model}} />',
 
-      result: {
-        message: message('this.model', '@model'),
-        source: 'this.model',
-        line: 1,
-        column: 32,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 32,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Usage of 'this' in path 'this.model' is not allowed in a template-only component. Use '@model' if it is a named argument or create a component.js for this component.",
+              "rule": "no-this-in-template-only-components",
+              "severity": 2,
+              "source": "this.model",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{input id=(concat this.elementId "-username")}}',
-      result: {
-        message: message('this.elementId', '@elementId'),
-        source: 'this.elementId',
-        line: 1,
-        column: 19,
-        isFixable: false,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "Usage of 'this' in path 'this.elementId' is not allowed in a template-only component. Use '@elementId' if it is a named argument or create a component.js for this component.",
+              "rule": "no-this-in-template-only-components",
+              "severity": 2,
+              "source": "this.elementId",
+            },
+          ]
+        `);
       },
     },
     {
@@ -74,13 +110,21 @@ generateRuleTests({
       meta: {
         filePath: 'app/templates/components/some-component.hbs',
       },
-      result: {
-        filePath: 'app/templates/components/some-component.hbs',
-        message: message('this.model', '@model'),
-        source: 'this.model',
-        line: 1,
-        column: 21,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "app/templates/components/some-component.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Usage of 'this' in path 'this.model' is not allowed in a template-only component. Use '@model' if it is a named argument or create a component.js for this component.",
+              "rule": "no-this-in-template-only-components",
+              "severity": 2,
+              "source": "this.model",
+            },
+          ]
+        `);
       },
     },
   ],

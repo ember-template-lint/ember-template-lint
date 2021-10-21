@@ -98,12 +98,20 @@ generateRuleTests({
         filePath: 'app/templates/components/foo/layout.hbs',
       },
 
-      result: {
-        message,
-        filePath: 'app/templates/components/foo/layout.hbs',
-        source: '{{outlet}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "app/templates/components/foo/layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{outlet}} usage. Only use {{outlet}} within a route template.",
+              "rule": "no-outlet-outside-routes",
+              "severity": 2,
+              "source": "{{outlet}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -113,12 +121,20 @@ generateRuleTests({
         filePath: 'app/templates/foo/-mything.hbs',
       },
 
-      result: {
-        message,
-        filePath: 'app/templates/foo/-mything.hbs',
-        source: '{{outlet}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "app/templates/foo/-mything.hbs",
+              "line": 1,
+              "message": "Unexpected {{outlet}} usage. Only use {{outlet}} within a route template.",
+              "rule": "no-outlet-outside-routes",
+              "severity": 2,
+              "source": "{{outlet}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -128,12 +144,20 @@ generateRuleTests({
         filePath: 'app/components/foo/layout.hbs',
       },
 
-      result: {
-        message,
-        filePath: 'app/components/foo/layout.hbs',
-        source: '{{outlet}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "app/components/foo/layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{outlet}} usage. Only use {{outlet}} within a route template.",
+              "rule": "no-outlet-outside-routes",
+              "severity": 2,
+              "source": "{{outlet}}",
+            },
+          ]
+        `);
       },
     },
   ],

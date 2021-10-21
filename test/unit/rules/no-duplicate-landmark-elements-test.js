@@ -24,66 +24,129 @@ generateRuleTests({
   bad: [
     {
       template: '<nav></nav><nav></nav>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<nav></nav>',
-        line: 1,
-        column: 11,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
+              "rule": "no-duplicate-landmark-elements",
+              "severity": 2,
+              "source": "<nav></nav>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<nav></nav><div role="navigation"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<div role="navigation"></div>',
-        line: 1,
-        column: 11,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
+              "rule": "no-duplicate-landmark-elements",
+              "severity": 2,
+              "source": "<div role=\\"navigation\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<nav></nav><nav aria-label="secondary navigation"></nav>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<nav></nav>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
+              "rule": "no-duplicate-landmark-elements",
+              "severity": 2,
+              "source": "<nav></nav>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<main></main><div role="main"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<div role="main"></div>',
-        line: 1,
-        column: 13,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 13,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
+              "rule": "no-duplicate-landmark-elements",
+              "severity": 2,
+              "source": "<div role=\\"main\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<nav aria-label="site navigation"></nav><nav aria-label="site navigation"></nav>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<nav aria-label="site navigation"></nav>',
-        line: 1,
-        column: 40,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 40,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
+              "rule": "no-duplicate-landmark-elements",
+              "severity": 2,
+              "source": "<nav aria-label=\\"site navigation\\"></nav>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<form aria-label="search-form"></form><form aria-label="search-form"></form>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<form aria-label="search-form"></form>',
-        line: 1,
-        column: 38,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 38,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
+              "rule": "no-duplicate-landmark-elements",
+              "severity": 2,
+              "source": "<form aria-label=\\"search-form\\"></form>",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<form aria-labelledby="form-title"></form><form aria-labelledby="form-title"></form>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<form aria-labelledby="form-title"></form>',
-        line: 1,
-        column: 42,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 42,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
+              "rule": "no-duplicate-landmark-elements",
+              "severity": 2,
+              "source": "<form aria-labelledby=\\"form-title\\"></form>",
+            },
+          ]
+        `);
       },
     },
   ],

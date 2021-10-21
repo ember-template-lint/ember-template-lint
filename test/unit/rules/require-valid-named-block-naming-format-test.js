@@ -77,47 +77,92 @@ generateRuleTests({
     // Default config.
     {
       template: '{{yield to="foo-bar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 8,
-        source: 'to="foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "to=\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{has-block "foo-bar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 12,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (has-block "foo-bar")}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 16,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 16,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{has-block-params "foo-bar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 19,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{if (has-block-params "foo-bar")}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 23,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 23,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
 
@@ -125,51 +170,96 @@ generateRuleTests({
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{yield to="foo-bar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 8,
-        source: 'to="foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "to=\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{has-block "foo-bar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 12,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{if (has-block "foo-bar")}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 16,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 16,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{has-block-params "foo-bar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 19,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{if (has-block-params "foo-bar")}}',
-      result: {
-        message: createErrorMessage(FORMAT.CAMEL_CASE, 'foo-bar', 'fooBar'),
-        line: 1,
-        column: 23,
-        source: '"foo-bar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 23,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"foo-bar\\"",
+            },
+          ]
+        `);
       },
     },
 
@@ -177,51 +267,96 @@ generateRuleTests({
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{yield to="fooBar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.KEBAB_CASE, 'fooBar', 'foo-bar'),
-        line: 1,
-        column: 8,
-        source: 'to="fooBar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "to=\\"fooBar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{has-block "fooBar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.KEBAB_CASE, 'fooBar', 'foo-bar'),
-        line: 1,
-        column: 12,
-        source: '"fooBar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"fooBar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{if (has-block "fooBar")}}',
-      result: {
-        message: createErrorMessage(FORMAT.KEBAB_CASE, 'fooBar', 'foo-bar'),
-        line: 1,
-        column: 16,
-        source: '"fooBar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 16,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"fooBar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{has-block-params "fooBar"}}',
-      result: {
-        message: createErrorMessage(FORMAT.KEBAB_CASE, 'fooBar', 'foo-bar'),
-        line: 1,
-        column: 19,
-        source: '"fooBar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"fooBar\\"",
+            },
+          ]
+        `);
       },
     },
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{if (has-block-params "fooBar")}}',
-      result: {
-        message: createErrorMessage(FORMAT.KEBAB_CASE, 'fooBar', 'foo-bar'),
-        line: 1,
-        column: 23,
-        source: '"fooBar"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 23,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "rule": "require-valid-named-block-naming-format",
+              "severity": 2,
+              "source": "\\"fooBar\\"",
+            },
+          ]
+        `);
       },
     },
   ],

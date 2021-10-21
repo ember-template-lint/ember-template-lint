@@ -23,54 +23,98 @@ generateRuleTests({
   bad: [
     {
       template: '<Input @valuee={{this.content}} />',
-      result: {
-        message: ERROR_MESSAGE('Input', '@valuee'),
-        line: 1,
-        column: 7,
-        source: '@valuee',
-        isFixable: false,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "\\"@valuee\\" is not a known argument for the <Input /> component. Did you mean \\"@value\\"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@valuee",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Textarea @valuee={{this.content}} />',
-      result: {
-        message: ERROR_MESSAGE('Textarea', '@valuee'),
-        line: 1,
-        column: 10,
-        source: '@valuee',
-        isFixable: false,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "\\"@valuee\\" is not a known argument for the <Textarea /> component. Did you mean \\"@value\\"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@valuee",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<LinkTo @route="foo" @valuee={{this.content}} />',
-      result: {
-        message: ERROR_MESSAGE('LinkTo', '@valuee'),
-        line: 1,
-        column: 21,
-        source: '@valuee',
-        isFixable: false,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "\\"@valuee\\" is not a known argument for the <LinkTo /> component. Did you mean \\"@query\\"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@valuee",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<LinkTo @route="foo" @madel={{this.content}} />',
-      result: {
-        message:
-          '"@madel" is not a known argument for the <LinkTo /> component. Did you mean "@model"?',
-        line: 1,
-        column: 21,
-        source: '@madel',
-        isFixable: false,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "\\"@madel\\" is not a known argument for the <LinkTo /> component. Did you mean \\"@model\\"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@madel",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<LinkTo @model={{this.model}} />',
-      result: {
-        message: REQUIRED_MESSAGE('LinkTo', ['route', 'query']),
-        line: 1,
-        column: 1,
-        source: 'LinkTo',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Arguments \\"@route\\" or \\"@query\\" is required for <LinkTo /> component.",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "LinkTo",
+            },
+          ]
+        `);
       },
     },
 

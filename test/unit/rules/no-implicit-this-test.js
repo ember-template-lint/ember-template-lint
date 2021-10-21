@@ -53,84 +53,165 @@ generateRuleTests({
   bad: [
     {
       template: '{{book}}',
-      result: {
-        message: message('book'),
-        source: 'book',
-        line: 1,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{book-details}}',
-      result: {
-        message: message('book-details'),
-        source: 'book-details',
-        line: 1,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'book-details' is not allowed. Use '@book-details' if it is a named argument or 'this.book-details' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book-details'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book-details",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{book.author}}',
-      result: {
-        message: message('book.author'),
-        source: 'book.author',
-        line: 1,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'book.author' is not allowed. Use '@book.author' if it is a named argument or 'this.book.author' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book.author'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book.author",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{helper book}}',
-      result: {
-        message: message('book'),
-        source: 'book',
-        line: 1,
-        column: 9,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#helper book}}{{/helper}}',
-      result: {
-        message: message('book'),
-        source: 'book',
-        line: 1,
-        column: 10,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<MyComponent @prop={{can.do}} />',
-      result: {
-        message: message('can.do'),
-        source: 'can.do',
-        line: 1,
-        column: 21,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'can.do' is not allowed. Use '@can.do' if it is a named argument or 'this.can.do' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['can.do'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "can.do",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<MyComponent @prop={{can.do}} />',
       config: { allow: ['can'] },
-      result: {
-        message: message('can.do'),
-        source: 'can.do',
-        line: 1,
-        column: 21,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'can.do' is not allowed. Use '@can.do' if it is a named argument or 'this.can.do' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['can.do'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "can.do",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{session.user.name}}',
-      result: {
-        message: message('session.user.name'),
-        source: 'session.user.name',
-        line: 1,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'session.user.name' is not allowed. Use '@session.user.name' if it is a named argument or 'this.session.user.name' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['session.user.name'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "session.user.name",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<MyComponent @prop={{session.user.name}} />',
-      result: {
-        message: message('session.user.name'),
-        source: 'session.user.name',
-        line: 1,
-        column: 21,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 21,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'session.user.name' is not allowed. Use '@session.user.name' if it is a named argument or 'this.session.user.name' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['session.user.name'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "session.user.name",
+            },
+          ]
+        `);
       },
     },
   ],

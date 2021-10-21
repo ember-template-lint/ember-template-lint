@@ -29,119 +29,212 @@ generateRuleTests({
     {
       template: '<meta http-equiv="refresh" content="1; url=http://www.example.com">',
 
-      result: {
-        message: 'a meta redirect should not have a delay value greater than zero',
-        line: 1,
-        column: 0,
-        source: '<meta http-equiv="refresh" content="1; url=http://www.example.com">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta redirect should not have a delay value greater than zero",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta http-equiv=\\"refresh\\" content=\\"1; url=http://www.example.com\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta http-equiv="refresh" content="71999">',
 
-      result: {
-        message: 'a meta refresh should have a delay greater than 72000 seconds',
-        line: 1,
-        column: 0,
-        source: '<meta http-equiv="refresh" content="71999">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta refresh should have a delay greater than 72000 seconds",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta http-equiv=\\"refresh\\" content=\\"71999\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta name="viewport" content="user-scalable=no">',
 
-      result: {
-        message: 'a meta viewport should not restrict user-scalable',
-        line: 1,
-        column: 0,
-        source: '<meta name="viewport" content="user-scalable=no">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta viewport should not restrict user-scalable",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta name=\\"viewport\\" content=\\"user-scalable=no\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta name="viewport" content="user-scalable = no">',
 
-      result: {
-        message: 'a meta viewport should not restrict user-scalable',
-        line: 1,
-        column: 0,
-        source: '<meta name="viewport" content="user-scalable = no">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta viewport should not restrict user-scalable",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta name=\\"viewport\\" content=\\"user-scalable = no\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta name="viewport" content="user-scalable= no">',
 
-      result: {
-        message: 'a meta viewport should not restrict user-scalable',
-        line: 1,
-        column: 0,
-        source: '<meta name="viewport" content="user-scalable= no">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta viewport should not restrict user-scalable",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta name=\\"viewport\\" content=\\"user-scalable= no\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">',
 
-      result: {
-        message: 'a meta viewport should not set a maximum scale on content',
-        line: 1,
-        column: 0,
-        source:
-          '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta viewport should not set a maximum scale on content",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0, maximum-scale=1.0\\">",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<meta name="viewport">',
 
-      result: {
-        message:
-          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
-        line: 1,
-        column: 0,
-        source: '<meta name="viewport">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta name=\\"viewport\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta property="og:type">',
 
-      result: {
-        message:
-          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
-        line: 1,
-        column: 0,
-        source: '<meta property="og:type">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta property=\\"og:type\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta itemprop="type">',
 
-      result: {
-        message:
-          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
-        line: 1,
-        column: 0,
-        source: '<meta itemprop="type">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta itemprop=\\"type\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta http-equiv="refresh">',
 
-      result: {
-        message:
-          'a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined',
-        line: 1,
-        column: 0,
-        source: '<meta http-equiv="refresh">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta http-equiv=\\"refresh\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta content="72001">',
 
-      result: {
-        message:
-          'a meta content attribute cannot be defined if the name, property, itemprop nor the http-equiv attributes are defined',
-        line: 1,
-        column: 0,
-        source: '<meta content="72001">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a meta content attribute cannot be defined if the name, property, itemprop nor the http-equiv attributes are defined",
+              "rule": "no-invalid-meta",
+              "severity": 2,
+              "source": "<meta content=\\"72001\\">",
+            },
+          ]
+        `);
       },
     },
   ],

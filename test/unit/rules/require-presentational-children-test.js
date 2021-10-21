@@ -32,20 +32,38 @@ generateRuleTests({
   bad: [
     {
       template: '<div role="button"><h2>Test</h2></div>',
-      result: {
-        message: '<div> has a role of button, it cannot have semantic descendants like <h2>',
-        line: 1,
-        column: 0,
-        source: '<div role="button"><h2>Test</h2></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<div> has a role of button, it cannot have semantic descendants like <h2>",
+              "rule": "require-presentational-children",
+              "severity": 2,
+              "source": "<div role=\\"button\\"><h2>Test</h2></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="button"><h2 role="presentation"><img /></h2></div>',
-      result: {
-        message: '<div> has a role of button, it cannot have semantic descendants like <img>',
-        line: 1,
-        column: 0,
-        source: '<div role="button"><h2 role="presentation"><img /></h2></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<div> has a role of button, it cannot have semantic descendants like <img>",
+              "rule": "require-presentational-children",
+              "severity": 2,
+              "source": "<div role=\\"button\\"><h2 role=\\"presentation\\"><img /></h2></div>",
+            },
+          ]
+        `);
       },
     },
     {

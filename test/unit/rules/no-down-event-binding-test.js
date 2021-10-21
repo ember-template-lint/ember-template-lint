@@ -22,40 +22,76 @@ generateRuleTests({
   bad: [
     {
       template: "<div {{on 'keydown' this.doSomething}}></div>",
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 10,
-        source: "'keydown'",
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
+              "rule": "no-down-event-binding",
+              "severity": 2,
+              "source": "'keydown'",
+            },
+          ]
+        `);
       },
     },
     {
       template: "<div {{action this.doSomething on='keydown'}}></div>",
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 34,
-        source: "'keydown'",
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 34,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
+              "rule": "no-down-event-binding",
+              "severity": 2,
+              "source": "'keydown'",
+            },
+          ]
+        `);
       },
     },
     {
       // Detecting the `on` param works, even if it's not the first hash param to `{{action}}`
       template: "<div {{action this.doSomething preventDefault=true on='keydown'}}></div>",
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 54,
-        source: "'keydown'",
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 54,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
+              "rule": "no-down-event-binding",
+              "severity": 2,
+              "source": "'keydown'",
+            },
+          ]
+        `);
       },
     },
     {
       // DOM event handling through attributes
       template: '<input type="text" onkeydown="myFunction()">',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 19,
-        source: 'onkeydown="myFunction()"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
+              "rule": "no-down-event-binding",
+              "severity": 2,
+              "source": "onkeydown=\\"myFunction()\\"",
+            },
+          ]
+        `);
       },
     },
   ],

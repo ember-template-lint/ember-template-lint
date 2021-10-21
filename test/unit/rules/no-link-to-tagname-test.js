@@ -20,29 +20,56 @@ generateRuleTests({
   bad: [
     {
       template: '<LinkTo @route="routeName" @tagName="button">Link text</LinkTo>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 27,
-        source: '@tagName="button"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 27,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
+              "rule": "no-link-to-tagname",
+              "severity": 2,
+              "source": "@tagName=\\"button\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#link-to "routeName" tagName="button"}}Link text{{/link-to}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 23,
-        source: 'tagName="button"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 23,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
+              "rule": "no-link-to-tagname",
+              "severity": 2,
+              "source": "tagName=\\"button\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{link-to "Link text" "routeName" tagName="button"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 34,
-        source: 'tagName="button"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 34,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
+              "rule": "no-link-to-tagname",
+              "severity": 2,
+              "source": "tagName=\\"button\\"",
+            },
+          ]
+        `);
       },
     },
   ],

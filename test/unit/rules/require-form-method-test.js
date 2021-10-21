@@ -38,12 +38,21 @@ generateRuleTests({
         allowedMethods: ['get'],
       },
       template: '<form method="POST"></form>',
-      result: {
-        message: makeErrorMessage('GET'),
-        isFixable: false,
-        line: 1,
-        column: 0,
-        source: '<form method="POST"></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "All \`<form>\` elements should have \`method\` attribute with value of \`GET\`",
+              "rule": "require-form-method",
+              "severity": 2,
+              "source": "<form method=\\"POST\\"></form>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -51,62 +60,116 @@ generateRuleTests({
         allowedMethods: ['POST'],
       },
       template: '<form method="GET"></form>',
-      result: {
-        message: makeErrorMessage('POST'),
-        isFixable: false,
-        line: 1,
-        column: 0,
-        source: '<form method="GET"></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST\`",
+              "rule": "require-form-method",
+              "severity": 2,
+              "source": "<form method=\\"GET\\"></form>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<form></form>',
-      result: {
-        message: makeErrorMessage('POST,GET,DIALOG'),
-        isFixable: false,
-        line: 1,
-        column: 0,
-        source: '<form></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
+              "rule": "require-form-method",
+              "severity": 2,
+              "source": "<form></form>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<form method=""></form>',
-      result: {
-        message: makeErrorMessage('POST,GET,DIALOG'),
-        isFixable: false,
-        line: 1,
-        column: 0,
-        source: '<form method=""></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
+              "rule": "require-form-method",
+              "severity": 2,
+              "source": "<form method=\\"\\"></form>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<form method=42></form>',
-      result: {
-        message: makeErrorMessage('POST,GET,DIALOG'),
-        isFixable: false,
-        line: 1,
-        column: 0,
-        source: '<form method=42></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
+              "rule": "require-form-method",
+              "severity": 2,
+              "source": "<form method=42></form>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<form method=" ge t "></form>',
-      result: {
-        message: makeErrorMessage('POST,GET,DIALOG'),
-        isFixable: false,
-        line: 1,
-        column: 0,
-        source: '<form method=" ge t "></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
+              "rule": "require-form-method",
+              "severity": 2,
+              "source": "<form method=\\" ge t \\"></form>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<form method=" pos t "></form>',
-      result: {
-        message: makeErrorMessage('POST,GET,DIALOG'),
-        isFixable: false,
-        line: 1,
-        column: 0,
-        source: '<form method=" pos t "></form>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": false,
+              "line": 1,
+              "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
+              "rule": "require-form-method",
+              "severity": 2,
+              "source": "<form method=\\" pos t \\"></form>",
+            },
+          ]
+        `);
       },
     },
   ],

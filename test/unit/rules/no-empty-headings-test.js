@@ -40,150 +40,294 @@ generateRuleTests({
   bad: [
     {
       template: '<h1></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1> \n &nbsp;</h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1> \n &nbsp;</h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1> 
+           &nbsp;</h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span></span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span></span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span></span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span> \n &nbsp;</span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span> \n &nbsp;</span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span> 
+           &nbsp;</span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><div><span></span></div></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><div><span></span></div></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><div><span></span></div></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span></span><span></span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span></span><span></span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span></span><span></span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1> &nbsp; <div aria-hidden="true">Some hidden text</div></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1> &nbsp; <div aria-hidden="true">Some hidden text</div></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1> &nbsp; <div aria-hidden=\\"true\\">Some hidden text</div></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span aria-hidden="true">Inaccessible text</span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span aria-hidden="true">Inaccessible text</span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span aria-hidden=\\"true\\">Inaccessible text</span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span hidden>Inaccessible text</span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span hidden>Inaccessible text</span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span hidden>Inaccessible text</span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span hidden>{{@title}}</span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span hidden>{{@title}}</span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span hidden>{{@title}}</span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span hidden>{{#component}}Inaccessible text{{/component}}</span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span hidden>{{#component}}Inaccessible text{{/component}}</span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span hidden>{{#component}}Inaccessible text{{/component}}</span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<h1><span hidden><CustomComponent>Inaccessible text</CustomComponent></span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1><span hidden><CustomComponent>Inaccessible text</CustomComponent></span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span hidden><CustomComponent>Inaccessible text</CustomComponent></span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<h1><span aria-hidden="true">Hidden text</span><span aria-hidden="true">Hidden text</span></h1>',
-      result: {
-        message: ERROR_MESSAGE,
-        source:
-          '<h1><span aria-hidden="true">Hidden text</span><span aria-hidden="true">Hidden text</span></h1>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<h1><span aria-hidden=\\"true\\">Hidden text</span><span aria-hidden=\\"true\\">Hidden text</span></h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="heading" aria-level="1"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<div role="heading" aria-level="1"></div>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<div role=\\"heading\\" aria-level=\\"1\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<div role="heading" aria-level="1"><span aria-hidden="true">Inaccessible text</span></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        source:
-          '<div role="heading" aria-level="1"><span aria-hidden="true">Inaccessible text</span></div>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<div role=\\"heading\\" aria-level=\\"1\\"><span aria-hidden=\\"true\\">Inaccessible text</span></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="heading" aria-level="1"><span hidden>Inaccessible text</span></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<div role="heading" aria-level="1"><span hidden>Inaccessible text</span></div>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
+              "rule": "no-empty-headings",
+              "severity": 2,
+              "source": "<div role=\\"heading\\" aria-level=\\"1\\"><span hidden>Inaccessible text</span></div>",
+            },
+          ]
+        `);
       },
     },
   ],

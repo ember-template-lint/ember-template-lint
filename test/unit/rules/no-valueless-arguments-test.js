@@ -16,29 +16,56 @@ generateRuleTests({
   bad: [
     {
       template: '<SomeComponent @valueless />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 15,
-        source: '@valueless',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named arguments should have an explicitly assigned value.",
+              "rule": "no-valueless-arguments",
+              "severity": 2,
+              "source": "@valueless",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<SomeComponent @valuelessByAccident{{this.canBeAModifier}} />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 15,
-        source: '@valuelessByAccident',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named arguments should have an explicitly assigned value.",
+              "rule": "no-valueless-arguments",
+              "severity": 2,
+              "source": "@valuelessByAccident",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<SomeComponent @valuelessByAccident{{@canBeAModifier}} />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 15,
-        source: '@valuelessByAccident',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Named arguments should have an explicitly assigned value.",
+              "rule": "no-valueless-arguments",
+              "severity": 2,
+              "source": "@valuelessByAccident",
+            },
+          ]
+        `);
       },
     },
   ],

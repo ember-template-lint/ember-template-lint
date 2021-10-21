@@ -28,47 +28,92 @@ generateRuleTests({
   bad: [
     {
       template: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
-      result: {
-        message: 'Title attribute values should not be the same as the link text.',
-        source: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<a href=\\"https://myurl.com\\" title=\\"read the tutorial\\">Read the Tutorial</a>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<LinkTo title="quickstart">Quickstart</LinkTo>',
-      result: {
-        message: 'Title attribute values should not be the same as the link text.',
-        source: '<LinkTo title="quickstart">Quickstart</LinkTo>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<LinkTo title=\\"quickstart\\">Quickstart</LinkTo>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<LinkTo @title="foo" title="blah">derp</LinkTo>',
-      result: {
-        message: 'Specifying title as both an attribute and an argument to <LinkTo /> is invalid.',
-        source: '<LinkTo @title="foo" title="blah">derp</LinkTo>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Specifying title as both an attribute and an argument to <LinkTo /> is invalid.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<LinkTo @title=\\"foo\\" title=\\"blah\\">derp</LinkTo>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
-      result: {
-        message: 'Title attribute values should not be the same as the link text.',
-        source: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "{{#link-to title=\\"Do the things\\"}}Do the things{{/link-to}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
-      result: {
-        message: 'Title attribute values should not be the same as the link text.',
-        source: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<LinkTo @route=\\"some.route\\" @title=\\"Do the things\\">Do the things</LinkTo>",
+            },
+          ]
+        `);
       },
     },
   ],

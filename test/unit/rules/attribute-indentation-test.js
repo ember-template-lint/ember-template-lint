@@ -1631,25 +1631,44 @@ generateRuleTests({
     {
       template: ['{{foo-bar', 'baz=true', '}}'].join('\n'),
 
-      result: {
-        rule: 'attribute-indentation',
-        message:
-          "Incorrect indentation of attribute 'baz' beginning at L2:C0. Expected 'baz' to be at L2:C2.",
-        source: '{{foo-bar\nbaz=true\n}}',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation of attribute 'baz' beginning at L2:C0. Expected 'baz' to be at L2:C2.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{foo-bar
+          baz=true
+          }}",
+            },
+          ]
+        `);
       },
     },
     {
       template: ['{{#foo-bar', 'baz=true', '}}', '{{/foo-bar}}'].join('\n'),
 
-      result: {
-        rule: 'attribute-indentation',
-        message:
-          "Incorrect indentation of attribute 'baz' beginning at L2:C0. Expected 'baz' to be at L2:C2.",
-        source: '{{#foo-bar\nbaz=true\n}}\n{{/foo-bar}}',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation of attribute 'baz' beginning at L2:C0. Expected 'baz' to be at L2:C2.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{#foo-bar
+          baz=true
+          }}
+          {{/foo-bar}}",
+            },
+          ]
+        `);
       },
     },
     {

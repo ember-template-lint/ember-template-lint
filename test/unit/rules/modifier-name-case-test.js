@@ -21,32 +21,56 @@ generateRuleTests({
   bad: [
     {
       template: '<div {{didInsert}}></div>',
-      result: {
-        message:
-          'Use dasherized names for modifier invocation. Please replace `didInsert` with `did-insert`.',
-        source: 'didInsert',
-        line: 1,
-        column: 7,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use dasherized names for modifier invocation. Please replace \`didInsert\` with \`did-insert\`.",
+              "rule": "modifier-name-case",
+              "severity": 2,
+              "source": "didInsert",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div class="monkey" {{didInsert "something" with="somethingElse"}}></div>',
-      result: {
-        message:
-          'Use dasherized names for modifier invocation. Please replace `didInsert` with `did-insert`.',
-        source: 'didInsert',
-        line: 1,
-        column: 22,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 22,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use dasherized names for modifier invocation. Please replace \`didInsert\` with \`did-insert\`.",
+              "rule": "modifier-name-case",
+              "severity": 2,
+              "source": "didInsert",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<a href="#" onclick={{amazingActionThing "foo"}} {{doSomething}}></a>',
-      result: {
-        message:
-          'Use dasherized names for modifier invocation. Please replace `doSomething` with `do-something`.',
-        source: 'doSomething',
-        line: 1,
-        column: 51,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 51,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use dasherized names for modifier invocation. Please replace \`doSomething\` with \`do-something\`.",
+              "rule": "modifier-name-case",
+              "severity": 2,
+              "source": "doSomething",
+            },
+          ]
+        `);
       },
     },
   ],

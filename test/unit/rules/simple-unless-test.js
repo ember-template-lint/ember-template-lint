@@ -75,31 +75,58 @@ generateRuleTests({
       },
       template: "{{unless (if (or true))  'Please no'}}",
 
-      result: {
-        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        source: '{{unless (if ...',
-        line: 1,
-        column: 9,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (if ...",
+            },
+          ]
+        `);
       },
     },
     {
       template: "{{unless (if true)  'Please no'}}",
 
-      result: {
-        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        source: '{{unless (if ...',
-        line: 1,
-        column: 9,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (if ...",
+            },
+          ]
+        `);
       },
     },
     {
       template: "{{unless (and isBad isAwful)  'notBadAndAwful'}}",
 
-      result: {
-        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        source: '{{unless (and ...',
-        line: 1,
-        column: 9,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (and ...",
+            },
+          ]
+        `);
       },
     },
     {
@@ -111,21 +138,39 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: messages.followingElseBlock,
-        source: '{{else}}',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Using an {{else}} block with {{unless}} should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: ['{{#unless bandwagoner}}', '{{else}}', '{{/unless}}'].join('\n'),
 
-      result: {
-        message: messages.followingElseBlock,
-        source: '{{else}}',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Using an {{else}} block with {{unless}} should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -137,11 +182,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: messages.followingElseBlock,
-        source: '{{else}}',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Using an {{else}} block with {{unless}} should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -153,11 +207,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: messages.followingElseBlock,
-        source: '{{else if goHawks}}',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Using an {{else}} block with {{unless}} should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else if goHawks}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -171,11 +234,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: messages.followingElseBlock,
-        source: '{{else if goPats}}',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Using an {{else}} block with {{unless}} should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else if goPats}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -189,11 +261,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: messages.followingElseBlock,
-        source: '{{else if goBengals}}',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Using an {{else}} block with {{unless}} should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else if goBengals}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -201,11 +282,20 @@ generateRuleTests({
         '\n'
       ),
 
-      result: {
-        message: messages.asElseUnlessBlock,
-        source: '{{else unless ...',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Using an \`{{else unless}}\` block should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else unless ...",
+            },
+          ]
+        `);
       },
     },
     {
@@ -215,11 +305,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        source: '{{unless (and ...',
-        line: 1,
-        column: 10,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (and ...",
+            },
+          ]
+        `);
       },
     },
     {
@@ -229,11 +328,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: `${messages.withHelper} Allowed helpers: or,eq,not-eq`,
-        source: '{{unless (not ...',
-        line: 1,
-        column: 10,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (not ...",
+            },
+          ]
+        `);
       },
     },
     {
@@ -245,11 +353,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: messages.followingElseBlock,
-        source: '{{else}}',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Using an {{else}} block with {{unless}} should be avoided.",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{else}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -259,11 +376,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message: `${messages.withHelper} MaxHelpers: 2`,
-        source: '{{unless (... (not-eq ...',
-        line: 1,
-        column: 27,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 27,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (... (not-eq ...",
+            },
+          ]
+        `);
       },
     },
     {
@@ -274,12 +400,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message:
-          'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0',
-        source: '{{unless (concat ...',
-        line: 1,
-        column: 10,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (concat ...",
+            },
+          ]
+        `);
       },
     },
     {
@@ -321,12 +455,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message:
-          'Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2',
-        source: '{{unless (... (four ...',
-        line: 1,
-        column: 27,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 27,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (... (four ...",
+            },
+          ]
+        `);
       },
     },
     {
@@ -340,12 +482,20 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
 
-      result: {
-        message:
-          'Using {{unless}} in combination with other helpers should be avoided. Restricted helper: two',
-        source: '{{unless (... (two ...',
-        line: 1,
-        column: 15,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 15,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Restricted helper: two",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (... (two ...",
+            },
+          ]
+        `);
       },
     },
     {

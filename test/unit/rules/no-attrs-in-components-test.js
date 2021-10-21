@@ -20,13 +20,20 @@ generateRuleTests({
         filePath: 'templates/components/layout.hbs',
       },
 
-      result: {
-        rule: 'no-attrs-in-components',
-        message: 'Component templates should not contain `attrs`.',
-        filePath: 'templates/components/layout.hbs',
-        source: 'attrs.foo',
-        line: 1,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "templates/components/layout.hbs",
+              "line": 1,
+              "message": "Component templates should not contain \`attrs\`.",
+              "rule": "no-attrs-in-components",
+              "severity": 2,
+              "source": "attrs.foo",
+            },
+          ]
+        `);
       },
     },
     {
@@ -36,13 +43,20 @@ generateRuleTests({
         filePath: 'templates/components/layout.hbs',
       },
 
-      result: {
-        rule: 'no-attrs-in-components',
-        message: 'Component templates should not contain `attrs`.',
-        filePath: 'templates/components/layout.hbs',
-        source: 'attrs.foo',
-        line: 1,
-        column: 13,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 13,
+              "filePath": "templates/components/layout.hbs",
+              "line": 1,
+              "message": "Component templates should not contain \`attrs\`.",
+              "rule": "no-attrs-in-components",
+              "severity": 2,
+              "source": "attrs.foo",
+            },
+          ]
+        `);
       },
     },
     {
@@ -52,13 +66,20 @@ generateRuleTests({
         filePath: 'templates/components/layout.hbs',
       },
 
-      result: {
-        rule: 'no-attrs-in-components',
-        message: 'Component templates should not contain `attrs`.',
-        filePath: 'templates/components/layout.hbs',
-        source: 'attrs.foo',
-        line: 1,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "templates/components/layout.hbs",
+              "line": 1,
+              "message": "Component templates should not contain \`attrs\`.",
+              "rule": "no-attrs-in-components",
+              "severity": 2,
+              "source": "attrs.foo",
+            },
+          ]
+        `);
       },
     },
     {
@@ -68,13 +89,20 @@ generateRuleTests({
         filePath: 'templates/components/layout.hbs',
       },
 
-      result: {
-        rule: 'no-attrs-in-components',
-        message: 'Component templates should not contain `attrs`.',
-        filePath: 'templates/components/layout.hbs',
-        source: 'attrs.foo',
-        line: 1,
-        column: 10,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "templates/components/layout.hbs",
+              "line": 1,
+              "message": "Component templates should not contain \`attrs\`.",
+              "rule": "no-attrs-in-components",
+              "severity": 2,
+              "source": "attrs.foo",
+            },
+          ]
+        `);
       },
     },
     {
@@ -84,13 +112,20 @@ generateRuleTests({
         filePath: 'templates/components/layout.hbs',
       },
 
-      result: {
-        rule: 'no-attrs-in-components',
-        message: 'Component templates should not contain `attrs`.',
-        filePath: 'templates/components/layout.hbs',
-        source: 'attrs.foo',
-        line: 1,
-        column: 12,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "filePath": "templates/components/layout.hbs",
+              "line": 1,
+              "message": "Component templates should not contain \`attrs\`.",
+              "rule": "no-attrs-in-components",
+              "severity": 2,
+              "source": "attrs.foo",
+            },
+          ]
+        `);
       },
     },
     {
@@ -100,13 +135,20 @@ generateRuleTests({
         filePath: 'templates/components/layout.hbs',
       },
 
-      result: {
-        rule: 'no-attrs-in-components',
-        message: 'Component templates should not contain `attrs`.',
-        filePath: 'templates/components/layout.hbs',
-        source: 'attrs.foo',
-        line: 1,
-        column: 20,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 20,
+              "filePath": "templates/components/layout.hbs",
+              "line": 1,
+              "message": "Component templates should not contain \`attrs\`.",
+              "rule": "no-attrs-in-components",
+              "severity": 2,
+              "source": "attrs.foo",
+            },
+          ]
+        `);
       },
     },
     {
@@ -116,13 +158,20 @@ generateRuleTests({
         filePath: 'components/comment/template.hbs',
       },
 
-      result: {
-        rule: 'no-attrs-in-components',
-        message: 'Component templates should not contain `attrs`.',
-        filePath: 'components/comment/template.hbs',
-        source: 'attrs.foo',
-        line: 1,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "components/comment/template.hbs",
+              "line": 1,
+              "message": "Component templates should not contain \`attrs\`.",
+              "rule": "no-attrs-in-components",
+              "severity": 2,
+              "source": "attrs.foo",
+            },
+          ]
+        `);
       },
     },
   ],

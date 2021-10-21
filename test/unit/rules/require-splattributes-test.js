@@ -19,38 +19,74 @@ generateRuleTests({
   bad: [
     {
       template: '<div></div>',
-      result: {
-        message: 'The root element in this template should use `...attributes`',
-        line: 1,
-        column: 0,
-        source: '<div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The root element in this template should use \`...attributes\`",
+              "rule": "require-splattributes",
+              "severity": 2,
+              "source": "<div></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo></Foo>',
-      result: {
-        message: 'The root element in this template should use `...attributes`',
-        line: 1,
-        column: 0,
-        source: '<Foo></Foo>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The root element in this template should use \`...attributes\`",
+              "rule": "require-splattributes",
+              "severity": 2,
+              "source": "<Foo></Foo>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div></div><div></div>',
-      result: {
-        message: 'At least one element in this template should use `...attributes`',
-        line: 1,
-        column: 0,
-        source: '<div></div><div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "At least one element in this template should use \`...attributes\`",
+              "rule": "require-splattributes",
+              "severity": 2,
+              "source": "<div></div><div></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div/>\n\n',
-      result: {
-        message: 'The root element in this template should use `...attributes`',
-        line: 1,
-        column: 0,
-        source: '<div/>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The root element in this template should use \`...attributes\`",
+              "rule": "require-splattributes",
+              "severity": 2,
+              "source": "<div/>",
+            },
+          ]
+        `);
       },
     },
   ],

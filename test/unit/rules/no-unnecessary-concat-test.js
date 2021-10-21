@@ -13,11 +13,20 @@ generateRuleTests({
     {
       template: '<div class="{{clazz}}"></div>',
 
-      result: {
-        message: 'Unnecessary string concatenation. Use {{clazz}} instead of "{{clazz}}".',
-        source: '"{{clazz}}"',
-        line: 1,
-        column: 11,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unnecessary string concatenation. Use {{clazz}} instead of \\"{{clazz}}\\".",
+              "rule": "no-unnecessary-concat",
+              "severity": 2,
+              "source": "\\"{{clazz}}\\"",
+            },
+          ]
+        `);
       },
     },
     {

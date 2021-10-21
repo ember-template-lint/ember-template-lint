@@ -22,72 +22,135 @@ generateRuleTests({
     {
       template: '{{log}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{log}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{log}} usage.",
+              "rule": "no-log",
+              "severity": 2,
+              "source": "{{log}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{log "Logs are best for debugging!"}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{log "Logs are best for debugging!"}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{log}} usage.",
+              "rule": "no-log",
+              "severity": 2,
+              "source": "{{log \\"Logs are best for debugging!\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#log}}Arrgh!{{/log}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{#log}}Arrgh!{{/log}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{log}} usage.",
+              "rule": "no-log",
+              "severity": 2,
+              "source": "{{#log}}Arrgh!{{/log}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#log "Foo"}}{{/log}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{#log "Foo"}}{{/log}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{log}} usage.",
+              "rule": "no-log",
+              "severity": 2,
+              "source": "{{#log \\"Foo\\"}}{{/log}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#each this.messages as |message|}}{{log message}}{{/each}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{log message}}',
-        line: 1,
-        column: 36,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 36,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{log}} usage.",
+              "rule": "no-log",
+              "severity": 2,
+              "source": "{{log message}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#let this.message as |message|}}{{log message}}{{/let}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{log message}}',
-        line: 1,
-        column: 34,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 34,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{log}} usage.",
+              "rule": "no-log",
+              "severity": 2,
+              "source": "{{log message}}",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<Messages @messages={{this.messages}} as |message|>{{#log}}{{message}}{{/log}}</Messages>',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{#log}}{{message}}{{/log}}',
-        line: 1,
-        column: 51,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 51,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{log}} usage.",
+              "rule": "no-log",
+              "severity": 2,
+              "source": "{{#log}}{{message}}{{/log}}",
+            },
+          ]
+        `);
       },
     },
   ],

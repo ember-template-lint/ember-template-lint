@@ -70,41 +70,77 @@ generateRuleTests({
     {
       template: '<iframe src="12" />',
 
-      result: {
-        message: '<iframe> elements must have a unique title property.',
-        source: '<iframe src="12" />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<iframe> elements must have a unique title property.",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "<iframe src=\\"12\\" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<iframe src="12" title={{false}} />',
 
-      result: {
-        message: '<iframe> elements must have a unique title property.',
-        source: '<iframe src="12" title={{false}} />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<iframe> elements must have a unique title property.",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "<iframe src=\\"12\\" title={{false}} />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<iframe src="12" title="{{false}}" />',
 
-      result: {
-        message: '<iframe> elements must have a unique title property.',
-        source: '<iframe src="12" title="{{false}}" />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<iframe> elements must have a unique title property.",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "<iframe src=\\"12\\" title=\\"{{false}}\\" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<iframe src="12" title="" />',
 
-      result: {
-        message: '<iframe> elements must have a unique title property.',
-        source: '<iframe src="12" title="" />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "<iframe> elements must have a unique title property.",
+              "rule": "require-iframe-title",
+              "severity": 2,
+              "source": "<iframe src=\\"12\\" title=\\"\\" />",
+            },
+          ]
+        `);
       },
     },
   ],

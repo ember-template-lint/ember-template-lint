@@ -20,27 +20,45 @@ generateRuleTests({
     {
       template: '{{#each post in posts}}{{post.name}}{{/each}}',
 
-      result: {
-        message,
-        source: '{{#each post in posts}}',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{#each posts as |post|}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "{{#each posts as |post|}}",
+              },
+              "line": 1,
+              "message": "Deprecated {{#each}} usage. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code",
+              "rule": "deprecated-each-syntax",
+              "severity": 2,
+              "source": "{{#each post in posts}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#each posts}}{{name}}{{/each}}',
 
-      result: {
-        message,
-        source: '{{#each posts}}',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{#each posts as |item|}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "{{#each posts as |item|}}",
+              },
+              "line": 1,
+              "message": "Deprecated {{#each}} usage. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_code-in-code-syntax-for-code-each-code",
+              "rule": "deprecated-each-syntax",
+              "severity": 2,
+              "source": "{{#each posts}}",
+            },
+          ]
+        `);
       },
     },
   ],

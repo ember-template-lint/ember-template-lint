@@ -18,23 +18,41 @@ generateRuleTests({
     {
       template: '<body aria-hidden="true"></body>',
       fixedTemplate: '<body></body>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<body aria-hidden="true"></body>',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "The aria-hidden attribute should never be present on the <body> element, as it hides the entire document from assistive technology",
+              "rule": "no-aria-hidden-body",
+              "severity": 2,
+              "source": "<body aria-hidden=\\"true\\"></body>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<body aria-hidden></body>',
       fixedTemplate: '<body></body>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<body aria-hidden></body>',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "The aria-hidden attribute should never be present on the <body> element, as it hides the entire document from assistive technology",
+              "rule": "no-aria-hidden-body",
+              "severity": 2,
+              "source": "<body aria-hidden></body>",
+            },
+          ]
+        `);
       },
     },
   ],

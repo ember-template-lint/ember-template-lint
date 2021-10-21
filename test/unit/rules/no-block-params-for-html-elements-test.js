@@ -20,20 +20,38 @@ generateRuleTests({
   bad: [
     {
       template: '<div as |blockName|></div>',
-      result: {
-        message: generateErrorMessage('div'),
-        line: 1,
-        column: 0,
-        source: '<div as |blockName|></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Block parameters on <div> elements are disallowed",
+              "rule": "no-block-params-for-html-elements",
+              "severity": 2,
+              "source": "<div as |blockName|></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div as |a b c|></div>',
-      result: {
-        message: generateErrorMessage('div'),
-        line: 1,
-        column: 0,
-        source: '<div as |a b c|></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Block parameters on <div> elements are disallowed",
+              "rule": "no-block-params-for-html-elements",
+              "severity": 2,
+              "source": "<div as |a b c|></div>",
+            },
+          ]
+        `);
       },
     },
   ],

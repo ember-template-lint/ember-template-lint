@@ -24,29 +24,56 @@ generateRuleTests({
   bad: [
     {
       template: '<div @value="1"></div>',
-      result: {
-        message: makeError('@value', 'div'),
-        source: '@value="1"',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Arguments (@value) should not be used on HTML elements (<div>).",
+              "rule": "no-arguments-for-html-elements",
+              "severity": 2,
+              "source": "@value=\\"1\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div @value></div>',
-      result: {
-        message: makeError('@value', 'div'),
-        source: '@value',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Arguments (@value) should not be used on HTML elements (<div>).",
+              "rule": "no-arguments-for-html-elements",
+              "severity": 2,
+              "source": "@value",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img @src="12">',
-      result: {
-        message: makeError('@src', 'img'),
-        source: '@src="12"',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Arguments (@src) should not be used on HTML elements (<img>).",
+              "rule": "no-arguments-for-html-elements",
+              "severity": 2,
+              "source": "@src=\\"12\\"",
+            },
+          ]
+        `);
       },
     },
   ],

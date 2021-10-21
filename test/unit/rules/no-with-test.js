@@ -20,23 +20,40 @@ generateRuleTests({
     {
       template: '{{#with this.foo as |bar|}}{{bar}}{{/with}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{#with this.foo as |bar|}}{{bar}}{{/with}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The use of \`{{with}}\` has been deprecated. Please see the deprecation guide at https://deprecations.emberjs.com/v3.x/#toc_ember-glimmer-with-syntax.",
+              "rule": "no-with",
+              "severity": 2,
+              "source": "{{#with this.foo as |bar|}}{{bar}}{{/with}}",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '{{#with (hash firstName="John" lastName="Doe") as |user|}}{{user.firstName}} {{user.lastName}}{{/with}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source:
-          '{{#with (hash firstName="John" lastName="Doe") as |user|}}{{user.firstName}} {{user.lastName}}{{/with}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The use of \`{{with}}\` has been deprecated. Please see the deprecation guide at https://deprecations.emberjs.com/v3.x/#toc_ember-glimmer-with-syntax.",
+              "rule": "no-with",
+              "severity": 2,
+              "source": "{{#with (hash firstName=\\"John\\" lastName=\\"Doe\\") as |user|}}{{user.firstName}} {{user.lastName}}{{/with}}",
+            },
+          ]
+        `);
       },
     },
   ],

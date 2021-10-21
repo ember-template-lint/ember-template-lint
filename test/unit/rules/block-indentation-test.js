@@ -234,56 +234,103 @@ generateRuleTests({
       // start and end must be the same indentation
       template: '\n  {{#each cats as |dog|}}\n        {{/each}}',
 
-      result: {
-        message:
-          'Incorrect indentation for `each` beginning at L2:C2. Expected `{{/each}}` ending at L3:C17 to be at an indentation of 2 but was found at 8.',
-        source: '{{#each cats as |dog|}}\n        {{/each}}',
-        line: 3,
-        column: 17,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 17,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Incorrect indentation for \`each\` beginning at L2:C2. Expected \`{{/each}}\` ending at L3:C17 to be at an indentation of 2 but was found at 8.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#each cats as |dog|}}
+                  {{/each}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>\n  </div>',
 
-      result: {
-        message:
-          'Incorrect indentation for `div` beginning at L1:C0. Expected `</div>` ending at L2:C8 to be at an indentation of 0 but was found at 2.',
-        source: '<div>\n  </div>',
-        line: 2,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for \`div\` beginning at L1:C0. Expected \`</div>\` ending at L2:C8 to be at an indentation of 0 but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+            </div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>\n  <p>Stuff goes here</p></div>',
 
-      result: {
-        message:
-          'Incorrect indentation for `div` beginning at L1:C0. Expected `</div>` ending at L2:C30 to be at an indentation of 0 but was found at 24.',
-        source: '<div>\n  <p>Stuff goes here</p></div>',
-        line: 2,
-        column: 30,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 30,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for \`div\` beginning at L1:C0. Expected \`</div>\` ending at L2:C30 to be at an indentation of 0 but was found at 24.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+            <p>Stuff goes here</p></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>\n<p>Stuff goes here</p>\n</div>',
 
-      result: {
-        message:
-          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
-        source: '<div>\n<p>Stuff goes here</p>\n</div>',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for \`<p>\` beginning at L2:C0. Expected \`<p>\` to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+          <p>Stuff goes here</p>
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#if}}\n<p>Stuff goes here</p>\n{{/if}}',
 
-      result: {
-        message:
-          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
-        source: '{{#if}}\n<p>Stuff goes here</p>\n{{/if}}',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for \`<p>\` beginning at L2:C0. Expected \`<p>\` to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#if}}
+          <p>Stuff goes here</p>
+          {{/if}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -295,12 +342,22 @@ generateRuleTests({
         '    {{/if}}\n' +
         '{{/if}}',
 
-      result: {
-        message:
-          'Incorrect indentation for `if` beginning at L3:C2. Expected `{{/if}}` ending at L5:C11 to be at an indentation of 2 but was found at 4.',
-        source: '{{#if something}}\n    Good night\n    {{/if}}',
-        line: 5,
-        column: 11,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "filePath": "layout.hbs",
+              "line": 5,
+              "message": "Incorrect indentation for \`if\` beginning at L3:C2. Expected \`{{/if}}\` ending at L5:C11 to be at an indentation of 2 but was found at 4.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#if something}}
+              Good night
+              {{/if}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -308,34 +365,66 @@ generateRuleTests({
 
       template: '' + '<div>\n' + '  <p>Hi!</p>\n' + '</div>',
 
-      result: {
-        message:
-          'Incorrect indentation for `<p>` beginning at L2:C2. Expected `<p>` to be at an indentation of 4 but was found at 2.',
-        source: '<div>\n  <p>Hi!</p>\n</div>',
-        line: 2,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for \`<p>\` beginning at L2:C2. Expected \`<p>\` to be at an indentation of 4 but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+            <p>Hi!</p>
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>\n' + '  {{foo}}\n' + '{{bar}}\n' + '</div>',
 
-      result: {
-        message:
-          'Incorrect indentation for `{{bar}}` beginning at L3:C0. Expected `{{bar}}` to be at an indentation of 2 but was found at 0.',
-        source: '<div>\n  {{foo}}\n{{bar}}\n</div>',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Incorrect indentation for \`{{bar}}\` beginning at L3:C0. Expected \`{{bar}}\` to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+            {{foo}}
+          {{bar}}
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>\n' + '  Foo:\n' + '{{bar}}\n' + '</div>',
 
-      result: {
-        message:
-          'Incorrect indentation for `{{bar}}` beginning at L3:C0. Expected `{{bar}}` to be at an indentation of 2 but was found at 0.',
-        source: '<div>\n  Foo:\n{{bar}}\n</div>',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Incorrect indentation for \`{{bar}}\` beginning at L3:C0. Expected \`{{bar}}\` to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+            Foo:
+          {{bar}}
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -344,12 +433,21 @@ generateRuleTests({
       template:
         '<div>\n' + '  <span>Foo</span>{{#some-thing}}\n' + '  {{/some-thing}}\n' + '</div>',
 
-      result: {
-        message:
-          'Incorrect indentation for `some-thing` beginning at L2:C18. Expected `{{/some-thing}}` ending at L3:C17 to be at an indentation of 18 but was found at 2.',
-        source: '{{#some-thing}}\n  {{/some-thing}}',
-        line: 3,
-        column: 17,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 17,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Incorrect indentation for \`some-thing\` beginning at L2:C18. Expected \`{{/some-thing}}\` ending at L3:C17 to be at an indentation of 18 but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#some-thing}}
+            {{/some-thing}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -357,35 +455,65 @@ generateRuleTests({
       // has other content preceding it on its line
       template: '{{#if foo}}\n' + '  {{foo}} <p>\n' + '            Bar\n' + '  </p>\n' + '{{/if}}',
 
-      result: {
-        message:
-          'Incorrect indentation for `p` beginning at L2:C10. Expected `</p>` ending at L4:C6 to be at an indentation of 10 but was found at 2.',
-        source: '<p>\n            Bar\n  </p>',
-        line: 4,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "Incorrect indentation for \`p\` beginning at L2:C10. Expected \`</p>\` ending at L4:C6 to be at an indentation of 10 but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<p>
+                      Bar
+            </p>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: ['<div>', '<!-- foo bar baz -->', '</div>'].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `<!-- foo bar baz -->` beginning at L2:C0. Expected `<!-- foo bar baz -->` to be at an indentation of 2 but was found at 0.',
-        source: '<div>\n<!-- foo bar baz -->\n</div>',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for \`<!-- foo bar baz -->\` beginning at L2:C0. Expected \`<!-- foo bar baz -->\` to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+          <!-- foo bar baz -->
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: ['{{#if foo}}', '  {{else}}', '{{/if}}'].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for inverse block of `{{#if}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
-        source: '{{#if foo}}\n  {{else}}\n{{/if}}',
-        line: 2,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for inverse block of \`{{#if}}\` beginning at L1:C0. Expected \`{{else}}\` starting at L2:C2 to be at an indentation of 0 but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#if foo}}
+            {{else}}
+          {{/if}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -399,24 +527,47 @@ generateRuleTests({
         '  {{/if}}',
       ].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `if` beginning at L1:C0. Expected `{{/if}}` ending at L6:C9 to be at an indentation of 0 but was found at 2.',
-        source: '{{#if foo}}\n{{else if bar}}\n{{else}}\n  {{#if baz}}\n  {{/if~}}\n  {{/if}}',
-        line: 6,
-        column: 9,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "filePath": "layout.hbs",
+              "line": 6,
+              "message": "Incorrect indentation for \`if\` beginning at L1:C0. Expected \`{{/if}}\` ending at L6:C9 to be at an indentation of 0 but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#if foo}}
+          {{else if bar}}
+          {{else}}
+            {{#if baz}}
+            {{/if~}}
+            {{/if}}",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: ['{{#each foo as |bar|}}', '  {{else}}', '{{/each}}'].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for inverse block of `{{#each}}` beginning at L1:C0. Expected `{{else}}` starting at L2:C2 to be at an indentation of 0 but was found at 2.',
-        source: '{{#each foo as |bar|}}\n  {{else}}\n{{/each}}',
-        line: 2,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for inverse block of \`{{#each}}\` beginning at L1:C0. Expected \`{{else}}\` starting at L2:C2 to be at an indentation of 0 but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#each foo as |bar|}}
+            {{else}}
+          {{/each}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -429,13 +580,24 @@ generateRuleTests({
         '</div>',
       ].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `{{! comment with incorrect indentation }}` beginning at L4:C4. Expected `{{! comment with incorrect indentation }}` to be at an indentation of 2 but was found at 4.',
-        source:
-          '<div>\n  {{#if foo}}\n  {{/if}}\n    {{! comment with incorrect indentation }}\n</div>',
-        line: 4,
-        column: 4,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "Incorrect indentation for \`{{! comment with incorrect indentation }}\` beginning at L4:C4. Expected \`{{! comment with incorrect indentation }}\` to be at an indentation of 2 but was found at 4.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+            {{#if foo}}
+            {{/if}}
+              {{! comment with incorrect indentation }}
+          </div>",
+            },
+          ]
+        `);
       },
     },
 
@@ -450,13 +612,27 @@ generateRuleTests({
           '{{/if}}',
       ].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `Good morning\n` beginning at L1:C19. Expected `Good morning\n` to be at an indentation of 2 but was found at 19.',
-        source:
-          '{{#if isMorning}}  Good morning\n{{else if isAfternoon}}\n  Good afternoon\n{{else}}\n  Good night\n{{/if}}',
-        line: 1,
-        column: 19,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 19,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Incorrect indentation for \`Good morning
+          \` beginning at L1:C19. Expected \`Good morning
+          \` to be at an indentation of 2 but was found at 19.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#if isMorning}}  Good morning
+          {{else if isAfternoon}}
+            Good afternoon
+          {{else}}
+            Good night
+          {{/if}}",
+            },
+          ]
+        `);
       },
     },
 
@@ -469,45 +645,90 @@ generateRuleTests({
           '{{/if}}',
       ].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `Good afternoon\n` beginning at L4:C4. Expected `Good afternoon\n` to be at an indentation of 2 but was found at 4.',
-        source: '{{else if isAfternoon~}}\n    Good afternoon\n',
-        line: 4,
-        column: 4,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "Incorrect indentation for \`Good afternoon
+          \` beginning at L4:C4. Expected \`Good afternoon
+          \` to be at an indentation of 2 but was found at 4.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{else if isAfternoon~}}
+              Good afternoon
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       template: ['<div>', '{{! What a comment }}', '  {{foo-bar}}', '</div>'].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `{{! What a comment }}` beginning at L2:C0. Expected `{{! What a comment }}` to be at an indentation of 2 but was found at 0.',
-        source: '<div>\n{{! What a comment }}\n  {{foo-bar}}\n</div>',
-        line: 2,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Incorrect indentation for \`{{! What a comment }}\` beginning at L2:C0. Expected \`{{! What a comment }}\` to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+          {{! What a comment }}
+            {{foo-bar}}
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: ['<div> {{! bad comment }}', '  {{foo-bar}}', '</div>'].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `{{! bad comment }}` beginning at L1:C6. Expected `{{! bad comment }}` to be at an indentation of 2 but was found at 6.',
-        source: '<div> {{! bad comment }}\n  {{foo-bar}}\n</div>',
-        line: 1,
-        column: 6,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 6,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Incorrect indentation for \`{{! bad comment }}\` beginning at L1:C6. Expected \`{{! bad comment }}\` to be at an indentation of 2 but was found at 6.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div> {{! bad comment }}
+            {{foo-bar}}
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: ['{{#if media.isMobile}}', '{{else}}', '<span>', '</span>', '{{/if}}'].join('\n'),
 
-      result: {
-        message:
-          'Incorrect indentation for `<span>` beginning at L3:C0. Expected `<span>` to be at an indentation of 2 but was found at 0.',
-        source: '{{#if media.isMobile}}\n{{else}}\n<span>\n</span>\n{{/if}}',
-        line: 3,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Incorrect indentation for \`<span>\` beginning at L3:C0. Expected \`<span>\` to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#if media.isMobile}}
+          {{else}}
+          <span>
+          </span>
+          {{/if}}",
+            },
+          ]
+        `);
       },
     },
     {

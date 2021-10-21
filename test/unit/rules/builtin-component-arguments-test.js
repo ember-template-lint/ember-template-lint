@@ -19,29 +19,56 @@ generateRuleTests({
   bad: [
     {
       template: '<Input type="text" size="10" />',
-      result: {
-        message: generateErrorMessage('Input', 'type'),
-        line: 1,
-        column: 7,
-        source: 'type="text"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Setting the \`type\` attribute on the builtin <Input> component is not allowed. Did you mean \`@type\`?",
+              "rule": "builtin-component-arguments",
+              "severity": 2,
+              "source": "type=\\"text\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Input @type="checkbox" checked />',
-      result: {
-        message: generateErrorMessage('Input', 'checked'),
-        line: 1,
-        column: 24,
-        source: 'checked',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 24,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Setting the \`checked\` attribute on the builtin <Input> component is not allowed. Did you mean \`@checked\`?",
+              "rule": "builtin-component-arguments",
+              "severity": 2,
+              "source": "checked",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Textarea value="Tomster" />',
-      result: {
-        message: generateErrorMessage('Textarea', 'value'),
-        line: 1,
-        column: 10,
-        source: 'value="Tomster"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 10,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Setting the \`value\` attribute on the builtin <Textarea> component is not allowed. Did you mean \`@value\`?",
+              "rule": "builtin-component-arguments",
+              "severity": 2,
+              "source": "value=\\"Tomster\\"",
+            },
+          ]
+        `);
       },
     },
   ],

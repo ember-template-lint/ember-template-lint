@@ -38,92 +38,182 @@ generateRuleTests({
   bad: [
     {
       template: '<ul role="presentation"></ul>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('ul'),
-        source: '<ul role="presentation"></ul>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <ul> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<ul role=\\"presentation\\"></ul>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<ol role="presentation"></ol>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('ol'),
-        source: '<ol role="presentation"></ol>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <ol> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<ol role=\\"presentation\\"></ol>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<li role="presentation"></li>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('li'),
-        source: '<li role="presentation"></li>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <li> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<li role=\\"presentation\\"></li>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table role="presentation"></table>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('table'),
-        source: '<table role="presentation"></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <table> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<table role=\\"presentation\\"></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<table role="none"></table>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('table'),
-        source: '<table role="none"></table>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <table> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<table role=\\"none\\"></table>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button role="presentation"></button>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('button'),
-        source: '<button role="presentation"></button>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <button> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<button role=\\"presentation\\"></button>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button role="none"></button>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('button'),
-        source: '<button role="none"></button>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <button> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<button role=\\"none\\"></button>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label role="presentation"></label>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('label'),
-        source: '<label role="presentation"></label>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <label> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<label role=\\"presentation\\"></label>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label role="none"></label>',
-      result: {
-        message: createErrorMessageDisallowedRoleForElement('label'),
-        source: '<label role="none"></label>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of presentation role on <label> detected. Semantic elements should not be used for presentation.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<label role=\\"none\\"></label>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="command interface"></div>',
-      result: {
-        message: createNonexistentRoleErrorMessage('div'),
-        source: '<div role="command interface"></div>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<div role=\\"command interface\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -131,20 +221,38 @@ generateRuleTests({
       config: {
         catchNonexistentRoles: true,
       },
-      result: {
-        message: createNonexistentRoleErrorMessage('div'),
-        source: '<div role="command interface"></div>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<div role=\\"command interface\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="COMMAND INTERFACE"></div>',
-      result: {
-        message: createNonexistentRoleErrorMessage('div'),
-        source: '<div role="COMMAND INTERFACE"></div>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
+              "rule": "no-invalid-role",
+              "severity": 2,
+              "source": "<div role=\\"COMMAND INTERFACE\\"></div>",
+            },
+          ]
+        `);
       },
     },
   ],

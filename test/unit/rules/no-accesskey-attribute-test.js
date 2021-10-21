@@ -13,53 +13,98 @@ generateRuleTests({
   bad: [
     {
       template: '<button accesskey="n"></button>',
-      result: {
-        message,
-        source: 'accesskey="n"',
-        isFixable: true,
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.",
+              "rule": "no-accesskey-attribute",
+              "severity": 2,
+              "source": "accesskey=\\"n\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button accesskey></button>',
-      result: {
-        message,
-        source: 'accesskey',
-        isFixable: true,
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.",
+              "rule": "no-accesskey-attribute",
+              "severity": 2,
+              "source": "accesskey",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button accesskey={{some-key}}></button>',
-      result: {
-        message,
-        source: 'accesskey={{some-key}}',
-        isFixable: true,
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.",
+              "rule": "no-accesskey-attribute",
+              "severity": 2,
+              "source": "accesskey={{some-key}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button accesskey="{{some-key}}"></button>',
-      result: {
-        message,
-        source: 'accesskey="{{some-key}}"',
-        line: 1,
-        column: 8,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.",
+              "rule": "no-accesskey-attribute",
+              "severity": 2,
+              "source": "accesskey=\\"{{some-key}}\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button accesskey="{{some-key}}"></button>',
       fixedTemplate: '<button></button>',
-      result: {
-        message,
-        line: 1,
-        column: 8,
-        source: 'accesskey="{{some-key}}"',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 8,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.",
+              "rule": "no-accesskey-attribute",
+              "severity": 2,
+              "source": "accesskey=\\"{{some-key}}\\"",
+            },
+          ]
+        `);
       },
     },
   ],

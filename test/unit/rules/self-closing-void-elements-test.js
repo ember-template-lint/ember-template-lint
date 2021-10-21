@@ -95,434 +95,722 @@ generateRuleTests({
       template: '<area/>',
       message: "Self-closing void element as <area> is redundant ('layout.hbs'@ L1:C0)",
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<area/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<area>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<area>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<area/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<base/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<base/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<base>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<base>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<base/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<br/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<br/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<br>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<br>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<br/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<col/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<col/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<col>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<col>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<col/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<command/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<command/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<command>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<command>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<command/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<embed/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<embed/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<embed>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<embed>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<embed/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<hr/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<hr/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<hr>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<hr>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<hr/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<img/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<img>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<img>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<img/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<input/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<input>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<input>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<input/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<keygen/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<keygen/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<keygen>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<keygen>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<keygen/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<link/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<link/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<link>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<link>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<link/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<meta/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<meta>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<meta>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<meta/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<param/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<param/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<param>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<param>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<param/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<source/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<source/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<source>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<source>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<source/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<track/>',
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<track/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<track>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<track>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<track/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<wbr/>',
       config: true,
 
-      result: {
-        message: 'Self-closing a void element is redundant',
-        source: '<wbr/>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<wbr>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<wbr>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is redundant",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<wbr/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<area>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<area>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<area/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<area/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<area>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<base>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<base>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<base/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<base/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<base>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<br>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<br>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<br/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<br/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<br>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<col>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<col>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<col/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<col/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<col>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<command>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<command>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<command/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<command/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<command>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<embed>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<embed>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<embed/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<embed/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<embed>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<hr>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<hr>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<hr/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<hr/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<hr>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<img>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<img/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<img/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<img>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<input>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<input/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<input/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<input>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<keygen>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<keygen>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<keygen/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<keygen/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<keygen>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<link>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<link>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<link/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<link/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<link>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<meta>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<meta>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<meta/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<meta/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<meta>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<param>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<param>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<param/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<param/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<param>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<source>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<source>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<source/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<source/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<source>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<track>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<track>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<track/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<track/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<track>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<wbr>',
       config: 'require',
 
-      result: {
-        message: 'Self-closing a void element is required',
-        source: '<wbr>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<wbr/>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "filePath": "layout.hbs",
+              "fix": Object {
+                "text": "<wbr/>",
+              },
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<wbr>",
+            },
+          ]
+        `);
       },
     },
   ],
