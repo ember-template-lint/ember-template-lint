@@ -1,11 +1,5 @@
-const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
 const { parseConfig } = require('../../../lib/rules/no-curly-component-invocation');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-function generateError(name) {
-  let angleBracketName = transformTagName(name);
-  return `You are using the component {{${name}}} with curly component syntax. You should use <${angleBracketName}> instead. If it is actually a helper you must manually add it to the 'no-curly-component-invocation' rule configuration, e.g. \`'no-curly-component-invocation': { allow: ['${name}'] }\`.`;
-}
 
 const SHARED_MOSTLY_GOOD = [
   '{{foo}}',
@@ -67,113 +61,59 @@ const SHARED_GOOD = [
 const SHARED_BAD = [
   {
     template: '{{foo-bar}}',
-    results: [
-      {
-        message: generateError('foo-bar'),
-        line: 1,
-        isFixable: false,
-        column: 0,
-        source: '{{foo-bar}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
   {
     template: '{{nested/component}}',
-    results: [
-      {
-        message: generateError('nested/component'),
-        line: 1,
-        column: 0,
-        isFixable: false,
-        source: '{{nested/component}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
   {
     template: '{{foo-bar bar=baz}}',
-    results: [
-      {
-        message: generateError('foo-bar'),
-        line: 1,
-        isFixable: false,
-        column: 0,
-        source: '{{foo-bar bar=baz}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
   {
     template: '{{foo.bar bar=baz}}',
-    results: [
-      {
-        message: generateError('foo.bar'),
-        line: 1,
-        column: 0,
-        isFixable: false,
-        source: '{{foo.bar bar=baz}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
   {
     template: '{{link-to "bar" "foo"}}',
-    results: [
-      {
-        message: generateError('link-to'),
-        line: 1,
-        isFixable: false,
-        column: 0,
-        source: '{{link-to "bar" "foo"}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
   {
     template: '{{#link-to "foo"}}bar{{/link-to}}',
-    results: [
-      {
-        message: generateError('link-to'),
-        line: 1,
-        column: 0,
-        isFixable: false,
-        source: '{{#link-to "foo"}}bar{{/link-to}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
   {
     template: '{{input type="text" value=this.model.name}}',
-    results: [
-      {
-        message: generateError('input'),
-        line: 1,
-        column: 0,
-        isFixable: false,
-        source: '{{input type="text" value=this.model.name}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
   {
     template: '{{textarea value=this.model.body}}',
-    results: [
-      {
-        message: generateError('textarea'),
-        line: 1,
-        column: 0,
-        isFixable: false,
-        source: '{{textarea value=this.model.body}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
 
   // real world examples
   {
     template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
-    results: [
-      {
-        message: generateError('heading'),
-        line: 1,
-        column: 0,
-        isFixable: true,
-        source: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
-      },
-    ],
+    verifyResults(results) {
+      expect(results).toMatchSnapshot();
+    },
   },
 ];
 
