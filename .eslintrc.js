@@ -147,5 +147,14 @@ module.exports = {
         'import/no-dynamic-require': 'off',
       },
     },
+    {
+      files: ['mocha-tests/**/*.js'],
+      env: {
+        mocha: true,
+      },
+      rules: {
+        'import/no-dynamic-require': 'off',
+      },
+    },
   ],
 };
