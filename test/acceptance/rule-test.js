@@ -251,8 +251,6 @@ describe('rule public api', function () {
                       this.log({
                         message: 'Unclobbered error message',
                         node,
-                        line: 50,
-                        column: 50,
                         source: '<MySpecialThingInferredDoesNotClobberExplicit/>',
                       });
                     }
@@ -293,8 +291,8 @@ describe('rule public api', function () {
         {
           template: '<MySpecialThingInferredDoesNotClobberExplicit/>',
           result: {
-            column: 50,
-            line: 50,
+            column: 0,
+            line: 1,
             endColumn: 47,
             endLine: 1,
             message: 'Unclobbered error message',
