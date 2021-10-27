@@ -2,6 +2,7 @@
 
 const path = require('path');
 
+const defaultTestHarness = require('../../lib/helpers/rule-test-harness');
 const Rule = require('../../lib/rules/_base');
 const generateRuleTests = require('../helpers/rule-test-harness');
 
@@ -385,5 +386,125 @@ describe('rule public api', function () {
         },
       ],
     });
+  });
+});
+
+describe('regression tests', function () {
+  class Group {
+    constructor(name, callback) {
+      this.name = name;
+      this.populateTests = callback;
+      this.tests = [];
+      this.beforeEach = [];
+      this.runLog = null;
+    }
+
+    async run() {
+      this.runLog = [];
+
+      await this.populateTests();
+
+      for (let test of this.tests) {
+        for (let callback of this.beforeEach) {
+          await callback();
+        }
+
+        await test.run();
+
+        this.runLog.push(test.name);
+      }
+    }
+  }
+
+  class Test {
+    constructor(name, callback) {
+      this.name = name;
+      this.run = callback;
+    }
+  }
+
+  test('avoids config state mutation across tests', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      name: 'rule-with-async-visitor-hook',
+      config: 'lol',
+
+      plugins: [
+        {
+          name: 'rule-with-async-visitor-hook',
+          rules: {
+            'rule-with-async-visitor-hook': class extends Rule {
+              async visitor() {
+                await new Promise((resolve) => setTimeout(resolve, 10));
+
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: `Current configuration is ${this.config}`,
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      good: [],
+
+      bad: [
+        {
+          config: 'foo',
+          template: `<div></div>`,
+          result: {
+            message: 'Current configuration is foo',
+            line: 1,
+            column: 0,
+            source: '<div></div>',
+          },
+        },
+        {
+          // no config
+          template: `<div></div>`,
+          result: {
+            message: 'Current configuration is lol',
+            line: 1,
+            column: 0,
+            source: '<div></div>',
+          },
+        },
+      ],
+    });
+
+    // should not fail
+    await group.run();
+
+    expect(group.runLog).toMatchInlineSnapshot(`
+      Array [
+        "<div></div>: logs errors",
+        "<div></div>: passes when rule is disabled",
+        "<div></div>: passes when disabled via inline comment - single rule",
+        "<div></div>: passes when disabled via long-form inline comment - single rule",
+        "<div></div>: passes when disabled via inline comment - all rules",
+        "<div></div>: logs errors",
+        "<div></div>: passes when rule is disabled",
+        "<div></div>: passes when disabled via inline comment - single rule",
+        "<div></div>: passes when disabled via long-form inline comment - single rule",
+        "<div></div>: passes when disabled via inline comment - all rules",
+      ]
+    `);
   });
 });
