@@ -3,6 +3,27 @@
 
 
 
+
+## v3.11.0 (2021-10-27)
+
+#### :rocket: Enhancement
+* [#2151](https://github.com/ember-template-lint/ember-template-lint/pull/2151) Add `endLine` / `endColumn` to generated rule test results ([@scalvert](https://github.com/scalvert))
+
+#### :bug: Bug Fix
+* [#2140](https://github.com/ember-template-lint/ember-template-lint/pull/2140) Update `no-empty-headings` rule to only check for valid element & text nodes ([@glnster](https://github.com/glnster))
+
+#### :house: Internal
+* [#2155](https://github.com/ember-template-lint/ember-template-lint/pull/2155) Fixes incorrect rule test passing fake values ([@scalvert](https://github.com/scalvert))
+* [#2150](https://github.com/ember-template-lint/ember-template-lint/pull/2150) Migrate to using inline snapshots for rule unit tests ([@rwjblue](https://github.com/rwjblue))
+* [#2154](https://github.com/ember-template-lint/ember-template-lint/pull/2154) Test under Node 17 ([@bmish](https://github.com/bmish))
+
+#### Committers: 4
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Glenn Cueto ([@glnster](https://github.com/glnster))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.10.0 (2021-10-13)
 
 #### :rocket: Enhancement
