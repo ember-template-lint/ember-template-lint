@@ -58,13 +58,16 @@ describe('rules setup is correct', function () {
     for (const ruleName of expectedRules) {
       describe(ruleName, function () {
         it('should have the right contents (title, notices, examples, references)', function () {
-          const filePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
-          const file = readFileSync(filePath, 'utf8');
-          const lines = file.split('\n');
+          const ruleFilePath = path.join(__dirname, '..', '..', 'lib', 'rules', `${ruleName}.js`);
+          const ruleFileContents = readFileSync(ruleFilePath, 'utf8');
 
-          expect(lines[0]).toStrictEqual(`# ${ruleName}`); // Title header.
-          expect(file).toContain('## Examples'); // Examples section header.
-          expect(file).toContain('## References');
+          const docFilePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
+          const docFileContents = readFileSync(docFilePath, 'utf8');
+          const docFileLines = docFileContents.split('\n');
+
+          expect(docFileLines[0]).toStrictEqual(`# ${ruleName}`); // Title header.
+          expect(docFileContents).toContain('## Examples'); // Examples section header.
+          expect(docFileContents).toContain('## References');
 
           const expectedNotices = [];
           const unexpectedNotices = [];
@@ -87,14 +90,24 @@ describe('rules setup is correct', function () {
           // Ensure that expected notices are present in the correct order.
           let currentLineNumber = 1;
           for (const expectedNotice of expectedNotices) {
-            expect(lines[currentLineNumber]).toStrictEqual('');
-            expect(lines[currentLineNumber + 1]).toStrictEqual(MESSAGES[expectedNotice]);
+            expect(docFileLines[currentLineNumber]).toStrictEqual('');
+            expect(docFileLines[currentLineNumber + 1]).toStrictEqual(MESSAGES[expectedNotice]);
             currentLineNumber += 2;
           }
 
           // Ensure that unexpected notices are not present.
           for (const unexpectedNotice of unexpectedNotices) {
-            expect(file).not.toContain(MESSAGES[unexpectedNotice]);
+            expect(docFileContents).not.toContain(MESSAGES[unexpectedNotice]);
+          }
+
+          // Check if the rule has configuration options.
+          if (['parseConfig', 'this.config'].some((str) => ruleFileContents.includes(str))) {
+            // Should have a configuration section header.
+            expect(docFileContents).toContain('## Configuration');
+          } else {
+            // Should NOT have any options/config section headers.
+            expect(docFileContents).not.toContain('# Config');
+            expect(docFileContents).not.toContain('# Option');
           }
         });
       });
