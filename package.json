@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@babel/parser": "^7.16.0",
-    "@babel/traverse": "^7.15.4",
+    "@babel/traverse": "^7.16.0",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
     "common-tags": "^1.8.0",
     "eslint": "^7.32.0",
