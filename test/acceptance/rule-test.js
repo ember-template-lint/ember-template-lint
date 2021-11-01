@@ -395,6 +395,7 @@ describe('regression tests', function () {
       this.name = name;
       this.populateTests = callback;
       this.tests = [];
+      this.beforeAll = [];
       this.beforeEach = [];
       this.runLog = null;
     }
@@ -403,6 +404,10 @@ describe('regression tests', function () {
       this.runLog = [];
 
       await this.populateTests();
+
+      for (let callback of this.beforeAll) {
+        await callback();
+      }
 
       for (let test of this.tests) {
         for (let callback of this.beforeEach) {
@@ -504,6 +509,88 @@ describe('regression tests', function () {
         "<div></div>: passes when disabled via inline comment - single rule",
         "<div></div>: passes when disabled via long-form inline comment - single rule",
         "<div></div>: passes when disabled via inline comment - all rules",
+      ]
+    `);
+  });
+
+  test('throws a helpful error if test harness is setup incorrectly', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        // this is the main difference between the prior test,
+        // this is using a "beforeAll` concept which _would_ introduce
+        // leakage; so it should force an error during the test runs
+        group.beforeAll.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      name: 'rule-with-async-visitor-hook',
+      config: 'lol',
+
+      plugins: [
+        {
+          name: 'rule-with-async-visitor-hook',
+          rules: {
+            'rule-with-async-visitor-hook': class extends Rule {
+              async visitor() {
+                await new Promise((resolve) => setTimeout(resolve, 10));
+
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: `Current configuration is ${this.config}`,
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      good: [],
+
+      bad: [
+        {
+          config: 'foo',
+          template: `<div></div>`,
+          result: {
+            message: 'Current configuration is foo',
+            line: 1,
+            column: 0,
+            source: '<div></div>',
+          },
+        },
+        {
+          // no config; when using beforeAll instead of beforeEach the bad test
+          // just above changes the shared config (for the tests around "when
+          // disabled") and causes _this_ bad test to not emit any errors
+          template: `<div></div>`,
+          result: {
+            message: 'Current configuration is lol',
+            line: 1,
+            column: 0,
+            source: '<div></div>',
+          },
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"ember-template-lint: Test harness found invalid setup (\`groupingMethodBefore\` not called once per test). Maybe you meant to pass \`groupingMethodBefore: beforeEach\`?"`
+    );
+
+    expect(group.runLog).toMatchInlineSnapshot(`
+      Array [
+        "<div></div>: logs errors",
       ]
     `);
   });
