@@ -347,7 +347,10 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
-      console: options.quiet || options.json || options.format === 'sarif' ? NOOP_CONSOLE : console,
+      console:
+        options.quiet || options.json || ['sarif', 'json'].includes(options.format)
+          ? NOOP_CONSOLE
+          : console,
     });
   } catch (error) {
     console.error(error.message);
