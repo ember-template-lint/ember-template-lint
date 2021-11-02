@@ -116,4 +116,4 @@ ember-template-lint --format ember-template-lint-formatter-snazzy
 
 💡 Ensure you wrap all glob patterns in quotes so that it won't be interpreted by the CLI. `ember-template-lint app/templates/**` (this will expand all paths in app/templates) and `ember-template-lint "app/templates/**"` (this will pass the glob to ember-template-lint and not interpret the glob).
 
-For more information about the todo functionality, see [the documentation](docs/todos.md).
+For more information about the todo functionality, see [the documentation](./todos.md).
