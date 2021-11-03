@@ -339,6 +339,8 @@ async function run() {
       getTodoConfigFromCommandLineOptions(options)
     ),
   };
+  let shouldWriteToStdout =
+    options.quiet || options.json || ['sarif', 'json'].includes(options.format);
 
   try {
     linter = new Linter({
@@ -347,7 +349,7 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
-      console: options.quiet || options.json ? NOOP_CONSOLE : console,
+      console: shouldWriteToStdout ? NOOP_CONSOLE : console,
     });
   } catch (error) {
     console.error(error.message);
