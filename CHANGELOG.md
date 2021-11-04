@@ -4,6 +4,27 @@
 
 
 
+
+## v3.12.0 (2021-11-04)
+
+#### :rocket: Enhancement
+* [#2162](https://github.com/ember-template-lint/ember-template-lint/pull/2162) Ensure test harness setup in custom plugins is correct ([@rwjblue](https://github.com/rwjblue))
+
+#### :bug: Bug Fix
+* [#2167](https://github.com/ember-template-lint/ember-template-lint/pull/2167) Slightly loosening requires for log method parameter requirements ([@scalvert](https://github.com/scalvert))
+* [#2165](https://github.com/ember-template-lint/ember-template-lint/pull/2165) Adding ruleId to deprecation message to track its origin ([@scalvert](https://github.com/scalvert))
+* [#2164](https://github.com/ember-template-lint/ember-template-lint/pull/2164) Noops the console when using the SARIF formatter ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#2156](https://github.com/ember-template-lint/ember-template-lint/pull/2156) Move workflow examples out of README into separate doc ([@bmish](https://github.com/bmish))
+* [#2157](https://github.com/ember-template-lint/ember-template-lint/pull/2157) Ensure rules with options include a `Configuration` section in their rule doc ([@bmish](https://github.com/bmish))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.11.0 (2021-10-27)
 
 #### :rocket: Enhancement
