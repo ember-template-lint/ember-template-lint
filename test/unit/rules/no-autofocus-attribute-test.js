@@ -37,13 +37,13 @@ generateRuleTests({
       },
     },
     {
-      template: '<input type="text" autofocus="true" />',
+      template: '<input type="text" autofocus="autofocus" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
             Object {
               "column": 19,
-              "endColumn": 35,
+              "endColumn": 40,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": false,
@@ -51,41 +51,20 @@ generateRuleTests({
               "message": "No autofocus attribute allowed, as it reduces accessibility by moving users to an element without warning and context",
               "rule": "no-autofocus-attribute",
               "severity": 2,
-              "source": "autofocus=\\"true\\"",
+              "source": "autofocus=\\"autofocus\\"",
             },
           ]
         `);
       },
     },
     {
-      template: '<input type="text" autofocus={{false}} />',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 19,
-              "endColumn": 38,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": false,
-              "line": 1,
-              "message": "No autofocus attribute allowed, as it reduces accessibility by moving users to an element without warning and context",
-              "rule": "no-autofocus-attribute",
-              "severity": 2,
-              "source": "autofocus={{false}}",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<input autofocus={{foo}} />',
+      template: '<input autofocus={{this.foo}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
             Object {
               "column": 7,
-              "endColumn": 24,
+              "endColumn": 29,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": false,
@@ -93,7 +72,7 @@ generateRuleTests({
               "message": "No autofocus attribute allowed, as it reduces accessibility by moving users to an element without warning and context",
               "rule": "no-autofocus-attribute",
               "severity": 2,
-              "source": "autofocus={{foo}}",
+              "source": "autofocus={{this.foo}}",
             },
           ]
         `);
