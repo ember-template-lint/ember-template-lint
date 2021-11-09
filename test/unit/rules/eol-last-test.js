@@ -25,8 +25,16 @@ generateRuleTests({
       template: 'test\n',
     },
     {
+      config: 'always',
+      template: '<img>\n',
+    },
+    {
       config: 'never',
       template: 'test',
+    },
+    {
+      config: 'never',
+      template: '<img>',
     },
     // test the re-entering of yielded content
     {
@@ -65,6 +73,30 @@ generateRuleTests({
       },
     },
     {
+      config: 'always',
+      template: '<img>',
+      fixedTemplate: '<img>\n',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template must end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "<img>",
+            },
+          ]
+        `);
+      },
+    },
+    {
       config: 'never',
       template: 'test\n',
       fixedTemplate: 'test',
@@ -83,6 +115,31 @@ generateRuleTests({
               "rule": "eol-last",
               "severity": 2,
               "source": "test
+          ",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: 'never',
+      template: '<img>\n',
+      fixedTemplate: '<img>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "<img>
           ",
             },
           ]
