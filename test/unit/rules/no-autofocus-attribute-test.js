@@ -11,6 +11,7 @@ generateRuleTests({
     '<input />',
     '<input type="text" disabled="true" />',
     '<input type="password" disabled={{false}} />',
+    '<input type="password" disabled />',
     '{{input type="text" disabled=true}}',
     '{{component "input" type="text" disabled=true}}',
     '<div></div>',
