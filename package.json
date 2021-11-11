@@ -33,7 +33,7 @@
     "new:rule": "node dev/generate.js new-rule",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
-    "test:jest": "jest",
+    "test:jest": "jest --coverage",
     "update:readme": "node ./scripts/update-rules.js"
   },
   "jest": {
@@ -41,6 +41,14 @@
       "<rootDir>/node_modules/",
       "<rootDir>/test/"
     ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 85,
+        "functions": 95,
+        "lines": 90,
+        "statements": 90
+      }
+    },
     "setupFilesAfterEnv": [
       "<rootDir>/test/jest-setup.js"
     ],
