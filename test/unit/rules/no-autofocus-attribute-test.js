@@ -16,6 +16,8 @@ generateRuleTests({
     '<div></div>',
     '<h1><span>Valid Heading</span></h1>',
     '<CustomComponent />',
+    '<CustomComponent disabled />',
+    '<CustomComponent disabled=true />',
   ],
 
   bad: [
