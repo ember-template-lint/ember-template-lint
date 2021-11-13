@@ -5,6 +5,23 @@
 
 
 
+
+## v3.13.0 (2021-11-13)
+
+#### :rocket: Enhancement
+* [#2168](https://github.com/ember-template-lint/ember-template-lint/pull/2168) Add new rule `no-autofocus-attribute` ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :bug: Bug Fix
+* [#2174](https://github.com/ember-template-lint/ember-template-lint/pull/2174) Fix false negative with `always` setting and template ending with non-text in `eol-last` rule ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2175](https://github.com/ember-template-lint/ember-template-lint/pull/2175) Enforce minimum test code coverage ([@bmish](https://github.com/bmish))
+
+#### Committers: 2
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v3.12.0 (2021-11-04)
 
 #### :rocket: Enhancement
