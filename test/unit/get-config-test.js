@@ -1,7 +1,5 @@
 'use strict';
 
-const { stripIndent } = require('common-tags');
-
 const recommendedConfig = require('../../lib/config/recommended');
 const {
   getProjectConfig,
@@ -255,7 +253,7 @@ describe('get-config', function () {
     });
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
-      dep.files['index.js'] = stripIndent`
+      dep.files['index.js'] = `
         module.exports = {
           name: 'my-awesome-thing',
 
@@ -286,7 +284,7 @@ describe('get-config', function () {
     project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
-      dep.files['index.js'] = stripIndent`
+      dep.files['index.js'] = `
         module.exports = {
           name: 'my-awesome-thing',
 

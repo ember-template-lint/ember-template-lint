@@ -1,7 +1,5 @@
 'use strict';
 
-const stripIndent = require('common-tags').stripIndent;
-
 const Linter = require('../../lib');
 
 describe('recommended config', function () {
@@ -33,15 +31,14 @@ describe('recommended config', function () {
     });
   }
 
-  ensureValid(stripIndent`
-    <md-autocomplete-wrap
-      id={{this.autocompleteWrapperId}}
-      role="listbox"
-      layout="row"
-      class="{{if this.notFloating "md-whiteframe-z1"}} {{if this.notHidden "md-menu-showing"}}"
-    >
-    </md-autocomplete-wrap>
-  `);
+  ensureValid(`
+<md-autocomplete-wrap
+  id={{this.autocompleteWrapperId}}
+  role="listbox"
+  layout="row"
+  class="{{if this.notFloating "md-whiteframe-z1"}} {{if this.notHidden "md-menu-showing"}}"
+>
+</md-autocomplete-wrap>`);
 
   // This ensures that we don't face this issue again => https://github.com/ember-template-lint/ember-template-lint/issues/230
   ensureValid('<FooBar as |baz|><baz.Derp></baz.Derp></FooBar>');
