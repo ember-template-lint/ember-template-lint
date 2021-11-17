@@ -50,7 +50,7 @@ This rule **allows** the following:
 
 * boolean -- `true` for enabled / `false` for disabled
 * object -- Containing the following values:
-  * `allowEmptyLinks` - When `false`, empty links are not allowed. Defaults to `true`.
+  * `allowEmptyLinks` - When `false`, empty links are not allowed. Defaults to `false`.
 
 ## References
 
