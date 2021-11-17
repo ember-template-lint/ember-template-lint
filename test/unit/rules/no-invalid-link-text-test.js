@@ -2,10 +2,6 @@
 
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
-const allowEmptyLinksConfigFalse = {
-  allowEmptyLinks: false,
-};
-
 generateRuleTests({
   name: 'no-invalid-link-text',
 
@@ -20,24 +16,14 @@ generateRuleTests({
     '<a href="https://myurl.com" aria-label="click here to read about our company"></a>',
     '<a href="https://myurl.com" aria-hidden="true"></a>',
     '<a href="https://myurl.com" hidden></a>',
-    '<a href="https://myurl.com"></a>',
     {
-      config: allowEmptyLinksConfigFalse,
-      template: '<a href="https://myurl.com" aria-labelledby="some-id"></a>',
+      config: { allowEmptyLinks: true },
+      template: '<a href="https://myurl.com"></a>',
     },
-    {
-      config: allowEmptyLinksConfigFalse,
-      template:
-        '<a href="https://myurl.com" aria-label="click here to read about our company"></a>',
-    },
-    {
-      config: allowEmptyLinksConfigFalse,
-      template: '<a href="https://myurl.com" aria-hidden="true"></a>',
-    },
-    {
-      config: allowEmptyLinksConfigFalse,
-      template: '<a href="https://myurl.com" hidden></a>',
-    },
+    '<a href="https://myurl.com" aria-labelledby="some-id"></a>',
+    '<a href="https://myurl.com" aria-label="click here to read about our company"></a>',
+    '<a href="https://myurl.com" aria-hidden="true"></a>',
+    '<a href="https://myurl.com" hidden></a>',
   ],
 
   bad: [
@@ -102,7 +88,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<a href="https://myurl.com"></a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -123,7 +108,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<a href="https://myurl.com"> </a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -144,7 +128,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<a href="https://myurl.com"> &nbsp; \n</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -166,7 +149,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<a aria-labelledby="" href="https://myurl.com">Click here</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -187,7 +169,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<a aria-labelledby=" " href="https://myurl.com">Click here</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -208,7 +189,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<a aria-label="Click here" href="https://myurl.com">Click here</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -229,7 +209,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<LinkTo></LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -250,7 +229,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '<LinkTo> &nbsp; \n</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -272,7 +250,6 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
       template: '{{#link-to}}{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -293,7 +270,28 @@ generateRuleTests({
       },
     },
     {
-      config: allowEmptyLinksConfigFalse,
+      template: '{{#link-to}} &nbsp; \n{{/link-to}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 12,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Links should have descriptive text",
+              "rule": "no-invalid-link-text",
+              "severity": 2,
+              "source": "{{#link-to}} &nbsp; 
+          {{/link-to}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { allowEmptyLinks: false },
       template: '{{#link-to}} &nbsp; \n{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
