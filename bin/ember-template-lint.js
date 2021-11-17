@@ -149,11 +149,6 @@ function parseArgv(_argv) {
         type: 'string',
         default: 'pretty',
       },
-      json: {
-        describe: 'Format output as json',
-        deprecated: 'Use --format=json instead',
-        boolean: true,
-      },
       'output-file': {
         describe: 'Specify file to write report to',
         type: 'string',
@@ -265,7 +260,7 @@ function printPending(results, options) {
   }
   let pendingListString = JSON.stringify(pendingList, null, 2);
 
-  if (options.json) {
+  if (options.format === 'json') {
     console.log(pendingListString);
   } else {
     console.log(chalk.yellow('WARNING: Print pending is deprecated. Use --update-todo instead.\n'));
@@ -339,8 +334,7 @@ async function run() {
       getTodoConfigFromCommandLineOptions(options)
     ),
   };
-  let shouldWriteToStdout =
-    options.quiet || options.json || ['sarif', 'json'].includes(options.format);
+  let shouldWriteToStdout = options.quiet || ['sarif', 'json'].includes(options.format);
 
   try {
     linter = new Linter({

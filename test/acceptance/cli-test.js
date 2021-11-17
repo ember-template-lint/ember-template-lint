@@ -54,8 +54,6 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -113,8 +111,6 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -429,8 +425,6 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
             --working-directory, --cwd  Path to a directory that should be considered as
@@ -560,7 +554,7 @@ describe('ember-template-lint executable', function () {
   });
 
   describe('errors and warnings formatting', function () {
-    describe('without --json param', function () {
+    describe('without --format=json param', function () {
       it('should print properly formatted error messages', async function () {
         project.setConfig({
           rules: {
@@ -956,7 +950,7 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with --json param', function () {
+    describe('with --format=json param', function () {
       it('should print valid JSON string with errors', async function () {
         project.setConfig({
           rules: {
@@ -974,7 +968,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['--json', '.']);
+        let result = await run(['--format=json', '.']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [
@@ -1022,7 +1016,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--json']);
+        let result = await run(['.', '--format=json']);
 
         let expectedOutputData = {};
         expectedOutputData['app/components/click-me-button.hbs'] = [
@@ -1046,7 +1040,7 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with --json param and --quiet', function () {
+    describe('with --format=json param and --quiet', function () {
       it('should print valid JSON string with errors, omitting warnings', async function () {
         project.setConfig({
           rules: {
@@ -1069,7 +1063,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--json', '--quiet']);
+        let result = await run(['.', '--format=json', '--quiet']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [
@@ -1122,7 +1116,7 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        let result = await run(['.', '--json', '--quiet']);
+        let result = await run(['.', '--format=json', '--quiet']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [];
@@ -1147,7 +1141,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--json']);
+        let result = await run(['.', '--format=json']);
 
         let expectedOutputData = {};
         expectedOutputData['app/components/click-me-button.hbs'] = [
@@ -1427,7 +1421,7 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with --print-pending and --json params', function () {
+    describe('with --print-pending and --format=json params', function () {
       it('should print json of pending modules', async function () {
         project.setConfig({
           rules: {
@@ -1450,7 +1444,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--print-pending', '--json']);
+        let result = await run(['.', '--print-pending', '--format=json']);
 
         let expectedOutputData = [
           {
