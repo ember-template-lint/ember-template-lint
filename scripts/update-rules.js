@@ -12,7 +12,7 @@ const rules = require('../lib/rules');
 const isRuleFixable = require('../test/helpers/is-rule-fixable');
 
 const prettierConfig = {
-  ...require('../.prettierrc.js'), // eslint-disable-line import/extensions
+  ...require('../.prettierrc.js'),
   parser: 'markdown',
 };
 
