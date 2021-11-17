@@ -38,7 +38,7 @@ describe('editors integration', function () {
       project.setConfig({ rules: { 'no-debugger': true } });
       project.write({ 'template.hbs': '{{debugger}}' });
 
-      let result = await run(project, ['--json', '--filename', 'template.hbs'], {
+      let result = await run(project, ['--format', 'json', '--filename', 'template.hbs'], {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });
@@ -67,7 +67,7 @@ describe('editors integration', function () {
       project.setConfig({ rules: { 'require-button-type': true } });
       project.write({ 'template.hbs': '<button></button>' });
 
-      let result = await run(project, ['--json', '--filename', 'template.hbs', '--fix'], {
+      let result = await run(project, ['--format', 'json', '--filename', 'template.hbs', '--fix'], {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });

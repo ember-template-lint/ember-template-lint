@@ -3,25 +3,25 @@
 const { _parseArgv: parseArgv } = require('../../../bin/ember-template-lint');
 
 describe('parseArgv', function () {
-  describe('--json', function () {
-    it('parses --json option and defaults to true', function () {
-      let argv = parseArgv(['--json']);
-      expect(argv.json).toBe(true);
+  describe('--format', function () {
+    it('parses --format option and defaults correctly', function () {
+      let argv = parseArgv(['--format']);
+      expect(argv.format).toBe('pretty');
     });
 
-    it('parses --json false option', function () {
-      let argv = parseArgv(['--json', 'false', 'other']);
-      expect(argv.json).toBe(false);
+    it('parses --format=json option', function () {
+      let argv = parseArgv(['--format', 'json']);
+      expect(argv.format).toBe('json');
     });
 
-    it('parses --json option with other args before', function () {
-      let argv = parseArgv(['.', '--json']);
-      expect(argv.json).toBe(true);
+    it('parses --format option with other args before', function () {
+      let argv = parseArgv(['.', '--format=json']);
+      expect(argv.format).toBe('json');
     });
 
-    it('parses --json option with other args after', function () {
-      let argv = parseArgv(['--json', '.']);
-      expect(argv.json).toBe(true);
+    it('parses --format option with other args after', function () {
+      let argv = parseArgv(['--format=json', '.']);
+      expect(argv.format).toBe('json');
     });
   });
 
