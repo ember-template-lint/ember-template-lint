@@ -102,7 +102,7 @@
     "yeoman-test": "^5.1.0"
   },
   "engines": {
-    "node": ">= 10.24 < 11 || 12.* || >= 14.*"
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -123,7 +123,7 @@
     }
   },
   "volta": {
-    "node": "12.18.3",
+    "node": "16.13.0",
     "yarn": "1.22.4"
   }
 }
