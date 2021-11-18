@@ -37,7 +37,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
               "source": "<a href=\\"https://myurl.com\\" title=\\"read the tutorial\\">Read the Tutorial</a>",
@@ -57,7 +57,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
               "source": "<LinkTo title=\\"quickstart\\">Quickstart</LinkTo>",
@@ -97,7 +97,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
               "source": "{{#link-to title=\\"Do the things\\"}}Do the things{{/link-to}}",
@@ -117,10 +117,70 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
               "source": "<LinkTo @route=\\"some.route\\" @title=\\"Do the things\\">Do the things</LinkTo>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<a href="https://myurl.com" title="Tutorial">Read the Tutorial</a>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as or part of the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<a href=\\"https://myurl.com\\" title=\\"Tutorial\\">Read the Tutorial</a>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<LinkTo title="Tutorial">Read the Tutorial</LinkTo>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as or part of the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<LinkTo title=\\"Tutorial\\">Read the Tutorial</LinkTo>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{#link-to title="Tutorial"}}Read the Tutorial{{/link-to}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 58,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as or part of the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "{{#link-to title=\\"Tutorial\\"}}Read the Tutorial{{/link-to}}",
             },
           ]
         `);
