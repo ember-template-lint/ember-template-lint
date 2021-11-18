@@ -92,6 +92,11 @@ generateRuleTests({
 
     {
       config: ['₹'],
+      template: '₹',
+    },
+
+    {
+      config: ['&#8377;'],
       template: '&#8377;',
     },
 
