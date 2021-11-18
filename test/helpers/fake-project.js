@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const FixturifyProject = require('fixturify-project');
+const { Project } = require('fixturify-project');
 
 const ROOT = process.cwd();
 
@@ -40,7 +40,7 @@ module.exports = {
 };
 `;
 
-module.exports = class FakeProject extends FixturifyProject {
+module.exports = class FakeProject extends Project {
   static defaultSetup() {
     let project = new this();
 
