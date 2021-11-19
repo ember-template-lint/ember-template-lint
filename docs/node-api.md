@@ -1,5 +1,7 @@
 # Node API
 
+## Linter Class
+
 Run templates through the linter's `verify` method like so:
 
 ```js
@@ -21,3 +23,7 @@ let results = await linter.verify({ source: template, filePath: 'some/path/to/te
 - `filePath` - The file path for the file containing the error.
 - `source` - The source that caused the error.
 - `fix` - An object describing how to fix the error.
+
+## Named Exports
+
+- See [lib/index.js](../lib/index.js)
