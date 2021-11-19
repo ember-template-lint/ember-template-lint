@@ -14,7 +14,6 @@ const {
   getTodoConfig,
   validateConfig,
 } = require('@ember-template-lint/todo-utils');
-const chalk = require('chalk');
 const ci = require('ci-info');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -172,12 +171,6 @@ function parseArgv(_argv) {
           'Does not use the local template-lintrc, will use a blank template-lintrc instead',
         boolean: true,
       },
-      'print-pending': {
-        describe:
-          'Print list of formatted rules for use with `pending` in config file (deprecated)',
-        boolean: true,
-        hidden: true,
-      },
       'update-todo': {
         describe: 'Update list of linting todos by transforming lint errors to todos',
         default: false,
@@ -238,38 +231,6 @@ function parseArgv(_argv) {
     }
 
     return options;
-  }
-}
-
-const PENDING_RULES = new Set(['invalid-pending-module', 'invalid-pending-module-rule']);
-function printPending(results, options) {
-  let pendingList = [];
-  for (let filePath in results.files) {
-    let fileResults = results.files[filePath];
-    let failingRules = fileResults.messages.reduce((memo, error) => {
-      if (!PENDING_RULES.has(error.rule)) {
-        memo.add(error.rule);
-      }
-
-      return memo;
-    }, new Set());
-
-    if (failingRules.size > 0) {
-      pendingList.push({ moduleId: removeExt(filePath), only: [...failingRules] });
-    }
-  }
-  let pendingListString = JSON.stringify(pendingList, null, 2);
-
-  if (options.format === 'json') {
-    console.log(pendingListString);
-  } else {
-    console.log(chalk.yellow('WARNING: Print pending is deprecated. Use --update-todo instead.\n'));
-
-    console.log(
-      'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
-    );
-
-    console.log(`pending: ${pendingListString}`);
   }
 }
 
@@ -451,21 +412,17 @@ async function run() {
     process.exitCode = 1;
   }
 
-  if (options.printPending) {
-    return printPending(results, options);
-  } else {
-    let hasErrors = results.errorCount > 0;
-    let hasWarnings = results.warningCount > 0;
-    let hasTodos = options.includeTodo && results.todoCount;
-    let hasUpdatedTodos = options.updateTodo;
+  let hasErrors = results.errorCount > 0;
+  let hasWarnings = results.warningCount > 0;
+  let hasTodos = options.includeTodo && results.todoCount;
+  let hasUpdatedTodos = options.updateTodo;
 
-    let Printer = require('../lib/formatters/default');
-    let printer = new Printer({
-      ...options,
-      hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
-    });
-    printer.print(results, todoInfo);
-  }
+  let Printer = require('../lib/formatters/default');
+  let printer = new Printer({
+    ...options,
+    hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
+  });
+  printer.print(results, todoInfo);
 }
 
 // exports are for easier unit testing
