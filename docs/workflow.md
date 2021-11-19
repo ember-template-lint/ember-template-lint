@@ -21,7 +21,7 @@ ember-template-lint "app/templates/components/**/*" "app/templates/application.h
 Output errors as pretty-printed JSON string
 
 ```bash
-ember-template-lint "app/templates/application.hbs" --json
+ember-template-lint "app/templates/application.hbs" --format=json
 ```
 
 Ignore warnings / only report errors
