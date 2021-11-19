@@ -265,7 +265,7 @@ function printPending(results, options) {
   }
   let pendingListString = JSON.stringify(pendingList, null, 2);
 
-  if (options.json) {
+  if (options.json || options.format === 'json') {
     console.log(pendingListString);
   } else {
     console.log(chalk.yellow('WARNING: Print pending is deprecated. Use --update-todo instead.\n'));
