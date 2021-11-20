@@ -124,6 +124,13 @@ generateRuleTests({
 <i class="material-icons">folder_open</i>
 {{!-- template-lint-enable no-bare-strings --}}`,
     '<div data-test-foo-bar></div>',
+
+    // `page-title` helper.
+    '{{page-title}}',
+    '{{page-title (t "foo")}}',
+    '{{page-title @model.foo}}',
+    '{{page-title this.model.foo}}',
+    '{{page-title this.model.foo " - " this.model.bar}}',
   ],
 
   bad: [
@@ -514,6 +521,34 @@ generateRuleTests({
           ]
         `);
       },
+    },
+
+    // `page-title` helper.
+    {
+      template: '{{page-title "foo"}}',
+      result: {
+        message: 'Non-translated string used',
+        line: 1,
+        column: 13,
+        source: 'foo',
+      },
+    },
+    {
+      template: '{{page-title "foo" " - " "bar"}}',
+      results: [
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 13,
+          source: 'foo',
+        },
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 25,
+          source: 'bar',
+        },
+      ],
     },
   ],
 });
