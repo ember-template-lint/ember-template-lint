@@ -1,19 +1,6 @@
 'use strict';
 
-const rule = require('../../../lib/rules/no-bare-strings');
 const generateRuleTests = require('../../helpers/rule-test-harness');
-
-describe('imports', () => {
-  it('should expose the default config', () => {
-    expect(rule.DEFAULT_CONFIG).toEqual(
-      expect.objectContaining({
-        allowlist: expect.arrayContaining(['&lpar;']),
-        globalAttributes: expect.arrayContaining(['title']),
-        elementAttributes: expect.any(Object),
-      })
-    );
-  });
-});
 
 generateRuleTests({
   name: 'no-bare-strings',
@@ -101,15 +88,27 @@ generateRuleTests({
     },
 
     {
-      // override the globalAttributes list
-      config: { globalAttributes: [] },
-      template: '<a title="hahaha trolol"></a>',
+      // override the allowlist list
+      config: ['/', '"'],
+      template: '{{t "foo"}} / &lpar;"{{name}}"&rpar;',
     },
 
     {
-      // override the elementAttributes list
-      config: { elementAttributes: {} },
-      template: '<input placeholder="hahaha">',
+      // override the allowlist list
+      config: { allowlist: ['/', '"'] },
+      template: '{{t "foo"}} / &lpar;"{{name}}"&rpar;',
+    },
+
+    {
+      // extend the globalAttributes list
+      config: { globalAttributes: ['data-title'] },
+      template: '<a title={{t "title"}} date-title={{t "title"}}></a>',
+    },
+
+    {
+      // extend the elementAttributes list
+      config: { elementAttributes: { input: ['data-placeholder'] } },
+      template: '<input placeholder={{t "placeholder"}} data-placeholder={{t "placeholder"}}>',
     },
 
     {
@@ -445,14 +444,25 @@ generateRuleTests({
 
     {
       config: { globalAttributes: ['data-foo'] },
-      template: '<div data-foo="derpy"></div>',
+      template: '<div title="foo" data-foo="derpy"></div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
             Object {
               "column": 5,
-              "endColumn": 20,
+              "endColumn": 15,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`title\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "foo",
+            },
+            Object {
+              "column": 17,
+              "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -468,14 +478,25 @@ generateRuleTests({
 
     {
       config: { elementAttributes: { img: ['data-alt'] } },
-      template: '<img data-alt="some alternate here">',
+      template: '<img alt="foo" data-alt="some alternate here">',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
             Object {
               "column": 5,
-              "endColumn": 34,
+              "endColumn": 13,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`alt\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "foo",
+            },
+            Object {
+              "column": 15,
+              "endColumn": 44,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -483,6 +504,28 @@ generateRuleTests({
               "rule": "no-bare-strings",
               "severity": 2,
               "source": "some alternate here",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      config: { allowlist: ['/', '"'] },
+      template: '{{t "foo"}} / error / &lpar;"{{name}}"&rpar;',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": " / error / &lpar;\\"",
             },
           ]
         `);
