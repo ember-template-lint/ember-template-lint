@@ -22,7 +22,7 @@
   "main": "lib/index.js",
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
-    "lint": "npm-run-all lint:* --continue-on-error",
+    "lint": "npm-run-all --continue-on-error --parallel lint:*",
     "lint:docs": "markdownlint '**/*.md'",
     "lint:docs:fix": "yarn lint:docs --fix",
     "lint:js": "eslint . --cache",
