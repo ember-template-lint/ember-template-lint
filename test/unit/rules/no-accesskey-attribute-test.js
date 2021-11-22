@@ -12,6 +12,7 @@ generateRuleTests({
   bad: [
     {
       template: '<button accesskey="n"></button>',
+      fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
@@ -33,6 +34,7 @@ generateRuleTests({
     },
     {
       template: '<button accesskey></button>',
+      fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
@@ -54,6 +56,7 @@ generateRuleTests({
     },
     {
       template: '<button accesskey={{some-key}}></button>',
+      fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
@@ -75,6 +78,7 @@ generateRuleTests({
     },
     {
       template: '<button accesskey="{{some-key}}"></button>',
+      fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
