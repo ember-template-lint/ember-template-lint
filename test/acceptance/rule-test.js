@@ -387,6 +387,88 @@ describe('rule public api', function () {
       ],
     });
   });
+
+  describe('with wrong number of arguments passed to generateRuleTests', function () {
+    expect(() => generateRuleTests({}, {})).toThrowErrorMatchingInlineSnapshot(
+      `"\`generateRuleTests\` should only be called with one argument."`
+    );
+  });
+
+  describe('with invalid argument type passed to generateRuleTests', function () {
+    expect(() => generateRuleTests(123)).toThrowErrorMatchingInlineSnapshot(
+      `"\`generateRuleTests\` should only be called with an object argument."`
+    );
+  });
+
+  describe('with invalid property in good test case', function () {
+    expect(() =>
+      generateRuleTests({
+        good: [{ foo: true }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unexpected property passed to good test case: foo. Expected one of: config, meta, name, template."`
+    );
+  });
+
+  describe('with invalid property in bad test case', function () {
+    expect(() =>
+      generateRuleTests({
+        bad: [{ foo: true }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, meta, name, result, results, template, verifyResults."`
+    );
+  });
+
+  describe('with both `result` and `results` in bad test case', function () {
+    expect(() =>
+      generateRuleTests({
+        bad: [{ result: {}, results: [] }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Bad test case should not have both \`result\` and \`results\`."`
+    );
+  });
+
+  describe('with invalid property in bad test case result', function () {
+    expect(() =>
+      generateRuleTests({
+        bad: [{ results: [{ fatal: true }] }], // `fatal` only allowed in error test cases.
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unexpected property passed to bad test case results: fatal. Expected one of: column, endColumn, endLine, filePath, isFixable, line, message, rule, severity, source."`
+    );
+  });
+
+  describe('with invalid property in error test case', function () {
+    expect(() =>
+      generateRuleTests({
+        error: [{ fixedTemplate: true }], // `fixedTemplate` only allowed in bad test cases.
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unexpected property passed to error test case: fixedTemplate. Expected one of: config, meta, name, result, results, template, verifyResults."`
+    );
+  });
+
+  describe('with both `result` and `results` in error test case', function () {
+    expect(() =>
+      generateRuleTests({
+        error: [{ result: {}, results: [] }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Error test case should not have both \`result\` and \`results\`."`
+    );
+  });
+
+  describe('with invalid property in error test case result', function () {
+    expect(() =>
+      generateRuleTests({
+        error: [{ results: [{ isFixable: true }] }], // `isFixable` only allowed in bad test cases.
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unexpected property passed to error test case results: isFixable. Expected one of: column, endColumn, endLine, fatal, filePath, line, message, rule, severity, source."`
+    );
+  });
 });
 
 describe('regression tests', function () {
