@@ -149,6 +149,7 @@ generateRuleTests({
     {
       config: 'editorconfig',
       template: 'test',
+      fixedTemplate: 'test', // TODO: bug
 
       meta: {
         editorConfig: { insert_final_newline: true },
@@ -176,6 +177,7 @@ generateRuleTests({
     {
       config: 'editorconfig',
       template: 'test\n',
+      fixedTemplate: 'test\n', // TODO: bug
 
       meta: {
         editorConfig: { insert_final_newline: false },
@@ -206,6 +208,7 @@ generateRuleTests({
     {
       config: 'never',
       template: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
+      fixedTemplate: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`

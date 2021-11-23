@@ -676,4 +676,73 @@ describe('regression tests', function () {
       ]
     `);
   });
+
+  test('with fixable test missing `fixedTemplate` assertion', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'fix-test',
+          rules: {
+            'can-fix': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    if (node.tag !== 'MySpecialThing') {
+                      return;
+                    }
+
+                    if (this.mode === 'fix') {
+                      node.tag = 'EvenBettererThing';
+                    } else {
+                      this.log({
+                        isFixable: true,
+                        message: 'Do not use MySpecialThing',
+                        node,
+                      });
+                    }
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'can-fix',
+      config: true,
+
+      bad: [
+        {
+          // missing `fixedTemplate`
+          template: '<MySpecialThing/>',
+          result: {
+            column: 0,
+            line: 1,
+            endColumn: 17,
+            endLine: 1,
+            isFixable: true,
+            message: 'Do not use MySpecialThing',
+            source: '<MySpecialThing/>',
+          },
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"fixable test cases must assert the \`fixedTemplate\`"`
+    );
+  });
 });

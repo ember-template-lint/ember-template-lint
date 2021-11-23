@@ -181,6 +181,7 @@ const SHARED_BAD = [
   // real world examples
   {
     template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
+    fixedTemplate: '<Heading @size="1">Disallowed heading component</Heading>',
     results: [
       {
         message: generateError('heading'),
