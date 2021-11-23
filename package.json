@@ -19,7 +19,8 @@
   },
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
-  "main": "lib/index.js",
+  "exports": "./lib/index.js",
+  "main": "./lib/index.js",
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "lint": "npm-run-all --continue-on-error --parallel lint:*",
