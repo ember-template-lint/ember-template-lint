@@ -745,4 +745,91 @@ describe('regression tests', function () {
       `"fixable test cases must assert the \`fixedTemplate\`"`
     );
   });
+
+  test('with non-fixable test including `fixedTemplate` assertion', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          fixedTemplate: '<EvenBettererThing/>',
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      '"non-fixable test cases should not provide `fixedTemplate`"'
+    );
+  });
+
+  test('when only one of two violations provides a fix', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'fix-test',
+          rules: {
+            'can-fix': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    if (this.mode === 'fix') {
+                      node.tag = 'EvenBettererThing';
+                    } else {
+                      this.log({
+                        isFixable: true,
+                        message: 'Do not use MySpecialThing',
+                        node,
+                      });
+                      this.log({
+                        isFixable: false,
+                        message: 'Do not use MySpecialThing',
+                        node,
+                      });
+                    }
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'can-fix',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          fixedTemplate: '<EvenBettererThing/>',
+        },
+      ],
+    });
+
+    await group.run(); // runs successfully since we asserted `fixedTemplate`
+  });
 });
