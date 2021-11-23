@@ -18,5 +18,3 @@ module.exports = class InlineComponent extends Rule {
     };
   }
 };
-
-module.exports.message = message;
