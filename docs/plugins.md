@@ -152,6 +152,83 @@ The base rule also has a few helper functions that can be useful in defining rul
 
   Given an AST node, check if it is derived from a local / block param.
 
+### Writing rule tests
+
+Here's an example of how to write tests for a rule:
+
+```js
+// test/unit/rules/no-negated-condition-test.js
+
+'use strict';
+
+const { generateRuleTests } = require('ember-template-lint');
+const plugin = require('../../..');
+
+generateRuleTests({
+  name: 'no-negated-condition',
+
+  groupMethodBefore: beforeEach,
+  groupingMethod: describe,
+  testMethod: it,
+  plugins: [plugin],
+
+  config: true,
+
+  good: [
+    // Simple string test case:
+    '{{#if condition}}<img>{{/if}}',
+
+    // Object test case:
+    {
+      template: '{{#if condition}}<img>{{/if}}',
+      config: {}, // Custom config for this test case.
+      meta: { moduleId: 'app/templates/index.hbs' }, // Custom filepath for this test case.
+    },
+  ],
+
+  bad: [
+    {
+      template: '{{#if (not condition)}}<img>{{/if}}',
+      fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
+
+      result: {
+        message: ERROR_MESSAGE_USE_UNLESS,
+        source: '{{#if (not condition)}}<img>{{/if}}',
+        line: 1,
+        column: 0,
+        isFixable: true,
+      }
+    },
+
+    {
+      // Jest snapshot test case (which can be automatically updated):
+
+      template: '{{#if (not condition)}}<img>{{/if}}',
+      fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`if (not condition)\` to \`unless condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not condition)}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
+  ],
+});
+```
+
 ### AST Node Helpers
 
 There are a number of helper functions exported by [`ember-template-lint`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor handlers.
