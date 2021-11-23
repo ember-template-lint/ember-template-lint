@@ -1,5 +1,7 @@
 # no-valueless-arguments
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Similar to HTML attributes, component arguments will default to an empty string when they are not explicitly assigned a value. This behavior isn't documented anywhere so depending on it isn't recommended  and usually the result of a user-error. Since it _is_ valid syntax, accidental use of this behavior can be hard to detect and cause confusing bugs.
 
 ## Examples

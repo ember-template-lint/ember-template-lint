@@ -1,5 +1,7 @@
 # require-context-role
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 ## `<* role><* role /></*>`
 
 The required context role defines the owning container where this role is allowed. If a role has a required context, authors MUST ensure that an element with the role is contained inside (or owned by) an element with the required context role. For example, an element with `role="listitem"` is only meaningful when contained inside (or owned by) an element with `role="list"`.

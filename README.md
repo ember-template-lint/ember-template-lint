@@ -109,17 +109,17 @@ Each rule has emojis denoting:
 | [no-autofocus-attribute](./docs/rule/no-autofocus-attribute.md)                                           |     |     | ⌨️  |     |
 | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |     |     |     |     |
 | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     | ✅  |     |     |     |
-| [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               |     |     |     |     |
-| [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     |     |     |     |     |
+| [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               | ✅  |     |     |     |
+| [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     | ✅  |     |     |     |
 | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             | ✅  |     |     | 🔧  |
 | [no-debugger](./docs/rule/no-debugger.md)                                                                 | ✅  |     |     |     |
 | [no-down-event-binding](./docs/rule/no-down-event-binding.md)                                             | ✅  |     | ⌨️  |     |
 | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                                         | ✅  |     | ⌨️  |     |
 | [no-duplicate-id](./docs/rule/no-duplicate-id.md)                                                         | ✅  |     | ⌨️  |     |
 | [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)                           | ✅  |     | ⌨️  |     |
-| [no-dynamic-subexpression-invocations](./docs/rule/no-dynamic-subexpression-invocations.md)               |     |     |     |     |
+| [no-dynamic-subexpression-invocations](./docs/rule/no-dynamic-subexpression-invocations.md)               | ✅  |     |     |     |
 | [no-element-event-actions](./docs/rule/no-element-event-actions.md)                                       |     |     |     |     |
-| [no-empty-headings](./docs/rule/no-empty-headings.md)                                                     |     |     | ⌨️  |     |
+| [no-empty-headings](./docs/rule/no-empty-headings.md)                                                     | ✅  |     | ⌨️  |     |
 | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                               | ✅  |     |     |     |
 | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                                             | ✅  |     |     |     |
 | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                                       | ✅  |     | ⌨️  |     |
@@ -135,11 +135,11 @@ Each rule has emojis denoting:
 | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                                         | ✅  |     | ⌨️  |     |
 | [no-invalid-role](./docs/rule/no-invalid-role.md)                                                         | ✅  |     | ⌨️  |     |
 | [no-link-to-positional-params](./docs/rule/no-link-to-positional-params.md)                               | ✅  |     |     |     |
-| [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   |     |     |     |     |
+| [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   | ✅  |     |     |     |
 | [no-log](./docs/rule/no-log.md)                                                                           | ✅  |     |     |     |
-| [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               |     |     |     | 🔧  |
+| [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               | ✅  |     |     | 🔧  |
 | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                                         |     | 💅  |     |     |
-| [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             |     |     |     |     |
+| [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             | ✅  |     |     |     |
 | [no-negated-condition](./docs/rule/no-negated-condition.md)                                               | ✅  |     |     | 🔧  |
 | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                                             | ✅  |     | ⌨️  |     |
 | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                                   | ✅  |     | ⌨️  |     |
@@ -155,7 +155,7 @@ Each rule has emojis denoting:
 | [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                                         | ✅  |     |     | 🔧  |
 | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                                   | ✅  |     | ⌨️  | 🔧  |
 | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                                     |     |     |     |     |
-| [no-route-action](./docs/rule/no-route-action.md)                                                         |     |     |     |     |
+| [no-route-action](./docs/rule/no-route-action.md)                                                         | ✅  |     |     |     |
 | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                               | ✅  |     |     |     |
 | [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)                 |     |     |     | 🔧  |
 | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |     | 💅  |     |     |
@@ -166,25 +166,25 @@ Each rule has emojis denoting:
 | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     |     |
 | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     |     |
 | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | ✅  |     |     |     |
-| [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           |     |     |     |     |
-| [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       |     | 💅  | ⌨️  |     |
-| [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                                     |     | 💅  | ⌨️  |     |
-| [no-with](./docs/rule/no-with.md)                                                                         |     |     |     |     |
+| [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           | ✅  |     |     |     |
+| [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       | ✅  |     | ⌨️  |     |
+| [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                                     | ✅  |     | ⌨️  |     |
+| [no-with](./docs/rule/no-with.md)                                                                         | ✅  |     |     |     |
 | [no-yield-only](./docs/rule/no-yield-only.md)                                                             | ✅  |     |     |     |
-| [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 |     |     |     |     |
+| [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 | ✅  |     |     |     |
 | [quotes](./docs/rule/quotes.md)                                                                           |     | 💅  |     |     |
 | [require-button-type](./docs/rule/require-button-type.md)                                                 | ✅  |     |     | 🔧  |
-| [require-context-role](./docs/rule/require-context-role.md)                                               |     |     | ⌨️  |     |
+| [require-context-role](./docs/rule/require-context-role.md)                                               | ✅  |     | ⌨️  |     |
 | [require-each-key](./docs/rule/require-each-key.md)                                                       |     |     |     |     |
 | [require-form-method](./docs/rule/require-form-method.md)                                                 |     |     |     |     |
 | [require-has-block-helper](./docs/rule/require-has-block-helper.md)                                       | ✅  |     |     | 🔧  |
 | [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | ✅  |     | ⌨️  |     |
 | [require-input-label](./docs/rule/require-input-label.md)                                                 | ✅  |     | ⌨️  |     |
 | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | ✅  |     | ⌨️  |     |
-| [require-presentational-children](./docs/rule/require-presentational-children.md)                         |     |     | ⌨️  |     |
+| [require-presentational-children](./docs/rule/require-presentational-children.md)                         | ✅  |     | ⌨️  |     |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |
-| [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         |     |     |     |     |
+| [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     |     |
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     |     |
 | [simple-unless](./docs/rule/simple-unless.md)                                                             | ✅  |     |     |     |
 | [splat-attributes-only](./docs/rule/splat-attributes-only.md)                                             | ✅  |     |     |     |
