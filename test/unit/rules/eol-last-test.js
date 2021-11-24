@@ -149,7 +149,7 @@ generateRuleTests({
     {
       config: 'editorconfig',
       template: 'test',
-      fixedTemplate: 'test', // TODO: bug
+      fixedTemplate: 'test', // TODO: bug https://github.com/ember-template-lint/ember-template-lint/issues/2232
 
       meta: {
         editorConfig: { insert_final_newline: true },
@@ -177,7 +177,7 @@ generateRuleTests({
     {
       config: 'editorconfig',
       template: 'test\n',
-      fixedTemplate: 'test\n', // TODO: bug
+      fixedTemplate: 'test\n', // TODO: bug https://github.com/ember-template-lint/ember-template-lint/issues/2232
 
       meta: {
         editorConfig: { insert_final_newline: false },
