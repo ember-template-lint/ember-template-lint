@@ -6,6 +6,26 @@
 
 
 
+
+## v3.14.0 (2021-11-24)
+
+#### :rocket: Enhancement
+* [#2209](https://github.com/ember-template-lint/ember-template-lint/pull/2209) Expose `generateRuleTests` as named export in public NodeJS API ([@bmish](https://github.com/bmish))
+
+#### :bug: Bug Fix
+* [#2210](https://github.com/ember-template-lint/ember-template-lint/pull/2210) Ensure `--print-pending` works with `--format=json` ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2235](https://github.com/ember-template-lint/ember-template-lint/pull/2235) Remove unused helper `remove-configuration-html-comments` ([@bmish](https://github.com/bmish))
+* [#2234](https://github.com/ember-template-lint/ember-template-lint/pull/2234) Remove unused helper `calculate-location-display` ([@bmish](https://github.com/bmish))
+* [#2215](https://github.com/ember-template-lint/ember-template-lint/pull/2215) Fix Node version on CI ([@ddzz](https://github.com/ddzz))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille ([@dcyriller](https://github.com/dcyriller))
+- Darius D. ([@ddzz](https://github.com/ddzz))
+
+
 ## v3.13.0 (2021-11-13)
 
 #### :rocket: Enhancement
