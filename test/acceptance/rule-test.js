@@ -832,4 +832,56 @@ describe('regression tests', function () {
 
     await group.run(); // runs successfully since we asserted `fixedTemplate`
   });
+
+  test('when `template` = `fixedTemplate`', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'fix-test',
+          rules: {
+            'can-fix': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      isFixable: true,
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'can-fix',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          fixedTemplate: '<MySpecialThing/>',
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Test case \`template\` should not equal the \`fixedTemplate\`"`
+    );
+  });
 });
