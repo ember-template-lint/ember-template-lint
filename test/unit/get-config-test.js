@@ -206,6 +206,16 @@ describe('get-config', function () {
     );
   });
 
+  it('throws when providing wrong type for config.extends', function () {
+    expect(() =>
+      getProjectConfig(project.baseDir, {
+        config: {
+          extends: 123,
+        },
+      })
+    ).toThrowErrorMatchingInlineSnapshot(`"config.extends should be string or array"`);
+  });
+
   it('warns for unknown rules', function () {
     let console = buildFakeConsole();
 
@@ -221,17 +231,16 @@ describe('get-config', function () {
     expect(console.stdout).toMatch(/Invalid rule configuration found/);
   });
 
-  it('warns for unknown extends', function () {
-    let console = buildFakeConsole();
-
-    getProjectConfig(project.baseDir, {
-      console,
-      config: {
-        extends: ['recommended', 'plugin1:wrong-extend'],
-      },
-    });
-
-    expect(console.stdout).toMatch(/Cannot find configuration for extends/);
+  it('throws for unknown extends', function () {
+    expect(() =>
+      getProjectConfig(project.baseDir, {
+        config: {
+          extends: ['recommended', 'plugin1:wrong-extend'],
+        },
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Cannot find configuration for extends: plugin1:wrong-extend"`
+    );
   });
 
   it('resolves plugins by string', function () {
