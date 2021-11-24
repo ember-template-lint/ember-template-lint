@@ -35,7 +35,32 @@ generateRuleTests({
   bad: [
     {
       config: 'double',
+      template: "{{component 'one {{thing}} two'}}",
+      fixedTemplate: '{{component "one {{thing}} two"}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 12,
+              "endColumn": 31,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{component 'one {{thing}} two'}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: 'double',
       template: "{{component 'test'}}",
+      fixedTemplate: '{{component "test"}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -45,6 +70,7 @@ generateRuleTests({
               "endColumn": 18,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "you must use double quotes in templates",
               "rule": "quotes",
@@ -58,6 +84,7 @@ generateRuleTests({
     {
       config: 'double',
       template: "{{hello x='test'}}",
+      fixedTemplate: '{{hello x="test"}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -67,6 +94,7 @@ generateRuleTests({
               "endColumn": 16,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "you must use double quotes in templates",
               "rule": "quotes",
@@ -80,6 +108,7 @@ generateRuleTests({
     {
       config: 'double',
       template: "<input type='checkbox'>",
+      fixedTemplate: '<input type="checkbox">',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -89,6 +118,7 @@ generateRuleTests({
               "endColumn": 22,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "you must use double quotes in templates",
               "rule": "quotes",
@@ -102,6 +132,7 @@ generateRuleTests({
     {
       config: 'single',
       template: '{{component "test"}}',
+      fixedTemplate: "{{component 'test'}}",
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -111,6 +142,7 @@ generateRuleTests({
               "endColumn": 18,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "you must use single quotes in templates",
               "rule": "quotes",
@@ -124,6 +156,7 @@ generateRuleTests({
     {
       config: 'single',
       template: '{{hello x="test"}}',
+      fixedTemplate: "{{hello x='test'}}",
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -133,6 +166,7 @@ generateRuleTests({
               "endColumn": 16,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "you must use single quotes in templates",
               "rule": "quotes",
@@ -146,6 +180,7 @@ generateRuleTests({
     {
       config: 'single',
       template: '<input type="checkbox">',
+      fixedTemplate: "<input type='checkbox'>",
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -155,6 +190,7 @@ generateRuleTests({
               "endColumn": 22,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "you must use single quotes in templates",
               "rule": "quotes",
