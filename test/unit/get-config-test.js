@@ -194,28 +194,16 @@ describe('get-config', function () {
     expect(actual.rules['block-indentation']).not.toEqual(expected.rules['block-indentation']);
   });
 
-  it('migrates rules in the config root into `rules` property', function () {
-    let actual = getProjectConfig(project.baseDir, {
-      console: buildFakeConsole(),
-      config: {
-        'no-bare-strings': false,
-      },
-    });
-
-    expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
-  });
-
-  it('rules in the config root trigger a deprecation', function () {
-    let console = buildFakeConsole();
-
-    getProjectConfig(project.baseDir, {
-      console,
-      config: {
-        'no-bare-strings': true,
-      },
-    });
-
-    expect(console.stdout).toMatch(/Rule configuration has been moved/);
+  it('throws when specifying unknown properties in the config root', function () {
+    expect(() =>
+      getProjectConfig(project.baseDir, {
+        config: {
+          foo: false,
+        },
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unknown top-level configuration property detected: foo"`
+    );
   });
 
   it('warns for unknown rules', function () {
