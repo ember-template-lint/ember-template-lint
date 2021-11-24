@@ -312,6 +312,68 @@ describe('get-config', function () {
     expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
+  it('throws when inline plugin is missing name', function () {
+    expect(() =>
+      getProjectConfig(project.baseDir, {
+        config: { plugins: [{}] },
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Inline plugin object has not defined the plugin \`name\` property"`
+    );
+  });
+
+  it('throws when inline plugin is wrong type', function () {
+    expect(() =>
+      getProjectConfig(project.baseDir, {
+        config: { plugins: [123] },
+      })
+    ).toThrowErrorMatchingInlineSnapshot(`"Inline plugin is not a plain object"`);
+  });
+
+  it('throws when non-inline plugin is missing name', function () {
+    project.setConfig();
+
+    project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
+      dep.files['index.js'] = 'module.exports = {};';
+    });
+
+    project.chdir();
+
+    expect(() =>
+      getProjectConfig(project.baseDir, {
+        console,
+        config: {
+          extends: ['my-awesome-thing:stylistic'],
+          plugins: ['my-awesome-thing'],
+        },
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Plugin (my-awesome-thing) has not defined the plugin \`name\` property"`
+    );
+  });
+
+  it('throws when non-inline plugin is wrong type', function () {
+    project.setConfig();
+
+    project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
+      dep.files['index.js'] = 'module.exports = 123;';
+    });
+
+    project.chdir();
+
+    expect(() =>
+      getProjectConfig(project.baseDir, {
+        console,
+        config: {
+          extends: ['my-awesome-thing:stylistic'],
+          plugins: ['my-awesome-thing'],
+        },
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Plugin (my-awesome-thing) did not return a plain object"`
+    );
+  });
+
   it('extending multiple configurations allows subsequent configs to override earlier ones', function () {
     let actual = getProjectConfig(project.baseDir, {
       config: {
