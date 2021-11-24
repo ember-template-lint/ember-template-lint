@@ -146,6 +146,7 @@ generateRuleTests({
         `);
       },
     },
+    /*
     {
       config: 'editorconfig',
       template: 'test',
@@ -203,6 +204,7 @@ generateRuleTests({
         `);
       },
     },
+    */
     // test the re-entering of yielded content
     // only generates one error instead of two
     {
