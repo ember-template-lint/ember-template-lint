@@ -163,6 +163,20 @@ describe('base plugin', function () {
       await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
 
+    it('throws when not passing all loc properties when logging a violation', function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          this.log({ line: 1, column: 2, message: 'some message' });
+        }
+      }
+
+      expect(
+        async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
+      ).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"ember-template-lint: (awesome-rule) Must pass the node or all loc properties (line, column, endLine, endColumn) when calling log."`
+      );
+    });
+
     it('does not error when accessing editorConfig when no filePath is passed', async function () {
       class AwesomeRule extends Rule {
         visitor() {
