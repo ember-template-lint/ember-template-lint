@@ -177,6 +177,20 @@ describe('base plugin', function () {
       );
     });
 
+    it('throws when logging without violation message', function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          this.log({ node: {} });
+        }
+      }
+
+      expect(
+        async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
+      ).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"ember-template-lint: (awesome-rule): must provide violation \`message\` when calling log."`
+      );
+    });
+
     it('does not error when accessing editorConfig when no filePath is passed', async function () {
       class AwesomeRule extends Rule {
         visitor() {
