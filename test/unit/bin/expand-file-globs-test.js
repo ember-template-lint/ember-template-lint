@@ -18,7 +18,7 @@ describe('expandFileGlobs', function () {
     it('resolves a basic pattern (different working directory)', function () {
       project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(project.baseDir, ['application.hbs', 'other.hbs'], []);
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], []);
       expect(files).toEqual(new Set(['application.hbs']));
     });
 
@@ -36,21 +36,21 @@ describe('expandFileGlobs', function () {
     });
 
     it('respects a basic ignore option (different working directory)', function () {
-      project.write({ 'application.hbs': 'almost empty' });
+      project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'other' });
 
       let files = expandFileGlobs(
         project.baseDir,
         ['application.hbs', 'other.hbs'],
         ['application.hbs']
       );
-      expect(files).toEqual(new Set([]));
+      expect(files).toEqual(new Set(['other.hbs']));
     });
 
     it('resolves a basic pattern (within working directory)', function () {
       project.chdir();
       project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(project.baseDir, ['application.hbs', 'other.hbs'], []);
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], []);
       expect(files).toEqual(new Set(['application.hbs']));
     });
 
@@ -71,12 +71,19 @@ describe('expandFileGlobs', function () {
       project.chdir();
       project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(
-        project.baseDir,
-        ['application.hbs', 'other.hbs'],
-        ['application.hbs']
-      );
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], ['application.hbs']);
       expect(files).toEqual(new Set([]));
+    });
+
+    it('throws when provided non-existent file', function () {
+      project.chdir();
+      project.write({ 'application.hbs': 'almost empty' });
+
+      expect(() =>
+        expandFileGlobs(project.baseDir, ['other.hbs'], [])
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"No files matching the pattern were found: \\"other.hbs\\""`
+      );
     });
   });
 
@@ -109,6 +116,14 @@ describe('expandFileGlobs', function () {
 
       let files = expandFileGlobs(project.baseDir, ['application.hbs'], ['*']);
       expect(files.has('application.hbs')).toBe(false);
+    });
+
+    it('throws when no matches found because of ignore option', function () {
+      project.write({ 'application.hbs': 'almost empty' });
+
+      expect(() =>
+        expandFileGlobs(project.baseDir, ['*'], ['application.hbs'])
+      ).toThrowErrorMatchingInlineSnapshot(`"No files matching the pattern were found: \\"*\\""`);
     });
   });
 });
