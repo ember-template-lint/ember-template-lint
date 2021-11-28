@@ -35,8 +35,6 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 10
 
-    needs: [test]
-
     strategy:
       matrix:
         os: [ubuntu, windows]
@@ -63,7 +61,6 @@ jobs:
     name: Floating Dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    needs: [test]
 
     steps:
       - uses: actions/checkout@v2
