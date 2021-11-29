@@ -591,12 +591,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -614,9 +608,9 @@ describe('ember-template-lint executable', function () {
           'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:24  error  Non-translated string used  no-bare-strings',
-          '  1:53  warning  HTML comment detected  no-html-comments',
+          '  1:53  error  HTML comment detected  no-html-comments',
           '',
-          '✖ 3 problems (2 errors, 1 warnings)',
+          '✖ 3 problems (3 errors, 0 warnings)',
         ]);
         expect(result.stderr).toBeFalsy();
       });
@@ -627,12 +621,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -661,12 +649,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -695,12 +677,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -734,12 +710,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -802,14 +772,8 @@ describe('ember-template-lint executable', function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
-            'no-html-comments': true,
+            'no-html-comments': 'warn',
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -836,14 +800,8 @@ describe('ember-template-lint executable', function () {
       it('should exit without error and any console output', async function () {
         project.setConfig({
           rules: {
-            'no-html-comments': true,
+            'no-html-comments': 'warn',
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1047,12 +1005,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1089,6 +1041,20 @@ describe('ember-template-lint executable', function () {
             severity: 2,
             source: 'Bare strings are bad...',
           },
+          {
+            column: 53,
+            endColumn: 79,
+            endLine: 1,
+            filePath: 'app/templates/application.hbs',
+            fix: {
+              text: '{{! bad html comment! }}',
+            },
+            line: 1,
+            message: 'HTML comment detected',
+            rule: 'no-html-comments',
+            severity: 2,
+            source: '<!-- bad html comment! -->',
+          },
         ];
 
         expect(result.exitCode).toEqual(1);
@@ -1099,14 +1065,8 @@ describe('ember-template-lint executable', function () {
       it('should exit without error and empty errors array', async function () {
         project.setConfig({
           rules: {
-            'no-html-comments': true,
+            'no-html-comments': 'warn',
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1433,7 +1393,6 @@ describe('ember-template-lint executable', function () {
                 \\"severity\\": 2
               }
             },
-            \\"pending\\": [],
             \\"overrides\\": [],
             \\"ignore\\": [],
             \\"plugins\\": {},
@@ -1520,12 +1479,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1555,8 +1508,8 @@ describe('ember-template-lint executable', function () {
         let result = await run(['.', '--format', './custom-printer.js']);
 
         expect(result.stdout).toMatchInlineSnapshot(`
-          "errors: 2
-          warnings: 1
+          "errors: 3
+          warnings: 0
           fixable: 0"
         `);
         expect(result.stderr).toBeFalsy();
@@ -1568,12 +1521,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1611,8 +1558,8 @@ describe('ember-template-lint executable', function () {
         expect(result.stdout).toMatchInlineSnapshot(`
           "Custom Printer Header
 
-          errors: 2
-          warnings: 1
+          errors: 3
+          warnings: 0
           fixable: 0"
         `);
         expect(result.stderr).toBeFalsy();
