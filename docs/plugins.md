@@ -22,7 +22,7 @@ Each plugin object can include these properties.
 
   Object that defines new configurations that can be extended.
   Each key represents the name of the configuration object.
-  Each value should be a configuration object, that can include the [same properties as the base config object](../README.md#configuration-keys) in any `.template-lintrc.js` -- i.e. `rules`, `extends`, `ignore`, etc.
+  Each value should be a configuration object, that can include the [same properties as the base config object](./configuration.md#configuration-properties) in any `.template-lintrc.js` -- i.e. `rules`, `extends`, `ignore`, etc.
 
 Sample plugin object:
 
