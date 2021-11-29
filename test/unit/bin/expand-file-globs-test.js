@@ -10,8 +10,8 @@ describe('expandFileGlobs', function () {
     project = Project.defaultSetup();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   describe('basic', function () {
