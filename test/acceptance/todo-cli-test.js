@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 const {
-  ensureTodoStorageDir,
   todoStorageDirExists,
   getTodoStorageDirPath,
   writeTodos,
@@ -68,12 +67,6 @@ describe('todo usage', () => {
         rules: {
           'no-bare-strings': true,
         },
-        pending: [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-html-comments'],
-          },
-        ],
       });
       project.write({
         app: {
@@ -87,51 +80,6 @@ describe('todo usage', () => {
 
       expect(todoStorageDirExists(project.baseDir)).toEqual(false);
       expect(result.stdout).toBeTruthy();
-    });
-
-    it('errors when config.pending and `.lint-todo` dir coexist', async function () {
-      await ensureTodoStorageDir(project.baseDir);
-
-      project.setConfig({
-        pending: [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-html-comments'],
-          },
-        ],
-      });
-
-      let result = await run(['.']);
-
-      expect(result.stderr).toBeTruthy();
-    });
-
-    it('errors if config.pending is present when running with --update-todo', async function () {
-      project.setConfig({
-        rules: {
-          'no-bare-strings': true,
-        },
-        pending: [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-html-comments'],
-          },
-        ],
-      });
-      project.write({
-        app: {
-          templates: {
-            'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
-          },
-        },
-      });
-
-      let result = await run(['.', '--update-todo']);
-
-      expect(result.exitCode).toEqual(1);
-      expect(result.stderr).toContain(
-        'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
-      );
     });
 
     it('errors if using either --todo-days-to-warn or --todo-days-to-error without --update-todo', async function () {

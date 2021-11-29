@@ -185,36 +185,4 @@ describe('ModuleStatusCache', function () {
 
     expect(actual.rules).toEqual(expectedRule);
   });
-
-  it('returns the correct pendingStatus when the provided moduleId is listed in `pending`', function () {
-    let config = {
-      pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-    };
-
-    let moduleStatusCache = new ModuleStatusCache(workingDir, config);
-
-    expect(
-      moduleStatusCache.getConfigForFile({ moduleId: 'some/path/here' }).pendingStatus
-    ).toBeTruthy();
-    expect(
-      moduleStatusCache.getConfigForFile({ moduleId: 'foo/bar/baz' }).pendingStatus
-    ).toBeTruthy();
-    expect(
-      moduleStatusCache.getConfigForFile({ moduleId: 'some/other/path' }).pendingStatus
-    ).toBeFalsy();
-  });
-
-  it('matches with absolute paths for modules', function () {
-    let config = {
-      pending: ['some/path/here', { moduleId: 'foo/bar/baz', only: ['no-bare-strings'] }],
-    };
-
-    let moduleStatusCache = new ModuleStatusCache(workingDir, config);
-    expect(
-      moduleStatusCache.getConfigForFile({ moduleId: `${workingDir}/some/path/here` }).pendingStatus
-    ).toBeTruthy();
-    expect(
-      moduleStatusCache.getConfigForFile({ moduleId: `${workingDir}/foo/bar/baz` }).pendingStatus
-    ).toBeTruthy();
-  });
 });

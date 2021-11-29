@@ -9,11 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const {
-  getTodoStorageDirPath,
-  getTodoConfig,
-  validateConfig,
-} = require('@ember-template-lint/todo-utils');
+const { getTodoConfig, validateConfig } = require('@ember-template-lint/todo-utils');
 const ci = require('ci-info');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -308,25 +304,6 @@ async function run() {
     });
   } catch (error) {
     console.error(error.message);
-    process.exitCode = 1;
-    return;
-  }
-
-  if (
-    linter.config.pending.length > 0 &&
-    fs.existsSync(getTodoStorageDirPath(options.workingDirectory))
-  ) {
-    console.error(
-      'Cannot use the `pending` config option in conjunction with lint todos. Please run with `--update-pending` to migrate to the new todos functionality.'
-    );
-    process.exitCode = 1;
-    return;
-  }
-
-  if (linter.config.pending.length > 0 && options.updateTodo) {
-    console.error(
-      'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
-    );
     process.exitCode = 1;
     return;
   }
