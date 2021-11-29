@@ -202,6 +202,7 @@ generateRuleTests({
       },
     },
     {
+      // TODO: Autofix blocked on: https://github.com/ember-template-lint/ember-template-recast/issues/698
       config: 'single',
       template: `<img alt="Abdul's house">`,
 
@@ -224,6 +225,7 @@ generateRuleTests({
       },
     },
     {
+      // TODO: Autofix blocked on: https://github.com/ember-template-lint/ember-template-recast/issues/698
       config: 'double',
       template: `<img class='a "so-called" btn {{this.otherClass}}'>`,
 
@@ -246,6 +248,7 @@ generateRuleTests({
       },
     },
     {
+      // TODO: Autofix blocked on: https://github.com/ember-template-lint/ember-template-recast/issues/698
       config: 'single',
       template: `{{helper "Priya's house"}}`,
 
