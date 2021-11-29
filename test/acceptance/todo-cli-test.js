@@ -25,9 +25,9 @@ describe('todo usage', () => {
     project.chdir();
   });
 
-  afterEach(async function () {
+  afterEach(function () {
     process.chdir(ROOT);
-    await project.dispose();
+    project.dispose();
   });
 
   describe('with/without --update-todo and --include-todo params', function () {

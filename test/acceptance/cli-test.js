@@ -20,9 +20,9 @@ describe('ember-template-lint executable', function () {
     project.chdir();
   });
 
-  afterEach(async function () {
+  afterEach(function () {
     process.chdir(ROOT);
-    await project.dispose();
+    project.dispose();
   });
 
   describe('basic usage', function () {

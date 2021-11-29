@@ -22,8 +22,8 @@ describe('public api', function () {
     project.chdir();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   describe('Linter.prototype.loadConfig', function () {
@@ -281,8 +281,8 @@ describe('public api', function () {
       });
     });
 
-    afterEach(async function () {
-      await project.dispose();
+    afterEach(function () {
+      project.dispose();
     });
 
     it('returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
@@ -419,8 +419,8 @@ describe('public api', function () {
       });
     });
 
-    afterEach(async function () {
-      await project.dispose();
+    afterEach(function () {
+      project.dispose();
     });
 
     it('returns an array of issues with the provided template', async function () {
@@ -1289,8 +1289,8 @@ describe('public api', function () {
       });
     });
 
-    afterEach(async function () {
-      await project.dispose();
+    afterEach(function () {
+      project.dispose();
     });
 
     it('[.html] does not identify errors for ember-cli default app/index.html (3.20)', async function () {

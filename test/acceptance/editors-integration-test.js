@@ -29,8 +29,8 @@ describe('editors integration', function () {
     project.chdir();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   describe('reading from stdin', function () {

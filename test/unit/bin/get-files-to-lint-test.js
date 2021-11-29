@@ -14,8 +14,8 @@ describe('getFilesToLint', function () {
     project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   // yarn ember-template-lint --filename application.hbs < application.hbs
