@@ -22,6 +22,5 @@ This rule **forbids** the following:
 
 ## References
 
-- [MDN Web](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus)
 - [Focus Order: Understanding SC 2.4.3](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-focus-order.html)
-- [The Accessibility of HTML 5 Autofocus](https://brucelawson.co.uk/2009/the-accessibility-of-html-5-autofocus/)
+- [MDN Web](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus)
