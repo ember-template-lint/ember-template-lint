@@ -286,21 +286,25 @@ describe('public api', function () {
     });
 
     it('returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
+      project.write({
+        app: {
+          templates: {
+            'application.hbs': '<div>FORBIDDEN</div>',
+          },
+        },
+      });
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          plugins: [require('../helpers/failure-plugin')],
+          rules: {
+            'fail-on-word': 'FORBIDDEN',
+          },
+        },
+      });
+
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      let expected = [
-        {
-          column: 7,
-          line: 1,
-          endColumn: 18,
-          endLine: 1,
-          message: 'you must use double quotes in templates',
-          filePath: templatePath,
-          rule: 'quotes',
-          severity: 2,
-          source: "class='mb4'",
-        },
-      ];
 
       let result = await linter.verifyAndFix({
         source: templateContents,
@@ -308,9 +312,28 @@ describe('public api', function () {
         moduleId: templatePath.slice(0, -4),
       });
 
-      expect(result.messages).toEqual(expected);
-      expect(result.output).toEqual(templateContents);
-      expect(result.isFixed).toEqual(false);
+      expect(result).toMatchInlineSnapshot(
+        { messages: [{ filePath: expect.any(String) }] },
+        `
+        Object {
+          "isFixed": false,
+          "messages": Array [
+            Object {
+              "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": Any<String>,
+              "line": 1,
+              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "rule": "fail-on-word",
+              "severity": 2,
+              "source": "FORBIDDEN",
+            },
+          ],
+          "output": "<div>FORBIDDEN</div>",
+        }
+      `
+      );
     });
 
     it('ensures template parsing errors are only reported once (not once per-rule)', async function () {
@@ -1394,21 +1417,25 @@ describe('public api', function () {
     });
 
     it('[.html] returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
+      project.write({
+        app: {
+          templates: {
+            'application.html': '<div>FORBIDDEN</div>',
+          },
+        },
+      });
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          plugins: [require('../helpers/failure-plugin')],
+          rules: {
+            'fail-on-word': 'FORBIDDEN',
+          },
+        },
+      });
+
       let templatePath = project.path('app/templates/application.html');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
-      let expected = [
-        {
-          column: 7,
-          line: 1,
-          endColumn: 18,
-          endLine: 1,
-          message: 'you must use double quotes in templates',
-          filePath: templatePath,
-          rule: 'quotes',
-          severity: 2,
-          source: "class='mb4'",
-        },
-      ];
 
       let result = await linter.verifyAndFix({
         source: templateContents,
@@ -1416,9 +1443,28 @@ describe('public api', function () {
         moduleId: templatePath.slice(0, -4),
       });
 
-      expect(result.messages).toEqual(expected);
-      expect(result.output).toEqual(templateContents);
-      expect(result.isFixed).toEqual(false);
+      expect(result).toMatchInlineSnapshot(
+        { messages: [{ filePath: expect.any(String) }] },
+        `
+        Object {
+          "isFixed": false,
+          "messages": Array [
+            Object {
+              "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": Any<String>,
+              "line": 1,
+              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "rule": "fail-on-word",
+              "severity": 2,
+              "source": "FORBIDDEN",
+            },
+          ],
+          "output": "<div>FORBIDDEN</div>",
+        }
+      `
+      );
     });
 
     it('[.html] ensures template parsing errors are only reported once (not once per-rule)', async function () {
