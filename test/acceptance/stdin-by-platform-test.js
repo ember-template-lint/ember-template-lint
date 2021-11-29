@@ -30,8 +30,8 @@ describe('ember-template-lint executable', function () {
     project.chdir();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   describe('command: `node ember-template-lint --filename template.hbs < template.hbs`', function () {

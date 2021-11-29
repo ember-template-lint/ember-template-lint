@@ -21,8 +21,8 @@ describe('base plugin', function () {
     editorConfigResolver.resolveEditorConfigFiles();
   });
 
-  afterEach(async () => {
-    await project.dispose();
+  afterEach(() => {
+    project.dispose();
   });
 
   async function runRules(template, rules) {

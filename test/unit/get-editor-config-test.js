@@ -11,8 +11,8 @@ describe('get-editor-config', function () {
     project.chdir();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   it('able to read and add info from .editorconfig file if exists', function () {

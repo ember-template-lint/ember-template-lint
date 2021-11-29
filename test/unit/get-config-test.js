@@ -19,8 +19,8 @@ describe('get-config', function () {
     project = new Project();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   it('if config is provided directly, it is used', function () {
@@ -716,8 +716,8 @@ describe('getProjectConfig', function () {
     project = Project.defaultSetup();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
   it('processing config is idempotent', function () {
