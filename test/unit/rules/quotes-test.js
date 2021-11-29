@@ -201,6 +201,72 @@ generateRuleTests({
         `);
       },
     },
+    {
+      config: 'single',
+      template: `<img alt="Abdul's house">`,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use single quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "alt=\\"Abdul's house\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: 'double',
+      template: `<img class='a "so-called" btn {{this.otherClass}}'>`,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 5,
+              "endColumn": 50,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "class='a \\"so-called\\" btn {{this.otherClass}}'",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: 'single',
+      template: `{{helper "Priya's house"}}`,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 9,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "you must use single quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{helper \\"Priya's house\\"}}",
+            },
+          ]
+        `);
+      },
+    },
   ],
 
   error: [
