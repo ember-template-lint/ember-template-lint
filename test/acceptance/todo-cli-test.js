@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 const {
-  ensureTodoStorageDir,
   todoStorageDirExists,
   getTodoStorageDirPath,
   writeTodos,
@@ -81,23 +80,6 @@ describe('todo usage', () => {
 
       expect(todoStorageDirExists(project.baseDir)).toEqual(false);
       expect(result.stdout).toBeTruthy();
-    });
-
-    it('errors when config.pending is present', async function () {
-      await ensureTodoStorageDir(project.baseDir);
-
-      project.setConfig({
-        pending: [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-html-comments'],
-          },
-        ],
-      });
-
-      let result = await run(['.']);
-
-      expect(result.stderr).toBeTruthy();
     });
 
     it('errors if using either --todo-days-to-warn or --todo-days-to-error without --update-todo', async function () {

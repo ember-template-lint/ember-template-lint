@@ -585,7 +585,7 @@ describe('ember-template-lint executable', function () {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should print properly formatted error and warning messages', async function () {
+      it('should print properly formatted error messages', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
