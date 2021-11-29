@@ -1,8 +1,5 @@
-const fs = require('fs');
-
 const {
-  todoStorageDirExists,
-  getTodoStorageDirPath,
+  todoStorageFileExists,
   writeTodos,
   readTodoData,
 } = require('@ember-template-lint/todo-utils');
@@ -62,7 +59,7 @@ describe('todo usage', () => {
       );
     });
 
-    it('does not create `.lint-todo` dir without --update-todo param', async function () {
+    it('does not create `.lint-todo` file without --update-todo param', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
@@ -78,7 +75,7 @@ describe('todo usage', () => {
 
       let result = await run(['.']);
 
-      expect(todoStorageDirExists(project.baseDir)).toEqual(false);
+      expect(todoStorageFileExists(project.baseDir)).toEqual(false);
       expect(result.stdout).toBeTruthy();
     });
 
@@ -116,7 +113,7 @@ describe('todo usage', () => {
 
       const result = readTodoData(project.baseDir);
 
-      expect(result).toHaveLength(0);
+      expect(result.size).toEqual(0);
     });
 
     it('generates todos for existing errors', async function () {
@@ -138,7 +135,7 @@ describe('todo usage', () => {
       let result = await run(['.', '--update-todo']);
 
       expect(result.exitCode).toEqual(0);
-      expect(todoStorageDirExists(project.baseDir)).toEqual(true);
+      expect(todoStorageFileExists(project.baseDir)).toEqual(true);
     });
 
     it('generates todos for existing errors, and correctly reports todo severity when file is edited to trigger fuzzy match', async function () {
@@ -160,8 +157,8 @@ describe('todo usage', () => {
       let result = await run(['.', '--update-todo']);
 
       expect(result.exitCode).toEqual(0);
-      expect(todoStorageDirExists(project.baseDir)).toEqual(true);
-      expect(readTodoData(project.baseDir)).toHaveLength(3);
+      expect(todoStorageFileExists(project.baseDir)).toEqual(true);
+      expect(readTodoData(project.baseDir).size).toEqual(3);
 
       project.write({
         app: {
@@ -241,7 +238,7 @@ describe('todo usage', () => {
 
       let todos = readTodoData(project.baseDir);
 
-      expect(todos).toHaveLength(2);
+      expect(todos.size).toEqual(2);
 
       project.write({
         app: {
@@ -263,7 +260,7 @@ describe('todo usage', () => {
 
       todos = readTodoData(project.baseDir);
 
-      expect(todos).toHaveLength(3);
+      expect(todos.size).toEqual(3);
     });
 
     it('does not remove todos if custom config params are used with subsequent invocations', async function () {
@@ -286,7 +283,7 @@ describe('todo usage', () => {
 
       let todos = readTodoData(project.baseDir);
 
-      expect(todos).toHaveLength(3);
+      expect(todos.size).toEqual(3);
 
       let result = await run([
         '.',
@@ -300,7 +297,7 @@ describe('todo usage', () => {
       todos = readTodoData(project.baseDir);
 
       expect(result.exitCode).toEqual(0);
-      expect(todos).toHaveLength(3);
+      expect(todos.size).toEqual(3);
     });
 
     describe('cleaning todos in CI', () => {
@@ -352,11 +349,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir).size).toEqual(0);
       });
 
       it('errors if a todo item is no longer valid when running without params, and cleans using --clean-todo', async function () {
@@ -404,11 +399,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir).size).toEqual(0);
       });
     });
 
@@ -461,11 +454,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir).size).toEqual(0);
       });
 
       it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans without --no-clean-todo', async function () {
@@ -513,11 +504,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir).size).toEqual(0);
       });
     });
 
@@ -845,6 +834,7 @@ describe('todo usage', () => {
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
     });
+
     for (const { name, isLegacy, setTodoConfig } of [
       {
         name: 'Shorthand todo configuration',
@@ -895,8 +885,6 @@ describe('todo usage', () => {
           // run normally and expect the issue to be back in the error state and there to be no todo
           let result = await run(['.', '--clean-todo']);
 
-          let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
               "app/templates/require-button-type.hbs
@@ -905,7 +893,7 @@ describe('todo usage', () => {
               ✖ 1 problems (1 errors, 0 warnings)
                 1 errors and 0 warnings potentially fixable with the \`--fix\` option."
             `);
-          expect(todoDirs).toHaveLength(0);
+          expect(readTodoData(project.baseDir).size).toEqual(0);
         });
 
         it('should error if daysToDecay.error is less than daysToDecay.warn in config', async function () {
