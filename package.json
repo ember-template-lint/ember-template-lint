@@ -60,7 +60,7 @@
   "dependencies": {
     "@ember-template-lint/todo-utils": "^10.0.0",
     "chalk": "^4.1.2",
-    "ci-info": "^3.2.0",
+    "ci-info": "^3.3.0",
     "date-fns": "^2.26.0",
     "ember-template-recast": "^6.1.0",
     "find-up": "^5.0.0",
@@ -94,11 +94,11 @@
     "markdownlint-cli": "^0.30.0",
     "npm-package-json-lint": "^5.4.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.0",
     "release-it": "^14.11.8",
     "release-it-lerna-changelog": "^4.0.1",
     "sort-package-json": "^1.53.1",
-    "yeoman-environment": "^3.8.0",
+    "yeoman-environment": "^3.8.1",
     "yeoman-generator": "^5.4.2",
     "yeoman-test": "^6.2.0"
   },
