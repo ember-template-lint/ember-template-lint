@@ -1822,12 +1822,7 @@ bin-links@^2.3.0:
     rimraf "^3.0.0"
     write-file-atomic "^3.0.3"
 
-binaryextensions@^4.15.0:
-  version "4.15.0"
-  resolved "https://registry.yarnpkg.com/binaryextensions/-/binaryextensions-4.15.0.tgz#c63a502e0078ff1b0e9b00a9f74d3c2b0f8bd32e"
-  integrity sha512-MkUl3szxXolQ2scI1PM14WOT951KnaTNJ0eMKg7WzOI4kvSxyNo/Cygx4LOBNhwyINhAuSQpJW1rYD9aBSxGaw==
-
-binaryextensions@^4.16.0:
+binaryextensions@^4.15.0, binaryextensions@^4.16.0:
   version "4.18.0"
   resolved "https://registry.yarnpkg.com/binaryextensions/-/binaryextensions-4.18.0.tgz#22aeada2d14de062c60e8ca59a504a5636a76ceb"
   integrity sha512-PQu3Kyv9dM4FnwB7XGj1+HucW+ShvJzJqjuw1JkKVs1mWdwOKVcRjOi+pV9X52A0tNvrPCsPkbFFQb+wE1EAXw==
@@ -5302,22 +5297,7 @@ mdurl@^1.0.1:
   resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
   integrity sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=
 
-"mem-fs-editor@^8.1.2 || ^9.0.0":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/mem-fs-editor/-/mem-fs-editor-9.0.1.tgz#c700117476ff004cdacf5fa66f4fd1b5410b23c9"
-  integrity sha512-SqW+DkPbxZVzVldNHexoo5MiUR3YpIqiCVcZ/SZ6f7KToaSV7pMd4/URrkD5mnj35bd6NAK7SlftHSyW+Kgk4w==
-  dependencies:
-    binaryextensions "^4.15.0"
-    commondir "^1.0.1"
-    deep-extend "^0.6.0"
-    ejs "^3.1.6"
-    globby "^11.0.3"
-    isbinaryfile "^4.0.8"
-    multimatch "^5.0.0"
-    normalize-path "^3.0.0"
-    textextensions "^5.12.0"
-
-mem-fs-editor@^9.0.0:
+"mem-fs-editor@^8.1.2 || ^9.0.0", mem-fs-editor@^9.0.0:
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/mem-fs-editor/-/mem-fs-editor-9.3.0.tgz#85ce80541b1961d1d9f433e275c7cee9d0a1c9a2"
   integrity sha512-QKFbPwGCh1ypmc2H8BUYpbapwT/x2AOCYZQogzSui4rUNes7WVMagQXsirPIfp18EarX0SSY9Fpg426nSjew4Q==
@@ -7378,12 +7358,7 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-textextensions@^5.12.0:
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-5.12.0.tgz#b908120b5c1bd4bb9eba41423d75b176011ab68a"
-  integrity sha512-IYogUDaP65IXboCiPPC0jTLLBzYlhhw2Y4b0a2trPgbHNGGGEfuHE6tds+yDcCf4mpNDaGISFzwSSezcXt+d6w==
-
-textextensions@^5.13.0:
+textextensions@^5.12.0, textextensions@^5.13.0:
   version "5.14.0"
   resolved "https://registry.yarnpkg.com/textextensions/-/textextensions-5.14.0.tgz#a6ff6aee5faaa751e6157d422c722a2bfd59eedf"
   integrity sha512-4cAYwNFNYlIAHBUo7p6zw8POUvWbZor+/R0Tanv+rIhsauEyV9QSrEXL40pI+GfTQxKX8k6Tyw6CmdSDSmASrg==
@@ -8035,10 +8010,10 @@ yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yeoman-environment@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/yeoman-environment/-/yeoman-environment-3.8.0.tgz#b342f66bd2f38c382454eeed71c5cda1b098c387"
-  integrity sha512-BPo3btCxefe8NzDMk59QRDNBXMC4Ra6SHhFfEsV2DTmAp/6ZoovMANlJiWrXu41rtFQBmjH/rT2tSiHGowt38w==
+yeoman-environment@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/yeoman-environment/-/yeoman-environment-3.8.1.tgz#619e32ba63c9ec29bfaab8cfaa6306d58bf8d85b"
+  integrity sha512-UM42p60GcJOwPfL63yBwBiiZiZ4p7taEjR5B+XdEu+sf73T+510gxiAqYuTCDOVTYBqhywVpZoWEnR+HtshiBA==
   dependencies:
     "@npmcli/arborist" "^4.0.4"
     are-we-there-yet "^2.0.0"
