@@ -872,9 +872,9 @@ describe('ember-template-lint executable', function () {
         let result = await run([
           'app/**/*',
           '--ignore-pattern',
-          '"**/foo/**"',
+          '**/foo/**',
           '--ignore-pattern',
-          '"**/bar/**"',
+          '**/bar/**',
         ]);
 
         expect(result.exitCode).toEqual(0);
