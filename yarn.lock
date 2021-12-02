@@ -311,10 +311,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@ember-template-lint/todo-utils@^11.0.0-beta.0":
-  version "11.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-11.0.0-beta.0.tgz#3226ddc205d3e4168d961ded8d7f70c65f988051"
-  integrity sha512-rS7QlCAvFFwUj2slCWARFZrhUJOUsqnTrhMy+JXap6C+/qUVRUBomLui/wqjSDRlvjiekGXb1lrpoSdGH8FpYw==
+"@ember-template-lint/todo-utils@^11.0.0-beta.1":
+  version "11.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-11.0.0-beta.1.tgz#67d6a24e6e2328e00103f415c3c10d07bdcb4de2"
+  integrity sha512-HC/iH1HpeCQN+7A4b4oOJUdtq+j4s8xnmOIr5S/bXaUPSngbQmcE2MfMbFpanNyXQQ90avX0cOAkdcafLa928Q==
   dependencies:
     "@types/eslint" "^7.2.13"
     fs-extra "^9.1.0"

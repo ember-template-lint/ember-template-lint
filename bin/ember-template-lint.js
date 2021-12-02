@@ -286,7 +286,7 @@ async function run() {
     try {
       config = JSON.parse(options.config);
     } catch {
-      _console.error('Could not parse specified `--config` as JSON');
+      console.error('Could not parse specified `--config` as JSON');
       process.exitCode = 1;
       return;
     }
@@ -299,13 +299,13 @@ async function run() {
   let todoConfigResult = validateConfig(options.workingDirectory);
 
   if (!todoConfigResult.isValid) {
-    _console.error(todoConfigResult.message);
+    console.error(todoConfigResult.message);
     process.exitCode = 1;
     return;
   }
 
   if (_todoStorageDirExists(options.workingDirectory)) {
-    _console.error(
+    console.error(
       'Found `.lint-todo` directory. Please run `npx @lint-todo/migrator .` to convert to the new todo file format'
     );
     process.exitCode = 1;
@@ -313,7 +313,8 @@ async function run() {
   }
 
   if (options.compactTodo) {
-    compactTodoStorageFile(options.workingDirectory);
+    let { compacted } = compactTodoStorageFile(options.workingDirectory);
+    _console.log(`Removed ${compacted} todos in .lint-todo storage file`);
     process.exitCode = 0;
     return;
   }
@@ -339,13 +340,13 @@ async function run() {
       console: _console,
     });
   } catch (error) {
-    _console.error(error.message);
+    console.error(error.message);
     process.exitCode = 1;
     return;
   }
 
   if ((options.todoDaysToWarn || options.todoDaysToError) && !options.updateTodo) {
-    _console.error(
+    console.error(
       'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
     );
     process.exitCode = 1;
@@ -356,7 +357,7 @@ async function run() {
 
   if (options.printConfig) {
     if (filePaths.size > 1) {
-      _console.error('The --print-config option must be used with exactly one file name.');
+      console.error('The --print-config option must be used with exactly one file name.');
       process.exitCode = 1;
       return;
     }
