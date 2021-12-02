@@ -9,7 +9,11 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const { getTodoConfig, validateConfig } = require('@ember-template-lint/todo-utils');
+const {
+  getTodoConfig,
+  validateConfig,
+  compactTodoStorageFile,
+} = require('@ember-template-lint/todo-utils');
 const ci = require('ci-info');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -182,6 +186,10 @@ function parseArgv(_argv) {
         default: !ci.isCI,
         boolean: true,
       },
+      'compact-todo': {
+        describe: 'Compacts the .lint-todo storage file, removing extraneous todos',
+        boolean: true,
+      },
       'todo-days-to-warn': {
         describe: 'Number of days after its creation date that a todo transitions into a warning',
         type: 'number',
@@ -258,12 +266,14 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
+  let shouldWriteToStdout = !(options.quiet || ['sarif', 'json'].includes(options.format));
+  let _console = shouldWriteToStdout ? console : NOOP_CONSOLE;
 
   if (options.config) {
     try {
       config = JSON.parse(options.config);
     } catch {
-      console.error('Could not parse specified `--config` as JSON');
+      _console.error('Could not parse specified `--config` as JSON');
       process.exitCode = 1;
       return;
     }
@@ -276,8 +286,13 @@ async function run() {
   let todoConfigResult = validateConfig(options.workingDirectory);
 
   if (!todoConfigResult.isValid) {
-    console.error(todoConfigResult.message);
+    _console.error(todoConfigResult.message);
     process.exitCode = 1;
+    return;
+  }
+
+  if (options.compactTodo) {
+    compactTodoStorageFile(options.workingDirectory);
     return;
   }
 
@@ -291,7 +306,6 @@ async function run() {
       getTodoConfigFromCommandLineOptions(options)
     ),
   };
-  let shouldWriteToStdout = options.quiet || ['sarif', 'json'].includes(options.format);
 
   try {
     linter = new Linter({
@@ -300,16 +314,16 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
-      console: shouldWriteToStdout ? NOOP_CONSOLE : console,
+      console: _console,
     });
   } catch (error) {
-    console.error(error.message);
+    _console.error(error.message);
     process.exitCode = 1;
     return;
   }
 
   if ((options.todoDaysToWarn || options.todoDaysToError) && !options.updateTodo) {
-    console.error(
+    _console.error(
       'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
     );
     process.exitCode = 1;
@@ -320,7 +334,7 @@ async function run() {
 
   if (options.printConfig) {
     if (filePaths.size > 1) {
-      console.error('The --print-config option must be used with exactly one file name.');
+      _console.error('The --print-config option must be used with exactly one file name.');
       process.exitCode = 1;
       return;
     }
@@ -340,7 +354,7 @@ async function run() {
     if (options.printConfig) {
       let fileConfig = linter.getConfigForFile(linterOptions);
 
-      console.log(JSON.stringify(fileConfig, null, 2));
+      _console.log(JSON.stringify(fileConfig, null, 2));
       process.exitCode = 0;
       return;
     }
