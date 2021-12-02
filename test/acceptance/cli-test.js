@@ -150,7 +150,7 @@ describe('ember-template-lint executable', function () {
 
   describe('reading files', function () {
     describe('given path to non-existing file', function () {
-      it('should exit without error and any console output', async function () {
+      it('should exit with error', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -169,9 +169,11 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['app/templates/application-1.hbs']);
 
-        expect(result.exitCode).toEqual(0, 'exits without error');
+        expect(result.exitCode).toEqual(1, 'exits with error');
         expect(result.stdout).toBeFalsy();
-        expect(result.stderr).toBeFalsy();
+        expect(result.stderr).toEqual(
+          'No files matching the pattern were found: "app/templates/application-1.hbs"'
+        );
       });
     });
 
@@ -839,6 +841,7 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            'other.hbs': '<div></div>',
           },
         });
 
@@ -866,6 +869,7 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            'other.hbs': '<div></div>',
           },
         });
 
@@ -880,6 +884,27 @@ describe('ember-template-lint executable', function () {
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
         expect(result.stderr).toBeFalsy();
+      });
+
+      it('should fail when no files match because of ignore pattern', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            foo: {
+              'application.hbs': 'Bare strings are bad',
+            },
+          },
+        });
+
+        let result = await run(['app/**/*', '--ignore-pattern', '**/foo/**']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toEqual('');
+        expect(result.stderr).toEqual('No files matching the pattern were found: "app/**/*"');
       });
 
       it('should allow to disable dirs ignored by default', async function () {
@@ -1467,7 +1492,13 @@ describe('ember-template-lint executable', function () {
             'no-html-comments': true,
           },
         });
-        project.writeSync();
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div></div>',
+            },
+          },
+        });
 
         let result = await run(['.', '--format', 'sarif', '--output-file', 'my-results.sarif'], {
           env: {

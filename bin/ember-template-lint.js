@@ -91,7 +91,12 @@ function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = execute
       continue;
     }
 
-    for (const filePath of glob(workingDir, pattern, ignorePattern)) {
+    const globResults = glob(workingDir, pattern, ignorePattern);
+    if (!globResults || globResults.length === 0) {
+      throw new Error(`No files matching the pattern were found: "${pattern}"`);
+    }
+
+    for (const filePath of globResults) {
       result.add(filePath);
     }
   }
@@ -353,7 +358,14 @@ async function run() {
     return;
   }
 
-  let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+  let filePaths;
+  try {
+    filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+  } catch (error) {
+    console.error(error.message);
+    process.exitCode = 1;
+    return;
+  }
 
   if (options.printConfig) {
     if (filePaths.size > 1) {
