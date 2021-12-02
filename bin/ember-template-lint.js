@@ -10,9 +10,10 @@ const path = require('path');
 const { promisify } = require('util');
 
 const {
+  compactTodoStorageFile,
+  getTodoStorageFilePath,
   getTodoConfig,
   validateConfig,
-  compactTodoStorageFile,
 } = require('@ember-template-lint/todo-utils');
 const ci = require('ci-info');
 const getStdin = require('get-stdin');
@@ -261,6 +262,18 @@ function _isOverridingConfig(options) {
   );
 }
 
+function _todoStorageDirExists(baseDir) {
+  try {
+    return fs.lstatSync(getTodoStorageFilePath(baseDir)).isDirectory();
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return false;
+    }
+
+    throw error;
+  }
+}
+
 async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
@@ -287,6 +300,14 @@ async function run() {
 
   if (!todoConfigResult.isValid) {
     _console.error(todoConfigResult.message);
+    process.exitCode = 1;
+    return;
+  }
+
+  if (_todoStorageDirExists(options.workingDirectory)) {
+    _console.error(
+      'Found `.lint-todo` directory. Please run `npx @lint-todo/migrator .` to convert to the new todo file format'
+    );
     process.exitCode = 1;
     return;
   }
