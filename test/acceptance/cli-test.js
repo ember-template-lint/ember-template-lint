@@ -67,6 +67,8 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
+            --compact-todo              Compacts the .lint-todo storage file, removing
+                                        extraneous todos                         [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
                                         transitions into a warning                [number]
             --todo-days-to-error        Number of days after its creation date that a todo
@@ -124,6 +126,8 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
+            --compact-todo              Compacts the .lint-todo storage file, removing
+                                        extraneous todos                         [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
                                         transitions into a warning                [number]
             --todo-days-to-error        Number of days after its creation date that a todo
@@ -438,6 +442,8 @@ describe('ember-template-lint executable', function () {
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
+            --compact-todo              Compacts the .lint-todo storage file, removing
+                                        extraneous todos                         [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
                                         transitions into a warning                [number]
             --todo-days-to-error        Number of days after its creation date that a todo

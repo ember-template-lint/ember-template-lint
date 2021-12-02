@@ -9,7 +9,12 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const { getTodoConfig, validateConfig } = require('@ember-template-lint/todo-utils');
+const {
+  compactTodoStorageFile,
+  getTodoStorageFilePath,
+  getTodoConfig,
+  validateConfig,
+} = require('@ember-template-lint/todo-utils');
 const ci = require('ci-info');
 const getStdin = require('get-stdin');
 const globby = require('globby');
@@ -182,6 +187,10 @@ function parseArgv(_argv) {
         default: !ci.isCI,
         boolean: true,
       },
+      'compact-todo': {
+        describe: 'Compacts the .lint-todo storage file, removing extraneous todos',
+        boolean: true,
+      },
       'todo-days-to-warn': {
         describe: 'Number of days after its creation date that a todo transitions into a warning',
         type: 'number',
@@ -253,11 +262,25 @@ function _isOverridingConfig(options) {
   );
 }
 
+function _todoStorageDirExists(baseDir) {
+  try {
+    return fs.lstatSync(getTodoStorageFilePath(baseDir)).isDirectory();
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return false;
+    }
+
+    throw error;
+  }
+}
+
 async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
+  let shouldWriteToStdout = !(options.quiet || ['sarif', 'json'].includes(options.format));
+  let _console = shouldWriteToStdout ? console : NOOP_CONSOLE;
 
   if (options.config) {
     try {
@@ -281,6 +304,21 @@ async function run() {
     return;
   }
 
+  if (_todoStorageDirExists(options.workingDirectory)) {
+    console.error(
+      'Found `.lint-todo` directory. Please run `npx @lint-todo/migrator .` to convert to the new todo file format'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (options.compactTodo) {
+    let { compacted } = compactTodoStorageFile(options.workingDirectory);
+    _console.log(`Removed ${compacted} todos in .lint-todo storage file`);
+    process.exitCode = 0;
+    return;
+  }
+
   let linter;
   let todoInfo = {
     added: 0,
@@ -291,7 +329,6 @@ async function run() {
       getTodoConfigFromCommandLineOptions(options)
     ),
   };
-  let shouldWriteToStdout = options.quiet || ['sarif', 'json'].includes(options.format);
 
   try {
     linter = new Linter({
@@ -300,7 +337,7 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
-      console: shouldWriteToStdout ? NOOP_CONSOLE : console,
+      console: _console,
     });
   } catch (error) {
     console.error(error.message);
@@ -340,7 +377,7 @@ async function run() {
     if (options.printConfig) {
       let fileConfig = linter.getConfigForFile(linterOptions);
 
-      console.log(JSON.stringify(fileConfig, null, 2));
+      _console.log(JSON.stringify(fileConfig, null, 2));
       process.exitCode = 0;
       return;
     }
