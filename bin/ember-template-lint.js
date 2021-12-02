@@ -314,6 +314,7 @@ async function run() {
 
   if (options.compactTodo) {
     compactTodoStorageFile(options.workingDirectory);
+    process.exitCode = 0;
     return;
   }
 
