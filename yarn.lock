@@ -311,17 +311,6 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@ember-template-lint/todo-utils@^11.0.0-beta.1":
-  version "11.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@ember-template-lint/todo-utils/-/todo-utils-11.0.0-beta.1.tgz#67d6a24e6e2328e00103f415c3c10d07bdcb4de2"
-  integrity sha512-HC/iH1HpeCQN+7A4b4oOJUdtq+j4s8xnmOIr5S/bXaUPSngbQmcE2MfMbFpanNyXQQ90avX0cOAkdcafLa928Q==
-  dependencies:
-    "@types/eslint" "^7.2.13"
-    fs-extra "^9.1.0"
-    proper-lockfile "^4.1.2"
-    slash "^3.0.0"
-    tslib "^2.3.1"
-
 "@eslint/eslintrc@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.0.4.tgz#dfe0ff7ba270848d10c5add0715e04964c034b31"
@@ -612,6 +601,17 @@
     "@types/node" "*"
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
+
+"@lint-todo/utils@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-11.0.0.tgz#adb6f0ba280a45bff2449d548727cbff35714db7"
+  integrity sha512-FwAREUQ0ncD3XDujs34183WjzOeX07KrRwi2AkkIJT2irrTkBPyE9FLs2sjjh+Lnj2OB1d+fDN4BWi9r2Nnt+w==
+  dependencies:
+    "@types/eslint" "^7.2.13"
+    fs-extra "^9.1.0"
+    proper-lockfile "^4.1.2"
+    slash "^3.0.0"
+    tslib "^2.3.1"
 
 "@microsoft/jest-sarif@^1.0.0-beta.0":
   version "1.0.0-beta.0"
