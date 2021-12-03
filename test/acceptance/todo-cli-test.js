@@ -1,8 +1,4 @@
-const {
-  todoStorageFileExists,
-  writeTodos,
-  readTodoData,
-} = require('@ember-template-lint/todo-utils');
+const { todoStorageFileExists, writeTodos, readTodoData } = require('@lint-todo/utils');
 const { differenceInDays, subDays } = require('date-fns');
 
 const Project = require('../helpers/fake-project');

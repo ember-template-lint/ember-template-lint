@@ -14,7 +14,7 @@ const {
   getTodoStorageFilePath,
   getTodoConfig,
   validateConfig,
-} = require('@ember-template-lint/todo-utils');
+} = require('@lint-todo/utils');
 const ci = require('ci-info');
 const getStdin = require('get-stdin');
 const globby = require('globby');
