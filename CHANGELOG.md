@@ -8,6 +8,36 @@
 
 
 
+
+## v4.0.0-beta.0 (2021-12-03)
+
+#### :boom: Breaking Change
+* [#2261](https://github.com/ember-template-lint/ember-template-lint/pull/2261) Disallow unknown CLI options ([@bmish](https://github.com/bmish))
+* [#2245](https://github.com/ember-template-lint/ember-template-lint/pull/2245) Disallow specifying non-existent files on CLI ([@bmish](https://github.com/bmish))
+* [#2256](https://github.com/ember-template-lint/ember-template-lint/pull/2256) Rule Configs: Add `no-autofocus-attribute` to `recommended` config ([@bmish](https://github.com/bmish))
+* [#2242](https://github.com/ember-template-lint/ember-template-lint/pull/2242) Rule Reporting: When logging a rule violation, require passing `message` ([@bmish](https://github.com/bmish))
+* [#2255](https://github.com/ember-template-lint/ember-template-lint/pull/2255) Todos: Convert to single file storage ([@scalvert](https://github.com/scalvert))
+* [#2252](https://github.com/ember-template-lint/ember-template-lint/pull/2252) Remove deprecated pending functionality ([@scalvert](https://github.com/scalvert))
+
+#### :rocket: Enhancement
+* [#2143](https://github.com/ember-template-lint/ember-template-lint/pull/2143) Add autofixer to `quotes` rule ([@courajs](https://github.com/courajs))
+
+#### :memo: Documentation
+* [#2253](https://github.com/ember-template-lint/ember-template-lint/pull/2253) Update reference links for `no-autofocus-attribute` rule ([@MelSumner](https://github.com/MelSumner))
+* [#2246](https://github.com/ember-template-lint/ember-template-lint/pull/2246) Fix link about configuration properties ([@courajs](https://github.com/courajs))
+
+#### :house: Internal
+* [#2258](https://github.com/ember-template-lint/ember-template-lint/pull/2258) Update `eslint-plugin-unicorn` to v39 ([@bmish](https://github.com/bmish))
+* [#2257](https://github.com/ember-template-lint/ember-template-lint/pull/2257) Update `yargs` to 17.3.0 ([@bmish](https://github.com/bmish))
+* [#2254](https://github.com/ember-template-lint/ember-template-lint/pull/2254) Remove misleading `await` from `project.dispose()` in tests ([@courajs](https://github.com/courajs))
+
+#### Committers: 4
+- Aaron Sikes ([@courajs](https://github.com/courajs))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.0.0-alpha.0 (2021-11-24)
 
 #### :boom: Breaking Change
