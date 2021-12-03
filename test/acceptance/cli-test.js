@@ -146,6 +146,32 @@ describe('ember-template-lint executable', function () {
         `);
       });
     });
+
+    describe('with non-existent options', function () {
+      it('should exit with failure with one-word option', async function () {
+        const result = await run(['--fake']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`"Unknown option: --fake"`);
+      });
+
+      it('should exit with failure with multi-word option name', async function () {
+        const result = await run(['--fake-option-name']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`"Unknown option: --fake-option-name"`);
+      });
+
+      it('should exit with failure with camelcase name', async function () {
+        const result = await run(['--fakeOptionName']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`"Unknown option: --fakeOptionName"`);
+      });
+    });
   });
 
   describe('reading files', function () {
@@ -309,6 +335,40 @@ describe('ember-template-lint executable', function () {
         });
 
         let result = await run(['--working-directory', project.baseDir, 'app/templates/*'], {
+          // run from ember-template-lint's root (forces `--working-directory` to be used)
+          cwd: ROOT,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+        expect(result.stderr).toMatchInlineSnapshot('""');
+
+        // SAME TEST, USING ALIAS AS OPTION NAME:
+
+        result = await run(['--cwd', project.baseDir, 'app/templates/*'], {
+          // run from ember-template-lint's root (forces `--working-directory` to be used)
+          cwd: ROOT,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+        expect(result.stderr).toMatchInlineSnapshot('""');
+
+        // SAME TEST, USING CAMELCASE VERSION OF OPTION NAME:
+
+        result = await run(['--workingDirectory', project.baseDir, 'app/templates/*'], {
           // run from ember-template-lint's root (forces `--working-directory` to be used)
           cwd: ROOT,
         });

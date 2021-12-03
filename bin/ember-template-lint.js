@@ -22,6 +22,7 @@ const isGlob = require('is-glob');
 const micromatch = require('micromatch');
 
 const Linter = require('../lib');
+const camelize = require('../lib/helpers/camelize');
 const processResults = require('../lib/helpers/process-results');
 
 const readFile = promisify(fs.readFile);
@@ -116,113 +117,137 @@ function getFilesToLint(workingDir, filePatterns, ignorePattern = []) {
   return files;
 }
 
+/**
+ * @param {Object} specifiedOptions - options passed to yargs (option names should be in dasherized format)
+ * @returns {String[]} a list of all possible CLI option names
+ */
+function getPossibleOptionNames(specifiedOptions) {
+  const optionAliases = Object.values(specifiedOptions)
+    .map((option) => option.alias)
+    .filter((option) => option !== undefined);
+  const dasherizedOptionNames = [...Object.keys(specifiedOptions), ...optionAliases];
+  const camelizedOptionNames = dasherizedOptionNames.map((name) => camelize(name));
+  const negatedDasherizedOptionNames = dasherizedOptionNames.map((name) =>
+    name.startsWith('no-') ? name.slice(3) : `no-${name}`
+  );
+  const negatedCamelizedOptionNames = negatedDasherizedOptionNames.map((name) => camelize(name));
+  return [
+    ...dasherizedOptionNames,
+    ...camelizedOptionNames,
+    // Since yargs `boolean-negation` option is enabled (by default), assume any option can be passed with `no`/negated prefix.
+    ...negatedDasherizedOptionNames,
+    ...negatedCamelizedOptionNames,
+  ];
+}
+
 function parseArgv(_argv) {
+  const specifiedOptions = {
+    'config-path': {
+      describe: 'Define a custom config path',
+      default: '.template-lintrc.js',
+      type: 'string',
+    },
+    config: {
+      describe:
+        'Define a custom configuration to be used - (e.g. \'{ "rules": { "no-implicit-this": "error" } }\') ',
+      type: 'string',
+    },
+    quiet: {
+      describe: 'Ignore warnings and only show errors',
+      boolean: true,
+    },
+    rule: {
+      describe:
+        'Specify a rule and its severity to add that rule to loaded rules - (e.g. `no-implicit-this:error` or `rule:["error", { "allow": ["some-helper"] }]`)',
+      type: 'string',
+    },
+    filename: {
+      describe: 'Used to indicate the filename to be assumed for contents from STDIN',
+      type: 'string',
+    },
+    fix: {
+      describe: 'Fix any errors that are reported as fixable',
+      boolean: true,
+      default: false,
+    },
+    format: {
+      describe: 'Specify format to be used in printing output',
+      type: 'string',
+      default: 'pretty',
+    },
+    'output-file': {
+      describe: 'Specify file to write report to',
+      type: 'string',
+      implies: 'format',
+    },
+    verbose: {
+      describe: 'Output errors with source description',
+      boolean: true,
+    },
+    'working-directory': {
+      alias: 'cwd',
+      describe: 'Path to a directory that should be considered as the current working directory.',
+      type: 'string',
+      // defaulting to `.` here to refer to `process.cwd()`, setting the default to `process.cwd()` itself
+      // would make our snapshots unstable (and make the help output unaligned since most directory paths
+      // are fairly deep)
+      default: '.',
+    },
+    'no-config-path': {
+      describe: 'Does not use the local template-lintrc, will use a blank template-lintrc instead',
+      boolean: true,
+    },
+    'update-todo': {
+      describe: 'Update list of linting todos by transforming lint errors to todos',
+      default: false,
+      boolean: true,
+    },
+    'include-todo': {
+      describe: 'Include todos in the results',
+      default: false,
+      boolean: true,
+    },
+    'clean-todo': {
+      describe: 'Remove expired and invalid todo files',
+      default: !ci.isCI,
+      boolean: true,
+    },
+    'compact-todo': {
+      describe: 'Compacts the .lint-todo storage file, removing extraneous todos',
+      boolean: true,
+    },
+    'todo-days-to-warn': {
+      describe: 'Number of days after its creation date that a todo transitions into a warning',
+      type: 'number',
+    },
+    'todo-days-to-error': {
+      describe: 'Number of days after its creation date that a todo transitions into an error',
+      type: 'number',
+    },
+    'ignore-pattern': {
+      describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
+      type: 'array',
+      default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
+    },
+    'no-inline-config': {
+      describe: 'Prevent inline configuration comments from changing config or rules',
+      boolean: true,
+    },
+    'print-config': {
+      describe: 'Print the configuration for the given file',
+      default: false,
+      boolean: true,
+    },
+    'max-warnings': {
+      describe: 'Number of warnings to trigger nonzero exit code',
+      type: 'number',
+    },
+  };
+
   let parser = require('yargs')
     .scriptName('ember-template-lint')
     .usage('$0 [options] [files..]')
-    .options({
-      'config-path': {
-        describe: 'Define a custom config path',
-        default: '.template-lintrc.js',
-        type: 'string',
-      },
-      config: {
-        describe:
-          'Define a custom configuration to be used - (e.g. \'{ "rules": { "no-implicit-this": "error" } }\') ',
-        type: 'string',
-      },
-      quiet: {
-        describe: 'Ignore warnings and only show errors',
-        boolean: true,
-      },
-      rule: {
-        describe:
-          'Specify a rule and its severity to add that rule to loaded rules - (e.g. `no-implicit-this:error` or `rule:["error", { "allow": ["some-helper"] }]`)',
-        type: 'string',
-      },
-      filename: {
-        describe: 'Used to indicate the filename to be assumed for contents from STDIN',
-        type: 'string',
-      },
-      fix: {
-        describe: 'Fix any errors that are reported as fixable',
-        boolean: true,
-        default: false,
-      },
-      format: {
-        describe: 'Specify format to be used in printing output',
-        type: 'string',
-        default: 'pretty',
-      },
-      'output-file': {
-        describe: 'Specify file to write report to',
-        type: 'string',
-        implies: 'format',
-      },
-      verbose: {
-        describe: 'Output errors with source description',
-        boolean: true,
-      },
-      'working-directory': {
-        alias: 'cwd',
-        describe: 'Path to a directory that should be considered as the current working directory.',
-        type: 'string',
-        // defaulting to `.` here to refer to `process.cwd()`, setting the default to `process.cwd()` itself
-        // would make our snapshots unstable (and make the help output unaligned since most directory paths
-        // are fairly deep)
-        default: '.',
-      },
-      'no-config-path': {
-        describe:
-          'Does not use the local template-lintrc, will use a blank template-lintrc instead',
-        boolean: true,
-      },
-      'update-todo': {
-        describe: 'Update list of linting todos by transforming lint errors to todos',
-        default: false,
-        boolean: true,
-      },
-      'include-todo': {
-        describe: 'Include todos in the results',
-        default: false,
-        boolean: true,
-      },
-      'clean-todo': {
-        describe: 'Remove expired and invalid todo files',
-        default: !ci.isCI,
-        boolean: true,
-      },
-      'compact-todo': {
-        describe: 'Compacts the .lint-todo storage file, removing extraneous todos',
-        boolean: true,
-      },
-      'todo-days-to-warn': {
-        describe: 'Number of days after its creation date that a todo transitions into a warning',
-        type: 'number',
-      },
-      'todo-days-to-error': {
-        describe: 'Number of days after its creation date that a todo transitions into an error',
-        type: 'number',
-      },
-      'ignore-pattern': {
-        describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
-        type: 'array',
-        default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-      },
-      'no-inline-config': {
-        describe: 'Prevent inline configuration comments from changing config or rules',
-        boolean: true,
-      },
-      'print-config': {
-        describe: 'Print the configuration for the given file',
-        default: false,
-        boolean: true,
-      },
-      'max-warnings': {
-        describe: 'Number of warnings to trigger nonzero exit code',
-        type: 'number',
-      },
-    })
+    .options(specifiedOptions)
     .help()
     .version();
 
@@ -235,6 +260,19 @@ function parseArgv(_argv) {
     parser.exit(1);
   } else {
     let options = parser.parse(_argv);
+
+    // TODO: Eventually use yargs strict() or strictOptions() to disallow unknown options (blocked by some inconsistencies in how we tell yargs about our options).
+    const possibleOptionNames = getPossibleOptionNames(specifiedOptions);
+    for (const optionName of Object.keys(options)) {
+      if (
+        !['$0', '_'].includes(optionName) && // Built-in yargs options.
+        !possibleOptionNames.includes(optionName)
+      ) {
+        console.error(`Unknown option: --${optionName}`);
+        parser.exit(1);
+        return;
+      }
+    }
 
     if (options.workingDirectory === '.') {
       options.workingDirectory = process.cwd();
@@ -456,6 +494,7 @@ module.exports = {
   _parseArgv: parseArgv,
   _expandFileGlobs: expandFileGlobs,
   _getFilesToLint: getFilesToLint,
+  _getPossibleOptionNames: getPossibleOptionNames,
 };
 
 if (require.main === module) {
