@@ -1,7 +1,5 @@
-'use strict';
-
-const { ERROR_MESSAGE_RESERVED } = require('../../../lib/rules/no-capital-arguments');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { ERROR_MESSAGE_RESERVED } from '../../../lib/rules/no-capital-arguments.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-capital-arguments',

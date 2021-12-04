@@ -1,12 +1,11 @@
-'use strict';
+import execa from 'execa';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const fs = require('fs');
-const path = require('path');
+import Project from '../helpers/fake-project.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
-const execa = require('execa');
-
-const Project = require('../helpers/fake-project');
-const setupEnvVar = require('../helpers/setup-env-var');
+const binPath = new URL('../../bin/ember-template-lint.js', import.meta.url).pathname;
 
 describe('ember-template-lint executable', function () {
   setupEnvVar('FORCE_COLOR', '0');
@@ -38,13 +37,7 @@ describe('ember-template-lint executable', function () {
     it('reports errors to stdout', async function () {
       let result = await execa(
         process.execPath,
-        [
-          require.resolve('../../bin/ember-template-lint.js'),
-          '--filename',
-          'template.hbs',
-          '<',
-          'template.hbs',
-        ],
+        [binPath, '--filename', 'template.hbs', '<', 'template.hbs'],
         { shell: true, reject: false, cwd: project.path('.') }
       );
 
@@ -59,16 +52,12 @@ describe('ember-template-lint executable', function () {
     });
 
     it('has exit code 1 and reports errors to stdout', async function () {
-      let result = await execa(
-        process.execPath,
-        [require.resolve('../../bin/ember-template-lint.js'), '--filename', 'template.hbs'],
-        {
-          shell: false,
-          reject: false,
-          cwd: project.path('.'),
-          input: fs.readFileSync(path.resolve('template.hbs')),
-        }
-      );
+      let result = await execa(process.execPath, [binPath, '--filename', 'template.hbs'], {
+        shell: false,
+        reject: false,
+        cwd: project.path('.'),
+        input: fs.readFileSync(path.resolve('template.hbs')),
+      });
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
@@ -88,14 +77,7 @@ describe('ember-template-lint executable', function () {
         it('has exit code 1 and reports errors to stdout', async function () {
           let result = await execa(
             'cat',
-            [
-              'template.hbs',
-              '|',
-              require.resolve('../../bin/ember-template-lint.js'),
-              '--filename',
-              'template.hbs',
-              '-',
-            ],
+            ['template.hbs', '|', binPath, '--filename', 'template.hbs', '-'],
             { shell: true, reject: false, cwd: project.path('.') }
           );
 

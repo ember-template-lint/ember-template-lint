@@ -1,4 +1,4 @@
-const Rule = require('../..').Rule;
+import { Rule } from '../../lib/index.js';
 
 // Easily controllable failure for acceptance tests
 class FailOnWord extends Rule {
@@ -17,7 +17,7 @@ class FailOnWord extends Rule {
   }
 }
 
-module.exports = {
+export default {
   name: 'test-helper-failure-plugin',
   rules: {
     'fail-on-word': FailOnWord,

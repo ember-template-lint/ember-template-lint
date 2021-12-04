@@ -1,8 +1,4 @@
-'use strict';
-
-const {
-  _getPossibleOptionNames: getPossibleOptionNames,
-} = require('../../../bin/ember-template-lint');
+import { _getPossibleOptionNames as getPossibleOptionNames } from '../../../bin/ember-template-lint.js';
 
 describe('getPossibleOptionNames', function () {
   it('returns correct list of all possible dasherized, camelized, aliased, and negated names', function () {

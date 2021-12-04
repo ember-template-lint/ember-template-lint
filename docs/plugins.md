@@ -100,11 +100,9 @@ Each file that defines a rule should export a class that extends from the base r
 Sample rule:
 
 ```javascript
-'use strict';
+import { Rule } from 'ember-template-lint');
 
-const Rule = require('ember-template-lint').Rule;
-
-module.exports = class NoEmptyComments extends Rule {
+export default class NoEmptyComments extends Rule {
   visitor() {
     return {
       CommentStatement(node) {
@@ -159,10 +157,9 @@ Here's an example of how to write tests for a rule:
 ```js
 // test/unit/rules/no-negated-condition-test.js
 
-'use strict';
 
-const { generateRuleTests } = require('ember-template-lint');
-const plugin = require('../../..');
+import { generateRuleTests } from 'ember-template-lint';
+import plugin from '../../..';
 
 generateRuleTests({
   name: 'no-negated-condition',
@@ -236,7 +233,7 @@ There are a number of helper functions exported by [`ember-template-lint`](../li
 You can access these helpers via:
 
 ```js
-const helpers = require('ember-template-lint').ASTHelpers;
+import { ASTHelpers } from 'ember-template-lint';
 ```
 
 * `function isConfigurationHtmlComment(node): boolean`
@@ -270,7 +267,7 @@ const helpers = require('ember-template-lint').ASTHelpers;
 You access this helper via:
 
 ```js
-const NodeMatcher = require('ember-template-lint').NodeMatcher;
+import { NodeMatcher } from 'ember-template-lint';
 ```
 
 * `function match(testNode, ref): boolean`

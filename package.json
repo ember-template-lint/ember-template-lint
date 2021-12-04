@@ -19,6 +19,7 @@
   },
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
+  "type": "module",
   "exports": "./lib/index.js",
   "main": "./lib/index.js",
   "bin": "./bin/ember-template-lint.js",
@@ -31,11 +32,13 @@
     "lint:package-json": "npmPkgJsonLint .",
     "lint:package-json-sorting": "sort-package-json --check",
     "lint:package-json-sorting:fix": "sort-package-json package.json",
-    "new:rule": "node dev/generate.js new-rule",
+    "new:rule": "node dev/generate.cjs new-rule",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
-    "test:jest": "jest --coverage",
-    "update:readme": "node ./scripts/update-rules.js"
+    "test:jest": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --coverage",
+    "update": "npm-run-all update:*",
+    "update:indices": "node ./scripts/update-indices.cjs",
+    "update:readme": "node ./scripts/update-rules.cjs"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
@@ -69,12 +72,12 @@
     "globby": "^11.0.4",
     "is-glob": "^4.0.3",
     "micromatch": "^4.0.4",
-    "requireindex": "^1.2.0",
     "resolve": "^1.20.0",
     "v8-compile-cache": "^2.3.0",
     "yargs": "^17.3.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.16.3",
     "@babel/parser": "^7.16.4",
     "@babel/traverse": "^7.16.3",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",

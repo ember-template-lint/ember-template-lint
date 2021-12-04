@@ -1,7 +1,5 @@
-'use strict';
-
-const { _getFilesToLint: getFilesToLint } = require('../../../bin/ember-template-lint');
-const Project = require('../../helpers/fake-project');
+import { _getFilesToLint as getFilesToLint } from '../../../bin/ember-template-lint.js';
+import Project from '../../helpers/fake-project.js';
 
 const STDIN = '/dev/stdin';
 

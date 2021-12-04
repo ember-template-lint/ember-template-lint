@@ -1,5 +1,5 @@
-const ModuleStatusCache = require('../../../lib/-private/module-status-cache');
-const { getProjectConfig } = require('../../../lib/get-config');
+import ModuleStatusCache from '../../../lib/-private/module-status-cache.js';
+import { getProjectConfig } from '../../../lib/get-config.js';
 
 describe('ModuleStatusCache', function () {
   const workingDir = process.cwd();

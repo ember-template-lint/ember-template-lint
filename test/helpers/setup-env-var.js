@@ -1,4 +1,4 @@
-module.exports = function setupEnvVar(name, value) {
+export default function setupEnvVar(name, value) {
   let oldValue;
 
   beforeEach(function () {
@@ -18,4 +18,4 @@ module.exports = function setupEnvVar(name, value) {
       process.env[name] = oldValue;
     }
   });
-};
+}

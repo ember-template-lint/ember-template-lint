@@ -16,4 +16,4 @@ function buildFakeConsole() {
   return new FakeConsole();
 }
 
-module.exports = buildFakeConsole;
+export default buildFakeConsole;

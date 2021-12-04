@@ -1,12 +1,12 @@
-const execa = require('execa');
+import execa from 'execa';
 
-module.exports = function run(args, options = {}) {
+export default function run(args, options = {}) {
   options.reject = false;
   options.cwd = options.cwd || process.cwd();
 
   return execa(
     process.execPath,
-    [require.resolve('../../bin/ember-template-lint.js'), ...args],
+    [new URL('../../bin/ember-template-lint.js', import.meta.url).pathname, ...args],
     options
   );
-};
+}

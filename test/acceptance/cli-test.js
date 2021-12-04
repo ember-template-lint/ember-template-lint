@@ -1,12 +1,12 @@
-'use strict';
+import fs from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const fs = require('fs');
-const path = require('path');
+import Project from '../helpers/fake-project.js';
+import run from '../helpers/run.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
-const Project = require('../helpers/fake-project');
-const run = require('../helpers/run');
-const setupEnvVar = require('../helpers/setup-env-var');
-
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = process.cwd();
 
 describe('ember-template-lint executable', function () {
@@ -44,40 +44,40 @@ describe('ember-template-lint executable', function () {
                                         '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
                                                                                   [string]
             --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+            --rule                      Specify a rule and its severity to add that rule t
+                                        o loaded rules - (e.g. \`no-implicit-this:error\` or
+                                         \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
                                                                                   [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
+            --filename                  Used to indicate the filename to be assumed for co
+                                        ntents from STDIN                         [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
+            --working-directory, --cwd  Path to a directory that should be considered as t
+                                        he current working directory.
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
+                                         blank template-lintrc instead           [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
-            --compact-todo              Compacts the .lint-todo storage file, removing
-                                        extraneous todos                         [boolean]
+            --compact-todo              Compacts the .lint-todo storage file, removing ext
+                                        raneous todos                            [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
+                                         transitions into a warning               [number]
             --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
+                                         transitions into an error                [number]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled wit
+                                        h --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
+            --no-inline-config          Prevent inline configuration comments from changin
+                                        g config or rules                        [boolean]
             --print-config              Print the configuration for the given file
                                                                 [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
@@ -103,40 +103,40 @@ describe('ember-template-lint executable', function () {
                                         '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
                                                                                   [string]
             --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+            --rule                      Specify a rule and its severity to add that rule t
+                                        o loaded rules - (e.g. \`no-implicit-this:error\` or
+                                         \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
                                                                                   [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
+            --filename                  Used to indicate the filename to be assumed for co
+                                        ntents from STDIN                         [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
+            --working-directory, --cwd  Path to a directory that should be considered as t
+                                        he current working directory.
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
+                                         blank template-lintrc instead           [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
-            --compact-todo              Compacts the .lint-todo storage file, removing
-                                        extraneous todos                         [boolean]
+            --compact-todo              Compacts the .lint-todo storage file, removing ext
+                                        raneous todos                            [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
+                                         transitions into a warning               [number]
             --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
+                                         transitions into an error                [number]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled wit
+                                        h --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
+            --no-inline-config          Prevent inline configuration comments from changin
+                                        g config or rules                        [boolean]
             --print-config              Print the configuration for the given file
                                                                 [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
@@ -481,40 +481,40 @@ describe('ember-template-lint executable', function () {
                                         '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
                                                                                   [string]
             --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+            --rule                      Specify a rule and its severity to add that rule t
+                                        o loaded rules - (e.g. \`no-implicit-this:error\` or
+                                         \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
                                                                                   [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
+            --filename                  Used to indicate the filename to be assumed for co
+                                        ntents from STDIN                         [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
+            --working-directory, --cwd  Path to a directory that should be considered as t
+                                        he current working directory.
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
+                                         blank template-lintrc instead           [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
-            --compact-todo              Compacts the .lint-todo storage file, removing
-                                        extraneous todos                         [boolean]
+            --compact-todo              Compacts the .lint-todo storage file, removing ext
+                                        raneous todos                            [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
+                                         transitions into a warning               [number]
             --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
+                                         transitions into an error                [number]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled wit
+                                        h --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
+            --no-inline-config          Prevent inline configuration comments from changin
+                                        g config or rules                        [boolean]
             --print-config              Print the configuration for the given file
                                                                 [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code

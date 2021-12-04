@@ -1,8 +1,8 @@
-'use strict';
+import FixturifyProject from 'fixturify-project';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 
-const path = require('path');
-
-const FixturifyProject = require('fixturify-project');
+const require = createRequire(import.meta.url);
 
 const ROOT = process.cwd();
 
@@ -40,7 +40,7 @@ module.exports = {
 };
 `;
 
-module.exports = class FakeProject extends FixturifyProject {
+export default class FakeProject extends FixturifyProject {
   static defaultSetup() {
     let project = new this();
 
@@ -68,7 +68,7 @@ module.exports = class FakeProject extends FixturifyProject {
   }
 
   getConfig() {
-    return require(path.join(this.baseDir, '.template-lintrc'));
+    return require(path.join(this.baseDir, '.template-lintrc.js'));
   }
 
   setEditorConfig(value = DEFAULT_EDITOR_CONFIG) {
@@ -147,4 +147,4 @@ module.exports = class FakeProject extends FixturifyProject {
 
     return super.dispose();
   }
-};
+}

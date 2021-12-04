@@ -1,29 +1,29 @@
-#!/usr/bin/env node
-
-'use strict';
-
+/* eslint node/shebang:"off" */
 // Use V8's code cache to speed up instantiation time:
-require('v8-compile-cache'); // eslint-disable-line import/no-unassigned-import
+import 'v8-compile-cache'; // eslint-disable-line import/no-unassigned-import
 
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-
-const {
+import {
   compactTodoStorageFile,
   getTodoStorageFilePath,
   getTodoConfig,
   validateConfig,
-} = require('@lint-todo/utils');
-const ci = require('ci-info');
-const getStdin = require('get-stdin');
-const globby = require('globby');
-const isGlob = require('is-glob');
-const micromatch = require('micromatch');
+} from '@lint-todo/utils';
+import ci from 'ci-info';
+import getStdin from 'get-stdin';
+import globby from 'globby';
+import isGlob from 'is-glob';
+import micromatch from 'micromatch';
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
+import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
+import yargs from 'yargs';
 
-const Linter = require('../lib');
-const camelize = require('../lib/helpers/camelize');
-const processResults = require('../lib/helpers/process-results');
+import Printer from '../lib/formatters/default.js';
+import camelize from '../lib/helpers/camelize.js';
+import processResults from '../lib/helpers/process-results.js';
+import Linter from '../lib/linter.js';
 
 const readFile = promisify(fs.readFile);
 
@@ -244,7 +244,7 @@ function parseArgv(_argv) {
     },
   };
 
-  let parser = require('yargs')
+  let parser = yargs()
     .scriptName('ember-template-lint')
     .usage('$0 [options] [files..]')
     .options(specifiedOptions)
@@ -481,7 +481,6 @@ async function run() {
   let hasTodos = options.includeTodo && results.todoCount;
   let hasUpdatedTodos = options.updateTodo;
 
-  let Printer = require('../lib/formatters/default');
   let printer = new Printer({
     ...options,
     hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
@@ -490,13 +489,11 @@ async function run() {
 }
 
 // exports are for easier unit testing
-module.exports = {
-  _parseArgv: parseArgv,
-  _expandFileGlobs: expandFileGlobs,
-  _getFilesToLint: getFilesToLint,
-  _getPossibleOptionNames: getPossibleOptionNames,
-};
+export const _parseArgv = parseArgv;
+export const _expandFileGlobs = expandFileGlobs;
+export const _getFilesToLint = getFilesToLint;
+export const _getPossibleOptionNames = getPossibleOptionNames;
 
-if (require.main === module) {
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
   run();
 }

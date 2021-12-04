@@ -1,13 +1,14 @@
-'use strict';
+import chalk from 'chalk';
+import fs from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const fs = require('fs');
-const path = require('path');
+import Linter from '../../lib/linter.js';
+import buildFakeConsole from '../helpers/console.js';
+import failurePlugin from '../helpers/failure-plugin.js';
+import Project from '../helpers/fake-project.js';
 
-const chalk = require('chalk');
-
-const Linter = require('../../lib');
-const Project = require('../helpers/fake-project');
-const buildFakeConsole = require('./../helpers/console');
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const fixturePath = path.join(__dirname, '..', '/fixtures');
 
@@ -296,7 +297,7 @@ describe('public api', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
-          plugins: [require('../helpers/failure-plugin')],
+          plugins: [failurePlugin],
           rules: {
             'fail-on-word': 'FORBIDDEN',
           },
@@ -1229,7 +1230,7 @@ describe('public api', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
-          plugins: [require('../helpers/failure-plugin')],
+          plugins: [failurePlugin],
           rules: {
             'fail-on-word': 'FORBIDDEN',
           },

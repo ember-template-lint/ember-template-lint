@@ -1,8 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import { parse } from '@babel/parser';
+import traverse from '@babel/traverse';
+import fs from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const { parse } = require('@babel/parser');
-const { default: traverse } = require('@babel/traverse');
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function isRuleFixable(ruleName) {
   const relativePath = `../../lib/rules/${ruleName}.js`;
@@ -13,7 +15,7 @@ function isRuleFixable(ruleName) {
 
   let isFixable = false;
 
-  traverse(ast, {
+  traverse.default(ast, {
     ObjectProperty(path) {
       if (
         path.node.key.type === 'Identifier' &&
@@ -28,4 +30,4 @@ function isRuleFixable(ruleName) {
   return isFixable;
 }
 
-module.exports = isRuleFixable;
+export default isRuleFixable;

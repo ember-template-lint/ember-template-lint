@@ -1,8 +1,6 @@
-'use strict';
+import os from 'node:os';
 
-const os = require('os');
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'linebreak-style',

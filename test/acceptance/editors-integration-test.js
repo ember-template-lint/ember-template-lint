@@ -1,11 +1,9 @@
-'use strict';
-const fs = require('fs');
-const path = require('path');
+import execa from 'execa';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const execa = require('execa');
-
-const Project = require('../helpers/fake-project');
-const setupEnvVar = require('../helpers/setup-env-var');
+import Project from '../helpers/fake-project.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
 function run(project, args, options = {}) {
   options.reject = false;
@@ -13,7 +11,7 @@ function run(project, args, options = {}) {
 
   return execa(
     process.execPath,
-    [require.resolve('../../bin/ember-template-lint.js'), ...args],
+    [new URL('../../bin/ember-template-lint.js', import.meta.url).pathname, ...args],
     options
   );
 }

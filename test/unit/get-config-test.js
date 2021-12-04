@@ -1,16 +1,10 @@
-'use strict';
+import { stripIndent } from 'common-tags';
 
-const { stripIndent } = require('common-tags');
-
-const recommendedConfig = require('../../lib/config/recommended');
-const {
-  getProjectConfig,
-  determineRuleConfig,
-  resolveProjectConfig,
-  getRuleFromString,
-} = require('../../lib/get-config');
-const buildFakeConsole = require('../helpers/console');
-const Project = require('../helpers/fake-project');
+import recommendedConfig from '../../lib/config/recommended.js';
+import { getProjectConfig, resolveProjectConfig, getRuleFromString } from '../../lib/get-config.js';
+import determineRuleConfig from '../../lib/helpers/determine-rule-config.js';
+import buildFakeConsole from '../helpers/console.js';
+import Project from '../helpers/fake-project.js';
 
 describe('get-config', function () {
   let project = null;

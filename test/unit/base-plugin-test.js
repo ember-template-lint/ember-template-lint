@@ -1,16 +1,18 @@
-'use strict';
+import { parse, transform } from 'ember-template-recast';
+import { readdirSync } from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const { readdirSync } = require('fs');
-const path = require('path');
+import exportedPresets from '../../lib/config/index.js';
+import EditorConfigResolver from '../../lib/get-editor-config.js';
+import determineRuleConfig from '../../lib/helpers/determine-rule-config.js';
+import { ConfigDefaults } from '../../lib/helpers/rule-test-harness.js';
+import Rule from '../../lib/rules/_base.js';
+import rules from '../../lib/rules/index.js';
+import Project from '../helpers/fake-project.js';
 
-const { parse, transform } = require('ember-template-recast');
-
-const EditorConfigResolver = require('../../lib/get-editor-config');
-const { ConfigDefaults } = require('../../lib/helpers/rule-test-harness');
-const ruleNames = Object.keys(require('../../lib/rules'));
-const Project = require('../helpers/fake-project');
-const { determineRuleConfig } = require('./../../lib/get-config');
-const Rule = require('./../../lib/rules/_base');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ruleNames = Object.keys(rules);
 
 describe('base plugin', function () {
   let project, editorConfigResolver;
@@ -102,7 +104,6 @@ describe('base plugin', function () {
       .filter((it) => it.ext === '.js' && it.name !== 'index')
       .map((it) => it.name);
 
-    const exportedPresets = require(path.join(presetsPath, 'index.js'));
     const exportedPresetNames = Object.keys(exportedPresets);
 
     expect(exportedPresetNames).toEqual(presetFiles);

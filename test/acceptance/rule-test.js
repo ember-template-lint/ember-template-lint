@@ -1,10 +1,8 @@
-'use strict';
+import path from 'node:path';
 
-const path = require('path');
-
-const defaultTestHarness = require('../../lib/helpers/rule-test-harness');
-const Rule = require('../../lib/rules/_base');
-const generateRuleTests = require('../helpers/rule-test-harness');
+import defaultTestHarness from '../../lib/helpers/rule-test-harness.js';
+import Rule from '../../lib/rules/_base.js';
+import generateRuleTests from '../helpers/rule-test-harness.js';
 
 function verifyWithExternalSnapshot(results) {
   expect(results).toMatchSnapshot();
