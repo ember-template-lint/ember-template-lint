@@ -16,6 +16,7 @@ generateRuleTests({
     '<button type="button" value={{value}}></button>',
     '{{my-component onclick=(action "myAction") someProperty=true}}',
     '<SiteHeader @someFunction={{action "myAction"}} @user={{this.user}} />',
+    '<button type="button" onclick={{this.myAction}}></button>',
     {
       config: { requireActionHelper: true },
       template: '<button type="button" onclick={{this.myAction}}></button>',
