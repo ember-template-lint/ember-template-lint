@@ -1,6 +1,5 @@
 'use strict';
 
-const { parseConfig } = require('../../../lib/rules/no-element-event-actions');
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
@@ -107,33 +106,43 @@ generateRuleTests({
       },
     },
   ],
-});
 
-describe('no-element-event-actions', () => {
-  describe('parseConfig', () => {
-    const TESTS = [
-      [true, { requireActionHelper: true }],
-      [{ requireActionHelper: true }, { requireActionHelper: true }],
-      [{ requireActionHelper: false }, { requireActionHelper: false }],
-    ];
+  error: [
+    {
+      config: null,
+      template: 'test',
 
-    for (let [input, expected] of TESTS) {
-      test(`${JSON.stringify(input)} -> ${JSON.stringify(expected)}`, () => {
-        expect(parseConfig(input)).toEqual(expected);
-      });
-    }
+      result: {
+        fatal: true,
+        message: 'You specified `null`',
+      },
+    },
+    {
+      config: 'true',
+      template: 'test',
 
-    const FAILURE_TESTS = [
-      null,
-      'error',
-      { invalidOption: true },
-      { requireActionHelper: 'true' },
-    ];
+      result: {
+        fatal: true,
+        message: 'You specified `"true"`',
+      },
+    },
+    {
+      config: { invalidOption: true },
+      template: 'test',
 
-    for (let input of FAILURE_TESTS) {
-      test(`${JSON.stringify(input)} -> Error`, () => {
-        expect(() => parseConfig(input)).toThrow();
-      });
-    }
-  });
+      result: {
+        fatal: true,
+        message: 'You specified `{"invalidOption":true}`',
+      },
+    },
+    {
+      config: { requireActionHelper: 'true' },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `{"requireActionHelper":"true"}`',
+      },
+    },
+  ],
 });
