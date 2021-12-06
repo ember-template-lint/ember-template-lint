@@ -17,11 +17,11 @@ generateRuleTests({
     '{{my-component onclick=(action "myAction") someProperty=true}}',
     '<SiteHeader @someFunction={{action "myAction"}} @user={{this.user}} />',
     {
-      config: { actionHelperOptional: false },
+      config: { requireActionHelper: true },
       template: '<button type="button" onclick={{this.myAction}}></button>',
     },
     {
-      config: { actionHelperOptional: false },
+      config: { requireActionHelper: false },
       template: '<button type="button" onclick="myFunction()"></button>',
     },
   ],
@@ -84,7 +84,7 @@ generateRuleTests({
     },
 
     {
-      config: { actionHelperOptional: true },
+      config: { requireActionHelper: false },
       template: '<button type="button" onclick={{this.myAction}}></button>',
 
       verifyResults(results) {
@@ -111,9 +111,9 @@ generateRuleTests({
 describe('no-element-event-actions', () => {
   describe('parseConfig', () => {
     const TESTS = [
-      [true, { actionHelperOptional: false }],
-      [{ actionHelperOptional: true }, { actionHelperOptional: true }],
-      [{ actionHelperOptional: false }, { actionHelperOptional: false }],
+      [true, { requireActionHelper: true }],
+      [{ requireActionHelper: true }, { requireActionHelper: true }],
+      [{ requireActionHelper: false }, { requireActionHelper: false }],
     ];
 
     for (let [input, expected] of TESTS) {
@@ -126,7 +126,7 @@ describe('no-element-event-actions', () => {
       null,
       'error',
       { invalidOption: true },
-      { actionHelperOptional: 'true' },
+      { requireActionHelper: 'true' },
     ];
 
     for (let input of FAILURE_TESTS) {

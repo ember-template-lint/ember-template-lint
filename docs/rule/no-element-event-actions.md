@@ -27,7 +27,7 @@ The following values are valid configuration:
 
 * boolean - `true` to enable / `false` to disable
 * object -- An object with the following keys:
-  * `actionHelperOptional` -- Apply this rule even when the {{action}} helper is not present
+  * `requireActionHelper` -- Only apply this rule when the {{action}} helper is present (defaults to `true`)
 
 ## References
 
