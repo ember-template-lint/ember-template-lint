@@ -21,6 +21,14 @@ This rule **allows** the following:
 <button {{on 'click' this.submit}}>Submit</button>
 ```
 
+## Configuration
+
+The following values are valid configuration:
+
+* boolean - `true` to enable / `false` to disable
+* object -- An object with the following keys:
+  * `requireActionHelper` -- Only apply this rule when the {{action}} helper is present (defaults to `true`)
+
 ## References
 
 * [Documentation](https://guides.emberjs.com/release/templates/actions/) for template actions
