@@ -61,8 +61,13 @@
     "@lint-todo/utils": "^11.0.0",
     "chalk": "^4.1.2",
     "ci-info": "^3.3.0",
-    "date-fns": "^2.26.0",
+<<<<<<< HEAD
+    "date-fns": "^2.27.0",
     "ember-template-recast": "^6.1.0",
+=======
+    "date-fns": "^2.27.0",
+    "ember-template-recast": "^5.0.3",
+>>>>>>> master
     "find-up": "^5.0.0",
     "fuse.js": "^6.4.6",
     "get-stdin": "^8.0.0",
@@ -90,11 +95,11 @@
     "eslint-plugin-unicorn": "^39.0.0",
     "execa": "^5.1.1",
     "fixturify-project": "^2.1.1",
-    "jest": "^27.3.1",
+    "jest": "^27.4.3",
     "markdownlint-cli": "^0.30.0",
     "npm-package-json-lint": "^5.4.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.5.0",
+    "prettier": "^2.5.1",
     "release-it": "^14.11.8",
     "release-it-lerna-changelog": "^4.0.1",
     "sort-package-json": "^1.53.1",
