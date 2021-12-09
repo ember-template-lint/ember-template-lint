@@ -61,13 +61,8 @@
     "@lint-todo/utils": "^11.0.0",
     "chalk": "^4.1.2",
     "ci-info": "^3.3.0",
-<<<<<<< HEAD
     "date-fns": "^2.27.0",
     "ember-template-recast": "^6.1.0",
-=======
-    "date-fns": "^2.27.0",
-    "ember-template-recast": "^5.0.3",
->>>>>>> master
     "find-up": "^5.0.0",
     "fuse.js": "^6.4.6",
     "get-stdin": "^8.0.0",
