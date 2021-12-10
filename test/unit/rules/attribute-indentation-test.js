@@ -2460,5 +2460,33 @@ as |ab cd ef  cd ef |}}
             `);
       },
     },
-  ],
+    {
+      template: `{{#if this.toastr.listToDisplay}}
+  <Toastr::ToastrContainer>
+    {{#each this.toastr.listToDisplay key='id' as |toast|}}
+      <Toastr::ToastrItem
+        @id={{toast.id}}
+        @type={{toast.content.type}}
+        @message={{toast.content.message}}
+        @duration={{toast.content.duration}}
+        @removeToast={{this.removeToast}}
+    />
+    {{/each}}
+  </Toastr::ToastrContainer>
+{{/if}}`,
+      fixedTemplate: `{{#if this.toastr.listToDisplay}}
+  <Toastr::ToastrContainer>
+    {{#each this.toastr.listToDisplay key='id' as |toast|}}
+      <Toastr::ToastrItem
+        @id={{toast.id}}
+        @type={{toast.content.type}}
+        @message={{toast.content.message}}
+        @duration={{toast.content.duration}}
+        @removeToast={{this.removeToast}}
+      />
+    {{/each}}
+  </Toastr::ToastrContainer>
+{{/if}}`,
+    },
+  ].filter((value) => value.template.includes('{{#contact-details')),
 });
