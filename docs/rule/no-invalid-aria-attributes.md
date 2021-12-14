@@ -19,4 +19,3 @@ This rule **allows** the following:
 ## References
 
 - [Using ARIA, Roles, States, and Properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)
-
