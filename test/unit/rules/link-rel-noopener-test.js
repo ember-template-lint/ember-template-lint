@@ -117,29 +117,5 @@ generateRuleTests({
         `);
       },
     },
-    {
-      template: '<a href="/some/where" target="_blank" rel="nofollow"></a>',
-      fixedTemplate:
-        '<a href="/some/where" target="_blank" rel="nofollow noopener noreferrer"></a>',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 57,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
-              "rule": "link-rel-noopener",
-              "severity": 2,
-              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"nofollow\\"></a>",
-            },
-          ]
-        `);
-      },
-    },
   ],
 });

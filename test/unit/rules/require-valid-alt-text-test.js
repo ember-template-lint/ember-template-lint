@@ -19,7 +19,6 @@ generateRuleTests({
 
     '<img alt="some-alt-name">',
     '<img alt="name {{picture}}">',
-    '<img aria-hidden="true">',
     '<img alt="{{picture}}">',
     '<img alt="" role="none">',
     '<img alt="" role="presentation">',
