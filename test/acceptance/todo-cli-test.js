@@ -7,6 +7,10 @@ const setupEnvVar = require('../helpers/setup-env-var');
 
 const ROOT = process.cwd();
 
+function buildReadOptions() {
+  return { engine: 'ember-template-lint' };
+}
+
 describe('todo usage', () => {
   setupEnvVar('FORCE_COLOR', '0');
 
@@ -107,7 +111,7 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      const result = readTodoData(project.baseDir);
+      const result = readTodoData(project.baseDir, buildReadOptions());
 
       expect(result.size).toEqual(0);
     });
@@ -154,7 +158,7 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(0);
       expect(todoStorageFileExists(project.baseDir)).toEqual(true);
-      expect(readTodoData(project.baseDir).size).toEqual(3);
+      expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(3);
 
       project.write({
         app: {
@@ -232,7 +236,7 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      let todos = readTodoData(project.baseDir);
+      let todos = readTodoData(project.baseDir, buildReadOptions());
 
       expect(todos.size).toEqual(2);
 
@@ -254,7 +258,7 @@ describe('todo usage', () => {
         '--no-config-path',
       ]);
 
-      todos = readTodoData(project.baseDir);
+      todos = readTodoData(project.baseDir, buildReadOptions());
 
       expect(todos.size).toEqual(3);
     });
@@ -277,7 +281,7 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      let todos = readTodoData(project.baseDir);
+      let todos = readTodoData(project.baseDir, buildReadOptions());
 
       expect(todos.size).toEqual(3);
 
@@ -290,7 +294,7 @@ describe('todo usage', () => {
         '--no-config-path',
       ]);
 
-      todos = readTodoData(project.baseDir);
+      todos = readTodoData(project.baseDir, buildReadOptions());
 
       expect(result.exitCode).toEqual(0);
       expect(todos.size).toEqual(3);
@@ -347,7 +351,7 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(readTodoData(project.baseDir).size).toEqual(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
 
       it('errors if a todo item is no longer valid when running without params, and cleans using --clean-todo', async function () {
@@ -397,7 +401,7 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(readTodoData(project.baseDir).size).toEqual(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
     });
 
@@ -452,7 +456,7 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(readTodoData(project.baseDir).size).toEqual(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
 
       it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans without --no-clean-todo', async function () {
@@ -502,7 +506,7 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(readTodoData(project.baseDir).size).toEqual(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
     });
 
@@ -889,7 +893,7 @@ describe('todo usage', () => {
               ✖ 1 problems (1 errors, 0 warnings)
                 1 errors and 0 warnings potentially fixable with the \`--fix\` option."
             `);
-          expect(readTodoData(project.baseDir).size).toEqual(0);
+          expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
         });
 
         it('should error if daysToDecay.error is less than daysToDecay.warn in config', async function () {
@@ -936,7 +940,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -970,7 +974,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1004,7 +1008,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1034,7 +1038,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1068,7 +1072,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1102,7 +1106,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1133,7 +1137,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1172,7 +1176,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1214,7 +1218,7 @@ describe('todo usage', () => {
             }
           );
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1254,7 +1258,7 @@ describe('todo usage', () => {
             '20',
           ]);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1531,7 +1535,7 @@ describe('todo usage', () => {
 
             let result = await run(['.', '--update-todo']);
 
-            const todos = readTodoData(project.baseDir);
+            const todos = readTodoData(project.baseDir, buildReadOptions());
 
             expect(result.exitCode).toEqual(0);
 

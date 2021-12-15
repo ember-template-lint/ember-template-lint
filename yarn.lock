@@ -602,10 +602,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@lint-todo/utils@^11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-11.0.0.tgz#adb6f0ba280a45bff2449d548727cbff35714db7"
-  integrity sha512-FwAREUQ0ncD3XDujs34183WjzOeX07KrRwi2AkkIJT2irrTkBPyE9FLs2sjjh+Lnj2OB1d+fDN4BWi9r2Nnt+w==
+"@lint-todo/utils@^12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-12.0.0.tgz#625ae5aa9b93f60a7567a515265af2704bf426a6"
+  integrity sha512-MGIDlAwHS31K26N/Fpt15QopnWSALP8uzCRyKXOpm0PoBuCof6a443wJGLPQlPcqPZUMdf4SjYUgEmleMv3REw==
   dependencies:
     "@types/eslint" "^7.2.13"
     fs-extra "^9.1.0"
