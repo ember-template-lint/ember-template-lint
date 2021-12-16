@@ -1,13 +1,22 @@
+## v3.15.0 (2021-12-16)
 
+#### :rocket: Enhancement
+* [#2269](https://github.com/ember-template-lint/ember-template-lint/pull/2269) Add `requireActionHelper` config option to `no-element-event-actions` ([@jamescdavis](https://github.com/jamescdavis))
 
+#### :memo: Documentation
+* [#2280](https://github.com/ember-template-lint/ember-template-lint/pull/2280) Remove outdated boolean config in `docs/configuration.md` ([@rwjblue](https://github.com/rwjblue))
+* [#2253](https://github.com/ember-template-lint/ember-template-lint/pull/2253) Update reference links for `no-autofocus-attribute` rule ([@MelSumner](https://github.com/MelSumner))
+* [#2246](https://github.com/ember-template-lint/ember-template-lint/pull/2246) Fix link about configuration properties ([@courajs](https://github.com/courajs))
 
+#### :house: Internal
+* [#2254](https://github.com/ember-template-lint/ember-template-lint/pull/2254) Remove misleading `await` from `project.dispose()` in tests ([@courajs](https://github.com/courajs))
 
-
-
-
-
-
-
+#### Committers: 5
+- Aaron Sikes ([@courajs](https://github.com/courajs))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- James C. Davis ([@jamescdavis](https://github.com/jamescdavis))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
 ## v4.0.0-beta.0 (2021-12-03)
 
