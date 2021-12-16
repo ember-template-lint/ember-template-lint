@@ -233,6 +233,7 @@ generateRuleTests({
     {
       // start and end must be the same indentation
       template: '\n  {{#each cats as |dog|}}\n        {{/each}}',
+      fixedTemplate: '\n  {{#each cats as |dog|}}\n  {{/each}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -242,6 +243,7 @@ generateRuleTests({
               "endColumn": 17,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Incorrect indentation for \`each\` beginning at L2:C2. Expected \`{{/each}}\` ending at L3:C17 to be at an indentation of 2 but was found at 8.",
               "rule": "block-indentation",
@@ -255,6 +257,7 @@ generateRuleTests({
     },
     {
       template: '<div>\n  </div>',
+      fixedTemplate: '<div>\n</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -264,6 +267,7 @@ generateRuleTests({
               "endColumn": 8,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`div\` beginning at L1:C0. Expected \`</div>\` ending at L2:C8 to be at an indentation of 0 but was found at 2.",
               "rule": "block-indentation",
@@ -277,6 +281,7 @@ generateRuleTests({
     },
     {
       template: '<div>\n  <p>Stuff goes here</p></div>',
+      fixedTemplate: '<div>\n  <p>Stuff goes here</p>\n</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -286,6 +291,7 @@ generateRuleTests({
               "endColumn": 30,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`div\` beginning at L1:C0. Expected \`</div>\` ending at L2:C30 to be at an indentation of 0 but was found at 24.",
               "rule": "block-indentation",
@@ -308,6 +314,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`<p>\` beginning at L2:C0. Expected \`<p>\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -322,6 +329,7 @@ generateRuleTests({
     },
     {
       template: '{{#if}}\n<p>Stuff goes here</p>\n{{/if}}',
+      fixedTemplate: '{{#if}}\n  <p>Stuff goes here</p>\n{{/if}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -331,6 +339,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`<p>\` beginning at L2:C0. Expected \`<p>\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -351,6 +360,13 @@ generateRuleTests({
         '    Good night\n' +
         '    {{/if}}\n' +
         '{{/if}}',
+      fixedTemplate:
+        '{{#if isMorning}}\n' +
+        '{{else}}\n' +
+        '  {{#if something}}\n' +
+        '    Good night\n' +
+        '  {{/if}}\n' +
+        '{{/if}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -360,6 +376,7 @@ generateRuleTests({
               "endColumn": 11,
               "endLine": 5,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 5,
               "message": "Incorrect indentation for \`if\` beginning at L3:C2. Expected \`{{/if}}\` ending at L5:C11 to be at an indentation of 2 but was found at 4.",
               "rule": "block-indentation",
@@ -375,7 +392,8 @@ generateRuleTests({
     {
       config: 4,
 
-      template: '' + '<div>\n' + '  <p>Hi!</p>\n' + '</div>',
+      template: '<div>\n' + '  <p>Hi!</p>\n' + '</div>',
+      fixedTemplate: '<div>\n' + '    <p>Hi!</p>\n' + '</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -385,6 +403,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`<p>\` beginning at L2:C2. Expected \`<p>\` to be at an indentation of 4 but was found at 2.",
               "rule": "block-indentation",
@@ -399,6 +418,7 @@ generateRuleTests({
     },
     {
       template: '<div>\n' + '  {{foo}}\n' + '{{bar}}\n' + '</div>',
+      fixedTemplate: '<div>\n' + '  {{foo}}\n' + '  {{bar}}\n' + '</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -408,6 +428,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 4,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Incorrect indentation for \`{{bar}}\` beginning at L3:C0. Expected \`{{bar}}\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -423,6 +444,7 @@ generateRuleTests({
     },
     {
       template: '<div>\n' + '  Foo:\n' + '{{bar}}\n' + '</div>',
+      fixedTemplate: '<div>\n' + '  Foo:\n' + '  {{bar}}\n' + '</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -432,6 +454,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 4,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Incorrect indentation for \`{{bar}}\` beginning at L3:C0. Expected \`{{bar}}\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -450,6 +473,11 @@ generateRuleTests({
       // has other content preceding it on its line
       template:
         '<div>\n' + '  <span>Foo</span>{{#some-thing}}\n' + '  {{/some-thing}}\n' + '</div>',
+      fixedTemplate:
+        '<div>\n' +
+        '  <span>Foo</span>{{#some-thing}}\n' +
+        '                  {{/some-thing}}\n' +
+        '</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -459,6 +487,7 @@ generateRuleTests({
               "endColumn": 17,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Incorrect indentation for \`some-thing\` beginning at L2:C18. Expected \`{{/some-thing}}\` ending at L3:C17 to be at an indentation of 18 but was found at 2.",
               "rule": "block-indentation",
@@ -474,6 +503,8 @@ generateRuleTests({
       // Start and end of multi-line element must be aligned, even when start
       // has other content preceding it on its line
       template: '{{#if foo}}\n' + '  {{foo}} <p>\n' + '            Bar\n' + '  </p>\n' + '{{/if}}',
+      fixedTemplate:
+        '{{#if foo}}\n' + '  {{foo}} <p>\n' + '            Bar\n' + '          </p>\n' + '{{/if}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -483,6 +514,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 4,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 4,
               "message": "Incorrect indentation for \`p\` beginning at L2:C10. Expected \`</p>\` ending at L4:C6 to be at an indentation of 10 but was found at 2.",
               "rule": "block-indentation",
@@ -498,6 +530,7 @@ generateRuleTests({
 
     {
       template: ['<div>', '<!-- foo bar baz -->', '</div>'].join('\n'),
+      fixedTemplate: ['<div>', '  <!-- foo bar baz -->', '</div>'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -507,6 +540,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`<!-- foo bar baz -->\` beginning at L2:C0. Expected \`<!-- foo bar baz -->\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -521,6 +555,7 @@ generateRuleTests({
     },
     {
       template: ['{{#if foo}}', '  {{else}}', '{{/if}}'].join('\n'),
+      fixedTemplate: ['{{#if foo}}', '{{else}}', '{{/if}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -530,6 +565,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for inverse block of \`{{#if}}\` beginning at L1:C0. Expected \`{{else}}\` starting at L2:C2 to be at an indentation of 0 but was found at 2.",
               "rule": "block-indentation",
@@ -552,6 +588,14 @@ generateRuleTests({
         '  {{/if~}}',
         '  {{/if}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if foo}}',
+        '{{else if bar}}',
+        '{{else}}',
+        '  {{#if baz}}',
+        '  {{/if~}}',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -561,6 +605,7 @@ generateRuleTests({
               "endColumn": 9,
               "endLine": 6,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 6,
               "message": "Incorrect indentation for \`if\` beginning at L1:C0. Expected \`{{/if}}\` ending at L6:C9 to be at an indentation of 0 but was found at 2.",
               "rule": "block-indentation",
@@ -579,6 +624,7 @@ generateRuleTests({
 
     {
       template: ['{{#each foo as |bar|}}', '  {{else}}', '{{/each}}'].join('\n'),
+      fixedTemplate: ['{{#each foo as |bar|}}', '{{else}}', '{{/each}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -588,6 +634,7 @@ generateRuleTests({
               "endColumn": 9,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for inverse block of \`{{#each}}\` beginning at L1:C0. Expected \`{{else}}\` starting at L2:C2 to be at an indentation of 0 but was found at 2.",
               "rule": "block-indentation",
@@ -609,6 +656,13 @@ generateRuleTests({
         '    {{! comment with incorrect indentation }}',
         '</div>',
       ].join('\n'),
+      fixedTemplate: [
+        '<div>',
+        '  {{#if foo}}',
+        '  {{/if}}',
+        '  {{! comment with incorrect indentation }}',
+        '</div>',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -618,6 +672,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 5,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 4,
               "message": "Incorrect indentation for \`{{! comment with incorrect indentation }}\` beginning at L4:C4. Expected \`{{! comment with incorrect indentation }}\` to be at an indentation of 2 but was found at 4.",
               "rule": "block-indentation",
@@ -643,6 +698,15 @@ generateRuleTests({
           '  Good night\n' +
           '{{/if}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if isMorning}}\n' +
+          '  Good morning\n' +
+          '{{else if isAfternoon}}\n' +
+          '  Good afternoon\n' +
+          '{{else}}\n' +
+          '  Good night\n' +
+          '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -652,6 +716,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 6,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Incorrect indentation for \`Good morning
           \` beginning at L1:C19. Expected \`Good morning
@@ -678,6 +743,13 @@ generateRuleTests({
           '    Good afternoon\n' +
           '{{/if}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if isMorning}}\n' +
+          '  Good morning\n' +
+          '{{else if isAfternoon~}}\n' +
+          '  Good afternoon\n' +
+          '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -687,6 +759,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 5,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 4,
               "message": "Incorrect indentation for \`Good afternoon
           \` beginning at L4:C4. Expected \`Good afternoon
@@ -703,6 +776,7 @@ generateRuleTests({
     },
     {
       template: ['<div>', '{{! What a comment }}', '  {{foo-bar}}', '</div>'].join('\n'),
+      fixedTemplate: ['<div>', '  {{! What a comment }}', '  {{foo-bar}}', '</div>'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -712,6 +786,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 4,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`{{! What a comment }}\` beginning at L2:C0. Expected \`{{! What a comment }}\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -727,6 +802,7 @@ generateRuleTests({
     },
     {
       template: ['<div> {{! bad comment }}', '  {{foo-bar}}', '</div>'].join('\n'),
+      fixedTemplate: ['<div>', '  {{! bad comment }}', '  {{foo-bar}}', '</div>'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -736,6 +812,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Incorrect indentation for \`{{! bad comment }}\` beginning at L1:C6. Expected \`{{! bad comment }}\` to be at an indentation of 2 but was found at 6.",
               "rule": "block-indentation",
@@ -750,6 +827,13 @@ generateRuleTests({
     },
     {
       template: ['{{#if media.isMobile}}', '{{else}}', '<span>', '</span>', '{{/if}}'].join('\n'),
+      fixedTemplate: [
+        '{{#if media.isMobile}}',
+        '{{else}}',
+        '  <span>',
+        '  </span>',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -759,6 +843,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 5,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Incorrect indentation for \`<span>\` beginning at L3:C0. Expected \`<span>\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -775,6 +860,7 @@ generateRuleTests({
     },
     {
       template: ['\uFEFF {{#if foo}}', '{{/if}}'].join('\n'),
+      fixedTemplate: ['\uFEFF{{#if foo}}', '{{/if}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -784,6 +870,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Incorrect indentation for \`{{#if}}\` beginning at L1:C1. Expected \`{{#if}}\` to be at an indentation of 0, but was found at 1.",
               "rule": "block-indentation",
@@ -796,6 +883,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`if\` beginning at L1:C1. Expected \`{{/if}}\` ending at L2:C7 to be at an indentation of 1 but was found at 0.",
               "rule": "block-indentation",
@@ -809,6 +897,7 @@ generateRuleTests({
     },
     {
       template: ['{{#if foo}}foo{{else}}', '  bar', '{{/if}}'].join('\n'),
+      fixedTemplate: ['{{#if foo}}', '  foo', '{{else}}', '  bar', '{{/if}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -818,6 +907,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Incorrect indentation for inverse block of \`{{#if}}\` beginning at L1:C0. Expected \`{{else}}\` starting at L1:C14 to be at an indentation of 0 but was found at 14.",
               "rule": "block-indentation",
@@ -831,6 +921,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Incorrect indentation for \`foo\` beginning at L1:C11. Expected \`foo\` to be at an indentation of 2 but was found at 11.",
               "rule": "block-indentation",
@@ -845,6 +936,7 @@ generateRuleTests({
     },
     {
       template: ['{{#if foo}}', '  foo', '{{else}}', '    bar', '{{/if}}'].join('\n'),
+      fixedTemplate: ['{{#if foo}}', '  foo', '{{else}}', '  bar', '{{/if}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -854,6 +946,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 5,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 4,
               "message": "Incorrect indentation for \`bar
           \` beginning at L4:C4. Expected \`bar
@@ -880,6 +973,15 @@ generateRuleTests({
         '    {{/if}}',
         '{{/if}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if foo}}',
+        '  foo',
+        '{{else}}',
+        '  {{#if bar}}',
+        '    bar',
+        '  {{/if}}',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -889,6 +991,7 @@ generateRuleTests({
               "endColumn": 7,
               "endLine": 7,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 4,
               "message": "Incorrect indentation for \`{{#if}}\` beginning at L4:C4. Expected \`{{#if}}\` to be at an indentation of 2 but was found at 4.",
               "rule": "block-indentation",
@@ -907,6 +1010,7 @@ generateRuleTests({
     },
     {
       template: ['     {{#foo-bar}}', '     {{/foo-bar}}'].join('\n'),
+      fixedTemplate: ['{{#foo-bar}}', '{{/foo-bar}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -916,6 +1020,7 @@ generateRuleTests({
               "endColumn": 17,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Incorrect indentation for \`{{#foo-bar}}\` beginning at L1:C5. Expected \`{{#foo-bar}}\` to be at an indentation of 0, but was found at 5.",
               "rule": "block-indentation",
@@ -929,6 +1034,7 @@ generateRuleTests({
     },
     {
       template: ['  <div>', '  </div>'].join('\n'),
+      fixedTemplate: ['<div>', '</div>'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -938,6 +1044,7 @@ generateRuleTests({
               "endColumn": 8,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Incorrect indentation for \`<div>\` beginning at L1:C2. Expected \`<div>\` to be at an indentation of 0, but was found at 2.",
               "rule": "block-indentation",
@@ -956,6 +1063,12 @@ generateRuleTests({
         '   {{foobar.baz}}',
         '{{/foo}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#foo bar as |foobar|}}',
+        '  {{#foobar.baz}}{{/foobar.baz}}',
+        '  {{foobar.baz}}',
+        '{{/foo}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -965,6 +1078,7 @@ generateRuleTests({
               "endColumn": 8,
               "endLine": 4,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`{{#foobar.baz}}\` beginning at L2:C3. Expected \`{{#foobar.baz}}\` to be at an indentation of 2 but was found at 3.",
               "rule": "block-indentation",
@@ -979,6 +1093,7 @@ generateRuleTests({
               "endColumn": 8,
               "endLine": 4,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Incorrect indentation for \`{{foobar.baz}}\` beginning at L3:C3. Expected \`{{foobar.baz}}\` to be at an indentation of 2 but was found at 3.",
               "rule": "block-indentation",
@@ -994,6 +1109,7 @@ generateRuleTests({
     },
     {
       template: ['<div>', '<!-- Comment -->', '</div>'].join('\n'),
+      fixedTemplate: ['<div>', '  <!-- Comment -->', '</div>'].join('\n'),
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
@@ -1002,6 +1118,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`<!-- Comment -->\` beginning at L2:C0. Expected \`<!-- Comment -->\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -1016,6 +1133,7 @@ generateRuleTests({
     },
     {
       template: ['<div>', '{{! Comment }}', '</div>'].join('\n'),
+      fixedTemplate: ['<div>', '  {{! Comment }}', '</div>'].join('\n'),
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
@@ -1024,6 +1142,7 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Incorrect indentation for \`{{! Comment }}\` beginning at L2:C0. Expected \`{{! Comment }}\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
@@ -1038,6 +1157,7 @@ generateRuleTests({
     },
     {
       template: ['<div>', 'test{{! Comment }}', '</div>'].join('\n'),
+      fixedTemplate: ['<div>', '  test{{! Comment }}', '</div>'].join('\n'),
       config: {
         ignoreComments: true,
       },
@@ -1049,8 +1169,9 @@ generateRuleTests({
               "endColumn": 6,
               "endLine": 3,
               "filePath": "layout.hbs",
-              "line": 1,
-              "message": "Incorrect indentation for \`test\` beginning at L1:C0. Expected \`test\` to be at an indentation of 2 but was found at 0.",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation for \`test\` beginning at L2:C0. Expected \`test\` to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
               "severity": 2,
               "source": "<div>

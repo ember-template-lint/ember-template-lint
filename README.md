@@ -87,7 +87,7 @@ Each rule has emojis denoting:
 
 | Name                                                                                                      | ✅  | 💅  | ⌨️  | 🔧  |
 | :-------------------------------------------------------------------------------------------------------- | :-- | :-- | :-- | --- |
-| [attribute-indentation](./docs/rule/attribute-indentation.md)                                             |     |     |     |     |
+| [attribute-indentation](./docs/rule/attribute-indentation.md)                                             |     |     |     | 🔧  |
 | [block-indentation](./docs/rule/block-indentation.md)                                                     |     | 💅  |     |     |
 | [builtin-component-arguments](./docs/rule/builtin-component-arguments.md)                                 | ✅  |     |     |     |
 | [deprecated-each-syntax](./docs/rule/deprecated-each-syntax.md)                                           |     |     |     |     |

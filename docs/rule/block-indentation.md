@@ -2,6 +2,8 @@
 
 💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 Good indentation is crucial for long-term maintenance of templates. For example, having blocks misaligned is a common cause of logic errors.
 
 ## Examples

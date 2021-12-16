@@ -489,6 +489,7 @@ describe('public api', function () {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         filePath: 'some/path/here.hbs',
+        isFixable: true,
         line: 2,
         column: 0,
         endColumn: 6,
@@ -826,6 +827,7 @@ describe('public api', function () {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         filePath: 'some/path/here.hbs',
+        isFixable: true,
         line: 2,
         column: 0,
         endColumn: 6,
