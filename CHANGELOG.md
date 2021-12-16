@@ -1,3 +1,18 @@
+
+## v4.0.0-beta.1 (2021-12-15)
+
+#### :boom: Breaking Change
+* [#2278](https://github.com/ember-template-lint/ember-template-lint/pull/2278) Disable `requireActionHelper` option on `no-element-event-actions` rule ([@bmish](https://github.com/bmish))
+* [#2279](https://github.com/ember-template-lint/ember-template-lint/pull/2279) Disallow duplicate test cases ([@bmish](https://github.com/bmish))
+
+#### :bug: Bug Fix
+* [#2277](https://github.com/ember-template-lint/ember-template-lint/pull/2277) Updates @lint-todo/utils to latest version for read isolation ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 2
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.0.0-beta.0 (2021-12-03)
 
 #### :boom: Breaking Change
