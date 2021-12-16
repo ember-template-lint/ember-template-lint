@@ -1082,51 +1082,6 @@ generateRuleTests({
     },
     {
       config: {
-        'mustache-open-end': 'last-attribute',
-      },
-      template:
-        '{{my-component' +
-        '\n' +
-        '  foo=bar' +
-        '\n' +
-        '  baz=qux' +
-        '\n' +
-        '  my-attr=(component "my-other-component" data=(hash' +
-        '\n' +
-        '    foo=bar' +
-        '\n' +
-        '    foo=bar' +
-        '\n' +
-        '    baz=qux))' +
-        '\n' +
-        '}}',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 2,
-              "endLine": 8,
-              "filePath": "layout.hbs",
-              "line": 8,
-              "message": "Incorrect indentation of close curly braces '}}' for the component '{{my-component}}' beginning at L8:C0. Expected '{{my-component}}' to be at L7:C13.",
-              "rule": "attribute-indentation",
-              "severity": 2,
-              "source": "{{my-component
-            foo=bar
-            baz=qux
-            my-attr=(component \\"my-other-component\\" data=(hash
-              foo=bar
-              foo=bar
-              baz=qux))
-          }}",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      config: {
         'mustache-open-end': 'new-line',
       },
       template:
