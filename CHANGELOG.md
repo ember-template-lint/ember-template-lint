@@ -1,12 +1,16 @@
 
+## v4.0.0-beta.1 (2021-12-15)
 
+#### :boom: Breaking Change
+* [#2278](https://github.com/ember-template-lint/ember-template-lint/pull/2278) Disable `requireActionHelper` option on `no-element-event-actions` rule ([@bmish](https://github.com/bmish))
+* [#2279](https://github.com/ember-template-lint/ember-template-lint/pull/2279) Disallow duplicate test cases ([@bmish](https://github.com/bmish))
 
+#### :bug: Bug Fix
+* [#2277](https://github.com/ember-template-lint/ember-template-lint/pull/2277) Updates @lint-todo/utils to latest version for read isolation ([@scalvert](https://github.com/scalvert))
 
-
-
-
-
-
+#### Committers: 2
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
 
 
 ## v4.0.0-beta.0 (2021-12-03)
@@ -73,6 +77,25 @@
 - Bryan Mishkin ([@bmish](https://github.com/bmish))
 - Cyrille ([@dcyriller](https://github.com/dcyriller))
 
+## v3.15.0 (2021-12-16)
+
+#### :rocket: Enhancement
+* [#2269](https://github.com/ember-template-lint/ember-template-lint/pull/2269) Add `requireActionHelper` config option to `no-element-event-actions` ([@jamescdavis](https://github.com/jamescdavis))
+
+#### :memo: Documentation
+* [#2280](https://github.com/ember-template-lint/ember-template-lint/pull/2280) Remove outdated boolean config in `docs/configuration.md` ([@rwjblue](https://github.com/rwjblue))
+* [#2253](https://github.com/ember-template-lint/ember-template-lint/pull/2253) Update reference links for `no-autofocus-attribute` rule ([@MelSumner](https://github.com/MelSumner))
+* [#2246](https://github.com/ember-template-lint/ember-template-lint/pull/2246) Fix link about configuration properties ([@courajs](https://github.com/courajs))
+
+#### :house: Internal
+* [#2254](https://github.com/ember-template-lint/ember-template-lint/pull/2254) Remove misleading `await` from `project.dispose()` in tests ([@courajs](https://github.com/courajs))
+
+#### Committers: 5
+- Aaron Sikes ([@courajs](https://github.com/courajs))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- James C. Davis ([@jamescdavis](https://github.com/jamescdavis))
+- Melanie Sumner ([@MelSumner](https://github.com/MelSumner))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
 
 ## v3.14.0 (2021-11-24)
 

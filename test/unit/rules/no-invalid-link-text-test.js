@@ -18,10 +18,6 @@ generateRuleTests({
       config: { allowEmptyLinks: true },
       template: '<a href="https://myurl.com"></a>',
     },
-    '<a href="https://myurl.com" aria-labelledby="some-id"></a>',
-    '<a href="https://myurl.com" aria-label="click here to read about our company"></a>',
-    '<a href="https://myurl.com" aria-hidden="true"></a>',
-    '<a href="https://myurl.com" hidden></a>',
   ],
 
   bad: [

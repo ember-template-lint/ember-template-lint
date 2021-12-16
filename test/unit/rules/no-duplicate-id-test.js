@@ -11,7 +11,6 @@ generateRuleTests({
 
     // Mustache Statements
     '<div id={{"id-00"}}></div>',
-    '<div id={{"id-00"}}></div><div id={{"id-01"}}></div>',
     '<div id={{this.divId00}}></div>',
     '<div id={{this.divId00}}></div><div id={{this.divId01}}></div>',
 

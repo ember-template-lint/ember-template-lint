@@ -10,7 +10,6 @@ generateRuleTests({
   good: [
     '<MyComponent @toggled={{this.showAggregatedLine}}/>',
     '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
-    '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @onFocusOut={{action "onFocusOutKeySkillsInput" value="target.value"}}/>',
     '<MyComponent {{on "click" (set this "isDropdownOpen" false)}}/>',
     '<MyComponent {{on "change" this.setContactUsSectionDescription}}/>',

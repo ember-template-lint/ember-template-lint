@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "4.0.0-beta.0",
+  "version": "4.0.0-beta.1",
   "description": "Linter for Ember or Handlebars templates.",
   "keywords": [
     "ember",
@@ -61,7 +61,7 @@
     ]
   },
   "dependencies": {
-    "@lint-todo/utils": "^11.0.0",
+    "@lint-todo/utils": "^12.0.0",
     "chalk": "^4.1.2",
     "ci-info": "^3.3.0",
     "date-fns": "^2.27.0",
@@ -93,7 +93,7 @@
     "eslint-plugin-unicorn": "^39.0.0",
     "execa": "^5.1.1",
     "fixturify-project": "^2.1.1",
-    "jest": "^27.4.3",
+    "jest": "^27.4.4",
     "markdownlint-cli": "^0.30.0",
     "npm-package-json-lint": "^5.4.2",
     "npm-run-all": "^4.1.5",

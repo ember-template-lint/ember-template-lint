@@ -8,7 +8,6 @@ generateRuleTests({
 
   good: [
     '<div>foo</div><div>bar</div>',
-    '<div>foo</div><div>bar</div>',
     '<div>foo</div>\n<div>bar</div>',
     '<div>foo</div>\r\n<div>bar</div>',
     '<div>foo</div>\n\n<div>bar</div>',

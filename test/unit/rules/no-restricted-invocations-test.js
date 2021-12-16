@@ -601,16 +601,6 @@ generateRuleTests({
       },
     },
     {
-      // Disallows incorrect naming format (disallows nested angle bracket invocation style).
-      config: ['MyComponent'],
-      template: 'test',
-
-      result: {
-        fatal: true,
-        message: 'You specified `["MyComponent"]`',
-      },
-    },
-    {
       // Disallows incorrect naming format.
       config: ['Scope/MyComponent'],
       template: 'test',
