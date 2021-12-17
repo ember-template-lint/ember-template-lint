@@ -1,8 +1,5 @@
 import FixturifyProject from 'fixturify-project';
-import { createRequire } from 'node:module';
 import path from 'node:path';
-
-const require = createRequire(import.meta.url);
 
 const ROOT = process.cwd();
 
@@ -67,8 +64,9 @@ export default class FakeProject extends FixturifyProject {
     this.writeSync();
   }
 
-  getConfig() {
-    return require(path.join(this.baseDir, '.template-lintrc.js'));
+  async getConfig() {
+    const { default: config } = await import(path.join(this.baseDir, '.template-lintrc.js'));
+    return config;
   }
 
   setEditorConfig(value = DEFAULT_EDITOR_CONFIG) {

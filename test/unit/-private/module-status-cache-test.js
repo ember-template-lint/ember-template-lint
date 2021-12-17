@@ -31,7 +31,7 @@ describe('ModuleStatusCache', function () {
     expect(actual.rules).toEqual(expectedRule);
   });
 
-  it('Merges the overrides rules with existing rules from plugin', function () {
+  it('Merges the overrides rules with existing rules from plugin', async function () {
     let config = {
       plugins: [
         {
@@ -66,7 +66,7 @@ describe('ModuleStatusCache', function () {
       bar: { config: 'bar-override', severity: 2 },
     };
 
-    const projectConfig = getProjectConfig(workingDir, { config });
+    const projectConfig = await getProjectConfig(workingDir, { config });
 
     let actual = new ModuleStatusCache(workingDir, projectConfig).getConfigForFile({
       filePath: 'app/templates/foo.hbs',
@@ -75,7 +75,7 @@ describe('ModuleStatusCache', function () {
     expect(actual.rules).toEqual(expectedRule);
   });
 
-  it('Merges the overrides rules with existing rules from plugin and config', function () {
+  it('Merges the overrides rules with existing rules from plugin and config', async function () {
     let config = {
       plugins: [
         {
@@ -117,7 +117,7 @@ describe('ModuleStatusCache', function () {
       overrides: { config: 'overrides-only', severity: 2 },
     };
 
-    const projectConfig = getProjectConfig(workingDir, { config });
+    const projectConfig = await getProjectConfig(workingDir, { config });
 
     let actual = new ModuleStatusCache(workingDir, projectConfig).getConfigForFile({
       filePath: 'app/templates/foo.hbs',

@@ -14,7 +14,7 @@ describe('default configurations', function () {
   for (const file of configFiles) {
     describe(file, function () {
       it('should contain only valid rules', async function () {
-        let { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
+        const { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
 
         for (let rule in config.rules) {
           expect(rules).toHaveProperty(rule);
@@ -22,7 +22,7 @@ describe('default configurations', function () {
       });
 
       it.skip('should contain only valid rule configuration', async function () {
-        let { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
+        const { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
 
         for (let rule in config.rules) {
           let options = {
