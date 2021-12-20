@@ -190,11 +190,12 @@ describe('get-config', function () {
 
   it('throws when specifying unknown properties in the config root', function () {
     expect(
-      getProjectConfig(project.baseDir, {
-        config: {
-          foo: false,
-        },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            foo: false,
+          },
+        })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"Unknown top-level configuration property detected: foo"`
     );
@@ -202,11 +203,12 @@ describe('get-config', function () {
 
   it('throws when providing wrong type for config.extends', function () {
     expect(
-      getProjectConfig(project.baseDir, {
-        config: {
-          extends: 123,
-        },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            extends: 123,
+          },
+        })
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"config.extends should be string or array"`);
   });
 
@@ -227,11 +229,12 @@ describe('get-config', function () {
 
   it('throws for unknown extends', function () {
     expect(
-      getProjectConfig(project.baseDir, {
-        config: {
-          extends: ['recommended', 'plugin1:wrong-extend'],
-        },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            extends: ['recommended', 'plugin1:wrong-extend'],
+          },
+        })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"Cannot find configuration for extends: plugin1:wrong-extend"`
     );
@@ -308,9 +311,10 @@ describe('get-config', function () {
 
   it('throws when inline plugin is missing name', function () {
     expect(
-      getProjectConfig(project.baseDir, {
-        config: { plugins: [{}] },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: { plugins: [{}] },
+        })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"Inline plugin object has not defined the plugin \`name\` property"`
     );
@@ -318,9 +322,10 @@ describe('get-config', function () {
 
   it('throws when inline plugin is wrong type', function () {
     expect(
-      getProjectConfig(project.baseDir, {
-        config: { plugins: [123] },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: { plugins: [123] },
+        })
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"Inline plugin is not a plain object"`);
   });
 
@@ -334,13 +339,14 @@ describe('get-config', function () {
     project.chdir();
 
     expect(
-      getProjectConfig(project.baseDir, {
-        console,
-        config: {
-          extends: ['my-awesome-thing:stylistic'],
-          plugins: ['my-awesome-thing'],
-        },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          console,
+          config: {
+            extends: ['my-awesome-thing:stylistic'],
+            plugins: ['my-awesome-thing'],
+          },
+        })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"Plugin (my-awesome-thing) has not defined the plugin \`name\` property"`
     );
@@ -356,13 +362,14 @@ describe('get-config', function () {
     project.chdir();
 
     expect(
-      getProjectConfig(project.baseDir, {
-        console,
-        config: {
-          extends: ['my-awesome-thing:stylistic'],
-          plugins: ['my-awesome-thing'],
-        },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          console,
+          config: {
+            extends: ['my-awesome-thing:stylistic'],
+            plugins: ['my-awesome-thing'],
+          },
+        })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"Plugin (my-awesome-thing) did not return a plain object"`
     );
@@ -453,11 +460,12 @@ describe('get-config', function () {
     let wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
     expect(
-      getProjectConfig(project.baseDir, {
-        config: {
-          plugins: [wrongPluginPath],
-        },
-      })
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            plugins: [wrongPluginPath],
+          },
+        })
     ).rejects.toThrow();
   });
 
