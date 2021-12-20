@@ -1,4 +1,3 @@
-
 import inlineComponent from './rules/inline-component.js';
 
 export default {

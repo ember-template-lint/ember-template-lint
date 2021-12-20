@@ -5,7 +5,7 @@
 Run templates through the linter's `verify` method like so:
 
 ```js
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 import TemplateLinter from 'ember-template-lint';
 
 let linter = new TemplateLinter();
