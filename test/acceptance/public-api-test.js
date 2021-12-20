@@ -838,7 +838,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
@@ -890,7 +890,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
@@ -927,7 +927,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
@@ -1014,7 +1014,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
