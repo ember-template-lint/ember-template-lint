@@ -1129,15 +1129,16 @@ describe('public api', function () {
       project.dispose();
     });
 
-    it('[.html] does not identify errors for ember-cli default app/index.html (3.20)', async function () {
+    it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default app/index.html (3.20)', async function () {
       // reset config to default value
       project.setConfig();
 
       project.write({
         app: {
           'index.html': `
+{{!template-lint-disable no-forbidden-elements}}
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -1175,15 +1176,16 @@ describe('public api', function () {
       expect(results).toEqual([]);
     });
 
-    it('[.html] does not identify errors for ember-cli default tests/index.html (3.20)', async function () {
+    it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default tests/index.html (3.20)', async function () {
       // reset config to default value
       project.setConfig();
 
       project.write({
         tests: {
           'index.html': `
+{{!template-lint-disable no-forbidden-elements}}
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
