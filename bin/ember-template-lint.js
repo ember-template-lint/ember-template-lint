@@ -1,4 +1,5 @@
-/* eslint node/shebang:"off" */
+#!/usr/bin/env node
+/* eslint node/shebang:"off" -- needed so this script can be run directly */
 // Use V8's code cache to speed up instantiation time:
 import 'v8-compile-cache'; // eslint-disable-line import/no-unassigned-import
 
