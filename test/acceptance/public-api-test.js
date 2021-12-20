@@ -33,22 +33,23 @@ describe('public api', function () {
         '.template-lintrc.js': "throw Error('error happening during config loading');\n",
       });
 
-      expect(() => {
-        new Linter({
-          console: mockConsole,
-        });
-      }).toThrow(/error happening during config loading/);
-    });
-
-    it('uses an empty set of rules if no .template-lintrc is present', function () {
-      let linter = new Linter({
+      const linter = new Linter({
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual({});
+      expect(linter.loadConfig()).rejects.toThrow(/error happening during config loading/);
     });
 
-    it('uses provided config', function () {
+    it('uses an empty set of rules if no .template-lintrc is present', async function () {
+      let linter = new Linter({
+        console: mockConsole,
+      });
+      const config = await linter.getConfig();
+
+      expect(config.rules).toEqual({});
+    });
+
+    it('uses provided config', async function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -61,14 +62,15 @@ describe('public api', function () {
         console: mockConsole,
         config: expected,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses .template-lintrc.js in cwd if present', function () {
+    it('uses .template-lintrc.js in cwd if present', async function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -81,14 +83,15 @@ describe('public api', function () {
       let linter = new Linter({
         console: mockConsole,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses .template-lintrc in provided configPath', function () {
+    it('uses .template-lintrc in provided configPath', async function () {
       let someOtherPathConfig = {
         rules: {
           foo: 'bar',
@@ -104,14 +107,15 @@ describe('public api', function () {
         console: mockConsole,
         configPath: project.path('some-other-path.js'),
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function () {
+    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', async function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -133,14 +137,15 @@ describe('public api', function () {
       let linter = new Linter({
         console: mockConsole,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function () {
+    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', async function () {
       let appPathConfig = {
         rules: {
           foo: 'bar',
@@ -163,23 +168,25 @@ describe('public api', function () {
       let linter = new Linter({
         console: mockConsole,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
     it('breaks if the specified configPath does not exist', function () {
-      expect(() => {
-        new Linter({
-          console: mockConsole,
-          configPath: 'does/not/exist',
-        });
-      }).toThrow('The configuration file specified (does/not/exist) could not be found. Aborting.');
+      const linter = new Linter({
+        console: mockConsole,
+        configPath: 'does/not/exist',
+      });
+      expect(linter.loadConfig()).rejects.toThrow(
+        'The configuration file specified (does/not/exist) could not be found. Aborting.'
+      );
     });
 
-    it('with deprecated rule config', function () {
+    it('with deprecated rule config', async function () {
       let expected = {
         rules: {
           'no-bare-strings': 'error',
@@ -191,8 +198,9 @@ describe('public api', function () {
         console: mockConsole,
         config: expected,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({ 'no-bare-strings': { config: true, severity: 2 } });
+      expect(config.rules).toEqual({ 'no-bare-strings': { config: true, severity: 2 } });
     });
   });
 
@@ -217,7 +225,7 @@ describe('public api', function () {
       expect(actual).toEqual(expected);
     });
 
-    it('instantiating linter is idempotent', function () {
+    it('instantiating linter is idempotent', async function () {
       project.setConfig({
         rules: {
           'require-button-type': 'error',
@@ -234,13 +242,15 @@ describe('public api', function () {
         console: mockConsole,
         configPath: project.path('.template-lintrc.js'),
       });
+      const linterAConfig = await linterA.getConfig();
+      const linterBConfig = await linterB.getConfig();
 
-      expect(linterA.config.rules['require-button-type']).toEqual({
+      expect(linterAConfig.rules['require-button-type']).toEqual({
         config: true,
         severity: 2,
       });
 
-      expect(linterA.config.overrides).toEqual([
+      expect(linterAConfig.overrides).toEqual([
         {
           files: '**/templates/*.hbs',
           rules: {
@@ -252,7 +262,7 @@ describe('public api', function () {
         },
       ]);
 
-      expect(linterA.config).toEqual(linterB.config);
+      expect(linterAConfig).toEqual(linterBConfig);
     });
   });
 
