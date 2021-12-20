@@ -35,7 +35,7 @@
     "new:rule": "node dev/generate.cjs new-rule",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
-    "test:jest": "export NODE_OPTIONS=--experimental-vm-modules && jest --coverage",
+    "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "update": "npm-run-all update:*",
     "update:indices": "node ./scripts/update-indices.js",
     "update:readme": "node ./scripts/update-rules.js"
@@ -82,6 +82,7 @@
     "@babel/traverse": "^7.16.3",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
     "common-tags": "^1.8.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
