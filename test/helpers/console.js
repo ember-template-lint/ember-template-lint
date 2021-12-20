@@ -12,8 +12,6 @@ class FakeConsole {
   }
 }
 
-function buildFakeConsole() {
+export default function buildFakeConsole() {
   return new FakeConsole();
 }
-
-export default buildFakeConsole;

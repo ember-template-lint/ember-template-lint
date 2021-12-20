@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function isRuleFixable(ruleName) {
+export default function isRuleFixable(ruleName) {
   const relativePath = `../../lib/rules/${ruleName}.js`;
   const pathRule = path.resolve(__dirname, relativePath);
   let rule = fs.readFileSync(pathRule, { encoding: 'utf8' });
@@ -29,5 +29,3 @@ function isRuleFixable(ruleName) {
 
   return isFixable;
 }
-
-export default isRuleFixable;
