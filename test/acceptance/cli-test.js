@@ -1642,7 +1642,7 @@ describe('ember-template-lint executable', function () {
 
         fs.mkdirSync(formatterDirPath);
         fs.copyFileSync(
-          path.join(fixturePath, 'index.js'),
+          path.join(fixturePath, 'index.cjs'),
           path.join(formatterDirPath, 'index.js')
         );
         fs.copyFileSync(

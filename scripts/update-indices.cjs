@@ -1,6 +1,6 @@
+const { ESLint } = require('eslint');
 const { writeFileSync, readdirSync } = require('node:fs');
 const { join } = require('node:path');
-const ESLint = require('eslint').ESLint;
 
 const rulesPath = join(__dirname, '..', 'lib', 'rules');
 exportDirectoryToIndex(rulesPath);
