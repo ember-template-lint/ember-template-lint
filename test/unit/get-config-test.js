@@ -324,7 +324,7 @@ describe('get-config', function () {
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"Inline plugin is not a plain object"`);
   });
 
-  it('throws when non-inline plugin is missing name', async function () {
+  it('throws when non-inline plugin is missing name', function () {
     project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
@@ -333,7 +333,7 @@ describe('get-config', function () {
 
     project.chdir();
 
-    await expect(
+    expect(
       getProjectConfig(project.baseDir, {
         console,
         config: {
