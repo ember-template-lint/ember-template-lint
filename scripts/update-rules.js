@@ -1,15 +1,21 @@
-'use strict';
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import prettier from 'prettier';
 
-const fs = require('fs');
-const path = require('path');
+import a11y from '../lib/config/a11y.js';
+import recommended from '../lib/config/recommended.js';
+import stylistic from '../lib/config/stylistic.js';
+import rules from '../lib/rules/index.js';
+import isRuleFixable from '../test/helpers/is-rule-fixable.js';
 
-const prettier = require('prettier');
+const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const { rules: a11yRules } = require('../lib/config/a11y');
-const { rules: recommendedRules } = require('../lib/config/recommended');
-const { rules: stylisticRules } = require('../lib/config/stylistic');
-const rules = require('../lib/rules');
-const isRuleFixable = require('../test/helpers/is-rule-fixable');
+const { rules: a11yRules } = a11y;
+const { rules: recommendedRules } = recommended;
+const { rules: stylisticRules } = stylistic;
 
 const prettierConfig = {
   ...require('../.prettierrc.cjs'),
