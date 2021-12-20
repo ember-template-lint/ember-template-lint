@@ -1,10 +1,10 @@
-'use strict';
+import inlineComponent from './inline-component.js';
 
-module.exports = {
+export default {
   name: 'plugin1',
 
   rules: {
-    'inline-component': require('./lint-inline-component'),
+    'inline-component': inlineComponent,
   },
 
   configurations: {
