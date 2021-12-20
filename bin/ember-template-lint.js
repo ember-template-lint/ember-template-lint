@@ -425,7 +425,7 @@ async function run() {
     let fileResults;
 
     if (options.printConfig) {
-      let fileConfig = linter.getConfigForFile(linterOptions);
+      let fileConfig = await linter.getConfigForFile(linterOptions);
 
       _console.log(JSON.stringify(fileConfig, null, 2));
       process.exitCode = 0;
