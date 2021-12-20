@@ -26,7 +26,7 @@ generateRuleTests({
       '  <iframe src="some_url"></iframe>',
       '{{/if}}',
     ].join('\n'),
-    '\n  {{#each cats as |dog|}}\n  {{/each}}',
+    '\n{{#each cats as |dog|}}\n{{/each}}',
     '<div><p>Stuff</p></div>',
     '<div>\n  <p>Stuff Here</p>\n</div>',
     '{{#if isMorning}}\n' +
@@ -227,17 +227,30 @@ generateRuleTests({
         '{{/if}}',
       ].join('\n'),
     },
-  ],
+  ].filter((value, index) => index >= 0),
 
   bad: [
     {
       // start and end must be the same indentation
       template: '\n  {{#each cats as |dog|}}\n        {{/each}}',
-      fixedTemplate: '\n  {{#each cats as |dog|}}\n  {{/each}}',
+      fixedTemplate: '\n{{#each cats as |dog|}}\n{{/each}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
+            Object {
+              "column": 2,
+              "endColumn": 17,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation for \`{{#each}}\` beginning at L2:C2. Expected \`{{#each}}\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#each cats as |dog|}}
+                  {{/each}}",
+            },
             Object {
               "column": 17,
               "endColumn": 17,
@@ -1177,6 +1190,30 @@ generateRuleTests({
               "source": "<div>
           test{{! Comment }}
           </div>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div>\n</div>\n  <span>\n  </span>',
+      fixedTemplate: '<div>\n</div>\n<span>\n</span>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "endColumn": 9,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Incorrect indentation for \`<span>\` beginning at L3:C2. Expected \`<span>\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<span>
+            </span>",
             },
           ]
         `);
