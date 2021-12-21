@@ -2,7 +2,7 @@ module.exports = {
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 2021,
-    sourceType: 'script',
+    sourceType: 'module',
     requireConfigFile: false,
   },
   env: {
@@ -84,7 +84,7 @@ module.exports = {
     'filenames/match-regex': ['error', '^.?[a-z0-9-]+$'], // Kebab-case.
 
     // Optional import rules:
-    'import/extensions': 'error',
+    'import/extensions': ['error', 'always'],
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-absolute-path': 'error',
@@ -130,19 +130,16 @@ module.exports = {
     'unicorn/no-lonely-if': 'off',
     'unicorn/no-null': 'off',
     'unicorn/no-useless-undefined': 'off',
+    'unicorn/prefer-module': 'error',
     'unicorn/prefer-ternary': 'off',
     'unicorn/prevent-abbreviations': 'off',
   },
 
   overrides: [
     {
-      files: ['bin/**/*.js', 'lib/**/*.js', 'scripts/**/*.js', 'test/**/*.{mjs,js}'],
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
-      },
-      rules: {
-        'import/extensions': ['error', 'always'],
-        'unicorn/prefer-module': 'error',
+        sourceType: 'script',
       },
     },
     {

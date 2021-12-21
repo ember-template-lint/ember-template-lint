@@ -32,7 +32,7 @@
     "lint:package-json": "npmPkgJsonLint .",
     "lint:package-json-sorting": "sort-package-json --check",
     "lint:package-json-sorting:fix": "sort-package-json package.json",
-    "new:rule": "node dev/generate.cjs new-rule",
+    "new:rule": "node dev/generate.js new-rule",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
     "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
