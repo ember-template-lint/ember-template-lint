@@ -38,7 +38,7 @@
     "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "update": "npm-run-all update:*",
     "update:indices": "node ./scripts/update-indices.js",
-    "update:readme": "node ./scripts/update-rules.js"
+    "update:readme": "node ./scripts/update-readme.js"
   },
   "jest": {
     "coveragePathIgnorePatterns": [

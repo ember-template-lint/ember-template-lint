@@ -27,14 +27,17 @@ Each plugin object can include these properties.
 Sample plugin object:
 
 ```javascript
-{
+import disallowInlineComponents from './lib/template-lint-rules/disallow-inline-components.js';
+import anotherCustomRule from './lib/template-lint-rules/another-custom-rule.js';
+
+export default {
   // Name of plugin
   name: 'my-plugin',
 
   // Define rules for this plugin. Each path should map to a plugin rule
   rules: {
-    'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
-    'another-custom-rule': require('./lib/template-lint-rules/another-custom-rule')
+    'disallow-inline-components': disallowInlineComponents,
+    'another-custom-rule': anotherCustomRule
   },
 
   // Define configurations for this plugin that can be extended by the base configuration
@@ -47,6 +50,8 @@ Sample plugin object:
   }
 }
 ```
+
+Plugins that directly import/export rules must be written in ESM.
 
 ## Adding Plugins to Your Configuration
 
@@ -95,12 +100,12 @@ Every rule defined by a plugin can use these public APIs defined by `ember-templ
 
 ### Building a rule object
 
-Each file that defines a rule should export a class that extends from the base rule object.
+Each file that defines a rule should export a class that extends from the base rule object. Rules must be written in ESM.
 
 Sample rule:
 
 ```javascript
-import { Rule } from 'ember-template-lint');
+import { Rule } from 'ember-template-lint';
 
 export default class NoEmptyComments extends Rule {
   visitor() {
@@ -157,9 +162,8 @@ Here's an example of how to write tests for a rule:
 ```js
 // test/unit/rules/no-negated-condition-test.js
 
-
 import { generateRuleTests } from 'ember-template-lint';
-import plugin from '../../..';
+import plugin from '../../../index.js';
 
 generateRuleTests({
   name: 'no-negated-condition',

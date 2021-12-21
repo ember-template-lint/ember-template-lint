@@ -1,6 +1,6 @@
 # Node API
 
-This plugin is written in ESM so consumers must use ESM as well.
+This plugin is written in ESM so consumers of its Node API must use ESM as well.
 
 ## Linter Class
 
