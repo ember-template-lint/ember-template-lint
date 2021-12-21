@@ -1,5 +1,7 @@
 # Node API
 
+This plugin is written in ESM so consumers must use ESM as well.
+
 ## Linter Class
 
 Run templates through the linter's `verify` method like so:

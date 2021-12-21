@@ -5,17 +5,30 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// Generate index file for rules.
 const rulesPath = join(__dirname, '..', 'lib', 'rules');
 exportDirectoryToIndex(rulesPath);
 
+// Generate index file for configs.
 const configPath = join(__dirname, '..', 'lib', 'config');
 exportDirectoryToIndex(configPath);
+
+/**
+ * Generate a JavaScript-safe variable name from a string.
+ * Mostly targeted at filenames right now, doesn't yet handle all possible strings.
+ * @param {string} fileName
+ * @returns {string}
+ */
 
 function fileNameToVariableName(fileName) {
   const fileNameWithoutDashes = fileName.replaceAll('-', '');
   return /^\d/.test(fileNameWithoutDashes) ? `_${fileNameWithoutDashes}` : fileNameWithoutDashes;
 }
 
+/**
+ * Generate an index file that imports and re-exports all the files in the given directory.
+ * @param {string} dir
+ */
 async function exportDirectoryToIndex(dir) {
   const files = readdirSync(dir)
     .filter((fileName) => {
