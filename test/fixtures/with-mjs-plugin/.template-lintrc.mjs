@@ -1,13 +1,6 @@
-import inlineComponent from './rules/inline-component.mjs';
-
 export default {
   plugins: [
-    {
-      name: 'plugin1',
-      rules: {
-        'inline-component': inlineComponent
-      }
-    }
+    './plugins/plugin1'
   ],
   rules: {
     'inline-component': 'error',
