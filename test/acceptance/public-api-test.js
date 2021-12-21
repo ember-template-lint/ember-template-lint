@@ -1009,6 +1009,44 @@ describe('public api', function () {
     });
   });
 
+  describe('Linter using plugins (mjs file extension)', function () {
+    let basePath = path.join(fixturePath, 'with-mjs-plugin');
+    let linter;
+
+    beforeEach(function () {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.mjs'),
+      });
+    });
+
+    it('returns plugin rule issues', async function () {
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          message: 'The inline form of component is not allowed',
+          filePath: templatePath,
+          line: 1,
+          column: 4,
+          endColumn: 29,
+          endLine: 1,
+          source: '{{component value="Hej"}}',
+          rule: 'inline-component',
+          severity: 2,
+        },
+      ];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+  });
+
   describe('Linter using plugins loading a configuration that extends from another plugins configuration', function () {
     let basePath = path.join(fixturePath, 'with-plugins-overwriting');
     let linter;

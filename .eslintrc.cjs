@@ -136,7 +136,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['bin/**/*.js', 'lib/**/*.js', 'scripts/**/*.js', 'test/**/*.js'],
+      files: ['bin/**/*.js', 'lib/**/*.js', 'scripts/**/*.js', 'test/**/*.{mjs,js}'],
       parserOptions: {
         sourceType: 'module',
       },
