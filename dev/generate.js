@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import yeomanEnvironment from 'yeoman-environment';
 
 const { createEnv } = yeomanEnvironment;
@@ -10,7 +11,7 @@ async function main() {
 
   for (const generator of AVAILABLE_GENERATORS) {
     env.register(
-      new URL(`./${generator}-generator.js`, import.meta.url).pathname,
+      fileURLToPath(new URL(`./${generator}-generator.js`, import.meta.url)),
       `ember-template-lint:${generator}`
     );
   }

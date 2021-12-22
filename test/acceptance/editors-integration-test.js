@@ -1,6 +1,7 @@
 import execa from 'execa';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import Project from '../helpers/fake-project.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
@@ -11,7 +12,7 @@ function run(project, args, options = {}) {
 
   return execa(
     process.execPath,
-    [new URL('../../bin/ember-template-lint.js', import.meta.url).pathname, ...args],
+    [fileURLToPath(new URL('../../bin/ember-template-lint.js', import.meta.url)), ...args],
     options
   );
 }

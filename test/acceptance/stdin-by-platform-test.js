@@ -1,11 +1,12 @@
 import execa from 'execa';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import Project from '../helpers/fake-project.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
-const binPath = new URL('../../bin/ember-template-lint.js', import.meta.url).pathname;
+const binPath = fileURLToPath(new URL('../../bin/ember-template-lint.js', import.meta.url));
 
 describe('ember-template-lint executable', function () {
   setupEnvVar('FORCE_COLOR', '0');

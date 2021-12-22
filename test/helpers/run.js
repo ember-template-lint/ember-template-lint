@@ -1,4 +1,5 @@
 import execa from 'execa';
+import { fileURLToPath } from 'node:url';
 
 export default function run(args, options = {}) {
   options.reject = false;
@@ -6,7 +7,7 @@ export default function run(args, options = {}) {
 
   return execa(
     process.execPath,
-    [new URL('../../bin/ember-template-lint.js', import.meta.url).pathname, ...args],
+    [fileURLToPath(new URL('../../bin/ember-template-lint.js', import.meta.url)), ...args],
     options
   );
 }
