@@ -58,8 +58,7 @@
     ],
     "testMatch": [
       "<rootDir>/test/**/*-test.js"
-    ],
-    "transform": {}
+    ]
   },
   "dependencies": {
     "@lint-todo/utils": "^12.0.0",
