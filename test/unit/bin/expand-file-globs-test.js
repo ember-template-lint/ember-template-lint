@@ -1,4 +1,4 @@
-import { _expandFileGlobs as expandFileGlobs } from '../../../bin/ember-template-lint.js';
+import { expandFileGlobs } from '../../../lib/helpers/cli.js';
 import Project from '../../helpers/fake-project.js';
 
 describe('expandFileGlobs', function () {

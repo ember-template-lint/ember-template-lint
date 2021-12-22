@@ -143,7 +143,7 @@ module.exports = {
       },
     },
     {
-      files: ['bin/**/*.js'],
+      files: ['bin/**/*.js', 'lib/helpers/cli.js'],
       rules: {
         'no-console': 'off',
       },

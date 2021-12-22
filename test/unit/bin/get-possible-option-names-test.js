@@ -1,4 +1,4 @@
-import { _getPossibleOptionNames as getPossibleOptionNames } from '../../../bin/ember-template-lint.js';
+import { getPossibleOptionNames } from '../../../lib/helpers/cli.js';
 
 describe('getPossibleOptionNames', function () {
   it('returns correct list of all possible dasherized, camelized, aliased, and negated names', function () {

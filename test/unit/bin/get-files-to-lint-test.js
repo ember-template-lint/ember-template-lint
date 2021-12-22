@@ -1,4 +1,4 @@
-import { _getFilesToLint as getFilesToLint } from '../../../bin/ember-template-lint.js';
+import { getFilesToLint } from '../../../lib/helpers/cli.js';
 import Project from '../../helpers/fake-project.js';
 
 const STDIN = '/dev/stdin';

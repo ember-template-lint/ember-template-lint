@@ -1,4 +1,4 @@
-import { _parseArgv as parseArgv } from '../../../bin/ember-template-lint.js';
+import { parseArgv } from '../../../lib/helpers/cli.js';
 
 describe('parseArgv', function () {
   describe('--format', function () {
