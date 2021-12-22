@@ -1,4 +1,3 @@
-import { jest } from '@jest/globals';
 import path from 'node:path';
 
 import defaultTestHarness from '../../lib/helpers/rule-test-harness.js';
@@ -8,14 +7,6 @@ import generateRuleTests from '../helpers/rule-test-harness.js';
 function verifyWithExternalSnapshot(results) {
   expect(results).toMatchSnapshot();
 }
-
-beforeAll(() => {
-  jest.useRealTimers();
-});
-
-afterAll(() => {
-  jest.useFakeTimers();
-});
 
 describe('rule public api', function () {
   describe('general test harness support', function () {
