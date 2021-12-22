@@ -130,7 +130,6 @@ module.exports = {
     'unicorn/no-lonely-if': 'off',
     'unicorn/no-null': 'off',
     'unicorn/no-useless-undefined': 'off',
-    'unicorn/prefer-module': 'error',
     'unicorn/prefer-ternary': 'off',
     'unicorn/prevent-abbreviations': 'off',
   },
