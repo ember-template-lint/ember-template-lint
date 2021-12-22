@@ -28,7 +28,7 @@ describe('public api', function () {
   });
 
   describe('Linter.prototype.loadConfig', function () {
-    it('throws an error if the config file has an error on parsing', function () {
+    it('throws an error if the config file has an error on parsing', async function () {
       project.write({
         '.template-lintrc.js': "throw Error('error happening during config loading');\n",
       });
@@ -37,7 +37,7 @@ describe('public api', function () {
         console: mockConsole,
       });
 
-      expect(async () => await linter.loadConfig()).rejects.toThrow(
+      await expect(async () => await linter.loadConfig()).rejects.toThrow(
         /error happening during config loading/
       );
     });
@@ -178,12 +178,12 @@ describe('public api', function () {
       });
     });
 
-    it('breaks if the specified configPath does not exist', function () {
+    it('breaks if the specified configPath does not exist', async function () {
       const linter = new Linter({
         console: mockConsole,
         configPath: 'does/not/exist',
       });
-      expect(async () => await linter.loadConfig()).rejects.toThrow(
+      await expect(async () => await linter.loadConfig()).rejects.toThrow(
         'The configuration file specified (does/not/exist) could not be found. Aborting.'
       );
     });

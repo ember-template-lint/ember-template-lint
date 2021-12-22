@@ -164,28 +164,28 @@ describe('base plugin', function () {
       await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
     });
 
-    it('throws when not passing all loc properties when logging a violation', function () {
+    it('throws when not passing all loc properties when logging a violation', async function () {
       class AwesomeRule extends Rule {
         visitor() {
           this.log({ line: 1, column: 2, message: 'some message' });
         }
       }
 
-      expect(
+      await expect(
         async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
       ).rejects.toThrowErrorMatchingInlineSnapshot(
         `"ember-template-lint: (awesome-rule) Must pass the node or all loc properties (line, column, endLine, endColumn) when calling log."`
       );
     });
 
-    it('throws when logging without violation message', function () {
+    it('throws when logging without violation message', async function () {
       class AwesomeRule extends Rule {
         visitor() {
           this.log({ node: {} });
         }
       }
 
-      expect(
+      await expect(
         async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
       ).rejects.toThrowErrorMatchingInlineSnapshot(
         `"ember-template-lint: (awesome-rule): must provide violation \`message\` when calling log."`

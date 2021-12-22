@@ -188,8 +188,8 @@ describe('get-config', function () {
     expect(actual.rules['block-indentation']).not.toEqual(expected.rules['block-indentation']);
   });
 
-  it('throws when specifying unknown properties in the config root', function () {
-    expect(
+  it('throws when specifying unknown properties in the config root', async function () {
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           config: {
@@ -201,8 +201,8 @@ describe('get-config', function () {
     );
   });
 
-  it('throws when providing wrong type for config.extends', function () {
-    expect(
+  it('throws when providing wrong type for config.extends', async function () {
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           config: {
@@ -227,8 +227,8 @@ describe('get-config', function () {
     expect(console.stdout).toMatch(/Invalid rule configuration found/);
   });
 
-  it('throws for unknown extends', function () {
-    expect(
+  it('throws for unknown extends', async function () {
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           config: {
@@ -309,8 +309,8 @@ describe('get-config', function () {
     expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
-  it('throws when inline plugin is missing name', function () {
-    expect(
+  it('throws when inline plugin is missing name', async function () {
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           config: { plugins: [{}] },
@@ -320,8 +320,8 @@ describe('get-config', function () {
     );
   });
 
-  it('throws when inline plugin is wrong type', function () {
-    expect(
+  it('throws when inline plugin is wrong type', async function () {
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           config: { plugins: [123] },
@@ -329,7 +329,7 @@ describe('get-config', function () {
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"Inline plugin is not a plain object"`);
   });
 
-  it('throws when non-inline plugin is missing name', function () {
+  it('throws when non-inline plugin is missing name', async function () {
     project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
@@ -338,7 +338,7 @@ describe('get-config', function () {
 
     project.chdir();
 
-    expect(
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           console,
@@ -352,7 +352,7 @@ describe('get-config', function () {
     );
   });
 
-  it('throws when non-inline plugin is wrong type', function () {
+  it('throws when non-inline plugin is wrong type', async function () {
     project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
@@ -361,7 +361,7 @@ describe('get-config', function () {
 
     project.chdir();
 
-    expect(
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           console,
@@ -456,10 +456,10 @@ describe('get-config', function () {
     expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
   });
 
-  it('throw exception when plugin path is incorrect', function () {
+  it('throw exception when plugin path is incorrect', async function () {
     let wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
-    expect(
+    await expect(
       async () =>
         await getProjectConfig(project.baseDir, {
           config: {
