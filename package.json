@@ -35,7 +35,7 @@
     "new:rule": "node dev/generate.js new-rule",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
-    "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage --debug --detectOpenHandles",
     "update": "npm-run-all update:*",
     "update:indices": "node ./scripts/update-indices.js",
     "update:readme": "node ./scripts/update-readme.js"
