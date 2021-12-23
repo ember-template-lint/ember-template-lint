@@ -1,3 +1,5 @@
+// TODO: This test file is temporarily disabled in Node versions before 16 (see ci.yml).
+
 import { stripIndent } from 'common-tags';
 
 import recommendedConfig from '../../lib/config/recommended.js';
