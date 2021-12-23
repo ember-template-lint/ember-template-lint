@@ -25,9 +25,9 @@
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "lint": "npm-run-all --continue-on-error --parallel lint:*",
-    "lint:docs": "markdownlint '**/*.md'",
+    "lint:docs": "markdownlint \"**/*.md\"",
     "lint:docs:fix": "yarn lint:docs --fix",
-    "lint:js": "eslint . --cache",
+    "lint:js": "eslint --cache .",
     "lint:js:fix": "yarn lint:js --fix",
     "lint:package-json": "npmPkgJsonLint .",
     "lint:package-json-sorting": "sort-package-json --check",
@@ -77,9 +77,9 @@
     "yargs": "^17.3.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.3",
-    "@babel/parser": "^7.16.4",
-    "@babel/traverse": "^7.16.3",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/parser": "^7.16.6",
+    "@babel/traverse": "^7.16.5",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
     "common-tags": "^1.8.2",
     "cross-env": "^7.0.3",
@@ -94,7 +94,7 @@
     "eslint-plugin-unicorn": "^39.0.0",
     "execa": "^5.1.1",
     "fixturify-project": "^2.1.1",
-    "jest": "^27.4.4",
+    "jest": "^27.4.5",
     "markdownlint-cli": "^0.30.0",
     "npm-package-json-lint": "^5.4.2",
     "npm-run-all": "^4.1.5",
