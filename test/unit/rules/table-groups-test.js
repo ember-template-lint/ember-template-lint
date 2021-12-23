@@ -1,7 +1,5 @@
-'use strict';
-
-const { createTableGroupsErrorMessage } = require('../../../lib/rules/table-groups');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { createTableGroupsErrorMessage } from '../../../lib/rules/table-groups.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'table-groups',

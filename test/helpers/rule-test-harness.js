@@ -1,10 +1,8 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
+import generateRuleTests from '../../lib/helpers/rule-test-harness.js';
 
-const generateRuleTests = require('../../lib/helpers/rule-test-harness');
-
-module.exports = function (...args) {
+export default function (...args) {
   assert(args.length === 1, '`generateRuleTests` should only be called with one argument.');
   const [options] = args;
   assert(
@@ -19,4 +17,4 @@ module.exports = function (...args) {
       focusMethod: test.only,
     })
   );
-};
+}

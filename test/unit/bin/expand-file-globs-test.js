@@ -1,7 +1,5 @@
-'use strict';
-
-const { _expandFileGlobs: expandFileGlobs } = require('../../../bin/ember-template-lint');
-const Project = require('../../helpers/fake-project');
+import { expandFileGlobs } from '../../../lib/helpers/cli.js';
+import Project from '../../helpers/fake-project.js';
 
 describe('expandFileGlobs', function () {
   let project = null;

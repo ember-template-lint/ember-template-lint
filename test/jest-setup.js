@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/no-unassigned-import
-require('@microsoft/jest-sarif');
+import '@microsoft/jest-sarif';

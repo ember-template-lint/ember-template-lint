@@ -1,7 +1,5 @@
-'use strict';
-
-const { FORMAT } = require('../../../lib/rules/require-valid-named-block-naming-format');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { FORMAT } from '../../../lib/rules/require-valid-named-block-naming-format.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-valid-named-block-naming-format',

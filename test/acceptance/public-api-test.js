@@ -1,13 +1,14 @@
-'use strict';
+import chalk from 'chalk';
+import fs from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const fs = require('fs');
-const path = require('path');
+import Linter from '../../lib/linter.js';
+import buildFakeConsole from '../helpers/console.js';
+import failurePlugin from '../helpers/failure-plugin.js';
+import Project from '../helpers/fake-project.js';
 
-const chalk = require('chalk');
-
-const Linter = require('../../lib');
-const Project = require('../helpers/fake-project');
-const buildFakeConsole = require('./../helpers/console');
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const fixturePath = path.join(__dirname, '..', '/fixtures');
 
@@ -27,27 +28,30 @@ describe('public api', function () {
   });
 
   describe('Linter.prototype.loadConfig', function () {
-    it('throws an error if the config file has an error on parsing', function () {
+    it('throws an error if the config file has an error on parsing', async function () {
       project.write({
         '.template-lintrc.js': "throw Error('error happening during config loading');\n",
       });
 
-      expect(() => {
-        new Linter({
-          console: mockConsole,
-        });
-      }).toThrow(/error happening during config loading/);
-    });
-
-    it('uses an empty set of rules if no .template-lintrc is present', function () {
-      let linter = new Linter({
+      const linter = new Linter({
         console: mockConsole,
       });
 
-      expect(linter.config.rules).toEqual({});
+      await expect(async () => await linter.loadConfig()).rejects.toThrow(
+        /error happening during config loading/
+      );
     });
 
-    it('uses provided config', function () {
+    it('uses an empty set of rules if no .template-lintrc is present', async function () {
+      let linter = new Linter({
+        console: mockConsole,
+      });
+      const config = await linter.getConfig();
+
+      expect(config.rules).toEqual({});
+    });
+
+    it('uses provided config', async function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -60,14 +64,15 @@ describe('public api', function () {
         console: mockConsole,
         config: expected,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses .template-lintrc.js in cwd if present', function () {
+    it('uses .template-lintrc.js in cwd if present', async function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -80,14 +85,15 @@ describe('public api', function () {
       let linter = new Linter({
         console: mockConsole,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses .template-lintrc in provided configPath', function () {
+    it('uses .template-lintrc in provided configPath', async function () {
       let someOtherPathConfig = {
         rules: {
           foo: 'bar',
@@ -103,14 +109,15 @@ describe('public api', function () {
         console: mockConsole,
         configPath: project.path('some-other-path.js'),
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', function () {
+    it('uses .template-lintrc from upper folder structure if file does not exists in cwd', async function () {
       let expected = {
         rules: {
           foo: 'bar',
@@ -132,14 +139,15 @@ describe('public api', function () {
       let linter = new Linter({
         console: mockConsole,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', function () {
+    it('uses first .template-lintrc from upper folder structure if file does not exists in cwd', async function () {
       let appPathConfig = {
         rules: {
           foo: 'bar',
@@ -162,23 +170,25 @@ describe('public api', function () {
       let linter = new Linter({
         console: mockConsole,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({
+      expect(config.rules).toEqual({
         foo: { config: 'bar', severity: 2 },
         baz: { config: 'derp', severity: 2 },
       });
     });
 
-    it('breaks if the specified configPath does not exist', function () {
-      expect(() => {
-        new Linter({
-          console: mockConsole,
-          configPath: 'does/not/exist',
-        });
-      }).toThrow('The configuration file specified (does/not/exist) could not be found. Aborting.');
+    it('breaks if the specified configPath does not exist', async function () {
+      const linter = new Linter({
+        console: mockConsole,
+        configPath: 'does/not/exist',
+      });
+      await expect(async () => await linter.loadConfig()).rejects.toThrow(
+        'The configuration file specified (does/not/exist) could not be found. Aborting.'
+      );
     });
 
-    it('with deprecated rule config', function () {
+    it('with deprecated rule config', async function () {
       let expected = {
         rules: {
           'no-bare-strings': 'error',
@@ -190,8 +200,9 @@ describe('public api', function () {
         console: mockConsole,
         config: expected,
       });
+      const config = await linter.getConfig();
 
-      expect(linter.config.rules).toEqual({ 'no-bare-strings': { config: true, severity: 2 } });
+      expect(config.rules).toEqual({ 'no-bare-strings': { config: true, severity: 2 } });
     });
   });
 
@@ -216,7 +227,7 @@ describe('public api', function () {
       expect(actual).toEqual(expected);
     });
 
-    it('instantiating linter is idempotent', function () {
+    it('instantiating linter is idempotent', async function () {
       project.setConfig({
         rules: {
           'require-button-type': 'error',
@@ -233,13 +244,15 @@ describe('public api', function () {
         console: mockConsole,
         configPath: project.path('.template-lintrc.js'),
       });
+      const linterAConfig = await linterA.getConfig();
+      const linterBConfig = await linterB.getConfig();
 
-      expect(linterA.config.rules['require-button-type']).toEqual({
+      expect(linterAConfig.rules['require-button-type']).toEqual({
         config: true,
         severity: 2,
       });
 
-      expect(linterA.config.overrides).toEqual([
+      expect(linterAConfig.overrides).toEqual([
         {
           files: '**/templates/*.hbs',
           rules: {
@@ -251,7 +264,7 @@ describe('public api', function () {
         },
       ]);
 
-      expect(linterA.config).toEqual(linterB.config);
+      expect(linterAConfig).toEqual(linterBConfig);
     });
   });
 
@@ -296,7 +309,7 @@ describe('public api', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
-          plugins: [require('../helpers/failure-plugin')],
+          plugins: [failurePlugin],
           rules: {
             'fail-on-word': 'FORBIDDEN',
           },
@@ -827,7 +840,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
@@ -879,7 +892,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
@@ -916,7 +929,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
@@ -996,6 +1009,44 @@ describe('public api', function () {
     });
   });
 
+  describe('Linter using plugins (mjs file extension)', function () {
+    let basePath = path.join(fixturePath, 'with-mjs-plugin');
+    let linter;
+
+    beforeEach(function () {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.mjs'),
+      });
+    });
+
+    it('returns plugin rule issues', async function () {
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          message: 'The inline form of component is not allowed',
+          filePath: templatePath,
+          line: 1,
+          column: 4,
+          endColumn: 29,
+          endLine: 1,
+          source: '{{component value="Hej"}}',
+          rule: 'inline-component',
+          severity: 2,
+        },
+      ];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+  });
+
   describe('Linter using plugins loading a configuration that extends from another plugins configuration', function () {
     let basePath = path.join(fixturePath, 'with-plugins-overwriting');
     let linter;
@@ -1003,7 +1054,7 @@ describe('public api', function () {
     beforeEach(function () {
       linter = new Linter({
         console: mockConsole,
-        configPath: path.join(basePath, '.template-lintrc.js'),
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
       });
     });
 
@@ -1118,15 +1169,16 @@ describe('public api', function () {
       project.dispose();
     });
 
-    it('[.html] does not identify errors for ember-cli default app/index.html (3.20)', async function () {
+    it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default app/index.html (3.20)', async function () {
       // reset config to default value
       project.setConfig();
 
       project.write({
         app: {
           'index.html': `
+{{!template-lint-disable no-forbidden-elements}}
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -1164,15 +1216,16 @@ describe('public api', function () {
       expect(results).toEqual([]);
     });
 
-    it('[.html] does not identify errors for ember-cli default tests/index.html (3.20)', async function () {
+    it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default tests/index.html (3.20)', async function () {
       // reset config to default value
       project.setConfig();
 
       project.write({
         tests: {
           'index.html': `
+{{!template-lint-disable no-forbidden-elements}}
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -1229,7 +1282,7 @@ describe('public api', function () {
       linter = new Linter({
         console: mockConsole,
         config: {
-          plugins: [require('../helpers/failure-plugin')],
+          plugins: [failurePlugin],
           rules: {
             'fail-on-word': 'FORBIDDEN',
           },

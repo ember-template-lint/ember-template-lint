@@ -1,10 +1,8 @@
-'use strict';
-
-let Rule = require('../../../../lib/rules/_base');
+import Rule from '../../../../lib/rules/_base.js';
 
 let message = 'The inline form of component is not allowed';
 
-module.exports = class InlineComponent extends Rule {
+export default class InlineComponent extends Rule {
   visitor() {
     return {
       MustacheStatement(node) {
@@ -17,4 +15,4 @@ module.exports = class InlineComponent extends Rule {
       },
     };
   }
-};
+}

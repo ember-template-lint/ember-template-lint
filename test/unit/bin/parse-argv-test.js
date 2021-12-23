@@ -1,6 +1,4 @@
-'use strict';
-
-const { _parseArgv: parseArgv } = require('../../../bin/ember-template-lint');
+import { parseArgv } from '../../../lib/helpers/cli.js';
 
 describe('parseArgv', function () {
   describe('--format', function () {

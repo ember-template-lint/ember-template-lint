@@ -27,14 +27,17 @@ Each plugin object can include these properties.
 Sample plugin object:
 
 ```javascript
-{
+import disallowInlineComponents from './lib/template-lint-rules/disallow-inline-components.js';
+import anotherCustomRule from './lib/template-lint-rules/another-custom-rule.js';
+
+export default {
   // Name of plugin
   name: 'my-plugin',
 
   // Define rules for this plugin. Each path should map to a plugin rule
   rules: {
-    'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
-    'another-custom-rule': require('./lib/template-lint-rules/another-custom-rule')
+    'disallow-inline-components': disallowInlineComponents,
+    'another-custom-rule': anotherCustomRule
   },
 
   // Define configurations for this plugin that can be extended by the base configuration
@@ -47,6 +50,8 @@ Sample plugin object:
   }
 }
 ```
+
+Plugins that directly import/export rules must be written in ESM.
 
 ## Adding Plugins to Your Configuration
 
@@ -95,16 +100,14 @@ Every rule defined by a plugin can use these public APIs defined by `ember-templ
 
 ### Building a rule object
 
-Each file that defines a rule should export a class that extends from the base rule object.
+Each file that defines a rule should export a class that extends from the base rule object. Rules must be written in ESM.
 
 Sample rule:
 
 ```javascript
-'use strict';
+import { Rule } from 'ember-template-lint';
 
-const Rule = require('ember-template-lint').Rule;
-
-module.exports = class NoEmptyComments extends Rule {
+export default class NoEmptyComments extends Rule {
   visitor() {
     return {
       CommentStatement(node) {
@@ -159,10 +162,8 @@ Here's an example of how to write tests for a rule:
 ```js
 // test/unit/rules/no-negated-condition-test.js
 
-'use strict';
-
-const { generateRuleTests } = require('ember-template-lint');
-const plugin = require('../../..');
+import { generateRuleTests } from 'ember-template-lint';
+import plugin from '../../../index.js';
 
 generateRuleTests({
   name: 'no-negated-condition',
@@ -236,7 +237,7 @@ There are a number of helper functions exported by [`ember-template-lint`](../li
 You can access these helpers via:
 
 ```js
-const helpers = require('ember-template-lint').ASTHelpers;
+import { ASTHelpers } from 'ember-template-lint';
 ```
 
 * `function isConfigurationHtmlComment(node): boolean`
@@ -270,7 +271,7 @@ const helpers = require('ember-template-lint').ASTHelpers;
 You access this helper via:
 
 ```js
-const NodeMatcher = require('ember-template-lint').NodeMatcher;
+import { NodeMatcher } from 'ember-template-lint';
 ```
 
 * `function match(testNode, ref): boolean`

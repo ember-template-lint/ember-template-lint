@@ -1,8 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SarifFormatter = require('../../lib/formatters/sarif');
-const Project = require('../helpers/fake-project');
+import SarifFormatter from '../../lib/formatters/sarif.js';
+import Project from '../helpers/fake-project.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const SARIF_LOG_MATCHER = {
   version: '2.1.0',

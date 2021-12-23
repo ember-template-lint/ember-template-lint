@@ -1,9 +1,9 @@
-const { todoStorageFileExists, writeTodos, readTodoData } = require('@lint-todo/utils');
-const { differenceInDays, subDays } = require('date-fns');
+import { todoStorageFileExists, writeTodos, readTodoData } from '@lint-todo/utils';
+import { differenceInDays, subDays } from 'date-fns';
 
-const Project = require('../helpers/fake-project');
-const run = require('../helpers/run');
-const setupEnvVar = require('../helpers/setup-env-var');
+import Project from '../helpers/fake-project.js';
+import run from '../helpers/run.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
 const ROOT = process.cwd();
 
