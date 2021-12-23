@@ -30,7 +30,7 @@ This rule **allows** the following:
 
 When the config value of `true` is provided, the following default configuration is used:
 
-* `allowlist` - refer to the `DEFAULT_CONFIG.allowlist` property in the [rule](../lib/rules/no-bare-strings.js)
+* `allowlist` - refer to the `DEFAULT_CONFIG.allowlist` property in the [rule](../../lib/rules/no-bare-strings.js)
 * `globalAttributes` - `title`, `aria-label`, `aria-placeholder`, `aria-roledescription`, `aria-valuetext`
 * `elementAttributes` - `{ img: ['alt'], input: ['placeholder'] }`
 

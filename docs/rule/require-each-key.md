@@ -79,4 +79,4 @@ This rule **allows** the following:
 ## References
 
 * [Specifying Keys](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/each#specifying-keys)
-* [The Immutable Pattern in Tracked Properties](https://glimmerjs.com/guides/tracked-properties)
+* [The Immutable Pattern in Tracked Properties](https://glimmerjs.com/guides/tracked-properties) (TODO: fix this link)
