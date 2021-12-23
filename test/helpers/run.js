@@ -1,4 +1,4 @@
-import execa from 'execa';
+import { execa } from 'execa';
 import { fileURLToPath } from 'node:url';
 
 export default function run(args, options = {}) {
