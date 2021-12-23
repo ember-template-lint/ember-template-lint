@@ -20,4 +20,4 @@ This rule **allows** the following:
 
 ## References
 
-* See the [documentation](https://www.emberjs.com/api/ember/release/functions/@ember%2Ftemplate/htmlSafe) for Ember's `htmlSafe` function
+* See the [documentation](https://api.emberjs.com/ember/release/functions/@ember%2Ftemplate/htmlSafe) for Ember's `htmlSafe` function
