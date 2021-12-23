@@ -1,4 +1,26 @@
 
+
+## v4.0.0-beta.2 (2021-12-23)
+
+#### :boom: Breaking Change
+* [#2262](https://github.com/ember-template-lint/ember-template-lint/pull/2262) Convert to ESM ([@bmish](https://github.com/bmish))
+
+#### :rocket: Enhancement
+* [#2293](https://github.com/ember-template-lint/ember-template-lint/pull/2293) Update find-up to v6 ([@bmish](https://github.com/bmish))
+* [#2296](https://github.com/ember-template-lint/ember-template-lint/pull/2296) Update globby to v6 ([@bmish](https://github.com/bmish))
+* [#2294](https://github.com/ember-template-lint/ember-template-lint/pull/2294) Update get-stdin to v9 ([@bmish](https://github.com/bmish))
+
+#### :memo: Documentation
+* [#2297](https://github.com/ember-template-lint/ember-template-lint/pull/2297) Add v4 migration guide ([@bmish](https://github.com/bmish))
+* [#2291](https://github.com/ember-template-lint/ember-template-lint/pull/2291) Fix broken markdown links ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2295](https://github.com/ember-template-lint/ember-template-lint/pull/2295) Update execa to v6 ([@bmish](https://github.com/bmish))
+
+#### Committers: 1
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+
+
 ## v4.0.0-beta.1 (2021-12-15)
 
 #### :boom: Breaking Change
