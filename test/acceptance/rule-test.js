@@ -1075,6 +1075,393 @@ describe('regression tests', function () {
     );
   });
 
+  test('when duplicate bad test case with serializable config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: 123,
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: 123,
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"detected duplicate \`bad\` test case"`
+    );
+  });
+
+  test('when non-duplicate bad test case with object config containing potentially non-serializable members', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 123;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 456;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
+  test('when non-duplicate bad test case with non-serializable RegExp config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: new RegExp('abc'),
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: new RegExp('def'),
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
+  test('when non-duplicate bad test case with non-serializable function config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: function foo() {
+            return 123;
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: function foo() {
+            return 456;
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
+  test('when non-duplicate bad test case with non-serializable regexp config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 123;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 456;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
   test('when duplicate error test case', async function () {
     let group;
     defaultTestHarness({
