@@ -2,6 +2,8 @@
 
 ## v4.0.0-beta.2 (2021-12-23)
 
+Also see the [v4 migration guide](docs/migration/v4.md).
+
 #### :boom: Breaking Change
 * [#2262](https://github.com/ember-template-lint/ember-template-lint/pull/2262) Convert to ESM ([@bmish](https://github.com/bmish))
 
@@ -23,6 +25,8 @@
 
 ## v4.0.0-beta.1 (2021-12-15)
 
+Also see the [v4 migration guide](docs/migration/v4.md).
+
 #### :boom: Breaking Change
 * [#2278](https://github.com/ember-template-lint/ember-template-lint/pull/2278) Disable `requireActionHelper` option on `no-element-event-actions` rule ([@bmish](https://github.com/bmish))
 * [#2279](https://github.com/ember-template-lint/ember-template-lint/pull/2279) Disallow duplicate test cases ([@bmish](https://github.com/bmish))
@@ -36,6 +40,8 @@
 
 
 ## v4.0.0-beta.0 (2021-12-03)
+
+Also see the [v4 migration guide](docs/migration/v4.md).
 
 #### :boom: Breaking Change
 * [#2261](https://github.com/ember-template-lint/ember-template-lint/pull/2261) Disallow unknown CLI options ([@bmish](https://github.com/bmish))
@@ -65,6 +71,8 @@
 
 
 ## v4.0.0-alpha.0 (2021-11-24)
+
+Also see the [v4 migration guide](docs/migration/v4.md).
 
 #### :boom: Breaking Change
 * [#2208](https://github.com/ember-template-lint/ember-template-lint/pull/2208) Add `exports` to package.json to restrict access to private internals ([@bmish](https://github.com/bmish))
