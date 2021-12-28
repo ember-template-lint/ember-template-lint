@@ -121,6 +121,13 @@ module.exports = {
       },
     ],
 
+    'node/no-extraneous-import': [
+      'error',
+      {
+        allowModules: ['@jest/globals'],
+      },
+    ],
+
     // Unicorn rules:
     'unicorn/consistent-destructuring': 'off',
     'unicorn/consistent-function-scoping': 'off',
