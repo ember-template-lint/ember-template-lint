@@ -639,16 +639,17 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@lint-todo/utils@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-12.0.0.tgz#625ae5aa9b93f60a7567a515265af2704bf426a6"
-  integrity sha512-MGIDlAwHS31K26N/Fpt15QopnWSALP8uzCRyKXOpm0PoBuCof6a443wJGLPQlPcqPZUMdf4SjYUgEmleMv3REw==
+"@lint-todo/utils@^12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-12.0.1.tgz#d61ef329f9f6c7332adee7b1f68651f190d53a7f"
+  integrity sha512-Xiy5wN+ns95gEHepJ55TXEBAZrkZlzrF9wTjqoTgv+RYOYL3+qQ+v0RtPH2n/UwPJEFuXJ6QKiT99RnUOt1pzw==
   dependencies:
     "@types/eslint" "^7.2.13"
     fs-extra "^9.1.0"
     proper-lockfile "^4.1.2"
     slash "^3.0.0"
     tslib "^2.3.1"
+    upath "^2.0.1"
 
 "@microsoft/jest-sarif@^1.0.0-beta.0":
   version "1.0.0-beta.0"
@@ -7235,6 +7236,11 @@ untildify@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/untildify/-/untildify-4.0.0.tgz#2bc947b953652487e4600949fb091e3ae8cd919b"
   integrity sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==
+
+upath@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/upath/-/upath-2.0.1.tgz#50c73dea68d6f6b990f51d279ce6081665d61a8b"
+  integrity sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==
 
 update-notifier@5.1.0:
   version "5.1.0"

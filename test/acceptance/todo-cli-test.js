@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { todoStorageFileExists, writeTodos, readTodoData } from '@lint-todo/utils';
 import { differenceInDays, subDays } from 'date-fns';
 
@@ -6,6 +7,8 @@ import run from '../helpers/run.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
 const ROOT = process.cwd();
+
+jest.setTimeout(10_000);
 
 function buildReadOptions() {
   return { engine: 'ember-template-lint' };
