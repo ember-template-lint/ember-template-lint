@@ -1,5 +1,20 @@
 
 
+
+## v4.0.0-beta.3 (2021-12-29)
+
+#### :bug: Bug Fix
+* [#2303](https://github.com/ember-template-lint/ember-template-lint/pull/2303) Update @lint-todos/utils to fix bug with non-normalized paths ([@scalvert](https://github.com/scalvert))
+* [#2301](https://github.com/ember-template-lint/ember-template-lint/pull/2301) Fix false positives with non-serializable rule configs in duplicate test case check ([@bmish](https://github.com/bmish))
+
+#### :memo: Documentation
+* [#2302](https://github.com/ember-template-lint/ember-template-lint/pull/2302) Improve v4 migration guide ([@bmish](https://github.com/bmish))
+
+#### Committers: 2
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.0.0-beta.2 (2021-12-23)
 
 Also see the [v4 migration guide](docs/migration/v4.md).
