@@ -106,7 +106,6 @@ describe('editors integration', function () {
         '  class Some extends Component<Args> {}\n' +
         ');';
 
-
       let multipleComponents =
         `import { hbs } from 'ember-cli-htmlbars';\n` +
         `import { setComponentTemplate } from '@ember/component';\n` +
@@ -245,11 +244,8 @@ describe('editors integration', function () {
         'interface Args {}\n' +
         '\n' +
         'export class SomeComponent extends Component<Args> {\n' +
-        '  <template>\n'
-        '    {{debugger}}\n' +
-        '  </template>\n' +
-        '}\n';
-
+        '  <template>\n';
+      '    {{debugger}}\n' + '  </template>\n' + '}\n';
 
       let multipleComponents =
         'export const SomeComponent = <template>\n' +
