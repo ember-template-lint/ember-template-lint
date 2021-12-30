@@ -82,17 +82,6 @@ describe('editors integration', function () {
 
   describe('with embedded templates', function () {
     describe('hbs (tests and manual low-level usage)', function () {
-      let debuggerViolation =
-        `import { hbs } from 'ember-cli-htmlbars';\n` +
-        `import { setComponentTemplate } from '@ember/component';\n` +
-        `import templateOnly from '@ember/component/template-only';\n` +
-        '\n' +
-        'export const SomeComponent = setComponentTemplate(hbs`\n' +
-        '  {{debugger}}\n' +
-        '  `,\n' +
-        '  templateOnly()\n' +
-        ');';
-
       let missingButtonType =
         `import { hbs } from 'ember-cli-htmlbars';\n` +
         `import { setComponentTemplate } from '@ember/component';\n` +
@@ -120,39 +109,6 @@ describe('editors integration', function () {
         '  `,\n' +
         '  templateOnly()\n' +
         ');\n';
-
-      it('has exit code 1 and reports errors to stdout', async function () {
-        project.setConfig({ rules: { 'no-debugger': true } });
-        project.write({ 'some-module.js': debuggerViolation });
-
-        let result = await run(project, ['--format', 'json', '--filename', 'some-module.js'], {
-          shell: false,
-          input: fs.readFileSync(path.resolve('some-module.js')),
-        });
-
-        let expectedOutputData = {};
-        /**
-         * Indentation is adjusted for the whole file, and not
-         * scoped to the template
-         */
-        expectedOutputData['some-module.js'] = [
-          {
-            column: 2,
-            endColumn: 14,
-            endLine: 6,
-            line: 6,
-            message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
-            rule: 'no-debugger',
-            severity: 2,
-            source: '{{debugger}}',
-          },
-        ];
-
-        expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-        expect(result.stderr).toBeFalsy();
-      });
 
       it('for multiple components in one module, it has exit code 1 and reports errors to stdout', async function () {
         project.setConfig({ rules: { 'no-debugger': true } });
@@ -230,6 +186,106 @@ describe('editors integration', function () {
       });
     });
 
-    describe('<template>', function () {});
+    describe('<template>', function () {
+      let missingButtonType =
+        'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>';
+
+      let multipleComponents =
+        'export const SomeComponent = <template>\n' +
+        '  {{debugger}}\n' +
+        '</template>\n' +
+        '\n' +
+        'export const AnotherComponent = <template>\n' +
+        '  {{debugger}}\n' +
+        '</template>\n' +
+        '\n' +
+        // default export
+        '<template>\n' +
+        '  <SomeComponent>\n' +
+        '    {{debugger}}\n' +
+        '  </SomeComponent>\n' +
+        '</template>\n' +
+        '\n';
+
+      it('for multiple components in one module, it has exit code 1 and reports errors to stdout', async function () {
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.js': multipleComponents });
+
+        let result = await run(project, ['--format', 'json', '--filename', 'some-module.js'], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.js')),
+        });
+
+        let expectedOutputData = {};
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expectedOutputData['some-module.js'] = [
+          {
+            column: 2,
+            endColumn: 14,
+            endLine: 2,
+            line: 2,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.js',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+          {
+            column: 2,
+            endColumn: 14,
+            endLine: 6,
+            line: 6,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.js',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+          {
+            column: 4,
+            endColumn: 16,
+            endLine: 11,
+            line: 11,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.js',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('has exit code 0 and writes fixes if --filename is provided', async function () {
+        project.setConfig({ rules: { 'require-button-type': true } });
+        project.write({ 'some-module.js': missingButtonType });
+
+        let result = await run(
+          project,
+          ['--format', 'json', '--filename', 'some-module.js', '--fix'],
+          {
+            shell: false,
+            input: fs.readFileSync(path.resolve('some-module.js')),
+          }
+        );
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
+
+        let template = fs.readFileSync(path.resolve('some-module.js'), { encoding: 'utf8' });
+        expect(template).toBe(
+          'export const SomeComponent = <template>\n' +
+            '  <button type="button"></button>\n' +
+            '</template>'
+        );
+      });
+    });
   });
 });
