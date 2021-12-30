@@ -93,6 +93,20 @@ describe('editors integration', function () {
         '  templateOnly()\n' +
         ');';
 
+      let typescript =
+        `import { hbs } from 'ember-cli-htmlbars';\n` +
+        `import { setComponentTemplate } from '@ember/component';\n` +
+        `import Component from '@glimmer/component';\n` +
+        '\n' +
+        'interface Args {}\n' +
+        '\n' +
+        'export const SomeComponent = setComponentTemplate(hbs`\n' +
+        '  {{debugger}}\n' +
+        '  `,\n' +
+        '  class Some extends Component<Args> {}\n' +
+        ');';
+
+
       let multipleComponents =
         `import { hbs } from 'ember-cli-htmlbars';\n` +
         `import { setComponentTemplate } from '@ember/component';\n` +
@@ -154,6 +168,39 @@ describe('editors integration', function () {
         expect(result.stderr).toBeFalsy();
       });
 
+      it('for typescript files, it has exit code 1 and reports errors to stdout', async function () {
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.ts': typescript });
+
+        let result = await run(project, ['--format', 'json', '--filename', 'some-module.ts'], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.ts')),
+        });
+
+        let expectedOutputData = {};
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expectedOutputData['some-module.ts'] = [
+          {
+            column: 2,
+            endColumn: 14,
+            endLine: 8,
+            line: 8,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.ts',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
       it('has exit code 0 and writes fixes if --filename is provided', async function () {
         project.setConfig({ rules: { 'require-button-type': true } });
         project.write({ 'some-module.js': missingButtonType });
@@ -190,6 +237,20 @@ describe('editors integration', function () {
       let missingButtonType =
         'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>';
 
+      let typescript =
+        `import { hbs } from 'ember-cli-htmlbars';\n` +
+        `import { setComponentTemplate } from '@ember/component';\n` +
+        `import Component from '@glimmer/component';\n` +
+        '\n' +
+        'interface Args {}\n' +
+        '\n' +
+        'export class SomeComponent extends Component<Args> {\n' +
+        '  <template>\n'
+        '    {{debugger}}\n' +
+        '  </template>\n' +
+        '}\n';
+
+
       let multipleComponents =
         'export const SomeComponent = <template>\n' +
         '  {{debugger}}\n' +
@@ -209,11 +270,11 @@ describe('editors integration', function () {
 
       it('for multiple components in one module, it has exit code 1 and reports errors to stdout', async function () {
         project.setConfig({ rules: { 'no-debugger': true } });
-        project.write({ 'some-module.js': multipleComponents });
+        project.write({ 'some-module.gjs': multipleComponents });
 
-        let result = await run(project, ['--format', 'json', '--filename', 'some-module.js'], {
+        let result = await run(project, ['--format', 'json', '--filename', 'some-module.gjs'], {
           shell: false,
-          input: fs.readFileSync(path.resolve('some-module.js')),
+          input: fs.readFileSync(path.resolve('some-module.gjs')),
         });
 
         let expectedOutputData = {};
@@ -221,14 +282,14 @@ describe('editors integration', function () {
          * Indentation is adjusted for the whole file, and not
          * scoped to the template
          */
-        expectedOutputData['some-module.js'] = [
+        expectedOutputData['some-module.gjs'] = [
           {
             column: 2,
             endColumn: 14,
             endLine: 2,
             line: 2,
             message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
+            filePath: 'some-module.gjs',
             rule: 'no-debugger',
             severity: 2,
             source: '{{debugger}}',
@@ -239,7 +300,7 @@ describe('editors integration', function () {
             endLine: 6,
             line: 6,
             message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
+            filePath: 'some-module.gjs',
             rule: 'no-debugger',
             severity: 2,
             source: '{{debugger}}',
@@ -250,7 +311,40 @@ describe('editors integration', function () {
             endLine: 11,
             line: 11,
             message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
+            filePath: 'some-module.gjs',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('for typescript files, it has exit code 1 and reports errors to stdout', async function () {
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.gts': typescript });
+
+        let result = await run(project, ['--format', 'json', '--filename', 'some-module.gts'], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.gts')),
+        });
+
+        let expectedOutputData = {};
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expectedOutputData['some-module.gts'] = [
+          {
+            column: 2,
+            endColumn: 14,
+            endLine: 6,
+            line: 6,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.gts',
             rule: 'no-debugger',
             severity: 2,
             source: '{{debugger}}',
@@ -264,14 +358,14 @@ describe('editors integration', function () {
 
       it('has exit code 0 and writes fixes if --filename is provided', async function () {
         project.setConfig({ rules: { 'require-button-type': true } });
-        project.write({ 'some-module.js': missingButtonType });
+        project.write({ 'some-module.gjs': missingButtonType });
 
         let result = await run(
           project,
-          ['--format', 'json', '--filename', 'some-module.js', '--fix'],
+          ['--format', 'json', '--filename', 'some-module.gjs', '--fix'],
           {
             shell: false,
-            input: fs.readFileSync(path.resolve('some-module.js')),
+            input: fs.readFileSync(path.resolve('some-module.gjs')),
           }
         );
 
@@ -279,7 +373,7 @@ describe('editors integration', function () {
         expect(result.stdout).toBeFalsy();
         expect(result.stderr).toBeFalsy();
 
-        let template = fs.readFileSync(path.resolve('some-module.js'), { encoding: 'utf8' });
+        let template = fs.readFileSync(path.resolve('some-module.gjs'), { encoding: 'utf8' });
         expect(template).toBe(
           'export const SomeComponent = <template>\n' +
             '  <button type="button"></button>\n' +
