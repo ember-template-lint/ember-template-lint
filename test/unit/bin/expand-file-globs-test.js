@@ -119,9 +119,13 @@ describe('expandFileGlobs', function () {
     it('throws when no matches found because of ignore option', function () {
       project.write({ 'application.hbs': 'almost empty' });
 
-      expect(() =>
-        expandFileGlobs(project.baseDir, ['*'], ['application.hbs'])
-      ).toThrowErrorMatchingInlineSnapshot(`"No files matching the pattern were found: \\"*\\""`);
+      expect(() => {
+        let files = expandFileGlobs(project.baseDir, ['*'], ['application.hbs', 'index.js']);
+
+        // Debug info in case the above doesn't throw an exception
+        // eslint-disable-next-line no-console
+        console.log(files);
+      }).toThrowErrorMatchingInlineSnapshot(`"No files matching the pattern were found: \\"*\\""`);
     });
   });
 });

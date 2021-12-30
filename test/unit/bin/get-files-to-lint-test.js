@@ -9,7 +9,14 @@ describe('getFilesToLint', function () {
   beforeEach(function () {
     project = Project.defaultSetup();
     project.chdir();
-    project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
+    project.write({
+      'application.hbs': 'almost empty',
+      'other.hbs': 'ZOMG',
+      'js-module.js': 'export const two = 2;',
+      'ts-module.ts': 'export const two = 2;',
+      'gjs-module.gjs': 'export const two = 2;',
+      'gts-module.gts': 'export const two = 2;',
+    });
   });
 
   afterEach(function () {
