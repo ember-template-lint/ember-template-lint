@@ -139,7 +139,7 @@ Each rule has emojis denoting:
 | [no-log](./docs/rule/no-log.md)                                                                           | ✅  |     |     |     |
 | [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               |     |     |     | 🔧  |
 | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                                         |     | 💅  |     |     |
-| [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             | ✅  |     |     |     |
+| [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             |     |     |     |     |
 | [no-negated-condition](./docs/rule/no-negated-condition.md)                                               | ✅  |     |     | 🔧  |
 | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                                             | ✅  |     | ⌨️  |     |
 | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                                   | ✅  |     | ⌨️  |     |

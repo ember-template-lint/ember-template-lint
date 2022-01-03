@@ -1,7 +1,5 @@
 # no-mut-helper
 
-✅ The `extends: 'recommended'` property in a configuration file enables this rule.
-
 ## Reasons to not use [the `mut` helper](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/each?anchor=mut)
 
 1. General problems in the programming model:
