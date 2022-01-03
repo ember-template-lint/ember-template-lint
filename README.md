@@ -117,7 +117,7 @@ Each rule has emojis denoting:
 | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                                         | ✅  |     | ⌨️  |     |
 | [no-duplicate-id](./docs/rule/no-duplicate-id.md)                                                         | ✅  |     | ⌨️  |     |
 | [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)                           | ✅  |     | ⌨️  |     |
-| [no-dynamic-subexpression-invocations](./docs/rule/no-dynamic-subexpression-invocations.md)               | ✅  |     |     |     |
+| [no-dynamic-subexpression-invocations](./docs/rule/no-dynamic-subexpression-invocations.md)               |     |     |     |     |
 | [no-element-event-actions](./docs/rule/no-element-event-actions.md)                                       |     |     |     |     |
 | [no-empty-headings](./docs/rule/no-empty-headings.md)                                                     | ✅  |     | ⌨️  |     |
 | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                               | ✅  |     |     |     |
