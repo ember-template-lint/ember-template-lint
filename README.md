@@ -137,7 +137,7 @@ Each rule has emojis denoting:
 | [no-link-to-positional-params](./docs/rule/no-link-to-positional-params.md)                               | ✅  |     |     |     |
 | [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   | ✅  |     |     |     |
 | [no-log](./docs/rule/no-log.md)                                                                           | ✅  |     |     |     |
-| [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               | ✅  |     |     | 🔧  |
+| [no-model-argument-in-route-templates](./docs/rule/no-model-argument-in-route-templates.md)               |     |     |     | 🔧  |
 | [no-multiple-empty-lines](./docs/rule/no-multiple-empty-lines.md)                                         |     | 💅  |     |     |
 | [no-mut-helper](./docs/rule/no-mut-helper.md)                                                             | ✅  |     |     |     |
 | [no-negated-condition](./docs/rule/no-negated-condition.md)                                               | ✅  |     |     | 🔧  |
