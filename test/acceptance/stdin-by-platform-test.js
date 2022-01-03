@@ -43,12 +43,12 @@ describe('ember-template-lint executable', function () {
       );
 
       expect(result.stdout).toMatchInlineSnapshot(`
-            "template.hbs
-              1:4  error  Non-translated string used  no-bare-strings
-              1:25  error  Non-translated string used  no-bare-strings
+        "template.hbs
+          1:4  error  Non-translated string used  no-bare-strings
+          1:25  error  Non-translated string used  no-bare-strings
 
-            ✖ 2 problems (2 errors, 0 warnings)"
-          `);
+        ✖ 2 problems (2 errors, 0 warnings)"
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -62,12 +62,12 @@ describe('ember-template-lint executable', function () {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-            "template.hbs
-              1:4  error  Non-translated string used  no-bare-strings
-              1:25  error  Non-translated string used  no-bare-strings
+        "template.hbs
+          1:4  error  Non-translated string used  no-bare-strings
+          1:25  error  Non-translated string used  no-bare-strings
 
-            ✖ 2 problems (2 errors, 0 warnings)"
-          `);
+        ✖ 2 problems (2 errors, 0 warnings)"
+      `);
       expect(result.stderr).toBeFalsy();
     });
   });
