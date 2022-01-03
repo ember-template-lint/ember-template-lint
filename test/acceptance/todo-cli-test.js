@@ -339,12 +339,12 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-"app/templates/require-button-type.hbs
-  -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+          "app/templates/require-button-type.hbs
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
-✖ 1 problems (1 errors, 0 warnings)
-  1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-`);
+          ✖ 1 problems (1 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+        `);
 
         // run fix, and expect that this will delete the outstanding todo item
         await run(['app/templates/require-button-type.hbs', '--fix']);
@@ -389,12 +389,12 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-"app/templates/require-button-type.hbs
-  -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+          "app/templates/require-button-type.hbs
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
-✖ 1 problems (1 errors, 0 warnings)
-  1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-`);
+          ✖ 1 problems (1 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+        `);
 
         // run fix, and expect that this will delete the outstanding todo item
         await run(['app/templates/require-button-type.hbs', '--clean-todo']);
@@ -737,11 +737,11 @@ describe('todo usage', () => {
       let result = await run(['.', '--include-todo']);
 
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  todo  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  todo  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-        `);
+        ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+      `);
     });
 
     it('should set todo to error if errorDate has expired via env var', async function () {
@@ -769,11 +769,11 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  error  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  error  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (1 errors, 0 warnings)"
-        `);
+        ✖ 1 problems (1 errors, 0 warnings)"
+      `);
     });
 
     it('should set todo to error if errorDate has expired via option', async function () {
@@ -800,11 +800,11 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  error  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  error  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (1 errors, 0 warnings)"
-        `);
+        ✖ 1 problems (1 errors, 0 warnings)"
+      `);
     });
 
     it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
@@ -831,11 +831,11 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  error  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  error  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (1 errors, 0 warnings)"
-        `);
+        ✖ 1 problems (1 errors, 0 warnings)"
+      `);
     });
 
     for (const { name, isLegacy, setTodoConfig } of [
@@ -890,12 +890,12 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
-              "app/templates/require-button-type.hbs
-                1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
+            "app/templates/require-button-type.hbs
+              1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
 
-              ✖ 1 problems (1 errors, 0 warnings)
-                1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-            `);
+            ✖ 1 problems (1 errors, 0 warnings)
+              1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+          `);
           expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
         });
 
@@ -1297,11 +1297,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  todo  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  todo  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-              `);
+            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+          `);
         });
 
         it('should set to todo if errorDate is not expired', async function () {
@@ -1328,11 +1328,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  todo  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  todo  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-              `);
+            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+          `);
         });
 
         it('should set todo to warn if warnDate has expired via config', async function () {
@@ -1363,11 +1363,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  warning  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  warning  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 1 warnings)"
-              `);
+            ✖ 1 problems (0 errors, 1 warnings)"
+          `);
         });
 
         it('should set todo to warn if warnDate has expired via option', async function () {
@@ -1394,11 +1394,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  warning  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  warning  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 1 warnings)"
-              `);
+            ✖ 1 problems (0 errors, 1 warnings)"
+          `);
         });
 
         it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
@@ -1430,11 +1430,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  warning  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  warning  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 1 warnings)"
-              `);
+            ✖ 1 problems (0 errors, 1 warnings)"
+          `);
         });
 
         it('should set todo to error if errorDate has expired via config', async function () {
@@ -1465,11 +1465,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  error  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  error  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (1 errors, 0 warnings)"
-              `);
+            ✖ 1 problems (1 errors, 0 warnings)"
+          `);
         });
 
         it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
@@ -1501,11 +1501,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  error  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  error  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (1 errors, 0 warnings)"
-              `);
+            ✖ 1 problems (1 errors, 0 warnings)"
+          `);
         });
 
         if (!isLegacy) {

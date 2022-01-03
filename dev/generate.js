@@ -11,7 +11,7 @@ async function main() {
 
   for (const generator of AVAILABLE_GENERATORS) {
     env.register(
-      fileURLToPath(new URL(`./${generator}-generator.js`, import.meta.url)),
+      fileURLToPath(new URL(`${generator}-generator.js`, import.meta.url)),
       `ember-template-lint:${generator}`
     );
   }
