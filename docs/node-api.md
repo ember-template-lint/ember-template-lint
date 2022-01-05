@@ -1,14 +1,17 @@
 # Node API
 
+This plugin is written in ESM so consumers of its Node API must use ESM as well.
+
 ## Linter Class
 
 Run templates through the linter's `verify` method like so:
 
 ```js
-let TemplateLinter = require('ember-template-lint');
+import { readFileSync } from 'node:fs';
+import TemplateLinter from 'ember-template-lint';
 
 let linter = new TemplateLinter();
-let template = fs.readFileSync('some/path/to/template.hbs', {
+let template = readFileSync('some/path/to/template.hbs', {
   encoding: 'utf8',
 });
 let results = await linter.verify({ source: template, filePath: 'some/path/to/template.hbs' });

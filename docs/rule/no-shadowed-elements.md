@@ -35,10 +35,6 @@ This rule **allows** the following:
 </Foo>
 ```
 
-## Related rules
-
-* [no-invalid-block-param-definition](no-invalid-block-param-definition.md)
-
 ## References
 
 * [Ember guides/block content](https://guides.emberjs.com/release/components/block-content/)

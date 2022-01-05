@@ -1,12 +1,12 @@
-'use strict';
+import fs from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const fs = require('fs');
-const path = require('path');
+import Project from '../helpers/fake-project.js';
+import run from '../helpers/run.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
-const Project = require('../helpers/fake-project');
-const run = require('../helpers/run');
-const setupEnvVar = require('../helpers/setup-env-var');
-
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = process.cwd();
 
 describe('ember-template-lint executable', function () {
@@ -44,40 +44,40 @@ describe('ember-template-lint executable', function () {
                                         '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
                                                                                   [string]
             --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+            --rule                      Specify a rule and its severity to add that rule t
+                                        o loaded rules - (e.g. \`no-implicit-this:error\` or
+                                         \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
                                                                                   [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
+            --filename                  Used to indicate the filename to be assumed for co
+                                        ntents from STDIN                         [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
+            --working-directory, --cwd  Path to a directory that should be considered as t
+                                        he current working directory.
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
+                                         blank template-lintrc instead           [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
+            --compact-todo              Compacts the .lint-todo storage file, removing ext
+                                        raneous todos                            [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
+                                         transitions into a warning               [number]
             --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
+                                         transitions into an error                [number]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled wit
+                                        h --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
+            --no-inline-config          Prevent inline configuration comments from changin
+                                        g config or rules                        [boolean]
             --print-config              Print the configuration for the given file
                                                                 [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
@@ -103,40 +103,40 @@ describe('ember-template-lint executable', function () {
                                         '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
                                                                                   [string]
             --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+            --rule                      Specify a rule and its severity to add that rule t
+                                        o loaded rules - (e.g. \`no-implicit-this:error\` or
+                                         \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
                                                                                   [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
+            --filename                  Used to indicate the filename to be assumed for co
+                                        ntents from STDIN                         [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
+            --working-directory, --cwd  Path to a directory that should be considered as t
+                                        he current working directory.
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
+                                         blank template-lintrc instead           [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
+            --compact-todo              Compacts the .lint-todo storage file, removing ext
+                                        raneous todos                            [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
+                                         transitions into a warning               [number]
             --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
+                                         transitions into an error                [number]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled wit
+                                        h --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
+            --no-inline-config          Prevent inline configuration comments from changin
+                                        g config or rules                        [boolean]
             --print-config              Print the configuration for the given file
                                                                 [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
@@ -146,11 +146,37 @@ describe('ember-template-lint executable', function () {
         `);
       });
     });
+
+    describe('with non-existent options', function () {
+      it('should exit with failure with one-word option', async function () {
+        const result = await run(['--fake']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`"Unknown option: --fake"`);
+      });
+
+      it('should exit with failure with multi-word option name', async function () {
+        const result = await run(['--fake-option-name']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`"Unknown option: --fake-option-name"`);
+      });
+
+      it('should exit with failure with camelcase name', async function () {
+        const result = await run(['--fakeOptionName']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toMatchInlineSnapshot(`"Unknown option: --fakeOptionName"`);
+      });
+    });
   });
 
   describe('reading files', function () {
     describe('given path to non-existing file', function () {
-      it('should exit without error and any console output', async function () {
+      it('should exit with error', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -169,9 +195,11 @@ describe('ember-template-lint executable', function () {
 
         let result = await run(['app/templates/application-1.hbs']);
 
-        expect(result.exitCode).toEqual(0, 'exits without error');
+        expect(result.exitCode).toEqual(1, 'exits with error');
         expect(result.stdout).toBeFalsy();
-        expect(result.stderr).toBeFalsy();
+        expect(result.stderr).toEqual(
+          'No files matching the pattern were found: "app/templates/application-1.hbs"'
+        );
       });
     });
 
@@ -320,6 +348,40 @@ describe('ember-template-lint executable', function () {
           ✖ 2 problems (2 errors, 0 warnings)"
         `);
         expect(result.stderr).toMatchInlineSnapshot('""');
+
+        // SAME TEST, USING ALIAS AS OPTION NAME:
+
+        result = await run(['--cwd', project.baseDir, 'app/templates/*'], {
+          // run from ember-template-lint's root (forces `--working-directory` to be used)
+          cwd: ROOT,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+        expect(result.stderr).toMatchInlineSnapshot('""');
+
+        // SAME TEST, USING CAMELCASE VERSION OF OPTION NAME:
+
+        result = await run(['--workingDirectory', project.baseDir, 'app/templates/*'], {
+          // run from ember-template-lint's root (forces `--working-directory` to be used)
+          cwd: ROOT,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+        expect(result.stderr).toMatchInlineSnapshot('""');
       });
     });
 
@@ -419,40 +481,40 @@ describe('ember-template-lint executable', function () {
                                         '{ \\"rules\\": { \\"no-implicit-this\\": \\"error\\" } }')
                                                                                   [string]
             --quiet                     Ignore warnings and only show errors     [boolean]
-            --rule                      Specify a rule and its severity to add that rule
-                                        to loaded rules - (e.g. \`no-implicit-this:error\`
-                                        or \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
+            --rule                      Specify a rule and its severity to add that rule t
+                                        o loaded rules - (e.g. \`no-implicit-this:error\` or
+                                         \`rule:[\\"error\\", { \\"allow\\": [\\"some-helper\\"] }]\`)
                                                                                   [string]
-            --filename                  Used to indicate the filename to be assumed for
-                                        contents from STDIN                       [string]
+            --filename                  Used to indicate the filename to be assumed for co
+                                        ntents from STDIN                         [string]
             --fix                       Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                    Specify format to be used in printing output
                                                               [string] [default: \\"pretty\\"]
-            --json                      Format output as json
-                                         [deprecated: Use --format=json instead] [boolean]
             --output-file               Specify file to write report to           [string]
             --verbose                   Output errors with source description    [boolean]
-            --working-directory, --cwd  Path to a directory that should be considered as
-                                        the current working directory.
+            --working-directory, --cwd  Path to a directory that should be considered as t
+                                        he current working directory.
                                                                    [string] [default: \\".\\"]
             --no-config-path            Does not use the local template-lintrc, will use a
-                                        blank template-lintrc instead            [boolean]
+                                         blank template-lintrc instead           [boolean]
             --update-todo               Update list of linting todos by transforming lint
                                         errors to todos         [boolean] [default: false]
             --include-todo              Include todos in the results
                                                                 [boolean] [default: false]
             --clean-todo                Remove expired and invalid todo files
                                                                  [boolean] [default: true]
+            --compact-todo              Compacts the .lint-todo storage file, removing ext
+                                        raneous todos                            [boolean]
             --todo-days-to-warn         Number of days after its creation date that a todo
-                                        transitions into a warning                [number]
+                                         transitions into a warning               [number]
             --todo-days-to-error        Number of days after its creation date that a todo
-                                        transitions into an error                 [number]
-            --ignore-pattern            Specify custom ignore pattern (can be disabled
-                                        with --no-ignore-pattern)
+                                         transitions into an error                [number]
+            --ignore-pattern            Specify custom ignore pattern (can be disabled wit
+                                        h --no-ignore-pattern)
                         [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
-            --no-inline-config          Prevent inline configuration comments from
-                                        changing config or rules                 [boolean]
+            --no-inline-config          Prevent inline configuration comments from changin
+                                        g config or rules                        [boolean]
             --print-config              Print the configuration for the given file
                                                                 [boolean] [default: false]
             --max-warnings              Number of warnings to trigger nonzero exit code
@@ -560,7 +622,7 @@ describe('ember-template-lint executable', function () {
   });
 
   describe('errors and warnings formatting', function () {
-    describe('without --json param', function () {
+    describe('without --format=json param', function () {
       it('should print properly formatted error messages', async function () {
         project.setConfig({
           rules: {
@@ -591,18 +653,12 @@ describe('ember-template-lint executable', function () {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should print properly formatted error and warning messages', async function () {
+      it('should print properly formatted error messages', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -620,9 +676,9 @@ describe('ember-template-lint executable', function () {
           'app/templates/application.hbs',
           '  1:4  error  Non-translated string used  no-bare-strings',
           '  1:24  error  Non-translated string used  no-bare-strings',
-          '  1:53  warning  HTML comment detected  no-html-comments',
+          '  1:53  error  HTML comment detected  no-html-comments',
           '',
-          '✖ 3 problems (2 errors, 1 warnings)',
+          '✖ 3 problems (3 errors, 0 warnings)',
         ]);
         expect(result.stderr).toBeFalsy();
       });
@@ -633,12 +689,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -667,12 +717,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -701,12 +745,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -740,12 +778,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -808,14 +840,8 @@ describe('ember-template-lint executable', function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
-            'no-html-comments': true,
+            'no-html-comments': 'warn',
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -842,14 +868,8 @@ describe('ember-template-lint executable', function () {
       it('should exit without error and any console output', async function () {
         project.setConfig({
           rules: {
-            'no-html-comments': true,
+            'no-html-comments': 'warn',
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -881,6 +901,7 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            'other.hbs': '<div></div>',
           },
         });
 
@@ -908,20 +929,42 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            'other.hbs': '<div></div>',
           },
         });
 
         let result = await run([
           'app/**/*',
           '--ignore-pattern',
-          '"**/foo/**"',
+          '**/foo/**',
           '--ignore-pattern',
-          '"**/bar/**"',
+          '**/bar/**',
         ]);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
         expect(result.stderr).toBeFalsy();
+      });
+
+      it('should fail when no files match because of ignore pattern', async function () {
+        project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        project.write({
+          app: {
+            foo: {
+              'application.hbs': 'Bare strings are bad',
+            },
+          },
+        });
+
+        let result = await run(['app/**/*', '--ignore-pattern', '**/foo/**']);
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toEqual('');
+        expect(result.stderr).toEqual('No files matching the pattern were found: "app/**/*"');
       });
 
       it('should allow to disable dirs ignored by default', async function () {
@@ -956,7 +999,7 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with --json param', function () {
+    describe('with --format=json param', function () {
       it('should print valid JSON string with errors', async function () {
         project.setConfig({
           rules: {
@@ -974,7 +1017,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['--json', '.']);
+        let result = await run(['--format=json', '.']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [
@@ -1022,7 +1065,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--json']);
+        let result = await run(['.', '--format=json']);
 
         let expectedOutputData = {};
         expectedOutputData['app/components/click-me-button.hbs'] = [
@@ -1046,19 +1089,13 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with --json param and --quiet', function () {
+    describe('with --format=json param and --quiet', function () {
       it('should print valid JSON string with errors, omitting warnings', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1069,7 +1106,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--json', '--quiet']);
+        let result = await run(['.', '--format=json', '--quiet']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [
@@ -1095,6 +1132,20 @@ describe('ember-template-lint executable', function () {
             severity: 2,
             source: 'Bare strings are bad...',
           },
+          {
+            column: 53,
+            endColumn: 79,
+            endLine: 1,
+            filePath: 'app/templates/application.hbs',
+            fix: {
+              text: '{{! bad html comment! }}',
+            },
+            line: 1,
+            message: 'HTML comment detected',
+            rule: 'no-html-comments',
+            severity: 2,
+            source: '<!-- bad html comment! -->',
+          },
         ];
 
         expect(result.exitCode).toEqual(1);
@@ -1105,14 +1156,8 @@ describe('ember-template-lint executable', function () {
       it('should exit without error and empty errors array', async function () {
         project.setConfig({
           rules: {
-            'no-html-comments': true,
+            'no-html-comments': 'warn',
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1122,7 +1167,7 @@ describe('ember-template-lint executable', function () {
             },
           },
         });
-        let result = await run(['.', '--json', '--quiet']);
+        let result = await run(['.', '--format=json', '--quiet']);
 
         let expectedOutputData = {};
         expectedOutputData['app/templates/application.hbs'] = [];
@@ -1147,7 +1192,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--json']);
+        let result = await run(['.', '--format=json']);
 
         let expectedOutputData = {};
         expectedOutputData['app/components/click-me-button.hbs'] = [
@@ -1307,163 +1352,6 @@ describe('ember-template-lint executable', function () {
       });
     });
 
-    describe('with --print-pending param', function () {
-      it('should print a list of pending modules', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--print-pending']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "WARNING: Print pending is deprecated. Use --update-todo instead.
-
-          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
-
-
-          pending: [
-            {
-              \\"moduleId\\": \\"app/templates/application\\",
-              \\"only\\": [
-                \\"no-bare-strings\\",
-                \\"no-html-comments\\"
-              ]
-            }
-          ]"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should ignore existing pending modules that have no lint errors', async function () {
-        project.setConfig({
-          rules: {
-            'no-html-comments': false,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--print-pending']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "WARNING: Print pending is deprecated. Use --update-todo instead.
-
-          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
-
-
-          pending: []"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should ignore existing pending modules that have partially passing rules', async function () {
-        project.setConfig({
-          rules: {
-            'no-html-comments': true,
-            'no-bare-strings': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments', 'no-bare-strings'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
-            },
-          },
-        });
-        let result = await run(['.', '--print-pending']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "WARNING: Print pending is deprecated. Use --update-todo instead.
-
-          Add the following to your \`.template-lintrc.js\` file to mark these files as pending.
-
-
-          pending: [
-            {
-              \\"moduleId\\": \\"app/templates/application\\",
-              \\"only\\": [
-                \\"no-bare-strings\\"
-              ]
-            }
-          ]"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('with --print-pending and --json params', function () {
-      it('should print json of pending modules', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--print-pending', '--json']);
-
-        let expectedOutputData = [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-bare-strings', 'no-html-comments'],
-          },
-        ];
-
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
     describe('with --max-warnings param', function () {
       it('should exit with error if warning count is greater than max-warnings', async function () {
         project.setConfig({
@@ -1596,7 +1484,6 @@ describe('ember-template-lint executable', function () {
                 \\"severity\\": 2
               }
             },
-            \\"pending\\": [],
             \\"overrides\\": [],
             \\"ignore\\": [],
             \\"plugins\\": {},
@@ -1665,7 +1552,13 @@ describe('ember-template-lint executable', function () {
             'no-html-comments': true,
           },
         });
-        project.writeSync();
+        project.write({
+          app: {
+            templates: {
+              'application.hbs': '<div></div>',
+            },
+          },
+        });
 
         let result = await run(['.', '--format', 'sarif', '--output-file', 'my-results.sarif'], {
           env: {
@@ -1683,12 +1576,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1718,8 +1605,8 @@ describe('ember-template-lint executable', function () {
         let result = await run(['.', '--format', './custom-printer.js']);
 
         expect(result.stdout).toMatchInlineSnapshot(`
-          "errors: 2
-          warnings: 1
+          "errors: 3
+          warnings: 0
           fixable: 0"
         `);
         expect(result.stderr).toBeFalsy();
@@ -1731,12 +1618,6 @@ describe('ember-template-lint executable', function () {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
-          pending: [
-            {
-              moduleId: 'app/templates/application',
-              only: ['no-html-comments'],
-            },
-          ],
         });
         project.write({
           app: {
@@ -1761,7 +1642,7 @@ describe('ember-template-lint executable', function () {
 
         fs.mkdirSync(formatterDirPath);
         fs.copyFileSync(
-          path.join(fixturePath, 'index.js'),
+          path.join(fixturePath, 'index.cjs'),
           path.join(formatterDirPath, 'index.js')
         );
         fs.copyFileSync(
@@ -1774,8 +1655,8 @@ describe('ember-template-lint executable', function () {
         expect(result.stdout).toMatchInlineSnapshot(`
           "Custom Printer Header
 
-          errors: 2
-          warnings: 1
+          errors: 3
+          warnings: 0
           fixable: 0"
         `);
         expect(result.stderr).toBeFalsy();

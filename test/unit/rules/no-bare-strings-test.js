@@ -1,19 +1,4 @@
-'use strict';
-
-const rule = require('../../../lib/rules/no-bare-strings');
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
-describe('imports', () => {
-  it('should expose the default config', () => {
-    expect(rule.DEFAULT_CONFIG).toEqual(
-      expect.objectContaining({
-        allowlist: expect.arrayContaining(['&lpar;']),
-        globalAttributes: expect.arrayContaining(['title']),
-        elementAttributes: expect.any(Object),
-      })
-    );
-  });
-});
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-bare-strings',
@@ -40,10 +25,6 @@ generateRuleTests({
       template: 'tarzan!\t\n  tarzan!',
     },
     {
-      config: ['/', '"'],
-      template: '{{t "foo"}} / "{{name}}"',
-    },
-    {
       config: ['&', '&times;', '4', '3=12'],
       template: '4 &times; 3=12',
     },
@@ -54,6 +35,18 @@ generateRuleTests({
     {
       config: ['&', '&times;'],
       template: '& &times;',
+    },
+    {
+      config: { allowlist: ['howdy'] },
+      template: 'howdy',
+    },
+    {
+      config: { elementAttributes: { img: ['data-alt'] } },
+      template: '<img data-alt={{bar}}>',
+    },
+    {
+      config: { globalAttributes: ['data-foo'] },
+      template: '<div data-foo={{foo}}></div>',
     },
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
@@ -92,19 +85,12 @@ generateRuleTests({
 
     {
       config: ['₹'],
+      template: '₹',
+    },
+
+    {
+      config: ['&#8377;'],
       template: '&#8377;',
-    },
-
-    {
-      // override the globalAttributes list
-      config: { globalAttributes: [] },
-      template: '<a title="hahaha trolol"></a>',
-    },
-
-    {
-      // override the elementAttributes list
-      config: { elementAttributes: {} },
-      template: '<input placeholder="hahaha">',
     },
 
     {
@@ -119,6 +105,13 @@ generateRuleTests({
 <i class="material-icons">folder_open</i>
 {{!-- template-lint-enable no-bare-strings --}}`,
     '<div data-test-foo-bar></div>',
+
+    // `page-title` helper.
+    '{{page-title}}',
+    '{{page-title (t "foo")}}',
+    '{{page-title @model.foo}}',
+    '{{page-title this.model.foo}}',
+    '{{page-title this.model.foo " - " this.model.bar}}',
   ],
 
   bad: [
@@ -505,6 +498,102 @@ generateRuleTests({
               "rule": "no-bare-strings",
               "severity": 2,
               "source": "trolol",
+            },
+          ]
+        `);
+      },
+    },
+
+    // `page-title` helper.
+    {
+      template: '{{page-title "foo"}}',
+      result: {
+        message: 'Non-translated string used',
+        line: 1,
+        column: 13,
+        source: 'foo',
+      },
+    },
+    {
+      template: '{{page-title "foo" " - " "bar"}}',
+      results: [
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 13,
+          source: 'foo',
+        },
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 25,
+          source: 'bar',
+        },
+      ],
+    },
+
+    {
+      config: { allowlist: ['/', '"'] },
+      template: '{{t "foo"}} / error / &lpar;"{{name}}"&rpar;',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": " / error / &lpar;\\"",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      // override the globalAttributes list, still flags violation on item from DEFAULT_CONFIG
+      config: { globalAttributes: ['foo'] },
+      template: '<a title="hahaha trolol"></a>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 3,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`title\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      // override the elementAttributes list, still flags violation on item from DEFAULT_CONFIG
+      config: { elementAttributes: { img: ['data-alt'] } },
+      template: '<input placeholder="hahaha">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 7,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha",
             },
           ]
         `);

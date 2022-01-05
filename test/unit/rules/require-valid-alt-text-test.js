@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-valid-alt-text',
@@ -19,7 +17,6 @@ generateRuleTests({
 
     '<img alt="some-alt-name">',
     '<img alt="name {{picture}}">',
-    '<img aria-hidden="true">',
     '<img alt="{{picture}}">',
     '<img alt="" role="none">',
     '<img alt="" role="presentation">',

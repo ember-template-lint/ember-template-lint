@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'block-indentation',
@@ -325,6 +323,7 @@ generateRuleTests({
     },
     {
       template: '<div>\n<p>Stuff goes here</p>\n</div>',
+      fixedTemplate: '<div>\n  <p>Stuff goes here</p>\n</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`

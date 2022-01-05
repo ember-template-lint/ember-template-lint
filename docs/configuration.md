@@ -32,6 +32,8 @@ module.exports = {
 };
 ```
 
+Configuration files can be written in CJS or ESM. ESM is required when directly importing/exporting rules (since rules are written in ESM and only ESM files can import ESM files).
+
 ## Configuration Properties
 
 The following properties are allowed in the root of the `.template-lintrc.js` configuration file:

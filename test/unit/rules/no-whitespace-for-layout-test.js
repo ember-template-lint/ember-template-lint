@@ -1,8 +1,6 @@
 // no-whitespace-for-layout-test.js
 
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-whitespace-for-layout',

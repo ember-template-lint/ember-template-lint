@@ -1,8 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SarifFormatter = require('../../lib/formatters/sarif');
-const Project = require('../helpers/fake-project');
+import SarifFormatter from '../../lib/formatters/sarif.js';
+import Project from '../helpers/fake-project.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const SARIF_LOG_MATCHER = {
   version: '2.1.0',
@@ -132,9 +135,7 @@ const DEFAULT_OPTIONS = {
 
 function getFixture(fixtureName) {
   return JSON.parse(
-    fs.readFileSync(path.join(__dirname, '..', 'fixtures', 'sarif', `${fixtureName}.json`), {
-      encoding: 'utf-8',
-    })
+    fs.readFileSync(path.join(__dirname, '..', 'fixtures', 'sarif', `${fixtureName}.json`))
   );
 }
 
@@ -223,11 +224,7 @@ describe('', () => {
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            let sarifLog = JSON.parse(
-              fs.readFileSync(str.match(sarifPattern)[1], {
-                encoding: 'utf-8',
-              })
-            );
+            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
 
             expect(str).toMatch(sarifPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
@@ -248,11 +245,7 @@ describe('', () => {
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            let sarifLog = JSON.parse(
-              fs.readFileSync(str.match(sarifPattern)[1], {
-                encoding: 'utf-8',
-              })
-            );
+            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
 
             expect(str).toMatch(sarifPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
@@ -274,11 +267,7 @@ describe('', () => {
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            let sarifLog = JSON.parse(
-              fs.readFileSync(str.match(sarifPattern)[1], {
-                encoding: 'utf-8',
-              })
-            );
+            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
 
             expect(str).toMatch(sarifPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
@@ -301,11 +290,7 @@ describe('', () => {
       Object.assign({}, DEFAULT_OPTIONS, {
         console: {
           log(str) {
-            let sarifLog = JSON.parse(
-              fs.readFileSync(str.match(sarifPattern)[1], {
-                encoding: 'utf-8',
-              })
-            );
+            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
 
             expect(str).toMatch(sarifPattern);
             expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));

@@ -1,7 +1,7 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
-const { TODO_SEVERITY } = require('../../lib');
-const Printer = require('../../lib/formatters/pretty');
+import Printer from '../../lib/formatters/pretty.js';
+import { TODO_SEVERITY } from '../../lib/helpers/severity.js';
 
 describe('Linter.errorsToMessages', function () {
   beforeEach(() => {

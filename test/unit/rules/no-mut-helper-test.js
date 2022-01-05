@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 const setterAlternative = '`{{set}}`';
 
@@ -11,7 +9,6 @@ generateRuleTests({
 
   good: [
     '<MyComponent @toggled={{this.showAggregatedLine}}/>',
-    '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @onFocusOut={{action "onFocusOutKeySkillsInput" value="target.value"}}/>',
     '<MyComponent {{on "click" (set this "isDropdownOpen" false)}}/>',

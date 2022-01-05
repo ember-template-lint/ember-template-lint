@@ -1,11 +1,10 @@
-'use strict';
-const fs = require('fs');
-const path = require('path');
+import { execa } from 'execa';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const execa = require('execa');
-
-const Project = require('../helpers/fake-project');
-const setupEnvVar = require('../helpers/setup-env-var');
+import Project from '../helpers/fake-project.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
 function run(project, args, options = {}) {
   options.reject = false;
@@ -13,7 +12,7 @@ function run(project, args, options = {}) {
 
   return execa(
     process.execPath,
-    [require.resolve('../../bin/ember-template-lint.js'), ...args],
+    [fileURLToPath(new URL('../../bin/ember-template-lint.js', import.meta.url)), ...args],
     options
   );
 }
@@ -38,7 +37,7 @@ describe('editors integration', function () {
       project.setConfig({ rules: { 'no-debugger': true } });
       project.write({ 'template.hbs': '{{debugger}}' });
 
-      let result = await run(project, ['--json', '--filename', 'template.hbs'], {
+      let result = await run(project, ['--format', 'json', '--filename', 'template.hbs'], {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });
@@ -67,7 +66,7 @@ describe('editors integration', function () {
       project.setConfig({ rules: { 'require-button-type': true } });
       project.write({ 'template.hbs': '<button></button>' });
 
-      let result = await run(project, ['--json', '--filename', 'template.hbs', '--fix'], {
+      let result = await run(project, ['--format', 'json', '--filename', 'template.hbs', '--fix'], {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });

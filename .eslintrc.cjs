@@ -1,7 +1,9 @@
 module.exports = {
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 2019,
-    sourceType: 'script',
+    ecmaVersion: 2021,
+    sourceType: 'module',
+    requireConfigFile: false,
   },
   env: {
     node: true,
@@ -82,7 +84,7 @@ module.exports = {
     'filenames/match-regex': ['error', '^.?[a-z0-9-]+$'], // Kebab-case.
 
     // Optional import rules:
-    'import/extensions': 'error',
+    'import/extensions': ['error', 'always'],
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-absolute-path': 'error',
@@ -111,6 +113,21 @@ module.exports = {
       },
     ],
 
+    // Node rules:
+    'node/no-unsupported-features/es-syntax': [
+      'error',
+      {
+        ignores: ['dynamicImport', 'modules'], // False positives: https://github.com/mysticatea/eslint-plugin-node/issues/250
+      },
+    ],
+
+    'node/no-extraneous-import': [
+      'error',
+      {
+        allowModules: ['@jest/globals'],
+      },
+    ],
+
     // Unicorn rules:
     'unicorn/consistent-destructuring': 'off',
     'unicorn/consistent-function-scoping': 'off',
@@ -120,14 +137,19 @@ module.exports = {
     'unicorn/no-lonely-if': 'off',
     'unicorn/no-null': 'off',
     'unicorn/no-useless-undefined': 'off',
-    'unicorn/prefer-module': 'off',
     'unicorn/prefer-ternary': 'off',
     'unicorn/prevent-abbreviations': 'off',
   },
 
   overrides: [
     {
-      files: ['bin/**/*.js'],
+      files: ['**/*.cjs'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+    {
+      files: ['bin/**/*.js', 'lib/helpers/cli.js'],
       rules: {
         'no-console': 'off',
       },

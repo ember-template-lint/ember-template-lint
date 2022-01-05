@@ -1,7 +1,5 @@
-'use strict';
-
-const EditorConfigResolver = require('../../lib/get-editor-config');
-const Project = require('../helpers/fake-project');
+import EditorConfigResolver from '../../lib/get-editor-config.js';
+import Project from '../helpers/fake-project.js';
 
 describe('get-editor-config', function () {
   let project = null;
