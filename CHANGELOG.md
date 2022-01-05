@@ -124,6 +124,23 @@ Also see the [v4 migration guide](docs/migration/v4.md).
 - Bryan Mishkin ([@bmish](https://github.com/bmish))
 - Cyrille ([@dcyriller](https://github.com/dcyriller))
 
+
+## v3.16.0 (2022-01-05)
+
+#### :rocket: Enhancement
+* [#2281](https://github.com/ember-template-lint/ember-template-lint/pull/2281) Add autofixer to `block-indentation` rule ([@VincentMolinie](https://github.com/VincentMolinie))
+
+#### :bug: Bug Fix
+* [#2318](https://github.com/ember-template-lint/ember-template-lint/pull/2318) Fix false negatives with `block-indentation` rule ([@VincentMolinie](https://github.com/VincentMolinie))
+
+#### :memo: Documentation
+* [#2291](https://github.com/ember-template-lint/ember-template-lint/pull/2291) Fix broken markdown links ([@bmish](https://github.com/bmish))
+
+#### Committers: 2
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Vincent Molinié ([@VincentMolinie](https://github.com/VincentMolinie))
+
+
 ## v3.15.0 (2021-12-16)
 
 #### :rocket: Enhancement
