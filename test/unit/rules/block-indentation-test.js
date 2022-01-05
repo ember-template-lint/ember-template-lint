@@ -1255,5 +1255,71 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '<div>\n</div>\n  {{#if foo}}\n    {{#if bar}}\n    {{/if}}\n  {{/if}}',
+      fixedTemplate: '<div>\n</div>\n{{#if foo}}\n  {{#if bar}}\n  {{/if}}\n{{/if}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "endColumn": 9,
+              "endLine": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Incorrect indentation for \`{{#if}}\` beginning at L3:C2. Expected \`{{#if}}\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "{{#if foo}}
+              {{#if bar}}
+              {{/if}}
+            {{/if}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '  <h3></h3>\n  <div>\n    <div>\n      <div>\n      </div>\n    </div>\n  </div>',
+      fixedTemplate: '<h3></h3>\n<div>\n  <div>\n    <div>\n    </div>\n  </div>\n</div>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "endColumn": 11,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Incorrect indentation for \`<h3>\` beginning at L1:C2. Expected \`<h3>\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<h3></h3>",
+            },
+            Object {
+              "column": 2,
+              "endColumn": 8,
+              "endLine": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation for \`<div>\` beginning at L2:C2. Expected \`<div>\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div>
+              <div>
+                <div>
+                </div>
+              </div>
+            </div>",
+            },
+          ]
+        `);
+      },
+    },
   ],
 });
