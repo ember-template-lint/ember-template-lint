@@ -145,7 +145,7 @@ generateRuleTests({
       config: {
         ignoreComments: true,
       },
-      template: '  {{! Comment }}\n<div>foo</div>',
+      template: '  {{! Comment }}<div>foo</div>',
     },
     {
       config: {
@@ -169,7 +169,7 @@ generateRuleTests({
       config: {
         ignoreComments: true,
       },
-      template: '  <!-- Comment -->\n<div>foo</div>',
+      template: '  <!-- Comment --><div>foo</div>',
     },
     {
       config: {
@@ -226,6 +226,13 @@ generateRuleTests({
         '  {{! Comment }}',
         '{{/if}}',
       ].join('\n'),
+    },
+    {
+      template:
+        '{{relativeDate}} <span class="my-apps-date-connected__absolute">({{absoluteDate}})</span>',
+    },
+    {
+      template: '<title></title>\n<path/><path/>',
     },
   ],
 
