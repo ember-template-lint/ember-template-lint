@@ -1,6 +1,64 @@
 
 
 
+
+## v4.0.0 (2022-01-05)
+
+Also see the [v4 migration guide](docs/migration/v4.md).
+
+#### :boom: Breaking Change
+* [#2208](https://github.com/ember-template-lint/ember-template-lint/pull/2208) Add `exports` to package.json to restrict access to private internals ([@bmish](https://github.com/bmish))
+* [#2238](https://github.com/ember-template-lint/ember-template-lint/pull/2238) Config Files: Disallow extending an invalid configuration ([@bmish](https://github.com/bmish))
+* [#2239](https://github.com/ember-template-lint/ember-template-lint/pull/2239) Config Files: Disallow invalid plugin in configuration file ([@bmish](https://github.com/bmish))
+* [#2236](https://github.com/ember-template-lint/ember-template-lint/pull/2236) Config Files: Disallow unexpected properties at top-level of configuration file ([@bmish](https://github.com/bmish))
+* [#2262](https://github.com/ember-template-lint/ember-template-lint/pull/2262) Convert to ESM ([@bmish](https://github.com/bmish))
+* [#2245](https://github.com/ember-template-lint/ember-template-lint/pull/2245) Disallow specifying non-existent files on CLI ([@bmish](https://github.com/bmish))
+* [#2261](https://github.com/ember-template-lint/ember-template-lint/pull/2261) Disallow unknown CLI options ([@bmish](https://github.com/bmish))
+* [#2193](https://github.com/ember-template-lint/ember-template-lint/pull/2193) Remove CLI option `--json` ([@bmish](https://github.com/bmish))
+* [#2207](https://github.com/ember-template-lint/ember-template-lint/pull/2207) Remove CLI option `--print-pending` ([@bmish](https://github.com/bmish))
+* [#2252](https://github.com/ember-template-lint/ember-template-lint/pull/2252) Remove deprecated pending functionality ([@scalvert](https://github.com/scalvert))
+* [#2191](https://github.com/ember-template-lint/ember-template-lint/pull/2191) Remove rule `deprecated-each-syntax` ([@bmish](https://github.com/bmish))
+* [#2188](https://github.com/ember-template-lint/ember-template-lint/pull/2188) Remove rule `no-invalid-block-param-definition` ([@dcyriller](https://github.com/dcyriller))
+* [#2176](https://github.com/ember-template-lint/ember-template-lint/pull/2176) Require Node `^12.22.0 || ^14.17.0 || >=16.0.0` ([@dcyriller](https://github.com/dcyriller))
+* [#2211](https://github.com/ember-template-lint/ember-template-lint/pull/2211) Rule Configs: Add additional `recommended` rules for v4 ([@bmish](https://github.com/bmish))
+* [#2237](https://github.com/ember-template-lint/ember-template-lint/pull/2237) Rule Configs: Remove config `2-x-recommended` and add `3-x-recommended` config ([@bmish](https://github.com/bmish))
+* [#2192](https://github.com/ember-template-lint/ember-template-lint/pull/2192) Rule Configs: Remove config `octane` ([@bmish](https://github.com/bmish))
+* [#2242](https://github.com/ember-template-lint/ember-template-lint/pull/2242) Rule Reporting: When logging a rule violation, require passing `message` ([@bmish](https://github.com/bmish))
+* [#2228](https://github.com/ember-template-lint/ember-template-lint/pull/2228) Rule Reporting: When logging a rule violation, require passing the node or all loc properties ([@bmish](https://github.com/bmish))
+* [#2279](https://github.com/ember-template-lint/ember-template-lint/pull/2279) Testing: Disallow duplicate test cases ([@bmish](https://github.com/bmish))
+* [#2240](https://github.com/ember-template-lint/ember-template-lint/pull/2240) Testing: Disallow identical `template` and `fixedTemplate` in a test case ([@bmish](https://github.com/bmish))
+* [#2216](https://github.com/ember-template-lint/ember-template-lint/pull/2216) Testing: Disallow unexpected properties in rule test cases ([@bmish](https://github.com/bmish))
+* [#2230](https://github.com/ember-template-lint/ember-template-lint/pull/2230) Testing: Only fixable test cases are allowed to assert `fixedTemplate` ([@bmish](https://github.com/bmish))
+* [#2217](https://github.com/ember-template-lint/ember-template-lint/pull/2217) Testing: Require auto-fixable test cases to assert the fixed template ([@bmish](https://github.com/bmish))
+* [#2255](https://github.com/ember-template-lint/ember-template-lint/pull/2255) Todos: Convert to single file storage ([@scalvert](https://github.com/scalvert))
+* [#2241](https://github.com/ember-template-lint/ember-template-lint/pull/2241) Update `no-bare-strings` rule options to augment instead of replace the default config  ([@bmish](https://github.com/bmish))
+* [#2089](https://github.com/ember-template-lint/ember-template-lint/pull/2089) Update `no-bare-strings` rule to check the arguments to `{{page-title ...}}` helper ([@bertdeblock](https://github.com/bertdeblock))
+* [#2278](https://github.com/ember-template-lint/ember-template-lint/pull/2278) Update `no-element-event-actions` rule to set `requireActionHelper` option default to `false` ([@bmish](https://github.com/bmish))
+* [#2195](https://github.com/ember-template-lint/ember-template-lint/pull/2195) Update `no-invalid-link-text` rule to set `allowEmptyLinks` option default to `false` ([@bmish](https://github.com/bmish))
+* [#1881](https://github.com/ember-template-lint/ember-template-lint/pull/1881) Update `no-invalid-link-title` rule to check for link title being substring of link text ([@bertdeblock](https://github.com/bertdeblock))
+* [#2172](https://github.com/ember-template-lint/ember-template-lint/pull/2172) Upgrade `ember-template-recast` to v6 ([@dcyriller](https://github.com/dcyriller))
+* [#2293](https://github.com/ember-template-lint/ember-template-lint/pull/2293) Upgrade `find-up` to v6 ([@bmish](https://github.com/bmish))
+* [#2294](https://github.com/ember-template-lint/ember-template-lint/pull/2294) Upgrade `get-stdin` to v9 ([@bmish](https://github.com/bmish))
+* [#2296](https://github.com/ember-template-lint/ember-template-lint/pull/2296) Upgrade `globby` to v6 ([@bmish](https://github.com/bmish))
+* [#2197](https://github.com/ember-template-lint/ember-template-lint/pull/2197) Upgrade `yargs` dependency to v17 ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :rocket: Enhancement
+* [#2143](https://github.com/ember-template-lint/ember-template-lint/pull/2143) Add autofixer to `quotes` rule ([@courajs](https://github.com/courajs))
+
+#### :memo: Documentation
+* [#2297](https://github.com/ember-template-lint/ember-template-lint/pull/2297) Add v4 migration guide ([@bmish](https://github.com/bmish))
+
+#### Committers: 7
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+- Aaron Sikes ([@courajs](https://github.com/courajs))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Cyrille ([@dcyriller](https://github.com/dcyriller))
+- Sam Van Campenhout ([@Windvis](https://github.com/Windvis))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
+
 ## v4.0.0-beta.3 (2021-12-29)
 
 Also see the [v4 migration guide](docs/migration/v4.md).
