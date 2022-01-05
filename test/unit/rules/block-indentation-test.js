@@ -145,7 +145,7 @@ generateRuleTests({
       config: {
         ignoreComments: true,
       },
-      template: '{{! Comment }}<div>foo</div>',
+      template: '  {{! Comment }}\n<div>foo</div>',
     },
     {
       config: {
@@ -169,7 +169,7 @@ generateRuleTests({
       config: {
         ignoreComments: true,
       },
-      template: '<!-- Comment --><div>foo</div>',
+      template: '  <!-- Comment -->\n<div>foo</div>',
     },
     {
       config: {
@@ -227,7 +227,7 @@ generateRuleTests({
         '{{/if}}',
       ].join('\n'),
     },
-  ].filter((value, index) => index >= 0),
+  ],
 
   bad: [
     {
@@ -1214,6 +1214,42 @@ generateRuleTests({
               "severity": 2,
               "source": "<span>
             </span>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '  <title>Title</title>\n  <g>\n  </g>',
+      fixedTemplate: '<title>Title</title>\n<g>\n</g>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 2,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Incorrect indentation for \`<title>\` beginning at L1:C2. Expected \`<title>\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<title>Title</title>",
+            },
+            Object {
+              "column": 2,
+              "endColumn": 6,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation for \`<g>\` beginning at L2:C2. Expected \`<g>\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<g>
+            </g>",
             },
           ]
         `);
