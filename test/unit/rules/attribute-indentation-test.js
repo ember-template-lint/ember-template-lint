@@ -2424,60 +2424,60 @@ as |ab cd ef  cd ef |
     {{/if}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
-                  "column": 7,
-                  "endColumn": 6,
-                  "endLine": 7,
-                  "filePath": "layout.hbs",
-                  "isFixable": true,
-                  "line": 2,
-                  "message": "Incorrect indentation of element modifier 'on' beginning at L2:C7. Expected 'on' to be at L5:C4.",
-                  "rule": "attribute-indentation",
-                  "severity": 2,
-                  "source": "<div {{on 'click' this.hideForestEnvironmentIndicator}}
-                  class=\\"c-indicator-forest-environment c-indicator-forest-environment--{{this.environment}}\\"
-                  role=\\"button\\"
-              >
-              <span class=\\"test-me\\">mine</span>
-              </div>",
-                },
-                Object {
-                  "column": 0,
-                  "endColumn": 6,
-                  "endLine": 7,
-                  "filePath": "layout.hbs",
-                  "isFixable": true,
-                  "line": 5,
-                  "message": "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L5:C0. Expected '<div>' to be at L6:C2.",
-                  "rule": "attribute-indentation",
-                  "severity": 2,
-                  "source": "<div {{on 'click' this.hideForestEnvironmentIndicator}}
-                  class=\\"c-indicator-forest-environment c-indicator-forest-environment--{{this.environment}}\\"
-                  role=\\"button\\"
-              >
-              <span class=\\"test-me\\">mine</span>
-              </div>",
-                },
-                Object {
-                  "column": 0,
-                  "endColumn": 6,
-                  "endLine": 7,
-                  "filePath": "layout.hbs",
-                  "isFixable": true,
-                  "line": 7,
-                  "message": "Incorrect indentation of close tag '</div>' for element '<div>' beginning at L7:C0. Expected '</div>' to be at L7:C2.",
-                  "rule": "attribute-indentation",
-                  "severity": 2,
-                  "source": "<div {{on 'click' this.hideForestEnvironmentIndicator}}
-                  class=\\"c-indicator-forest-environment c-indicator-forest-environment--{{this.environment}}\\"
-                  role=\\"button\\"
-              >
-              <span class=\\"test-me\\">mine</span>
-              </div>",
-                },
-              ]
-            `);
+          Array [
+            Object {
+              "column": 7,
+              "endColumn": 6,
+              "endLine": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation of element modifier 'on' beginning at L2:C7. Expected 'on' to be at L5:C4.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "<div {{on 'click' this.hideForestEnvironmentIndicator}}
+              class=\\"c-indicator-forest-environment c-indicator-forest-environment--{{this.environment}}\\"
+              role=\\"button\\"
+          >
+          <span class=\\"test-me\\">mine</span>
+          </div>",
+            },
+            Object {
+              "column": 0,
+              "endColumn": 6,
+              "endLine": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 5,
+              "message": "Incorrect indentation of close bracket '>' for the element '<div>' beginning at L5:C0. Expected '<div>' to be at L6:C2.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "<div {{on 'click' this.hideForestEnvironmentIndicator}}
+              class=\\"c-indicator-forest-environment c-indicator-forest-environment--{{this.environment}}\\"
+              role=\\"button\\"
+          >
+          <span class=\\"test-me\\">mine</span>
+          </div>",
+            },
+            Object {
+              "column": 0,
+              "endColumn": 6,
+              "endLine": 7,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 7,
+              "message": "Incorrect indentation of close tag '</div>' for element '<div>' beginning at L7:C0. Expected '</div>' to be at L7:C2.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "<div {{on 'click' this.hideForestEnvironmentIndicator}}
+              class=\\"c-indicator-forest-environment c-indicator-forest-environment--{{this.environment}}\\"
+              role=\\"button\\"
+          >
+          <span class=\\"test-me\\">mine</span>
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -2509,27 +2509,27 @@ as |ab cd ef  cd ef |
 {{/if}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
-                  "column": 4,
-                  "endColumn": 6,
-                  "endLine": 10,
-                  "filePath": "layout.hbs",
-                  "isFixable": true,
-                  "line": 10,
-                  "message": "Incorrect indentation of close bracket '>' for the element '<Toastr::ToastrItem>' beginning at L10:C4. Expected '<Toastr::ToastrItem>' to be at L10:C6.",
-                  "rule": "attribute-indentation",
-                  "severity": 2,
-                  "source": "<Toastr::ToastrItem
-                      @id={{toast.id}}
-                      @type={{toast.content.type}}
-                      @message={{toast.content.message}}
-                      @duration={{toast.content.duration}}
-                      @removeToast={{this.removeToast}}
-                  />",
-                },
-              ]
-            `);
+          Array [
+            Object {
+              "column": 4,
+              "endColumn": 6,
+              "endLine": 10,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 10,
+              "message": "Incorrect indentation of close bracket '>' for the element '<Toastr::ToastrItem>' beginning at L10:C4. Expected '<Toastr::ToastrItem>' to be at L10:C6.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "<Toastr::ToastrItem
+                  @id={{toast.id}}
+                  @type={{toast.content.type}}
+                  @message={{toast.content.message}}
+                  @duration={{toast.content.duration}}
+                  @removeToast={{this.removeToast}}
+              />",
+            },
+          ]
+        `);
       },
     },
   ],
