@@ -1405,8 +1405,10 @@ generateRuleTests({
     (action "mostPowerfulAction" value=target.value)
     (action "lessPowerfulAction" value=target.value)
   }}
->
-  {{contact-details firstName lastName}}
+>{{contact-details
+   firstName
+   lastName
+ }}
 </a>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -1418,7 +1420,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 10,
-              "message": "Incorrect indentation of close tag '</a>' for element '<a>' beginning at L10:C3. Expected '</a>' to be at L10:C0.",
+              "message": "Incorrect indentation of close tag '</a>' for element '<a>' beginning at L10:C3. Expected '</a>' to be at L11:C0.",
               "rule": "attribute-indentation",
               "severity": 2,
               "source": "<a
@@ -1443,7 +1445,7 @@ generateRuleTests({
       template:
         '<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>',
       fixedTemplate:
-        '<a\n  href="https://www.emberjs.com"\n  class="emberjs-home link"\n  rel="noopener"\n  target="_blank"\n>\nEmber JS\n</a>',
+        '<a\n  href="https://www.emberjs.com"\n  class="emberjs-home link"\n  rel="noopener"\n  target="_blank"\n>Ember JS</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
@@ -1584,10 +1586,13 @@ generateRuleTests({
   class="abc"
 }}spam me
 {{/each}}</a>`,
-      fixedTemplate: `<a disabled>
-  {{#each class="abc"}}
-spam me
-  {{/each}}
+      fixedTemplate: `<a
+  disabled
+>
+{{#each
+  class="abc"
+}}spam me
+{{/each}}
 </a>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -1620,8 +1625,12 @@ spam me
  firstName=firstName lastName=lastName as |contact|}}
  {{contact.fullName}}
 {{/contact-details}}`,
-      fixedTemplate: `{{#contact-details firstName=firstName lastName=lastName as |contact|}}
-  {{contact.fullName}}
+      fixedTemplate: `{{#contact-details
+  firstName=firstName
+  lastName=lastName
+as |contact|
+}}
+ {{contact.fullName}}
 {{/contact-details}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -1850,7 +1859,11 @@ as |contact|
         '\n' +
         '{{/contact-details}}',
       fixedTemplate:
-        '{{#contact-details as |contact|}}' +
+        '{{#contact-details' +
+        '\n' +
+        'as |contact|' +
+        '\n' +
+        '}}' +
         '\n' +
         '  {{contact.fullName}}' +
         '\n' +
@@ -1965,7 +1978,7 @@ as |contact|
     },
     {
       template: ['{{foo-bar', 'baz=true', '}}'].join('\n'),
-      fixedTemplate: ['{{foo-bar baz=true}}'].join('\n'),
+      fixedTemplate: ['{{foo-bar', '  baz=true', '}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -1990,7 +2003,7 @@ as |contact|
     },
     {
       template: ['{{#foo-bar', 'baz=true', '}}', '{{/foo-bar}}'].join('\n'),
-      fixedTemplate: ['{{#foo-bar baz=true}}', '{{/foo-bar}}'].join('\n'),
+      fixedTemplate: ['{{#foo-bar', '  baz=true', '}}', '{{/foo-bar}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -2030,15 +2043,17 @@ as |ab cd ef  cd ef |}}
   {{contact.fullName}}
 {{/contact-details}}
 </div>`,
-      fixedTemplate: `<div class="classy">
-  {{#contact-details
-    param0
-    param1=abc
-    param2=abc
-  as |ab cd ef cd ef|
-  }}
-    {{contact.fullName}}
-  {{/contact-details}}
+      fixedTemplate: `<div
+  class="classy"
+>
+{{#contact-details
+  param0
+  param1=abc
+  param2=abc
+as |ab cd ef  cd ef |
+}}
+  {{contact.fullName}}
+{{/contact-details}}
 </div>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -2105,14 +2120,15 @@ as |ab cd ef  cd ef |
   {{contact.fullName}}
 {{/contact-details}}
 </div>`,
-      fixedTemplate: `<div class="classy">
-  {{#contact-details
-    param0
-    param1=abc
-    param2=abc
-    as |ab cd ef cd ef|}}
-    {{contact.fullName}}
-  {{/contact-details}}
+      fixedTemplate: `<div
+  class="classy">
+{{#contact-details
+  param0
+  param1=abc
+  param2=abc
+  as |ab cd ef  cd ef |}}
+  {{contact.fullName}}
+{{/contact-details}}
 </div>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -2167,7 +2183,7 @@ as |ab cd ef  cd ef |
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 9,
-              "message": "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L9:C0. Expected '{{contact-details}}' to be at L8:C2.",
+              "message": "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L9:C0. Expected '{{contact-details}}' to be at L8:C23.",
               "rule": "attribute-indentation",
               "severity": 2,
               "source": "{{#contact-details
@@ -2203,13 +2219,13 @@ as |ab cd ef  cd ef |
       fixedTemplate: `<div
   class="classy"
 >
-  {{#contact-details
-    param0
-    param1=abc
-    param2=abc
-  as |ab cd ef cd ef|}}
-    {{contact.fullName}}
-  {{/contact-details}}
+{{#contact-details
+  param0
+  param1=abc
+  param2=abc
+as |ab cd ef  cd ef |}}
+  {{contact.fullName}}
+{{/contact-details}}
 </div>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -2243,7 +2259,7 @@ as |ab cd ef  cd ef |
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 8,
-              "message": "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L8:C0. Expected '{{contact-details}}' to be at L7:C0.",
+              "message": "Incorrect indentation of close curly braces '}}' for the component '{{contact-details}}' beginning at L8:C0. Expected '{{contact-details}}' to be at L7:C21.",
               "rule": "attribute-indentation",
               "severity": 2,
               "source": "{{#contact-details
@@ -2278,14 +2294,14 @@ as |ab cd ef  cd ef |}}
 </div>`,
       fixedTemplate: `<div
   class="classy-quite-long">
-  {{#contact-details
-    param0
-    param1=abc
-    param2=abc
-  as |ab cd ef cd ef|
-  }}
-    {{contact.fullName}}
-  {{/contact-details}}
+{{#contact-details
+  param0
+  param1=abc
+  param2=abc
+as |ab cd ef  cd ef |
+}}
+  {{contact.fullName}}
+{{/contact-details}}
 </div>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -2342,7 +2358,10 @@ as |ab cd ef  cd ef |}}
       >
       </form>`,
       fixedTemplate: `
-      <form class='form-signin' {{action 'authenticate' email password}}>
+      <form
+        class='form-signin'
+        {{action 'authenticate' email password}}
+      >
       </form>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -2388,8 +2407,9 @@ as |ab cd ef  cd ef |}}
     {{foo.bar
       baz}}{{/foo}}`,
       fixedTemplate: `{{#foo bar as |foo|}}
-  {{foo.bar baz}}
-{{/foo}}`,
+    {{foo.bar
+      baz
+    }}{{/foo}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
@@ -2425,9 +2445,9 @@ as |ab cd ef  cd ef |}}
     role="button"
     {{on 'click' this.hideForestEnvironmentIndicator}}
   >
-    <span class="test-me">mine</span>
+<span class="test-me">mine</span>
   </div>
-{{/if}}`,
+    {{/if}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
               Array [
@@ -2513,6 +2533,30 @@ as |ab cd ef  cd ef |}}
     {{/each}}
   </Toastr::ToastrContainer>
 {{/if}}`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+              Array [
+                Object {
+                  "column": 4,
+                  "endColumn": 6,
+                  "endLine": 10,
+                  "filePath": "layout.hbs",
+                  "isFixable": true,
+                  "line": 10,
+                  "message": "Incorrect indentation of close bracket '>' for the element '<Toastr::ToastrItem>' beginning at L10:C4. Expected '<Toastr::ToastrItem>' to be at L10:C6.",
+                  "rule": "attribute-indentation",
+                  "severity": 2,
+                  "source": "<Toastr::ToastrItem
+                      @id={{toast.id}}
+                      @type={{toast.content.type}}
+                      @message={{toast.content.message}}
+                      @duration={{toast.content.duration}}
+                      @removeToast={{this.removeToast}}
+                  />",
+                },
+              ]
+            `);
+      },
     },
-  ].filter((value, index) => index < 10),
+  ],
 });
