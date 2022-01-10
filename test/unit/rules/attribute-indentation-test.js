@@ -1191,32 +1191,6 @@ generateRuleTests({
         `);
       },
     },
-    // {
-    //   // Non Block HTML element
-    //   config: {
-    //     'process-elements': true,
-    //   },
-    //   template: '<input disabled   >',
-    //   fixedTemplate: '<input disabled>',
-    //   verifyResults(results) {
-    //     expect(results).toMatchInlineSnapshot(`
-    //       Array [
-    //         Object {
-    //           "column": 18,
-    //           "endColumn": 19,
-    //           "endLine": 1,
-    //           "filePath": "layout.hbs",
-    //           "isFixable": true,
-    //           "line": 1,
-    //           "message": "Incorrect indentation of close bracket '>' for the element '<input>' beginning at L1:C0. Expected '<input>' to be at L1:C8.",
-    //           "rule": "attribute-indentation",
-    //           "severity": 2,
-    //           "source": "<input disabled  >",
-    //         },
-    //       ]
-    //     `);
-    //   },
-    // },
     {
       // Non Block HTML element
       config: {
