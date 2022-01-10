@@ -923,7 +923,7 @@ generateRuleTests({
           }}}
         </div>`,
     },
-  ].filter((index) => index < 0),
+  ],
 
   bad: [
     {
