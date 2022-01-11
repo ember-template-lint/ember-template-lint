@@ -13,6 +13,7 @@ generateRuleTests({
     '\\{{foo}}',
     '\\{{foo}}\\{{foo}}',
     '\\{{foo}}{{foo}}',
+    '\\{{foo\n}}',
   ],
 
   bad: [
