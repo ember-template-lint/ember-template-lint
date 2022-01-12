@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-invalid-aria-attributes',
@@ -287,42 +285,20 @@ generateRuleTests({
     },
     {
       template:
-        '<div role="slider" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>',
+        '<div role="slider" aria-valuenow=(2*2)  aria-valuemax="100" aria-valuemin="30">Broken slider</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
             Object {
               "column": 0,
-              "endColumn": 100,
+              "endColumn": 98,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The value for aria-valuenow must be a number.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>",
-            },
-            Object {
-              "column": 0,
-              "endColumn": 100,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-valuemax must be a number.",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>",
-            },
-            Object {
-              "column": 0,
-              "endColumn": 100,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-valuemin must be a number.",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>",
+              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=\\"100\\" aria-valuemin=\\"30\\">Broken slider</div>",
             },
           ]
         `);
@@ -384,26 +360,6 @@ generateRuleTests({
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
               "source": "<input type=\\"text\\" aria-required={{if this.foo \\"true\\" \\"woosh\\"}} />",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<input type="text" aria-required="undefined" />',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 47,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-required must be a boolean.",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<input type=\\"text\\" aria-required=\\"undefined\\" />",
             },
           ]
         `);
