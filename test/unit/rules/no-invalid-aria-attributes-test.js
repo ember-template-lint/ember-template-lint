@@ -9,15 +9,18 @@ generateRuleTests({
 
   good: [
     '<h1 aria-hidden="true">Valid Heading</h1>',
+    '<h1 aria-hidden={{true}}>Second valid Heading</h1>',
     '<input type="email" aria-required="true" />',
+    '<input type="text" aria-labelledby="label1 label2" />',
+    '<div role="checkbox" aria-checked="true" onclick="handleCheckbox()" tabindex="0"></div>',
     '<div role="slider" aria-valuenow="50" aria-valuemax="100" aria-valuemin="0" />',
+    '<div role="heading" aria-level={{2}}></div>',
+    '<input type="text" id="name" aria-invalid="grammar" />',
     '<div role="region" aria-live="polite" aria-relevant="additions text">Valid live region</div>',
     '<CustomComponent @ariaRequired={{this.ariaRequired}} aria-errormessage="errorId" />',
-    '<div role="textbox" aria-sort={{if this.hasCustomSort "other" "ascending"}}></div>',
-    '<input type="text" aria-labelledby="label1 label2" />',
     '<button type="submit" aria-disabled={{this.isDisabled}}>Submit</button>',
+    '<div role="textbox" aria-sort={{if this.hasCustomSort "other" "ascending"}}></div>',
   ],
-
   bad: [
     {
       template: '<input aria-text="inaccessible text" />',
@@ -30,7 +33,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "aria-text is not a valid ARIA attribute.",
+              "message": "aria-text is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
               "source": "<input aria-text=\\"inaccessible text\\" />",
@@ -51,7 +54,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "aria-value-min is not a valid ARIA attribute.",
+              "message": "aria-value-min is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
               "source": "<div role=\\"slider\\" aria-valuenow={{this.foo}} aria-valuemax={{this.bar}} aria-value-min={{this.baz}} />",
@@ -71,7 +74,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "aria--hidden is not a valid ARIA attribute.",
+              "message": "aria--hidden is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
               "source": "<h1 aria--hidden=\\"true\\">Broken heading</h1>",
@@ -91,7 +94,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "aria-alert is not a valid ARIA attribute.",
+              "message": "aria-alert is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
               "source": "<CustomComponent role=\\"region\\" aria-alert=\\"polite\\" />",
@@ -142,20 +145,81 @@ generateRuleTests({
       },
     },
     {
-      template: '<div role="region" aria-live="no-such-value">Inaccessible live region</div>',
+      template: '<input type="text" disabled="true" aria-errormessage="false" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
             Object {
               "column": 0,
-              "endColumn": 75,
+              "endColumn": 63,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The value for aria-live must be a single token from the following: assertive, off, polite.",
+              "message": "The value for aria-errormessage must be a string that represents a DOM element ID",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"region\\" aria-live=\\"no-such-value\\">Inaccessible live region</div>",
+              "source": "<input type=\\"text\\" disabled=\\"true\\" aria-errormessage=\\"false\\" />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<input type="password" required="true" aria-errormessage={{0}} />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 65,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-errormessage must be a string that represents a DOM element ID",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<input type=\\"password\\" required=\\"true\\" aria-errormessage={{0}} />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template:
+        '<button type="submit" aria-describedby="blah false">Continue at your own risk</button>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 86,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-describedby must be a list of strings that represent DOM element IDs (idlist)",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<button type=\\"submit\\" aria-describedby=\\"blah false\\">Continue at your own risk</button>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<button type="submit" aria-describedby={{false}} >broken button</button>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 72,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-describedby must be a list of strings that represent DOM element IDs (idlist)",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<button type=\\"submit\\" aria-describedby={{false}} >broken button</button>",
             },
           ]
         `);
@@ -182,20 +246,103 @@ generateRuleTests({
       },
     },
     {
-      template: '<input type="text" aria-required={{if this.foo "true" "woosh"}} />',
+      template: '<div role="heading" aria-level="true">Another inaccessible heading</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           Array [
             Object {
               "column": 0,
-              "endColumn": 66,
+              "endColumn": 72,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The value for aria-required must be a boolean.",
+              "message": "The value for aria-level must be an integer.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<input type=\\"text\\" aria-required={{if this.foo \\"true\\" \\"woosh\\"}} />",
+              "source": "<div role=\\"heading\\" aria-level=\\"true\\">Another inaccessible heading</div>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div role="heading" aria-level={{"blah"}}>Broken heading</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 62,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-level must be an integer.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<div role=\\"heading\\" aria-level={{\\"blah\\"}}>Broken heading</div>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template:
+        '<div role="slider" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 100,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-valuenow must be a number.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>",
+            },
+            Object {
+              "column": 0,
+              "endColumn": 100,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-valuemax must be a number.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>",
+            },
+            Object {
+              "column": 0,
+              "endColumn": 100,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-valuemin must be a number.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=(+100) aria-valuemin=(-30)>Broken slider</div>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div role="region" aria-live="no-such-value">Inaccessible live region</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 75,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-live must be a single token from the following: assertive, off, polite.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<div role=\\"region\\" aria-live=\\"no-such-value\\">Inaccessible live region</div>",
             },
           ]
         `);
@@ -217,6 +364,46 @@ generateRuleTests({
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
               "source": "<div role=\\"region\\" aria-live=\\"polite\\" aria-relevant=\\"additions errors\\">Inaccessible live region</div>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<input type="text" aria-required={{if this.foo "true" "woosh"}} />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-required must be a boolean.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<input type=\\"text\\" aria-required={{if this.foo \\"true\\" \\"woosh\\"}} />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<input type="text" aria-required="undefined" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-required must be a boolean.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<input type=\\"text\\" aria-required=\\"undefined\\" />",
             },
           ]
         `);
