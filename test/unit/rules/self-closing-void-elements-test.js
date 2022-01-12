@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'self-closing-void-elements',
@@ -93,7 +91,6 @@ generateRuleTests({
   bad: [
     {
       template: '<area/>',
-      message: "Self-closing void element as <area> is redundant ('layout.hbs'@ L1:C0)",
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`

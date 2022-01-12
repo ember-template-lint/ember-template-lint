@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "3.14.0",
+  "version": "4.0.0",
   "description": "Linter for Ember or Handlebars templates.",
   "keywords": [
     "ember",
@@ -19,13 +19,15 @@
   },
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
-  "main": "lib/index.js",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "main": "./lib/index.js",
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "lint": "npm-run-all --continue-on-error --parallel lint:*",
-    "lint:docs": "markdownlint '**/*.md'",
+    "lint:docs": "markdownlint \"**/*.md\"",
     "lint:docs:fix": "yarn lint:docs --fix",
-    "lint:js": "eslint . --cache",
+    "lint:js": "eslint --cache .",
     "lint:js:fix": "yarn lint:js --fix",
     "lint:package-json": "npmPkgJsonLint .",
     "lint:package-json-sorting": "sort-package-json --check",
@@ -33,8 +35,10 @@
     "new:rule": "node dev/generate.js new-rule",
     "release": "release-it",
     "test": "npm-run-all lint:* test:*",
-    "test:jest": "jest --coverage",
-    "update:readme": "node ./scripts/update-rules.js"
+    "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "update": "npm-run-all update:*",
+    "update:indices": "node ./scripts/update-indices.js",
+    "update:readme": "node ./scripts/update-readme.js"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
@@ -43,10 +47,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 85,
-        "functions": 95,
-        "lines": 90,
-        "statements": 90
+        "branches": 87,
+        "functions": 96,
+        "lines": 91,
+        "statements": 91
       }
     },
     "setupFilesAfterEnv": [
@@ -57,53 +61,54 @@
     ]
   },
   "dependencies": {
-    "@ember-template-lint/todo-utils": "^10.0.0",
     "aria-query": "^5.0.0",
+    "@lint-todo/utils": "^12.0.1",
     "chalk": "^4.1.2",
     "ci-info": "^3.3.0",
-    "date-fns": "^2.27.0",
-    "ember-template-recast": "^5.0.3",
-    "find-up": "^5.0.0",
-    "fuse.js": "^6.4.6",
-    "get-stdin": "^8.0.0",
-    "globby": "^11.0.4",
+    "date-fns": "^2.28.0",
+    "ember-template-recast": "^6.1.2",
+    "find-up": "^6.2.0",
+    "fuse.js": "^6.5.3",
+    "get-stdin": "^9.0.0",
+    "globby": "^12.0.2",
     "is-glob": "^4.0.3",
     "micromatch": "^4.0.4",
-    "requireindex": "^1.2.0",
-    "resolve": "^1.20.0",
+    "resolve": "^1.21.0",
     "v8-compile-cache": "^2.3.0",
-    "yargs": "^16.2.0"
+    "yargs": "^17.3.1"
   },
   "devDependencies": {
-    "@babel/parser": "^7.16.4",
-    "@babel/traverse": "^7.16.3",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/parser": "^7.16.6",
+    "@babel/traverse": "^7.16.7",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
     "common-tags": "^1.8.2",
-    "eslint": "^7.32.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-import-helpers": "^1.2.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import-helpers": "^1.2.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-unicorn": "^31.0.0",
-    "execa": "^5.1.1",
+    "eslint-plugin-unicorn": "^40.0.0",
+    "execa": "^6.0.0",
     "fixturify-project": "^2.1.1",
-    "jest": "^27.4.4",
+    "jest": "^27.4.7",
     "markdownlint-cli": "^0.30.0",
     "npm-package-json-lint": "^5.4.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
-    "release-it": "^14.11.8",
-    "release-it-lerna-changelog": "^3.1.0",
+    "release-it": "^14.12.1",
+    "release-it-lerna-changelog": "^4.0.1",
     "sort-package-json": "^1.53.1",
     "yeoman-environment": "^3.8.1",
-    "yeoman-generator": "^5.4.2",
+    "yeoman-generator": "^5.5.2",
     "yeoman-test": "^6.2.0"
   },
   "engines": {
-    "node": ">= 10.24 < 11 || 12.* || >= 14.*"
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

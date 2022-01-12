@@ -1,8 +1,6 @@
 // no-whitespace-within-word-test.js
 
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-whitespace-within-word',

@@ -1,19 +1,18 @@
-const fs = require('fs');
+import { jest } from '@jest/globals';
+import { todoStorageFileExists, writeTodos, readTodoData } from '@lint-todo/utils';
+import { differenceInDays, subDays } from 'date-fns';
 
-const {
-  ensureTodoStorageDir,
-  todoStorageDirExists,
-  getTodoStorageDirPath,
-  writeTodos,
-  readTodoData,
-} = require('@ember-template-lint/todo-utils');
-const { differenceInDays, subDays } = require('date-fns');
-
-const Project = require('../helpers/fake-project');
-const run = require('../helpers/run');
-const setupEnvVar = require('../helpers/setup-env-var');
+import Project from '../helpers/fake-project.js';
+import run from '../helpers/run.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
 const ROOT = process.cwd();
+
+jest.setTimeout(10_000);
+
+function buildReadOptions() {
+  return { engine: 'ember-template-lint' };
+}
 
 describe('todo usage', () => {
   setupEnvVar('FORCE_COLOR', '0');
@@ -63,17 +62,11 @@ describe('todo usage', () => {
       );
     });
 
-    it('does not create `.lint-todo` dir without --update-todo param', async function () {
+    it('does not create `.lint-todo` file without --update-todo param', async function () {
       project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
-        pending: [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-html-comments'],
-          },
-        ],
       });
       project.write({
         app: {
@@ -85,53 +78,8 @@ describe('todo usage', () => {
 
       let result = await run(['.']);
 
-      expect(todoStorageDirExists(project.baseDir)).toEqual(false);
+      expect(todoStorageFileExists(project.baseDir)).toEqual(false);
       expect(result.stdout).toBeTruthy();
-    });
-
-    it('errors when config.pending and `.lint-todo` dir coexist', async function () {
-      await ensureTodoStorageDir(project.baseDir);
-
-      project.setConfig({
-        pending: [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-html-comments'],
-          },
-        ],
-      });
-
-      let result = await run(['.']);
-
-      expect(result.stderr).toBeTruthy();
-    });
-
-    it('errors if config.pending is present when running with --update-todo', async function () {
-      project.setConfig({
-        rules: {
-          'no-bare-strings': true,
-        },
-        pending: [
-          {
-            moduleId: 'app/templates/application',
-            only: ['no-html-comments'],
-          },
-        ],
-      });
-      project.write({
-        app: {
-          templates: {
-            'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
-          },
-        },
-      });
-
-      let result = await run(['.', '--update-todo']);
-
-      expect(result.exitCode).toEqual(1);
-      expect(result.stderr).toContain(
-        'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
-      );
     });
 
     it('errors if using either --todo-days-to-warn or --todo-days-to-error without --update-todo', async function () {
@@ -166,9 +114,9 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      const result = readTodoData(project.baseDir);
+      const result = readTodoData(project.baseDir, buildReadOptions());
 
-      expect(result).toHaveLength(0);
+      expect(result.size).toEqual(0);
     });
 
     it('generates todos for existing errors', async function () {
@@ -190,7 +138,7 @@ describe('todo usage', () => {
       let result = await run(['.', '--update-todo']);
 
       expect(result.exitCode).toEqual(0);
-      expect(todoStorageDirExists(project.baseDir)).toEqual(true);
+      expect(todoStorageFileExists(project.baseDir)).toEqual(true);
     });
 
     it('generates todos for existing errors, and correctly reports todo severity when file is edited to trigger fuzzy match', async function () {
@@ -212,8 +160,8 @@ describe('todo usage', () => {
       let result = await run(['.', '--update-todo']);
 
       expect(result.exitCode).toEqual(0);
-      expect(todoStorageDirExists(project.baseDir)).toEqual(true);
-      expect(readTodoData(project.baseDir)).toHaveLength(3);
+      expect(todoStorageFileExists(project.baseDir)).toEqual(true);
+      expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(3);
 
       project.write({
         app: {
@@ -291,9 +239,9 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      let todos = readTodoData(project.baseDir);
+      let todos = readTodoData(project.baseDir, buildReadOptions());
 
-      expect(todos).toHaveLength(2);
+      expect(todos.size).toEqual(2);
 
       project.write({
         app: {
@@ -313,9 +261,9 @@ describe('todo usage', () => {
         '--no-config-path',
       ]);
 
-      todos = readTodoData(project.baseDir);
+      todos = readTodoData(project.baseDir, buildReadOptions());
 
-      expect(todos).toHaveLength(3);
+      expect(todos.size).toEqual(3);
     });
 
     it('does not remove todos if custom config params are used with subsequent invocations', async function () {
@@ -336,9 +284,9 @@ describe('todo usage', () => {
 
       await run(['.', '--update-todo']);
 
-      let todos = readTodoData(project.baseDir);
+      let todos = readTodoData(project.baseDir, buildReadOptions());
 
-      expect(todos).toHaveLength(3);
+      expect(todos.size).toEqual(3);
 
       let result = await run([
         '.',
@@ -349,10 +297,10 @@ describe('todo usage', () => {
         '--no-config-path',
       ]);
 
-      todos = readTodoData(project.baseDir);
+      todos = readTodoData(project.baseDir, buildReadOptions());
 
       expect(result.exitCode).toEqual(0);
-      expect(todos).toHaveLength(3);
+      expect(todos.size).toEqual(3);
     });
 
     describe('cleaning todos in CI', () => {
@@ -391,12 +339,12 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-"app/templates/require-button-type.hbs
-  -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+          "app/templates/require-button-type.hbs
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
-✖ 1 problems (1 errors, 0 warnings)
-  1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-`);
+          ✖ 1 problems (1 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+        `);
 
         // run fix, and expect that this will delete the outstanding todo item
         await run(['app/templates/require-button-type.hbs', '--fix']);
@@ -404,11 +352,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
 
       it('errors if a todo item is no longer valid when running without params, and cleans using --clean-todo', async function () {
@@ -443,12 +389,12 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-"app/templates/require-button-type.hbs
-  -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+          "app/templates/require-button-type.hbs
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
-✖ 1 problems (1 errors, 0 warnings)
-  1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-`);
+          ✖ 1 problems (1 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+        `);
 
         // run fix, and expect that this will delete the outstanding todo item
         await run(['app/templates/require-button-type.hbs', '--clean-todo']);
@@ -456,11 +402,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
     });
 
@@ -513,11 +457,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
 
       it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans without --no-clean-todo', async function () {
@@ -565,11 +507,9 @@ describe('todo usage', () => {
         // run normally again and expect no error
         result = await run(['.']);
 
-        let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
-        expect(todoDirs).toHaveLength(0);
+        expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
     });
 
@@ -797,11 +737,11 @@ describe('todo usage', () => {
       let result = await run(['.', '--include-todo']);
 
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  todo  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  todo  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-        `);
+        ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+      `);
     });
 
     it('should set todo to error if errorDate has expired via env var', async function () {
@@ -829,11 +769,11 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  error  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  error  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (1 errors, 0 warnings)"
-        `);
+        ✖ 1 problems (1 errors, 0 warnings)"
+      `);
     });
 
     it('should set todo to error if errorDate has expired via option', async function () {
@@ -860,11 +800,11 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  error  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  error  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (1 errors, 0 warnings)"
-        `);
+        ✖ 1 problems (1 errors, 0 warnings)"
+      `);
     });
 
     it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
@@ -891,12 +831,13 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
-            1:5  error  Non-translated string used  no-bare-strings
+        "app/templates/application.hbs
+          1:5  error  Non-translated string used  no-bare-strings
 
-          ✖ 1 problems (1 errors, 0 warnings)"
-        `);
+        ✖ 1 problems (1 errors, 0 warnings)"
+      `);
     });
+
     for (const { name, isLegacy, setTodoConfig } of [
       {
         name: 'Shorthand todo configuration',
@@ -947,17 +888,15 @@ describe('todo usage', () => {
           // run normally and expect the issue to be back in the error state and there to be no todo
           let result = await run(['.', '--clean-todo']);
 
-          let todoDirs = fs.readdirSync(getTodoStorageDirPath(project.baseDir));
-
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
-              "app/templates/require-button-type.hbs
-                1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
+            "app/templates/require-button-type.hbs
+              1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
 
-              ✖ 1 problems (1 errors, 0 warnings)
-                1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-            `);
-          expect(todoDirs).toHaveLength(0);
+            ✖ 1 problems (1 errors, 0 warnings)
+              1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+          `);
+          expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
         });
 
         it('should error if daysToDecay.error is less than daysToDecay.warn in config', async function () {
@@ -1004,7 +943,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1038,7 +977,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1072,7 +1011,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1102,7 +1041,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1136,7 +1075,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1170,7 +1109,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1201,7 +1140,7 @@ describe('todo usage', () => {
 
           let result = await run(['.', '--update-todo']);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1240,7 +1179,7 @@ describe('todo usage', () => {
             },
           });
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1282,7 +1221,7 @@ describe('todo usage', () => {
             }
           );
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1322,7 +1261,7 @@ describe('todo usage', () => {
             '20',
           ]);
 
-          const todos = readTodoData(project.baseDir);
+          const todos = readTodoData(project.baseDir, buildReadOptions());
 
           expect(result.exitCode).toEqual(0);
 
@@ -1358,11 +1297,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  todo  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  todo  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-              `);
+            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+          `);
         });
 
         it('should set to todo if errorDate is not expired', async function () {
@@ -1389,11 +1328,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  todo  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  todo  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-              `);
+            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
+          `);
         });
 
         it('should set todo to warn if warnDate has expired via config', async function () {
@@ -1424,11 +1363,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  warning  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  warning  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 1 warnings)"
-              `);
+            ✖ 1 problems (0 errors, 1 warnings)"
+          `);
         });
 
         it('should set todo to warn if warnDate has expired via option', async function () {
@@ -1455,11 +1394,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  warning  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  warning  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 1 warnings)"
-              `);
+            ✖ 1 problems (0 errors, 1 warnings)"
+          `);
         });
 
         it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
@@ -1491,11 +1430,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  warning  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  warning  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (0 errors, 1 warnings)"
-              `);
+            ✖ 1 problems (0 errors, 1 warnings)"
+          `);
         });
 
         it('should set todo to error if errorDate has expired via config', async function () {
@@ -1526,11 +1465,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  error  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  error  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (1 errors, 0 warnings)"
-              `);
+            ✖ 1 problems (1 errors, 0 warnings)"
+          `);
         });
 
         it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
@@ -1562,11 +1501,11 @@ describe('todo usage', () => {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
-                "app/templates/application.hbs
-                  1:5  error  Non-translated string used  no-bare-strings
+            "app/templates/application.hbs
+              1:5  error  Non-translated string used  no-bare-strings
 
-                ✖ 1 problems (1 errors, 0 warnings)"
-              `);
+            ✖ 1 problems (1 errors, 0 warnings)"
+          `);
         });
 
         if (!isLegacy) {
@@ -1599,7 +1538,7 @@ describe('todo usage', () => {
 
             let result = await run(['.', '--update-todo']);
 
-            const todos = readTodoData(project.baseDir);
+            const todos = readTodoData(project.baseDir, buildReadOptions());
 
             expect(result.exitCode).toEqual(0);
 

@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-duplicate-id',
@@ -13,7 +11,6 @@ generateRuleTests({
 
     // Mustache Statements
     '<div id={{"id-00"}}></div>',
-    '<div id={{"id-00"}}></div><div id={{"id-01"}}></div>',
     '<div id={{this.divId00}}></div>',
     '<div id={{this.divId00}}></div><div id={{this.divId01}}></div>',
 

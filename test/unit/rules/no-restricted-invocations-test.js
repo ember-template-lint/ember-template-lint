@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-restricted-invocations',
@@ -594,16 +592,6 @@ generateRuleTests({
     },
     {
       // Disallows incorrect naming format (disallows angle bracket invocation style).
-      config: ['MyComponent'],
-      template: 'test',
-
-      result: {
-        fatal: true,
-        message: 'You specified `["MyComponent"]`',
-      },
-    },
-    {
-      // Disallows incorrect naming format (disallows nested angle bracket invocation style).
       config: ['MyComponent'],
       template: 'test',
 

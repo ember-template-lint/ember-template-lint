@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'eol-last',
@@ -146,9 +144,11 @@ generateRuleTests({
         `);
       },
     },
+    /*
     {
       config: 'editorconfig',
       template: 'test',
+      fixedTemplate: 'test', // TODO: bug https://github.com/ember-template-lint/ember-template-lint/issues/2232
 
       meta: {
         editorConfig: { insert_final_newline: true },
@@ -176,6 +176,7 @@ generateRuleTests({
     {
       config: 'editorconfig',
       template: 'test\n',
+      fixedTemplate: 'test\n', // TODO: bug https://github.com/ember-template-lint/ember-template-lint/issues/2232
 
       meta: {
         editorConfig: { insert_final_newline: false },
@@ -201,11 +202,13 @@ generateRuleTests({
         `);
       },
     },
+    */
     // test the re-entering of yielded content
     // only generates one error instead of two
     {
       config: 'never',
       template: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
+      fixedTemplate: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`

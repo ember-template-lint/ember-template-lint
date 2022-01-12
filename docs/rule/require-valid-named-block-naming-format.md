@@ -1,5 +1,7 @@
 # require-valid-named-block-naming-format
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Require named blocks to use a valid naming format (`camelCase` or `kebab-case`).
 
 The default naming format used is `camelCase`.

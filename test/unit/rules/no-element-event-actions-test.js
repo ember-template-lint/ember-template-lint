@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-element-event-actions',
@@ -15,7 +13,6 @@ generateRuleTests({
     '<button type="button" value={{value}}></button>',
     '{{my-component onclick=(action "myAction") someProperty=true}}',
     '<SiteHeader @someFunction={{action "myAction"}} @user={{this.user}} />',
-    '<button type="button" onclick={{this.myAction}}></button>',
     {
       config: { requireActionHelper: true },
       template: '<button type="button" onclick={{this.myAction}}></button>',
@@ -85,6 +82,27 @@ generateRuleTests({
 
     {
       config: { requireActionHelper: false },
+      template: '<button type="button" onclick={{this.myAction}}></button>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 22,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use HTML element event properties like \`onclick\`. Instead, use the \`on\` modifier.",
+              "rule": "no-element-event-actions",
+              "severity": 2,
+              "source": "onclick={{this.myAction}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<button type="button" onclick={{this.myAction}}></button>',
 
       verifyResults(results) {

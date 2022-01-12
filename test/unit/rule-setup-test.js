@@ -1,9 +1,13 @@
-const { readdirSync, existsSync, readFileSync } = require('fs');
-const path = require('path');
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const configRecommended = require('../../lib/config/recommended');
-const configStylistic = require('../../lib/config/stylistic');
-const isRuleFixable = require('../helpers/is-rule-fixable');
+import configRecommended from '../../lib/config/recommended.js';
+import configStylistic from '../../lib/config/stylistic.js';
+import exportedRules from '../../lib/rules/index.js';
+import isRuleFixable from '../helpers/is-rule-fixable.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const RULE_NAMES_RECOMMENDED = new Set(Object.keys(configRecommended.rules));
 const RULE_NAMES_STYLISTIC = new Set(Object.keys(configStylistic.rules));
@@ -17,14 +21,14 @@ describe('rules setup is correct', function () {
     })
     .map((fileName) => fileName.replace('.js', ''));
 
-  it('has correct rules reexport', function () {
-    const defaultExport = require(rulesEntryPath);
-    const exportedRules = Object.keys(defaultExport);
-    for (const ruleName of exportedRules) {
-      let pathName = path.join(rulesEntryPath, `${ruleName}`);
-      expect(defaultExport[ruleName]).toEqual(require(pathName));
+  it('has correct rules reexport', async function () {
+    const exportedRuleNames = Object.keys(exportedRules);
+    for (const ruleName of exportedRuleNames) {
+      let pathName = path.join(rulesEntryPath, `${ruleName}.js`);
+      const { default: loadedRule } = await import(pathName);
+      expect(exportedRules[ruleName]).toEqual(loadedRule);
     }
-    expect(expectedRules.length).toEqual(exportedRules.length);
+    expect(expectedRules.length).toEqual(exportedRuleNames.length);
   });
 
   it('has docs/rule reference for each item', function () {
