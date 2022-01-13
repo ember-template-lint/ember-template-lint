@@ -18,6 +18,7 @@ generateRuleTests({
     '<CustomComponent @ariaRequired={{this.ariaRequired}} aria-errormessage="errorId" />',
     '<button type="submit" aria-disabled={{this.isDisabled}}>Submit</button>',
     '<div role="textbox" aria-sort={{if this.hasCustomSort "other" "ascending"}}></div>',
+    '<div role="combobox" aria-expanded="undefined"></div>',
   ],
   bad: [
     {
@@ -360,6 +361,26 @@ generateRuleTests({
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
               "source": "<input type=\\"text\\" aria-required={{if this.foo \\"true\\" \\"woosh\\"}} />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<input type="text" aria-required="undefined" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The value for aria-required must be a boolean.",
+              "rule": "no-invalid-aria-attributes",
+              "severity": 2,
+              "source": "<input type=\\"text\\" aria-required=\\"undefined\\" />",
             },
           ]
         `);
