@@ -502,12 +502,7 @@ describe('ember-template-lint executable', function () {
         expect(path.isAbsolute(configPath)).toBeTruthy();
         expect(fs.existsSync(configPath)).toBeTruthy();
 
-        let result = await run([
-          '--config-path',
-          configPath,
-          '--filename',
-          'app/templates/application.hbs',
-        ]);
+        let result = await run(['app/templates/application.hbs', '--config-path', configPath]);
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
