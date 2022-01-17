@@ -2452,10 +2452,10 @@ electron-to-chromium@^1.3.896:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.902.tgz#926726705c17f9531be23bda545b819b35da665d"
   integrity sha512-zFv5jbtyIr+V9FuT9o439isXbkXQ27mJqZfLXpBKzXugWE8+3RotHbXJlli0/r+Rvdlkut0OOMzeOWLAjH0jCw==
 
-ember-template-recast@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-6.1.2.tgz#947319c7a63f7fee36aeff59b9aa1bd0539f994f"
-  integrity sha512-he0/LRZQYyt6Mxjy0OryqCgqnIRhUoxO6sO6UMIMAyqPKJD20uYHqxrtqX1wBM96fMMVziSLHR9EVCeLdjDCYQ==
+ember-template-recast@^6.1.3:
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/ember-template-recast/-/ember-template-recast-6.1.3.tgz#1e9b256ee9da24bcaa7c213088d01f32afc88001"
+  integrity sha512-45lkfjrWlrMPlOd5rLFeQeePZwAvcS//x1x15kaiQTlqQdYWiYNXwbpWHqV+p9fXY6bEjl6EbyPhG/zBkgh8MA==
   dependencies:
     "@glimmer/reference" "^0.83.1"
     "@glimmer/syntax" "^0.83.1"
