@@ -129,6 +129,7 @@ Each rule has emojis denoting:
 | [no-inline-styles](./docs/rule/no-inline-styles.md)                                                       | ✅  |     |     |     |
 | [no-input-block](./docs/rule/no-input-block.md)                                                           | ✅  |     |     |     |
 | [no-input-tagname](./docs/rule/no-input-tagname.md)                                                       | ✅  |     |     |     |
+| [no-invalid-aria-attributes](./docs/rule/no-invalid-aria-attributes.md)                                   |     |     | ⌨️  |     |
 | [no-invalid-interactive](./docs/rule/no-invalid-interactive.md)                                           | ✅  |     | ⌨️  |     |
 | [no-invalid-link-text](./docs/rule/no-invalid-link-text.md)                                               | ✅  |     | ⌨️  |     |
 | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                                             | ✅  |     | ⌨️  |     |
