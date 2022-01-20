@@ -8,6 +8,21 @@ generateRuleTests({
   good: [
     {
       config: {
+        indentation: 4,
+      },
+      template: `<div
+    class="test"
+>
+</div>`,
+    },
+    {
+      config: false,
+      template: `<div
+ truc=mine>
+     </div>`,
+    },
+    {
+      config: {
         'mustache-open-end': 'new-line',
         'element-open-end': 'new-line',
         'as-indentation': 'attribute',
@@ -926,6 +941,118 @@ generateRuleTests({
   ],
 
   bad: [
+    {
+      config: 'bad-config',
+      template: 'test',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "fatal": true,
+              "filePath": "layout.hbs",
+              "message": "The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`\\"bad-config\\"\`",
+              "severity": 2,
+              "source": "Error: The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`\\"bad-config\\"\`
+              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
+              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
+              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
+              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
+              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
+              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
+              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { 'mustache-open-end': 'wrong-value' },
+      template: 'test',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "fatal": true,
+              "filePath": "layout.hbs",
+              "message": "The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`{\\"mustache-open-end\\":\\"wrong-value\\"}\`",
+              "severity": 2,
+              "source": "Error: The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`{\\"mustache-open-end\\":\\"wrong-value\\"}\`
+              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
+              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
+              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
+              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
+              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
+              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
+              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { 'element-open-end': 'wrong-value' },
+      template: 'test',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "fatal": true,
+              "filePath": "layout.hbs",
+              "message": "The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`{\\"element-open-end\\":\\"wrong-value\\"}\`",
+              "severity": 2,
+              "source": "Error: The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`{\\"element-open-end\\":\\"wrong-value\\"}\`
+              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
+              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
+              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
+              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
+              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
+              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
+              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { 'as-indentation': 'wrong-value' },
+      template: 'test',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "fatal": true,
+              "filePath": "layout.hbs",
+              "message": "The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`{\\"as-indentation\\":\\"wrong-value\\"}\`",
+              "severity": 2,
+              "source": "Error: The attribute-indentation rule accepts one of the following values.
+            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+          You specified \`{\\"as-indentation\\":\\"wrong-value\\"}\`
+              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
+              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
+              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
+              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
+              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
+              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
+              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
+            },
+          ]
+        `);
+      },
+    },
     {
       config: {
         'mustache-open-end': 'new-line',
@@ -2399,6 +2526,159 @@ as |ab cd ef  cd ef |
               "severity": 2,
               "source": "{{foo.bar
                 baz}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: {
+        'as-indentation': 'attribute',
+        'open-invocation-max-len': 20,
+      },
+      template: `{{#super-component as |myYieldProperty|}}
+{{/super-component}}`,
+      fixedTemplate: `{{#super-component
+  as |myYieldProperty|
+}}
+{{/super-component}}`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 18,
+              "endColumn": 20,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Incorrect indentation of block params 'as |myYieldProperty|}}' beginning at L1:C18. Expecting the block params to be at L2:C2.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{#super-component as |myYieldProperty|}}
+          {{/super-component}}",
+            },
+            Object {
+              "column": 39,
+              "endColumn": 20,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Incorrect indentation of close curly braces '}}' for the component '{{super-component}}' beginning at L1:C39. Expected '{{super-component}}' to be at L3:C0.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{#super-component as |myYieldProperty|}}
+          {{/super-component}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: {
+        'as-indentation': 'attribute',
+        'open-invocation-max-len': 20,
+      },
+      template: `{{#super-component
+  id='truc'
+as |myYieldProperty
+  anotherOne|}}
+{{/super-component}}`,
+      fixedTemplate: `{{#super-component
+  id='truc'
+  as |myYieldProperty
+  anotherOne|
+}}
+{{/super-component}}`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 5,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Incorrect indentation of block params 'as |myYieldProperty
+            anotherOne|}}' beginning at L3:C0. Expecting the block params to be at L3:C2.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{#super-component
+            id='truc'
+          as |myYieldProperty
+            anotherOne|}}
+          {{/super-component}}",
+            },
+            Object {
+              "column": 13,
+              "endColumn": 20,
+              "endLine": 5,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 4,
+              "message": "Incorrect indentation of close curly braces '}}' for the component '{{super-component}}' beginning at L4:C13. Expected '{{super-component}}' to be at L5:C0.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{#super-component
+            id='truc'
+          as |myYieldProperty
+            anotherOne|}}
+          {{/super-component}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: {
+        'as-indentation': 'attribute',
+        'open-invocation-max-len': 20,
+      },
+      template: `{{#super-component
+  id='truc' as |myYieldProperty
+  anotherOne|}}
+{{/super-component}}`,
+      fixedTemplate: `{{#super-component
+  id='truc'
+  as |myYieldProperty
+  anotherOne|
+}}
+{{/super-component}}`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 11,
+              "endColumn": 20,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation of block params 'as |myYieldProperty
+            anotherOne|}}' beginning at L2:C11. Expecting the block params to be at L3:C2.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{#super-component
+            id='truc' as |myYieldProperty
+            anotherOne|}}
+          {{/super-component}}",
+            },
+            Object {
+              "column": 13,
+              "endColumn": 20,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Incorrect indentation of close curly braces '}}' for the component '{{super-component}}' beginning at L3:C13. Expected '{{super-component}}' to be at L5:C0.",
+              "rule": "attribute-indentation",
+              "severity": 2,
+              "source": "{{#super-component
+            id='truc' as |myYieldProperty
+            anotherOne|}}
+          {{/super-component}}",
             },
           ]
         `);
