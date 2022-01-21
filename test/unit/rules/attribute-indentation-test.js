@@ -945,112 +945,44 @@ generateRuleTests({
       config: 'bad-config',
       template: 'test',
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "fatal": true,
-              "filePath": "layout.hbs",
-              "message": "The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`\\"bad-config\\"\`",
-              "severity": 2,
-              "source": "Error: The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`\\"bad-config\\"\`
-              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
-              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
-              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
-              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
-              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
-              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
-              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
-            },
-          ]
-        `);
+        expect(results.length).toStrictEqual(1);
+        expect(results[0].message)
+          .toContain(`The attribute-indentation rule accepts one of the following values.
+  * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+You specified \`"bad-config"\``);
       },
     },
     {
       config: { 'mustache-open-end': 'wrong-value' },
       template: 'test',
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "fatal": true,
-              "filePath": "layout.hbs",
-              "message": "The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`{\\"mustache-open-end\\":\\"wrong-value\\"}\`",
-              "severity": 2,
-              "source": "Error: The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`{\\"mustache-open-end\\":\\"wrong-value\\"}\`
-              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
-              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
-              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
-              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
-              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
-              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
-              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
-            },
-          ]
-        `);
+        expect(results.length).toStrictEqual(1);
+        expect(results[0].message)
+          .toContain(`The attribute-indentation rule accepts one of the following values.
+  * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+You specified \`{"mustache-open-end":"wrong-value"}\``);
       },
     },
     {
       config: { 'element-open-end': 'wrong-value' },
       template: 'test',
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "fatal": true,
-              "filePath": "layout.hbs",
-              "message": "The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`{\\"element-open-end\\":\\"wrong-value\\"}\`",
-              "severity": 2,
-              "source": "Error: The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`{\\"element-open-end\\":\\"wrong-value\\"}\`
-              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
-              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
-              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
-              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
-              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
-              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
-              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
-            },
-          ]
-        `);
+        expect(results.length).toStrictEqual(1);
+        expect(results[0].message)
+          .toContain(`The attribute-indentation rule accepts one of the following values.
+  * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+You specified \`{"element-open-end":"wrong-value"}\``);
       },
     },
     {
       config: { 'as-indentation': 'wrong-value' },
       template: 'test',
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "fatal": true,
-              "filePath": "layout.hbs",
-              "message": "The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`{\\"as-indentation\\":\\"wrong-value\\"}\`",
-              "severity": 2,
-              "source": "Error: The attribute-indentation rule accepts one of the following values.
-            * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
-          You specified \`{\\"as-indentation\\":\\"wrong-value\\"}\`
-              at AttributeIndentation.parseConfig (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:813:11)
-              at new default (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/_base.js:58:24)
-              at new AttributeIndentation (/Users/vincentmolinie/Projects/ember-template-lint/lib/rules/attribute-indentation.js:41:16)
-              at Linter._buildRule (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:112:16)
-              at Linter.buildRules (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:152:25)
-              at Linter.verify (/Users/vincentmolinie/Projects/ember-template-lint/lib/linter.js:327:36)
-              at Object.<anonymous> (/Users/vincentmolinie/Projects/ember-template-lint/lib/helpers/rule-test-harness.js:420:35)",
-            },
-          ]
-        `);
+        expect(results.length).toStrictEqual(1);
+        expect(results[0].message)
+          .toContain(`The attribute-indentation rule accepts one of the following values.
+  * boolean - \`true\` - Enables the rule to be enforced when the opening invocation has more than 80 characters or when it spans multiple lines.,  * { open-invocation-max-len: n characters, indentation: m  } - n : The max length of the opening invocation can be configured,  *                                                            - m : The desired indentation of attribute,  * { process-elements: \`boolean\` } - \`true\` : Also parse HTML/SVG attributes,  * { element-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing brace \`>\` to be on a new line or next to the last attribute (defaults to \`new-line\`),  * { mustache-open-end: \`new-line\`|\`last-attribute\` } - Enforce the position of the closing braces \`}}\` to be on a new line or next to the last attribute (defaults to \`new-line\`)
+You specified \`{"as-indentation":"wrong-value"}\``);
       },
     },
     {
