@@ -6583,7 +6583,7 @@ shell-quote@^1.6.1:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
 
-shelljs@0.8.5, shelljs@^0.8.4:
+shelljs@0.8.5, shelljs@^0.8.5:
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.8.5.tgz#de055408d8361bed66c669d2f000538ced8ee20c"
   integrity sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==
@@ -7679,10 +7679,10 @@ yeoman-environment@^3.8.1:
     textextensions "^5.12.0"
     untildify "^4.0.0"
 
-yeoman-generator@^5.5.2:
-  version "5.5.2"
-  resolved "https://registry.yarnpkg.com/yeoman-generator/-/yeoman-generator-5.5.2.tgz#1eaa2616da4b272fa31938b9a6836ac081492d3f"
-  integrity sha512-GY5VoKQb+sS41Lu0WBlCDeEn8UbV7AFTY5hI3f4DXzqEylhwBqL40h5FSeKljhrsbrixPciSKlwke13RoXtBBw==
+yeoman-generator@^5.6.1:
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/yeoman-generator/-/yeoman-generator-5.6.1.tgz#850fd266a5ab26d9d1cb9c46ad646f06eade4a1d"
+  integrity sha512-XllgFvmDEwoPMq2rKtL4/N52WlINJW6a3I3XtlCrMb3/dqO5dW0nPNgR0L3IIUIdf9y1EHb1ZFMs2Qp3ZEEFxg==
   dependencies:
     chalk "^4.1.0"
     dargs "^7.0.0"
@@ -7694,7 +7694,7 @@ yeoman-generator@^5.5.2:
     read-pkg-up "^7.0.1"
     run-async "^2.0.0"
     semver "^7.2.1"
-    shelljs "^0.8.4"
+    shelljs "^0.8.5"
     sort-keys "^4.2.0"
     text-table "^0.2.0"
 
