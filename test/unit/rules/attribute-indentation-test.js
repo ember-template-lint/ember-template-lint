@@ -2744,5 +2744,37 @@ as |myYieldProperty
         `);
       },
     },
+    {
+      template: `{{#sq-dropdown as |dropdown|}}
+
+  {{#dropdown.trigger class="button super-table__plus-button"}}
+    <i class="{{if isActive "icon-plus-small-hover" "icon-plus-small"}} super-table__plus-button__icon"></i>
+  {{/dropdown.trigger}}
+
+{{/sq-dropdown}}
+
+{{directory/onboard-tooltip buttonText=(t "button.ok")
+                            content=(t "foo")
+                            flag=onboardTooltipFlag
+                            flagPrevious=onboardTooltipFlagPrevious
+                            popoverClass="foo"}}`,
+      fixedTemplate: `{{#sq-dropdown as |dropdown|}}
+
+  {{#dropdown.trigger class="button super-table__plus-button"}}
+    <i
+      class="{{if isActive "icon-plus-small-hover" "icon-plus-small"}} super-table__plus-button__icon"
+    ></i>
+  {{/dropdown.trigger}}
+
+{{/sq-dropdown}}
+
+{{directory/onboard-tooltip
+  buttonText=(t "button.ok")
+  content=(t "foo")
+  flag=onboardTooltipFlag
+  flagPrevious=onboardTooltipFlagPrevious
+  popoverClass="foo"
+}}`,
+    },
   ],
 });
