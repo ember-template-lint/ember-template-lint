@@ -41,11 +41,7 @@ export default class FakeProject extends Project {
   static defaultSetup() {
     let project = new this();
 
-    project.files = {
-      '.template-lintrc.js': DEFAULT_TEMPLATE_LINTRC,
-      '.editorconfig': DEFAULT_EDITOR_CONFIG,
-    };
-
+    project.setDefaultFiles();
     project.writeSync();
 
     return project;
@@ -55,6 +51,11 @@ export default class FakeProject extends Project {
     super(name, ...args);
 
     this.writeSync();
+  }
+
+  setDefaultFiles() {
+    this.files['.template-lintrc.js'] = DEFAULT_TEMPLATE_LINTRC;
+    this.files['.editorconfig'] = DEFAULT_EDITOR_CONFIG;
   }
 
   setConfig(config) {
