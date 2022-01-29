@@ -1,4 +1,4 @@
-import FixturifyProject from 'fixturify-project';
+import { Project as FixturifyProject } from 'fixturify-project';
 import path from 'node:path';
 
 const ROOT = process.cwd();

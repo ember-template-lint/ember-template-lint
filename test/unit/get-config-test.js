@@ -13,6 +13,7 @@ describe('get-config', function () {
 
   beforeEach(function () {
     project = new Project();
+    project.writeSync();
   });
 
   afterEach(function () {
