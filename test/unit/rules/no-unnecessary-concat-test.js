@@ -13,8 +13,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 11,
               "endColumn": 22,
               "endLine": 1,
@@ -34,8 +34,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 9,
               "endColumn": 18,
               "endLine": 1,
@@ -46,7 +46,7 @@ generateRuleTests({
               "severity": 2,
               "source": "\\"{{url}}\\"",
             },
-            Object {
+            {
               "column": 23,
               "endColumn": 47,
               "endLine": 1,

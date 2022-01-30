@@ -32,8 +32,8 @@ generateRuleTests({
       template: '<div role="button"><h2>Test</h2></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 38,
               "endLine": 1,
@@ -52,8 +52,8 @@ generateRuleTests({
       template: '<div role="button"><h2 role="presentation"><img /></h2></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 61,
               "endLine": 1,
@@ -74,8 +74,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 82,
               "endLine": 1,
@@ -86,7 +86,7 @@ generateRuleTests({
               "severity": 2,
               "source": "<div role=\\"button\\"><h2 role=\\"presentation\\"><button>Test <img/></button></h2></div>",
             },
-            Object {
+            {
               "column": 0,
               "endColumn": 82,
               "endLine": 1,

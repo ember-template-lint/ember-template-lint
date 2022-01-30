@@ -56,6 +56,9 @@
     "setupFilesAfterEnv": [
       "<rootDir>/test/jest-setup.js"
     ],
+    "snapshotFormat": {
+      "printBasicPrototype": false
+    },
     "testMatch": [
       "<rootDir>/test/**/*-test.js"
     ]

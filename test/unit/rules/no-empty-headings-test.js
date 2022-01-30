@@ -39,8 +39,8 @@ generateRuleTests({
       template: '<h1></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 9,
               "endLine": 1,
@@ -59,8 +59,8 @@ generateRuleTests({
       template: '<h1> \n &nbsp;</h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 12,
               "endLine": 2,
@@ -80,8 +80,8 @@ generateRuleTests({
       template: '<h1><span></span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -100,8 +100,8 @@ generateRuleTests({
       template: '<h1><span> \n &nbsp;</span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 2,
@@ -121,8 +121,8 @@ generateRuleTests({
       template: '<h1><div><span></span></div></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 33,
               "endLine": 1,
@@ -141,8 +141,8 @@ generateRuleTests({
       template: '<h1><span></span><span></span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -161,8 +161,8 @@ generateRuleTests({
       template: '<h1> &nbsp; <div aria-hidden="true">Some hidden text</div></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 63,
               "endLine": 1,
@@ -181,8 +181,8 @@ generateRuleTests({
       template: '<h1><span aria-hidden="true">Inaccessible text</span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 58,
               "endLine": 1,
@@ -201,8 +201,8 @@ generateRuleTests({
       template: '<h1><span hidden>Inaccessible text</span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 46,
               "endLine": 1,
@@ -221,8 +221,8 @@ generateRuleTests({
       template: '<h1><span hidden>{{@title}}</span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 39,
               "endLine": 1,
@@ -241,8 +241,8 @@ generateRuleTests({
       template: '<h1><span hidden>{{#component}}Inaccessible text{{/component}}</span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 74,
               "endLine": 1,
@@ -261,8 +261,8 @@ generateRuleTests({
       template: '<h1><span hidden><CustomComponent>Inaccessible text</CustomComponent></span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 81,
               "endLine": 1,
@@ -282,8 +282,8 @@ generateRuleTests({
         '<h1><span aria-hidden="true">Hidden text</span><span aria-hidden="true">Hidden text</span></h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 95,
               "endLine": 1,
@@ -302,8 +302,8 @@ generateRuleTests({
       template: '<div role="heading" aria-level="1"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 41,
               "endLine": 1,
@@ -323,8 +323,8 @@ generateRuleTests({
         '<div role="heading" aria-level="1"><span aria-hidden="true">Inaccessible text</span></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 90,
               "endLine": 1,
@@ -343,8 +343,8 @@ generateRuleTests({
       template: '<div role="heading" aria-level="1"><span hidden>Inaccessible text</span></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 78,
               "endLine": 1,

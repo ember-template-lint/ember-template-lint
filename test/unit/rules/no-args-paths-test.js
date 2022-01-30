@@ -19,8 +19,8 @@ generateRuleTests({
       template: '{{hello (format value=args.foo)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 30,
               "endLine": 1,
@@ -39,8 +39,8 @@ generateRuleTests({
       template: '{{hello value=args.foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 14,
               "endColumn": 22,
               "endLine": 1,
@@ -59,8 +59,8 @@ generateRuleTests({
       template: '{{hello (format args.foo.bar)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 28,
               "endLine": 1,
@@ -79,8 +79,8 @@ generateRuleTests({
       template: '<br {{hello args.foo.bar}}>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 24,
               "endLine": 1,
@@ -99,8 +99,8 @@ generateRuleTests({
       template: '{{hello args.foo.bar}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 20,
               "endLine": 1,
@@ -119,8 +119,8 @@ generateRuleTests({
       template: '{{args.foo.bar}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 14,
               "endLine": 1,
@@ -139,8 +139,8 @@ generateRuleTests({
       template: '{{args.foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 10,
               "endLine": 1,
@@ -159,8 +159,8 @@ generateRuleTests({
       template: '{{this.args.foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 15,
               "endLine": 1,

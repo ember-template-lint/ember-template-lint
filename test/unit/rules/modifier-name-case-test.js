@@ -21,8 +21,8 @@ generateRuleTests({
       template: '<div {{didInsert}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 16,
               "endLine": 1,
@@ -41,8 +41,8 @@ generateRuleTests({
       template: '<div class="monkey" {{didInsert "something" with="somethingElse"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 31,
               "endLine": 1,
@@ -61,8 +61,8 @@ generateRuleTests({
       template: '<a href="#" onclick={{amazingActionThing "foo"}} {{doSomething}}></a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 51,
               "endColumn": 62,
               "endLine": 1,

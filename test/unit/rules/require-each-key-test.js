@@ -18,8 +18,8 @@ generateRuleTests({
       template: '{{#each this.items as |item|}} {{item.name}} {{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 54,
               "endLine": 1,
@@ -38,8 +38,8 @@ generateRuleTests({
       template: '{{#each this.items key="@invalid" as |item|}} {{item.name}} {{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 69,
               "endLine": 1,
@@ -58,8 +58,8 @@ generateRuleTests({
       template: '{{#each this.items key="" as |item|}} {{item.name}} {{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 61,
               "endLine": 1,

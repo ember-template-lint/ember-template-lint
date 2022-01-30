@@ -28,8 +28,8 @@ generateRuleTests({
       template: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 75,
               "endLine": 1,
@@ -48,8 +48,8 @@ generateRuleTests({
       template: '<LinkTo title="quickstart">Quickstart</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 46,
               "endLine": 1,
@@ -68,8 +68,8 @@ generateRuleTests({
       template: '<LinkTo @title="foo" title="blah">derp</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 47,
               "endLine": 1,
@@ -88,8 +88,8 @@ generateRuleTests({
       template: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 59,
               "endLine": 1,
@@ -108,8 +108,8 @@ generateRuleTests({
       template: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 73,
               "endLine": 1,
@@ -128,8 +128,8 @@ generateRuleTests({
       template: '<a href="https://myurl.com" title="Tutorial">Read the Tutorial</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 66,
               "endLine": 1,
@@ -148,8 +148,8 @@ generateRuleTests({
       template: '<LinkTo title="Tutorial">Read the Tutorial</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -168,8 +168,8 @@ generateRuleTests({
       template: '{{#link-to title="Tutorial"}}Read the Tutorial{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 58,
               "endLine": 1,

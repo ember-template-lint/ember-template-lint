@@ -19,8 +19,8 @@ generateRuleTests({
       template: '<LinkTo @route="routeName" @tagName="button">Link text</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 44,
               "endLine": 1,
@@ -39,8 +39,8 @@ generateRuleTests({
       template: '{{#link-to "routeName" tagName="button"}}Link text{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 23,
               "endColumn": 39,
               "endLine": 1,
@@ -59,8 +59,8 @@ generateRuleTests({
       template: '{{link-to "Link text" "routeName" tagName="button"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 50,
               "endLine": 1,

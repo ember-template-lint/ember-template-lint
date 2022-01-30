@@ -41,8 +41,8 @@ generateRuleTests({
       template: '<div role="tablist"><div role="treeitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 25,
               "endColumn": 40,
               "endLine": 1,
@@ -61,8 +61,8 @@ generateRuleTests({
       template: '<div><div role="columnheader">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 29,
               "endLine": 1,
@@ -81,8 +81,8 @@ generateRuleTests({
       template: '<div><div role="gridcell">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
@@ -101,8 +101,8 @@ generateRuleTests({
       template: '<div><div role="listitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
@@ -121,8 +121,8 @@ generateRuleTests({
       template: '<div><div role="menuitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
@@ -141,8 +141,8 @@ generateRuleTests({
       template: '<div><div role="menuitemcheckbox">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 33,
               "endLine": 1,
@@ -161,8 +161,8 @@ generateRuleTests({
       template: '<div><div role="menuitemradio">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 30,
               "endLine": 1,
@@ -181,8 +181,8 @@ generateRuleTests({
       template: '<div><div role="option">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 23,
               "endLine": 1,
@@ -201,8 +201,8 @@ generateRuleTests({
       template: '<div><div role="row">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 20,
               "endLine": 1,
@@ -221,8 +221,8 @@ generateRuleTests({
       template: '<div><div role="rowgroup">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
@@ -241,8 +241,8 @@ generateRuleTests({
       template: '<div><div role="rowheader">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 26,
               "endLine": 1,
@@ -261,8 +261,8 @@ generateRuleTests({
       template: '<div><div role="tab">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 20,
               "endLine": 1,
@@ -281,8 +281,8 @@ generateRuleTests({
       template: '<div><div role="treeitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,

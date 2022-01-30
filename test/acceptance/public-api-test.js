@@ -328,10 +328,10 @@ describe('public api', function () {
       expect(result).toMatchInlineSnapshot(
         { messages: [{ filePath: expect.any(String) }] },
         `
-        Object {
+        {
           "isFixed": false,
-          "messages": Array [
-            Object {
+          "messages": [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -1302,10 +1302,10 @@ describe('public api', function () {
       expect(result).toMatchInlineSnapshot(
         { messages: [{ filePath: expect.any(String) }] },
         `
-        Object {
+        {
           "isFixed": false,
-          "messages": Array [
-            Object {
+          "messages": [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,

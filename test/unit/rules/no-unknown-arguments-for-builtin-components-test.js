@@ -18,8 +18,8 @@ generateRuleTests({
       template: '<Input @valuee={{this.content}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 31,
               "endLine": 1,
@@ -39,8 +39,8 @@ generateRuleTests({
       template: '<Textarea @valuee={{this.content}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 34,
               "endLine": 1,
@@ -60,8 +60,8 @@ generateRuleTests({
       template: '<LinkTo @route="foo" @valuee={{this.content}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 45,
               "endLine": 1,
@@ -82,8 +82,8 @@ generateRuleTests({
       template: '<LinkTo @route="foo" @madel={{this.content}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 44,
               "endLine": 1,
@@ -104,8 +104,8 @@ generateRuleTests({
       template: '<LinkTo @model={{this.model}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 1,
               "endColumn": 32,
               "endLine": 1,
@@ -125,8 +125,8 @@ generateRuleTests({
       template: '<LinkTo @route="info" @model={{this.model}} @models={{this.models}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 43,
               "endLine": 1,
@@ -137,7 +137,7 @@ generateRuleTests({
               "severity": 2,
               "source": "@model",
             },
-            Object {
+            {
               "column": 44,
               "endColumn": 67,
               "endLine": 1,
@@ -159,8 +159,8 @@ generateRuleTests({
       template: '<LinkTo @route="info" @model={{this.model}} @tagName="button" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 44,
               "endColumn": 61,
               "endLine": 1,
@@ -182,8 +182,8 @@ generateRuleTests({
       fixedTemplate: '<LinkTo @route="info" @model={{this.model}} id="superstar" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 44,
               "endColumn": 66,
               "endLine": 1,
@@ -209,8 +209,8 @@ generateRuleTests({
         '<LinkTo @route="info" @model={{this.model}} {{on "dblclick" (action this.click)}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 44,
               "endColumn": 78,
               "endLine": 1,
@@ -234,8 +234,8 @@ generateRuleTests({
       template: '<Input @value="1" @bubbles={{false}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 36,
               "endLine": 1,
@@ -257,8 +257,8 @@ generateRuleTests({
       fixedTemplate: '<Input @value="1" id="42" disabled="disabled" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 33,
               "endLine": 1,
@@ -271,7 +271,7 @@ generateRuleTests({
               "severity": 2,
               "source": "@elementId",
             },
-            Object {
+            {
               "column": 34,
               "endColumn": 54,
               "endLine": 1,
@@ -296,8 +296,8 @@ generateRuleTests({
       fixedTemplate: '<Input @value="1" {{on "keyup" ths.onKeyUp}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 41,
               "endLine": 1,
@@ -320,8 +320,8 @@ generateRuleTests({
       template: '<Textarea @value="1" @bubbles={{false}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 39,
               "endLine": 1,
@@ -343,8 +343,8 @@ generateRuleTests({
       fixedTemplate: '<Textarea @value="1" id="42" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 36,
               "endLine": 1,
@@ -368,8 +368,8 @@ generateRuleTests({
       fixedTemplate: '<Textarea @value="1" {{on "keyup" ths.onKeyUp}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 44,
               "endLine": 1,
@@ -394,8 +394,8 @@ generateRuleTests({
         ' <LinkTo class="auk-search-results-list__item" @route={{@route}} @models={{this.models}} @random="test" @query={{@query}} ...attributes >Hello</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 89,
               "endColumn": 103,
               "endLine": 1,

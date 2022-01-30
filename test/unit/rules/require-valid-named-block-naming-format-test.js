@@ -74,8 +74,8 @@ generateRuleTests({
       template: '{{yield to="foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 20,
               "endLine": 1,
@@ -94,8 +94,8 @@ generateRuleTests({
       template: '{{has-block "foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 21,
               "endLine": 1,
@@ -114,8 +114,8 @@ generateRuleTests({
       template: '{{if (has-block "foo-bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 25,
               "endLine": 1,
@@ -134,8 +134,8 @@ generateRuleTests({
       template: '{{has-block-params "foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 28,
               "endLine": 1,
@@ -154,8 +154,8 @@ generateRuleTests({
       template: '{{if (has-block-params "foo-bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 23,
               "endColumn": 32,
               "endLine": 1,
@@ -177,8 +177,8 @@ generateRuleTests({
       template: '{{yield to="foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 20,
               "endLine": 1,
@@ -198,8 +198,8 @@ generateRuleTests({
       template: '{{has-block "foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 21,
               "endLine": 1,
@@ -219,8 +219,8 @@ generateRuleTests({
       template: '{{if (has-block "foo-bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 25,
               "endLine": 1,
@@ -240,8 +240,8 @@ generateRuleTests({
       template: '{{has-block-params "foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 28,
               "endLine": 1,
@@ -261,8 +261,8 @@ generateRuleTests({
       template: '{{if (has-block-params "foo-bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 23,
               "endColumn": 32,
               "endLine": 1,
@@ -284,8 +284,8 @@ generateRuleTests({
       template: '{{yield to="fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 19,
               "endLine": 1,
@@ -305,8 +305,8 @@ generateRuleTests({
       template: '{{has-block "fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 20,
               "endLine": 1,
@@ -326,8 +326,8 @@ generateRuleTests({
       template: '{{if (has-block "fooBar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 24,
               "endLine": 1,
@@ -347,8 +347,8 @@ generateRuleTests({
       template: '{{has-block-params "fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 27,
               "endLine": 1,
@@ -368,8 +368,8 @@ generateRuleTests({
       template: '{{if (has-block-params "fooBar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 23,
               "endColumn": 31,
               "endLine": 1,

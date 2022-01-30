@@ -13,8 +13,8 @@ generateRuleTests({
       template: '<Foo @Name="bar" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 16,
               "endLine": 1,
@@ -33,8 +33,8 @@ generateRuleTests({
       template: '<Foo @_ame="bar" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 16,
               "endLine": 1,
@@ -53,8 +53,8 @@ generateRuleTests({
       template: '{{@Name}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 7,
               "endLine": 1,
@@ -73,8 +73,8 @@ generateRuleTests({
       template: '{{@_Name}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 8,
               "endLine": 1,

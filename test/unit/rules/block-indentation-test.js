@@ -242,8 +242,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 17,
               "endLine": 3,
@@ -256,7 +256,7 @@ generateRuleTests({
               "source": "{{#each cats as |dog|}}
                   {{/each}}",
             },
-            Object {
+            {
               "column": 17,
               "endColumn": 17,
               "endLine": 3,
@@ -279,8 +279,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 8,
               "endLine": 2,
@@ -303,8 +303,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 30,
               "endColumn": 30,
               "endLine": 2,
@@ -327,8 +327,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 3,
@@ -352,8 +352,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 3,
@@ -389,8 +389,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 11,
               "endColumn": 11,
               "endLine": 5,
@@ -416,8 +416,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 6,
               "endLine": 3,
@@ -441,8 +441,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 4,
@@ -467,8 +467,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 4,
@@ -500,8 +500,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 17,
               "endColumn": 17,
               "endLine": 3,
@@ -527,8 +527,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 6,
               "endLine": 4,
@@ -553,8 +553,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 3,
@@ -578,8 +578,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 7,
               "endLine": 3,
@@ -618,8 +618,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 9,
               "endColumn": 9,
               "endLine": 6,
@@ -647,8 +647,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 9,
               "endLine": 3,
@@ -685,8 +685,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 6,
               "endLine": 5,
@@ -729,8 +729,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 7,
               "endLine": 6,
@@ -772,8 +772,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 0,
               "endLine": 5,
@@ -799,8 +799,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 4,
@@ -825,8 +825,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 6,
               "endLine": 3,
@@ -856,8 +856,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 5,
@@ -883,8 +883,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 1,
               "endColumn": 7,
               "endLine": 2,
@@ -897,7 +897,7 @@ generateRuleTests({
               "source": "{{#if foo}}
           {{/if}}",
             },
-            Object {
+            {
               "column": 7,
               "endColumn": 7,
               "endLine": 2,
@@ -920,8 +920,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 14,
               "endColumn": 7,
               "endLine": 3,
@@ -935,7 +935,7 @@ generateRuleTests({
             bar
           {{/if}}",
             },
-            Object {
+            {
               "column": 11,
               "endColumn": 7,
               "endLine": 3,
@@ -959,8 +959,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 7,
               "endLine": 5,
@@ -1004,8 +1004,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 7,
               "endLine": 7,
@@ -1033,8 +1033,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 17,
               "endLine": 2,
@@ -1057,8 +1057,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 8,
               "endLine": 2,
@@ -1091,8 +1091,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 8,
               "endLine": 4,
@@ -1107,7 +1107,7 @@ generateRuleTests({
              {{foobar.baz}}
           {{/foo}}",
             },
-            Object {
+            {
               "column": 3,
               "endColumn": 8,
               "endLine": 4,
@@ -1131,8 +1131,8 @@ generateRuleTests({
       fixedTemplate: ['<div>', '  <!-- Comment -->', '</div>'].join('\n'),
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 3,
@@ -1155,8 +1155,8 @@ generateRuleTests({
       fixedTemplate: ['<div>', '  {{! Comment }}', '</div>'].join('\n'),
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 3,
@@ -1182,8 +1182,8 @@ generateRuleTests({
       },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 3,
@@ -1207,8 +1207,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 9,
               "endLine": 4,
@@ -1231,8 +1231,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 22,
               "endLine": 1,
@@ -1244,7 +1244,7 @@ generateRuleTests({
               "severity": 2,
               "source": "<title>Title</title>",
             },
-            Object {
+            {
               "column": 2,
               "endColumn": 6,
               "endLine": 3,
@@ -1267,8 +1267,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 9,
               "endLine": 6,
@@ -1293,8 +1293,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 11,
               "endLine": 1,
@@ -1306,7 +1306,7 @@ generateRuleTests({
               "severity": 2,
               "source": "<h3></h3>",
             },
-            Object {
+            {
               "column": 2,
               "endColumn": 8,
               "endLine": 7,

@@ -33,8 +33,8 @@ generateRuleTests({
       template: `<CustomComponent @onUpdate={{if true (route-action 'updateFoo' 'bar')}} />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 37,
               "endColumn": 69,
               "endLine": 1,
@@ -53,8 +53,8 @@ generateRuleTests({
       template: `{{custom-component onUpdate=(route-action 'updateFoo' 'bar')}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 28,
               "endColumn": 60,
               "endLine": 1,
@@ -76,8 +76,8 @@ generateRuleTests({
       )}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 44,
               "endLine": 3,
@@ -100,8 +100,8 @@ generateRuleTests({
       />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 46,
               "endLine": 2,
@@ -120,8 +120,8 @@ generateRuleTests({
       template: `<CustomComponent @onUpdate={{route-action 'updateFoo' 'bar'}} />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 61,
               "endLine": 1,
