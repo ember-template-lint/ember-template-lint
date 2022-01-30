@@ -23,8 +23,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 14,
               "endColumn": 18,
               "endLine": 1,
@@ -44,8 +44,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 17,
               "endColumn": 21,
               "endLine": 1,

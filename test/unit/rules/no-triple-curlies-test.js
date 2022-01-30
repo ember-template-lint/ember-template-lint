@@ -18,8 +18,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 1,
               "endColumn": 10,
               "endLine": 2,

@@ -53,8 +53,8 @@ generateRuleTests({
       template: '{{book}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 6,
               "endLine": 1,
@@ -73,8 +73,8 @@ generateRuleTests({
       template: '{{book-details}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 14,
               "endLine": 1,
@@ -93,8 +93,8 @@ generateRuleTests({
       template: '{{book.author}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 13,
               "endLine": 1,
@@ -113,8 +113,8 @@ generateRuleTests({
       template: '{{helper book}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 9,
               "endColumn": 13,
               "endLine": 1,
@@ -133,8 +133,8 @@ generateRuleTests({
       template: '{{#helper book}}{{/helper}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 14,
               "endLine": 1,
@@ -153,8 +153,8 @@ generateRuleTests({
       template: '<MyComponent @prop={{can.do}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 27,
               "endLine": 1,
@@ -174,8 +174,8 @@ generateRuleTests({
       config: { allow: ['can'] },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 27,
               "endLine": 1,
@@ -194,8 +194,8 @@ generateRuleTests({
       template: '{{session.user.name}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 19,
               "endLine": 1,
@@ -214,8 +214,8 @@ generateRuleTests({
       template: '<MyComponent @prop={{session.user.name}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 38,
               "endLine": 1,

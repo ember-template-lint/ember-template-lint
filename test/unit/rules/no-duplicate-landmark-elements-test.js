@@ -23,8 +23,8 @@ generateRuleTests({
       template: '<nav></nav><nav></nav>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 11,
               "endColumn": 22,
               "endLine": 1,
@@ -43,8 +43,8 @@ generateRuleTests({
       template: '<nav></nav><div role="navigation"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 11,
               "endColumn": 40,
               "endLine": 1,
@@ -63,8 +63,8 @@ generateRuleTests({
       template: '<nav></nav><nav aria-label="secondary navigation"></nav>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 11,
               "endLine": 1,
@@ -83,8 +83,8 @@ generateRuleTests({
       template: '<main></main><div role="main"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 36,
               "endLine": 1,
@@ -103,8 +103,8 @@ generateRuleTests({
       template: '<nav aria-label="site navigation"></nav><nav aria-label="site navigation"></nav>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 40,
               "endColumn": 80,
               "endLine": 1,
@@ -123,8 +123,8 @@ generateRuleTests({
       template: '<form aria-label="search-form"></form><form aria-label="search-form"></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 38,
               "endColumn": 76,
               "endLine": 1,
@@ -144,8 +144,8 @@ generateRuleTests({
         '<form aria-labelledby="form-title"></form><form aria-labelledby="form-title"></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 42,
               "endColumn": 84,
               "endLine": 1,

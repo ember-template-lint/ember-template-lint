@@ -25,8 +25,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 13,
               "endLine": 1,
@@ -45,8 +45,8 @@ generateRuleTests({
       template: 'W&nbsp;e&nbsp;l&nbsp;c&nbsp;o&nbsp;m&nbsp;e',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 43,
               "endLine": 1,
@@ -65,8 +65,8 @@ generateRuleTests({
       template: 'Wel c o me',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 10,
               "endLine": 1,
@@ -85,8 +85,8 @@ generateRuleTests({
       template: 'Wel&nbsp;c&emsp;o&nbsp;me',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 25,
               "endLine": 1,
@@ -105,8 +105,8 @@ generateRuleTests({
       template: '<div>W e l c o m e</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 18,
               "endLine": 1,
@@ -125,8 +125,8 @@ generateRuleTests({
       template: '<div>Wel c o me</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 15,
               "endLine": 1,

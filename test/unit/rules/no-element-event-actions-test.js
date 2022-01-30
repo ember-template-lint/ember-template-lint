@@ -30,8 +30,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 37,
               "endLine": 1,
@@ -42,7 +42,7 @@ generateRuleTests({
               "severity": 2,
               "source": "onclick={{action \\"myAction\\"}}",
             },
-            Object {
+            {
               "column": 38,
               "endColumn": 67,
               "endLine": 1,
@@ -63,8 +63,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 41,
               "endLine": 1,
@@ -86,8 +86,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 47,
               "endLine": 1,
@@ -107,8 +107,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 47,
               "endLine": 1,

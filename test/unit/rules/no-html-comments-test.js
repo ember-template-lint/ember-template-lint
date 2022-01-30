@@ -19,13 +19,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{! comment here }}",
               },
               "line": 1,
@@ -43,13 +43,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{!comment here}}",
               },
               "line": 1,

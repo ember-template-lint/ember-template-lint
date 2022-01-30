@@ -94,13 +94,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<area>",
               },
               "line": 1,
@@ -118,13 +118,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<base>",
               },
               "line": 1,
@@ -142,13 +142,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 5,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<br>",
               },
               "line": 1,
@@ -166,13 +166,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<col>",
               },
               "line": 1,
@@ -190,13 +190,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 10,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<command>",
               },
               "line": 1,
@@ -214,13 +214,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<embed>",
               },
               "line": 1,
@@ -238,13 +238,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 5,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<hr>",
               },
               "line": 1,
@@ -262,13 +262,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<img>",
               },
               "line": 1,
@@ -286,13 +286,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<input>",
               },
               "line": 1,
@@ -310,13 +310,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 9,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<keygen>",
               },
               "line": 1,
@@ -334,13 +334,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<link>",
               },
               "line": 1,
@@ -358,13 +358,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<meta>",
               },
               "line": 1,
@@ -382,13 +382,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<param>",
               },
               "line": 1,
@@ -406,13 +406,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 9,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<source>",
               },
               "line": 1,
@@ -430,13 +430,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<track>",
               },
               "line": 1,
@@ -455,13 +455,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<wbr>",
               },
               "line": 1,
@@ -480,13 +480,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<area/>",
               },
               "line": 1,
@@ -505,13 +505,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<base/>",
               },
               "line": 1,
@@ -530,13 +530,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 4,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<br/>",
               },
               "line": 1,
@@ -555,13 +555,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 5,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<col/>",
               },
               "line": 1,
@@ -580,13 +580,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 9,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<command/>",
               },
               "line": 1,
@@ -605,13 +605,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<embed/>",
               },
               "line": 1,
@@ -630,13 +630,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 4,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<hr/>",
               },
               "line": 1,
@@ -655,13 +655,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 5,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<img/>",
               },
               "line": 1,
@@ -680,13 +680,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<input/>",
               },
               "line": 1,
@@ -705,13 +705,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<keygen/>",
               },
               "line": 1,
@@ -730,13 +730,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<link/>",
               },
               "line": 1,
@@ -755,13 +755,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<meta/>",
               },
               "line": 1,
@@ -780,13 +780,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<param/>",
               },
               "line": 1,
@@ -805,13 +805,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<source/>",
               },
               "line": 1,
@@ -830,13 +830,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<track/>",
               },
               "line": 1,
@@ -855,13 +855,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 5,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<wbr/>",
               },
               "line": 1,

@@ -23,8 +23,8 @@ generateRuleTests({
       template: '<div @value="1"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 15,
               "endLine": 1,
@@ -43,8 +43,8 @@ generateRuleTests({
       template: '<div @value></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 11,
               "endLine": 1,
@@ -63,8 +63,8 @@ generateRuleTests({
       template: '<img @src="12">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,

@@ -141,8 +141,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id="id-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 37,
               "endLine": 1,
@@ -161,8 +161,8 @@ generateRuleTests({
       template: '<div><div id="id-01"></div></div><div><div id="id-01"></div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 43,
               "endColumn": 53,
               "endLine": 1,
@@ -181,8 +181,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id={{"id-00"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 41,
               "endLine": 1,
@@ -201,8 +201,8 @@ generateRuleTests({
       template: '<div id={{"id-00"}}></div><div id="id-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 31,
               "endColumn": 41,
               "endLine": 1,
@@ -221,8 +221,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id="id-{{"00"}}"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 43,
               "endLine": 1,
@@ -241,8 +241,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id="{{"id"}}-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 43,
               "endLine": 1,
@@ -261,8 +261,8 @@ generateRuleTests({
       template: '<div id="id-00"></div>{{#foo elementId="id-00"}}{{/foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 56,
               "endLine": 1,
@@ -281,8 +281,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 39,
               "endColumn": 49,
               "endLine": 1,
@@ -301,8 +301,8 @@ generateRuleTests({
       template: '<div id={{"id-00"}}></div>{{#foo elementId="id-00"}}{{/foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 26,
               "endColumn": 60,
               "endLine": 1,
@@ -321,8 +321,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id={{"id-00"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 39,
               "endColumn": 53,
               "endLine": 1,
@@ -341,8 +341,8 @@ generateRuleTests({
       template: '<div id="id-{{"00"}}"></div>{{#foo elementId="id-00"}}{{/foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 28,
               "endColumn": 62,
               "endLine": 1,
@@ -361,8 +361,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-{{"00"}}"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 39,
               "endColumn": 55,
               "endLine": 1,
@@ -381,8 +381,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}{{#bar elementId="id-00"}}{{/bar}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 68,
               "endLine": 1,
@@ -401,8 +401,8 @@ generateRuleTests({
       template: '{{foo id="id-00"}}{{foo id="id-00"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 36,
               "endLine": 1,
@@ -421,8 +421,8 @@ generateRuleTests({
       template: '<div id={{1234}}></div><div id={{1234}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 28,
               "endColumn": 39,
               "endLine": 1,
@@ -441,8 +441,8 @@ generateRuleTests({
       template: '<div id={{this.divId00}}></div><div id={{this.divId00}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 36,
               "endColumn": 55,
               "endLine": 1,
@@ -462,8 +462,8 @@ generateRuleTests({
         '<div id="partA{{partB}}{{"partC"}}"></div><div id="{{"partA"}}{{partB}}partC"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 47,
               "endColumn": 77,
               "endLine": 1,
@@ -482,8 +482,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}{{bar elementId="id-00"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 59,
               "endLine": 1,
@@ -502,8 +502,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}{{bar id="id-00"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 45,
               "endLine": 1,
@@ -522,8 +522,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}<Bar id="id-00" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 32,
               "endColumn": 42,
               "endLine": 1,
@@ -542,8 +542,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}<Bar @id="id-00" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 32,
               "endColumn": 43,
               "endLine": 1,
@@ -562,8 +562,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}<Bar @elementId="id-00" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 32,
               "endColumn": 50,
               "endLine": 1,
@@ -589,8 +589,8 @@ generateRuleTests({
     `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 4,
@@ -614,8 +614,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 25,
               "endLine": 4,
@@ -641,8 +641,8 @@ generateRuleTests({
     `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 4,
@@ -653,7 +653,7 @@ generateRuleTests({
               "severity": 2,
               "source": "id={{this.divId00}}",
             },
-            Object {
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 6,
@@ -679,8 +679,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 26,
               "endLine": 7,
@@ -708,8 +708,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 24,
               "endLine": 9,
@@ -733,8 +733,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 17,
               "endColumn": 42,
               "endLine": 4,

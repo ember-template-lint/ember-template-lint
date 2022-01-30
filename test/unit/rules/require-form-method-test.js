@@ -37,8 +37,8 @@ generateRuleTests({
       template: '<form method="POST"></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 27,
               "endLine": 1,
@@ -61,8 +61,8 @@ generateRuleTests({
       template: '<form method="GET"></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 26,
               "endLine": 1,
@@ -82,8 +82,8 @@ generateRuleTests({
       template: '<form></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 13,
               "endLine": 1,
@@ -103,8 +103,8 @@ generateRuleTests({
       template: '<form method=""></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 23,
               "endLine": 1,
@@ -124,8 +124,8 @@ generateRuleTests({
       template: '<form method=42></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 23,
               "endLine": 1,
@@ -145,8 +145,8 @@ generateRuleTests({
       template: '<form method=" ge t "></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 29,
               "endLine": 1,
@@ -166,8 +166,8 @@ generateRuleTests({
       template: '<form method=" pos t "></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 30,
               "endLine": 1,

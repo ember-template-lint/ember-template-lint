@@ -12,8 +12,8 @@ generateRuleTests({
       template: '<html></html>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 13,
               "endLine": 1,
@@ -32,8 +32,8 @@ generateRuleTests({
       template: '<html lang=""></html>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,

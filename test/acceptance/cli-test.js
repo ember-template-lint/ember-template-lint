@@ -1515,9 +1515,9 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(JSON.parse(result.stdout)).toMatchInlineSnapshot(`
-          Object {
-            "app/templates/application.hbs": Array [
-              Object {
+          {
+            "app/templates/application.hbs": [
+              {
                 "column": 4,
                 "endColumn": 14,
                 "endLine": 1,
@@ -1528,7 +1528,7 @@ describe('ember-template-lint executable', function () {
                 "severity": 2,
                 "source": "Here too!!",
               },
-              Object {
+              {
                 "column": 25,
                 "endColumn": 48,
                 "endLine": 1,

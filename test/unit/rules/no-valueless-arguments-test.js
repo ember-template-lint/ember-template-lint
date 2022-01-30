@@ -15,8 +15,8 @@ generateRuleTests({
       template: '<SomeComponent @valueless />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 25,
               "endLine": 1,
@@ -35,8 +35,8 @@ generateRuleTests({
       template: '<SomeComponent @valuelessByAccident{{this.canBeAModifier}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 35,
               "endLine": 1,
@@ -55,8 +55,8 @@ generateRuleTests({
       template: '<SomeComponent @valuelessByAccident{{@canBeAModifier}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 35,
               "endLine": 1,

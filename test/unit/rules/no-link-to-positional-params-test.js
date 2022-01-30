@@ -29,8 +29,8 @@ generateRuleTests({
       template: '{{link-to "About Us" "about"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 30,
               "endLine": 1,
@@ -49,8 +49,8 @@ generateRuleTests({
       template: '{{link-to "About Us" (if this.showNewAboutPage "about-us" "about")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 68,
               "endLine": 1,
@@ -69,8 +69,8 @@ generateRuleTests({
       template: '{{link-to (t "about") "about"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 31,
               "endLine": 1,
@@ -89,8 +89,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 39,
               "endLine": 1,
@@ -109,8 +109,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute "foo"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 45,
               "endLine": 1,
@@ -129,8 +129,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute "foo" "bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -149,8 +149,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute "foo" "bar" (query-params foo="bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 76,
               "endLine": 1,
@@ -170,8 +170,8 @@ generateRuleTests({
       template: '{{#link-to (if this.showNewAboutPage "about-us" "about")}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 78,
               "endLine": 1,
@@ -190,8 +190,8 @@ generateRuleTests({
       template: '{{#link-to "about"}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 40,
               "endLine": 1,
@@ -210,8 +210,8 @@ generateRuleTests({
       template: '{{#link-to this.aboutRoute}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 48,
               "endLine": 1,
@@ -230,8 +230,8 @@ generateRuleTests({
       template: '{{#link-to this.aboutRoute "foo"}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 54,
               "endLine": 1,
@@ -250,8 +250,8 @@ generateRuleTests({
       template: '{{#link-to this.aboutRoute "foo" "bar"}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 60,
               "endLine": 1,
@@ -271,8 +271,8 @@ generateRuleTests({
         '{{#link-to this.aboutRoute "foo" "bar" (query-params foo="bar")}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 85,
               "endLine": 1,
@@ -291,8 +291,8 @@ generateRuleTests({
       template: '{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 60,
               "endLine": 1,
@@ -313,8 +313,8 @@ generateRuleTests({
       {{/link-to}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 18,
               "endLine": 3,
@@ -337,8 +337,8 @@ generateRuleTests({
       {{/link-to}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 18,
               "endLine": 3,

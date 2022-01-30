@@ -35,8 +35,8 @@ generateRuleTests({
       template: '<ul role="presentation"></ul>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 29,
               "endLine": 1,
@@ -55,8 +55,8 @@ generateRuleTests({
       template: '<ol role="presentation"></ol>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 29,
               "endLine": 1,
@@ -75,8 +75,8 @@ generateRuleTests({
       template: '<li role="presentation"></li>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 29,
               "endLine": 1,
@@ -95,8 +95,8 @@ generateRuleTests({
       template: '<table role="presentation"></table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -115,8 +115,8 @@ generateRuleTests({
       template: '<table role="none"></table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 27,
               "endLine": 1,
@@ -135,8 +135,8 @@ generateRuleTests({
       template: '<button role="presentation"></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 37,
               "endLine": 1,
@@ -155,8 +155,8 @@ generateRuleTests({
       template: '<button role="none"></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 29,
               "endLine": 1,
@@ -175,8 +175,8 @@ generateRuleTests({
       template: '<label role="presentation"></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -195,8 +195,8 @@ generateRuleTests({
       template: '<label role="none"></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 27,
               "endLine": 1,
@@ -215,8 +215,8 @@ generateRuleTests({
       template: '<div role="command interface"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 36,
               "endLine": 1,
@@ -238,8 +238,8 @@ generateRuleTests({
       },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 36,
               "endLine": 1,
@@ -258,8 +258,8 @@ generateRuleTests({
       template: '<div role="COMMAND INTERFACE"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 36,
               "endLine": 1,
