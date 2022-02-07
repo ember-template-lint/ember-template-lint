@@ -7678,10 +7678,10 @@ yeoman-generator@^5.6.1:
     sort-keys "^4.2.0"
     text-table "^0.2.0"
 
-yeoman-test@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/yeoman-test/-/yeoman-test-6.2.0.tgz#2699af950de58e0cda4b59d88649156eae03d9a5"
-  integrity sha512-KsCxwx4vPG2IwP7hG3U67WV04ymjbAmmy+BU06CrCku7U3sFFFq7LRoeGqrMRTsAqk/ff7gQJoc8sD43AgMX6Q==
+yeoman-test@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/yeoman-test/-/yeoman-test-6.3.0.tgz#c0b44562507dc40aa624719c8a24b2c49c2a196d"
+  integrity sha512-FpaLV5AiVFlYe4pizAB/QLWc+5BSyttk/TcFQfi/r8g/rz290uqEkV4waN3rHEvP/DCmoMNSJykKTZNWL2y07g==
   dependencies:
     inquirer "^8.0.0"
     lodash "^4.17.21"
