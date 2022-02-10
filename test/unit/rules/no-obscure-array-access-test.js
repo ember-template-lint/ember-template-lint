@@ -1,7 +1,5 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-obscure-array-access');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { ERROR_MESSAGE } from '../../../lib/rules/no-obscure-array-access.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-obscure-array-access',
