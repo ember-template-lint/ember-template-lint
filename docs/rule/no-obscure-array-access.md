@@ -1,8 +1,8 @@
 # no-obscure-array-access
 
-Using obscrure expressions `{{list.[1].name}}` is descouraged and might be deprecated soon
+Using obscure expressions `{{list.[1].name}}` is discouraged and is likely to be deprecated soon.
 
-This rule suggests usage of the Ember's get helper instead.
+This rule recommends the use of Ember's `get` helper as an alternative for accessing array values.
 
 ## Examples
 
