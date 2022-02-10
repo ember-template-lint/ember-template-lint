@@ -37,3 +37,4 @@ This rule **allows** the following:
 ## References
 
 - [Ember discord discussion in ember-cli channel on 02/06/19](https://discord.com/channels/480462759797063690/486548111221719040/542753450144956436)
+- [Ember get helper documentation](https://guides.emberjs.com/release/components/helper-functions/#toc_the-get-helper)
