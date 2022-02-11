@@ -19,6 +19,7 @@ generateRuleTests({
   bad: [
     {
       template: '{{foo bar=this.list.[0]}}',
+      fixedTemplate: "{{foo bar=(get this.list '0')}}",
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -27,6 +28,7 @@ generateRuleTests({
               "endColumn": 23,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "${ERROR_MESSAGE('this.list.0')}",
               "rule": "${RULE_NAME}",
@@ -38,7 +40,8 @@ generateRuleTests({
       },
     },
     {
-      template: '{{foo bar @list.[1]}}',
+      template: '{{foo bar=@list.[1]}}',
+      fixedTemplate: "{{foo bar=(get @list '1')}}",
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -47,6 +50,7 @@ generateRuleTests({
               "endColumn": 19,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "${ERROR_MESSAGE('@list.1')}",
               "rule": "${RULE_NAME}",
@@ -59,6 +63,7 @@ generateRuleTests({
     },
     {
       template: '{{this.list.[0]}}',
+      fixedTemplate: "{{get this.list '0'}}",
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -67,9 +72,10 @@ generateRuleTests({
               "endColumn": 15,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "${ERROR_MESSAGE('this.list.0')}",
-              "rule": "${RULE_NAME}",
+              "rule": "no-obscure-array-access",
               "severity": 2,
               "source": "this.list.0",
             },
@@ -79,6 +85,7 @@ generateRuleTests({
     },
     {
       template: '{{this.list.[0].name}}',
+      fixedTemplate: "{{get (get this.list '0') 'name'}}",
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -87,9 +94,10 @@ generateRuleTests({
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "${ERROR_MESSAGE('this.list.0.name')}",
-              "rule": "${RULE_NAME}",
+              "rule": "no-obscure-array-access",
               "severity": 2,
               "source": "this.list.0.name",
             },
@@ -99,6 +107,7 @@ generateRuleTests({
     },
     {
       template: '<Foo @bar={{this.list.[0]}} />',
+      fixedTemplate: "<Foo @bar={{get this.list '0'}} />",
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -107,11 +116,34 @@ generateRuleTests({
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "${ERROR_MESSAGE('this.list.0')}",
-              "rule": "${RULE_NAME}",
+              "rule": "no-obscure-array-access",
               "severity": 2,
               "source": "this.list.0",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<Foo @bar={{this.list.[0].name.[1].foo}} />',
+      fixedTemplate: "<Foo @bar={{get (get (get (get this.list '0') 'name') '1') 'foo'}} />",
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 38,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "${ERROR_MESSAGE('this.list.0.name.1.foo')}",
+              "rule": "no-obscure-array-access",
+              "severity": 2,
+              "source": "this.list.0.name.1.foo",
             },
           ]
         `);
