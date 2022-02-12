@@ -84,8 +84,8 @@ generateRuleTests({
       template: '<div {{(modifier "fooBar")}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 17,
               "endColumn": 25,
               "endLine": 1,
@@ -104,8 +104,8 @@ generateRuleTests({
       template: '<div {{(if this.foo (modifier "fooBar"))}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 30,
               "endColumn": 38,
               "endLine": 1,
