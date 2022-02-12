@@ -1327,5 +1327,9 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '  <div>\n  </div>\n  <div>\n  </div>\n',
+      fixedTemplate: '<div>\n</div>\n<div>\n</div>\n',
+    },
   ],
 });
