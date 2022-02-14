@@ -96,7 +96,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unicorn": "^40.1.0",
-    "execa": "^6.0.0",
+    "execa": "^6.1.0",
     "fixturify-project": "^2.1.1",
     "jest": "^27.5.0",
     "markdownlint-cli": "^0.31.1",
