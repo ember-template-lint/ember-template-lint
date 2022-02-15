@@ -8,9 +8,9 @@ generateRuleTests({
   config: true,
 
   good: [
-    "{{foo bar=(get this.list '0' )}}",
-    "<Foo @bar={{get this.list '0'}}",
-    "{{get this.list '0'}}",
+    "{{foo bar=(get this 'list.0' )}}",
+    "<Foo @bar={{get this 'list.0'}}",
+    "{{get this 'list.0'}}",
     '{{foo bar @list}}',
     'Just a regular text in the template bar.[1] bar.1',
     '<Foo foo="bar.[1]" />',
@@ -19,7 +19,7 @@ generateRuleTests({
   bad: [
     {
       template: '{{foo bar=this.list.[0]}}',
-      fixedTemplate: "{{foo bar=(get this.list '0')}}",
+      fixedTemplate: '{{foo bar=(get this "list.0")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -41,7 +41,7 @@ generateRuleTests({
     },
     {
       template: '{{foo bar=@list.[1]}}',
-      fixedTemplate: "{{foo bar=(get @list '1')}}",
+      fixedTemplate: '{{foo bar=(get @list "1")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -63,7 +63,7 @@ generateRuleTests({
     },
     {
       template: '{{this.list.[0]}}',
-      fixedTemplate: "{{get this.list '0'}}",
+      fixedTemplate: '{{get this "list.0"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -85,7 +85,7 @@ generateRuleTests({
     },
     {
       template: '{{this.list.[0].name}}',
-      fixedTemplate: "{{get (get this.list '0') 'name'}}",
+      fixedTemplate: '{{get this "list.0.name"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -107,7 +107,7 @@ generateRuleTests({
     },
     {
       template: '<Foo @bar={{this.list.[0]}} />',
-      fixedTemplate: "<Foo @bar={{get this.list '0'}} />",
+      fixedTemplate: '<Foo @bar={{get this "list.0"}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -129,7 +129,7 @@ generateRuleTests({
     },
     {
       template: '<Foo @bar={{this.list.[0].name.[1].foo}} />',
-      fixedTemplate: "<Foo @bar={{get (get (get (get this.list '0') 'name') '1') 'foo'}} />",
+      fixedTemplate: '<Foo @bar={{get this "list.0.name.1.foo"}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
