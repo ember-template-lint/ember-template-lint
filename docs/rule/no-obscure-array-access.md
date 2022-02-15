@@ -9,26 +9,10 @@ This rule recommends the use of Ember's `get` helper as an alternative for acces
 This rule **forbids** the following:
 
 ```hbs
-{{foo bar=list.[0]}}
-```
-
-```hbs
-{{foo bar=@list.[1]}}
-```
-
-```hbs
 <Foo @bar={{@list.[0]}} />
 ```
 
 This rule **allows** the following:
-
-```hbs
-{{foo bar=(get list '0'}}
-```
-
-```hbs
-{{foo bar=(get @list '1')}}
-```
 
 ```hbs
 <Foo @bar={{get @list '0'}} />
