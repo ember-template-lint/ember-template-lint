@@ -13,6 +13,12 @@ generateRuleTests({
     '{{foo bar @list}}',
     'Just a regular text in the template bar.[1] bar.1',
     '<Foo foo="bar.[1]" />',
+    `<FooBar
+    @subHeaderText={{if
+      this.isFooBarV2Enabled
+      "foobar"
+    }}
+  />`,
   ],
 
   bad: [
