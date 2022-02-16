@@ -175,6 +175,7 @@ Each rule has emojis denoting:
 | [no-yield-only](./docs/rule/no-yield-only.md)                                                             | ✅  |     |     |     |
 | [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 | ✅  |     |     |     |
 | [quotes](./docs/rule/quotes.md)                                                                           |     | 💅  |     | 🔧  |
+| [require-aria-activedescendant-tabindex](./docs/rule/require-aria-activedescendant-tabindex.md)           |     |     | ⌨️  |     |
 | [require-button-type](./docs/rule/require-button-type.md)                                                 | ✅  |     |     | 🔧  |
 | [require-context-role](./docs/rule/require-context-role.md)                                               | ✅  |     | ⌨️  |     |
 | [require-each-key](./docs/rule/require-each-key.md)                                                       |     |     |     |     |
