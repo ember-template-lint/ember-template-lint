@@ -145,6 +145,7 @@ Each rule has emojis denoting:
 | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                                             | ✅  |     | ⌨️  |     |
 | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                                   | ✅  |     | ⌨️  |     |
 | [no-nested-splattributes](./docs/rule/no-nested-splattributes.md)                                         | ✅  |     |     |     |
+| [no-obscure-array-access](./docs/rule/no-obscure-array-access.md)                                         |     |     |     | 🔧  |
 | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                               | ✅  |     | ⌨️  |     |
 | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                                       | ✅  |     |     |     |
 | [no-partial](./docs/rule/no-partial.md)                                                                   | ✅  |     |     |     |
