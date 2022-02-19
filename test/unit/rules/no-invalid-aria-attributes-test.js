@@ -13,7 +13,6 @@ generateRuleTests({
     '<div role="checkbox" aria-checked="true" onclick="handleCheckbox()" tabindex="0"></div>',
     '<button aria-haspopup="true"></button>',
     '<button aria-haspopup="dialog"></button>',
-    '<button aria-haspopup="false"></button>',
     '<div role="slider" aria-valuenow="50" aria-valuemax="100" aria-valuemin="0" />',
     '<div role="heading" aria-level={{2}}></div>',
     '<input type="text" id="name" aria-invalid="grammar" />',
