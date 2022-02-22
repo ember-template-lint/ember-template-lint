@@ -3,6 +3,20 @@
 
 
 
+
+## v4.2.0 (2022-02-22)
+
+#### :rocket: Enhancement
+* [#2376](https://github.com/ember-template-lint/ember-template-lint/pull/2376) Add new rule `no-obscure-array-access` ([@jsturgis](https://github.com/jsturgis))
+
+#### :bug: Bug Fix
+* [#2389](https://github.com/ember-template-lint/ember-template-lint/pull/2389) Fix string handling errors with `no-invalid-aria-attributes` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 2
+- Jeff Sturgis ([@jsturgis](https://github.com/jsturgis))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v4.1.0 (2022-02-14)
 
 #### :rocket: Enhancement
