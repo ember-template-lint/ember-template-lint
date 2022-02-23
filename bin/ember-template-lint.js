@@ -16,7 +16,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
 
-import Printer from '../lib/formatters/default.js';
+import { loadFormatter } from '../lib/formatters/load-formatter.js';
 import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
 import processResults from '../lib/helpers/process-results.js';
 import Linter from '../lib/linter.js';
@@ -245,16 +245,21 @@ async function run() {
     process.exitCode = 1;
   }
 
+  printResults(results, { options, todoInfo });
+}
+
+function printResults(results, { options, todoInfo }) {
   let hasErrors = results.errorCount > 0;
   let hasWarnings = results.warningCount > 0;
   let hasTodos = options.includeTodo && results.todoCount;
   let hasUpdatedTodos = options.updateTodo;
 
-  let printer = new Printer({
+  let formatter = loadFormatter({
     ...options,
     hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
   });
-  printer.print(results, todoInfo);
+
+  formatter.print(results, todoInfo);
 }
 
 run();
