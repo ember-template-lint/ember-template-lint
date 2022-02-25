@@ -29,12 +29,11 @@ describe('editors integration', function () {
   });
 
   afterEach(function () {
-    // project.dispose();
+    project.dispose();
   });
 
   describe('reading from stdin', function () {
     it('has exit code 1 and reports errors to stdout', async function () {
-      debugger;
       project.setConfig({ rules: { 'no-debugger': true } });
       project.write({ 'template.hbs': '{{debugger}}' });
 
