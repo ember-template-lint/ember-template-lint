@@ -1570,7 +1570,7 @@ describe('ember-template-lint executable', function () {
         expect(fs.existsSync(path.join(project.baseDir, 'my-results.sarif'))).toEqual(true);
       });
 
-      it('should be able to load relative printer', async function () {
+      it('should be able to load relative formatter', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1584,25 +1584,25 @@ describe('ember-template-lint executable', function () {
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
           },
-          'custom-printer.js': `
-            class CustomPrinter {
+          'custom-formatter.js': `
+            class CustomFormatter {
               constructor(options = {}) {
                 this.options = options;
                 this.console = options.console || console;
               }
 
-              print(results) {
+              format(results) {
                 this.console.log(\`errors: \${results.errorCount}\`);
                 this.console.log(\`warnings: \${results.warningCount}\`);
                 this.console.log(\`fixable: \${(results.fixableErrorCount + results.fixableWarningCount)}\`);
               }
             }
 
-            module.exports = CustomPrinter;
+            module.exports = CustomFormatter;
           `,
         });
 
-        let result = await run(['.', '--format', './custom-printer.js']);
+        let result = await run(['.', '--format', './custom-formatter.js']);
 
         expect(result.stdout).toMatchInlineSnapshot(`
           "errors: 3
@@ -1612,7 +1612,7 @@ describe('ember-template-lint executable', function () {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('should be able to load printer from node_modules', async function () {
+      it('should be able to load formatter from node_modules', async function () {
         project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1653,7 +1653,7 @@ describe('ember-template-lint executable', function () {
         let result = await run(['.', '--format', 'ember-template-lint-formatter-test']);
 
         expect(result.stdout).toMatchInlineSnapshot(`
-          "Custom Printer Header
+          "Custom Formatter Header
 
           errors: 3
           warnings: 0

@@ -171,7 +171,7 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings-todos');
-    formatter.print(results);
+    formatter.format(results);
   });
 
   it('should output sarif log with errors and warnings', function () {
@@ -192,7 +192,7 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings-todos');
-    formatter.print(results);
+    formatter.format(results);
   });
 
   it('should output sarif log with errors and warnings and todos', function () {
@@ -214,7 +214,7 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings-todos');
-    formatter.print(results);
+    formatter.format(results);
   });
 
   it('should output sarif log to default path (in project working directory)', function () {
@@ -236,7 +236,7 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings');
-    formatter.print(results);
+    formatter.format(results);
   });
 
   it('should always output a SARIF file if options.outputFile is specified', function () {
@@ -258,7 +258,7 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings');
-    formatter.print(results);
+    formatter.format(results);
   });
 
   it('should output sarif log to custom relative path', function () {
@@ -281,7 +281,7 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings');
-    formatter.print(results);
+    formatter.format(results);
   });
 
   it('should output sarif log to custom absolute path', function () {
@@ -304,7 +304,7 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings');
-    formatter.print(results);
+    formatter.format(results);
   });
 
   it('should output sarif log JSON not using TTY', function () {
@@ -325,6 +325,6 @@ describe('', () => {
     );
 
     let results = getFixture('results-errors-warnings');
-    formatter.print(results);
+    formatter.format(results);
   });
 });

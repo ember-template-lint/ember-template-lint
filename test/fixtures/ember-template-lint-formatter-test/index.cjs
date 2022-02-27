@@ -1,11 +1,11 @@
-class TestPrinter {
+class TestFormatter {
   constructor(options = {}) {
     this.options = options;
     this.console = options.console || console;
   }
 
-  print(results) {
-    this.console.log('Custom Printer Header');
+  format(results) {
+    this.console.log('Custom Formatter Header');
     this.console.log();
     this.console.log(`errors: ${results.errorCount}`);
     this.console.log(`warnings: ${results.warningCount}`);
@@ -13,4 +13,4 @@ class TestPrinter {
   }
 }
 
-module.exports = TestPrinter;
+module.exports = TestFormatter;
