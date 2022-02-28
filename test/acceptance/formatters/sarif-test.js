@@ -2,8 +2,8 @@ import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import SarifFormatter from '../../lib/formatters/sarif.js';
-import Project from '../helpers/fake-project.js';
+import SarifFormatter from '../../../lib/formatters/sarif.js';
+import Project from '../../helpers/fake-project.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -135,7 +135,7 @@ const DEFAULT_OPTIONS = {
 
 function getFixture(fixtureName) {
   return JSON.parse(
-    fs.readFileSync(path.join(__dirname, '..', 'fixtures', 'sarif', `${fixtureName}.json`))
+    fs.readFileSync(path.join(__dirname, '../..', 'fixtures', 'sarif', `${fixtureName}.json`))
   );
 }
 
