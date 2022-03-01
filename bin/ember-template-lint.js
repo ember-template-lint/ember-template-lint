@@ -263,7 +263,11 @@ function printResults(results, { options, todoInfo }) {
     hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
   });
 
-  let output = formatter.format(results, todoInfo);
+  let output =
+    typeof formatter.format === 'function'
+      ? formatter.format(results, todoInfo)
+      : // support legacy formatters
+        formatter.print(results, todoInfo);
 
   if (output) {
     if ('output-file' in options) {

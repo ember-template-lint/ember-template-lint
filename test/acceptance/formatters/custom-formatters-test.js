@@ -108,4 +108,46 @@ describe('custom formatters', () => {
     `);
     expect(result.stderr).toBeFalsy();
   });
+
+  it('should be able use legacy formatters using .print()', async function () {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': true,
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+        },
+      },
+      'legacy-formatter.js': `
+            class LegacyFormatter {
+              constructor(options = {}) {
+                this.options = options;
+                this.console = options.console || console;
+              }
+
+              print(results) {
+                this.console.log(\`errors: \${results.errorCount}\`);
+                this.console.log(\`warnings: \${results.warningCount}\`);
+                this.console.log(\`fixable: \${(results.fixableErrorCount + results.fixableWarningCount)}\`);
+              }
+            }
+
+            module.exports = LegacyFormatter;
+          `,
+    });
+
+    let result = await run(['.', '--format', './legacy-formatter.js']);
+
+    expect(result.stdout).toMatchInlineSnapshot(`
+      "errors: 3
+      warnings: 0
+      fixable: 0"
+    `);
+    expect(result.stderr).toBeFalsy();
+  });
 });
