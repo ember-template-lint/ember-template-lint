@@ -35,21 +35,26 @@ describe('custom formatters', () => {
         },
       },
       'custom-formatter.js': `
-            class CustomFormatter {
-              constructor(options = {}) {
-                this.options = options;
-                this.console = options.console || console;
-              }
+  class CustomFormatter {
+    constructor(options = {}) {
+      this.options = options;
+    }
 
-              format(results) {
-                this.console.log(\`errors: \${results.errorCount}\`);
-                this.console.log(\`warnings: \${results.warningCount}\`);
-                this.console.log(\`fixable: \${(results.fixableErrorCount + results.fixableWarningCount)}\`);
-              }
-            }
+    format(results) {
+      let output = [];
 
-            module.exports = CustomFormatter;
-          `,
+      output.push(
+        \`errors: \${results.errorCount}\`,
+        \`warnings: \${results.warningCount}\`,
+        \`fixable: \${results.fixableErrorCount + results.fixableWarningCount}\`
+      );
+
+      return output.join('\\n');
+    }
+  }
+
+  module.exports = CustomFormatter;
+            `,
     });
 
     let result = await run(['.', '--format', './custom-formatter.js']);
@@ -101,7 +106,6 @@ describe('custom formatters', () => {
 
     expect(result.stdout).toMatchInlineSnapshot(`
       "Custom Formatter Header
-
       errors: 3
       warnings: 0
       fixable: 0"
