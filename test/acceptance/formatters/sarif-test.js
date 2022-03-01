@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import SarifFormatter from '../../../lib/formatters/sarif.js';
 import Project from '../../helpers/fake-project.js';
+import run from '../../helpers/run.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -326,5 +327,30 @@ describe('', () => {
 
     let results = getFixture('results-errors-warnings');
     formatter.format(results);
+  });
+
+  it('should always emit a SARIF file even when there are no errors/warnings', async function () {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': true,
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs': '<div></div>',
+        },
+      },
+    });
+
+    let result = await run(['.', '--format', 'sarif', '--output-file', 'my-results.sarif'], {
+      env: {
+        IS_TTY: '1',
+      },
+    });
+
+    expect(result.exitCode).toEqual(0);
+    expect(fs.existsSync(path.join(project.baseDir, 'my-results.sarif'))).toEqual(true);
   });
 });
