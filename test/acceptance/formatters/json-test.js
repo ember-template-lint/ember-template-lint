@@ -15,7 +15,7 @@ describe('JSON formatter', () => {
     project.dispose();
   });
 
-  it('should print valid JSON string with errors', async function () {
+  it('should format errors', async function () {
     project.setConfig({
       rules: {
         'no-bare-strings': true,
@@ -32,36 +32,37 @@ describe('JSON formatter', () => {
       },
     });
 
-    let result = await run(['--format=json', '.']);
-
-    let expectedOutputData = {};
-    expectedOutputData['app/templates/application.hbs'] = [
-      {
-        column: 4,
-        line: 1,
-        endColumn: 14,
-        endLine: 1,
-        message: 'Non-translated string used',
-        filePath: 'app/templates/application.hbs',
-        rule: 'no-bare-strings',
-        severity: 2,
-        source: 'Here too!!',
-      },
-      {
-        column: 25,
-        line: 1,
-        endColumn: 48,
-        endLine: 1,
-        message: 'Non-translated string used',
-        filePath: 'app/templates/application.hbs',
-        rule: 'no-bare-strings',
-        severity: 2,
-        source: 'Bare strings are bad...',
-      },
-    ];
+    let result = await run(['.', '--format', 'json']);
 
     expect(result.exitCode).toEqual(1);
-    expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+    expect(result.stdout).toMatchInlineSnapshot(`
+      "{
+        \\"app/templates/application.hbs\\": [
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 4,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 14,
+            \\"source\\": \\"Here too!!\\",
+            \\"message\\": \\"Non-translated string used\\"
+          },
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 25,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 48,
+            \\"source\\": \\"Bare strings are bad...\\",
+            \\"message\\": \\"Non-translated string used\\"
+          }
+        ]
+      }"
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
@@ -80,26 +81,27 @@ describe('JSON formatter', () => {
       },
     });
 
-    let result = await run(['.', '--format=json']);
-
-    let expectedOutputData = {};
-    expectedOutputData['app/components/click-me-button.hbs'] = [
-      {
-        column: 0,
-        line: 1,
-        endColumn: 26,
-        endLine: 1,
-        isFixable: true,
-        message: 'All `<button>` elements should have a valid `type` attribute',
-        filePath: 'app/components/click-me-button.hbs',
-        rule: 'require-button-type',
-        severity: 2,
-        source: '<button>Click me!</button>',
-      },
-    ];
+    let result = await run(['.', '--format', 'json']);
 
     expect(result.exitCode).toEqual(1);
-    expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+    expect(result.stdout).toMatchInlineSnapshot(`
+      "{
+        \\"app/components/click-me-button.hbs\\": [
+          {
+            \\"rule\\": \\"require-button-type\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/components/click-me-button.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 0,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 26,
+            \\"source\\": \\"<button>Click me!</button>\\",
+            \\"message\\": \\"All \`<button>\` elements should have a valid \`type\` attribute\\",
+            \\"isFixable\\": true
+          }
+        ]
+      }"
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
@@ -120,50 +122,51 @@ describe('JSON formatter', () => {
         },
       });
 
-      let result = await run(['.', '--format=json', '--quiet']);
-
-      let expectedOutputData = {};
-      expectedOutputData['app/templates/application.hbs'] = [
-        {
-          column: 4,
-          line: 1,
-          endColumn: 14,
-          endLine: 1,
-          message: 'Non-translated string used',
-          filePath: 'app/templates/application.hbs',
-          rule: 'no-bare-strings',
-          severity: 2,
-          source: 'Here too!!',
-        },
-        {
-          column: 24,
-          line: 1,
-          endColumn: 47,
-          endLine: 1,
-          message: 'Non-translated string used',
-          filePath: 'app/templates/application.hbs',
-          rule: 'no-bare-strings',
-          severity: 2,
-          source: 'Bare strings are bad...',
-        },
-        {
-          column: 53,
-          endColumn: 79,
-          endLine: 1,
-          filePath: 'app/templates/application.hbs',
-          fix: {
-            text: '{{! bad html comment! }}',
-          },
-          line: 1,
-          message: 'HTML comment detected',
-          rule: 'no-html-comments',
-          severity: 2,
-          source: '<!-- bad html comment! -->',
-        },
-      ];
+      let result = await run(['.', '--format', 'json', '--quiet']);
 
       expect(result.exitCode).toEqual(1);
-      expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "{
+          \\"app/templates/application.hbs\\": [
+            {
+              \\"rule\\": \\"no-bare-strings\\",
+              \\"severity\\": 2,
+              \\"filePath\\": \\"app/templates/application.hbs\\",
+              \\"line\\": 1,
+              \\"column\\": 4,
+              \\"endLine\\": 1,
+              \\"endColumn\\": 14,
+              \\"source\\": \\"Here too!!\\",
+              \\"message\\": \\"Non-translated string used\\"
+            },
+            {
+              \\"rule\\": \\"no-bare-strings\\",
+              \\"severity\\": 2,
+              \\"filePath\\": \\"app/templates/application.hbs\\",
+              \\"line\\": 1,
+              \\"column\\": 24,
+              \\"endLine\\": 1,
+              \\"endColumn\\": 47,
+              \\"source\\": \\"Bare strings are bad...\\",
+              \\"message\\": \\"Non-translated string used\\"
+            },
+            {
+              \\"rule\\": \\"no-html-comments\\",
+              \\"severity\\": 2,
+              \\"filePath\\": \\"app/templates/application.hbs\\",
+              \\"line\\": 1,
+              \\"column\\": 53,
+              \\"endLine\\": 1,
+              \\"endColumn\\": 79,
+              \\"source\\": \\"<!-- bad html comment! -->\\",
+              \\"message\\": \\"HTML comment detected\\",
+              \\"fix\\": {
+                \\"text\\": \\"{{! bad html comment! }}\\"
+              }
+            }
+          ]
+        }"
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -181,13 +184,14 @@ describe('JSON formatter', () => {
           },
         },
       });
-      let result = await run(['.', '--format=json', '--quiet']);
-
-      let expectedOutputData = {};
-      expectedOutputData['app/templates/application.hbs'] = [];
+      let result = await run(['.', '--format', 'json', '--quiet']);
 
       expect(result.exitCode).toEqual(0);
-      expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "{
+          \\"app/templates/application.hbs\\": []
+        }"
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -206,26 +210,27 @@ describe('JSON formatter', () => {
         },
       });
 
-      let result = await run(['.', '--format=json']);
-
-      let expectedOutputData = {};
-      expectedOutputData['app/components/click-me-button.hbs'] = [
-        {
-          column: 0,
-          line: 1,
-          endColumn: 26,
-          endLine: 1,
-          isFixable: true,
-          message: 'All `<button>` elements should have a valid `type` attribute',
-          filePath: 'app/components/click-me-button.hbs',
-          rule: 'require-button-type',
-          severity: 2,
-          source: '<button>Click me!</button>',
-        },
-      ];
+      let result = await run(['.', '--format', 'json']);
 
       expect(result.exitCode).toEqual(1);
-      expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "{
+          \\"app/components/click-me-button.hbs\\": [
+            {
+              \\"rule\\": \\"require-button-type\\",
+              \\"severity\\": 2,
+              \\"filePath\\": \\"app/components/click-me-button.hbs\\",
+              \\"line\\": 1,
+              \\"column\\": 0,
+              \\"endLine\\": 1,
+              \\"endColumn\\": 26,
+              \\"source\\": \\"<button>Click me!</button>\\",
+              \\"message\\": \\"All \`<button>\` elements should have a valid \`type\` attribute\\",
+              \\"isFixable\\": true
+            }
+          ]
+        }"
+      `);
       expect(result.stderr).toBeFalsy();
     });
   });

@@ -22,7 +22,7 @@ describe('pretty formatter', () => {
     project.dispose();
   });
 
-  it('should print properly formatted error messages', async function () {
+  it('should format errors', async function () {
     project.setConfig({
       rules: {
         'no-bare-strings': true,
@@ -52,11 +52,11 @@ describe('pretty formatter', () => {
     expect(result.stderr).toBeFalsy();
   });
 
-  it('should print properly formatted error messages', async function () {
+  it('should format errors and warnings', async function () {
     project.setConfig({
       rules: {
         'no-bare-strings': true,
-        'no-html-comments': true,
+        'no-html-comments': 'warn',
       },
     });
     project.write({
@@ -75,9 +75,9 @@ describe('pretty formatter', () => {
       'app/templates/application.hbs',
       '  1:4  error  Non-translated string used  no-bare-strings',
       '  1:24  error  Non-translated string used  no-bare-strings',
-      '  1:53  error  HTML comment detected  no-html-comments',
+      '  1:53  warning  HTML comment detected  no-html-comments',
       '',
-      '✖ 3 problems (3 errors, 0 warnings)',
+      '✖ 3 problems (2 errors, 1 warnings)',
     ]);
     expect(result.stderr).toBeFalsy();
   });
