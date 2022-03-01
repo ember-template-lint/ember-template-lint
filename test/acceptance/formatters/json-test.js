@@ -66,7 +66,30 @@ describe('JSON formatter', () => {
     expect(result.stderr).toBeFalsy();
   });
 
-  it('should include information about fixing', async function () {
+  it('should format errors and warnings', async function () {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': 'warn',
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+        },
+      },
+    });
+
+    let result = await run(['.', '--format', 'json']);
+
+    expect(result.exitCode).toEqual(1);
+    expect(result.stdout).toMatchInlineSnapshot();
+    expect(result.stderr).toBeFalsy();
+  });
+
+  it('should include information about available fixes', async function () {
     project.setConfig({
       rules: {
         'require-button-type': true,
@@ -194,44 +217,4 @@ describe('JSON formatter', () => {
       `);
       expect(result.stderr).toBeFalsy();
     });
-
-    it('should include information about fixing', async function () {
-      project.setConfig({
-        rules: {
-          'require-button-type': true,
-        },
-      });
-
-      project.write({
-        app: {
-          components: {
-            'click-me-button.hbs': '<button>Click me!</button>',
-          },
-        },
-      });
-
-      let result = await run(['.', '--format', 'json']);
-
-      expect(result.exitCode).toEqual(1);
-      expect(result.stdout).toMatchInlineSnapshot(`
-        "{
-          \\"app/components/click-me-button.hbs\\": [
-            {
-              \\"rule\\": \\"require-button-type\\",
-              \\"severity\\": 2,
-              \\"filePath\\": \\"app/components/click-me-button.hbs\\",
-              \\"line\\": 1,
-              \\"column\\": 0,
-              \\"endLine\\": 1,
-              \\"endColumn\\": 26,
-              \\"source\\": \\"<button>Click me!</button>\\",
-              \\"message\\": \\"All \`<button>\` elements should have a valid \`type\` attribute\\",
-              \\"isFixable\\": true
-            }
-          ]
-        }"
-      `);
-      expect(result.stderr).toBeFalsy();
-    });
-  });
 });

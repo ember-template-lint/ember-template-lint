@@ -266,7 +266,7 @@ function printResults(results, { options, todoInfo }) {
   let output = formatter.format(results, todoInfo);
 
   if (output) {
-    if (options.outputFile) {
+    if ('output-file' in options) {
       let outputPath = writeOutputFile(output, formatter.outputFileType || 'txt', options);
       console.log(`Report written to ${outputPath}`);
     } else {
