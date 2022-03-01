@@ -263,19 +263,16 @@ function printResults(results, { options, todoInfo }) {
     hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
   });
 
-  let output =
-    typeof formatter.format === 'function'
-      ? formatter.format(results, todoInfo)
-      : // support legacy formatters
-        formatter.print(results, todoInfo);
-
-  if (output) {
+  if (typeof formatter.format === 'function') {
     if ('output-file' in options) {
       let outputPath = writeOutputFile(output, formatter.outputFileType || 'txt', options);
       console.log(`Report written to ${outputPath}`);
     } else {
       console.log(output);
     }
+  } else {
+    // support legacy formatters
+    formatter.print(results, todoInfo);
   }
 }
 
