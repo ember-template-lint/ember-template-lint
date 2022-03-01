@@ -1,5 +1,4 @@
-import Project from '../../helpers/fake-project.js';
-import run from '../../helpers/run.js';
+import { Project, getOutputFileContents, run } from '../../helpers/index.js';
 
 const ROOT = process.cwd();
 
@@ -85,7 +84,48 @@ describe('JSON formatter', () => {
     let result = await run(['.', '--format', 'json']);
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout).toMatchInlineSnapshot();
+    expect(result.stdout).toMatchInlineSnapshot(`
+      "{
+        \\"app/templates/application.hbs\\": [
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 4,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 14,
+            \\"source\\": \\"Here too!!\\",
+            \\"message\\": \\"Non-translated string used\\"
+          },
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 24,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 47,
+            \\"source\\": \\"Bare strings are bad...\\",
+            \\"message\\": \\"Non-translated string used\\"
+          },
+          {
+            \\"rule\\": \\"no-html-comments\\",
+            \\"severity\\": 1,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 53,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 79,
+            \\"source\\": \\"<!-- bad html comment! -->\\",
+            \\"message\\": \\"HTML comment detected\\",
+            \\"fix\\": {
+              \\"text\\": \\"{{! bad html comment! }}\\"
+            }
+          }
+        ]
+      }"
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
@@ -121,6 +161,135 @@ describe('JSON formatter', () => {
             \\"source\\": \\"<button>Click me!</button>\\",
             \\"message\\": \\"All \`<button>\` elements should have a valid \`type\` attribute\\",
             \\"isFixable\\": true
+          }
+        ]
+      }"
+    `);
+    expect(result.stderr).toBeFalsy();
+  });
+
+  it('should output to a file using --output-file option using default filename', async () => {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': 'warn',
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+        },
+      },
+    });
+
+    let result = await run(['.', '--format', 'json', '--output-file']);
+
+    expect(result.exitCode).toEqual(1);
+    expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
+      "{
+        \\"app/templates/application.hbs\\": [
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 4,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 14,
+            \\"source\\": \\"Here too!!\\",
+            \\"message\\": \\"Non-translated string used\\"
+          },
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 24,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 47,
+            \\"source\\": \\"Bare strings are bad...\\",
+            \\"message\\": \\"Non-translated string used\\"
+          },
+          {
+            \\"rule\\": \\"no-html-comments\\",
+            \\"severity\\": 1,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 53,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 79,
+            \\"source\\": \\"<!-- bad html comment! -->\\",
+            \\"message\\": \\"HTML comment detected\\",
+            \\"fix\\": {
+              \\"text\\": \\"{{! bad html comment! }}\\"
+            }
+          }
+        ]
+      }"
+    `);
+    expect(result.stderr).toBeFalsy();
+  });
+
+  it('should output to a file using --output-file option using custom filename', async () => {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': 'warn',
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+        },
+      },
+    });
+
+    let result = await run(['.', '--format', 'json', '--output-file', 'json-output.json']);
+
+    expect(result.exitCode).toEqual(1);
+    expect(result.stdout).toMatch(/.*json-output\.json/);
+    expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
+      "{
+        \\"app/templates/application.hbs\\": [
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 4,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 14,
+            \\"source\\": \\"Here too!!\\",
+            \\"message\\": \\"Non-translated string used\\"
+          },
+          {
+            \\"rule\\": \\"no-bare-strings\\",
+            \\"severity\\": 2,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 24,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 47,
+            \\"source\\": \\"Bare strings are bad...\\",
+            \\"message\\": \\"Non-translated string used\\"
+          },
+          {
+            \\"rule\\": \\"no-html-comments\\",
+            \\"severity\\": 1,
+            \\"filePath\\": \\"app/templates/application.hbs\\",
+            \\"line\\": 1,
+            \\"column\\": 53,
+            \\"endLine\\": 1,
+            \\"endColumn\\": 79,
+            \\"source\\": \\"<!-- bad html comment! -->\\",
+            \\"message\\": \\"HTML comment detected\\",
+            \\"fix\\": {
+              \\"text\\": \\"{{! bad html comment! }}\\"
+            }
           }
         ]
       }"
@@ -217,4 +386,5 @@ describe('JSON formatter', () => {
       `);
       expect(result.stderr).toBeFalsy();
     });
+  });
 });

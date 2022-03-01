@@ -2,10 +2,7 @@ import chalk from 'chalk';
 
 import PrettyFormatter from '../../../lib/formatters/pretty.js';
 import { TODO_SEVERITY } from '../../../lib/helpers/severity.js';
-import Project from '../../helpers/fake-project.js';
-import getOutputFile from '../../helpers/get-output-file.js';
-import run from '../../helpers/run.js';
-import setupEnvVar from '../../helpers/setup-env-var.js';
+import { Project, getOutputFileContents, run, setupEnvVar } from '../../helpers/index.js';
 
 const ROOT = process.cwd();
 
@@ -131,7 +128,7 @@ describe('pretty formatter', () => {
     let result = await run(['.', '--output-file']);
 
     expect(result.exitCode).toEqual(1);
-    expect(getOutputFile(result.stdout)).toMatchInlineSnapshot(`
+    expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
       "app/templates/application.hbs
         1:4  error  Non-translated string used  no-bare-strings
         1:24  error  Non-translated string used  no-bare-strings
@@ -161,7 +158,8 @@ describe('pretty formatter', () => {
     let result = await run(['.', '--output-file', 'pretty-output.txt']);
 
     expect(result.exitCode).toEqual(1);
-    expect(getOutputFile(result.stdout)).toMatchInlineSnapshot(`
+    expect(result.stdout).toMatch(/.*pretty-output\.txt/);
+    expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
       "app/templates/application.hbs
         1:4  error  Non-translated string used  no-bare-strings
         1:24  error  Non-translated string used  no-bare-strings

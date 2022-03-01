@@ -3,12 +3,94 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import SarifFormatter from '../../../lib/formatters/sarif.js';
-import Project from '../../helpers/fake-project.js';
-import run from '../../helpers/run.js';
+import { Project, getOutputFileContents, run } from '../../helpers/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const SARIF_LOG_MATCHER = {
+  version: '2.1.0',
+  $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
+  runs: [
+    {
+      tool: {
+        driver: {
+          name: 'ember-template-lint',
+          informationUri: 'https://github.com/ember-template-lint/ember-template-lint',
+          rules: [
+            {
+              id: 'no-bare-strings',
+              helpUri: expect.stringMatching(
+                `https://github.com/ember-template-lint/ember-template-lint/blob/.*/docs/rule/no-bare-strings.md`
+              ),
+            },
+          ],
+          version: expect.stringMatching('.*'),
+        },
+      },
+      artifacts: [
+        {
+          location: {
+            uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+          },
+        },
+      ],
+      results: [
+        {
+          level: 'error',
+          message: {
+            text: 'Non-translated string used',
+          },
+          locations: [
+            {
+              physicalLocation: {
+                artifactLocation: {
+                  uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                  index: 0,
+                },
+                region: {
+                  startLine: 1,
+                  startColumn: 4,
+                  snippet: {
+                    text: 'Here too!!',
+                  },
+                },
+              },
+            },
+          ],
+          ruleId: 'no-bare-strings',
+          ruleIndex: 0,
+        },
+        {
+          level: 'error',
+          message: {
+            text: 'Non-translated string used',
+          },
+          locations: [
+            {
+              physicalLocation: {
+                artifactLocation: {
+                  uri: expect.stringMatching('file://.*/app/templates/application.hbs'),
+                  index: 0,
+                },
+                region: {
+                  startLine: 1,
+                  startColumn: 24,
+                  snippet: {
+                    text: 'Bare strings are bad...',
+                  },
+                },
+              },
+            },
+          ],
+          ruleId: 'no-bare-strings',
+          ruleIndex: 0,
+        },
+      ],
+    },
+  ],
+};
+
+const SARIF_LOG_MATCHER_WITH_WARNING = {
   version: '2.1.0',
   $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
   runs: [
@@ -140,7 +222,7 @@ function getFixture(fixtureName) {
   );
 }
 
-describe('', () => {
+describe('SARIF formatter', () => {
   let project;
 
   beforeEach(function () {
@@ -162,100 +244,17 @@ describe('', () => {
     project.write({
       app: {
         templates: {
-          'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
-          components: {
-            'foo.hbs': '{{fooData}}',
-          },
+          'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
         },
       },
     });
 
     let result = await run(['.', '--format', 'sarif']);
+    let sarifLog = JSON.parse(result.stdout);
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout).toMatchInlineSnapshot(`
-      "{
-        \\"version\\": \\"2.1.0\\",
-        \\"$schema\\": \\"http://json.schemastore.org/sarif-2.1.0-rtm.5\\",
-        \\"runs\\": [
-          {
-            \\"tool\\": {
-              \\"driver\\": {
-                \\"name\\": \\"ember-template-lint\\",
-                \\"informationUri\\": \\"https://github.com/ember-template-lint/ember-template-lint\\",
-                \\"rules\\": [
-                  {
-                    \\"id\\": \\"no-bare-strings\\",
-                    \\"helpUri\\": \\"https://github.com/ember-template-lint/ember-template-lint/blob/4.2.0/docs/rule/no-bare-strings.md\\"
-                  }
-                ],
-                \\"version\\": \\"4.2.0\\"
-              }
-            },
-            \\"artifacts\\": [
-              {
-                \\"location\\": {
-                  \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-18408OFggipksvYw9/fake-project/app/templates/application.hbs\\"
-                }
-              }
-            ],
-            \\"results\\": [
-              {
-                \\"level\\": \\"error\\",
-                \\"message\\": {
-                  \\"text\\": \\"Non-translated string used\\"
-                },
-                \\"locations\\": [
-                  {
-                    \\"physicalLocation\\": {
-                      \\"artifactLocation\\": {
-                        \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-18408OFggipksvYw9/fake-project/app/templates/application.hbs\\",
-                        \\"index\\": 0
-                      },
-                      \\"region\\": {
-                        \\"startLine\\": 1,
-                        \\"startColumn\\": 4,
-                        \\"snippet\\": {
-                          \\"text\\": \\"Here too!!\\"
-                        }
-                      }
-                    }
-                  }
-                ],
-                \\"ruleId\\": \\"no-bare-strings\\",
-                \\"ruleIndex\\": 0
-              },
-              {
-                \\"level\\": \\"error\\",
-                \\"message\\": {
-                  \\"text\\": \\"Non-translated string used\\"
-                },
-                \\"locations\\": [
-                  {
-                    \\"physicalLocation\\": {
-                      \\"artifactLocation\\": {
-                        \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-18408OFggipksvYw9/fake-project/app/templates/application.hbs\\",
-                        \\"index\\": 0
-                      },
-                      \\"region\\": {
-                        \\"startLine\\": 1,
-                        \\"startColumn\\": 25,
-                        \\"snippet\\": {
-                          \\"text\\": \\"Bare strings are bad...\\"
-                        }
-                      }
-                    }
-                  }
-                ],
-                \\"ruleId\\": \\"no-bare-strings\\",
-                \\"ruleIndex\\": 0
-              }
-            ]
-          }
-        ]
-      }"
-    `);
-    expect(JSON.parse(result.stdout)).toBeValidSarifLog();
+    expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
+    expect(sarifLog).toBeValidSarifLog();
     expect(result.stderr).toBeFalsy();
   });
 
@@ -276,211 +275,116 @@ describe('', () => {
     });
 
     let result = await run(['.', '--format', 'sarif']);
+    let sarifLog = JSON.parse(result.stdout);
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout).toMatchInlineSnapshot(`
-      "{
-        \\"version\\": \\"2.1.0\\",
-        \\"$schema\\": \\"http://json.schemastore.org/sarif-2.1.0-rtm.5\\",
-        \\"runs\\": [
-          {
-            \\"tool\\": {
-              \\"driver\\": {
-                \\"name\\": \\"ember-template-lint\\",
-                \\"informationUri\\": \\"https://github.com/ember-template-lint/ember-template-lint\\",
-                \\"rules\\": [
-                  {
-                    \\"id\\": \\"no-bare-strings\\",
-                    \\"helpUri\\": \\"https://github.com/ember-template-lint/ember-template-lint/blob/4.2.0/docs/rule/no-bare-strings.md\\"
-                  },
-                  {
-                    \\"id\\": \\"no-html-comments\\",
-                    \\"helpUri\\": \\"https://github.com/ember-template-lint/ember-template-lint/blob/4.2.0/docs/rule/no-html-comments.md\\"
-                  }
-                ],
-                \\"version\\": \\"4.2.0\\"
-              }
-            },
-            \\"artifacts\\": [
-              {
-                \\"location\\": {
-                  \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-18408lOiXc98VVV6m/fake-project/app/templates/application.hbs\\"
-                }
-              }
-            ],
-            \\"results\\": [
-              {
-                \\"level\\": \\"error\\",
-                \\"message\\": {
-                  \\"text\\": \\"Non-translated string used\\"
-                },
-                \\"locations\\": [
-                  {
-                    \\"physicalLocation\\": {
-                      \\"artifactLocation\\": {
-                        \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-18408lOiXc98VVV6m/fake-project/app/templates/application.hbs\\",
-                        \\"index\\": 0
-                      },
-                      \\"region\\": {
-                        \\"startLine\\": 1,
-                        \\"startColumn\\": 4,
-                        \\"snippet\\": {
-                          \\"text\\": \\"Here too!!\\"
-                        }
-                      }
-                    }
-                  }
-                ],
-                \\"ruleId\\": \\"no-bare-strings\\",
-                \\"ruleIndex\\": 0
-              },
-              {
-                \\"level\\": \\"error\\",
-                \\"message\\": {
-                  \\"text\\": \\"Non-translated string used\\"
-                },
-                \\"locations\\": [
-                  {
-                    \\"physicalLocation\\": {
-                      \\"artifactLocation\\": {
-                        \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-18408lOiXc98VVV6m/fake-project/app/templates/application.hbs\\",
-                        \\"index\\": 0
-                      },
-                      \\"region\\": {
-                        \\"startLine\\": 1,
-                        \\"startColumn\\": 24,
-                        \\"snippet\\": {
-                          \\"text\\": \\"Bare strings are bad...\\"
-                        }
-                      }
-                    }
-                  }
-                ],
-                \\"ruleId\\": \\"no-bare-strings\\",
-                \\"ruleIndex\\": 0
-              },
-              {
-                \\"level\\": \\"warning\\",
-                \\"message\\": {
-                  \\"text\\": \\"HTML comment detected\\"
-                },
-                \\"locations\\": [
-                  {
-                    \\"physicalLocation\\": {
-                      \\"artifactLocation\\": {
-                        \\"uri\\": \\"file:///private/var/folders/5m/4ybwhyvn3979lm2223q_q22c000gyd/T/tmp-18408lOiXc98VVV6m/fake-project/app/templates/application.hbs\\",
-                        \\"index\\": 0
-                      },
-                      \\"region\\": {
-                        \\"startLine\\": 1,
-                        \\"startColumn\\": 53,
-                        \\"snippet\\": {
-                          \\"text\\": \\"<!-- bad html comment! -->\\"
-                        }
-                      }
-                    }
-                  }
-                ],
-                \\"ruleId\\": \\"no-html-comments\\",
-                \\"ruleIndex\\": 1
-              }
-            ]
-          }
-        ]
-      }"
-    `);
-    expect(JSON.parse(result.stdout)).toBeValidSarifLog();
+    expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER_WITH_WARNING));
+    expect(sarifLog).toBeValidSarifLog();
     expect(result.stderr).toBeFalsy();
   });
 
-  it('should output sarif log to default path (in project working directory)', function () {
-    let sarifPattern =
-      /Report\swrit{2}en\sto\s(.*ember-template-lint-report-\d{4}(?:-\d{2}){3}(?:_\d{2}){2}\.sarif)/;
-    let formatter = new SarifFormatter(
-      Object.assign({}, DEFAULT_OPTIONS, {
-        console: {
-          log(str) {
-            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
-
-            expect(str).toMatch(sarifPattern);
-            expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
-            expect(sarifLog).toBeValidSarifLog();
-          },
+  it('should output to a file using --output-file option using default filename', async () => {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': 'warn',
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
         },
-        workingDir: project.baseDir,
-      })
-    );
+      },
+    });
 
-    let results = getFixture('results-errors-warnings');
-    formatter.format(results);
+    let result = await run(['.', '--format', 'sarif', '--output-file']);
+
+    expect(result.exitCode).toEqual(1);
+    expect(JSON.parse(getOutputFileContents(result.stdout))).toEqual(
+      expect.objectContaining(SARIF_LOG_MATCHER_WITH_WARNING)
+    );
+    expect(result.stderr).toBeFalsy();
   });
 
-  it('should always output a SARIF file if options.outputFile is specified', function () {
-    let sarifPattern = /Report\swrit{2}en\sto\s(.*foo\.sarif)/;
-    let formatter = new SarifFormatter(
-      Object.assign({}, DEFAULT_OPTIONS, {
-        console: {
-          log(str) {
-            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
-
-            expect(str).toMatch(sarifPattern);
-            expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
-            expect(sarifLog).toBeValidSarifLog();
-          },
+  it('should output to a file using --output-file option using custom filename', async () => {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': 'warn',
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
         },
-        workingDir: project.baseDir,
-        outputFile: 'foo.sarif',
-      })
-    );
+      },
+    });
 
-    let results = getFixture('results-errors-warnings');
-    formatter.format(results);
+    let result = await run(['.', '--format', 'sarif', '--output-file', 'sarif-output.sarif']);
+
+    expect(result.exitCode).toEqual(1);
+    expect(result.stdout).toMatch(/.*sarif-output\.sarif/);
+    expect(JSON.parse(getOutputFileContents(result.stdout))).toEqual(
+      expect.objectContaining(SARIF_LOG_MATCHER_WITH_WARNING)
+    );
+    expect(result.stderr).toBeFalsy();
   });
 
-  it('should output sarif log to custom relative path', function () {
-    let sarifPattern = /Report\swrit{2}en\sto\s(.*my-custom-file.sarif)/;
-    let formatter = new SarifFormatter(
-      Object.assign({}, DEFAULT_OPTIONS, {
-        console: {
-          log(str) {
-            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
-
-            expect(str).toMatch(sarifPattern);
-            expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
-            expect(sarifLog).toBeValidSarifLog();
-          },
+  it('should output to a file using --output-file option using custom filename using relative path', async () => {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': 'warn',
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
         },
+      },
+    });
 
-        outputFile: 'my-custom-file.sarif',
-        workingDir: project.baseDir,
-      })
+    let result = await run(['.', '--format', 'sarif', '--output-file', './sarif-output.sarif']);
+
+    expect(result.exitCode).toEqual(1);
+    expect(result.stdout).toMatch(/.*sarif-output\.sarif/);
+    expect(JSON.parse(getOutputFileContents(result.stdout))).toEqual(
+      expect.objectContaining(SARIF_LOG_MATCHER_WITH_WARNING)
     );
-
-    let results = getFixture('results-errors-warnings');
-    formatter.format(results);
+    expect(result.stderr).toBeFalsy();
   });
 
-  it('should output sarif log to custom absolute path', function () {
-    let sarifPattern = /Report\swrit{2}en\sto\s(.*subdir(\/|\\)my-custom-file.sarif)/;
-    let formatter = new SarifFormatter(
-      Object.assign({}, DEFAULT_OPTIONS, {
-        console: {
-          log(str) {
-            let sarifLog = JSON.parse(fs.readFileSync(str.match(sarifPattern)[1]));
-
-            expect(str).toMatch(sarifPattern);
-            expect(sarifLog).toEqual(expect.objectContaining(SARIF_LOG_MATCHER));
-            expect(sarifLog).toBeValidSarifLog();
-          },
+  it('should output to a file using --output-file option using custom filename using absolute path', async () => {
+    project.setConfig({
+      rules: {
+        'no-bare-strings': true,
+        'no-html-comments': 'warn',
+      },
+    });
+    project.write({
+      app: {
+        templates: {
+          'application.hbs':
+            '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
         },
+      },
+    });
 
-        outputFile: path.join(project.baseDir, 'subdir', 'my-custom-file.sarif'),
-        workingDir: project.baseDir,
-      })
+    let outputFilePath = path.join(project.baseDir, 'subdir', 'my-custom-file.sarif');
+    let result = await run(['.', '--format', 'sarif', '--output-file', outputFilePath]);
+
+    expect(result.exitCode).toEqual(1);
+    expect(result.stdout).toMatch(new RegExp(`.*${outputFilePath}`));
+    expect(JSON.parse(getOutputFileContents(result.stdout))).toEqual(
+      expect.objectContaining(SARIF_LOG_MATCHER_WITH_WARNING)
     );
-
-    let results = getFixture('results-errors-warnings');
-    formatter.format(results);
+    expect(result.stderr).toBeFalsy();
   });
 
   it('should output sarif log JSON not using TTY', function () {
