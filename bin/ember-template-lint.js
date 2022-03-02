@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint require-atomic-updates:"off" */
 /* eslint node/shebang:"off" -- shebang needed so this script can be run directly */
 
 // Use V8's code cache to speed up instantiation time:
@@ -248,7 +249,7 @@ async function run() {
     process.exitCode = 1;
   }
 
-  printResults(results, { options, todoInfo });
+  printResults(results, { options, todoInfo, config: linter.config });
 }
 
 run();
