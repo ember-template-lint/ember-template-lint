@@ -1,12 +1,10 @@
 import fs from 'node:fs';
-import path, { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
 import Project from '../helpers/fake-project.js';
 import run from '../helpers/run.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = process.cwd();
 
 describe('ember-template-lint executable', function () {
@@ -21,8 +19,8 @@ describe('ember-template-lint executable', function () {
   });
 
   afterEach(function () {
-    process.chdir(ROOT);
-    project.dispose();
+    // process.chdir(ROOT);
+    // project.dispose();
   });
 
   describe('basic usage', function () {
@@ -622,269 +620,126 @@ describe('ember-template-lint executable', function () {
   });
 
   describe('errors and warnings formatting', function () {
-    describe('without --format=json param', function () {
-      it('should print properly formatted error messages', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
+    it('should be able run a rule passed in (rule:warn)', async function () {
+      project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+          'no-html-comments': true,
+        },
+      });
+      project.write({
+        app: {
+          templates: {
+            'application.hbs':
+              '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
           },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
-              components: {
-                'foo.hbs': '{{fooData}}',
-              },
-            },
-          },
-        });
-
-        let result = await run(['.']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:4  error  Non-translated string used  no-bare-strings',
-          '  1:25  error  Non-translated string used  no-bare-strings',
-          '',
-          '✖ 2 problems (2 errors, 0 warnings)',
-        ]);
-        expect(result.stderr).toBeFalsy();
+        },
       });
 
-      it('should print properly formatted error messages', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
+      let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:warn']);
 
-        let result = await run(['.']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:4  error  Non-translated string used  no-bare-strings',
-          '  1:24  error  Non-translated string used  no-bare-strings',
-          '  1:53  error  HTML comment detected  no-html-comments',
-          '',
-          '✖ 3 problems (3 errors, 0 warnings)',
-        ]);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should be able run a rule passed in (rule:warn)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:warn']);
-
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:53  warning  HTML comment detected  no-html-comments',
-          '',
-          '✖ 1 problems (0 errors, 1 warnings)',
-        ]);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should be able run a rule passed in (rule:error)', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:error']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:53  error  HTML comment detected  no-html-comments',
-          '',
-          '✖ 1 problems (1 errors, 0 warnings)',
-        ]);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should be able run a rule passed in (rule:[warn, config])', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run([
-          '.',
-          '--no-config-path',
-          '--rule',
-          'no-html-comments:["warn", true]',
-        ]);
-
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:53  warning  HTML comment detected  no-html-comments',
-          '',
-          '✖ 1 problems (0 errors, 1 warnings)',
-        ]);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should be able run a rule passed in (rule:[error, config])', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run([
-          '.',
-          '--no-config-path',
-          '--rule',
-          'no-html-comments:["error", true]',
-        ]);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:53  error  HTML comment detected  no-html-comments',
-          '',
-          '✖ 1 problems (1 errors, 0 warnings)',
-        ]);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should include information about available fixes', async function () {
-        project.setConfig({
-          rules: {
-            'require-button-type': true,
-          },
-        });
-
-        project.write({
-          app: {
-            components: {
-              'click-me-button.hbs': '<button>Click me!</button>',
-            },
-          },
-        });
-
-        let result = await run(['.']);
-
-        expect(result.exitCode).toEqual(1);
-
-        expect(result.stdout.split('\n')).toEqual([
-          'app/components/click-me-button.hbs',
-          '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
-          '',
-          '✖ 1 problems (1 errors, 0 warnings)',
-          '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
-        ]);
-        expect(result.stderr).toBeFalsy();
-      });
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout.split('\n')).toEqual([
+        'app/templates/application.hbs',
+        '  1:53  warning  HTML comment detected  no-html-comments',
+        '',
+        '✖ 1 problems (0 errors, 1 warnings)',
+      ]);
+      expect(result.stderr).toBeFalsy();
     });
 
-    describe('with --quiet param', function () {
-      it('should print properly formatted error messages, omitting any warnings', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': 'warn',
+    it('should be able run a rule passed in (rule:error)', async function () {
+      project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+          'no-html-comments': true,
+        },
+      });
+      project.write({
+        app: {
+          templates: {
+            'application.hbs':
+              '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
           },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--quiet']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:4  error  Non-translated string used  no-bare-strings',
-          '  1:24  error  Non-translated string used  no-bare-strings',
-          '',
-          '✖ 2 problems (2 errors, 0 warnings)',
-        ]);
-        expect(result.stderr).toBeFalsy();
+        },
       });
 
-      it('should exit without error and any console output', async function () {
-        project.setConfig({
-          rules: {
-            'no-html-comments': 'warn',
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-        let result = await run(['.', '--quiet']);
+      let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:error']);
 
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toBeFalsy();
-        expect(result.stderr).toBeFalsy();
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout.split('\n')).toEqual([
+        'app/templates/application.hbs',
+        '  1:53  error  HTML comment detected  no-html-comments',
+        '',
+        '✖ 1 problems (1 errors, 0 warnings)',
+      ]);
+      expect(result.stderr).toBeFalsy();
+    });
+
+    it('should be able run a rule passed in (rule:[warn, config])', async function () {
+      project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+          'no-html-comments': true,
+        },
       });
+      project.write({
+        app: {
+          templates: {
+            'application.hbs':
+              '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+          },
+        },
+      });
+
+      let result = await run([
+        '.',
+        '--no-config-path',
+        '--rule',
+        'no-html-comments:["warn", true]',
+      ]);
+
+      expect(result.exitCode).toEqual(0);
+      expect(result.stdout.split('\n')).toEqual([
+        'app/templates/application.hbs',
+        '  1:53  warning  HTML comment detected  no-html-comments',
+        '',
+        '✖ 1 problems (0 errors, 1 warnings)',
+      ]);
+      expect(result.stderr).toBeFalsy();
+    });
+
+    it('should be able run a rule passed in (rule:[error, config])', async function () {
+      project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+          'no-html-comments': true,
+        },
+      });
+      project.write({
+        app: {
+          templates: {
+            'application.hbs':
+              '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
+          },
+        },
+      });
+
+      let result = await run([
+        '.',
+        '--no-config-path',
+        '--rule',
+        'no-html-comments:["error", true]',
+      ]);
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout.split('\n')).toEqual([
+        'app/templates/application.hbs',
+        '  1:53  error  HTML comment detected  no-html-comments',
+        '',
+        '✖ 1 problems (1 errors, 0 warnings)',
+      ]);
+      expect(result.stderr).toBeFalsy();
     });
 
     describe('with/without --ignore-pattern', function () {
@@ -995,223 +850,6 @@ describe('ember-template-lint executable', function () {
 ✖ 3 problems (3 errors, 0 warnings)`
         );
 
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('with --format=json param', function () {
-      it('should print valid JSON string with errors', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
-              components: {
-                'foo.hbs': '{{fooData}}',
-              },
-            },
-          },
-        });
-
-        let result = await run(['--format=json', '.']);
-
-        let expectedOutputData = {};
-        expectedOutputData['app/templates/application.hbs'] = [
-          {
-            column: 4,
-            line: 1,
-            endColumn: 14,
-            endLine: 1,
-            message: 'Non-translated string used',
-            filePath: 'app/templates/application.hbs',
-            rule: 'no-bare-strings',
-            severity: 2,
-            source: 'Here too!!',
-          },
-          {
-            column: 25,
-            line: 1,
-            endColumn: 48,
-            endLine: 1,
-            message: 'Non-translated string used',
-            filePath: 'app/templates/application.hbs',
-            rule: 'no-bare-strings',
-            severity: 2,
-            source: 'Bare strings are bad...',
-          },
-        ];
-
-        expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should include information about fixing', async function () {
-        project.setConfig({
-          rules: {
-            'require-button-type': true,
-          },
-        });
-
-        project.write({
-          app: {
-            components: {
-              'click-me-button.hbs': '<button>Click me!</button>',
-            },
-          },
-        });
-
-        let result = await run(['.', '--format=json']);
-
-        let expectedOutputData = {};
-        expectedOutputData['app/components/click-me-button.hbs'] = [
-          {
-            column: 0,
-            line: 1,
-            endColumn: 26,
-            endLine: 1,
-            isFixable: true,
-            message: 'All `<button>` elements should have a valid `type` attribute',
-            filePath: 'app/components/click-me-button.hbs',
-            rule: 'require-button-type',
-            severity: 2,
-            source: '<button>Click me!</button>',
-          },
-        ];
-
-        expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-        expect(result.stderr).toBeFalsy();
-      });
-    });
-
-    describe('with --format=json param and --quiet', function () {
-      it('should print valid JSON string with errors, omitting warnings', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let result = await run(['.', '--format=json', '--quiet']);
-
-        let expectedOutputData = {};
-        expectedOutputData['app/templates/application.hbs'] = [
-          {
-            column: 4,
-            line: 1,
-            endColumn: 14,
-            endLine: 1,
-            message: 'Non-translated string used',
-            filePath: 'app/templates/application.hbs',
-            rule: 'no-bare-strings',
-            severity: 2,
-            source: 'Here too!!',
-          },
-          {
-            column: 24,
-            line: 1,
-            endColumn: 47,
-            endLine: 1,
-            message: 'Non-translated string used',
-            filePath: 'app/templates/application.hbs',
-            rule: 'no-bare-strings',
-            severity: 2,
-            source: 'Bare strings are bad...',
-          },
-          {
-            column: 53,
-            endColumn: 79,
-            endLine: 1,
-            filePath: 'app/templates/application.hbs',
-            fix: {
-              text: '{{! bad html comment! }}',
-            },
-            line: 1,
-            message: 'HTML comment detected',
-            rule: 'no-html-comments',
-            severity: 2,
-            source: '<!-- bad html comment! -->',
-          },
-        ];
-
-        expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should exit without error and empty errors array', async function () {
-        project.setConfig({
-          rules: {
-            'no-html-comments': 'warn',
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-        let result = await run(['.', '--format=json', '--quiet']);
-
-        let expectedOutputData = {};
-        expectedOutputData['app/templates/application.hbs'] = [];
-
-        expect(result.exitCode).toEqual(0);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should include information about fixing', async function () {
-        project.setConfig({
-          rules: {
-            'require-button-type': true,
-          },
-        });
-
-        project.write({
-          app: {
-            components: {
-              'click-me-button.hbs': '<button>Click me!</button>',
-            },
-          },
-        });
-
-        let result = await run(['.', '--format=json']);
-
-        let expectedOutputData = {};
-        expectedOutputData['app/components/click-me-button.hbs'] = [
-          {
-            column: 0,
-            line: 1,
-            endColumn: 26,
-            endLine: 1,
-            isFixable: true,
-            message: 'All `<button>` elements should have a valid `type` attribute',
-            filePath: 'app/components/click-me-button.hbs',
-            rule: 'require-button-type',
-            severity: 2,
-            source: '<button>Click me!</button>',
-          },
-        ];
-
-        expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -1490,176 +1128,6 @@ describe('ember-template-lint executable', function () {
             \\"loadedRules\\": {}
           }"
         `);
-      });
-    });
-
-    describe('with --format options', function () {
-      it('should print valid JSON string with errors', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
-              components: {
-                'foo.hbs': '{{fooData}}',
-              },
-            },
-          },
-        });
-
-        let result = await run(['--format', 'json', '.']);
-
-        expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toMatchInlineSnapshot(`
-          {
-            "app/templates/application.hbs": [
-              {
-                "column": 4,
-                "endColumn": 14,
-                "endLine": 1,
-                "filePath": "app/templates/application.hbs",
-                "line": 1,
-                "message": "Non-translated string used",
-                "rule": "no-bare-strings",
-                "severity": 2,
-                "source": "Here too!!",
-              },
-              {
-                "column": 25,
-                "endColumn": 48,
-                "endLine": 1,
-                "filePath": "app/templates/application.hbs",
-                "line": 1,
-                "message": "Non-translated string used",
-                "rule": "no-bare-strings",
-                "severity": 2,
-                "source": "Bare strings are bad...",
-              },
-            ],
-          }
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should always emit a SARIF file even when there are no errors/warnings', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs': '<div></div>',
-            },
-          },
-        });
-
-        let result = await run(['.', '--format', 'sarif', '--output-file', 'my-results.sarif'], {
-          env: {
-            IS_TTY: '1',
-          },
-        });
-
-        expect(result.exitCode).toEqual(0);
-        expect(fs.existsSync(path.join(project.baseDir, 'my-results.sarif'))).toEqual(true);
-      });
-
-      it('should be able to load relative printer', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-          'custom-printer.js': `
-            class CustomPrinter {
-              constructor(options = {}) {
-                this.options = options;
-                this.console = options.console || console;
-              }
-
-              print(results) {
-                this.console.log(\`errors: \${results.errorCount}\`);
-                this.console.log(\`warnings: \${results.warningCount}\`);
-                this.console.log(\`fixable: \${(results.fixableErrorCount + results.fixableWarningCount)}\`);
-              }
-            }
-
-            module.exports = CustomPrinter;
-          `,
-        });
-
-        let result = await run(['.', '--format', './custom-printer.js']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "errors: 3
-          warnings: 0
-          fixable: 0"
-        `);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('should be able to load printer from node_modules', async function () {
-        project.setConfig({
-          rules: {
-            'no-bare-strings': true,
-            'no-html-comments': true,
-          },
-        });
-        project.write({
-          app: {
-            templates: {
-              'application.hbs':
-                '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
-            },
-          },
-        });
-
-        let fixturePath = path.resolve(
-          __dirname,
-          '..',
-          'fixtures',
-          'ember-template-lint-formatter-test'
-        );
-        let formatterDirPath = path.join(
-          project.baseDir,
-          'node_modules',
-          'ember-template-lint-formatter-test'
-        );
-
-        fs.mkdirSync(formatterDirPath);
-        fs.copyFileSync(
-          path.join(fixturePath, 'index.cjs'),
-          path.join(formatterDirPath, 'index.js')
-        );
-        fs.copyFileSync(
-          path.join(fixturePath, 'package.json'),
-          path.join(formatterDirPath, 'package.json')
-        );
-
-        let result = await run(['.', '--format', 'ember-template-lint-formatter-test']);
-
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "Custom Printer Header
-
-          errors: 3
-          warnings: 0
-          fixable: 0"
-        `);
-        expect(result.stderr).toBeFalsy();
       });
     });
 
