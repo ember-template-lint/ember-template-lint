@@ -16,10 +16,9 @@ import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
 
-import { loadFormatter } from '../lib/formatters/load-formatter.js';
 import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
+import printResults from '../lib/helpers/print-results.js';
 import processResults from '../lib/helpers/process-results.js';
-import writeOutputFile from '../lib/helpers/write-output-file.js';
 import Linter from '../lib/linter.js';
 
 const readFile = promisify(fs.readFile);
@@ -250,32 +249,6 @@ async function run() {
   }
 
   printResults(results, { options, todoInfo });
-}
-
-function printResults(results, { options, todoInfo }) {
-  let hasErrors = results.errorCount > 0;
-  let hasWarnings = results.warningCount > 0;
-  let hasTodos = options.includeTodo && results.todoCount;
-  let hasUpdatedTodos = options.updateTodo;
-
-  let formatter = loadFormatter({
-    ...options,
-    hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
-  });
-
-  if (typeof formatter.format === 'function') {
-    let output = formatter.format(results, todoInfo);
-
-    if ('output-file' in options) {
-      let outputPath = writeOutputFile(output, formatter.defaultFileExtension || 'txt', options);
-      console.log(`Report written to ${outputPath}`);
-    } else {
-      console.log(output);
-    }
-  } else {
-    // support legacy formatters
-    formatter.print(results, todoInfo);
-  }
 }
 
 run();
