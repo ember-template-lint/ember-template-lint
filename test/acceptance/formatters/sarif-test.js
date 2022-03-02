@@ -7,6 +7,24 @@ import { Project, getOutputFileContents, run } from '../../helpers/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const EMPTY_SARIF_LOG_MATCHER = {
+  version: '2.1.0',
+  $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
+  runs: [
+    {
+      tool: {
+        driver: {
+          name: 'ember-template-lint',
+          informationUri: 'https://github.com/ember-template-lint/ember-template-lint',
+          rules: [],
+          version: expect.stringMatching('.*'),
+        },
+      },
+      results: [],
+    },
+  ],
+};
+
 const SARIF_LOG_MATCHER = {
   version: '2.1.0',
   $schema: 'http://json.schemastore.org/sarif-2.1.0-rtm.5',
@@ -380,7 +398,6 @@ describe('SARIF formatter', () => {
     let result = await run(['.', '--format', 'sarif', '--output-file', outputFilePath]);
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout).toMatch(new RegExp(`.*${outputFilePath}`));
     expect(JSON.parse(getOutputFileContents(result.stdout))).toEqual(
       expect.objectContaining(SARIF_LOG_MATCHER_WITH_WARNING)
     );
@@ -430,6 +447,8 @@ describe('SARIF formatter', () => {
     });
 
     expect(result.exitCode).toEqual(0);
-    expect(fs.existsSync(path.join(project.baseDir, 'my-results.sarif'))).toEqual(true);
+    expect(JSON.parse(getOutputFileContents(result.stdout))).toEqual(
+      expect.objectContaining(EMPTY_SARIF_LOG_MATCHER)
+    );
   });
 });
