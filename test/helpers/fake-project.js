@@ -1,4 +1,4 @@
-import FixturifyProject from 'fixturify-project';
+import { Project } from 'fixturify-project';
 import path from 'node:path';
 
 const ROOT = process.cwd();
@@ -37,7 +37,7 @@ module.exports = {
 };
 `;
 
-export default class FakeProject extends FixturifyProject {
+export default class FakeProject extends Project {
   static defaultSetup() {
     let project = new this();
 
