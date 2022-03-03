@@ -85,7 +85,7 @@ export default class FakeProject extends Project {
 
   // behave like a TempDir from broccoli-test-helper
   write(dirJSON) {
-    Object.assign(this.files, dirJSON);
+    this.files = { ...this.files, ...dirJSON };
     this.writeSync();
   }
 
