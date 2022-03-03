@@ -1124,6 +1124,7 @@ describe('ember-template-lint executable', function () {
             },
             \\"overrides\\": [],
             \\"ignore\\": [],
+            \\"format\\": {},
             \\"plugins\\": {},
             \\"loadedRules\\": {}
           }"
