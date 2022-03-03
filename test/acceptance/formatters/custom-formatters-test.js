@@ -93,7 +93,7 @@ describe('custom formatters', () => {
       'ember-template-lint-formatter-test'
     );
 
-    fs.mkdirSync(formatterDirPath);
+    fs.mkdirSync(formatterDirPath, { recursive: true });
     fs.copyFileSync(path.join(fixturePath, 'index.cjs'), path.join(formatterDirPath, 'index.js'));
     fs.copyFileSync(
       path.join(fixturePath, 'package.json'),
