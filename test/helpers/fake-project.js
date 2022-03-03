@@ -53,6 +53,8 @@ export default class FakeProject extends Project {
 
   constructor(name = 'fake-project', ...args) {
     super(name, ...args);
+
+    this.writeSync();
   }
 
   setConfig(config) {
