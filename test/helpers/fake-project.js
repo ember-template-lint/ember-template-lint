@@ -1,4 +1,4 @@
-import FixturifyProject from 'fixturify-project';
+import { Project } from 'fixturify-project';
 import path from 'node:path';
 
 const ROOT = process.cwd();
@@ -37,12 +37,14 @@ module.exports = {
 };
 `;
 
-export default class FakeProject extends FixturifyProject {
+export default class FakeProject extends Project {
   static defaultSetup() {
     let project = new this();
 
-    project.files['.template-lintrc.js'] = DEFAULT_TEMPLATE_LINTRC;
-    project.files['.editorconfig'] = DEFAULT_EDITOR_CONFIG;
+    project.files = {
+      '.template-lintrc.js': DEFAULT_TEMPLATE_LINTRC,
+      '.editorconfig': DEFAULT_EDITOR_CONFIG,
+    };
 
     project.writeSync();
 
@@ -51,6 +53,8 @@ export default class FakeProject extends FixturifyProject {
 
   constructor(name = 'fake-project', ...args) {
     super(name, ...args);
+
+    this.writeSync();
   }
 
   setConfig(config) {
@@ -81,7 +85,7 @@ export default class FakeProject extends FixturifyProject {
 
   // behave like a TempDir from broccoli-test-helper
   write(dirJSON) {
-    Object.assign(this.files, dirJSON);
+    this.files = { ...this.files, ...dirJSON };
     this.writeSync();
   }
 

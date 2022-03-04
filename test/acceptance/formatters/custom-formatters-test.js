@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url';
 import Project from '../../helpers/fake-project.js';
 import run from '../../helpers/run.js';
 
-const ROOT = process.cwd();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('custom formatters', () => {
@@ -16,7 +15,6 @@ describe('custom formatters', () => {
   });
 
   afterEach(function () {
-    process.chdir(ROOT);
     project.dispose();
   });
 
@@ -95,7 +93,7 @@ describe('custom formatters', () => {
       'ember-template-lint-formatter-test'
     );
 
-    fs.mkdirSync(formatterDirPath);
+    fs.mkdirSync(formatterDirPath, { recursive: true });
     fs.copyFileSync(path.join(fixturePath, 'index.cjs'), path.join(formatterDirPath, 'index.js'));
     fs.copyFileSync(
       path.join(fixturePath, 'package.json'),
