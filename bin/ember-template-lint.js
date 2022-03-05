@@ -249,7 +249,7 @@ async function run() {
     process.exitCode = 1;
   }
 
-  printResults(results, { options, todoInfo, config: linter.config });
+  await printResults(results, { options, todoInfo, config: linter.config });
 }
 
 run();
