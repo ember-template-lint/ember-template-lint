@@ -1,7 +1,7 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'scope',
+  name: 'no-scope-outside-table-headings',
 
   config: true,
 
