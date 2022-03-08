@@ -4,6 +4,23 @@
 
 
 
+
+## v4.3.0 (2022-03-08)
+
+#### :rocket: Enhancement
+* [#2408](https://github.com/ember-template-lint/ember-template-lint/pull/2408) New formatter: multi ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* [#2407](https://github.com/ember-template-lint/ember-template-lint/pull/2407) Update `fixturify-project` to v4 ([@dcyriller](https://github.com/dcyriller))
+* [#2401](https://github.com/ember-template-lint/ember-template-lint/pull/2401) Change formatters to return string output rather than outputting to stdout/output files ([@scalvert](https://github.com/scalvert))
+* [#2406](https://github.com/ember-template-lint/ember-template-lint/pull/2406) Relax coverage thresholds to allow for some small drift ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Cyrille ([@dcyriller](https://github.com/dcyriller))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.2.0 (2022-02-22)
 
 #### :rocket: Enhancement
