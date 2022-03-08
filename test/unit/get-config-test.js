@@ -203,6 +203,34 @@ describe('get-config', function () {
     );
   });
 
+  it('returns empty format object when no config.format is provided', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
+      config: {},
+    });
+
+    expect(actual.format).toEqual({});
+  });
+
+  it('throws when invalid format property in config.format is provided', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            format: {
+              formatters: [
+                {
+                  name: 'pretty',
+                  foo: 'bar',
+                },
+              ],
+            },
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"An invalid \`format.formatter\` in \`.template-lintrc.js\` was provided. Unexpected property \`foo\`"`
+    );
+  });
+
   it('throws when providing wrong type for config.extends', async function () {
     await expect(
       async () =>
