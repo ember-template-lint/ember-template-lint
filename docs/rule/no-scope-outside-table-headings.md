@@ -22,4 +22,5 @@ This rule **allows** the following:
 
 ## References
 
-- [Tables Concepts](https://www.w3.org/WAI/tutorials/tables/)
+- [HTML \<th\> scope Attribute](https://www.w3schools.com/tags/att_th_scope.asp)
+- [scope - eslint-plugin-jsx-a11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/scope.md)
