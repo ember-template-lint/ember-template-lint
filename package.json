@@ -85,6 +85,7 @@
     "@babel/parser": "^7.17.8",
     "@babel/traverse": "^7.17.9",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
+    "@scalvert/bin-tester": "^2.0.0",
     "common-tags": "^1.8.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.13.0",
@@ -111,7 +112,7 @@
     "yeoman-test": "^6.3.0"
   },
   "engines": {
-    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+    "node": "^14.17.0 || >=16.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

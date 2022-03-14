@@ -9,7 +9,7 @@ import determineRuleConfig from '../../lib/helpers/determine-rule-config.js';
 import { ConfigDefaults } from '../../lib/helpers/rule-test-harness.js';
 import Rule from '../../lib/rules/_base.js';
 import rules from '../../lib/rules/index.js';
-import Project from '../helpers/fake-project.js';
+import { setupProject, teardownProject } from '../helpers/bin-tester.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ruleNames = Object.keys(rules);
@@ -17,14 +17,14 @@ const ruleNames = Object.keys(rules);
 describe('base plugin', function () {
   let project, editorConfigResolver;
   beforeEach(async () => {
-    project = await Project.defaultSetup();
+    project = await setupProject();
 
     editorConfigResolver = new EditorConfigResolver(project.baseDir);
     editorConfigResolver.resolveEditorConfigFiles();
   });
 
   afterEach(() => {
-    project.dispose();
+    teardownProject();
   });
 
   async function runRules(template, rules) {

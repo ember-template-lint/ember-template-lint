@@ -2,8 +2,7 @@ import { jest } from '@jest/globals';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import Project from '../helpers/fake-project.js';
-import run from '../helpers/run.js';
+import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
 const ROOT = process.cwd();
@@ -14,15 +13,15 @@ describe('ember-template-lint executable', function () {
   setupEnvVar('FORCE_COLOR', '0');
   setupEnvVar('LC_ALL', 'en_US');
 
-  // Fake project
   let project;
+
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = await setupProject();
     await project.chdir();
   });
 
   afterEach(function () {
-    project.dispose();
+    teardownProject();
   });
 
   describe('basic usage', function () {
@@ -31,7 +30,7 @@ describe('ember-template-lint executable', function () {
 
     describe('without any parameters', function () {
       it('should emit help text', async function () {
-        let result = await run([]);
+        let result = await runBin();
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`
@@ -94,7 +93,7 @@ describe('ember-template-lint executable', function () {
 
     describe('with --help', function () {
       it('should emit help text', async function () {
-        let result = await run(['--help']);
+        let result = await runBin('--help');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot(`
@@ -157,7 +156,7 @@ describe('ember-template-lint executable', function () {
 
     describe('with non-existent options', function () {
       it('should exit with failure with one-word option', async function () {
-        const result = await run(['--fake']);
+        const result = await runBin('--fake');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeFalsy();
@@ -165,7 +164,7 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should exit with failure with multi-word option name', async function () {
-        const result = await run(['--fake-option-name']);
+        const result = await runBin('--fake-option-name');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeFalsy();
@@ -173,7 +172,7 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should exit with failure with camelcase name', async function () {
-        const result = await run(['--fakeOptionName']);
+        const result = await runBin('--fakeOptionName');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeFalsy();
@@ -201,7 +200,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/templates/application-1.hbs']);
+        let result = await runBin('app/templates/application-1.hbs');
 
         expect(result.exitCode).toEqual(1, 'exits with error');
         expect(result.stdout).toBeFalsy();
@@ -229,10 +228,10 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run([
+        let result = await runBin(
           '--no-error-on-unmatched-pattern',
-          'app/templates/application-1.hbs',
-        ]);
+          'app/templates/application-1.hbs'
+        );
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -258,7 +257,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/templates/application.hbs']);
+        let result = await runBin('app/templates/application.hbs');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
@@ -285,8 +284,10 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(
-          ['--working-directory', project.baseDir, 'app/templates/application.hbs'],
+        let result = await runBin(
+          '--working-directory',
+          project.baseDir,
+          'app/templates/application.hbs',
           {
             // run from ember-template-lint's root (forces `--working-directory` to be used)
             cwd: ROOT,
@@ -320,7 +321,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/templates/application.fizzle']);
+        let result = await runBin('app/templates/application.fizzle');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
@@ -346,7 +347,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/templates/*']);
+        let result = await runBin('app/templates/*');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toBeTruthy();
@@ -371,7 +372,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['--working-directory', project.baseDir, 'app/templates/*'], {
+        let result = await runBin('--working-directory', project.baseDir, 'app/templates/*', {
           // run from ember-template-lint's root (forces `--working-directory` to be used)
           cwd: ROOT,
         });
@@ -388,7 +389,7 @@ describe('ember-template-lint executable', function () {
 
         // SAME TEST, USING ALIAS AS OPTION NAME:
 
-        result = await run(['--cwd', project.baseDir, 'app/templates/*'], {
+        result = await runBin('--cwd', project.baseDir, 'app/templates/*', {
           // run from ember-template-lint's root (forces `--working-directory` to be used)
           cwd: ROOT,
         });
@@ -405,7 +406,7 @@ describe('ember-template-lint executable', function () {
 
         // SAME TEST, USING CAMELCASE VERSION OF OPTION NAME:
 
-        result = await run(['--workingDirectory', project.baseDir, 'app/templates/*'], {
+        result = await runBin('--workingDirectory', project.baseDir, 'app/templates/*', {
           // run from ember-template-lint's root (forces `--working-directory` to be used)
           cwd: ROOT,
         });
@@ -440,7 +441,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app']);
+        let result = await runBin('app');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
@@ -470,7 +471,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/templates/application.hbs']);
+        let result = await runBin('app/templates/application.hbs');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -501,7 +502,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run([], {
+        let result = await runBin({
           shell: false,
           input: fs.readFileSync(path.resolve('app/templates/application.hbs')),
         });
@@ -584,7 +585,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['--filename', 'app/templates/application.hbs'], {
+        let result = await runBin('--filename', 'app/templates/application.hbs', {
           shell: false,
           input: fs.readFileSync(path.resolve('app/templates/application.hbs')),
         });
@@ -618,7 +619,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['-', '<', 'app/templates/application.hbs'], {
+        let result = await runBin('-', '<', 'app/templates/application.hbs', {
           shell: true,
         });
 
@@ -651,7 +652,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['/dev/stdin', '<', 'app/templates/application.hbs'], {
+        let result = await runBin('/dev/stdin', '<', 'app/templates/application.hbs', {
           shell: true,
         });
 
@@ -679,7 +680,7 @@ describe('ember-template-lint executable', function () {
         },
       });
 
-      let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:warn']);
+      let result = await runBin('.', '--no-config-path', '--rule', 'no-html-comments:warn');
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout.split('\n')).toEqual([
@@ -707,7 +708,7 @@ describe('ember-template-lint executable', function () {
         },
       });
 
-      let result = await run(['.', '--no-config-path', '--rule', 'no-html-comments:error']);
+      let result = await runBin('.', '--no-config-path', '--rule', 'no-html-comments:error');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout.split('\n')).toEqual([
@@ -735,12 +736,12 @@ describe('ember-template-lint executable', function () {
         },
       });
 
-      let result = await run([
+      let result = await runBin(
         '.',
         '--no-config-path',
         '--rule',
-        'no-html-comments:["warn", true]',
-      ]);
+        'no-html-comments:["warn", true]'
+      );
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout.split('\n')).toEqual([
@@ -768,12 +769,12 @@ describe('ember-template-lint executable', function () {
         },
       });
 
-      let result = await run([
+      let result = await runBin(
         '.',
         '--no-config-path',
         '--rule',
-        'no-html-comments:["error", true]',
-      ]);
+        'no-html-comments:["error", true]'
+      );
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout.split('\n')).toEqual([
@@ -803,7 +804,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/**/*']);
+        let result = await runBin('app/**/*');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
@@ -831,13 +832,13 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run([
+        let result = await runBin(
           'app/**/*',
           '--ignore-pattern',
           '**/foo/**',
           '--ignore-pattern',
-          '**/bar/**',
-        ]);
+          '**/bar/**'
+        );
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
@@ -858,7 +859,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/**/*', '--ignore-pattern', '**/foo/**']);
+        let result = await runBin('app/**/*', '--ignore-pattern', '**/foo/**');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual('');
@@ -881,7 +882,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/**/*', '--no-ignore-pattern']);
+        let result = await runBin('app/**/*', '--no-ignore-pattern');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(
@@ -900,12 +901,12 @@ describe('ember-template-lint executable', function () {
     describe('with --config-path param', function () {
       describe('able to await run only limited subset of rules', function () {
         it('should skip disabled rules from subset', async function () {
-          project.write({
+          await project.write({
             'temp-templatelint-rc.js':
               'module.exports = { rules: { "no-shadowed-elements": false } };',
             'application.hbs': '{{#let "foo" as |div|}}<div>boo</div>{{/let}}',
           });
-          let result = await run(['.', '--config-path', 'temp-templatelint-rc.js']);
+          let result = await runBin('.', '--config-path', 'temp-templatelint-rc.js');
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toBeFalsy();
@@ -913,12 +914,12 @@ describe('ember-template-lint executable', function () {
         });
 
         it('should load only one rule and print error message', async function () {
-          project.write({
+          await project.write({
             'temp-templatelint-rc.js':
               'module.exports = { rules: { "no-shadowed-elements": true } };',
             'template.hbs': '{{#let "foo" as |div|}}<div>boo</div>{{/let}}',
           });
-          let result = await run(['.', '--config-path', 'temp-templatelint-rc.js']);
+          let result = await runBin('.', '--config-path', 'temp-templatelint-rc.js');
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
@@ -948,14 +949,12 @@ describe('ember-template-lint executable', function () {
             'other-file.js': "module.exports = { rules: { 'no-bare-strings': true } };",
           });
 
-          let result = await run(
-            [
-              '--working-directory',
-              project.baseDir,
-              '--config-path',
-              project.path('other-file.js'),
-              '.',
-            ],
+          let result = await runBin(
+            '--working-directory',
+            project.baseDir,
+            '--config-path',
+            project.path('other-file.js'),
+            '.',
             {
               // run from ember-template-lint's root (forces `--working-directory` to be used)
               cwd: ROOT,
@@ -991,7 +990,7 @@ describe('ember-template-lint executable', function () {
             'other-file.js': "module.exports = { rules: { 'no-bare-strings': true } };",
           });
 
-          let result = await run(['.', '--config-path', project.path('other-file.js')]);
+          let result = await runBin('.', '--config-path', project.path('other-file.js'));
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toEqual([
@@ -1024,7 +1023,7 @@ describe('ember-template-lint executable', function () {
             'other-file.js': "module.exports = { rules: { 'no-bare-strings': false } };",
           });
 
-          let result = await run(['.', '--config-path', project.path('other-file.js')]);
+          let result = await runBin('.', '--config-path', project.path('other-file.js'));
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toBeFalsy();
@@ -1050,7 +1049,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--max-warnings=2']);
+        let result = await runBin('.', '--max-warnings=2');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toBeFalsy();
@@ -1072,7 +1071,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--max-warnings=3']);
+        let result = await runBin('.', '--max-warnings=3');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stderr).toBeFalsy();
@@ -1102,7 +1101,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--max-warnings=1000']);
+        let result = await runBin('.', '--max-warnings=1000');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot('""');
@@ -1122,11 +1121,11 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run([
+        let result = await runBin(
           'app/templates/components/foo.hbs',
           'app/templates/components/bar.hbs',
-          '--print-config',
-        ]);
+          '--print-config'
+        );
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(
@@ -1150,7 +1149,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['app/templates/application.hbs', '--print-config']);
+        let result = await runBin('app/templates/application.hbs', '--print-config');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot(`
@@ -1190,7 +1189,7 @@ describe('ember-template-lint executable', function () {
           },
         });
 
-        let result = await run(['.', '--max-warnings=1', '--quiet']);
+        let result = await runBin('.', '--max-warnings=1', '--quiet');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot('""');
@@ -1205,7 +1204,7 @@ describe('ember-template-lint executable', function () {
       await project.setConfig(config);
       await project.write({ 'require-button-type.hbs': '<button>Klikk</button>' });
 
-      let result = await run(['.', '--fix']);
+      let result = await runBin('.', '--fix');
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toBeFalsy();

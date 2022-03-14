@@ -958,6 +958,14 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
+"@scalvert/bin-tester@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@scalvert/bin-tester/-/bin-tester-2.0.0.tgz#ab8b8dc6421bde1bef2f16efbbfe665f549ff857"
+  integrity sha512-CU7HLBROdalegHk5C2tU1iw7j98JSNWrVgjqYbpu18Fzu9zuihX5PJvKjEOb38Rc0F9fssDeT5Xw2a1hcmkLcg==
+  dependencies:
+    execa "^5.1.1"
+    fixturify-project "^5.0.2"
+
 "@simple-dom/interface@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@simple-dom/interface/-/interface-1.4.0.tgz#e8feea579232017f89b0138e2726facda6fbb71f"
@@ -2942,6 +2950,19 @@ fixturify-project@^4.1.2:
     bin-links "^3.0.0"
     fixturify "^2.1.1"
     resolve-package-path "^3.1.0"
+    tmp "^0.0.33"
+    type-fest "^2.3.2"
+    walk-sync "^3.0.0"
+
+fixturify-project@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/fixturify-project/-/fixturify-project-5.0.2.tgz#dda09f00eb65034b35b76e15ddff0609469f2612"
+  integrity sha512-BlRpXQk0b2x3Hzsf6AFh6Iah3kUIzoiCf8QAMDJxIxbFQN8UDnK7MrnGKKlHdZyBoAoPNYuHHX/B94eLUc1ABw==
+  dependencies:
+    bin-links "^3.0.0"
+    deepmerge "^4.2.2"
+    fixturify "^2.1.1"
+    resolve-package-path "^4.0.3"
     tmp "^0.0.33"
     type-fest "^2.3.2"
     walk-sync "^3.0.0"
@@ -6340,7 +6361,7 @@ resolve-package-path@^3.1.0:
     path-root "^0.1.1"
     resolve "^1.17.0"
 
-resolve-package-path@^4.0.0:
+resolve-package-path@^4.0.0, resolve-package-path@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/resolve-package-path/-/resolve-package-path-4.0.3.tgz#31dab6897236ea6613c72b83658d88898a9040aa"
   integrity sha512-SRpNAPW4kewOaNUt8VPqhJ0UMxawMwzJD8V7m1cJfdSTK9ieZwS6K7Dabsm4bmLFM96Z5Y/UznrpG5kt1im8yA==
