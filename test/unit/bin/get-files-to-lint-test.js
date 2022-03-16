@@ -6,10 +6,10 @@ const STDIN = '/dev/stdin';
 describe('getFilesToLint', function () {
   let project = null;
 
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
-    project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
+    await project.chdir();
+    await project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
   });
 
   afterEach(function () {

@@ -13,9 +13,9 @@ describe('ember-template-lint executable', function () {
 
   // Fake project
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
+    await project.chdir();
   });
 
   afterEach(function () {
@@ -174,12 +174,12 @@ describe('ember-template-lint executable', function () {
   describe('reading files', function () {
     describe('given path to non-existing file', function () {
       it('should exit with error', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -202,12 +202,12 @@ describe('ember-template-lint executable', function () {
 
     describe('given path to single file with errors', function () {
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -226,15 +226,15 @@ describe('ember-template-lint executable', function () {
       });
 
       it('when using custom working directory', async function () {
-        process.chdir(ROOT);
+        await process.chdir(ROOT);
 
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
 
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -267,12 +267,12 @@ describe('ember-template-lint executable', function () {
 
     describe('given path to single file with custom extension with errors', function () {
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.fizzle': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -290,12 +290,12 @@ describe('ember-template-lint executable', function () {
 
     describe('given wildcard path resolving to single file', function () {
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -314,13 +314,13 @@ describe('ember-template-lint executable', function () {
       });
 
       it('when using custom working directory', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
 
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -384,12 +384,12 @@ describe('ember-template-lint executable', function () {
 
     describe('given directory path', function () {
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -416,12 +416,12 @@ describe('ember-template-lint executable', function () {
 
     describe('given path to single file without errors', function () {
       it('should exit without error and any console output', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': false,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs':
@@ -445,12 +445,12 @@ describe('ember-template-lint executable', function () {
       setupEnvVar('GITHUB_ACTIONS', null);
 
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -524,12 +524,12 @@ describe('ember-template-lint executable', function () {
 
     describe('given no path with --filename', function () {
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -558,12 +558,12 @@ describe('ember-template-lint executable', function () {
       }
 
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -591,12 +591,12 @@ describe('ember-template-lint executable', function () {
       }
 
       it('should print errors', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -620,13 +620,13 @@ describe('ember-template-lint executable', function () {
 
   describe('errors and warnings formatting', function () {
     it('should be able run a rule passed in (rule:warn)', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -648,13 +648,13 @@ describe('ember-template-lint executable', function () {
     });
 
     it('should be able run a rule passed in (rule:error)', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -676,13 +676,13 @@ describe('ember-template-lint executable', function () {
     });
 
     it('should be able run a rule passed in (rule:[warn, config])', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -709,13 +709,13 @@ describe('ember-template-lint executable', function () {
     });
 
     it('should be able run a rule passed in (rule:[error, config])', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -743,13 +743,13 @@ describe('ember-template-lint executable', function () {
 
     describe('with/without --ignore-pattern', function () {
       it('should respect dirs ignored by default', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             dist: {
               'application.hbs':
@@ -767,13 +767,13 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should allow to pass custom ignore pattern', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             foo: {
               'application.hbs':
@@ -801,12 +801,12 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should fail when no files match because of ignore pattern', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             foo: {
               'application.hbs': 'Bare strings are bad',
@@ -822,13 +822,13 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should allow to disable dirs ignored by default', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': true,
             'no-html-comments': true,
           },
         });
-        project.write({
+        await project.write({
           app: {
             dist: {
               'application.hbs':
@@ -889,12 +889,12 @@ describe('ember-template-lint executable', function () {
 
       describe('given a working-directory with errors and a lintrc with rules', function () {
         it('should print properly formatted error messages', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': false,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs':
@@ -932,12 +932,12 @@ describe('ember-template-lint executable', function () {
 
       describe('given a directory with errors and a lintrc with rules', function () {
         it('should print properly formatted error messages', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': false,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs':
@@ -963,12 +963,12 @@ describe('ember-template-lint executable', function () {
 
       describe('given a directory with errors but a lintrc without any rules', function () {
         it('should exit without error and any console output', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -991,13 +991,13 @@ describe('ember-template-lint executable', function () {
 
     describe('with --max-warnings param', function () {
       it('should exit with error if warning count is greater than max-warnings', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': 'warn',
             'no-html-comments': 'warn',
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs':
@@ -1013,13 +1013,13 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should exit without error if warning count is less or equal to max-warnings', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': 'warn',
             'no-html-comments': 'warn',
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs':
@@ -1043,13 +1043,13 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should exit with error if error count is greater than zero regardless of max-warnings', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': 'warn',
             'no-html-comments': 'error',
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs':
@@ -1067,7 +1067,7 @@ describe('ember-template-lint executable', function () {
 
     describe('with --print-config option', function () {
       it('should error if more than one file passed to --print-config', async function () {
-        project.write({
+        await project.write({
           app: {
             templates: {
               components: {
@@ -1091,13 +1091,13 @@ describe('ember-template-lint executable', function () {
       });
 
       it('should print config for file', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': 'warn',
             'no-html-comments': 'error',
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs':
@@ -1133,12 +1133,12 @@ describe('ember-template-lint executable', function () {
 
     describe('with --max-warnings and --quiet param', function () {
       it('should exit without error if warning count is more than max-warnings', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': 'warn',
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
@@ -1158,8 +1158,8 @@ describe('ember-template-lint executable', function () {
   describe('autofixing files', function () {
     it('should write fixed file to fs', async function () {
       let config = { rules: { 'require-button-type': true } };
-      project.setConfig(config);
-      project.write({ 'require-button-type.hbs': '<button>Klikk</button>' });
+      await project.setConfig(config);
+      await project.write({ 'require-button-type.hbs': '<button>Klikk</button>' });
 
       let result = await run(['.', '--fix']);
 

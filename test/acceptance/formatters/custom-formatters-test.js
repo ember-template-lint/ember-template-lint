@@ -9,9 +9,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('custom formatters', () => {
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
+    await project.chdir();
   });
 
   afterEach(function () {

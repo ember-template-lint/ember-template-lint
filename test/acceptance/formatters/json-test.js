@@ -4,13 +4,13 @@ const ROOT = process.cwd();
 
 describe('JSON formatter', () => {
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
+    await project.chdir();
   });
 
-  afterEach(function () {
-    process.chdir(ROOT);
+  afterEach(async function () {
+    await process.chdir(ROOT);
     project.dispose();
   });
 

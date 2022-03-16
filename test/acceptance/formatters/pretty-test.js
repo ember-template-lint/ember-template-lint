@@ -10,13 +10,13 @@ describe('pretty formatter', () => {
   setupEnvVar('FORCE_COLOR', '0');
 
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
+    await project.chdir();
   });
 
-  afterEach(function () {
-    process.chdir(ROOT);
+  afterEach(async function () {
+    await process.chdir(ROOT);
     project.dispose();
   });
 
