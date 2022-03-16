@@ -8,6 +8,7 @@ generateRuleTests({
 
   good: [
     'Welcome',
+    'Hey - I like this!',
     'It is possible to get some examples of in-word emph a sis past this rule.',
     'However, I do not want a rule that flags annoying false positives for correctly-used single-character words.',
     '<div>Welcome</div>',
