@@ -4,8 +4,8 @@ import Project from '../../helpers/fake-project.js';
 describe('expandFileGlobs', function () {
   let project = null;
 
-  beforeEach(function () {
-    project = Project.defaultSetup();
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
   });
 
   afterEach(function () {

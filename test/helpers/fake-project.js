@@ -38,7 +38,7 @@ module.exports = {
 `;
 
 export default class FakeProject extends Project {
-  static defaultSetup() {
+  static async defaultSetup() {
     let project = new this();
 
     project.files = {
@@ -46,15 +46,13 @@ export default class FakeProject extends Project {
       '.editorconfig': DEFAULT_EDITOR_CONFIG,
     };
 
-    project.writeSync();
+    await project.write();
 
     return project;
   }
 
   constructor(name = 'fake-project', ...args) {
     super(name, ...args);
-
-    this.writeSync();
   }
 
   setConfig(config) {
@@ -65,7 +63,7 @@ export default class FakeProject extends Project {
 
     this.files['.template-lintrc.js'] = configFileContents;
 
-    this.writeSync();
+    return this.write();
   }
 
   async getConfig() {
@@ -76,7 +74,7 @@ export default class FakeProject extends Project {
   setEditorConfig(value = DEFAULT_EDITOR_CONFIG) {
     this.files['.editorconfig'] = value;
 
-    this.writeSync();
+    return this.write();
   }
 
   path(subPath) {
@@ -86,7 +84,7 @@ export default class FakeProject extends Project {
   // behave like a TempDir from broccoli-test-helper
   write(dirJSON) {
     this.files = { ...this.files, ...dirJSON };
-    this.writeSync();
+    return super.write();
   }
 
   setShorthandPackageJsonTodoConfig(daysToDecay) {
@@ -96,7 +94,7 @@ export default class FakeProject extends Project {
       },
     });
 
-    this.writeSync();
+    return this.write();
   }
 
   setPackageJsonTodoConfig(daysToDecay, daysToDecayByRule) {
@@ -114,7 +112,7 @@ export default class FakeProject extends Project {
 
     this.pkg = Object.assign({}, this.pkg, todoConfig);
 
-    this.writeSync();
+    return this.write();
   }
 
   setLintTodorc(daysToDecay, daysToDecayByRule) {
@@ -133,11 +131,11 @@ export default class FakeProject extends Project {
     });
   }
 
-  chdir() {
+  async chdir() {
     this._dirChanged = true;
 
     // ensure the directory structure is created initially
-    this.writeSync();
+    await this.write();
 
     process.chdir(this.baseDir);
   }

@@ -19,9 +19,9 @@ describe('todo usage', () => {
 
   // Fake project
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
+    await project.chdir();
   });
 
   afterEach(function () {

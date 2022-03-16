@@ -103,7 +103,7 @@ describe('public api', function () {
       project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
         someOtherPathConfig
       )};`;
-      project.writeSync();
+      await project.write();
 
       let linter = new Linter({
         console: mockConsole,

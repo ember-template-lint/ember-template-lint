@@ -11,8 +11,9 @@ import Project from '../helpers/fake-project.js';
 describe('get-config', function () {
   let project = null;
 
-  beforeEach(function () {
+  beforeEach(async function () {
     project = new Project();
+    await project.write();
   });
 
   afterEach(function () {
@@ -152,7 +153,7 @@ describe('get-config', function () {
     project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
       someOtherPathConfig
     )};`;
-    project.writeSync();
+    await project.write();
 
     let actual = await getProjectConfig(project.baseDir, {
       configPath: project.path('some-other-path.js'),
@@ -707,7 +708,7 @@ describe('determineRuleConfig', function () {
 
 describe('resolveProjectConfig', function () {
   it('should return an empty object when options.configPath is set explicitly false', async function () {
-    let project = Project.defaultSetup();
+    let project = await Project.defaultSetup();
 
     try {
       const config = await resolveProjectConfig(project.baseDir, { configPath: false });
@@ -719,12 +720,12 @@ describe('resolveProjectConfig', function () {
   });
 
   it('should search for config relative to the specified working directory', async function () {
-    let project1 = Project.defaultSetup();
-    let project2 = Project.defaultSetup();
+    let project1 = await Project.defaultSetup();
+    let project2 = await Project.defaultSetup();
 
-    project1.chdir();
+    await project1.chdir();
 
-    project2.setConfig({
+    await project2.setConfig({
       extends: 'foo',
     });
 
@@ -744,8 +745,8 @@ describe('resolveProjectConfig', function () {
 describe('getProjectConfig', function () {
   let project = null;
 
-  beforeEach(function () {
-    project = Project.defaultSetup();
+  beforeEach(async function () {
+    project = await Project.defaultSetup();
   });
 
   afterEach(function () {
