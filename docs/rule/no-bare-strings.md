@@ -27,6 +27,7 @@ This rule **allows** the following:
   * `allowlist` -- An array of allowlisted strings (extends the default config)
   * `globalAttributes` -- An array of attributes to check on every element (extends the default config)
   * `elementAttributes` -- An object whose keys are tag names and value is an array of attributes to check for that tag name (extends the default config)
+  * `allowHTMLCharacters` -- A boolean to allow all characters defined by [`tildeio/simple-html-tokenizer`](https://github.com/tildeio/simple-html-tokenizer/blob/15b1d6e7a825e68fe7a68a7080e272c374adbc27/src/generated/html5-named-char-refs.ts) to extend the `DEFAULT_CONFIG.allowlist` and provided `allowlist`.
 
 When the config value of `true` is provided, the following default configuration is used:
 
