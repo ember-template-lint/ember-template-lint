@@ -34,6 +34,7 @@ generateRuleTests({
     '<div role="list">{{#each someList as |item|}}{{list-item item=item}}{{/each}}</div>',
     '<div role="list">{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}</div>',
     '<div role="list">{{#if this.show}}{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}{{/if}}</div>',
+    '<div role="table"><div role="row"><div role="cell">One</div></div></div>',
   ],
 
   bad: [
@@ -208,7 +209,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"row\\" but it is missing the required (immediate) parent element of \\"[grid, rowgroup, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#row.",
+              "message": "You have an element with the role of \\"row\\" but it is missing the required (immediate) parent element of \\"[grid, rowgroup, table, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#row.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"row\\"",
@@ -228,7 +229,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"rowgroup\\" but it is missing the required (immediate) parent element of \\"[grid]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#rowgroup.",
+              "message": "You have an element with the role of \\"rowgroup\\" but it is missing the required (immediate) parent element of \\"[grid, table]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#rowgroup.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"rowgroup\\"",
