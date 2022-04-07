@@ -45,16 +45,16 @@ This rule **forbids** the following:
 
 ### References
 
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#scope>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#columnheader>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#gridcell>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#listitem>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#menuitem>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#menuitemcheckbox>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#menuitemradio>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#option>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#row>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#rowgroup>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#rowheader>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#tab>
-1. <https://www.w3.org/TR/wai-aria-1.0/roles#treeitem>
+1. <https://www.w3.org/TR/wai-aria-1.1/#scope>
+1. <https://www.w3.org/TR/wai-aria-1.1/#columnheader>
+1. <https://www.w3.org/TR/wai-aria-1.1/#gridcell>
+1. <https://www.w3.org/TR/wai-aria-1.1/#listitem>
+1. <https://www.w3.org/TR/wai-aria-1.1/#menuitem>
+1. <https://www.w3.org/TR/wai-aria-1.1/#menuitemcheckbox>
+1. <https://www.w3.org/TR/wai-aria-1.1/#menuitemradio>
+1. <https://www.w3.org/TR/wai-aria-1.1/#option>
+1. <https://www.w3.org/TR/wai-aria-1.1/#row>
+1. <https://www.w3.org/TR/wai-aria-1.1/#rowgroup>
+1. <https://www.w3.org/TR/wai-aria-1.1/#rowheader>
+1. <https://www.w3.org/TR/wai-aria-1.1/#tab>
+1. <https://www.w3.org/TR/wai-aria-1.1/#treeitem>
