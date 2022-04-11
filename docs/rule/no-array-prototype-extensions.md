@@ -58,6 +58,6 @@ Or if you have ember-math-helpers addon included:
 
 ## References
 
-- [Eslint rule: no-array-prototype-extensions](https://github.com/ember-cli/eslint-plugin-ember/blob/master/docs/rules/no-array-prototype-extensions.md)
+- [Eslint rule: `ember/no-array-prototype-extensions`](https://github.com/ember-cli/eslint-plugin-ember/blob/master/docs/rules/no-array-prototype-extensions.md)
 - [ember-math-helpers](https://shipshapecode.github.io/ember-math-helpers/)
 - [Ember `get` helper documentation](https://guides.emberjs.com/release/components/helper-functions/#toc_the-get-helper)
