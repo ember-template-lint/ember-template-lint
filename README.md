@@ -105,6 +105,7 @@ Each rule has emojis denoting:
 | [no-args-paths](./docs/rule/no-args-paths.md)                                                             | ✅  |     |     |     |
 | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | ✅  |     |     |     |
 | [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 | ✅  |     | ⌨️  | 🔧  |
+| [no-array-prototype-extensions](./docs/rule/no-array-prototype-extensions.md)                             |     |     |     | 🔧  |
 | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           | ✅  |     |     |     |
 | [no-autofocus-attribute](./docs/rule/no-autofocus-attribute.md)                                           | ✅  |     | ⌨️  |     |
 | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |     |     |     |     |
