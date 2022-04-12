@@ -5,6 +5,30 @@
 
 
 
+
+## v4.4.0 (2022-04-12)
+
+#### :rocket: Enhancement
+* [#2435](https://github.com/ember-template-lint/ember-template-lint/pull/2435) Add CLI option `--no-error-on-unmatched-pattern` ([@CvX](https://github.com/CvX))
+* [#2454](https://github.com/ember-template-lint/ember-template-lint/pull/2454) Add new rule `no-array-prototype-extensions` ([@smilland](https://github.com/smilland))
+* [#2413](https://github.com/ember-template-lint/ember-template-lint/pull/2413) Add new rule `no-scope-outside-table-headings` ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :bug: Bug Fix
+* [#2449](https://github.com/ember-template-lint/ember-template-lint/pull/2449) Updates `require-context-role` rule to accept `table` as a valid parent `role` and `rowgroup` ([@judithhinlung](https://github.com/judithhinlung))
+* [#2421](https://github.com/ember-template-lint/ember-template-lint/pull/2421) Handle dashes in `no-whitespace-within-word` rule ([@mydea](https://github.com/mydea))
+* [#2433](https://github.com/ember-template-lint/ember-template-lint/pull/2433) Fix `require-presentational-children` rule to report violation on correct node ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* [#2419](https://github.com/ember-template-lint/ember-template-lint/pull/2419) Use async `write()` instead of deprecated `writeSync()` in tests ([@mydea](https://github.com/mydea))
+
+#### Committers: 5
+- Francesco Novy ([@mydea](https://github.com/mydea))
+- Hang Li ([@smilland](https://github.com/smilland))
+- Jarek Radosz ([@CvX](https://github.com/CvX))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.3.0 (2022-03-08)
 
 #### :rocket: Enhancement
