@@ -2933,10 +2933,10 @@ first-chunk-stream@^2.0.0:
   dependencies:
     readable-stream "^2.0.2"
 
-fixturify-project@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/fixturify-project/-/fixturify-project-4.1.0.tgz#92a4e74859321a37a5671a40f1f14297141a83c1"
-  integrity sha512-ywz2jaAmXbRkZSSBBQuAabfqeB1Ccy27zcl/4IcvwPHmv9aMLXyXtq/OtfP4MMNrqG//JxjSPsgLtqohFZEwdg==
+fixturify-project@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/fixturify-project/-/fixturify-project-4.1.2.tgz#031a63c12354d68b08f0ef699e657b34c27abe90"
+  integrity sha512-xSWHrSZEKWYawnGe8ktra90kJHmKJBVL7so1AdbEruw+mtihkM/OmYQ4NLFcyVsFegKqqGVeu/sC2FqnmXj7Tw==
   dependencies:
     bin-links "^3.0.0"
     fixturify "^2.1.1"
