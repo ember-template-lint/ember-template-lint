@@ -173,9 +173,13 @@ async function run() {
   try {
     filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
   } catch (error) {
-    console.error(error.message);
-    process.exitCode = 1;
-    return;
+    if (error.name === 'NoMatchingFilesError' && options.errorOnUnmatchedPattern === false) {
+      return;
+    } else {
+      console.error(error.message);
+      process.exitCode = 1;
+      return;
+    }
   }
 
   if (options.printConfig) {
