@@ -23,6 +23,8 @@ This rule **allows** the following:
 
 ### lastObject
 
+This rule **forbids** the following:
+
 ```hbs
 <Foo @bar={{@list.lastObject}} />
 ```
@@ -52,7 +54,7 @@ Then in your template
 Or if you have ember-math-helpers addon included:
 
 ```hbs
-<!-- ember-math-helpers included-->
+<!-- ember-math-helpers included -->
 <Foo @bar={{get @list (sub @list.length 1)}} />
 ```
 
