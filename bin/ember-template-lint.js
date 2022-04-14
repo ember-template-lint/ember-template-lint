@@ -67,11 +67,13 @@ function getTodoConfigFromCommandLineOptions(options) {
 }
 
 function _isOverridingConfig(options) {
+  let defaultArgs = parseArgv(['fake-file-to-get-default-options.hbs']);
+
   return Boolean(
-    options.config ||
-      options.rule ||
-      options.inlineConfig === false ||
-      options.configPath !== '.template-lintrc.js'
+    options.config !== defaultArgs.config ||
+      options.rule !== defaultArgs.rule ||
+      options.inlineConfig !== defaultArgs.inlineConfig ||
+      options.configPath !== defaultArgs.configPath
   );
 }
 
