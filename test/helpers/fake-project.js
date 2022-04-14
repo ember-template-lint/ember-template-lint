@@ -41,7 +41,6 @@ export default class FakeProject extends Project {
   static async defaultSetup() {
     let project = new this();
 
-
     project.populateDefaultSetupFiles();
     await project.write();
 
