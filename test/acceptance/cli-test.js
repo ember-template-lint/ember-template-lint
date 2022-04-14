@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -6,6 +7,8 @@ import run from '../helpers/run.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
 const ROOT = process.cwd();
+
+jest.setTimeout(10_000);
 
 describe('ember-template-lint executable', function () {
   setupEnvVar('FORCE_COLOR', '0');
@@ -35,8 +38,8 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path                    Define a custom config path
-                                                 [string] [default: \\".template-lintrc.js\\"]
+            --config-path                    Define a custom config path (default: .templa
+                                             te-lintrc.js)                        [string]
             --config                         Define a custom configuration to be used - (
                                              e.g. '{ \\"rules\\": { \\"no-implicit-this\\": \\"erro
                                              r\\" } }')                             [string]
@@ -98,8 +101,8 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path                    Define a custom config path
-                                                 [string] [default: \\".template-lintrc.js\\"]
+            --config-path                    Define a custom config path (default: .templa
+                                             te-lintrc.js)                        [string]
             --config                         Define a custom configuration to be used - (
                                              e.g. '{ \\"rules\\": { \\"no-implicit-this\\": \\"erro
                                              r\\" } }')                             [string]
@@ -509,8 +512,8 @@ describe('ember-template-lint executable', function () {
           "ember-template-lint [options] [files..]
 
           Options:
-            --config-path                    Define a custom config path
-                                                 [string] [default: \\".template-lintrc.js\\"]
+            --config-path                    Define a custom config path (default: .templa
+                                             te-lintrc.js)                        [string]
             --config                         Define a custom configuration to be used - (
                                              e.g. '{ \\"rules\\": { \\"no-implicit-this\\": \\"erro
                                              r\\" } }')                             [string]
