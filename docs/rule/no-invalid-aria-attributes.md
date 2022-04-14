@@ -11,7 +11,7 @@ This rule **forbids** the following:
 ```hbs
 <input type="text" aria-not-real="true" />
 <div role="region" aria-live="bogus">Inaccessible live region</div>',
-<button type="submit" aria-invalid={{if this.foo "true" "woosh"}}>Submit</button>
+<button type="submit" disabled="true" aria-disabled="123">Submit</button>
 ```
 
 This rule **allows** the following:
