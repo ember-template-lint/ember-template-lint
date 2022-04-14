@@ -1,6 +1,7 @@
 // TODO: This test file is temporarily disabled in Node versions before 16 (see ci.yml).
 
 import { stripIndent } from 'common-tags';
+import { join } from 'node:path';
 
 import recommendedConfig from '../../lib/config/recommended.js';
 import { getProjectConfig, resolveProjectConfig, getRuleFromString } from '../../lib/get-config.js';
@@ -714,6 +715,59 @@ describe('resolveProjectConfig', function () {
       const config = await resolveProjectConfig(project.baseDir, { configPath: false });
 
       expect(config).toEqual({});
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('should search for config from sub to parent directory', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      top: {
+        bottom: {},
+      },
+    });
+
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+      });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('should search for config from sub to middle directory', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      top: {
+        bottom: {},
+        '.template-lintrc.js': `
+'use strict';
+
+module.exports = {
+  extends: 'recommended',
+  rules: {
+    'no-bare-strings': 'off'
+  }
+};
+`,
+      },
+    });
+
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+        rules: {
+          'no-bare-strings': 'off',
+        },
+      });
     } finally {
       project.dispose();
     }

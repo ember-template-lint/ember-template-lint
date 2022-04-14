@@ -6,8 +6,6 @@ import Project from '../helpers/fake-project.js';
 import run from '../helpers/run.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
-const ROOT = process.cwd();
-
 jest.setTimeout(10_000);
 
 function buildReadOptions() {
@@ -25,7 +23,6 @@ describe('todo usage', () => {
   });
 
   afterEach(function () {
-    process.chdir(ROOT);
     project.dispose();
   });
 
