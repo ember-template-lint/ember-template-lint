@@ -31,12 +31,12 @@ describe('todo usage', () => {
 
   describe('with/without --update-todo and --include-todo params', function () {
     it('errors if todo config exists in both package.json and .lint-todorc.js', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
@@ -44,12 +44,12 @@ describe('todo usage', () => {
         },
       });
 
-      project.setShorthandPackageJsonTodoConfig({
+      await project.setShorthandPackageJsonTodoConfig({
         warn: 5,
         error: 10,
       });
 
-      project.setLintTodorc({
+      await project.setLintTodorc({
         warn: 5,
         error: 10,
       });
@@ -63,12 +63,12 @@ describe('todo usage', () => {
     });
 
     it('does not create `.lint-todo` file without --update-todo param', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<h2>Here too!!</h2><div>Bare strings are bad...</div>',
@@ -99,12 +99,12 @@ describe('todo usage', () => {
     });
 
     it('generates no todos for no errors', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<h2>{{@notBare}}</h2>',
@@ -120,13 +120,13 @@ describe('todo usage', () => {
     });
 
     it('generates todos for existing errors', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -142,13 +142,13 @@ describe('todo usage', () => {
     });
 
     it('generates todos for existing errors, and correctly reports todo severity when file is edited to trigger fuzzy match', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -163,7 +163,7 @@ describe('todo usage', () => {
       expect(todoStorageFileExists(project.baseDir)).toEqual(true);
       expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(3);
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': `
@@ -182,13 +182,13 @@ describe('todo usage', () => {
     });
 
     it('does not remove todos from another engine', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -223,12 +223,12 @@ describe('todo usage', () => {
     });
 
     it('does not remove todos if custom config params are used', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -243,7 +243,7 @@ describe('todo usage', () => {
 
       expect(todos.size).toEqual(2);
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -267,13 +267,13 @@ describe('todo usage', () => {
     });
 
     it('does not remove todos if custom config params are used with subsequent invocations', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -308,13 +308,13 @@ describe('todo usage', () => {
       setupEnvVar('GITHUB_ACTIONS', true);
 
       it('errors if a todo item is no longer valid when running without params, and cleans using --fix', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'require-button-type': true,
           },
         });
 
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button>Klikk</button>',
@@ -326,7 +326,7 @@ describe('todo usage', () => {
         await run(['.', '--update-todo']);
 
         // mimic fixing the error manually via user interaction
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button type="submit">Klikk</button>',
@@ -358,13 +358,13 @@ describe('todo usage', () => {
       });
 
       it('errors if a todo item is no longer valid when running without params, and cleans using --clean-todo', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'require-button-type': true,
           },
         });
 
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button>Klikk</button>',
@@ -376,7 +376,7 @@ describe('todo usage', () => {
         await run(['.', '--update-todo']);
 
         // mimic fixing the error manually via user interaction
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button type="submit">Klikk</button>',
@@ -413,13 +413,13 @@ describe('todo usage', () => {
       setupEnvVar('GITHUB_ACTIONS', null);
 
       it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans using --fix', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'require-button-type': true,
           },
         });
 
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button>Klikk</button>',
@@ -431,7 +431,7 @@ describe('todo usage', () => {
         await run(['.', '--update-todo']);
 
         // mimic fixing the error manually via user interaction
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button type="submit">Klikk</button>',
@@ -463,13 +463,13 @@ describe('todo usage', () => {
       });
 
       it('errors if a todo item is no longer valid when running with --no-clean-todo, and cleans without --no-clean-todo', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'require-button-type': true,
           },
         });
 
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button>Klikk</button>',
@@ -481,7 +481,7 @@ describe('todo usage', () => {
         await run(['.', '--update-todo']);
 
         // mimic fixing the error manually via user interaction
-        project.write({
+        await project.write({
           app: {
             templates: {
               'require-button-type.hbs': '<button type="submit">Klikk</button>',
@@ -514,12 +514,12 @@ describe('todo usage', () => {
     });
 
     it('outputs empty summary for no todos or errors', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>{{@foo}}</div>',
@@ -535,12 +535,12 @@ describe('todo usage', () => {
     });
 
     it('outputs empty summary for existing todos', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -558,12 +558,12 @@ describe('todo usage', () => {
     });
 
     it('with --update-todo but no todos, outputs todos created summary', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>{{someString}}</div>',
@@ -579,12 +579,12 @@ describe('todo usage', () => {
     });
 
     it('with --update-todo, outputs todos created summary', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -600,12 +600,12 @@ describe('todo usage', () => {
     });
 
     it('with --update-todo, outputs todos created summary for multiple errors', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -622,12 +622,12 @@ describe('todo usage', () => {
     });
 
     it('with --update-todo, outputs todos created summary with warn info', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -643,12 +643,12 @@ describe('todo usage', () => {
     });
 
     it('with --update-todo, outputs todos created summary with error info', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -664,12 +664,12 @@ describe('todo usage', () => {
     });
 
     it('with --update-todo, outputs todos created summary with warn and error info', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -692,12 +692,12 @@ describe('todo usage', () => {
     });
 
     it('with --include-todo param and --update-todo, outputs todos in results', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -717,12 +717,12 @@ describe('todo usage', () => {
     });
 
     it('with --include-todo param and existing todos, outputs todos in results', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -745,12 +745,12 @@ describe('todo usage', () => {
     });
 
     it('should set todo to error if errorDate has expired via env var', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -777,12 +777,12 @@ describe('todo usage', () => {
     });
 
     it('should set todo to error if errorDate has expired via option', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -808,12 +808,12 @@ describe('todo usage', () => {
     });
 
     it('should set todo to error if both warnDate and errorDate have expired via options', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>Bare strings are bad...</div>',
@@ -842,30 +842,31 @@ describe('todo usage', () => {
       {
         name: 'Shorthand todo configuration',
         isLegacy: true,
-        setTodoConfig: (daysToDecay) => project.setShorthandPackageJsonTodoConfig(daysToDecay),
+        setTodoConfig: async (daysToDecay) =>
+          await project.setShorthandPackageJsonTodoConfig(daysToDecay),
       },
       {
         name: 'Package.json todo configuration',
         isLegacy: false,
-        setTodoConfig: (daysToDecay, daysToDecayByRule) =>
-          project.setPackageJsonTodoConfig(daysToDecay, daysToDecayByRule),
+        setTodoConfig: async (daysToDecay, daysToDecayByRule) =>
+          await project.setPackageJsonTodoConfig(daysToDecay, daysToDecayByRule),
       },
       {
         name: '.lint-todorc.js todo configuration',
         isLegacy: false,
-        setTodoConfig: (daysToDecay, daysToDecayByRule) =>
-          project.setLintTodorc(daysToDecay, daysToDecayByRule),
+        setTodoConfig: async (daysToDecay, daysToDecayByRule) =>
+          await project.setLintTodorc(daysToDecay, daysToDecayByRule),
       },
     ]) {
       describe(name, () => {
         it('removes expired todo file if a todo item has expired when running with --clean-todo', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'require-button-type': true,
             },
           });
 
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'require-button-type.hbs': '<button>Check Expiration</button>',
@@ -873,7 +874,7 @@ describe('todo usage', () => {
             },
           });
 
-          setTodoConfig({
+          await setTodoConfig({
             error: 5,
           });
 
@@ -900,19 +901,19 @@ describe('todo usage', () => {
         });
 
         it('should error if daysToDecay.error is less than daysToDecay.warn in config', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 10,
             error: 5,
           });
@@ -925,19 +926,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct warn date set via config', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 10,
           });
 
@@ -955,19 +956,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct warn date set via env var (overrides config)', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 10,
           });
 
@@ -989,19 +990,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct warn date set via option (overrides env var)', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 10,
           });
 
@@ -1023,19 +1024,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct error date set via config', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             error: 10,
           });
 
@@ -1053,19 +1054,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct error date set via env var (overrides config)', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             error: 10,
           });
 
@@ -1087,19 +1088,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct error date set via option (overrides env var)', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             error: 10,
           });
 
@@ -1121,19 +1122,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct dates set for warn and error via config', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
             error: 10,
           });
@@ -1155,19 +1156,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct dates set for warn and error via env vars (overrides config)', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
             error: 10,
           });
@@ -1194,19 +1195,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct dates set for warn and error via options (overrides env vars)', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
             error: 10,
           });
@@ -1236,19 +1237,19 @@ describe('todo usage', () => {
         });
 
         it('should create todos with correct dates set for error while excluding warn', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
               },
             },
           });
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
             error: 10,
           });
@@ -1274,12 +1275,12 @@ describe('todo usage', () => {
         });
 
         it('should set to todo if warnDate is not expired', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1287,7 +1288,7 @@ describe('todo usage', () => {
             },
           });
 
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
           });
 
@@ -1305,12 +1306,12 @@ describe('todo usage', () => {
         });
 
         it('should set to todo if errorDate is not expired', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1318,7 +1319,7 @@ describe('todo usage', () => {
             },
           });
 
-          setTodoConfig({
+          await setTodoConfig({
             error: 5,
           });
 
@@ -1336,12 +1337,12 @@ describe('todo usage', () => {
         });
 
         it('should set todo to warn if warnDate has expired via config', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1349,7 +1350,7 @@ describe('todo usage', () => {
             },
           });
 
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
           });
 
@@ -1371,12 +1372,12 @@ describe('todo usage', () => {
         });
 
         it('should set todo to warn if warnDate has expired via option', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1402,12 +1403,12 @@ describe('todo usage', () => {
         });
 
         it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1415,7 +1416,7 @@ describe('todo usage', () => {
             },
           });
 
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
             error: 10,
           });
@@ -1438,12 +1439,12 @@ describe('todo usage', () => {
         });
 
         it('should set todo to error if errorDate has expired via config', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1451,7 +1452,7 @@ describe('todo usage', () => {
             },
           });
 
-          setTodoConfig({
+          await setTodoConfig({
             error: 5,
           });
 
@@ -1473,12 +1474,12 @@ describe('todo usage', () => {
         });
 
         it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
-          project.setConfig({
+          await project.setConfig({
             rules: {
               'no-bare-strings': true,
             },
           });
-          project.write({
+          await project.write({
             app: {
               templates: {
                 'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1486,7 +1487,7 @@ describe('todo usage', () => {
             },
           });
 
-          setTodoConfig({
+          await setTodoConfig({
             warn: 5,
             error: 10,
           });
@@ -1510,12 +1511,12 @@ describe('todo usage', () => {
 
         if (!isLegacy) {
           it('should set todos to correct dates for specific rules', async () => {
-            project.setConfig({
+            await project.setConfig({
               rules: {
                 'no-bare-strings': true,
               },
             });
-            project.write({
+            await project.write({
               app: {
                 templates: {
                   'application.hbs': '<div>Bare strings are bad...</div>',
@@ -1523,7 +1524,7 @@ describe('todo usage', () => {
               },
             });
 
-            setTodoConfig(
+            await setTodoConfig(
               {
                 warn: 5,
                 error: 10,

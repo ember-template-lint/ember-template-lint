@@ -126,7 +126,7 @@ export default class FakeProject extends Project {
       todoConfig['ember-template-lint'].daysToDecayByRule = daysToDecayByRule;
     }
 
-    this.write({
+    return this.write({
       '.lint-todorc.js': `module.exports = ${JSON.stringify(todoConfig, null, 2)}`,
     });
   }
