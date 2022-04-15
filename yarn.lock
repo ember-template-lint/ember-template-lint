@@ -684,12 +684,13 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@lint-todo/utils@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-12.0.1.tgz#d61ef329f9f6c7332adee7b1f68651f190d53a7f"
-  integrity sha512-Xiy5wN+ns95gEHepJ55TXEBAZrkZlzrF9wTjqoTgv+RYOYL3+qQ+v0RtPH2n/UwPJEFuXJ6QKiT99RnUOt1pzw==
+"@lint-todo/utils@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-13.0.2.tgz#0d2fc6cc24452564dd2ee97be01437aa92b4c1a8"
+  integrity sha512-tLZfEjU5i7KThQbWZ4u5dLUJx9+euGnytz402uAH4VRa0jMxyc2HNXw+h6qPdKxM/wGAvwEQGn7l1j2kyLI7rQ==
   dependencies:
     "@types/eslint" "^7.2.13"
+    find-up "^5.0.0"
     fs-extra "^9.1.0"
     proper-lockfile "^4.1.2"
     slash "^3.0.0"
