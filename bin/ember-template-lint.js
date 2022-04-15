@@ -131,9 +131,7 @@ async function run() {
   }
 
   if (options.compactTodo) {
-    let { compacted } = compactTodoStorageFile(options.workingDirectory, {
-      engine: 'ember-template-lint',
-    });
+    let { compacted } = compactTodoStorageFile(options.workingDirectory);
     _console.log(`Removed ${compacted} todos in .lint-todo storage file`);
     process.exitCode = 0;
     return;
