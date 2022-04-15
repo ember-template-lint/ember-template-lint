@@ -6,6 +6,29 @@
 
 
 
+
+## v4.4.1 (2022-04-15)
+
+#### :bug: Bug Fix
+* [#2474](https://github.com/ember-template-lint/ember-template-lint/pull/2474) Ensure `--compact-todo` functions properly  ([@scalvert](https://github.com/scalvert))
+* [#2468](https://github.com/ember-template-lint/ember-template-lint/pull/2468) Ensure configuration can be resolved from a parent directory when no `--config-path` override is present (e.g. within a monorepo with `.template-lintrc.js` in the monorepo root). ([@scalvert](https://github.com/scalvert))
+* [#2466](https://github.com/ember-template-lint/ember-template-lint/pull/2466) Remove validation of mustache statements in `no-invalid-aria-attributes` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :memo: Documentation
+* [#2469](https://github.com/ember-template-lint/ember-template-lint/pull/2469) Add missing "forbids" sentence in `no-array-prototype-extensions` rule doc ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :house: Internal
+* [#2473](https://github.com/ember-template-lint/ember-template-lint/pull/2473) Add tests for monorepos with shared configuration in monorepo root ([@rwjblue](https://github.com/rwjblue))
+* [#2471](https://github.com/ember-template-lint/ember-template-lint/pull/2471) Add tests for plugin resolution within a monorepo setup ([@rwjblue](https://github.com/rwjblue))
+* [#2472](https://github.com/ember-template-lint/ember-template-lint/pull/2472) Fixes incorrectly invoked tests (non-awaited async) ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 4
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.4.0 (2022-04-12)
 
 #### :rocket: Enhancement
