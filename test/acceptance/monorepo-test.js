@@ -130,10 +130,10 @@ describe('monorepo setups', function () {
       });
     });
 
-    describe('multiple sub-projects can share a single .template-lintrc.js file', function () {
-      let foo, bar;
+    describe('multiple sub-projects with single shared .template-lintrc.js file', function () {
+      let plugin, foo, bar;
       beforeEach(async function () {
-        buildPlugin('fail-on-word');
+        plugin = buildPlugin('fail-on-word');
 
         foo = await buildWorkspace('packages/foo');
         bar = await buildWorkspace('packages/bar');
@@ -205,6 +205,39 @@ describe('monorepo setups', function () {
 
           ✖ 2 problems (2 errors, 0 warnings)"
         `);
+      });
+
+      it('supports plugins which require `exports` to be honored', async function() {
+        plugin.pkg.exports = {
+          'import': 'lib/index.js',
+        };
+
+        await plugin.write({
+          lib: {
+            // copy the file forward into lib
+            'index.js': plugin.files['index.js'],
+          }
+        });
+
+        // remove the old `index.js`
+        fs.unlinkSync(path.join(plugin.baseDir, 'index.js'));
+
+        let result = await run(['.'], {
+          cwd: project.baseDir,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "packages/bar/src/bar.hbs
+            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+
+          packages/foo/src/foo.hbs
+            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+
       });
     });
   });
