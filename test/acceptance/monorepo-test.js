@@ -35,12 +35,11 @@ describe('monorepo setups', function () {
     let workspace = new Project(workspaceName);
 
     workspace.baseDir = workspacePath;
-    workspace.populateDefaultSetupFiles();
 
     return workspace;
   }
 
-  async function buildPlugin(name) {
+  function buildPlugin(name) {
     let plugin = project.addDependency(name);
 
     plugin.pkg.type = 'module';
@@ -76,7 +75,7 @@ describe('monorepo setups', function () {
         };`,
     };
 
-    await project.write();
+    return plugin;
   }
 
   describe('when ran with ember-template-lint linked', function () {
@@ -95,36 +94,118 @@ describe('monorepo setups', function () {
       );
     }
 
-    it('sub-projects can leverage plugins installed at the monorepo root', async function () {
-      buildPlugin('fail-on-word');
+    describe('with workspace local config', function () {
+      it('sub-projects can leverage plugins installed at the monorepo root', async function () {
+        buildPlugin('fail-on-word');
 
-      let foo = await buildWorkspace('packages/foo');
+        let foo = await buildWorkspace('packages/foo');
 
-      foo.setConfig({
-        plugins: ['fail-on-word'],
-        rules: {
-          'fail-on-word': ['error', 'evil'],
-        },
+        await foo.setConfig({
+          plugins: ['fail-on-word'],
+          rules: {
+            'fail-on-word': ['error', 'evil'],
+          },
+        });
+
+        await foo.write({
+          src: {
+            'foo.hbs': 'evil deeds',
+          },
+        });
+
+        await project.write();
+
+        let result = await run(['.'], {
+          cwd: foo.baseDir,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "src/foo.hbs
+            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
+      });
+    });
+
+    describe('multiple sub-projects can share a single .template-lintrc.js file', function () {
+      let foo, bar;
+      beforeEach(async function () {
+        buildPlugin('fail-on-word');
+
+        foo = await buildWorkspace('packages/foo');
+        bar = await buildWorkspace('packages/bar');
+
+        await foo.write({
+          src: {
+            'foo.hbs': 'evil deeds',
+          },
+        });
+
+        await bar.write({
+          src: {
+            'bar.hbs': 'weevils are here',
+          },
+        });
+
+        // has to happen after the workspaces are written
+        await project.setConfig({
+          plugins: ['fail-on-word'],
+          rules: {
+            'fail-on-word': ['error', 'evil'],
+          },
+        });
       });
 
-      await foo.write({
-        src: {
-          'foo.hbs': 'evil deeds',
-        },
+      it('inside packages/bar', async function () {
+        let result = await run(['.'], {
+          cwd: bar.baseDir,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "src/bar.hbs
+            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
       });
 
-      let result = await run(['.'], {
-        cwd: foo.baseDir,
+      it('inside packages/foo', async function () {
+        let result = await run(['.'], {
+          cwd: foo.baseDir,
+        });
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "src/foo.hbs
+            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+
+          ✖ 1 problems (1 errors, 0 warnings)"
+        `);
       });
 
-      expect(result.exitCode).toEqual(1);
-      expect(result.stderr).toMatchInlineSnapshot(`""`);
-      expect(result.stdout).toMatchInlineSnapshot(`
-        "src/foo.hbs
-          1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+      it('inside monorepo root', async function () {
+        let result = await run(['.'], {
+          cwd: project.baseDir,
+        });
 
-        ✖ 1 problems (1 errors, 0 warnings)"
-      `);
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "packages/bar/src/bar.hbs
+            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+
+          packages/foo/src/foo.hbs
+            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+      });
     });
   });
 
@@ -134,7 +215,7 @@ describe('monorepo setups', function () {
 
       let foo = await buildWorkspace('packages/foo');
 
-      foo.setConfig({
+      await foo.setConfig({
         plugins: ['fail-on-word'],
         rules: {
           'fail-on-word': ['error', 'evil'],
@@ -146,6 +227,8 @@ describe('monorepo setups', function () {
           'foo.hbs': 'evil deeds',
         },
       });
+
+      await project.write();
 
       let result = await run(['.'], {
         cwd: foo.baseDir,
