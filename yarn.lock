@@ -2934,14 +2934,15 @@ first-chunk-stream@^2.0.0:
   dependencies:
     readable-stream "^2.0.2"
 
-fixturify-project@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/fixturify-project/-/fixturify-project-4.1.2.tgz#031a63c12354d68b08f0ef699e657b34c27abe90"
-  integrity sha512-xSWHrSZEKWYawnGe8ktra90kJHmKJBVL7so1AdbEruw+mtihkM/OmYQ4NLFcyVsFegKqqGVeu/sC2FqnmXj7Tw==
+fixturify-project@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/fixturify-project/-/fixturify-project-5.0.1.tgz#0afec18d09f7c087108d418f24d85e4619b5d89b"
+  integrity sha512-/wDAi7FLQPS3gfvjxTra3Yoaxtxo1UcoY6FVj/nqjFGrndDDH56GhDLiBHeHPlsfCQQpMttJubVi68M+cCoz/Q==
   dependencies:
     bin-links "^3.0.0"
+    deepmerge "^4.2.2"
     fixturify "^2.1.1"
-    resolve-package-path "^3.1.0"
+    resolve-package-path "^4.0.3"
     tmp "^0.0.33"
     type-fest "^2.3.2"
     walk-sync "^3.0.0"
@@ -6332,15 +6333,7 @@ resolve-from@^5.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-5.0.0.tgz#c35225843df8f776df21c57557bc087e9dfdfc69"
   integrity sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
 
-resolve-package-path@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/resolve-package-path/-/resolve-package-path-3.1.0.tgz#35faaa5d54a9c7dd481eb7c4b2a44410c9c763d8"
-  integrity sha512-2oC2EjWbMJwvSN6Z7DbDfJMnD8MYEouaLn5eIX0j8XwPsYCVIyY9bbnX88YHVkbr8XHqvZrYbxaLPibfTYKZMA==
-  dependencies:
-    path-root "^0.1.1"
-    resolve "^1.17.0"
-
-resolve-package-path@^4.0.0:
+resolve-package-path@^4.0.0, resolve-package-path@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/resolve-package-path/-/resolve-package-path-4.0.3.tgz#31dab6897236ea6613c72b83658d88898a9040aa"
   integrity sha512-SRpNAPW4kewOaNUt8VPqhJ0UMxawMwzJD8V7m1cJfdSTK9ieZwS6K7Dabsm4bmLFM96Z5Y/UznrpG5kt1im8yA==
@@ -6352,7 +6345,7 @@ resolve.exports@^1.1.0:
   resolved "https://registry.yarnpkg.com/resolve.exports/-/resolve.exports-1.1.0.tgz#5ce842b94b05146c0e03076985d1d0e7e48c90c9"
   integrity sha512-J1l+Zxxp4XK3LUDZ9m60LRJF/mAe4z6a4xyabPHk7pvK5t35dACV32iIjJDFeWZFfZlO29w6SZ67knR0tHzJtQ==
 
-resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.17.0, resolve@^1.20.0, resolve@^1.22.0:
+resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.20.0, resolve@^1.22.0:
   version "1.22.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.0.tgz#5e0b8c67c15df57a89bdbabe603a002f21731198"
   integrity sha512-Hhtrw0nLeSrFQ7phPp4OOcVjLPIeMnRlr5mcnVuMe7M/7eBn98A3hmFRLoFo3DLZkivSYwhRUJTyPyWAk56WLw==
