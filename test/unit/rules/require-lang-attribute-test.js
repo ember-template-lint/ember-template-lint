@@ -19,7 +19,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The \`<html>\` element must have the \`lang\` attribute with a non-null value",
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
               "rule": "require-lang-attribute",
               "severity": 2,
               "source": "<html></html>",
@@ -39,10 +39,30 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The \`<html>\` element must have the \`lang\` attribute with a non-null value",
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
               "rule": "require-lang-attribute",
               "severity": 2,
               "source": "<html lang=\\"\\"></html>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<html lang="gibberish"></html>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
+              "rule": "require-lang-attribute",
+              "severity": 2,
+              "source": "<html lang=\\"gibberish\\"></html>",
             },
           ]
         `);

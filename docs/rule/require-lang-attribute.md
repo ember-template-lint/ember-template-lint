@@ -2,9 +2,9 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
-A missing `lang` attribute can cause an application to fail legal conformance for digital accessibility requirements.
+A missing or invalid `lang` attribute can cause an application to fail legal conformance for digital accessibility requirements.
 
-This rule's objective is to ensure that Ember applications achieve [WCAG Success Criterion 3.1.1: Language of Page](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html). The state of the `lang` attribute has a usability impact on the experience of users that require screen-reading assistive technology. When the attribute is properly assigned:
+This rule's objective is to ensure that Ember applications achieve [WCAG Success Criterion 3.1.1: Language of Page](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html), by declaring a valid IETF's BCP 47 language tag for the `lang` attribute. The state of the `lang` attribute has a usability impact on the experience of users that require screen-reading assistive technology. When the attribute is properly assigned:
 
 > "Both assistive technologies and conventional user agents can render text more accurately when the language of the Web page is identified. Screen readers can load the correct pronunciation rules. Visual browsers can display characters and scripts correctly. Media players can show captions correctly. **As a result, users with disabilities will be better able to understand the content.**"
 >
@@ -30,6 +30,10 @@ This rule **forbids** the following:
 
 ```hbs
 <html lang=""></html>
+```
+
+```hbs
+<html lang="abracadabra"></Html>
 ```
 
 This rule **allows** the following:
