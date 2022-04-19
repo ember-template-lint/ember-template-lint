@@ -7,6 +7,16 @@
 
 
 
+
+## v4.4.2 (2022-04-19)
+
+#### :bug: Bug Fix
+* [#2465](https://github.com/ember-template-lint/ember-template-lint/pull/2465) Better handling of dashes in `no-whitespace-within-word` rule ([@mydea](https://github.com/mydea))
+
+#### Committers: 1
+- Francesco Novy ([@mydea](https://github.com/mydea))
+
+
 ## v4.4.1 (2022-04-15)
 
 #### :bug: Bug Fix
