@@ -958,10 +958,10 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
-"@scalvert/bin-tester@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@scalvert/bin-tester/-/bin-tester-2.0.0.tgz#ab8b8dc6421bde1bef2f16efbbfe665f549ff857"
-  integrity sha512-CU7HLBROdalegHk5C2tU1iw7j98JSNWrVgjqYbpu18Fzu9zuihX5PJvKjEOb38Rc0F9fssDeT5Xw2a1hcmkLcg==
+"@scalvert/bin-tester@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@scalvert/bin-tester/-/bin-tester-2.1.0.tgz#4c1b78232192bae8799ac2457b29d4ef5252f823"
+  integrity sha512-HuyA+gMsdQyD9Zg3b5Bmx/VLSoxXRSNpxI8djAW9eZrsewwCSvRXG/LgSPnOBaw6atuUjrB5ZhEFFLQpdRLy0A==
   dependencies:
     execa "^5.1.1"
     fixturify-project "^5.0.2"
