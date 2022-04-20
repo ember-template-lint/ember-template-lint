@@ -52,7 +52,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: install dependencies
+      - if: node-version == 12
+        name: install dependencies
+        run: yarn install --frozen-lockfile --ignore-engines
+      - if: node-version > 12
+        name: install dependencies
         run: yarn install --frozen-lockfile
 
       # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
@@ -71,7 +75,11 @@ jobs:
 
       - uses: volta-cli/action@v1
 
-      - name: install dependencies
+      - if: node-version == 12
+        name: install dependencies
+        run: yarn install --no-lockfile --ignore-engines
+      - if: node-version > 12
+        name: install dependencies
         run: yarn install --no-lockfile
 
       - run: yarn test:jest
