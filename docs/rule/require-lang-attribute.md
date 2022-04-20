@@ -14,11 +14,11 @@ When the language of the page cannot be identified, the integrity of the above i
 
 Consider any of the following use cases:
 
-* the application developer is unaware that Ember now includes the lang attribute
-* the application does not require internationalization
-* the application's content is in a language that is not English
-* an end-user with a screen reader turned on, whose operating system (OS) is set to a different language, navigates to that page with their screen reader turned on
-* the screen reader would attempt to read the page in the language that is defined by the lang attribute on the page, but the supporting element information ("button", "link", etc) is read out in the language that is set by the operating system.
+- the application developer is unaware that Ember now includes the lang attribute
+- the application does not require internationalization
+- the application's content is in a language that is not English
+- an end-user with a screen reader turned on, whose operating system (OS) is set to a different language, navigates to that page with their screen reader turned on
+- the screen reader would attempt to read the page in the language that is defined by the lang attribute on the page, but the supporting element information ("button", "link", etc) is read out in the language that is set by the operating system.
 
 ## Examples
 
@@ -29,7 +29,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<html lang=""></html>
+<html lang=''></html>
 ```
 
 ```hbs
@@ -39,11 +39,11 @@ This rule **forbids** the following:
 This rule **allows** the following:
 
 ```hbs
-<html lang="en"></html>
+<html lang='en'></html>
 ```
 
 ```hbs
-<html lang="en-US"></html>
+<html lang='en-US'></html>
 ```
 
 ```hbs
@@ -54,6 +54,15 @@ This rule **allows** the following:
 
 Add the `lang` attribute to the `app/index.html` file in your Ember app. If you use an internationalization addon like `ember-intl`, note that this will not conflict with that addon.
 
+## Configuration
+
+- boolean -- if `true`, default configuration is applied
+  (`validateValues: false`), see below for details
+
+- object -- containing the following property:
+  - boolean -- `validateValues` -- if `true`, the rule checks whether the value in the `lang` attribute is a known IETF's BCP 47 language tag
+    (default: `false`)
+
 ## References
 
-* [WCAG Success Criterion 3.1.1: Language of Page](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html)
+- [WCAG Success Criterion 3.1.1: Language of Page](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html)
