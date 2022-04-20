@@ -2,8 +2,7 @@ import { jest } from '@jest/globals';
 import { todoStorageFileExists, writeTodos, readTodoData } from '@lint-todo/utils';
 import { differenceInDays, subDays } from 'date-fns';
 
-import Project from '../helpers/fake-project.js';
-import run from '../helpers/run.js';
+import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
 jest.setTimeout(10_000);
@@ -18,12 +17,12 @@ describe('todo usage', () => {
   // Fake project
   let project;
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = await setupProject();
     await project.chdir();
   });
 
   afterEach(function () {
-    project.dispose();
+    teardownProject();
   });
 
   describe('with/without --update-todo and --include-todo params', function () {
@@ -51,7 +50,7 @@ describe('todo usage', () => {
         error: 10,
       });
 
-      let result = await run(['.']);
+      let result = await runBin('.');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stderr).toMatchInlineSnapshot(
@@ -73,21 +72,21 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.']);
+      let result = await runBin('.');
 
       expect(todoStorageFileExists(project.baseDir)).toEqual(false);
       expect(result.stdout).toBeTruthy();
     });
 
     it('errors if using either --todo-days-to-warn or --todo-days-to-error without --update-todo', async function () {
-      let result = await run(['.', '--todo-days-to-warn', '10']);
+      let result = await runBin('.', '--todo-days-to-warn', '10');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stderr).toContain(
         'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
       );
 
-      result = await run(['.', '--todo-days-to-error', '10']);
+      result = await runBin('.', '--todo-days-to-error', '10');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stderr).toContain(
@@ -109,7 +108,7 @@ describe('todo usage', () => {
         },
       });
 
-      await run(['.', '--update-todo']);
+      await runBin('.', '--update-todo');
 
       const result = readTodoData(project.baseDir, buildReadOptions());
 
@@ -132,7 +131,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo']);
+      let result = await runBin('.', '--update-todo');
 
       expect(result.exitCode).toEqual(0);
       expect(todoStorageFileExists(project.baseDir)).toEqual(true);
@@ -154,7 +153,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo']);
+      let result = await runBin('.', '--update-todo');
 
       expect(result.exitCode).toEqual(0);
       expect(todoStorageFileExists(project.baseDir)).toEqual(true);
@@ -172,7 +171,7 @@ describe('todo usage', () => {
         },
       });
 
-      result = await run(['.']);
+      result = await runBin('.');
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toEqual('');
@@ -213,7 +212,7 @@ describe('todo usage', () => {
         },
       ]);
 
-      const result = await run(['.', '--update-todo']);
+      const result = await runBin('.', '--update-todo');
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toMatch(/.*✔ 3 todos created, 0 todos removed/);
@@ -234,7 +233,7 @@ describe('todo usage', () => {
         },
       });
 
-      await run(['.', '--update-todo']);
+      await runBin('.', '--update-todo');
 
       let todos = readTodoData(project.baseDir, buildReadOptions());
 
@@ -249,14 +248,14 @@ describe('todo usage', () => {
         },
       });
 
-      await run([
+      await runBin(
         '.',
         '--rule',
         'no-html-comments:error',
         '--update-todo',
         '--no-inline-config',
-        '--no-config-path',
-      ]);
+        '--no-config-path'
+      );
 
       todos = readTodoData(project.baseDir, buildReadOptions());
 
@@ -279,20 +278,20 @@ describe('todo usage', () => {
         },
       });
 
-      await run(['.', '--update-todo']);
+      await runBin('.', '--update-todo');
 
       let todos = readTodoData(project.baseDir, buildReadOptions());
 
       expect(todos.size).toEqual(3);
 
-      let result = await run([
+      let result = await runBin(
         '.',
         '--rule',
         'no-html-comments:error',
         '--update-todo',
         '--no-inline-config',
-        '--no-config-path',
-      ]);
+        '--no-config-path'
+      );
 
       todos = readTodoData(project.baseDir, buildReadOptions());
 
@@ -320,7 +319,7 @@ describe('todo usage', () => {
         });
 
         // generate todo based on existing error
-        await run(['.', '--update-todo']);
+        await runBin('.', '--update-todo');
 
         // mimic fixing the error manually via user interaction
         await project.write({
@@ -332,7 +331,7 @@ describe('todo usage', () => {
         });
 
         // run normally and expect an error for not running --fix
-        let result = await run(['.']);
+        let result = await runBin('.');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
@@ -344,10 +343,10 @@ describe('todo usage', () => {
         `);
 
         // run fix, and expect that this will delete the outstanding todo item
-        await run(['app/templates/require-button-type.hbs', '--fix']);
+        await runBin('app/templates/require-button-type.hbs', '--fix');
 
         // run normally again and expect no error
-        result = await run(['.']);
+        result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
@@ -370,7 +369,7 @@ describe('todo usage', () => {
         });
 
         // generate todo based on existing error
-        await run(['.', '--update-todo']);
+        await runBin('.', '--update-todo');
 
         // mimic fixing the error manually via user interaction
         await project.write({
@@ -382,7 +381,7 @@ describe('todo usage', () => {
         });
 
         // run normally and expect an error for not running --fix
-        let result = await run(['.']);
+        let result = await runBin('.');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
@@ -394,10 +393,10 @@ describe('todo usage', () => {
         `);
 
         // run fix, and expect that this will delete the outstanding todo item
-        await run(['app/templates/require-button-type.hbs', '--clean-todo']);
+        await runBin('app/templates/require-button-type.hbs', '--clean-todo');
 
         // run normally again and expect no error
-        result = await run(['.']);
+        result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
@@ -425,7 +424,7 @@ describe('todo usage', () => {
         });
 
         // generate todo based on existing error
-        await run(['.', '--update-todo']);
+        await runBin('.', '--update-todo');
 
         // mimic fixing the error manually via user interaction
         await project.write({
@@ -437,7 +436,7 @@ describe('todo usage', () => {
         });
 
         // run normally with --no-clean-todo and expect an error for not running --fix
-        let result = await run(['.', '--no-clean-todo']);
+        let result = await runBin('.', '--no-clean-todo');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
@@ -449,10 +448,10 @@ describe('todo usage', () => {
         `);
 
         // run fix, and expect that this will delete the outstanding todo item
-        await run(['app/templates/require-button-type.hbs', '--fix']);
+        await runBin('app/templates/require-button-type.hbs', '--fix');
 
         // run normally again and expect no error
-        result = await run(['.']);
+        result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
@@ -475,7 +474,7 @@ describe('todo usage', () => {
         });
 
         // generate todo based on existing error
-        await run(['.', '--update-todo']);
+        await runBin('.', '--update-todo');
 
         // mimic fixing the error manually via user interaction
         await project.write({
@@ -487,7 +486,7 @@ describe('todo usage', () => {
         });
 
         // run normally with --no-clean-todo and expect an error for not running --fix
-        let result = await run(['.', '--no-clean-todo']);
+        let result = await runBin('.', '--no-clean-todo');
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
@@ -499,10 +498,10 @@ describe('todo usage', () => {
         `);
 
         // run fix, and expect that this will delete the outstanding todo item
-        await run(['app/templates/require-button-type.hbs']);
+        await runBin('app/templates/require-button-type.hbs');
 
         // run normally again and expect no error
-        result = await run(['.']);
+        result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toEqual('');
@@ -524,7 +523,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo']);
+      let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
         `"✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"`
@@ -546,10 +545,10 @@ describe('todo usage', () => {
       });
 
       // generate todos
-      await run(['.', '--update-todo']);
+      await runBin('.', '--update-todo');
 
       // running again should return no results
-      let result = await run(['.']);
+      let result = await runBin('.');
 
       expect(result.stdout).toEqual('');
     });
@@ -568,7 +567,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo']);
+      let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
         `"✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"`
@@ -589,7 +588,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo']);
+      let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
         `"✔ 1 todos created, 0 todos removed (warn after 30, error after 60 days)"`
@@ -611,7 +610,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo']);
+      let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
         `"✔ 2 todos created, 0 todos removed (warn after 30, error after 60 days)"`
@@ -632,7 +631,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo', '--todo-days-to-warn', '10']);
+      let result = await runBin('.', '--update-todo', '--todo-days-to-warn', '10');
 
       expect(result.stdout).toMatchInlineSnapshot(
         `"✔ 1 todos created, 0 todos removed (warn after 10 days)"`
@@ -653,7 +652,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo', '--todo-days-to-error', '10']);
+      let result = await runBin('.', '--update-todo', '--todo-days-to-error', '10');
 
       expect(result.stdout).toMatchInlineSnapshot(
         `"✔ 1 todos created, 0 todos removed (error after 10 days)"`
@@ -674,14 +673,14 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run([
+      let result = await runBin(
         '.',
         '--update-todo',
         '--todo-days-to-warn',
         '5',
         '--todo-days-to-error',
-        '10',
-      ]);
+        '10'
+      );
 
       expect(result.stdout).toMatchInlineSnapshot(
         `"✔ 1 todos created, 0 todos removed (warn after 5, error after 10 days)"`
@@ -702,7 +701,7 @@ describe('todo usage', () => {
         },
       });
 
-      let result = await run(['.', '--update-todo', '--include-todo']);
+      let result = await runBin('.', '--update-todo', '--include-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(`
         "app/templates/application.hbs
@@ -728,10 +727,10 @@ describe('todo usage', () => {
       });
 
       // generate todos
-      await run(['.', '--update-todo']);
+      await runBin('.', '--update-todo');
 
       // running again with --include-todo should return todo summary
-      let result = await run(['.', '--include-todo']);
+      let result = await runBin('.', '--include-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(`
         "app/templates/application.hbs
@@ -755,14 +754,14 @@ describe('todo usage', () => {
         },
       });
 
-      await run(['.', '--update-todo'], {
+      await runBin('.', '--update-todo', {
         env: {
           TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
           TODO_DAYS_TO_ERROR: 5,
         },
       });
 
-      const result = await run(['.']);
+      const result = await runBin('.');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
@@ -787,13 +786,13 @@ describe('todo usage', () => {
         },
       });
 
-      await run(['.', '--update-todo', '--todo-days-to-error', '5'], {
+      await runBin('.', '--update-todo', '--todo-days-to-error', '5', {
         env: {
           TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
         },
       });
 
-      const result = await run(['.']);
+      const result = await runBin('.');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
@@ -818,13 +817,13 @@ describe('todo usage', () => {
         },
       });
 
-      await run(['.', '--update-todo', '--todo-days-to-warn', '5', '--todo-days-to-error', '10'], {
+      await runBin('.', '--update-todo', '--todo-days-to-warn', '5', '--todo-days-to-error', '10', {
         env: {
           TODO_CREATED_DATE: subDays(new Date(), 11).toJSON(),
         },
       });
 
-      const result = await run(['.']);
+      const result = await runBin('.');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
@@ -876,7 +875,7 @@ describe('todo usage', () => {
           });
 
           // generate todo based on existing error
-          await run(['.', '--update-todo'], {
+          await runBin('.', '--update-todo', {
             // change the date so errorDate is before today
             env: {
               TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
@@ -884,7 +883,7 @@ describe('todo usage', () => {
           });
 
           // run normally and expect the issue to be back in the error state and there to be no todo
-          let result = await run(['.', '--clean-todo']);
+          let result = await runBin('.', '--clean-todo');
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -915,7 +914,7 @@ describe('todo usage', () => {
             error: 5,
           });
 
-          let result = await run(['.', '--update-todo']);
+          let result = await runBin('.', '--update-todo');
 
           expect(result.stderr).toMatch(
             'The provided todo configuration contains invalid values. The `warn` value (10) must be less than the `error` value (5).'
@@ -939,7 +938,7 @@ describe('todo usage', () => {
             warn: 10,
           });
 
-          let result = await run(['.', '--update-todo']);
+          let result = await runBin('.', '--update-todo');
 
           const todos = readTodoData(project.baseDir, buildReadOptions());
 
@@ -969,7 +968,7 @@ describe('todo usage', () => {
             warn: 10,
           });
 
-          let result = await run(['.', '--update-todo'], {
+          let result = await runBin('.', '--update-todo', {
             env: {
               TODO_DAYS_TO_WARN: '30',
             },
@@ -1003,7 +1002,7 @@ describe('todo usage', () => {
             warn: 10,
           });
 
-          let result = await run(['.', '--update-todo', '--todo-days-to-warn', '30'], {
+          let result = await runBin('.', '--update-todo', '--todo-days-to-warn', '30', {
             env: {
               TODO_DAYS_TO_WARN: 20,
             },
@@ -1037,7 +1036,7 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          let result = await run(['.', '--update-todo']);
+          let result = await runBin('.', '--update-todo');
 
           const todos = readTodoData(project.baseDir, buildReadOptions());
 
@@ -1067,7 +1066,7 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          let result = await run(['.', '--update-todo'], {
+          let result = await runBin('.', '--update-todo', {
             env: {
               TODO_DAYS_TO_ERROR: '30',
             },
@@ -1101,7 +1100,7 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          let result = await run(['.', '--update-todo', '--todo-days-to-error', '30'], {
+          let result = await runBin('.', '--update-todo', '--todo-days-to-error', '30', {
             env: {
               TODO_DAYS_TO_ERROR: 20,
             },
@@ -1136,7 +1135,7 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          let result = await run(['.', '--update-todo']);
+          let result = await runBin('.', '--update-todo');
 
           const todos = readTodoData(project.baseDir, buildReadOptions());
 
@@ -1170,7 +1169,7 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          let result = await run(['.', '--update-todo'], {
+          let result = await runBin('.', '--update-todo', {
             env: {
               TODO_DAYS_TO_WARN: 10,
               TODO_DAYS_TO_ERROR: 20,
@@ -1209,8 +1208,13 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          let result = await run(
-            ['.', '--update-todo', '--todo-days-to-warn', '10', '--todo-days-to-error', '20'],
+          let result = await runBin(
+            '.',
+            '--update-todo',
+            '--todo-days-to-warn',
+            '10',
+            '--todo-days-to-error',
+            '20',
             {
               env: {
                 TODO_DAYS_TO_WARN: 7,
@@ -1251,13 +1255,13 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          let result = await run([
+          let result = await runBin(
             '.',
             '--update-todo',
             '--no-todo-days-to-warn',
             '--todo-days-to-error',
-            '20',
-          ]);
+            '20'
+          );
 
           const todos = readTodoData(project.baseDir, buildReadOptions());
 
@@ -1289,9 +1293,9 @@ describe('todo usage', () => {
             warn: 5,
           });
 
-          let result = await run(['.', '--update-todo']);
+          let result = await runBin('.', '--update-todo');
 
-          result = await run(['.', '--include-todo']);
+          result = await runBin('.', '--include-todo');
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -1320,9 +1324,9 @@ describe('todo usage', () => {
             error: 5,
           });
 
-          let result = await run(['.', '--update-todo']);
+          let result = await runBin('.', '--update-todo');
 
-          result = await run(['.', '--include-todo']);
+          result = await runBin('.', '--include-todo');
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -1351,13 +1355,13 @@ describe('todo usage', () => {
             warn: 5,
           });
 
-          await run(['.', '--update-todo'], {
+          await runBin('.', '--update-todo', {
             env: {
               TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
             },
           });
 
-          const result = await run(['.']);
+          const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -1382,13 +1386,13 @@ describe('todo usage', () => {
             },
           });
 
-          await run(['.', '--update-todo', '--todo-days-to-warn', '5'], {
+          await runBin('.', '--update-todo', '--todo-days-to-warn', '5', {
             env: {
               TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
             },
           });
 
-          const result = await run(['.']);
+          const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -1418,13 +1422,13 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          await run(['.', '--update-todo'], {
+          await runBin('.', '--update-todo', {
             env: {
               TODO_CREATED_DATE: subDays(new Date(), 7).toJSON(),
             },
           });
 
-          const result = await run(['.']);
+          const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -1453,13 +1457,13 @@ describe('todo usage', () => {
             error: 5,
           });
 
-          await run(['.', '--update-todo'], {
+          await runBin('.', '--update-todo', {
             env: {
               TODO_CREATED_DATE: subDays(new Date(), 10).toJSON(),
             },
           });
 
-          const result = await run(['.']);
+          const result = await runBin('.');
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -1489,13 +1493,13 @@ describe('todo usage', () => {
             error: 10,
           });
 
-          await run(['.', '--update-todo'], {
+          await runBin('.', '--update-todo', {
             env: {
               TODO_CREATED_DATE: subDays(new Date(), 11).toJSON(),
             },
           });
 
-          const result = await run(['.']);
+          const result = await runBin('.');
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
@@ -1534,7 +1538,7 @@ describe('todo usage', () => {
               }
             );
 
-            let result = await run(['.', '--update-todo']);
+            let result = await runBin('.', '--update-todo');
 
             const todos = readTodoData(project.baseDir, buildReadOptions());
 

@@ -1,23 +1,21 @@
-import { Project, getOutputFileContents, run, setupEnvVar } from '../../helpers/index.js';
-
-const ROOT = process.cwd();
+import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
+import { getOutputFileContents, setupEnvVar } from '../../helpers/index.js';
 
 describe('multi formatter', () => {
   setupEnvVar('FORCE_COLOR', '0');
 
   let project;
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = await setupProject();
     await project.chdir();
   });
 
-  afterEach(async function () {
-    await process.chdir(ROOT);
-    project.dispose();
+  afterEach(function () {
+    teardownProject();
   });
 
   it('should format errors', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
       },
@@ -44,7 +42,7 @@ describe('multi formatter', () => {
       },
     });
 
-    let result = await run(['.', '--format', 'multi']);
+    let result = await runBin('.', '--format', 'multi');
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout.replace(project.baseDir, '')).toMatchInlineSnapshot(`
