@@ -52,10 +52,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - if: node-version == 12
+      - if: matrix.node-version == 12
         name: install dependencies
         run: yarn install --frozen-lockfile --ignore-engines
-      - if: node-version > 12
+      - if: matrix.node-version > 12
         name: install dependencies
         run: yarn install --frozen-lockfile
 
@@ -75,10 +75,10 @@ jobs:
 
       - uses: volta-cli/action@v1
 
-      - if: node-version == 12
+      - if: matrix.node-version == 12
         name: install dependencies
         run: yarn install --no-lockfile --ignore-engines
-      - if: node-version > 12
+      - if: matrix.node-version > 12
         name: install dependencies
         run: yarn install --no-lockfile
 
