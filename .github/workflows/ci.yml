@@ -52,11 +52,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - if: matrix.node-version == 12
-        name: install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines
-      - if: matrix.node-version > 12
-        name: install dependencies
+      - name: install dependencies
         run: yarn install --frozen-lockfile
 
       # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
@@ -64,6 +60,28 @@ jobs:
       #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
       # Possibly related: https://github.com/facebook/jest/issues/11438
       - run: yarn test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
+
+  node12:
+    name: Node 12
+    runs-on: ${{ matrix.os }}-latest
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        os: [ubuntu, windows]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: volta-cli/action@v1
+        with:
+          node-version: 12.x
+
+      - name: install dependencies
+        # Temporary fix for Node 12 pulling in devDependencies who's engines require > 14
+        run: yarn install --frozen-lockfile --ignore-engines
+
+      - run: yarn test:jest
 
   floating-dependencies:
     name: Floating Dependencies
@@ -75,11 +93,7 @@ jobs:
 
       - uses: volta-cli/action@v1
 
-      - if: matrix.node-version == 12
-        name: install dependencies
-        run: yarn install --no-lockfile --ignore-engines
-      - if: matrix.node-version > 12
-        name: install dependencies
+      - name: install dependencies
         run: yarn install --no-lockfile
 
       - run: yarn test:jest
