@@ -2,31 +2,29 @@ import chalk from 'chalk';
 
 import PrettyFormatter from '../../../lib/formatters/pretty.js';
 import { TODO_SEVERITY } from '../../../lib/helpers/severity.js';
-import { Project, getOutputFileContents, run, setupEnvVar } from '../../helpers/index.js';
-
-const ROOT = process.cwd();
+import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
+import { getOutputFileContents, setupEnvVar } from '../../helpers/index.js';
 
 describe('pretty formatter', () => {
   setupEnvVar('FORCE_COLOR', '0');
 
   let project;
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = await setupProject();
     await project.chdir();
   });
 
-  afterEach(async function () {
-    await process.chdir(ROOT);
-    project.dispose();
+  afterEach(function () {
+    teardownProject();
   });
 
   it('should format errors', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -37,7 +35,7 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.']);
+    let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout.split('\n')).toEqual([
@@ -51,13 +49,13 @@ describe('pretty formatter', () => {
   });
 
   it('should format errors and warnings', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': 'warn',
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -66,7 +64,7 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.']);
+    let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout.split('\n')).toEqual([
@@ -81,13 +79,13 @@ describe('pretty formatter', () => {
   });
 
   it('should include information about available fixes', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'require-button-type': true,
       },
     });
 
-    project.write({
+    await project.write({
       app: {
         components: {
           'click-me-button.hbs': '<button>Click me!</button>',
@@ -95,7 +93,7 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.']);
+    let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
 
@@ -110,13 +108,13 @@ describe('pretty formatter', () => {
   });
 
   it('should output to a file using --output-file option using default filename', async () => {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': 'warn',
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -125,7 +123,7 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.', '--output-file']);
+    let result = await runBin('.', '--output-file');
 
     expect(result.exitCode).toEqual(1);
     expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
@@ -140,13 +138,13 @@ describe('pretty formatter', () => {
   });
 
   it('should output to a file using --output-file option using custom filename', async () => {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': 'warn',
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -155,7 +153,7 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.', '--output-file', 'pretty-output.txt']);
+    let result = await runBin('.', '--output-file', 'pretty-output.txt');
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout).toMatch(/.*pretty-output\.txt/);
@@ -172,13 +170,13 @@ describe('pretty formatter', () => {
 
   describe('with --quiet option', function () {
     it('should print properly formatted error messages, omitting any warnings', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': 'warn',
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -187,7 +185,7 @@ describe('pretty formatter', () => {
         },
       });
 
-      let result = await run(['.', '--quiet']);
+      let result = await runBin('.', '--quiet');
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout.split('\n')).toEqual([
@@ -201,12 +199,12 @@ describe('pretty formatter', () => {
     });
 
     it('should exit without error and any console output', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-html-comments': 'warn',
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -214,7 +212,7 @@ describe('pretty formatter', () => {
           },
         },
       });
-      let result = await run(['.', '--quiet']);
+      let result = await runBin('.', '--quiet');
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toBeFalsy();
