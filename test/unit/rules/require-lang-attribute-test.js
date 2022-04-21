@@ -3,11 +3,36 @@ import generateRuleTests from '../../helpers/rule-test-harness.js';
 generateRuleTests({
   name: 'require-lang-attribute',
 
-  config: {
-    validateValues: false,
-  },
-
-  good: ['<html lang="en"></html>', '<html lang="en-US"></html>', '<html lang={{lang}}></html>'],
+  config: true,
+  good: [
+    '<html lang="en"></html>',
+    '<html lang="en-US"></html>',
+    '<html lang={{lang}}></html>',
+    {
+      config: {
+        validateValues: true,
+      },
+      template: '<html lang="de"></html>',
+    },
+    {
+      config: {
+        validateValues: true,
+      },
+      template: '<html lang={{this.language}}></html>',
+    },
+    {
+      config: {
+        validateValues: false,
+      },
+      template: '<html lang="hurrah"></html>',
+    },
+    {
+      config: {
+        validateValues: false,
+      },
+      template: '<html lang={{this.blah}}></html>',
+    },
+  ],
 
   bad: [
     {
@@ -50,21 +75,11 @@ generateRuleTests({
         `);
       },
     },
-  ],
-});
-
-generateRuleTests({
-  name: 'require-lang-attribute',
-
-  config: {
-    validateValues: true,
-  },
-
-  good: ['<html lang="en"></html>', '<html lang="en-US"></html>', '<html lang={{lang}}></html>'],
-
-  bad: [
     {
       template: '<html></html>',
+      config: {
+        validateValues: true,
+      },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -85,6 +100,9 @@ generateRuleTests({
     },
     {
       template: '<html lang=""></html>',
+      config: {
+        validateValues: true,
+      },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -105,6 +123,9 @@ generateRuleTests({
     },
     {
       template: '<html lang="gibberish"></html>',
+      config: {
+        validateValues: true,
+      },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -118,6 +139,52 @@ generateRuleTests({
               "rule": "require-lang-attribute",
               "severity": 2,
               "source": "<html lang=\\"gibberish\\"></html>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<html></html>',
+      config: {
+        validateValues: false,
+      },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 13,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
+              "rule": "require-lang-attribute",
+              "severity": 2,
+              "source": "<html></html>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<html lang=""></html>',
+      config: {
+        validateValues: false,
+      },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
+              "rule": "require-lang-attribute",
+              "severity": 2,
+              "source": "<html lang=\\"\\"></html>",
             },
           ]
         `);

@@ -29,7 +29,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<html lang=''></html>
+<html lang=""></html>
 ```
 
 ```hbs
@@ -39,11 +39,11 @@ This rule **forbids** the following:
 This rule **allows** the following:
 
 ```hbs
-<html lang='en'></html>
+<html lang="en"></html>
 ```
 
 ```hbs
-<html lang='en-US'></html>
+<html lang="en-US"></html>
 ```
 
 ```hbs
@@ -57,11 +57,10 @@ Add the `lang` attribute to the `app/index.html` file in your Ember app. If you 
 ## Configuration
 
 - boolean -- if `true`, default configuration is applied
-  (`validateValues: false`), see below for details
 
 - object -- containing the following property:
   - boolean -- `validateValues` -- if `true`, the rule checks whether the value in the `lang` attribute is a known IETF's BCP 47 language tag
-    (default: `false`)
+    (default: `false`) (TODO: enable by default in next major release)
 
 ## References
 
