@@ -8,6 +8,7 @@ generateRuleTests({
     '<html lang="en"></html>',
     '<html lang="en-US"></html>',
     '<html lang={{lang}}></html>',
+    '<html lang="hurrah"></html>', // allows invalid value when `validateValues` option defaults to `false`
     {
       config: {
         validateValues: true,
