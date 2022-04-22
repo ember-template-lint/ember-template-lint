@@ -8,6 +8,22 @@
 
 
 
+
+## v4.5.0 (2022-04-22)
+
+#### :rocket: Enhancement
+* [#2478](https://github.com/ember-template-lint/ember-template-lint/pull/2478) Add `validateValues` option to `require-lang-attribute` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :house: Internal
+* [#2480](https://github.com/ember-template-lint/ember-template-lint/pull/2480) Test under Node 18 ([@bmish](https://github.com/bmish))
+* [#2437](https://github.com/ember-template-lint/ember-template-lint/pull/2437) Standardize CLI tests with bin tester package  ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.4.2 (2022-04-19)
 
 #### :bug: Bug Fix
