@@ -1,7 +1,5 @@
 # no-dynamic-subexpression-invocations
 
-✅ The `extends: 'recommended'` property in a configuration file enables this rule.
-
 When using Ember versions prior to 3.25 the usage of dynamic invocations for
 helpers and modifiers did not work. Unfortunately, some versions of Ember
 silently ignored additional arguments (3.16) wherease others throw a very

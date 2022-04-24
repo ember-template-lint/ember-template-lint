@@ -24,8 +24,8 @@ generateRuleTests({
       template: '<button onclick={{action "foo"}}></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 32,
               "endLine": 1,
@@ -44,8 +44,8 @@ generateRuleTests({
       template: '<button {{action "submit"}}>Submit</button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 27,
               "endLine": 1,
@@ -64,8 +64,8 @@ generateRuleTests({
       template: '<FooBar @baz={{action "submit"}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 1,
@@ -84,8 +84,8 @@ generateRuleTests({
       template: '{{yield (action "foo")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 22,
               "endLine": 1,
@@ -104,8 +104,8 @@ generateRuleTests({
       template: '{{yield (action this.foo)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 25,
               "endLine": 1,

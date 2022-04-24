@@ -16,12 +16,14 @@ This rule **forbids** the following:
 
 ```hbs
 <div {{didInsert}}></div>
+<div {{(if @isContentEditable (modifier "contentEditable"))}}></div>
 ```
 
 This rule **allows** the following:
 
 ```hbs
 <div {{did-insert}}></div>
+<div {{(if @isContentEditable (modifier "content-editable"))}}></div>
 ```
 
 ## References

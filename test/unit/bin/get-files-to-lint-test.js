@@ -1,15 +1,15 @@
 import { getFilesToLint } from '../../../lib/helpers/cli.js';
-import Project from '../../helpers/fake-project.js';
+import { setupProject, teardownProject } from '../../helpers/bin-tester.js';
 
 const STDIN = '/dev/stdin';
 
 describe('getFilesToLint', function () {
   let project = null;
-
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
-    project.write({
+  beforeEach(async function () {
+    project = await setupProject();
+    await project.chdir();
+    await project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
+    await project.write({
       'application.hbs': 'almost empty',
       'other.hbs': 'ZOMG',
       'js-module.js': 'export const two = 2;',
@@ -20,7 +20,7 @@ describe('getFilesToLint', function () {
   });
 
   afterEach(function () {
-    project.dispose();
+    teardownProject();
   });
 
   // yarn ember-template-lint --filename application.hbs < application.hbs
@@ -73,7 +73,7 @@ describe('getFilesToLint', function () {
     });
 
     it('supports arbitrary extension when explictly passed', async function () {
-      project.write({ 'foo.frizzle': 'whatever' });
+      await project.write({ 'foo.frizzle': 'whatever' });
 
       let files = await getFilesToLint(project.baseDir, ['foo.frizzle']);
 

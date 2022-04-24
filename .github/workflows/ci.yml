@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: volta-cli/action@v1
 
@@ -33,12 +33,12 @@ jobs:
   nodeX:
     name: Node ${{ matrix.node-version }} - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [12.x, 14.x, 16.x, 17.x]
+        node-version: [14.x, 16.x, 17.x, 18.x]
 
         # excluded because it is the `test` job above
         exclude:
@@ -46,7 +46,7 @@ jobs:
             node-version: 16.x
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: volta-cli/action@v1
         with:
@@ -59,7 +59,33 @@ jobs:
       # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
       #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
       # Possibly related: https://github.com/facebook/jest/issues/11438
-      - run: yarn test:jest --testPathIgnorePatterns="test/unit/get-config-test.js"
+      - run: yarn test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
+
+  node12:
+    name: Node 12
+    runs-on: ${{ matrix.os }}-latest
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        os: [ubuntu, windows]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: volta-cli/action@v1
+        with:
+          node-version: 12.x
+
+      - name: install dependencies
+        # Temporary fix for Node 12 pulling in devDependencies who's engines require > 14
+        run: yarn install --frozen-lockfile --ignore-engines
+
+      # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
+      # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
+      #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
+      # Possibly related: https://github.com/facebook/jest/issues/11438
+      - run: yarn test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
 
   floating-dependencies:
     name: Floating Dependencies
@@ -67,7 +93,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: volta-cli/action@v1
 

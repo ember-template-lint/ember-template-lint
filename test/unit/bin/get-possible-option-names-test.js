@@ -10,7 +10,7 @@ describe('getPossibleOptionNames', function () {
       'option-with-alias': { alias: 'aliased-name' },
     });
     expect(results).toMatchInlineSnapshot(`
-      Array [
+      [
         "foo",
         "foo-bar",
         "no-baz",

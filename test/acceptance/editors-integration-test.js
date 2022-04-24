@@ -1,21 +1,8 @@
-import { execa } from 'execa';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-import Project from '../helpers/fake-project.js';
+import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
-
-function run(project, args, options = {}) {
-  options.reject = false;
-  options.cwd = options.cwd || project.path('.');
-
-  return execa(
-    process.execPath,
-    [fileURLToPath(new URL('../../bin/ember-template-lint.js', import.meta.url)), ...args],
-    options
-  );
-}
 
 describe('editors integration', function () {
   setupEnvVar('FORCE_COLOR', '0');
@@ -23,21 +10,21 @@ describe('editors integration', function () {
 
   // Fake project
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
+  beforeEach(async function () {
+    project = await setupProject();
+    await project.chdir();
   });
 
   afterEach(function () {
-    project.dispose();
+    teardownProject();
   });
 
   describe('reading from stdin', function () {
     it('has exit code 1 and reports errors to stdout', async function () {
-      project.setConfig({ rules: { 'no-debugger': true } });
-      project.write({ 'template.hbs': '{{debugger}}' });
+      await project.setConfig({ rules: { 'no-debugger': true } });
+      await project.write({ 'template.hbs': '{{debugger}}' });
 
-      let result = await run(project, ['--format', 'json', '--filename', 'template.hbs'], {
+      let result = await runBin('--format', 'json', '--filename', 'template.hbs', {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });
@@ -63,10 +50,10 @@ describe('editors integration', function () {
     });
 
     it('has exit code 0 and writes fixes if --filename is provided', async function () {
-      project.setConfig({ rules: { 'require-button-type': true } });
-      project.write({ 'template.hbs': '<button></button>' });
+      await project.setConfig({ rules: { 'require-button-type': true } });
+      await project.write({ 'template.hbs': '<button></button>' });
 
-      let result = await run(project, ['--format', 'json', '--filename', 'template.hbs', '--fix'], {
+      let result = await runBin('--format', 'json', '--filename', 'template.hbs', '--fix', {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });
@@ -127,7 +114,7 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'no-debugger': true } });
         project.write({ 'some-module.js': multipleComponents });
 
-        let result = await run(project, ['--format', 'json', '--filename', 'some-module.js'], {
+        let result = await runBin('--format', 'json', '--filename', 'some-module.js', {
           shell: false,
           input: fs.readFileSync(path.resolve('some-module.js')),
         });
@@ -171,7 +158,7 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'no-debugger': true } });
         project.write({ 'some-module.ts': typescript });
 
-        let result = await run(project, ['--format', 'json', '--filename', 'some-module.ts'], {
+        let result = await runBin('--format', 'json', '--filename', 'some-module.ts', {
           shell: false,
           input: fs.readFileSync(path.resolve('some-module.ts')),
         });
@@ -204,9 +191,8 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'require-button-type': true } });
         project.write({ 'some-module.js': missingButtonType });
 
-        let result = await run(
-          project,
-          ['--format', 'json', '--filename', 'some-module.js', '--fix'],
+        let result = await runBin(
+          '--format', 'json', '--filename', 'some-module.js', '--fix',
           {
             shell: false,
             input: fs.readFileSync(path.resolve('some-module.js')),
@@ -288,7 +274,7 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'no-debugger': true } });
         project.write({ 'some-module.gjs': multipleComponents });
 
-        let result = await run(project, ['--format', 'json', '--filename', 'some-module.gjs'], {
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', {
           shell: false,
           input: fs.readFileSync(path.resolve('some-module.gjs')),
         });
@@ -343,7 +329,7 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'no-debugger': true } });
         project.write({ 'some-module.gts': typescript });
 
-        let result = await run(project, ['--format', 'json', '--filename', 'some-module.gts'], {
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gts', {
           shell: false,
           input: fs.readFileSync(path.resolve('some-module.gts')),
         });
@@ -376,7 +362,7 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'no-debugger': true } });
         project.write({ 'some-module.gts': typescriptWithInlineTemplate });
 
-        let result = await run(project, ['--format', 'json', '--filename', 'some-module.gts'], {
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gts', {
           shell: false,
           input: fs.readFileSync(path.resolve('some-module.gts')),
         });
@@ -409,9 +395,8 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'require-button-type': true } });
         project.write({ 'some-module.gjs': missingButtonType });
 
-        let result = await run(
-          project,
-          ['--format', 'json', '--filename', 'some-module.gjs', '--fix'],
+        let result = await runBin(
+          '--format', 'json', '--filename', 'some-module.gjs', '--fix',
           {
             shell: false,
             input: fs.readFileSync(path.resolve('some-module.gjs')),
@@ -434,9 +419,8 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'no-implicit-this': true } });
         project.write({ 'some-module.gjs': usingLocalVariable });
 
-        let result = await run(
-          project,
-          ['--format', 'json', '--filename', 'some-module.gjs', '--fix'],
+        let result = await runBin(
+          '--format', 'json', '--filename', 'some-module.gjs', '--fix',
           {
             shell: false,
             input: fs.readFileSync(path.resolve('some-module.gjs')),

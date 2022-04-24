@@ -8,9 +8,7 @@ import buildFakeConsole from '../helpers/console.js';
 import failurePlugin from '../helpers/failure-plugin.js';
 import Project from '../helpers/fake-project.js';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const fixturePath = path.join(__dirname, '..', '/fixtures');
+const fixturePath = path.join(dirname(fileURLToPath(import.meta.url)), '..', '/fixtures');
 
 describe('public api', function () {
   let project;
@@ -29,7 +27,7 @@ describe('public api', function () {
 
   describe('Linter.prototype.loadConfig', function () {
     it('throws an error if the config file has an error on parsing', async function () {
-      project.write({
+      await project.write({
         '.template-lintrc.js': "throw Error('error happening during config loading');\n",
       });
 
@@ -58,7 +56,7 @@ describe('public api', function () {
           baz: 'derp',
         },
       };
-      project.setConfig(expected);
+      await project.setConfig(expected);
 
       let linter = new Linter({
         console: mockConsole,
@@ -80,7 +78,7 @@ describe('public api', function () {
         },
       };
 
-      project.setConfig(expected);
+      await project.setConfig(expected);
 
       let linter = new Linter({
         console: mockConsole,
@@ -100,10 +98,10 @@ describe('public api', function () {
           baz: 'derp',
         },
       };
-      project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
-        someOtherPathConfig
-      )};`;
-      project.writeSync();
+
+      await project.write({
+        'some-other-path.js': `module.exports = ${JSON.stringify(someOtherPathConfig)};`,
+      });
 
       let linter = new Linter({
         console: mockConsole,
@@ -125,8 +123,8 @@ describe('public api', function () {
         },
       };
 
-      project.setConfig(expected);
-      project.write({
+      await project.setConfig(expected);
+      await project.write({
         app: {
           templates: {
             'application.hbs': '',
@@ -155,7 +153,7 @@ describe('public api', function () {
         },
       };
 
-      project.write({
+      await project.write({
         '.template-lintrc.js': `module.exports = ${JSON.stringify({ rules: { boo: 'baz' } })};`,
         app: {
           '.template-lintrc.js': `module.exports = ${JSON.stringify(appPathConfig)};`,
@@ -194,7 +192,7 @@ describe('public api', function () {
           'no-bare-strings': 'error',
         },
       };
-      project.setConfig(expected);
+      await project.setConfig(expected);
 
       let linter = new Linter({
         console: mockConsole,
@@ -228,7 +226,7 @@ describe('public api', function () {
     });
 
     it('instantiating linter is idempotent', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'require-button-type': 'error',
         },
@@ -271,15 +269,15 @@ describe('public api', function () {
   describe('Linter.prototype.verifyAndFix', function () {
     let linter;
 
-    beforeEach(function () {
-      project.setConfig({
+    beforeEach(async function () {
+      await project.setConfig({
         rules: {
           quotes: ['error', 'double'],
           'require-button-type': 'error',
         },
       });
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': "<input class='mb4'>",
@@ -299,7 +297,7 @@ describe('public api', function () {
     });
 
     it('returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>FORBIDDEN</div>',
@@ -328,10 +326,10 @@ describe('public api', function () {
       expect(result).toMatchInlineSnapshot(
         { messages: [{ filePath: expect.any(String) }] },
         `
-        Object {
+        {
           "isFixed": false,
-          "messages": Array [
-            Object {
+          "messages": [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -351,7 +349,7 @@ describe('public api', function () {
 
     it('ensures template parsing errors are only reported once (not once per-rule)', async function () {
       let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.hbs': templateContents,
@@ -375,7 +373,7 @@ describe('public api', function () {
     it('includes updated output when fixable', async function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.hbs': templateContents,
@@ -399,7 +397,7 @@ describe('public api', function () {
     it('updated output includes byte order mark if input source includes it', async function () {
       let templateContents = '\uFEFF<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.hbs': templateContents,
@@ -423,8 +421,8 @@ describe('public api', function () {
 
   describe('Linter.prototype.verify', function () {
     let linter;
-    beforeEach(function () {
-      project.setConfig({
+    beforeEach(async function () {
+      await project.setConfig({
         rules: {
           'no-bare-strings': 'error',
         },
@@ -438,7 +436,7 @@ describe('public api', function () {
         ],
       });
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<h2>Here too!!</h2>\n<div>Bare strings are bad...</div>\n',
@@ -591,6 +589,7 @@ describe('public api', function () {
         message:
           'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
         filePath: 'some/path/here.hbs',
+        isFixable: true,
         line: 2,
         column: 0,
         endColumn: 6,
@@ -1237,15 +1236,15 @@ describe('public api', function () {
   describe('Linter able to lint and fix .html files', function () {
     let linter;
 
-    beforeEach(function () {
-      project.setConfig({
+    beforeEach(async function () {
+      await project.setConfig({
         rules: {
           quotes: ['error', 'double'],
           'require-button-type': 'error',
         },
       });
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.html': "<input class='mb4'>",
@@ -1266,9 +1265,9 @@ describe('public api', function () {
 
     it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default app/index.html (3.20)', async function () {
       // reset config to default value
-      project.setConfig();
+      await project.setConfig();
 
-      project.write({
+      await project.write({
         app: {
           'index.html': `
 {{!template-lint-disable no-forbidden-elements}}
@@ -1313,9 +1312,9 @@ describe('public api', function () {
 
     it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default tests/index.html (3.20)', async function () {
       // reset config to default value
-      project.setConfig();
+      await project.setConfig();
 
-      project.write({
+      await project.write({
         tests: {
           'index.html': `
 {{!template-lint-disable no-forbidden-elements}}
@@ -1367,7 +1366,7 @@ describe('public api', function () {
     });
 
     it('[.html] returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.html': '<div>FORBIDDEN</div>',
@@ -1396,10 +1395,10 @@ describe('public api', function () {
       expect(result).toMatchInlineSnapshot(
         { messages: [{ filePath: expect.any(String) }] },
         `
-        Object {
+        {
           "isFixed": false,
-          "messages": Array [
-            Object {
+          "messages": [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -1419,7 +1418,7 @@ describe('public api', function () {
 
     it('[.html] ensures template parsing errors are only reported once (not once per-rule)', async function () {
       let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.html': templateContents,
@@ -1443,7 +1442,7 @@ describe('public api', function () {
     it('[.html] includes updated output when fixable', async function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.html': templateContents,
@@ -1467,7 +1466,7 @@ describe('public api', function () {
     it('[.html] updated output includes byte order mark if input source includes it', async function () {
       let templateContents = '\uFEFF<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.html': templateContents,
