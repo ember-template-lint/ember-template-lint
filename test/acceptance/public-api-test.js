@@ -905,9 +905,7 @@ describe('public api', function () {
       });
 
       let template =
-        'export const SomeComponent = <template>\n' +
-        '  {{debugger}}\n' +
-        '</template>';
+        'export const SomeComponent = <template>\n' + '  {{debugger}}\n' + '</template>';
       let result = await linter.verify({
         source: template,
       });
@@ -921,7 +919,7 @@ describe('public api', function () {
           message: 'Unexpected {{debugger}} usage.',
           rule: 'no-debugger',
           severity: 2,
-          source: '{{debugger}}'
+          source: '{{debugger}}',
         },
       ]);
     });

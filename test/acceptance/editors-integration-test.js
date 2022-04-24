@@ -191,13 +191,10 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'require-button-type': true } });
         project.write({ 'some-module.js': missingButtonType });
 
-        let result = await runBin(
-          '--format', 'json', '--filename', 'some-module.js', '--fix',
-          {
-            shell: false,
-            input: fs.readFileSync(path.resolve('some-module.js')),
-          }
-        );
+        let result = await runBin('--format', 'json', '--filename', 'some-module.js', '--fix', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.js')),
+        });
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -395,13 +392,10 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'require-button-type': true } });
         project.write({ 'some-module.gjs': missingButtonType });
 
-        let result = await runBin(
-          '--format', 'json', '--filename', 'some-module.gjs', '--fix',
-          {
-            shell: false,
-            input: fs.readFileSync(path.resolve('some-module.gjs')),
-          }
-        );
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', '--fix', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.gjs')),
+        });
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
@@ -419,13 +413,10 @@ describe('editors integration', function () {
         project.setConfig({ rules: { 'no-implicit-this': true } });
         project.write({ 'some-module.gjs': usingLocalVariable });
 
-        let result = await runBin(
-          '--format', 'json', '--filename', 'some-module.gjs', '--fix',
-          {
-            shell: false,
-            input: fs.readFileSync(path.resolve('some-module.gjs')),
-          }
-        );
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', '--fix', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.gjs')),
+        });
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
