@@ -255,6 +255,18 @@ describe('editors integration', function () {
         '  </template>\n' +
         '}\n';
 
+      let typescriptWithInlineTemplate =
+        `import { hbs } from 'ember-cli-htmlbars';\n` +
+        `import { setComponentTemplate } from '@ember/component';\n` +
+        `import Component from '@glimmer/component';\n` +
+        '\n' +
+        'interface Args {}\n' +
+        '\n' +
+        'export class SomeComponent extends Component<Args> {\n' +
+        '  <template>{{debugger}}\n' +
+        '  </template>\n' +
+        '}\n';
+
       let multipleComponents =
         'export const SomeComponent = <template>\n' +
         '  {{debugger}}\n' +
@@ -347,6 +359,39 @@ describe('editors integration', function () {
             endColumn: 16,
             endLine: 9,
             line: 9,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.gts',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('for a template which does not start with a new line, the error location is correct', async function () {
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.gts': typescriptWithInlineTemplate });
+
+        let result = await run(project, ['--format', 'json', '--filename', 'some-module.gts'], {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.gts')),
+        });
+
+        let expectedOutputData = {};
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expectedOutputData['some-module.gts'] = [
+          {
+            column: 12,
+            endColumn: 24,
+            endLine: 8,
+            line: 8,
             message: 'Unexpected {{debugger}} usage.',
             filePath: 'some-module.gts',
             rule: 'no-debugger',

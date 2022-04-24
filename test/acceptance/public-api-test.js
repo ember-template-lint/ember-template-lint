@@ -562,7 +562,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it.only('returns a "fatal" result object if an error occurs during parsing', async function () {
+    it('returns a "fatal" result object if an error occurs during parsing', async function () {
       let template = '<div>';
       let result = await linter.verify({
         source: template,
@@ -894,6 +894,35 @@ describe('public api', function () {
           message: "Definition for rule 'missing-rule' was not found",
           filePath: 'some/path/here.hbs',
           severity: 2,
+        },
+      ]);
+    });
+
+    it('it looks for embedded templates if no filePath was given', async function () {
+      linter = new Linter({
+        config: {
+          rules: { 'no-debugger': true },
+        },
+      });
+
+      let template =
+        'export const SomeComponent = <template>\n' +
+        '  {{debugger}}\n' +
+        '</template>';
+      let result = await linter.verify({
+        source: template,
+      });
+
+      expect(result).toEqual([
+        {
+          column: 2,
+          endColumn: 14,
+          endLine: 2,
+          line: 2,
+          message: 'Unexpected {{debugger}} usage.',
+          rule: 'no-debugger',
+          severity: 2,
+          source: '{{debugger}}'
         },
       ]);
     });
