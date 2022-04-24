@@ -562,7 +562,7 @@ describe('public api', function () {
       expect(result).toEqual(expected);
     });
 
-    it('returns a "fatal" result object if an error occurs during parsing', async function () {
+    it.only('returns a "fatal" result object if an error occurs during parsing', async function () {
       let template = '<div>';
       let result = await linter.verify({
         source: template,
