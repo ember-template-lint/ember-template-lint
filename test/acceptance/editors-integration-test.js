@@ -244,8 +244,10 @@ describe('editors integration', function () {
         'interface Args {}\n' +
         '\n' +
         'export class SomeComponent extends Component<Args> {\n' +
-        '  <template>\n';
-      '    {{debugger}}\n' + '  </template>\n' + '}\n';
+        '  <template>\n' +
+        '    {{debugger}}\n' +
+        '  </template>\n' +
+        '}\n';
 
       let multipleComponents =
         'export const SomeComponent = <template>\n' +
@@ -335,10 +337,10 @@ describe('editors integration', function () {
          */
         expectedOutputData['some-module.gts'] = [
           {
-            column: 2,
-            endColumn: 14,
-            endLine: 6,
-            line: 6,
+            column: 4,
+            endColumn: 16,
+            endLine: 9,
+            line: 9,
             message: 'Unexpected {{debugger}} usage.',
             filePath: 'some-module.gts',
             rule: 'no-debugger',
