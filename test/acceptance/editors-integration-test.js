@@ -409,7 +409,7 @@ describe('editors integration', function () {
         );
       });
 
-      it('no-implicit-this is muted for embedded templates', async function () {
+      it.only('no-implicit-this is muted for embedded templates', async function () {
         project.setConfig({ rules: { 'no-implicit-this': true } });
         project.write({ 'some-module.gjs': usingLocalVariable });
 

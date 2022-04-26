@@ -28,6 +28,30 @@ let good = [
     config: { allow: [/^data-test-.+/] },
     template: '{{foo-bar data-test-foo}}',
   },
+  {
+    template: '{{book}}',
+    meta: {
+      filePath: 'layout.gjs',
+    },
+  },
+  {
+    template: '{{book}}',
+    meta: {
+      filePath: 'layout.gts',
+    },
+  },
+  {
+    template: '{{book}}',
+    meta: {
+      filePath: 'layout.js',
+    },
+  },
+  {
+    template: '{{book}}',
+    meta: {
+      filePath: 'layout.ts',
+    },
+  },
 ];
 
 for (const statement of statements) {
@@ -225,6 +249,29 @@ generateRuleTests({
               "rule": "no-implicit-this",
               "severity": 2,
               "source": "session.user.name",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{book}}',
+      meta: {
+        filePath: undefined,
+      },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 2,
+              "endColumn": 6,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
             },
           ]
         `);
