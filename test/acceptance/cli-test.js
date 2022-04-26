@@ -806,7 +806,8 @@ describe('ember-template-lint executable', function () {
             foo: {
               'bar.gjs': 'export const SomeComponent = <template>\n' + 'Not good\n' + '</template>',
             },
-            'other.gjs': 'export const SomeComponent = <template>\n' + 'Not so good\n' + '</template>',
+            'other.gjs':
+              'export const SomeComponent = <template>\n' + 'Not so good\n' + '</template>',
             'other.hbs': '<div></div>',
           },
         });
