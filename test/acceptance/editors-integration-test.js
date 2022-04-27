@@ -216,6 +216,9 @@ describe('editors integration', function () {
     });
 
     describe('<template>', function () {
+      let templateDefinitionOnOneLine =
+        'export const SomeComponent = <template>{{debugger}}</template>';
+
       let missingButtonType =
         'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>';
 
@@ -388,6 +391,39 @@ describe('editors integration', function () {
         expect(result.stderr).toBeFalsy();
       });
 
+      it('for a template which does not start with a new line, the error location is correct', async function () {
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.gts': templateDefinitionOnOneLine });
+
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gts', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.gts')),
+        });
+
+        let expectedOutputData = {};
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expectedOutputData['some-module.gts'] = [
+          {
+            column: 39,
+            endColumn: 51,
+            endLine: 1,
+            line: 1,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.gts',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
       it('has exit code 0 and writes fixes if --filename is provided', async function () {
         project.setConfig({ rules: { 'require-button-type': true } });
         project.write({ 'some-module.gjs': missingButtonType });
@@ -409,11 +445,11 @@ describe('editors integration', function () {
         );
       });
 
-      it.only('no-implicit-this is muted for embedded templates', async function () {
+      it('no-implicit-this is muted for embedded templates', async function () {
         project.setConfig({ rules: { 'no-implicit-this': true } });
         project.write({ 'some-module.gjs': usingLocalVariable });
 
-        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', '--fix', {
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', {
           shell: false,
           input: fs.readFileSync(path.resolve('some-module.gjs')),
         });
