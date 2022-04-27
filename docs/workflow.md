@@ -102,6 +102,12 @@ Specify a configuration to override the normally loaded config file:
 ember-template-lint . --config='{"extends": "a11y"}'
 ```
 
+Specify to print full file paths (may be needed for CI build annotations in monorepos)
+
+```bash
+ember-template-lint --print-full-path
+```
+
 Provide a custom formatter from a relative path
 
 ```bash

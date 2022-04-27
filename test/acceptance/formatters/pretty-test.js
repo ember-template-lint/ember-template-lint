@@ -186,6 +186,38 @@ describe('pretty formatter', () => {
     expect(result.stderr).toBeFalsy();
   });
 
+  describe('with --print-full-path option', function () {
+    it('should print properly formatted error messages, with full path printed', async function () {
+      await project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+        },
+      });
+      await project.write({
+        app: {
+          templates: {
+            'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+            components: {
+              'foo.hbs': '{{fooData}}',
+            },
+          },
+        },
+      });
+
+      let result = await runBin('.', '--print-full-path');
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout.split('\n')).toEqual([
+        `${project.baseDir}/app/templates/application.hbs`,
+        '  1:4  error  Non-translated string used  no-bare-strings',
+        '  1:25  error  Non-translated string used  no-bare-strings',
+        '',
+        '✖ 2 problems (2 errors, 0 warnings)',
+      ]);
+      expect(result.stderr).toBeFalsy();
+    });
+  });
+
   describe('with --quiet option', function () {
     it('should print properly formatted error messages, omitting any warnings', async function () {
       await project.setConfig({

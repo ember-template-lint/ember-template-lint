@@ -54,6 +54,8 @@ describe('ember-template-lint executable', function () {
                                                 e               [boolean] [default: false]
             --format                            Specify format to be used in printing outp
                                                 ut            [string] [default: "pretty"]
+            --print-full-path                   Prints full file paths in error messages
+                                                                                  [boolean]
             --output-file                       Specify file to write report to   [string]
             --verbose                           Output errors with source description
                                                                                  [boolean]
@@ -121,6 +123,8 @@ describe('ember-template-lint executable', function () {
                                                 e               [boolean] [default: false]
             --format                            Specify format to be used in printing outp
                                                 ut            [string] [default: "pretty"]
+            --print-full-path                   Prints full file paths in error messages
+                                                                                  [boolean]
             --output-file                       Specify file to write report to   [string]
             --verbose                           Output errors with source description
                                                                                  [boolean]
@@ -693,6 +697,8 @@ describe('ember-template-lint executable', function () {
                                                 e               [boolean] [default: false]
             --format                            Specify format to be used in printing outp
                                                 ut            [string] [default: "pretty"]
+            --print-full-path                   Prints full file paths in error messages
+                                                                                  [boolean]
             --output-file                       Specify file to write report to   [string]
             --verbose                           Output errors with source description
                                                                                  [boolean]
