@@ -50,7 +50,7 @@ This rule **allows** the following:
 - boolean -- if `true`, default configuration is applied
 
 - object -- containing the following property:
-  - boolean -- `checkAllElementRoles` -- if `true`, the rule checks for redundancy between any semantic HTML element with a default/implicit ARIA role and the role provided
+  - boolean -- `checkAllHTMLElements` -- if `true`, the rule checks for redundancy between any semantic HTML element with a default/implicit ARIA role and the role provided
     (default: `false`) (TODO: enable by default in next major release)
 
 ## References

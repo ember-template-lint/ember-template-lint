@@ -10,40 +10,45 @@ generateRuleTests({
     '<footer role={{this.foo}}></footer>',
     '<footer role="{{this.stuff}}{{this.foo}}"></footer>',
     '<nav role="navigation"></nav>',
-    '<body role="document"></body>',
+    '<body role="document"></body>', // allows redundant non-landmark role when `checkAllHTMLElements` option defaults to `false`
+
     {
-      config: {
-        checkAllElementRoles: true,
-      },
-      template: '<button role="link"></button>',
+      config: { checkAllHTMLElements: true },
+      template: '<footer role={{this.bar}}></footer>',
     },
     {
       config: {
-        checkAllElementRoles: true,
-      },
-      template: '<input type="checkbox" value="yes" checked />',
-    },
-    {
-      config: {
-        checkAllElementRoles: true,
+        checkAllHTMLElements: true,
       },
       template: '<nav class="navigation" role="navigation></nav>',
     },
     {
       config: {
-        checkAllElementRoles: false,
+        checkAllHTMLElements: true,
+      },
+      template: '<button role="link"></button>',
+    },
+    {
+      config: {
+        checkAllHTMLElements: true,
+      },
+      template: '<input type="checkbox" value="yes" checked />',
+    },
+    {
+      config: {
+        checkAllHTMLElements: false,
       },
       template: '<input type="range" />',
     },
     {
       config: {
-        checkAllElementRoles: false,
+        checkAllHTMLElements: false,
       },
       template: '<dialog role="dialog" />',
     },
     {
       config: {
-        checkAllElementRoles: false,
+        checkAllHTMLElements: false,
       },
       template: '<ul class="list" role="combobox"></ul>',
     },
@@ -189,7 +194,7 @@ generateRuleTests({
       },
     },
     {
-      config: { checkAllElementRoles: true },
+      config: { checkAllHTMLElements: true },
       template: '<button role="button"></button>',
       fixedTemplate: '<button></button>',
 
@@ -213,7 +218,7 @@ generateRuleTests({
       },
     },
     {
-      config: { checkAllElementRoles: true },
+      config: { checkAllHTMLElements: true },
       template: '<input type="checkbox" name="agree" value="checkbox1" role="checkbox" />',
       fixedTemplate: '<input type="checkbox" name="agree" value="checkbox1" />',
 
@@ -237,7 +242,7 @@ generateRuleTests({
       },
     },
     {
-      config: { checkAllElementRoles: true },
+      config: { checkAllHTMLElements: true },
       template: '<table><th role="columnheader">Some heading</th><td>cell1</td></table>',
       fixedTemplate: '<table><th>Some heading</th><td>cell1</td></table>',
 
@@ -261,7 +266,7 @@ generateRuleTests({
       },
     },
     {
-      config: { checkAllElementRoles: true },
+      config: { checkAllHTMLElements: true },
       template:
         '<select name="color" id="color" role="listbox" multiple><option value="default-color">black</option></select>',
       fixedTemplate:
@@ -287,7 +292,7 @@ generateRuleTests({
       },
     },
     {
-      config: { checkAllElementRoles: false },
+      config: { checkAllHTMLElements: false },
       template: '<main role="main"></main>',
       fixedTemplate: '<main></main>',
 
@@ -311,7 +316,7 @@ generateRuleTests({
       },
     },
     {
-      config: { checkAllElementRoles: false },
+      config: { checkAllHTMLElements: false },
       template: '<aside role="complementary"></aside>',
       fixedTemplate: '<aside></aside>',
 
