@@ -110,11 +110,12 @@ describe('editors integration', function () {
         '  templateOnly()\n' +
         ');\n';
 
-      const templateThatShouldNotBeParsed = 'export default class Foo extends Service {\n' +
+      const templateThatShouldNotBeParsed =
+        'export default class Foo extends Service {\n' +
         '  indentedThing = stripIndent`\n' +
         '  Hahaha, this is just a plain string. Definitely not a template.\n' +
         '`\n' +
-      '}';
+        '}';
 
       it('does not parse regular strings as a template', async function () {
         project.setConfig({ rules: { 'no-bare-strings': true } });
