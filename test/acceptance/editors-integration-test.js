@@ -110,6 +110,26 @@ describe('editors integration', function () {
         '  templateOnly()\n' +
         ');\n';
 
+      const templateThatShouldNotBeParsed = 'export default class Foo extends Service {\n' +
+        '  indentedThing = stripIndent`\n' +
+        '  Hahaha, this is just a plain string. Definitely not a template.\n' +
+        '`\n' +
+      '}';
+
+      it('does not parse regular strings as a template', async function () {
+        project.setConfig({ rules: { 'no-bare-strings': true } });
+        project.write({ 'some-module.gjs': templateThatShouldNotBeParsed });
+
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.gjs')),
+        });
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
+      });
+
       it('for multiple components in one module, it has exit code 1 and reports errors to stdout', async function () {
         project.setConfig({ rules: { 'no-debugger': true } });
         project.write({ 'some-module.js': multipleComponents });
@@ -391,7 +411,7 @@ describe('editors integration', function () {
         expect(result.stderr).toBeFalsy();
       });
 
-      it('for a template which does not start with a new line, the error location is correct', async function () {
+      it('for a template defined on one line, the error location is correct', async function () {
         project.setConfig({ rules: { 'no-debugger': true } });
         project.write({ 'some-module.gts': templateDefinitionOnOneLine });
 
