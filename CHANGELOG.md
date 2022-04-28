@@ -9,6 +9,16 @@
 
 
 
+
+## v4.6.0 (2022-04-28)
+
+#### :rocket: Enhancement
+* [#2487](https://github.com/ember-template-lint/ember-template-lint/pull/2487) Add `checkAllHTMLElements` option to `no-redundant-landmark-role` rule to lint against all HTML elements with default ARIA roles ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 1
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v4.5.0 (2022-04-22)
 
 #### :rocket: Enhancement
