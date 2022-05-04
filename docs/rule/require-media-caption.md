@@ -31,7 +31,7 @@ This rule **allows** the following:
 ```
 
 ```hbs
-<video muted></video>
+<video><track kind="captions" /><track kind="descriptions" /></video>
 ```
 
 ## References
