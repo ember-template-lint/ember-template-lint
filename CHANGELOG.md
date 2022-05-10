@@ -10,6 +10,16 @@
 
 
 
+
+## v4.7.0 (2022-05-10)
+
+#### :rocket: Enhancement
+* [#2497](https://github.com/ember-template-lint/ember-template-lint/pull/2497) Add new rule `require-media-caption` ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 1
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v4.6.0 (2022-04-28)
 
 #### :rocket: Enhancement
