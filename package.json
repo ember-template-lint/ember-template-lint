@@ -64,7 +64,7 @@
     ]
   },
   "dependencies": {
-    "@lint-todo/utils": "^13.0.2",
+    "@lint-todo/utils": "^13.0.3",
     "aria-query": "^5.0.0",
     "chalk": "^4.1.2",
     "ci-info": "^3.3.0",
