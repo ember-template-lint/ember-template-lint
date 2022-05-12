@@ -81,7 +81,7 @@ jobs:
 
       - name: install dependencies
         # Temporary fix for Node 12 pulling in devDependencies who's engines require > 14
-        run: npm ci
+        run: npm ci --force
 
       # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
       # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
