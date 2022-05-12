@@ -99,7 +99,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unicorn": "^41.0.1",
     "execa": "^6.1.0",
-    "fixturify-project": "^4.1.2",
+    "fixturify-project": "^5.0.2",
     "jest": "^28.1.0",
     "markdownlint-cli": "^0.31.1",
     "npm-package-json-lint": "^5.4.2",
