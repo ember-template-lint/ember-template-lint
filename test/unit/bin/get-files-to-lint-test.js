@@ -16,7 +16,7 @@ describe('getFilesToLint', function () {
     teardownProject();
   });
 
-  // yarn ember-template-lint --filename application.hbs < application.hbs
+  // npx ember-template-lint --filename application.hbs < application.hbs
   describe('when given empty array', function () {
     it('returns a set including stdin', async function () {
       let files = await getFilesToLint(project.baseDir, [], 'other.hbs');
@@ -26,7 +26,7 @@ describe('getFilesToLint', function () {
     });
   });
 
-  // cat applications.hbs | yarn ember-template-lint --filename application.hbs STDIN
+  // cat applications.hbs | npx ember-template-lint --filename application.hbs STDIN
   describe('when given stdin', function () {
     it('returns a set including stdin', async function () {
       let files = await getFilesToLint(project.baseDir, [STDIN, 'other.hbs']);
@@ -38,7 +38,7 @@ describe('getFilesToLint', function () {
 
   if (process.platform !== 'win32') {
     describe("when given stdin through unix's dash", function () {
-      // cat applications.hbs | yarn ember-template-lint --filename application.hbs -
+      // cat applications.hbs | npx ember-template-lint --filename application.hbs -
       it('returns a set including stdin', async function () {
         let files = await getFilesToLint(project.baseDir, ['-', 'other.hbs']);
 
