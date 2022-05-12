@@ -100,6 +100,6 @@ jobs:
       - uses: volta-cli/action@v1
 
       - name: install dependencies
-        run: npm ci
+        run: npm install --no-package-lock
 
       - run: npm run test:jest
