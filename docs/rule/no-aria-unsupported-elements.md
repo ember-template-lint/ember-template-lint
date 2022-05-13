@@ -1,6 +1,15 @@
 # no-aria-unsupported-elements
 
-Certain reserved DOM elements like `meta`, `html`, `script`, `style` do not support ARIA roles, states and properties. This is often because they are not visible. This rule enforces that these DOM elements do not contain the `role` and/or `aria-*` props.
+Certain reserved DOM elements do not support ARIA roles, states and properties. This is often because they are not visible.
+
+These elements include:
+
+- `html`
+- `meta`
+- `script`
+- `style`
+
+This rule enforces that these DOM elements do not contain the `role` and/or `aria-*` props.
 
 ## Examples
 
