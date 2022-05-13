@@ -11,6 +11,24 @@
 
 
 
+
+## v4.8.0 (2022-05-13)
+
+#### :rocket: Enhancement
+* [#2507](https://github.com/ember-template-lint/ember-template-lint/pull/2507) Add new rule `no-aria-unsupported-elements` ([@thegilby](https://github.com/thegilby))
+
+#### :bug: Bug Fix
+* [#2503](https://github.com/ember-template-lint/ember-template-lint/pull/2503) Fixes issue where lint-todos add blank lines in .lint-todo storage file ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* [#2506](https://github.com/ember-template-lint/ember-template-lint/pull/2506) Converts to using npm over yarn 1 ([@scalvert](https://github.com/scalvert))
+* [#2505](https://github.com/ember-template-lint/ember-template-lint/pull/2505) Fixes CI OOM issues in Windows for Node 18 ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 2
+- Gilbert "Gilby" Hernandez ([@thegilby](https://github.com/thegilby))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v4.7.0 (2022-05-10)
 
 #### :rocket: Enhancement
