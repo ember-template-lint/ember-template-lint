@@ -79,7 +79,7 @@
     "micromatch": "^4.0.5",
     "resolve": "^1.22.0",
     "v8-compile-cache": "^2.3.0",
-    "yargs": "^17.4.1"
+    "yargs": "^17.5.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
