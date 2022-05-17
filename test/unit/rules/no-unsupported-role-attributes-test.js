@@ -11,6 +11,7 @@ generateRuleTests({
     '<span role="checkbox" aria-checked={{this.checked}}></span>',
     '<CustomComponent role="banner" />',
     '<div role="textbox" aria-required={{this.required}} aria-errormessage={{this.error}}></div>',
+    '<div role="heading" foo="true" />',
     '<dialog />',
     '<a href="#" aria-describedby=""></a>',
     '<menu type="toolbar" aria-hidden="true" />',
@@ -18,6 +19,7 @@ generateRuleTests({
     '<input type="image" aria-atomic />',
     '<input type="submit" aria-disabled="true" />',
     '<select aria-expanded="false" aria-controls="ctrlID" />',
+    '<div type="button" foo="true" />',
   ],
 
   bad: [
