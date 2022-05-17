@@ -20,6 +20,8 @@ generateRuleTests({
     '<input type="submit" aria-disabled="true" />',
     '<select aria-expanded="false" aria-controls="ctrlID" />',
     '<div type="button" foo="true" />',
+    '{{some-component role="heading" aria-level="2"}}',
+    '{{other-component role=this.role aria-bogus="true"}}',
   ],
 
   bad: [
@@ -226,6 +228,29 @@ generateRuleTests({
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
               "source": "<input type=\\"email\\" aria-level={{this.level}} />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{foo-component role="button" aria-valuetext="blahblahblah"}}',
+      fixedTemplate: '{{foo-component role="button"}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 61,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "The attribute aria-valuetext is not supported by the role button",
+              "rule": "no-unsupported-role-attributes",
+              "severity": 2,
+              "source": "{{foo-component role=\\"button\\" aria-valuetext=\\"blahblahblah\\"}}",
             },
           ]
         `);
