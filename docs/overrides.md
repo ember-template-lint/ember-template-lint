@@ -12,7 +12,7 @@ This option takes an array of objects where each object would support 2 keys:
 - `files`: Array of glob patterns (that would either match the exact modules or glob-match multiple modules)
 - `rules`: An object of lint rules that the user wants to override for the specific files
 
-- **module** -- `'app/templates/exceptional-page'`
+- **module** -- `'app/templates/exceptional-page.hbs'`
 - **glob** -- `'app/templates/components/odd-ones/**'`
 
 ## Sample configuration
