@@ -247,7 +247,7 @@ describe('Linter.errorsToMessages', function () {
     chalk.level = 0;
   });
 
-  it('formats error with rule, message and moduleId', function () {
+  it('formats error with rule and message', function () {
     let result = PrettyFormatter.errorsToMessages('file/path', [
       { rule: 'some rule', message: 'some message' },
     ]);
