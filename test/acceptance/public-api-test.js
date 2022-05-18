@@ -866,12 +866,30 @@ describe('public api', function () {
       expect(result).toEqual([]);
     });
 
-    it('does not include errors when marked as ignored', async function () {
+    it('does not include errors when marked as ignored using a module ID', async function () {
       linter = new Linter({
         console: mockConsole,
         config: {
           rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
           ignore: ['some/path/here'],
+        },
+      });
+
+      let template = '<div>bare string</div>';
+      let result = await linter.verify({
+        source: template,
+        filePath: 'some/path/here.hbs',
+      });
+
+      expect(result).toEqual([]);
+    });
+
+    it('does not include errors when marked as ignored using a file path', async function () {
+      linter = new Linter({
+        console: mockConsole,
+        config: {
+          rules: { 'no-bare-strings': 'error', 'block-indentation': 'error' },
+          ignore: ['some/path/here.hbs'],
         },
       });
 
