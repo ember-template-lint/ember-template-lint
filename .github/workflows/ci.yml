@@ -22,18 +22,20 @@ jobs:
       - uses: volta-cli/action@v1
 
       - name: install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
-      - run: yarn lint
+      - run: npm run lint
 
-      - run: yarn test:jest
+      - run: npm run test:jest
 
-      - run: yarn update && git diff --exit-code
+      - run: npm run update && git diff --exit-code
 
   nodeX:
     name: Node ${{ matrix.node-version }} - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 15
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     strategy:
       matrix:
@@ -53,13 +55,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
       # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
       #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
       # Possibly related: https://github.com/facebook/jest/issues/11438
-      - run: yarn test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
+      - run: npm run test:jest -- --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
 
   node12:
     name: Node 12
@@ -79,13 +81,13 @@ jobs:
 
       - name: install dependencies
         # Temporary fix for Node 12 pulling in devDependencies who's engines require > 14
-        run: yarn install --frozen-lockfile --ignore-engines
+        run: npm ci --force
 
       # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
       # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
       #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
       # Possibly related: https://github.com/facebook/jest/issues/11438
-      - run: yarn test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
+      - run: npm run test:jest -- --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
 
   floating-dependencies:
     name: Floating Dependencies
@@ -98,6 +100,6 @@ jobs:
       - uses: volta-cli/action@v1
 
       - name: install dependencies
-        run: yarn install --no-lockfile
+        run: npm install --no-package-lock
 
-      - run: yarn test:jest
+      - run: npm run test:jest

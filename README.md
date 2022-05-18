@@ -105,6 +105,7 @@ Each rule has emojis denoting:
 | [no-args-paths](./docs/rule/no-args-paths.md)                                                             | ✅  |     |     |     |
 | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | ✅  |     |     |     |
 | [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 | ✅  |     | ⌨️  | 🔧  |
+| [no-aria-unsupported-elements](./docs/rule/no-aria-unsupported-elements.md)                               |     |     | ⌨️  |     |
 | [no-array-prototype-extensions](./docs/rule/no-array-prototype-extensions.md)                             |     |     |     | 🔧  |
 | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           | ✅  |     |     |     |
 | [no-autofocus-attribute](./docs/rule/no-autofocus-attribute.md)                                           | ✅  |     | ⌨️  |     |
@@ -186,6 +187,7 @@ Each rule has emojis denoting:
 | [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | ✅  |     | ⌨️  |     |
 | [require-input-label](./docs/rule/require-input-label.md)                                                 | ✅  |     | ⌨️  |     |
 | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | ✅  |     | ⌨️  |     |
+| [require-media-caption](./docs/rule/require-media-caption.md)                                             |     |     | ⌨️  |     |
 | [require-presentational-children](./docs/rule/require-presentational-children.md)                         | ✅  |     | ⌨️  |     |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |

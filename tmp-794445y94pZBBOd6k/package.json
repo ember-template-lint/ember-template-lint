@@ -1,0 +1,10 @@
+{
+  "name": "fake-project",
+  "version": "0.0.0",
+  "keywords": [],
+  "license": "MIT",
+  "description": "Fake project",
+  "repository": "http://fakerepo.com",
+  "dependencies": {},
+  "devDependencies": {}
+}
