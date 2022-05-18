@@ -343,7 +343,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toMatchInlineSnapshot(
@@ -385,7 +384,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result.messages.length).toEqual(1);
@@ -409,7 +407,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result.messages).toEqual([]);
@@ -433,7 +430,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result.messages).toEqual([]);
@@ -597,7 +593,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -625,7 +620,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
       });
 
       let expected = {
@@ -658,7 +652,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
       });
 
       let expected = {
@@ -683,7 +676,6 @@ describe('public api', function () {
 
       let result = await linter.verify({
         source: templateContents,
-        moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
       });
 
@@ -725,7 +717,6 @@ describe('public api', function () {
 
       let result = await linter.verify({
         source: templateContents,
-        moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
       });
 
@@ -763,7 +754,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
       });
 
       let expected = [
@@ -826,7 +816,6 @@ describe('public api', function () {
 
       let result = await linter.verify({
         source: templateContents,
-        moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
       });
 
@@ -871,7 +860,6 @@ describe('public api', function () {
 
       let result = await linter.verify({
         source: templateContents,
-        moduleId: templatePath.slice(0, -4),
         filePath: templatePath,
       });
 
@@ -891,7 +879,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
       });
 
       expect(result).toEqual([]);
@@ -910,7 +897,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
       });
 
       expect(result).toEqual([]);
@@ -928,7 +914,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: template,
         filePath: 'some/path/here.hbs',
-        moduleId: 'some/path/here',
       });
 
       expect(result).toEqual([
@@ -999,7 +984,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1013,7 +997,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1090,7 +1073,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1138,7 +1120,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1176,7 +1157,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1214,7 +1194,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1240,7 +1219,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1294,7 +1272,6 @@ describe('public api', function () {
         {
           rule: 'some rule2',
           message: 'some message2',
-          moduleId: 'some moduleId2',
           source: 'some source2',
         },
       ]);
@@ -1384,7 +1361,6 @@ describe('public api', function () {
       let results = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(results).toEqual([]);
@@ -1439,7 +1415,6 @@ describe('public api', function () {
       let results = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(results).toEqual([]);
@@ -1469,7 +1444,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toMatchInlineSnapshot(
@@ -1511,7 +1485,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result.messages.length).toEqual(1);
@@ -1535,7 +1508,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result.messages).toEqual([]);
@@ -1559,7 +1531,6 @@ describe('public api', function () {
       let result = await linter.verifyAndFix({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result.messages).toEqual([]);

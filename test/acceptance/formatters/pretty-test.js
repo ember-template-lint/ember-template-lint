@@ -289,7 +289,6 @@ describe('Linter.errorsToMessages', function () {
       {
         rule: 'some rule2',
         message: 'some message2',
-        moduleId: 'some moduleId2',
         source: 'some source2',
       },
     ]);
