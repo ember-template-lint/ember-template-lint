@@ -64,6 +64,7 @@
     ]
   },
   "dependencies": {
+    "@glimmer/syntax": "^0.84.2",
     "@lint-todo/utils": "^13.0.2",
     "aria-query": "^5.0.0",
     "chalk": "^4.1.2",
