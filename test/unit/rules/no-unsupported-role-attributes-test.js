@@ -22,6 +22,8 @@ generateRuleTests({
     '<div type="button" foo="true" />',
     '{{some-component role="heading" aria-level="2"}}',
     '{{other-component role=this.role aria-bogus="true"}}',
+    '<ItemCheckbox @model={{@model}} @checkable={{@checkable}} />',
+    '<some-custom-element />',
   ],
 
   bad: [
