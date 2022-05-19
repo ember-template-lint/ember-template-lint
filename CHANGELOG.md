@@ -13,6 +13,16 @@
 
 
 
+
+## v4.9.1 (2022-05-19)
+
+#### :bug: Bug Fix
+* [#2516](https://github.com/ember-template-lint/ember-template-lint/pull/2516) Fix crash in `no-unsupported-role-attributes` rule when an element has no implicit role ([@bertdeblock](https://github.com/bertdeblock))
+
+#### Committers: 1
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+
+
 ## v4.9.0 (2022-05-18)
 
 #### :rocket: Enhancement
