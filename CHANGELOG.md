@@ -12,6 +12,20 @@
 
 
 
+
+## v4.9.0 (2022-05-18)
+
+#### :rocket: Enhancement
+* [#2511](https://github.com/ember-template-lint/ember-template-lint/pull/2511) Add new rule `no-unsupported-role-attributes` ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :bug: Bug Fix
+* [#2509](https://github.com/ember-template-lint/ember-template-lint/pull/2509) Update yargs to 17.5.1 to fix `--version` ([@jamescdavis](https://github.com/jamescdavis))
+
+#### Committers: 2
+- James C. Davis ([@jamescdavis](https://github.com/jamescdavis))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v4.8.0 (2022-05-13)
 
 #### :rocket: Enhancement
