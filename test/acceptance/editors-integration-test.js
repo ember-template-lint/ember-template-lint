@@ -235,7 +235,7 @@ describe('editors integration', function () {
         );
       });
 
-      it.only.each([
+      it.each([
         `import { hbs } from 'ember-cli-htmlbars'`,
         `import { hbs } from '@ember/template-compilation'`,
         `import hbs from 'ember-cli-htmlbars-inline-precompile'`,
@@ -301,19 +301,6 @@ describe('editors integration', function () {
         '  <Something />\n' +
         '  {{something}}\n' +
         '</template>';
-
-      let typescript =
-        `import { hbs } from 'ember-cli-htmlbars';\n` +
-        `import { setComponentTemplate } from '@ember/component';\n` +
-        `import Component from '@glimmer/component';\n` +
-        '\n' +
-        'interface Args {}\n' +
-        '\n' +
-        'export class SomeComponent extends Component<Args> {\n' +
-        '  <template>\n' +
-        '    {{debugger}}\n' +
-        '  </template>\n' +
-        '}\n';
 
       let typescriptWithInlineTemplate =
         `import { hbs } from 'ember-cli-htmlbars';\n` +
@@ -388,39 +375,6 @@ describe('editors integration', function () {
             line: 11,
             message: 'Unexpected {{debugger}} usage.',
             filePath: 'some-module.gjs',
-            rule: 'no-debugger',
-            severity: 2,
-            source: '{{debugger}}',
-          },
-        ];
-
-        expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-        expect(result.stderr).toBeFalsy();
-      });
-
-      it('for typescript files, it has exit code 1 and reports errors to stdout', async function () {
-        project.setConfig({ rules: { 'no-debugger': true } });
-        project.write({ 'some-module.gts': typescript });
-
-        let result = await runBin('--format', 'json', '--filename', 'some-module.gts', {
-          shell: false,
-          input: fs.readFileSync(path.resolve('some-module.gts')),
-        });
-
-        let expectedOutputData = {};
-        /**
-         * Indentation is adjusted for the whole file, and not
-         * scoped to the template
-         */
-        expectedOutputData['some-module.gts'] = [
-          {
-            column: 4,
-            endColumn: 16,
-            endLine: 9,
-            line: 9,
-            message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.gts',
             rule: 'no-debugger',
             severity: 2,
             source: '{{debugger}}',
