@@ -234,6 +234,59 @@ describe('editors integration', function () {
             ');'
         );
       });
+
+      it.only.each([
+        `import { hbs } from 'ember-cli-htmlbars'`,
+        `import { hbs } from '@ember/template-compilation'`,
+        `import hbs from 'ember-cli-htmlbars-inline-precompile'`,
+        `import hbs from 'htmlbars-inline-precompile'`,
+        `import { precompileTemplate as hbs } from '@ember/template-compilation'`,
+      ])(
+        'for typescript files, it has exit code 1 and reports errors to stdout',
+        async function (importStatement) {
+          let code =
+            `${importStatement};\n` +
+            `import { setComponentTemplate } from '@ember/component';\n` +
+            `import Component from '@glimmer/component';\n` +
+            '\n' +
+            'interface Args {}\n' +
+            '\n' +
+            'export const SomeComponent = hbs`\n' +
+            '  {{debugger}}\n' +
+            '  `,\n' +
+            '  class Some extends Component<Args> {};';
+          project.setConfig({ rules: { 'no-debugger': true } });
+          project.write({ 'some-module.ts': code });
+
+          let result = await runBin('--format', 'json', '--filename', 'some-module.ts', {
+            shell: false,
+            input: fs.readFileSync(path.resolve('some-module.ts')),
+          });
+
+          let expectedOutputData = {};
+          /**
+           * Indentation is adjusted for the whole file, and not
+           * scoped to the template
+           */
+          expectedOutputData['some-module.ts'] = [
+            {
+              column: 2,
+              endColumn: 14,
+              endLine: 8,
+              line: 8,
+              message: 'Unexpected {{debugger}} usage.',
+              filePath: 'some-module.ts',
+              rule: 'no-debugger',
+              severity: 2,
+              source: '{{debugger}}',
+            },
+          ];
+
+          expect(result.exitCode).toEqual(1);
+          expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+          expect(result.stderr).toBeFalsy();
+        }
+      );
     });
 
     describe('<template>', function () {
