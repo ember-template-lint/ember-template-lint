@@ -188,12 +188,12 @@ Each rule has emojis denoting:
 | [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | ✅  |     | ⌨️  |     |
 | [require-input-label](./docs/rule/require-input-label.md)                                                 | ✅  |     | ⌨️  |     |
 | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | ✅  |     | ⌨️  |     |
+| [require-mandatory-role-attributes](./docs/rule/require-mandatory-role-attributes.md)                               |     |     | ⌨️  |     |
 | [require-media-caption](./docs/rule/require-media-caption.md)                                             |     |     | ⌨️  |     |
 | [require-presentational-children](./docs/rule/require-presentational-children.md)                         | ✅  |     | ⌨️  |     |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |
 | [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     |     |
-| [role-has-required-attributes](./docs/rule/role-has-required-attributes.md)                               |     |     | ⌨️  |     |
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     |     |
 | [simple-unless](./docs/rule/simple-unless.md)                                                             | ✅  |     |     |     |
 | [splat-attributes-only](./docs/rule/splat-attributes-only.md)                                             | ✅  |     |     |     |

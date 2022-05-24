@@ -1,4 +1,4 @@
-# role-has-required-attributes
+# require-mandatory-role-attributes
 
 Elements with ARIA roles must also include all required attributes for that role. This ensures that a given element possesses the necessary states and properties to behave consistently with user expectations for other elements with the same ARIA role.
 
@@ -11,7 +11,7 @@ This rule **forbids** the following:
 ```hbs
 <div role="option" />
 <CustomComponent role="checkbox" aria-required="true" />
-{{some-component role="heading" aria-boguslevel="2"}}
+{{some-component role="heading"}}
 ```
 
 This rule **allows** the following:
@@ -19,7 +19,7 @@ This rule **allows** the following:
 ```hbs
 <div role="option" aria-selected="false" />
 <CustomComponent role="checkbox" aria-required="true" aria-checked="false" />
-{{some-component role="heading" aria-boguslevel="2" aria-level="2"}}
+{{some-component role="heading" aria-level="2"}}
 ```
 
 ## References

@@ -1,7 +1,7 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'role-has-required-attributes',
+  name: 'require-mandatory-role-attributes',
 
   config: true,
 
@@ -31,7 +31,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The attributes aria-controls, aria-expanded are required by the role combobox",
-              "rule": "role-has-required-attributes",
+              "rule": "require-mandatory-role-attributes",
               "severity": 2,
               "source": "<div role=\\"combobox\\" aria-controls=\\"someId\\" />",
             },
@@ -52,7 +52,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The attribute aria-selected is required by the role option",
-              "rule": "role-has-required-attributes",
+              "rule": "require-mandatory-role-attributes",
               "severity": 2,
               "source": "<div role=\\"option\\"  />",
             },
@@ -73,7 +73,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The attribute aria-checked is required by the role checkbox",
-              "rule": "role-has-required-attributes",
+              "rule": "require-mandatory-role-attributes",
               "severity": 2,
               "source": "<CustomComponent role=\\"checkbox\\" aria-required=\\"true\\" />",
             },
@@ -95,7 +95,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The attributes aria-controls, aria-valuenow are required by the role scrollbar",
-              "rule": "role-has-required-attributes",
+              "rule": "require-mandatory-role-attributes",
               "severity": 2,
               "source": "<SomeComponent role=\\"scrollbar\\" @aria-now={{this.valuenow}} aria-controls={{some-id}} />",
             },
@@ -116,7 +116,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "The attribute aria-level is required by the role heading",
-              "rule": "role-has-required-attributes",
+              "rule": "require-mandatory-role-attributes",
               "severity": 2,
               "source": "{{some-component role=\\"heading\\"}}",
             },
