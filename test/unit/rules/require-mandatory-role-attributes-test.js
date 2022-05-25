@@ -6,15 +6,23 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<div />',
+    '<div aria-disabled="true" />',
     '<div role="complementary" />',
     '<div role="combobox" aria-expanded="false" aria-controls="ctrlId" />',
     '<div role="option" aria-selected={{false}} />',
+    '<FakeComponent />',
+    '<FakeComponent role="fakerole" />',
     '<CustomComponent role="checkbox" aria-checked="false" />',
     '<SomeComponent role={{this.role}} aria-notreal="bar" />',
     '<OtherComponent @role={{@role}} aria-required={{this.required}} />',
     '<FakeElement aria-disabled="true" />',
+    '{{some-component}}',
+    '{{some-component foo="true"}}',
     '{{some-component role="heading" aria-level="2"}}',
     '{{foo-component role="button"}}',
+    '{{foo-component role="unknown"}}',
+    '{{foo-component role=role}}',
   ],
 
   bad: [
