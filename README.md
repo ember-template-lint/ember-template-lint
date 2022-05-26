@@ -188,7 +188,7 @@ Each rule has emojis denoting:
 | [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | ✅  |     | ⌨️  |     |
 | [require-input-label](./docs/rule/require-input-label.md)                                                 | ✅  |     | ⌨️  |     |
 | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | ✅  |     | ⌨️  |     |
-| [require-mandatory-role-attributes](./docs/rule/require-mandatory-role-attributes.md)                               |     |     | ⌨️  |     |
+| [require-mandatory-role-attributes](./docs/rule/require-mandatory-role-attributes.md)                     |     |     | ⌨️  |     |
 | [require-media-caption](./docs/rule/require-media-caption.md)                                             |     |     | ⌨️  |     |
 | [require-presentational-children](./docs/rule/require-presentational-children.md)                         | ✅  |     | ⌨️  |     |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
