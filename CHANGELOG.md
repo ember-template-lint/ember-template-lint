@@ -14,6 +14,16 @@
 
 
 
+
+## v4.10.0 (2022-05-26)
+
+#### :rocket: Enhancement
+* [#2523](https://github.com/ember-template-lint/ember-template-lint/pull/2523) Add new rule `require-mandatory-role-attributes` ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 1
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v4.9.1 (2022-05-19)
 
 #### :bug: Bug Fix
