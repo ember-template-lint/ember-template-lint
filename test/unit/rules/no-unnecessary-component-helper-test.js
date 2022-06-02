@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-unnecessary-component-helper');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-unnecessary-component-helper',
@@ -56,33 +53,66 @@ generateRuleTests({
     {
       template: '{{component "my-component-name"}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{component "my-component-name"}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invoke component directly instead of using \`component\` helper",
+              "rule": "no-unnecessary-component-helper",
+              "severity": 2,
+              "source": "{{component \\"my-component-name\\"}}",
+            },
+          ]
+        `);
       },
     },
     // BlockStatement:
     {
       template: '{{#component "my-component-name"}}{{/component}}',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{#component "my-component-name"}}{{/component}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 48,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invoke component directly instead of using \`component\` helper",
+              "rule": "no-unnecessary-component-helper",
+              "severity": 2,
+              "source": "{{#component \\"my-component-name\\"}}{{/component}}",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<Foo @arg={{component "allowed-component"}}>{{component "forbidden-component"}}</Foo>',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '{{component "forbidden-component"}}',
-        line: 1,
-        column: 44,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 44,
+              "endColumn": 79,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invoke component directly instead of using \`component\` helper",
+              "rule": "no-unnecessary-component-helper",
+              "severity": 2,
+              "source": "{{component \\"forbidden-component\\"}}",
+            },
+          ]
+        `);
       },
     },
   ],

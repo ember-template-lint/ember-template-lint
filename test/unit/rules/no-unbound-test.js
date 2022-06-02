@@ -1,7 +1,4 @@
-'use strict';
-
-const { message } = require('../../../lib/rules/no-unbound');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-unbound',
@@ -14,21 +11,43 @@ generateRuleTests({
     {
       template: '{{unbound foo}}',
 
-      result: {
-        message,
-        source: '{{unbound foo}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 15,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{unbound}} usage.",
+              "rule": "no-unbound",
+              "severity": 2,
+              "source": "{{unbound foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{my-thing foo=(unbound foo)}}',
 
-      result: {
-        message,
-        source: '(unbound foo)',
-        line: 1,
-        column: 15,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 15,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{unbound}} usage.",
+              "rule": "no-unbound",
+              "severity": 2,
+              "source": "(unbound foo)",
+            },
+          ]
+        `);
       },
     },
   ],

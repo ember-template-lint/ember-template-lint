@@ -1,8 +1,14 @@
-'use strict';
+import assert from 'node:assert';
 
-const generateRuleTests = require('../../lib/helpers/rule-test-harness');
+import generateRuleTests from '../../lib/helpers/rule-test-harness.js';
 
-module.exports = function (options) {
+export default function (...args) {
+  assert(args.length === 1, '`generateRuleTests` should only be called with one argument.');
+  const [options] = args;
+  assert(
+    typeof options === 'object',
+    '`generateRuleTests` should only be called with an object argument.'
+  );
   return generateRuleTests(
     Object.assign({}, options, {
       groupMethodBefore: beforeEach,
@@ -11,4 +17,4 @@ module.exports = function (options) {
       focusMethod: test.only,
     })
   );
-};
+}

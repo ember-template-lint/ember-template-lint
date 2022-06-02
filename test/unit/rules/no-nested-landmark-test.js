@@ -1,9 +1,4 @@
-'use strict';
-
-const rule = require('../../../lib/rules/no-nested-landmark');
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const { createErrorMessage } = rule;
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-nested-landmark',
@@ -22,94 +17,204 @@ generateRuleTests({
   bad: [
     {
       template: '<main><main></main></main>',
-      result: {
-        message: createErrorMessage('main'),
-        line: 1,
-        column: 6,
-        source: '<main></main>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 6,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<main></main>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<main><div><main></main></div></main>',
-      result: {
-        message: createErrorMessage('main'),
-        line: 1,
-        column: 11,
-        source: '<main></main>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<main></main>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<div role="main"><main></main></div>',
-      result: {
-        message: createErrorMessage('main'),
-        line: 1,
-        column: 17,
-        source: '<main></main>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<main></main>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="main"><div><main></main></div></div>',
-      result: {
-        message: createErrorMessage('main'),
-        line: 1,
-        column: 22,
-        source: '<main></main>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 22,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <main> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<main></main>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<main><div role="main"></div></main>',
-      result: {
-        message: createErrorMessage('div'),
-        line: 1,
-        column: 6,
-        source: '<div role="main"></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 6,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<div role=\\"main\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<main><div><div role="main"></div></div></main>',
-      result: {
-        message: createErrorMessage('div'),
-        line: 1,
-        column: 11,
-        source: '<div role="main"></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 34,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<div role=\\"main\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<nav><nav></nav></nav>',
-      result: {
-        message: createErrorMessage('nav'),
-        line: 1,
-        column: 5,
-        source: '<nav></nav>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 16,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <nav> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<nav></nav>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<header><header></header></header>',
-      result: {
-        message: createErrorMessage('header'),
-        line: 1,
-        column: 8,
-        source: '<header></header>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <header> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<header></header>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<header><div role="banner"></div></header>',
-      result: {
-        message: createErrorMessage('div'),
-        line: 1,
-        column: 8,
-        source: '<div role="banner"></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 33,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<div role=\\"banner\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="contentinfo"><footer></footer></div>',
-      result: {
-        message: createErrorMessage('footer'),
-        line: 1,
-        column: 24,
-        source: '<footer></footer>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 24,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Nested landmark elements on <footer> detected. Landmark elements should not be nested within landmark elements of the same name.",
+              "rule": "no-nested-landmark",
+              "severity": 2,
+              "source": "<footer></footer>",
+            },
+          ]
+        `);
       },
     },
   ],

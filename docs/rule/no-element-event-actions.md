@@ -15,11 +15,23 @@ This rule **forbids** the following:
 <button onclick={{action "submit"}}>Submit</button>
 ```
 
+```hbs
+<button onclick={{this.myAction}}>Submit</button>
+```
+
 This rule **allows** the following:
 
 ```hbs
 <button {{on 'click' this.submit}}>Submit</button>
 ```
+
+## Configuration
+
+The following values are valid configuration:
+
+* boolean - `true` to enable / `false` to disable
+* object -- An object with the following keys:
+  * `requireActionHelper` -- Only apply this rule when the {{action}} helper is present (defaults to `false`)
 
 ## References
 

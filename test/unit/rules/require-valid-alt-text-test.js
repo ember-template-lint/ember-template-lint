@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/require-valid-alt-text');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-valid-alt-text',
@@ -20,7 +17,6 @@ generateRuleTests({
 
     '<img alt="some-alt-name">',
     '<img alt="name {{picture}}">',
-    '<img aria-hidden="true">',
     '<img alt="{{picture}}">',
     '<img alt="" role="none">',
     '<img alt="" role="presentation">',
@@ -61,173 +57,352 @@ generateRuleTests({
     {
       template: '<img>',
 
-      result: {
-        message: 'All `<img>` tags must have an alt attribute',
-        source: '<img>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "All \`<img>\` tags must have an alt attribute",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img src="zoey.jpg">',
 
-      result: {
-        message: 'All `<img>` tags must have an alt attribute',
-        source: '<img src="zoey.jpg">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "All \`<img>\` tags must have an alt attribute",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img src=\\"zoey.jpg\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="" src="zoey.jpg">',
 
-      result: {
-        message:
-          'If the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
-        source: '<img alt="" src="zoey.jpg">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"\\" src=\\"zoey.jpg\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt src="zoey.jpg">',
 
-      result: {
-        message:
-          'If the `alt` attribute is present and the value is an empty string, `role="presentation"` or `role="none"` must be present',
-        source: '<img alt src="zoey.jpg">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt src=\\"zoey.jpg\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
-      result: {
-        message: 'The alt text must not be the same as the image source',
-        source: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The alt text must not be the same as the image source",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"path/to/zoey.jpg\\" src=\\"path/to/zoey.jpg\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input type="image">',
 
-      result: {
-        message:
-          'All <input> elements with type="image" must have a text alternative through the `alt`, `aria-label`, or `aria-labelledby` attribute.',
-        source: '<input type="image">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "All <input> elements with type=\\"image\\" must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<input type=\\"image\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<object></object>',
-      result: {
-        message:
-          'Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.',
-        source: '<object></object>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<object></object>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<object />',
-      result: {
-        message:
-          'Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.',
-        source: '<object />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 10,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Embedded <object> elements must have alternative text by providing inner text, aria-label or aria-labelledby attributes.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<object />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<area>',
-      result: {
-        message:
-          'Each area of an image map must have a text alternative through the `alt`, `aria-label`, or `aria-labelledby` attribute.',
-        source: '<area>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 6,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Each area of an image map must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<area>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="picture">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<img alt="picture">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"picture\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="photo">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<img alt="photo">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"photo\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="image">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<img alt="image">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"image\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="  IMAGE ">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<img alt="  IMAGE ">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"  IMAGE \\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="  IMAGE {{picture}} {{word}} ">',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<img alt="  IMAGE {{picture}} {{word}} ">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"  IMAGE {{picture}} {{word}} \\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="52" src="b52.jpg">',
 
-      result: {
-        message: 'A number is not valid alt text',
-        source: '<img alt="52" src="b52.jpg">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "A number is not valid alt text",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"52\\" src=\\"b52.jpg\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
-      result: {
-        message:
-          'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
-        source: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"none\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
-      result: {
-        message:
-          'The `alt` attribute should be empty if `<img>` has `role` of `none` or `presentation`',
-        source: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 59,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
+              "rule": "require-valid-alt-text",
+              "severity": 2,
+              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"presentation\\">",
+            },
+          ]
+        `);
       },
     },
   ],

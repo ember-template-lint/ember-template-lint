@@ -1,22 +1,8 @@
-'use strict';
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
-const execa = require('execa');
-
-const Project = require('../helpers/fake-project');
-const setupEnvVar = require('../helpers/setup-env-var');
-
-function run(project, args, options = {}) {
-  options.reject = false;
-  options.cwd = options.cwd || project.path('.');
-
-  return execa(
-    process.execPath,
-    [require.resolve('../../bin/ember-template-lint.js'), ...args],
-    options
-  );
-}
+import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
+import setupEnvVar from '../helpers/setup-env-var.js';
 
 describe('editors integration', function () {
   setupEnvVar('FORCE_COLOR', '0');
@@ -24,21 +10,21 @@ describe('editors integration', function () {
 
   // Fake project
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
+  beforeEach(async function () {
+    project = await setupProject();
+    await project.chdir();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    teardownProject();
   });
 
   describe('reading from stdin', function () {
     it('has exit code 1 and reports errors to stdout', async function () {
-      project.setConfig({ rules: { 'no-debugger': true } });
-      project.write({ 'template.hbs': '{{debugger}}' });
+      await project.setConfig({ rules: { 'no-debugger': true } });
+      await project.write({ 'template.hbs': '{{debugger}}' });
 
-      let result = await run(project, ['--json', '--filename', 'template.hbs'], {
+      let result = await runBin('--format', 'json', '--filename', 'template.hbs', {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });
@@ -47,6 +33,8 @@ describe('editors integration', function () {
       expectedOutputData['template.hbs'] = [
         {
           column: 0,
+          endColumn: 12,
+          endLine: 1,
           line: 1,
           message: 'Unexpected {{debugger}} usage.',
           filePath: 'template.hbs',
@@ -62,10 +50,10 @@ describe('editors integration', function () {
     });
 
     it('has exit code 0 and writes fixes if --filename is provided', async function () {
-      project.setConfig({ rules: { 'require-button-type': true } });
-      project.write({ 'template.hbs': '<button></button>' });
+      await project.setConfig({ rules: { 'require-button-type': true } });
+      await project.write({ 'template.hbs': '<button></button>' });
 
-      let result = await run(project, ['--json', '--filename', 'template.hbs', '--fix'], {
+      let result = await runBin('--format', 'json', '--filename', 'template.hbs', '--fix', {
         shell: false,
         input: fs.readFileSync(path.resolve('template.hbs')),
       });

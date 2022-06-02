@@ -12,7 +12,7 @@ Having the ability to identify violations as `todo`s allows for this incremental
 
 ## Usage
 
-todos are stored in a `.lint-todo/` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
+todos are stored in a `.lint-todo` file that should be checked in with other source code. Each error generates a unique line, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
 
 To convert errors to todos, you can use the `--update-todo` option. This will convert all active errors to todos, hiding them from the linting output.
 
@@ -38,13 +38,25 @@ You can fix this error/remove the stale todo file by running `--clean-todo`
 ember-template-lint . --clean-todo
 ```
 
+### Compacting the `.lint-todo` file
+
+The `.lint-todo` file is a simple text file that contains a list of all the todo violations. This file can be quite large, especially if you have a lot of todo violations. To reduce the size of this file, you can compact it by running `--compact-todo`.
+
+```bash
+ember-template-lint . --compact-todo
+```
+
+### Resolving `.lint-todo` file conflicts
+
+The `.lint-todo` file can contain merge conflicts if multiple people perform todo operations on separate branches, and ultimately merge the resulting changes. To resolve this, you can run `ember-template-lint .` again, and it will automatically resolve the conflicts.
+
 ### Configuring Due Dates
 
 todos can be created with optional due dates. These due dates allow for todos to, over a period of time, 'decay' the severity to a **warning** and/or **error** after a certain date. This helps ensure that todos are created but not forgotten, and can allow for better managing incremental roll-outs of large-scale or slow-to-fix rules.
 
 Due dates can be configured in multiple ways, but all specify integers for `warn` and `error` to signify the number of days from the todo created date to decay the severity.
 
-:bulb: Both `warn` and `error` are optional. The value for `warn` should be lower than the value of `error`.
+💡 Both `warn` and `error` are optional. The value for `warn` should be lower than the value of `error`.
 
 1. Via `package.json`
 

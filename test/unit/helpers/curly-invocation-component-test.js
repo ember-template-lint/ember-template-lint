@@ -1,9 +1,7 @@
-'use strict';
-
-const {
+import {
   transformTagName,
   isNestedComponentTagName,
-} = require('../../../lib/helpers/curly-component-invocation');
+} from '../../../lib/helpers/curly-component-invocation.js';
 
 describe('#transformTagName', function () {
   it('it works as expected', function () {

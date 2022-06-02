@@ -1,7 +1,4 @@
-'use strict';
-
-const { generateErrorMessage } = require('../../../lib/rules/no-potential-path-strings');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-potential-path-strings',
@@ -19,56 +16,122 @@ generateRuleTests({
   bad: [
     {
       template: '<img src="this.picture">',
-      result: {
-        message: generateErrorMessage('this.picture'),
-        line: 1,
-        column: 10,
-        source: 'this.picture',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Potential path in attribute string detected. Did you mean {{this.picture}}?",
+              "rule": "no-potential-path-strings",
+              "severity": 2,
+              "source": "this.picture",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img src=this.picture>',
-      result: {
-        message: generateErrorMessage('this.picture'),
-        line: 1,
-        column: 9,
-        source: 'this.picture',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 9,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Potential path in attribute string detected. Did you mean {{this.picture}}?",
+              "rule": "no-potential-path-strings",
+              "severity": 2,
+              "source": "this.picture",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img src="@img">',
-      result: {
-        message: generateErrorMessage('@img'),
-        line: 1,
-        column: 10,
-        source: '@img',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Potential path in attribute string detected. Did you mean {{@img}}?",
+              "rule": "no-potential-path-strings",
+              "severity": 2,
+              "source": "@img",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img src=@img>',
-      result: {
-        message: generateErrorMessage('@img'),
-        line: 1,
-        column: 9,
-        source: '@img',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 9,
+              "endColumn": 13,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Potential path in attribute string detected. Did you mean {{@img}}?",
+              "rule": "no-potential-path-strings",
+              "severity": 2,
+              "source": "@img",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<SomeComponent @foo=@bar />',
-      result: {
-        message: generateErrorMessage('@bar'),
-        line: 1,
-        column: 20,
-        source: '@bar',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Potential path in attribute string detected. Did you mean {{@bar}}?",
+              "rule": "no-potential-path-strings",
+              "severity": 2,
+              "source": "@bar",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<SomeComponent @foo=this.bar />',
-      result: {
-        message: generateErrorMessage('this.bar'),
-        line: 1,
-        column: 20,
-        source: 'this.bar',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Potential path in attribute string detected. Did you mean {{this.bar}}?",
+              "rule": "no-potential-path-strings",
+              "severity": 2,
+              "source": "this.bar",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -1,8 +1,6 @@
-'use strict';
+import os from 'node:os';
 
-const os = require('os');
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'linebreak-style',
@@ -38,88 +36,184 @@ generateRuleTests({
     {
       template: 'something\ngoes\r\n',
 
-      result: {
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 2,
-        column: 4,
-        source: '\r\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 4,
+              "endColumn": 0,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Wrong linebreak used. Expected LF but found CRLF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'unix',
       template: '\r\n',
 
-      result: {
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 1,
-        column: 0,
-        source: '\r\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Wrong linebreak used. Expected LF but found CRLF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'unix',
       template: '{{#if test}}\r\n{{/if}}',
 
-      result: {
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 1,
-        column: 12,
-        source: '\r\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Wrong linebreak used. Expected LF but found CRLF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'unix',
       template: '{{blah}}\r\n{{blah}}',
 
-      result: {
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 1,
-        column: 8,
-        source: '\r\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Wrong linebreak used. Expected LF but found CRLF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'unix',
       template: '{{blah}}\r\n',
 
-      result: {
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 1,
-        column: 8,
-        source: '\r\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Wrong linebreak used. Expected LF but found CRLF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'unix',
       template: '{{blah arg="\r\n"}}',
 
-      result: {
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 1,
-        column: 12,
-        source: '\r\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 3,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Wrong linebreak used. Expected LF but found CRLF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'unix',
       template: '<blah arg="\r\n" />',
 
-      result: {
-        message: 'Wrong linebreak used. Expected LF but found CRLF',
-        line: 1,
-        column: 11,
-        source: '\r\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Wrong linebreak used. Expected LF but found CRLF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'windows',
       template: '\n',
 
-      result: {
-        message: 'Wrong linebreak used. Expected CRLF but found LF',
-        line: 1,
-        column: 0,
-        source: '\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Wrong linebreak used. Expected CRLF but found LF",
+              "rule": "linebreak-style",
+              "severity": 2,
+              "source": "
+          ",
+            },
+          ]
+        `);
       },
     },
   ],

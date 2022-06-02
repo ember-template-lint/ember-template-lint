@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'eol-last',
@@ -25,8 +23,16 @@ generateRuleTests({
       template: 'test\n',
     },
     {
+      config: 'always',
+      template: '<img>\n',
+    },
+    {
       config: 'never',
       template: 'test',
+    },
+    {
+      config: 'never',
+      template: '<img>',
     },
     // test the re-entering of yielded content
     {
@@ -45,12 +51,47 @@ generateRuleTests({
       template: 'test',
       fixedTemplate: 'test\n',
 
-      result: {
-        message: 'template must end with newline',
-        line: 1,
-        column: 0,
-        source: 'test',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 4,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template must end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: 'always',
+      template: '<img>',
+      fixedTemplate: '<img>\n',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 5,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template must end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "<img>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -58,58 +99,137 @@ generateRuleTests({
       template: 'test\n',
       fixedTemplate: 'test',
 
-      result: {
-        message: 'template cannot end with newline',
-        line: 1,
-        column: 0,
-        source: 'test\n',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test
+          ",
+            },
+          ]
+        `);
       },
     },
     {
+      config: 'never',
+      template: '<img>\n',
+      fixedTemplate: '<img>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "<img>
+          ",
+            },
+          ]
+        `);
+      },
+    },
+    /*
+    {
       config: 'editorconfig',
       template: 'test',
+      fixedTemplate: 'test', // TODO: bug https://github.com/ember-template-lint/ember-template-lint/issues/2232
 
       meta: {
         editorConfig: { insert_final_newline: true },
       },
 
-      result: {
-        message: 'template must end with newline',
-        line: 1,
-        column: 0,
-        source: 'test',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 4,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template must end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test",
+            },
+          ]
+        `);
       },
     },
     {
       config: 'editorconfig',
       template: 'test\n',
+      fixedTemplate: 'test\n', // TODO: bug https://github.com/ember-template-lint/ember-template-lint/issues/2232
 
       meta: {
         editorConfig: { insert_final_newline: false },
       },
 
-      result: {
-        message: 'template cannot end with newline',
-        line: 1,
-        column: 0,
-        source: 'test\n',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "test
+          ",
+            },
+          ]
+        `);
       },
     },
+    */
     // test the re-entering of yielded content
     // only generates one error instead of two
     {
       config: 'never',
       template: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
+      fixedTemplate: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
 
-      result: {
-        message: 'template cannot end with newline',
-        line: 1,
-        column: 0,
-        source: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}\n',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "template cannot end with newline",
+              "rule": "eol-last",
+              "severity": 2,
+              "source": "{{#my-component}}
+            test
+          {{/my-component}}
+          ",
+            },
+          ]
+        `);
       },
     },
   ],

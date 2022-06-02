@@ -1,10 +1,5 @@
-'use strict';
-
-const {
-  ERROR_MESSAGE_CAPITAL,
-  ERROR_MESSAGE_RESERVED,
-} = require('../../../lib/rules/no-capital-arguments');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { ERROR_MESSAGE_RESERVED } from '../../../lib/rules/no-capital-arguments.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-capital-arguments',
@@ -16,38 +11,82 @@ generateRuleTests({
   bad: [
     {
       template: '<Foo @Name="bar" />',
-      result: {
-        message: ERROR_MESSAGE_CAPITAL,
-        line: 1,
-        column: 5,
-        source: 'Name',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 16,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Capital argument names is not supported",
+              "rule": "no-capital-arguments",
+              "severity": 2,
+              "source": "Name",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo @_ame="bar" />',
-      result: {
-        message: ERROR_MESSAGE_CAPITAL,
-        line: 1,
-        column: 5,
-        source: '_ame',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 16,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Capital argument names is not supported",
+              "rule": "no-capital-arguments",
+              "severity": 2,
+              "source": "_ame",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{@Name}}',
-      result: {
-        message: ERROR_MESSAGE_CAPITAL,
-        line: 1,
-        column: 3,
-        source: 'Name',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 7,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Capital argument names is not supported",
+              "rule": "no-capital-arguments",
+              "severity": 2,
+              "source": "Name",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{@_Name}}',
-      result: {
-        message: ERROR_MESSAGE_CAPITAL,
-        line: 1,
-        column: 3,
-        source: '_Name',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 8,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Capital argument names is not supported",
+              "rule": "no-capital-arguments",
+              "severity": 2,
+              "source": "_Name",
+            },
+          ]
+        `);
       },
     },
 
@@ -58,6 +97,8 @@ generateRuleTests({
           message: ERROR_MESSAGE_RESERVED(el),
           line: 1,
           column: 3,
+          endColumn: el.length + 2,
+          endLine: 1,
           source: el.slice(1),
         },
       };
@@ -70,6 +111,8 @@ generateRuleTests({
           message: ERROR_MESSAGE_RESERVED(el),
           line: 1,
           column: 13,
+          endColumn: el.length + 20,
+          endLine: 1,
           source: el.slice(1),
         },
       };

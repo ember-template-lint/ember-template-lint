@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-duplicate-attributes',
@@ -27,11 +25,22 @@ generateRuleTests({
       // MustacheStatement
       template: '{{my-component firstName=firstName lastName=lastName firstName=firstName}}',
 
-      result: {
-        message: "Duplicate attribute 'firstName' found in the MustacheStatement.",
-        source: '{{my-component firstName=firstName lastName=lastName firstName=firstName}}',
-        line: 1,
-        column: 53,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 53,
+              "endColumn": 72,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Duplicate attribute 'firstName' found in the MustacheStatement.",
+              "rule": "no-duplicate-attributes",
+              "severity": 2,
+              "source": "{{my-component firstName=firstName lastName=lastName firstName=firstName}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -41,25 +50,44 @@ generateRuleTests({
         ' {{fullName}}' +
         '{{/my-component}}',
 
-      result: {
-        message: "Duplicate attribute 'firstName' found in the BlockStatement.",
-        source:
-          '{{#my-component firstName=firstName  lastName=lastName firstName=firstName as |fullName|}}' +
-          ' {{fullName}}' +
-          '{{/my-component}}',
-        line: 1,
-        column: 55,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 55,
+              "endColumn": 74,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Duplicate attribute 'firstName' found in the BlockStatement.",
+              "rule": "no-duplicate-attributes",
+              "severity": 2,
+              "source": "{{#my-component firstName=firstName  lastName=lastName firstName=firstName as |fullName|}} {{fullName}}{{/my-component}}",
+            },
+          ]
+        `);
       },
     },
     {
       // ElementNode
       template: '<a class="btn" class="btn">{{btnLabel}}</a>',
 
-      result: {
-        message: "Duplicate attribute 'class' found in the Element.",
-        source: '<a class="btn" class="btn">{{btnLabel}}</a>',
-        line: 1,
-        column: 15,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 15,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Duplicate attribute 'class' found in the Element.",
+              "rule": "no-duplicate-attributes",
+              "severity": 2,
+              "source": "<a class=\\"btn\\" class=\\"btn\\">{{btnLabel}}</a>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -67,11 +95,22 @@ generateRuleTests({
       template:
         '{{employee-profile employee=(hash firstName=firstName lastName=lastName age=age firstName=firstName)}}',
 
-      result: {
-        message: "Duplicate attribute 'firstName' found in the SubExpression.",
-        source: '(hash firstName=firstName lastName=lastName age=age firstName=firstName)',
-        line: 1,
-        column: 80,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 80,
+              "endColumn": 99,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Duplicate attribute 'firstName' found in the SubExpression.",
+              "rule": "no-duplicate-attributes",
+              "severity": 2,
+              "source": "(hash firstName=firstName lastName=lastName age=age firstName=firstName)",
+            },
+          ]
+        `);
       },
     },
     {
@@ -79,11 +118,22 @@ generateRuleTests({
       template:
         '{{employee-profile employee=(hash fullName=(hash firstName=firstName lastName=lastName firstName=firstName) age=age)}}',
 
-      result: {
-        message: "Duplicate attribute 'firstName' found in the SubExpression.",
-        source: '(hash firstName=firstName lastName=lastName firstName=firstName)',
-        line: 1,
-        column: 87,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 87,
+              "endColumn": 106,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Duplicate attribute 'firstName' found in the SubExpression.",
+              "rule": "no-duplicate-attributes",
+              "severity": 2,
+              "source": "(hash firstName=firstName lastName=lastName firstName=firstName)",
+            },
+          ]
+        `);
       },
     },
   ],

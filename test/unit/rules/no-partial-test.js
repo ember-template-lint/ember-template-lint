@@ -1,7 +1,4 @@
-'use strict';
-
-const { message } = require('../../../lib/rules/no-partial');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-partial',
@@ -14,11 +11,22 @@ generateRuleTests({
     {
       template: '{{partial "foo"}}',
 
-      result: {
-        message,
-        source: '{{partial "foo"}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{partial}} usage.",
+              "rule": "no-partial",
+              "severity": 2,
+              "source": "{{partial \\"foo\\"}}",
+            },
+          ]
+        `);
       },
     },
   ],

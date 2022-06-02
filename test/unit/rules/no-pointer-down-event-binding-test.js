@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-pointer-down-event-binding');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-pointer-down-event-binding',
@@ -21,41 +18,85 @@ generateRuleTests({
 
   bad: [
     {
-      template: "<div {{on 'mousedown' this.doSomething}}></div>",
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 10,
-        source: "'mousedown'",
+      template: '<div {{on "mousedown" this.doSomething}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
+              "severity": 2,
+              "source": "\\"mousedown\\"",
+            },
+          ]
+        `);
       },
     },
     {
-      template: "<div {{action this.doSomething on='mousedown'}}></div>",
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 34,
-        source: "'mousedown'",
+      template: '<div {{action this.doSomething on="mousedown"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 34,
+              "endColumn": 45,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
+              "severity": 2,
+              "source": "\\"mousedown\\"",
+            },
+          ]
+        `);
       },
     },
     {
       // Detecting the `on` param works, even if it's not the first hash param to `{{action}}`
-      template: "<div {{action this.doSomething preventDefault=true on='mousedown'}}></div>",
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 54,
-        source: "'mousedown'",
+      template: '<div {{action this.doSomething preventDefault=true on="mousedown"}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 54,
+              "endColumn": 65,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
+              "severity": 2,
+              "source": "\\"mousedown\\"",
+            },
+          ]
+        `);
       },
     },
     {
       // DOM event handling through attributes
       template: '<input type="text" onmousedown="myFunction()">',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 19,
-        source: 'onmousedown="myFunction()"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
+              "severity": 2,
+              "source": "<input type=\\"text\\" onmousedown=\\"myFunction()\\">",
+            },
+          ]
+        `);
       },
     },
   ],

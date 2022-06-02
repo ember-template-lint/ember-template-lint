@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/require-button-type');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-button-type',
@@ -29,60 +26,115 @@ generateRuleTests({
       template: '<button/>',
       fixedTemplate: '<button type="button" />',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<button/>',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button>label</button>',
       fixedTemplate: '<button type="button">label</button>',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<button>label</button>',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button>label</button>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button type="" />',
       fixedTemplate: '<button type="button" />',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<button type="" />',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 18,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button type=\\"\\" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button type="foo" />',
       fixedTemplate: '<button type="button" />',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<button type="foo" />',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button type=\\"foo\\" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button type=42 />',
       fixedTemplate: '<button type="button" />',
 
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<button type=42 />',
-        line: 1,
-        column: 0,
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 18,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button type=42 />",
+            },
+          ]
+        `);
       },
     },
     {

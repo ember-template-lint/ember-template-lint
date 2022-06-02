@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/require-each-key');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-each-key',
@@ -19,29 +16,62 @@ generateRuleTests({
   bad: [
     {
       template: '{{#each this.items as |item|}} {{item.name}} {{/each}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{#each this.items as |item|}} {{item.name}} {{/each}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 54,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "{{#each}} helper requires a valid key value to avoid performance issues",
+              "rule": "require-each-key",
+              "severity": 2,
+              "source": "{{#each this.items as |item|}} {{item.name}} {{/each}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#each this.items key="@invalid" as |item|}} {{item.name}} {{/each}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{#each this.items key="@invalid" as |item|}} {{item.name}} {{/each}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 69,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "{{#each}} helper requires a valid key value to avoid performance issues",
+              "rule": "require-each-key",
+              "severity": 2,
+              "source": "{{#each this.items key=\\"@invalid\\" as |item|}} {{item.name}} {{/each}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#each this.items key="" as |item|}} {{item.name}} {{/each}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{#each this.items key="" as |item|}} {{item.name}} {{/each}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 61,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "{{#each}} helper requires a valid key value to avoid performance issues",
+              "rule": "require-each-key",
+              "severity": 2,
+              "source": "{{#each this.items key=\\"\\" as |item|}} {{item.name}} {{/each}}",
+            },
+          ]
+        `);
       },
     },
   ],

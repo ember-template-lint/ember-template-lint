@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-nested-interactive',
@@ -43,133 +41,275 @@ generateRuleTests({
     {
       template: '<a href="/">button<a href="/">!</a></a>',
 
-      result: {
-        message:
-          'Do not use an <a> element with the `href` attribute inside an <a> element with the `href` attribute',
-        source: '<a href="/">!</a>',
-        line: 1,
-        column: 18,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 18,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use an <a> element with the \`href\` attribute inside an <a> element with the \`href\` attribute",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<a href=\\"/\\">!</a>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<a href="/">button<button>!</button></a>',
 
-      result: {
-        message: 'Do not use <button> inside an <a> element with the `href` attribute',
-        source: '<button>!</button>',
-        line: 1,
-        column: 18,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 18,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <button> inside an <a> element with the \`href\` attribute",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<button>!</button>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button>button<a href="/">!</a></button>',
 
-      result: {
-        message: 'Do not use an <a> element with the `href` attribute inside <button>',
-        source: '<a href="/">!</a>',
-        line: 1,
-        column: 14,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 31,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use an <a> element with the \`href\` attribute inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<a href=\\"/\\">!</a>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button>button<button>!</button></button>',
 
-      result: {
-        message: 'Do not use <button> inside <button>',
-        source: '<button>!</button>',
-        line: 1,
-        column: 14,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <button> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<button>!</button>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><input type="text"></button>',
 
-      result: {
-        message: 'Do not use <input> inside <button>',
-        source: '<input type="text">',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <input> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<input type=\\"text\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><details><summary>Some details</summary><p>!</p></details></button>',
 
-      result: {
-        message: 'Do not use <details> inside <button>',
-        source: '<details><summary>Some details</summary><p>!</p></details>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <details> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<details><summary>Some details</summary><p>!</p></details>",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<button><embed type="video/quicktime" src="movie.mov" width="640" height="480"></button>',
 
-      result: {
-        message: 'Do not use <embed> inside <button>',
-        source: '<embed type="video/quicktime" src="movie.mov" width="640" height="480">',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 79,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <embed> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<embed type=\\"video/quicktime\\" src=\\"movie.mov\\" width=\\"640\\" height=\\"480\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><iframe src="/frame.html" width="640" height="480"></iframe></button>',
 
-      result: {
-        message: 'Do not use <iframe> inside <button>',
-        source: '<iframe src="/frame.html" width="640" height="480"></iframe>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 68,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <iframe> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<iframe src=\\"/frame.html\\" width=\\"640\\" height=\\"480\\"></iframe>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><select></select></button>',
 
-      result: {
-        message: 'Do not use <select> inside <button>',
-        source: '<select></select>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <select> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<select></select>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><textarea></textarea></button>',
 
-      result: {
-        message: 'Do not use <textarea> inside <button>',
-        source: '<textarea></textarea>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <textarea> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<textarea></textarea>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><div tabindex="1"></div></button>',
 
-      result: {
-        message: 'Do not use an element with the `tabindex` attribute inside <button>',
-        source: '<div tabindex="1"></div>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use an element with the \`tabindex\` attribute inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<div tabindex=\\"1\\"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><img usemap=""></button>',
 
-      result: {
-        message: 'Do not use an <img> element with the `usemap` attribute inside <button>',
-        source: '<img usemap="">',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use an <img> element with the \`usemap\` attribute inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<img usemap=\\"\\">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<object usemap=""><button></button></object>',
 
-      result: {
-        message: 'Do not use <button> inside an <object> element with the `usemap` attribute',
-        source: '<button></button>',
-        line: 1,
-        column: 18,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 18,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <button> inside an <object> element with the \`usemap\` attribute",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<button></button>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -178,22 +318,44 @@ generateRuleTests({
       },
       template: '<button><my-special-input></my-special-input></button>',
 
-      result: {
-        message: 'Do not use <my-special-input> inside <button>',
-        source: '<my-special-input></my-special-input>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 45,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use <my-special-input> inside <button>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<my-special-input></my-special-input>",
+            },
+          ]
+        `);
       },
     },
 
     {
       template: '<label><input><input></label>',
 
-      result: {
-        message: 'Do not use multiple interactive elements inside a single `<label>`',
-        source: '<label><input><input></label>',
-        line: 1,
-        column: 14,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use multiple interactive elements inside a single \`<label>\`",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<label><input><input></label>",
+            },
+          ]
+        `);
       },
     },
 
@@ -205,11 +367,25 @@ generateRuleTests({
         '</label>',
       ].join('\n'),
 
-      result: {
-        message: 'Do not use multiple interactive elements inside a single `<label>`',
-        source: '<label for="foo">\n  <div id="foo" tabindex=-1></div>\n  <input>\n</label>',
-        line: 3,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 2,
+              "endColumn": 9,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Do not use multiple interactive elements inside a single \`<label>\`",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<label for=\\"foo\\">
+            <div id=\\"foo\\" tabindex=-1></div>
+            <input>
+          </label>",
+            },
+          ]
+        `);
       },
     },
   ],

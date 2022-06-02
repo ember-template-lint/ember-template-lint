@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-trailing-spaces',
@@ -19,31 +17,64 @@ generateRuleTests({
     {
       template: 'test ',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 1,
-        column: 4,
-        source: 'test ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 4,
+              "endColumn": 5,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "test ",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'test \n',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 1,
-        column: 4,
-        source: 'test ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 4,
+              "endColumn": 0,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "test ",
+            },
+          ]
+        `);
       },
     },
     {
       template: 'test\n' + ' \n',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 2,
-        column: 0,
-        source: ' ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 0,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": " ",
+            },
+          ]
+        `);
       },
     },
     // test the re-entering of yielded content
@@ -51,11 +82,22 @@ generateRuleTests({
     {
       template: '{{#my-component}}\n' + '  test \n' + '{{/my-component}}',
 
-      result: {
-        message: 'line cannot end with space',
-        line: 2,
-        column: 6,
-        source: '  test ',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 6,
+              "endColumn": 17,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "  test ",
+            },
+          ]
+        `);
       },
     },
   ],

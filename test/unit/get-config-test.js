@@ -1,29 +1,27 @@
-'use strict';
+// TODO: This test file is temporarily disabled in Node versions before 16 (see ci.yml).
 
-const { stripIndent } = require('common-tags');
+import { stripIndent } from 'common-tags';
+import { join } from 'node:path';
 
-const recommendedConfig = require('../../lib/config/recommended');
-const {
-  getProjectConfig,
-  determineRuleConfig,
-  resolveProjectConfig,
-  getRuleFromString,
-} = require('../../lib/get-config');
-const buildFakeConsole = require('../helpers/console');
-const Project = require('../helpers/fake-project');
+import recommendedConfig from '../../lib/config/recommended.js';
+import { getProjectConfig, resolveProjectConfig, getRuleFromString } from '../../lib/get-config.js';
+import determineRuleConfig from '../../lib/helpers/determine-rule-config.js';
+import buildFakeConsole from '../helpers/console.js';
+import Project from '../helpers/fake-project.js';
 
 describe('get-config', function () {
   let project = null;
 
-  beforeEach(function () {
+  beforeEach(async function () {
     project = new Project();
+    await project.write();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
-  it('if config is provided directly, it is used', function () {
+  it('if config is provided directly, it is used', async function () {
     let config = {
       rules: {
         foo: 'bar',
@@ -31,14 +29,14 @@ describe('get-config', function () {
       },
     };
 
-    let actual = getProjectConfig(project.baseDir, { config });
+    let actual = await getProjectConfig(project.baseDir, { config });
     expect(actual.rules).toEqual({
       foo: { config: 'bar', severity: 2 },
       baz: { config: 'derp', severity: 2 },
     });
   });
 
-  it('it supports severity level', function () {
+  it('it supports severity level', async function () {
     let expected = {
       rules: {
         foo: { config: true, severity: 1 },
@@ -46,7 +44,7 @@ describe('get-config', function () {
       },
     };
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       config: {
         rules: {
           foo: 'warn',
@@ -57,8 +55,8 @@ describe('get-config', function () {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('shows rules being "upgraded" to the new syntax when the config is in the old syntax', function () {
-    let actual = getProjectConfig(project.baseDir, {
+  it('shows rules being "upgraded" to the new syntax when the config is in the old syntax', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
       config: {
         rules: {
           foo: true,
@@ -78,7 +76,7 @@ describe('get-config', function () {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('it supports severity level with custom configuration', function () {
+  it('it supports severity level with custom configuration', async function () {
     let expected = {
       rules: {
         foo: { config: { allow: [1, 2, 3] }, severity: 1 },
@@ -90,7 +88,7 @@ describe('get-config', function () {
       },
     };
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       config: {
         rules: {
           foo: ['warn', { allow: [1, 2, 3] }],
@@ -105,7 +103,7 @@ describe('get-config', function () {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('uses .template-lintrc.js in cwd if present', function () {
+  it('uses .template-lintrc.js in cwd if present', async function () {
     let config = {
       rules: {
         foo: 'bar',
@@ -115,10 +113,10 @@ describe('get-config', function () {
     // clone to ensure we are not mutating
     let expected = JSON.parse(JSON.stringify(config));
 
-    project.setConfig(expected);
+    await project.setConfig(expected);
     project.chdir();
 
-    let actual = getProjectConfig(project.baseDir, {});
+    let actual = await getProjectConfig(project.baseDir, {});
 
     expect(actual.rules).toEqual({
       foo: { config: 'bar', severity: 2 },
@@ -126,7 +124,7 @@ describe('get-config', function () {
     });
   });
 
-  it('uses the specified configPath from cwd', function () {
+  it('uses the specified configPath from cwd', async function () {
     let someOtherPathConfig = {
       rules: {
         foo: 'bar',
@@ -138,7 +136,7 @@ describe('get-config', function () {
     )};`;
     project.chdir();
 
-    let actual = getProjectConfig(project.baseDir, { configPath: 'some-other-path.js' });
+    let actual = await getProjectConfig(project.baseDir, { configPath: 'some-other-path.js' });
 
     expect(actual.rules).toEqual({
       foo: { config: 'bar', severity: 2 },
@@ -146,7 +144,7 @@ describe('get-config', function () {
     });
   });
 
-  it('uses the specified configPath outside of cwd', function () {
+  it('uses the specified configPath outside of cwd', async function () {
     let someOtherPathConfig = {
       rules: {
         foo: 'bar',
@@ -156,9 +154,9 @@ describe('get-config', function () {
     project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
       someOtherPathConfig
     )};`;
-    project.writeSync();
+    await project.write();
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       configPath: project.path('some-other-path.js'),
     });
 
@@ -168,8 +166,8 @@ describe('get-config', function () {
     });
   });
 
-  it('can specify that it extends a default configuration', function () {
-    let actual = getProjectConfig(project.baseDir, {
+  it('can specify that it extends a default configuration', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
       config: {
         extends: 'recommended',
       },
@@ -178,10 +176,10 @@ describe('get-config', function () {
     expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
   });
 
-  it('can extend and override a default configuration', function () {
+  it('can extend and override a default configuration', async function () {
     let expected = recommendedConfig;
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       config: {
         extends: 'recommended',
         rules: {
@@ -194,34 +192,62 @@ describe('get-config', function () {
     expect(actual.rules['block-indentation']).not.toEqual(expected.rules['block-indentation']);
   });
 
-  it('migrates rules in the config root into `rules` property', function () {
-    let actual = getProjectConfig(project.baseDir, {
-      console: buildFakeConsole(),
-      config: {
-        'no-bare-strings': false,
-      },
-    });
-
-    expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
+  it('throws when specifying unknown properties in the config root', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            foo: false,
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Unknown top-level configuration property detected: foo"`
+    );
   });
 
-  it('rules in the config root trigger a deprecation', function () {
-    let console = buildFakeConsole();
-
-    getProjectConfig(project.baseDir, {
-      console,
-      config: {
-        'no-bare-strings': true,
-      },
+  it('returns empty format object when no config.format is provided', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
+      config: {},
     });
 
-    expect(console.stdout).toMatch(/Rule configuration has been moved/);
+    expect(actual.format).toEqual({});
   });
 
-  it('warns for unknown rules', function () {
+  it('throws when invalid format property in config.format is provided', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            format: {
+              formatters: [
+                {
+                  name: 'pretty',
+                  foo: 'bar',
+                },
+              ],
+            },
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"An invalid \`format.formatter\` in \`.template-lintrc.js\` was provided. Unexpected property \`foo\`"`
+    );
+  });
+
+  it('throws when providing wrong type for config.extends', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            extends: 123,
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`"config.extends should be string or array"`);
+  });
+
+  it('warns for unknown rules', async function () {
     let console = buildFakeConsole();
 
-    getProjectConfig(project.baseDir, {
+    await getProjectConfig(project.baseDir, {
       console,
       config: {
         rules: {
@@ -233,23 +259,23 @@ describe('get-config', function () {
     expect(console.stdout).toMatch(/Invalid rule configuration found/);
   });
 
-  it('warns for unknown extends', function () {
-    let console = buildFakeConsole();
-
-    getProjectConfig(project.baseDir, {
-      console,
-      config: {
-        extends: ['recommended', 'plugin1:wrong-extend'],
-      },
-    });
-
-    expect(console.stdout).toMatch(/Cannot find configuration for extends/);
+  it('throws for unknown extends', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            extends: ['recommended', 'plugin1:wrong-extend'],
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Cannot find configuration for extends: plugin1:wrong-extend"`
+    );
   });
 
-  it('resolves plugins by string', function () {
+  it('resolves plugins by string', async function () {
     let console = buildFakeConsole();
 
-    project.setConfig({
+    await project.setConfig({
       extends: ['my-awesome-thing:stylistic'],
       plugins: ['my-awesome-thing'],
     });
@@ -272,7 +298,7 @@ describe('get-config', function () {
 
     project.chdir();
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       console,
     });
 
@@ -280,10 +306,10 @@ describe('get-config', function () {
     expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
-  it('resolves plugins by string when using specified config (not resolved project config)', function () {
+  it('resolves plugins by string when using specified config (not resolved project config)', async function () {
     let console = buildFakeConsole();
 
-    project.setConfig();
+    await project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = stripIndent`
@@ -303,7 +329,7 @@ describe('get-config', function () {
 
     project.chdir();
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       console,
       config: {
         extends: ['my-awesome-thing:stylistic'],
@@ -315,8 +341,74 @@ describe('get-config', function () {
     expect(actual.rules['quotes']).toEqual({ config: 'single', severity: 2 });
   });
 
-  it('extending multiple configurations allows subsequent configs to override earlier ones', function () {
-    let actual = getProjectConfig(project.baseDir, {
+  it('throws when inline plugin is missing name', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: { plugins: [{}] },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Inline plugin object has not defined the plugin \`name\` property"`
+    );
+  });
+
+  it('throws when inline plugin is wrong type', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: { plugins: [123] },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`"Inline plugin is not a plain object"`);
+  });
+
+  it('throws when non-inline plugin is missing name', async function () {
+    await project.setConfig();
+
+    project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
+      dep.files['index.js'] = 'module.exports = {};';
+    });
+
+    project.chdir();
+
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          console,
+          config: {
+            extends: ['my-awesome-thing:stylistic'],
+            plugins: ['my-awesome-thing'],
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Plugin (my-awesome-thing) has not defined the plugin \`name\` property"`
+    );
+  });
+
+  it('throws when non-inline plugin is wrong type', async function () {
+    await project.setConfig();
+
+    project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
+      dep.files['index.js'] = 'module.exports = 123;';
+    });
+
+    project.chdir();
+
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          console,
+          config: {
+            extends: ['my-awesome-thing:stylistic'],
+            plugins: ['my-awesome-thing'],
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Plugin (my-awesome-thing) did not return a plain object"`
+    );
+  });
+
+  it('extending multiple configurations allows subsequent configs to override earlier ones', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
       config: {
         extends: ['recommended', 'myplugin:recommended'],
 
@@ -338,8 +430,8 @@ describe('get-config', function () {
     expect(actual.rules['no-action']).toEqual({ config: false, severity: 0 });
   });
 
-  it('extending multiple configurations merges all rules', function () {
-    let actual = getProjectConfig(project.baseDir, {
+  it('extending multiple configurations merges all rules', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
       config: {
         extends: ['myplugin:first', 'myplugin:second'],
 
@@ -369,10 +461,10 @@ describe('get-config', function () {
     });
   });
 
-  it('can specify plugin without rules', function () {
+  it('can specify plugin without rules', async function () {
     let console = buildFakeConsole();
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       console,
       config: {
         extends: 'myplugin:basic-configuration',
@@ -396,22 +488,23 @@ describe('get-config', function () {
     expect(actual.rules['no-bare-strings']).toEqual({ config: false, severity: 0 });
   });
 
-  it('throw exception when plugin path is incorrect', function () {
+  it('throw exception when plugin path is incorrect', async function () {
     let wrongPluginPath = './bad-plugin-path/incorrect-file-name';
 
-    expect(function () {
-      getProjectConfig(project.baseDir, {
-        config: {
-          plugins: [wrongPluginPath],
-        },
-      });
-    }).toThrow();
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            plugins: [wrongPluginPath],
+          },
+        })
+    ).rejects.toThrow();
   });
 
-  it('validates non-default loaded rules', function () {
+  it('validates non-default loaded rules', async function () {
     let console = buildFakeConsole();
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       console,
 
       config: {
@@ -434,10 +527,10 @@ describe('get-config', function () {
     expect(actual.loadedRules['foo-bar']).toEqual('plugin-function-placeholder');
   });
 
-  it('can chain extends and load rules across chained plugins', function () {
+  it('can chain extends and load rules across chained plugins', async function () {
     let console = buildFakeConsole();
 
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       console,
 
       config: {
@@ -482,7 +575,7 @@ describe('get-config', function () {
     expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
   });
 
-  it('handles circular reference in config', function () {
+  it('handles circular reference in config', async function () {
     let config = {
       extends: 'plugin1:recommended',
 
@@ -506,7 +599,7 @@ describe('get-config', function () {
     config.plugins[0].configurations.recommended = config;
 
     let console = buildFakeConsole();
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       console,
       config,
     });
@@ -515,7 +608,7 @@ describe('get-config', function () {
     expect(actual.rules['foo-bar']).toEqual({ config: true, severity: 2 });
   });
 
-  it('handles circular reference in plugin', function () {
+  it('handles circular reference in plugin', async function () {
     let plugin = {
       name: 'plugin1',
 
@@ -537,7 +630,7 @@ describe('get-config', function () {
     plugin.configurations.recommended.plugins = [plugin];
 
     let console = buildFakeConsole();
-    let actual = getProjectConfig(project.baseDir, {
+    let actual = await getProjectConfig(project.baseDir, {
       console,
 
       config: {
@@ -551,9 +644,9 @@ describe('get-config', function () {
     expect(actual.rules['foo-bar']).toEqual({ config: true, severity: 2 });
   });
 
-  it('getting config is idempotent', function () {
+  it('getting config is idempotent', async function () {
     let console = buildFakeConsole();
-    let firstPass = getProjectConfig(project.baseDir, {
+    let firstPass = await getProjectConfig(project.baseDir, {
       console,
       config: {
         rules: {
@@ -571,7 +664,7 @@ describe('get-config', function () {
       },
     });
     let firstPassJSON = JSON.stringify(firstPass);
-    let secondPass = getProjectConfig(project.baseDir, {
+    let secondPass = await getProjectConfig(project.baseDir, {
       console,
       config: firstPass,
     });
@@ -581,7 +674,7 @@ describe('get-config', function () {
     expect(console.stdout).toBeFalsy();
   });
 
-  it('does not mutate the config', function () {
+  it('does not mutate the config', async function () {
     let config = {
       config: {
         extends: 'recommended',
@@ -590,7 +683,7 @@ describe('get-config', function () {
 
     let cloned = JSON.parse(JSON.stringify(config));
 
-    let actual = getProjectConfig(project.baseDir, config);
+    let actual = await getProjectConfig(project.baseDir, config);
 
     expect(Object.keys(actual.rules).length).toBeTruthy();
     expect(config).toEqual(cloned);
@@ -615,11 +708,12 @@ describe('determineRuleConfig', function () {
 });
 
 describe('resolveProjectConfig', function () {
-  it('should return an empty object when options.configPath is set explicitly false', function () {
-    let project = Project.defaultSetup();
+  it('should return an empty object when options.configPath is set explicitly false', async function () {
+    let project = new Project();
+    await project.write();
 
     try {
-      const config = resolveProjectConfig(project.baseDir, { configPath: false });
+      const config = await resolveProjectConfig(project.baseDir, { configPath: false });
 
       expect(config).toEqual({});
     } finally {
@@ -627,18 +721,73 @@ describe('resolveProjectConfig', function () {
     }
   });
 
-  it('should search for config relative to the specified working directory', function () {
-    let project1 = Project.defaultSetup();
-    let project2 = Project.defaultSetup();
+  it('should search for config from sub to parent directory', async function () {
+    let project = await Project.defaultSetup();
 
-    project1.chdir();
+    project.write({
+      top: {
+        bottom: {},
+      },
+    });
 
-    project2.setConfig({
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+      });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('should search for config from sub to middle directory', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      top: {
+        bottom: {},
+        '.template-lintrc.js': `
+'use strict';
+
+module.exports = {
+  extends: 'recommended',
+  rules: {
+    'no-bare-strings': 'off'
+  }
+};
+`,
+      },
+    });
+
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+        rules: {
+          'no-bare-strings': 'off',
+        },
+      });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('should search for config relative to the specified working directory', async function () {
+    let project1 = new Project();
+    await project1.write();
+    let project2 = new Project();
+    await project2.write();
+
+    await project1.chdir();
+
+    await project2.setConfig({
       extends: 'foo',
     });
 
     try {
-      const config = resolveProjectConfig(project2.baseDir, {});
+      const config = await resolveProjectConfig(project2.baseDir, {});
 
       expect(config).toEqual({
         extends: 'foo',
@@ -653,15 +802,16 @@ describe('resolveProjectConfig', function () {
 describe('getProjectConfig', function () {
   let project = null;
 
-  beforeEach(function () {
-    project = Project.defaultSetup();
+  beforeEach(async function () {
+    project = new Project();
+    await project.write();
   });
 
-  afterEach(async function () {
-    await project.dispose();
+  afterEach(function () {
+    project.dispose();
   });
 
-  it('processing config is idempotent', function () {
+  it('processing config is idempotent', async function () {
     let config = {
       plugins: [
         {
@@ -689,14 +839,14 @@ describe('getProjectConfig', function () {
       bar: { config: false, severity: 0 },
     };
 
-    let processedConfig = getProjectConfig(project.baseDir, { config });
+    let processedConfig = await getProjectConfig(project.baseDir, { config });
     expect(processedConfig.rules).toEqual(expected);
 
-    let reprocessedConfig = getProjectConfig(project.baseDir, { config });
+    let reprocessedConfig = await getProjectConfig(project.baseDir, { config });
     expect(reprocessedConfig.rules).toEqual(expected);
   });
 
-  it('merges rules from plugins with rules from config', function () {
+  it('merges rules from plugins with rules from config', async function () {
     let config = {
       plugins: [
         {
@@ -723,11 +873,11 @@ describe('getProjectConfig', function () {
       foo: { config: false, severity: 0 },
     };
 
-    let processedConfig = getProjectConfig(project.baseDir, { config });
+    let processedConfig = await getProjectConfig(project.baseDir, { config });
     expect(processedConfig.rules).toEqual(expected);
   });
 
-  it('merges rules from plugins in the order declared in the array', function () {
+  it('merges rules from plugins in the order declared in the array', async function () {
     let config = {
       plugins: [
         {
@@ -764,7 +914,7 @@ describe('getProjectConfig', function () {
       foo: { config: false, severity: 0 },
     };
 
-    let processedConfig = getProjectConfig(project.baseDir, { config });
+    let processedConfig = await getProjectConfig(project.baseDir, { config });
     expect(processedConfig.rules).toEqual(expected);
   });
 });

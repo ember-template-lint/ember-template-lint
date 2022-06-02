@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-link-to-tagname');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-link-to-tagname',
@@ -20,29 +17,62 @@ generateRuleTests({
   bad: [
     {
       template: '<LinkTo @route="routeName" @tagName="button">Link text</LinkTo>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 27,
-        source: '@tagName="button"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 44,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
+              "rule": "no-link-to-tagname",
+              "severity": 2,
+              "source": "@tagName=\\"button\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#link-to "routeName" tagName="button"}}Link text{{/link-to}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 23,
-        source: 'tagName="button"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 23,
+              "endColumn": 39,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
+              "rule": "no-link-to-tagname",
+              "severity": 2,
+              "source": "tagName=\\"button\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{link-to "Link text" "routeName" tagName="button"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 34,
-        source: 'tagName="button"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 34,
+              "endColumn": 50,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
+              "rule": "no-link-to-tagname",
+              "severity": 2,
+              "source": "tagName=\\"button\\"",
+            },
+          ]
+        `);
       },
     },
   ],

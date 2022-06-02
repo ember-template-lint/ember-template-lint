@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-restricted-invocations',
@@ -53,231 +51,484 @@ generateRuleTests({
     {
       template: '{{foo}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{foo}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo />',
 
-      result: {
-        message: "Cannot use disallowed helper or component '<Foo />'",
-        source: '<Foo />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '<Foo />'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "<Foo />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{foo foo=bar}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{foo foo=bar}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 15,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{foo foo=bar}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{foo foo=(baz)}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{foo foo=(baz)}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{foo foo=(baz)}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo}}{{/foo}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{#foo}}{{/foo}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 16,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{#foo}}{{/foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo foo=bar}}{{/foo}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{#foo foo=bar}}{{/foo}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{#foo foo=bar}}{{/foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo foo=(baz)}}{{/foo}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{#foo foo=(baz)}}{{/foo}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{#foo foo=(baz)}}{{/foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component "foo"}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{component "foo"}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{component \\"foo\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component "foo" foo=bar}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{component "foo" foo=bar}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{component \\"foo\\" foo=bar}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component "foo" foo=(baz)}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{component "foo" foo=(baz)}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{component \\"foo\\" foo=(baz)}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#component "foo"}}{{/component}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{#component "foo"}}{{/component}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 34,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{#component \\"foo\\"}}{{/component}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#component "foo" foo=bar}}{{/component}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{#component "foo" foo=bar}}{{/component}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 42,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{#component \\"foo\\" foo=bar}}{{/component}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#component "foo" foo=(baz)}}{{/component}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '{{#component "foo" foo=(baz)}}{{/component}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 44,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{#component \\"foo\\" foo=(baz)}}{{/component}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (component "foo")}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '(component "foo")',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "(component \\"foo\\")",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (component "foo" foo=bar)}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '(component "foo" foo=bar)',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 33,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "(component \\"foo\\" foo=bar)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (component "foo" foo=(baz))}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '(component "foo" foo=(baz))',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "(component \\"foo\\" foo=(baz))",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (baz (foo (baz) bar))}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '(foo (baz) bar)',
-        line: 1,
-        column: 13,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "(foo (baz) bar)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (baz (baz (baz) (foo)))}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '(foo)',
-        line: 1,
-        column: 24,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 24,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "(foo)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (baz (baz (baz) foo=(foo)))}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '(foo)',
-        line: 1,
-        column: 28,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 28,
+              "endColumn": 33,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "(foo)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#baz as |bar|}}{{bar foo=(foo)}}{{/baz}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{foo}}'",
-        source: '(foo)',
-        line: 1,
-        column: 27,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "(foo)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{nested-scope/foo-bar}}',
 
-      result: {
-        message: "Cannot use disallowed helper or component '{{nested-scope/foo-bar}}'",
-        source: '{{nested-scope/foo-bar}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '{{nested-scope/foo-bar}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{nested-scope/foo-bar}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<NestedScope::FooBar/>',
 
-      result: {
-        message: "Cannot use disallowed helper or component '<NestedScope::FooBar />'",
-        source: '<NestedScope::FooBar/>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper or component '<NestedScope::FooBar />'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "<NestedScope::FooBar/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{deprecated-component}}',
 
-      result: {
-        message: 'This component is deprecated; use component ABC instead.',
-        source: '{{deprecated-component}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "This component is deprecated; use component ABC instead.",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{deprecated-component}}",
+            },
+          ]
+        `);
       },
     },
   ],
@@ -341,16 +592,6 @@ generateRuleTests({
     },
     {
       // Disallows incorrect naming format (disallows angle bracket invocation style).
-      config: ['MyComponent'],
-      template: 'test',
-
-      result: {
-        fatal: true,
-        message: 'You specified `["MyComponent"]`',
-      },
-    },
-    {
-      // Disallows incorrect naming format (disallows nested angle bracket invocation style).
       config: ['MyComponent'],
       template: 'test',
 

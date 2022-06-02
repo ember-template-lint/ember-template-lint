@@ -1,5 +1,7 @@
 # no-class-bindings
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 It is possible to pass `classBinding` and `classNameBindings` as arguments to a component when invoked with curly syntax.
 
 ```hbs

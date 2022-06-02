@@ -1,7 +1,4 @@
-'use strict';
-
-const ERROR_MESSAGE = require('../../../lib/rules/no-duplicate-id').ERROR_MESSAGE;
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-duplicate-id',
@@ -14,7 +11,6 @@ generateRuleTests({
 
     // Mustache Statements
     '<div id={{"id-00"}}></div>',
-    '<div id={{"id-00"}}></div><div id={{"id-01"}}></div>',
     '<div id={{this.divId00}}></div>',
     '<div id={{this.divId00}}></div><div id={{this.divId01}}></div>',
 
@@ -143,201 +139,443 @@ generateRuleTests({
   bad: [
     {
       template: '<div id="id-00"></div><div id="id-00"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 27,
-        source: 'id="id-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 37,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div><div id="id-01"></div></div><div><div id="id-01"></div></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 43,
-        source: 'id="id-01"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 43,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-01\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id="id-00"></div><div id={{"id-00"}}></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 27,
-        source: 'id={{"id-00"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{\\"id-00\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id={{"id-00"}}></div><div id="id-00"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 31,
-        source: 'id="id-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 31,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id="id-00"></div><div id="id-{{"00"}}"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 27,
-        source: 'id="id-{{"00"}}"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 43,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-{{\\"00\\"}}\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id="id-00"></div><div id="{{"id"}}-00"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 27,
-        source: 'id="{{"id"}}-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 43,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"{{\\"id\\"}}-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id="id-00"></div>{{#foo elementId="id-00"}}{{/foo}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 22,
-        source: '{{#foo elementId="id-00"}}{{/foo}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 22,
+              "endColumn": 56,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-00"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 39,
-        source: 'id="id-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 39,
+              "endColumn": 49,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id={{"id-00"}}></div>{{#foo elementId="id-00"}}{{/foo}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 26,
-        source: '{{#foo elementId="id-00"}}{{/foo}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 26,
+              "endColumn": 60,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id={{"id-00"}}></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 39,
-        source: 'id={{"id-00"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 39,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{\\"id-00\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id="id-{{"00"}}"></div>{{#foo elementId="id-00"}}{{/foo}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 28,
-        source: '{{#foo elementId="id-00"}}{{/foo}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 28,
+              "endColumn": 62,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-{{"00"}}"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 39,
-        source: 'id="id-{{"00"}}"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 39,
+              "endColumn": 55,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-{{\\"00\\"}}\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}{{#bar elementId="id-00"}}{{/bar}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 34,
-        source: '{{#bar elementId="id-00"}}{{/bar}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 34,
+              "endColumn": 68,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "{{#bar elementId=\\"id-00\\"}}{{/bar}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{foo id="id-00"}}{{foo id="id-00"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 18,
-        source: '{{foo id="id-00"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 18,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "{{foo id=\\"id-00\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id={{1234}}></div><div id={{1234}}></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 28,
-        source: 'id={{1234}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 28,
+              "endColumn": 39,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{1234}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div id={{this.divId00}}></div><div id={{this.divId00}}></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 36,
-        source: 'id={{this.divId00}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 36,
+              "endColumn": 55,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{this.divId00}}",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<div id="partA{{partB}}{{"partC"}}"></div><div id="{{"partA"}}{{partB}}partC"></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 47,
-        source: 'id="{{"partA"}}{{partB}}partC"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 47,
+              "endColumn": 77,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"{{\\"partA\\"}}{{partB}}partC\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo elementId="id-00"}}{{/foo}}{{bar elementId="id-00"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 34,
-        source: '{{bar elementId="id-00"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 34,
+              "endColumn": 59,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "{{bar elementId=\\"id-00\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo id="id-00"}}{{/foo}}{{bar id="id-00"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 27,
-        source: '{{bar id="id-00"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 45,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "{{bar id=\\"id-00\\"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo id="id-00"}}{{/foo}}<Bar id="id-00" />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 32,
-        source: 'id="id-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 32,
+              "endColumn": 42,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo id="id-00"}}{{/foo}}<Bar @id="id-00" />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 32,
-        source: '@id="id-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 32,
+              "endColumn": 43,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "@id=\\"id-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo id="id-00"}}{{/foo}}<Bar @elementId="id-00" />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 32,
-        source: '@elementId="id-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 32,
+              "endColumn": 50,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "@elementId=\\"id-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
@@ -349,11 +587,22 @@ generateRuleTests({
         <div id="other-thing"></div>
       {{/if}}
     `,
-      result: {
-        message: ERROR_MESSAGE,
-        line: 4,
-        column: 13,
-        source: 'id={{this.divId00}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 32,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{this.divId00}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -363,11 +612,22 @@ generateRuleTests({
           <div id="id-00"></div>
         {{/if}}
       `,
-      result: {
-        message: ERROR_MESSAGE,
-        line: 4,
-        column: 15,
-        source: 'id="id-00"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 15,
+              "endColumn": 25,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"id-00\\"",
+            },
+          ]
+        `);
       },
     },
     {
@@ -379,20 +639,34 @@ generateRuleTests({
         <div id={{this.divId00}}></div>
       {{/if}}
     `,
-      results: [
-        {
-          message: ERROR_MESSAGE,
-          line: 4,
-          column: 13,
-          source: 'id={{this.divId00}}',
-        },
-        {
-          message: ERROR_MESSAGE,
-          line: 6,
-          column: 13,
-          source: 'id={{this.divId00}}',
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 32,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{this.divId00}}",
+            },
+            {
+              "column": 13,
+              "endColumn": 32,
+              "endLine": 6,
+              "filePath": "layout.hbs",
+              "line": 6,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{this.divId00}}",
+            },
+          ]
+        `);
+      },
     },
     {
       template: `
@@ -403,11 +677,22 @@ generateRuleTests({
         {{/if}}
         <div id="anidhere"></div>
       `,
-      result: {
-        message: ERROR_MESSAGE,
-        line: 7,
-        column: 13,
-        source: 'id="anidhere"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 26,
+              "endLine": 7,
+              "filePath": "layout.hbs",
+              "line": 7,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"anidhere\\"",
+            },
+          ]
+        `);
       },
     },
     {
@@ -421,11 +706,22 @@ generateRuleTests({
         {{/if}}
         <div id="nested"></div>
       `,
-      result: {
-        message: ERROR_MESSAGE,
-        line: 9,
-        column: 13,
-        source: 'id="nested"',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 24,
+              "endLine": 9,
+              "filePath": "layout.hbs",
+              "line": 9,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id=\\"nested\\"",
+            },
+          ]
+        `);
       },
     },
     {
@@ -435,11 +731,22 @@ generateRuleTests({
           <Input id={{inputProperties.id}} />
         </MyComponent>
       `,
-      result: {
-        message: ERROR_MESSAGE,
-        line: 4,
-        column: 17,
-        source: 'id={{inputProperties.id}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 42,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "line": 4,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{inputProperties.id}}",
+            },
+          ]
+        `);
       },
     },
   ],

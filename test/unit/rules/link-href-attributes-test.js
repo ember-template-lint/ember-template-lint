@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'link-href-attributes',
@@ -18,11 +16,22 @@ generateRuleTests({
   bad: [
     {
       template: '<a></a>',
-      result: {
-        message: 'a tags must have an href attribute',
-        source: '<a></a>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 7,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "a tags must have an href attribute",
+              "rule": "link-href-attributes",
+              "severity": 2,
+              "source": "<a></a>",
+            },
+          ]
+        `);
       },
     },
   ],

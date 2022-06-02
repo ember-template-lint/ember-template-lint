@@ -1,10 +1,5 @@
-'use strict';
-
-const path = require('path');
-
-const FixturifyProject = require('fixturify-project');
-
-const ROOT = process.cwd();
+import { BinTesterProject } from '@scalvert/bin-tester';
+import path from 'node:path';
 
 // this is the default .editorconfig file for new ember-cli apps, taken from:
 // https://github.com/ember-cli/ember-new-output/blob/stable/.editorconfig
@@ -40,20 +35,21 @@ module.exports = {
 };
 `;
 
-module.exports = class FakeProject extends FixturifyProject {
-  static defaultSetup() {
+export default class FakeProject extends BinTesterProject {
+  static async defaultSetup() {
     let project = new this();
 
-    project.files['.template-lintrc.js'] = DEFAULT_TEMPLATE_LINTRC;
-    project.files['.editorconfig'] = DEFAULT_EDITOR_CONFIG;
-
-    project.writeSync();
+    project.populateDefaultSetupFiles();
+    await project.write();
 
     return project;
   }
 
-  constructor(name = 'fake-project', ...args) {
-    super(name, ...args);
+  populateDefaultSetupFiles() {
+    this.files = {
+      '.template-lintrc.js': DEFAULT_TEMPLATE_LINTRC,
+      '.editorconfig': DEFAULT_EDITOR_CONFIG,
+    };
   }
 
   setConfig(config) {
@@ -64,27 +60,22 @@ module.exports = class FakeProject extends FixturifyProject {
 
     this.files['.template-lintrc.js'] = configFileContents;
 
-    this.writeSync();
+    return this.write();
   }
 
-  getConfig() {
-    return require(path.join(this.baseDir, '.template-lintrc'));
+  async getConfig() {
+    const { default: config } = await import(path.join(this.baseDir, '.template-lintrc.js'));
+    return config;
   }
 
   setEditorConfig(value = DEFAULT_EDITOR_CONFIG) {
     this.files['.editorconfig'] = value;
 
-    this.writeSync();
+    return this.write();
   }
 
   path(subPath) {
     return subPath ? path.join(this.baseDir, subPath) : this.baseDir;
-  }
-
-  // behave like a TempDir from broccoli-test-helper
-  write(dirJSON) {
-    Object.assign(this.files, dirJSON);
-    this.writeSync();
   }
 
   setShorthandPackageJsonTodoConfig(daysToDecay) {
@@ -94,7 +85,7 @@ module.exports = class FakeProject extends FixturifyProject {
       },
     });
 
-    this.writeSync();
+    return this.write();
   }
 
   setPackageJsonTodoConfig(daysToDecay, daysToDecayByRule) {
@@ -112,7 +103,7 @@ module.exports = class FakeProject extends FixturifyProject {
 
     this.pkg = Object.assign({}, this.pkg, todoConfig);
 
-    this.writeSync();
+    return this.write();
   }
 
   setLintTodorc(daysToDecay, daysToDecayByRule) {
@@ -126,25 +117,8 @@ module.exports = class FakeProject extends FixturifyProject {
       todoConfig['ember-template-lint'].daysToDecayByRule = daysToDecayByRule;
     }
 
-    this.write({
+    return this.write({
       '.lint-todorc.js': `module.exports = ${JSON.stringify(todoConfig, null, 2)}`,
     });
   }
-
-  chdir() {
-    this._dirChanged = true;
-
-    // ensure the directory structure is created initially
-    this.writeSync();
-
-    process.chdir(this.baseDir);
-  }
-
-  dispose() {
-    if (this._dirChanged) {
-      process.chdir(ROOT);
-    }
-
-    return super.dispose();
-  }
-};
+}

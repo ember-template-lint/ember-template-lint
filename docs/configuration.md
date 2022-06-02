@@ -11,7 +11,7 @@ module.exports = {
   extends: 'recommended',
 
   rules: {
-    'no-bare-strings': true,
+    'no-bare-strings': 'error',
   },
 };
 ```
@@ -31,6 +31,8 @@ module.exports = {
   },
 };
 ```
+
+Configuration files can be written in CJS or ESM. ESM is required when directly importing/exporting rules (since rules are written in ESM and only ESM files can import ESM files).
 
 ## Configuration Properties
 

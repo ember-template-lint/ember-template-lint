@@ -1,6 +1,6 @@
-const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
-const { parseConfig } = require('../../../lib/rules/no-curly-component-invocation');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { transformTagName } from '../../../lib/helpers/curly-component-invocation.js';
+import { parseConfig } from '../../../lib/rules/no-curly-component-invocation.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 function generateError(name) {
   let angleBracketName = transformTagName(name);
@@ -71,6 +71,8 @@ const SHARED_BAD = [
       {
         message: generateError('foo-bar'),
         line: 1,
+        endColumn: 11,
+        endLine: 1,
         isFixable: false,
         column: 0,
         source: '{{foo-bar}}',
@@ -84,6 +86,8 @@ const SHARED_BAD = [
         message: generateError('nested/component'),
         line: 1,
         column: 0,
+        endColumn: 20,
+        endLine: 1,
         isFixable: false,
         source: '{{nested/component}}',
       },
@@ -95,6 +99,8 @@ const SHARED_BAD = [
       {
         message: generateError('foo-bar'),
         line: 1,
+        endColumn: 19,
+        endLine: 1,
         isFixable: false,
         column: 0,
         source: '{{foo-bar bar=baz}}',
@@ -108,6 +114,8 @@ const SHARED_BAD = [
         message: generateError('foo.bar'),
         line: 1,
         column: 0,
+        endColumn: 19,
+        endLine: 1,
         isFixable: false,
         source: '{{foo.bar bar=baz}}',
       },
@@ -119,6 +127,8 @@ const SHARED_BAD = [
       {
         message: generateError('link-to'),
         line: 1,
+        endColumn: 23,
+        endLine: 1,
         isFixable: false,
         column: 0,
         source: '{{link-to "bar" "foo"}}',
@@ -132,6 +142,8 @@ const SHARED_BAD = [
         message: generateError('link-to'),
         line: 1,
         column: 0,
+        endColumn: 33,
+        endLine: 1,
         isFixable: false,
         source: '{{#link-to "foo"}}bar{{/link-to}}',
       },
@@ -144,6 +156,8 @@ const SHARED_BAD = [
         message: generateError('input'),
         line: 1,
         column: 0,
+        endColumn: 43,
+        endLine: 1,
         isFixable: false,
         source: '{{input type="text" value=this.model.name}}',
       },
@@ -156,6 +170,8 @@ const SHARED_BAD = [
         message: generateError('textarea'),
         line: 1,
         column: 0,
+        endColumn: 34,
+        endLine: 1,
         isFixable: false,
         source: '{{textarea value=this.model.body}}',
       },
@@ -165,11 +181,14 @@ const SHARED_BAD = [
   // real world examples
   {
     template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
+    fixedTemplate: '<Heading @size="1">Disallowed heading component</Heading>',
     results: [
       {
         message: generateError('heading'),
         line: 1,
         column: 0,
+        endColumn: 61,
+        endLine: 1,
         isFixable: true,
         source: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
       },
@@ -223,6 +242,8 @@ generateRuleTests({
         {
           message: generateError('disallowed'),
           line: 1,
+          endColumn: 14,
+          endLine: 1,
           isFixable: false,
           column: 0,
           source: '{{disallowed}}',
@@ -281,6 +302,8 @@ generateRuleTests({
         {
           message: generateError('foo'),
           line: 1,
+          endColumn: 7,
+          endLine: 1,
           isFixable: false,
           column: 0,
           source: '{{foo}}',
@@ -294,6 +317,8 @@ generateRuleTests({
           message: generateError('foo.bar'),
           line: 1,
           column: 0,
+          endColumn: 11,
+          endLine: 1,
           isFixable: false,
           source: '{{foo.bar}}',
         },

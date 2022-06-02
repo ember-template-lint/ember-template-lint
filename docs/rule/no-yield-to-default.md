@@ -1,5 +1,7 @@
 # no-yield-to-default
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 The `yield` keyword can be used for invoking blocks passed into a component. The `to` named argument specifies which of the blocks to yield too. Specifying `{{yield to="default"}}` is unnecessary, as that is the default behavior. Likewise, `{{has-block}}` and `{{has-block-params}}` also defaults to checking the "default" block.
 
 This rule disallow yield to named blocks with the name "default".

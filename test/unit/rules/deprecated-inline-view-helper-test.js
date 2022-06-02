@@ -1,13 +1,4 @@
-'use strict';
-
-const { DEPRECATION_URL } = require('../../../lib/rules/deprecated-inline-view-helper');
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const message =
-  // eslint-disable-next-line prefer-template
-  'The inline form of `view` is deprecated. Please use the `Ember.Component` instead. ' +
-  'See the deprecation guide at ' +
-  DEPRECATION_URL;
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'deprecated-inline-view-helper',
@@ -26,85 +17,154 @@ generateRuleTests({
     '{{has-block "view"}}',
     '{{yield to="view"}}',
     '{{#if (has-block "view")}}{{yield to="view"}}{{/if}}',
+    '{{this.view}}',
+    '{{@view}}',
+    '{{#let this.prop as |view|}} {{view}} {{/let}}',
   ],
 
   bad: [
     {
       template: "{{view 'awful-fishsticks'}}",
 
-      result: {
-        message,
-        source: "{{view 'awful-fishsticks'}}",
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{awful-fishsticks}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{awful-fishsticks}}",
+              },
+              "line": 1,
+              "message": "The inline form of \`view\` is deprecated. Please use the \`Ember.Component\` instead. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_ember-view",
+              "rule": "deprecated-inline-view-helper",
+              "severity": 2,
+              "source": "{{view 'awful-fishsticks'}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{view.bad-fishsticks}}',
 
-      result: {
-        message,
-        source: '{{view.bad-fishsticks}}',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{bad-fishsticks}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{bad-fishsticks}}",
+              },
+              "line": 1,
+              "message": "The inline form of \`view\` is deprecated. Please use the \`Ember.Component\` instead. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_ember-view",
+              "rule": "deprecated-inline-view-helper",
+              "severity": 2,
+              "source": "{{view.bad-fishsticks}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{view.terrible.fishsticks}}',
 
-      result: {
-        message,
-        source: '{{view.terrible.fishsticks}}',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{terrible.fishsticks}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{terrible.fishsticks}}",
+              },
+              "line": 1,
+              "message": "The inline form of \`view\` is deprecated. Please use the \`Ember.Component\` instead. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_ember-view",
+              "rule": "deprecated-inline-view-helper",
+              "severity": 2,
+              "source": "{{view.terrible.fishsticks}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{foo-bar bab=good baz=view.qux.qaz boo=okay}}',
 
-      result: {
-        message,
-        source: '{{foo-bar baz=view.qux.qaz}}',
-        line: 1,
-        column: 19,
-        fix: {
-          text: '{{foo-bar baz=qux.qaz}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 19,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{foo-bar baz=qux.qaz}}",
+              },
+              "line": 1,
+              "message": "The inline form of \`view\` is deprecated. Please use the \`Ember.Component\` instead. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_ember-view",
+              "rule": "deprecated-inline-view-helper",
+              "severity": 2,
+              "source": "{{foo-bar baz=view.qux.qaz}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div class="whatever-class" data-foo={{view.hallo}} sure=thing></div>',
 
-      result: {
-        message,
-        source: '<div data-foo={{view.hallo}}></div>',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '<div data-foo={{hallo}}></div>',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 69,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "<div data-foo={{hallo}}></div>",
+              },
+              "line": 1,
+              "message": "The inline form of \`view\` is deprecated. Please use the \`Ember.Component\` instead. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_ember-view",
+              "rule": "deprecated-inline-view-helper",
+              "severity": 2,
+              "source": "<div data-foo={{view.hallo}}></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo-bar derp=view.whoops thing=whatever}}{{/foo-bar}}',
 
-      result: {
-        message,
-        source: '{{#foo-bar derp=view.whoops}}{{/foo-bar}}',
-        line: 1,
-        column: 11,
-        fix: {
-          text: '{{#foo-bar derp=whoops}}{{/foo-bar}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{#foo-bar derp=whoops}}{{/foo-bar}}",
+              },
+              "line": 1,
+              "message": "The inline form of \`view\` is deprecated. Please use the \`Ember.Component\` instead. See the deprecation guide at http://emberjs.com/deprecations/v1.x/#toc_ember-view",
+              "rule": "deprecated-inline-view-helper",
+              "severity": 2,
+              "source": "{{#foo-bar derp=view.whoops}}{{/foo-bar}}",
+            },
+          ]
+        `);
       },
     },
   ],

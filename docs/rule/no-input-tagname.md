@@ -20,8 +20,7 @@ This rule **forbids** the following:
 ## Related rules
 
 * [no-link-to-tagname](no-link-to-tagname.md)
-- [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
-
+* [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
 
 ## References
 
