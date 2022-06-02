@@ -85,15 +85,15 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 41,
+              "column": 19,
+              "endColumn": 45,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
               "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "<input type=\\"text\\" onmousedown=\\"myFunction()\\">",
+              "source": "onmousedown=\\"myFunction()\\"",
             },
           ]
         `);
