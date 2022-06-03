@@ -40,7 +40,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as (route-action "updateFoo"). Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "(route-action 'updateFoo' 'bar')",
@@ -60,7 +60,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as (route-action "updateFoo"). Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "(route-action 'updateFoo' 'bar')",
@@ -83,7 +83,7 @@ generateRuleTests({
               "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
-              "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as (route-action "updateFoo"). Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "(route-action 'updateFoo')",
@@ -107,7 +107,7 @@ generateRuleTests({
               "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
-              "message": "Do not use \`route-action\` as {{route-action ...}}. Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as {{route-action "updateFoo"}}. Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "{{route-action 'updateFoo'}}",
@@ -117,7 +117,7 @@ generateRuleTests({
       },
     },
     {
-      template: `<CustomComponent @onUpdate={{route-action 'updateFoo' 'bar'}} />`,
+      template: `<CustomComponent @onUpdate={{route-action 'updateBar' 'bar'}} />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -127,7 +127,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Do not use \`route-action\` as {{route-action ...}}. Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as {{route-action "updateBar"}}. Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "{{route-action 'updateFoo' 'bar'}}",
