@@ -12,6 +12,40 @@
 
 
 
+
+
+
+## v4.10.0 (2022-05-26)
+
+#### :rocket: Enhancement
+* [#2523](https://github.com/ember-template-lint/ember-template-lint/pull/2523) Add new rule `require-mandatory-role-attributes` ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 1
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
+## v4.9.1 (2022-05-19)
+
+#### :bug: Bug Fix
+* [#2516](https://github.com/ember-template-lint/ember-template-lint/pull/2516) Fix crash in `no-unsupported-role-attributes` rule when an element has no implicit role ([@bertdeblock](https://github.com/bertdeblock))
+
+#### Committers: 1
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+
+
+## v4.9.0 (2022-05-18)
+
+#### :rocket: Enhancement
+* [#2511](https://github.com/ember-template-lint/ember-template-lint/pull/2511) Add new rule `no-unsupported-role-attributes` ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :bug: Bug Fix
+* [#2509](https://github.com/ember-template-lint/ember-template-lint/pull/2509) Update yargs to 17.5.1 to fix `--version` ([@jamescdavis](https://github.com/jamescdavis))
+
+#### Committers: 2
+- James C. Davis ([@jamescdavis](https://github.com/jamescdavis))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v4.8.0 (2022-05-13)
 
 #### :rocket: Enhancement

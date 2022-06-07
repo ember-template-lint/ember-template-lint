@@ -1,6 +1,6 @@
 {
   "name": "ember-template-lint",
-  "version": "4.8.0",
+  "version": "4.10.0",
   "description": "Linter for Ember or Handlebars templates.",
   "keywords": [
     "ember",
@@ -90,7 +90,7 @@
     "@scalvert/bin-tester": "^2.1.0",
     "common-tags": "^1.8.2",
     "cross-env": "^7.0.3",
-    "eslint": "^8.15.0",
+    "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-filenames": "^1.3.2",
