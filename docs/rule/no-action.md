@@ -102,13 +102,13 @@ to
 ```
 
 ```hbs
-<myComponent @onValidationChange={{action "onDateValidation"}} />
+<MyComponent @onValidationChange={{action "onDateValidation"}} />
 ```
 
 to
 
 ```hbs
-<myComponent @onValidationChange={{this.onDateValidation}} />
+<MyComponent @onValidationChange={{this.onDateValidation}} />
 ```
 
 ## Related Rules
