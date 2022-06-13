@@ -111,6 +111,7 @@ to
 ```hbs
 <myComponent @onValidationChange={{this.onDateValidation}} />
 ```
+
 ## Related Rules
 
 * [no-action-modifiers](no-action-modifiers.md)
