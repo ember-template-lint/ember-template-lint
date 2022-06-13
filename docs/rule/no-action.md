@@ -4,7 +4,7 @@
 
 What's wrong with `{{action}}`?
 
-"Action" is an overloaded term in Ember idiom. Actions are:
+"Action" is an overloaded term in Ember. Actions are:
 
 1.) Methods on the `actions` hash
 
