@@ -101,12 +101,11 @@ to
 </select>
 ```
 
-
 ```hbs
 <myComponent @onValidationChange={{action "onDateValidation"}} />
 ```
 
-to 
+to
 
 ```hbs
 <myComponent @onValidationChange={{this.onDateValidation}} />
