@@ -37,6 +37,14 @@ generateRuleTests({
       template: '& &times;',
     },
     {
+      config: { allowHTMLCharacters: true },
+      template: '&times;',
+    },
+    {
+      config: { allowHTMLCharacters: true, allowlist: ['strange'] },
+      template: 'strange &times;',
+    },
+    {
       config: { allowlist: ['howdy'] },
       template: 'howdy',
     },
