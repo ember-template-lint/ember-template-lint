@@ -83,7 +83,7 @@ allow it with your configuration.
 
 ```js
 'table-groups': {
-  'allowable-tbody-components': 'some-component-with-tag-name-tbody',
+  'allowed-tbody-components': ['some-component-with-tag-name-tbody'],
 }
 ```
 
