@@ -16,6 +16,16 @@
 
 
 
+
+## v4.11.0 (2022-08-03)
+
+#### :rocket: Enhancement
+* [#2568](https://github.com/ember-template-lint/ember-template-lint/pull/2568) Add autofixer to `no-unnecessary-concat` rule ([@locks](https://github.com/locks))
+
+#### Committers: 1
+- Ricardo Mendes ([@locks](https://github.com/locks))
+
+
 ## v4.10.1 (2022-06-26)
 
 #### :bug: Bug Fix
