@@ -97,7 +97,7 @@ Each rule has emojis denoting:
 | [linebreak-style](./docs/rule/linebreak-style.md)                                                         |     | 💅  |     |     |
 | [link-href-attributes](./docs/rule/link-href-attributes.md)                                               | ✅  |     | ⌨️  |     |
 | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                                     | ✅  |     |     | 🔧  |
-| [modifier-name-case](./docs/rule/modifier-name-case.md)                                                   |     | 💅  |     |     |
+| [modifier-name-case](./docs/rule/modifier-name-case.md)                                                   |     | 💅  |     | 🔧  |
 | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                                     | ✅  |     | ⌨️  |     |
 | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           | ✅  |     | ⌨️  | 🔧  |
 | [no-action](./docs/rule/no-action.md)                                                                     | ✅  |     |     |     |
