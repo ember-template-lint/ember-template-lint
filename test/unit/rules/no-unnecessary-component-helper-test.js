@@ -51,21 +51,23 @@ generateRuleTests({
   bad: [
     // MustacheStatement
     {
-      template: '{{component "my-component-name"}}',
+      template: '{{component "my-component-name" foo=123 bar=456}}',
+      fixedTemplate: '{{my-component-name foo=123 bar=456}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 0,
-              "endColumn": 33,
+              "endColumn": 49,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Invoke component directly instead of using \`component\` helper",
               "rule": "no-unnecessary-component-helper",
               "severity": 2,
-              "source": "{{component \\"my-component-name\\"}}",
+              "source": "{{component \\"my-component-name\\" foo=123 bar=456}}",
             },
           ]
         `);
@@ -73,21 +75,23 @@ generateRuleTests({
     },
     // BlockStatement:
     {
-      template: '{{#component "my-component-name"}}{{/component}}',
+      template: '{{#component "my-component-name" foo=123 bar=456}}{{/component}}',
+      fixedTemplate: '{{#my-component-name foo=123 bar=456}}{{/my-component-name}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 0,
-              "endColumn": 48,
+              "endColumn": 64,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Invoke component directly instead of using \`component\` helper",
               "rule": "no-unnecessary-component-helper",
               "severity": 2,
-              "source": "{{#component \\"my-component-name\\"}}{{/component}}",
+              "source": "{{#component \\"my-component-name\\" foo=123 bar=456}}{{/component}}",
             },
           ]
         `);
@@ -96,6 +100,7 @@ generateRuleTests({
     {
       template:
         '<Foo @arg={{component "allowed-component"}}>{{component "forbidden-component"}}</Foo>',
+      fixedTemplate: '<Foo @arg={{component "allowed-component"}}>{{forbidden-component}}</Foo>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -105,6 +110,7 @@ generateRuleTests({
               "endColumn": 79,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Invoke component directly instead of using \`component\` helper",
               "rule": "no-unnecessary-component-helper",
