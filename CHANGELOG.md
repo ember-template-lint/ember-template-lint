@@ -17,6 +17,23 @@
 
 
 
+
+## v4.12.0 (2022-08-05)
+
+#### :rocket: Enhancement
+* [#2574](https://github.com/ember-template-lint/ember-template-lint/pull/2574) Add autofixer to `no-unnecessary-component-helper` rule ([@bmish](https://github.com/bmish))
+* [#2573](https://github.com/ember-template-lint/ember-template-lint/pull/2573) Add autofixer to `modifier-name-case` rule ([@bmish](https://github.com/bmish))
+* [#2569](https://github.com/ember-template-lint/ember-template-lint/pull/2569) Add autofixer to `require-valid-named-block-naming-format` rule ([@locks](https://github.com/locks))
+
+#### :memo: Documentation
+* [#2513](https://github.com/ember-template-lint/ember-template-lint/pull/2513) Update overrides example ([@jamescdavis](https://github.com/jamescdavis))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- James C. Davis ([@jamescdavis](https://github.com/jamescdavis))
+- Ricardo Mendes ([@locks](https://github.com/locks))
+
+
 ## v4.11.0 (2022-08-03)
 
 #### :rocket: Enhancement
