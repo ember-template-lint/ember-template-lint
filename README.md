@@ -92,6 +92,7 @@ Each rule has emojis denoting:
 | [builtin-component-arguments](./docs/rule/builtin-component-arguments.md)                                 | ✅  |     |     |     |
 | [deprecated-inline-view-helper](./docs/rule/deprecated-inline-view-helper.md)                             | ✅  |     |     |     |
 | [deprecated-render-helper](./docs/rule/deprecated-render-helper.md)                                       | ✅  |     |     |     |
+| [element-attributes-order](./docs/rule/element-attributes-order.md)                                       |     |     |     |     |
 | [eol-last](./docs/rule/eol-last.md)                                                                       |     | 💅  |     | 🔧  |
 | [inline-link-to](./docs/rule/inline-link-to.md)                                                           |     |     |     | 🔧  |
 | [linebreak-style](./docs/rule/linebreak-style.md)                                                         |     | 💅  |     |     |
