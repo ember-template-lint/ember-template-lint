@@ -79,5 +79,17 @@ generateRuleTests({
         column: 38,
       },
     },
+    {
+      config: {
+        attributeOrder: ['attributes', 'arguments', 'modifiers', 'splattributes'],
+      },
+      template: '<div @foo="1" {{did-render this.ok}} ...attributes aria-label="foo"></div>',
+      result: {
+        message: 'Attribute aria-label="foo" must go before arguments, modifiers and splattributes',
+        source: 'aria-label="foo"',
+        line: 1,
+        column: 51,
+      },
+    },
   ],
 });
