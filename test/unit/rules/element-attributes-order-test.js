@@ -91,5 +91,18 @@ generateRuleTests({
         column: 51,
       },
     },
+    {
+      config: {
+        alphabetize: true,
+      },
+      template:
+        '<div @foo="1" {{did-update this.notok}} {{did-render this.ok}} ...attributes aria-label="foo"></div>',
+      result: {
+        message: 'Modifier {{did-render this.ok}} is not alphabetized',
+        source: '{{did-render this.ok}}',
+        line: 1,
+        column: 40,
+      },
+    },
   ],
 });
