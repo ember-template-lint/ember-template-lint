@@ -12,7 +12,8 @@ Element attributes must be ordered, by default the order is:
 
 The following values are valid configuration:
 
-- attributeOrder: [`arguments`, `attributes`, `modifiers`, `splattributes`]
+- attributeOrder: default [`arguments`, `attributes`, `modifiers`, `splattributes`]
+- alphabetize: default `false`, `true` to enforce alphabetically ordered values within attributes
 
 ## Examples
 
