@@ -35,56 +35,122 @@ generateRuleTests({
         alphabetize: true,
       },
       template: '{{MyComponent b="2" a="1"}}',
-      result: {
-        message: 'Attribute a="1" is not alphabetized',
-        source: 'a="1"',
-        line: 1,
-        column: 20,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Attribute a=\\"1\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "a=\\"1\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div ...attributes @a="1"></div>',
-      result: {
-        message: 'Argument @a="1" must go before attributes, modifiers and splattributes',
-        source: '@a="1"',
-        line: 1,
-        column: 19,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 19,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@a=\\"1\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div contenteditable @a="1"></div>',
-      result: {
-        message: 'Argument @a="1" must go before attributes, modifiers and splattributes',
-        source: '@a="1"',
-        line: 1,
-        column: 21,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 21,
+              "endColumn": 34,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@a=\\"1\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div {{did-render this.someAction}} @a="1"></div>',
-      result: {
-        message: 'Argument @a="1" must go before attributes, modifiers and splattributes',
-        source: '@a="1"',
-        line: 1,
-        column: 36,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 36,
+              "endColumn": 49,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@a=\\"1\\"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div ...attributes {{did-render this.someAction}}></div>',
-      result: {
-        message: 'Splattribute ...attributes must go after modifiers',
-        source: '...attributes',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 56,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Splattribute ...attributes must go after modifiers",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "...attributes",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div {{did-render this.someAction}} aria-label="button"></div>',
-      result: {
-        message: 'Modifier {{did-render this.someAction}} must go after attributes',
-        source: '{{did-render this.someAction}}',
-        line: 1,
-        column: 5,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 62,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Modifier {{did-render this.someAction}} must go after attributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "{{did-render this.someAction}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -93,12 +159,22 @@ generateRuleTests({
       },
       template:
         '<MyComponent @value="5" data-test-foo @change={{this.foo}} local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
-      result: {
-        message:
-          'Argument @change={{this.foo}} must go before attributes, modifiers and splattributes',
-        source: '@change={{this.foo}}',
-        line: 1,
-        column: 38,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 38,
+              "endColumn": 145,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Argument @change={{this.foo}} must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@change={{this.foo}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -106,11 +182,22 @@ generateRuleTests({
         attributeOrder: ['attributes', 'arguments', 'modifiers', 'splattributes'],
       },
       template: '<div @foo="1" {{did-render this.ok}} ...attributes aria-label="foo"></div>',
-      result: {
-        message: 'Attribute aria-label="foo" must go before arguments, modifiers and splattributes',
-        source: 'aria-label="foo"',
-        line: 1,
-        column: 51,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 51,
+              "endColumn": 74,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Attribute aria-label=\\"foo\\" must go before arguments, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "aria-label=\\"foo\\"",
+            },
+          ]
+        `);
       },
     },
     {
@@ -119,11 +206,22 @@ generateRuleTests({
       },
       template:
         '<div @foo="1" {{did-update this.notok}} {{did-render this.ok}} ...attributes aria-label="foo"></div>',
-      result: {
-        message: 'Modifier {{did-render this.ok}} is not alphabetized',
-        source: '{{did-render this.ok}}',
-        line: 1,
-        column: 40,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 40,
+              "endColumn": 100,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Modifier {{did-render this.ok}} is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "{{did-render this.ok}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -131,11 +229,22 @@ generateRuleTests({
         alphabetize: true,
       },
       template: '{{MyComponent b="2" a="1"}}',
-      result: {
-        message: 'Attribute a="1" is not alphabetized',
-        source: 'a="1"',
-        line: 1,
-        column: 20,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Attribute a=\\"1\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "a=\\"1\\"",
+            },
+          ]
+        `);
       },
     },
   ],
