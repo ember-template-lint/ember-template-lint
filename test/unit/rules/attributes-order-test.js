@@ -1,36 +1,31 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'element-attributes-order',
+  name: 'attributes-order',
 
   config: true,
 
   good: [
-    '<div @foo="1" bar="baz" {{did-render this.ok}} ...attributes aria-label="foo"></div>',
+    '<div @foo="1" aria-label="foo" {{did-render this.ok}} ...attributes bar="baz"></div>',
     '<div @foo="1" aria-label="foo"></div>',
     '<div @foo="1" ...attributes></div>',
     '<div @foo="1" {{did-render this.ok}}></div>',
     '<div @foo="1" bar="baz"></div>',
-    '<div bar="baz" {{did-render this.ok}} ...attributes aria-label="foo"></div>',
-    '<div bar="baz" aria-label="foo"></div>',
+    '<div bar="baz" {{did-render this.ok}} ...attributes label="foo"></div>',
+    '<div aria-label="foo" bar="baz"></div>',
     '<div bar="baz" ...attributes></div>',
     '<div bar="baz" {{did-render this.ok}}></div>',
     '<div {{did-render this.oks}} ...attributes aria-label="foo"></div>',
     '<div {{did-render this.ok}} ...attributes></div>',
     '<div ...attributes aria-label="foo"></div>',
     '<div aria-label="foo"></div>',
-    '<MyComponent @value="5" @change={{this.foo}} local-class="foo" data-test-foo {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
+    '<MyComponent @change={{this.foo}} @value="5" data-test-foo local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
+    '{{MyComponent a="2" b="1"}}',
     {
       config: {
         alphabetize: false,
       },
       template: '{{MyComponent b="2" a="1"}}',
-    },
-    {
-      config: {
-        alphabetize: true,
-      },
-      template: '{{MyComponent a="2" b="1"}}',
     },
   ],
 
@@ -93,6 +88,9 @@ generateRuleTests({
       },
     },
     {
+      config: {
+        alphabetize: false,
+      },
       template:
         '<MyComponent @value="5" data-test-foo @change={{this.foo}} local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
       result: {

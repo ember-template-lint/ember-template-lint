@@ -1,4 +1,4 @@
-# element-attributes-order
+# attributes-order
 
 Element attributes must be ordered, by default the order is:
 
