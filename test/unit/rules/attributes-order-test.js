@@ -1,5 +1,7 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
+const invalidConfigMessage = 'Your config does not match the allowed values';
+
 generateRuleTests({
   name: 'attributes-order',
 
@@ -20,6 +22,7 @@ generateRuleTests({
     '<div ...attributes aria-label="foo"></div>',
     '<div aria-label="foo"></div>',
     '<MyComponent @change={{this.foo}} @value="5" data-test-foo local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
+    '{{MyComponent something another a="1" b="2"}}',
     '{{MyComponent a="2" b="1"}}',
     {
       config: {
@@ -31,9 +34,26 @@ generateRuleTests({
 
   bad: [
     {
-      config: {
-        alphabetize: true,
+      template: '{{MyComponent something another b="1" a="2"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 38,
+              "endColumn": 45,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Attribute a=\\"2\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "a=\\"2\\"",
+            },
+          ]
+        `);
       },
+    },
+    {
       template: '{{MyComponent b="2" a="1"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -245,6 +265,45 @@ generateRuleTests({
             },
           ]
         `);
+      },
+    },
+  ],
+
+  error: [
+    {
+      config: null,
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: invalidConfigMessage,
+      },
+    },
+    {
+      config: 'true',
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: invalidConfigMessage,
+      },
+    },
+    {
+      config: { invalidOption: true },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: invalidConfigMessage,
+      },
+    },
+    {
+      config: { requireActionHelper: 'true' },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: invalidConfigMessage,
       },
     },
   ],
