@@ -2,18 +2,25 @@
 
 Element attributes must be ordered, by default the order is:
 
+For angle bracket invocation syntax:
+
 - arguments
 - attributes
 - element modifiers
 - ...attributes
 - ?attributes
 
+For mustache/curly invoication syntax:
+
+- attributes
+
 ## Configuration
 
 The following values are valid configuration:
 
 - attributeOrder: default [`arguments`, `attributes`, `modifiers`, `splattributes`]
-- alphabetize: default `false`, `true` to enforce alphabetically ordered values within attributes
+  - [`attributes`] for curly invocation
+- alphabetize: default `false` - `true` to enforce alphabetically ordered values within attributes
 
 ## Examples
 
@@ -29,6 +36,10 @@ This rule **forbids** the following:
 
 ```hbs
 <MyComponent ...attributes {{did-render this.someAction}} />
+```
+
+```hbs
+<MyComponent @b='1' a='2' />
 ```
 
 This rule **allows** the following:

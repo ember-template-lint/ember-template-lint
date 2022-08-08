@@ -20,9 +20,33 @@ generateRuleTests({
     '<div ...attributes aria-label="foo"></div>',
     '<div aria-label="foo"></div>',
     '<MyComponent @value="5" @change={{this.foo}} local-class="foo" data-test-foo {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
+    {
+      config: {
+        alphabetize: false,
+      },
+      template: '{{MyComponent b="2" a="1"}}',
+    },
+    {
+      config: {
+        alphabetize: true,
+      },
+      template: '{{MyComponent a="2" b="1"}}',
+    },
   ],
 
   bad: [
+    {
+      config: {
+        alphabetize: true,
+      },
+      template: '{{MyComponent b="2" a="1"}}',
+      result: {
+        message: 'Attribute a="1" is not alphabetized',
+        source: 'a="1"',
+        line: 1,
+        column: 20,
+      },
+    },
     {
       template: '<div ...attributes @a="1"></div>',
       result: {
@@ -102,6 +126,18 @@ generateRuleTests({
         source: '{{did-render this.ok}}',
         line: 1,
         column: 40,
+      },
+    },
+    {
+      config: {
+        alphabetize: true,
+      },
+      template: '{{MyComponent b="2" a="1"}}',
+      result: {
+        message: 'Attribute a="1" is not alphabetized',
+        source: 'a="1"',
+        line: 1,
+        column: 20,
       },
     },
   ],
