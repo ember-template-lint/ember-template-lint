@@ -20,7 +20,7 @@ The following values are valid configuration:
 
 - attributeOrder: default [`arguments`, `attributes`, `modifiers`, `splattributes`]
   - [`attributes`] for curly invocation
-- alphabetize: default `false` - `true` to enforce alphabetically ordered values within attributes
+- alphabetize: default `true` - `true` to enforce alphabetically ordered values within attributes
 
 ## Examples
 
