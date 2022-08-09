@@ -1,6 +1,5 @@
+import { createAttributesOrderErrorMessage } from '../../../lib/rules/attributes-order.js';
 import generateRuleTests from '../../helpers/rule-test-harness.js';
-
-const invalidConfigMessage = 'Your config does not match the allowed values';
 
 generateRuleTests({
   name: 'attributes-order',
@@ -40,7 +39,7 @@ generateRuleTests({
           [
             {
               "column": 38,
-              "endColumn": 45,
+              "endColumn": 43,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -60,7 +59,7 @@ generateRuleTests({
           [
             {
               "column": 20,
-              "endColumn": 27,
+              "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -80,7 +79,7 @@ generateRuleTests({
           [
             {
               "column": 19,
-              "endColumn": 32,
+              "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -100,7 +99,7 @@ generateRuleTests({
           [
             {
               "column": 21,
-              "endColumn": 34,
+              "endColumn": 27,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -120,7 +119,7 @@ generateRuleTests({
           [
             {
               "column": 36,
-              "endColumn": 49,
+              "endColumn": 42,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -140,7 +139,7 @@ generateRuleTests({
           [
             {
               "column": 5,
-              "endColumn": 56,
+              "endColumn": 18,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -160,7 +159,7 @@ generateRuleTests({
           [
             {
               "column": 5,
-              "endColumn": 62,
+              "endColumn": 35,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -184,7 +183,7 @@ generateRuleTests({
           [
             {
               "column": 38,
-              "endColumn": 145,
+              "endColumn": 58,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -192,6 +191,29 @@ generateRuleTests({
               "rule": "attributes-order",
               "severity": 2,
               "source": "@change={{this.foo}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: {
+        attributeOrder: ['attributes'],
+      },
+      template: '{{my-component one two b=1 a=2}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Attribute a=2 is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "a=2",
             },
           ]
         `);
@@ -207,7 +229,7 @@ generateRuleTests({
           [
             {
               "column": 51,
-              "endColumn": 74,
+              "endColumn": 67,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -231,7 +253,7 @@ generateRuleTests({
           [
             {
               "column": 40,
-              "endColumn": 100,
+              "endColumn": 62,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -254,7 +276,7 @@ generateRuleTests({
           [
             {
               "column": 20,
-              "endColumn": 27,
+              "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
@@ -276,7 +298,7 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        message: invalidConfigMessage,
+        message: createAttributesOrderErrorMessage(null),
       },
     },
     {
@@ -285,7 +307,20 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        message: invalidConfigMessage,
+        message: createAttributesOrderErrorMessage('true'),
+      },
+    },
+    {
+      config: {
+        attributeOrder: ['arguments', 'NOT_AN_OPTION'],
+      },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: createAttributesOrderErrorMessage({
+          attributeOrder: ['arguments', 'NOT_AN_OPTION'],
+        }),
       },
     },
     {
@@ -294,16 +329,16 @@ generateRuleTests({
 
       result: {
         fatal: true,
-        message: invalidConfigMessage,
+        message: createAttributesOrderErrorMessage({ invalidOption: true }),
       },
     },
     {
-      config: { requireActionHelper: 'true' },
+      config: { alphabetize: 'true' },
       template: 'test',
 
       result: {
         fatal: true,
-        message: invalidConfigMessage,
+        message: createAttributesOrderErrorMessage({ alphabetize: 'true' }),
       },
     },
   ],
