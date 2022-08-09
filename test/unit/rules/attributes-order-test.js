@@ -29,6 +29,7 @@ generateRuleTests({
       },
       template: '{{MyComponent b="2" a="1"}}',
     },
+    '<MyComponent @bar="2" @z="1" bar="2"></MyComponent>',
   ],
 
   bad: [
