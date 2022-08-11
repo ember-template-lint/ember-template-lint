@@ -11,6 +11,7 @@ generateRuleTests({
     '{{#each cats as |cat|}}{{partial "cat"}}{{/each}}',
     '{{#each cats as |cat|}}{{cat.name}}{{/each}}',
     '{{#each cats as |cat|}}{{meow cat}}{{/each}}',
+    '{{#each cats as |ampere|}}{{meow}}{{/each}}',
     '{{#each cats as |cat index|}}{{index}}{{/each}}',
     '{{#each cats as |cat index|}}' +
       '{{#each cat.lives as |life|}}' +
@@ -86,28 +87,8 @@ generateRuleTests({
 
   bad: [
     {
-      template: '{{#each cats as |cat|}}Dogs{{/each}}',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 23,
-              "endColumn": 27,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "'cat' is defined but never used",
-              "rule": "no-unused-block-params",
-              "severity": 2,
-              "source": "Dogs",
-            },
-          ]
-        `);
-      },
-    },
-    {
       template: '{{#each cats as |cat index|}}{{cat}}{{/each}}',
+      fixedTemplate: '{{#each cats as |cat|}}{{cat}}{{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -116,6 +97,7 @@ generateRuleTests({
               "endColumn": 36,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "'index' is defined but never used",
               "rule": "no-unused-block-params",
@@ -133,6 +115,12 @@ generateRuleTests({
         '{{index}}: {{life}}' +
         '{{/each}}' +
         '{{/each}}',
+      fixedTemplate:
+        '{{#each cats as |cat|}}' +
+        '{{#each cat.lives as |life index|}}' +
+        '{{index}}: {{life}}' +
+        '{{/each}}' +
+        '{{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -141,6 +129,7 @@ generateRuleTests({
               "endColumn": 92,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "'index' is defined but never used",
               "rule": "no-unused-block-params",
@@ -157,6 +146,11 @@ generateRuleTests({
         '{{partial "cat"}}' +
         '{{#each cat.lives as |life|}}Life{{/each}}' +
         '{{/each}}',
+      fixedTemplate:
+        '{{#each cats as |cat|}}' +
+        '{{partial "cat"}}' +
+        '{{#each cat.lives as |life|}}Life{{/each}}' +
+        '{{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -165,11 +159,56 @@ generateRuleTests({
               "endColumn": 79,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "'life' is defined but never used",
               "rule": "no-unused-block-params",
               "severity": 2,
               "source": "Life",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<BurgerMenu as |menu| />',
+      fixedTemplate: '<BurgerMenu />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "'menu' is defined but never used",
+              "rule": "no-unused-block-params",
+              "severity": 2,
+              "source": "<BurgerMenu as |menu| />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<BurgerMenu as |menu|>Buns</BurgerMenu>',
+      fixedTemplate: '<BurgerMenu>Buns</BurgerMenu>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 39,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "'menu' is defined but never used",
+              "rule": "no-unused-block-params",
+              "severity": 2,
+              "source": "<BurgerMenu as |menu|>Buns</BurgerMenu>",
             },
           ]
         `);
