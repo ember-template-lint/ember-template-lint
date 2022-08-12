@@ -35,6 +35,7 @@ generateRuleTests({
   bad: [
     {
       template: 'something\ngoes\r\n',
+      fixedTemplate: 'something\ngoes\n',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -44,6 +45,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Wrong linebreak used. Expected LF but found CRLF",
               "rule": "linebreak-style",
@@ -58,6 +60,7 @@ generateRuleTests({
     {
       config: 'unix',
       template: '\r\n',
+      fixedTemplate: '\n',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -67,6 +70,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Wrong linebreak used. Expected LF but found CRLF",
               "rule": "linebreak-style",
@@ -81,6 +85,7 @@ generateRuleTests({
     {
       config: 'unix',
       template: '{{#if test}}\r\n{{/if}}',
+      fixedTemplate: '{{#if test}}\n{{/if}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -90,6 +95,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Wrong linebreak used. Expected LF but found CRLF",
               "rule": "linebreak-style",
@@ -104,6 +110,7 @@ generateRuleTests({
     {
       config: 'unix',
       template: '{{blah}}\r\n{{blah}}',
+      fixedTemplate: '{{blah}}\n{{blah}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -113,6 +120,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Wrong linebreak used. Expected LF but found CRLF",
               "rule": "linebreak-style",
@@ -127,6 +135,7 @@ generateRuleTests({
     {
       config: 'unix',
       template: '{{blah}}\r\n',
+      fixedTemplate: '{{blah}}\n',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -136,6 +145,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Wrong linebreak used. Expected LF but found CRLF",
               "rule": "linebreak-style",
@@ -159,6 +169,7 @@ generateRuleTests({
               "endColumn": 3,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 1,
               "message": "Wrong linebreak used. Expected LF but found CRLF",
               "rule": "linebreak-style",
@@ -173,6 +184,7 @@ generateRuleTests({
     {
       config: 'unix',
       template: '<blah arg="\r\n" />',
+      fixedTemplate: '<blah arg="\n" />',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -182,6 +194,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Wrong linebreak used. Expected LF but found CRLF",
               "rule": "linebreak-style",
@@ -196,6 +209,7 @@ generateRuleTests({
     {
       config: 'windows',
       template: '\n',
+      fixedTemplate: '\r\n',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -205,6 +219,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Wrong linebreak used. Expected CRLF but found LF",
               "rule": "linebreak-style",
