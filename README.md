@@ -155,7 +155,7 @@ Each rule has emojis denoting:
 | [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)                     | ✅  |     |     | 🔧  |
 | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                               | ✅  |     | ⌨️  |     |
 | [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                                     | ✅  |     |     |     |
-| [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                                         | ✅  |     |     |     |
+| [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                                         | ✅  |     |     | 🔧  |
 | [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                                         | ✅  |     |     | 🔧  |
 | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                                   | ✅  |     | ⌨️  | 🔧  |
 | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                                     |     |     |     |     |
