@@ -10,6 +10,7 @@ generateRuleTests({
   bad: [
     {
       template: '<div class="{{clazz}}"></div>',
+      fixedTemplate: '<div class={{clazz}}></div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -19,6 +20,7 @@ generateRuleTests({
               "endColumn": 22,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Unnecessary string concatenation. Use {{clazz}} instead of \\"{{clazz}}\\".",
               "rule": "no-unnecessary-concat",
@@ -31,6 +33,7 @@ generateRuleTests({
     },
     {
       template: '<img src="{{url}}" alt="{{t "alternate-text"}}">',
+      fixedTemplate: '<img src={{url}} alt={{t "alternate-text"}}>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -40,6 +43,7 @@ generateRuleTests({
               "endColumn": 18,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Unnecessary string concatenation. Use {{url}} instead of \\"{{url}}\\".",
               "rule": "no-unnecessary-concat",
@@ -51,6 +55,7 @@ generateRuleTests({
               "endColumn": 47,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Unnecessary string concatenation. Use {{t \\"alternate-text\\"}} instead of \\"{{t \\"alternate-text\\"}}\\".",
               "rule": "no-unnecessary-concat",

@@ -15,6 +15,52 @@
 
 
 
+
+
+
+## v4.12.0 (2022-08-05)
+
+#### :rocket: Enhancement
+* [#2574](https://github.com/ember-template-lint/ember-template-lint/pull/2574) Add autofixer to `no-unnecessary-component-helper` rule ([@bmish](https://github.com/bmish))
+* [#2573](https://github.com/ember-template-lint/ember-template-lint/pull/2573) Add autofixer to `modifier-name-case` rule ([@bmish](https://github.com/bmish))
+* [#2569](https://github.com/ember-template-lint/ember-template-lint/pull/2569) Add autofixer to `require-valid-named-block-naming-format` rule ([@locks](https://github.com/locks))
+
+#### :memo: Documentation
+* [#2513](https://github.com/ember-template-lint/ember-template-lint/pull/2513) Update overrides example ([@jamescdavis](https://github.com/jamescdavis))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- James C. Davis ([@jamescdavis](https://github.com/jamescdavis))
+- Ricardo Mendes ([@locks](https://github.com/locks))
+
+
+## v4.11.0 (2022-08-03)
+
+#### :rocket: Enhancement
+* [#2568](https://github.com/ember-template-lint/ember-template-lint/pull/2568) Add autofixer to `no-unnecessary-concat` rule ([@locks](https://github.com/locks))
+
+#### Committers: 1
+- Ricardo Mendes ([@locks](https://github.com/locks))
+
+
+## v4.10.1 (2022-06-26)
+
+#### :bug: Bug Fix
+* [#2541](https://github.com/ember-template-lint/ember-template-lint/pull/2541) Fix helper used by several rules for dasherizing multi-level nested component names ([@nulle](https://github.com/nulle))
+* [#2535](https://github.com/ember-template-lint/ember-template-lint/pull/2535) Clarify violation message for `no-dynamic-subexpression-invocations` rule ([@chrisrng](https://github.com/chrisrng))
+* [#2527](https://github.com/ember-template-lint/ember-template-lint/pull/2527) Add route action name to error message in `no-route-action` rule ([@tylerbecks](https://github.com/tylerbecks))
+
+#### :memo: Documentation
+* [#2540](https://github.com/ember-template-lint/ember-template-lint/pull/2540) Fix config documentation for `table-groups` rule ([@nulle](https://github.com/nulle))
+* [#2533](https://github.com/ember-template-lint/ember-template-lint/pull/2533) Add `no-action` rule migration example ([@angelayanpan](https://github.com/angelayanpan))
+
+#### Committers: 4
+- Angela Pan ([@angelayanpan](https://github.com/angelayanpan))
+- Chris Ng ([@chrisrng](https://github.com/chrisrng))
+- Inga Brūnava ([@nulle](https://github.com/nulle))
+- Tyler Becks ([@tylerbecks](https://github.com/tylerbecks))
+
+
 ## v4.10.0 (2022-05-26)
 
 #### :rocket: Enhancement
