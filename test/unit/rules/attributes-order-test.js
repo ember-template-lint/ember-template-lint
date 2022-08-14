@@ -35,6 +35,7 @@ generateRuleTests({
   bad: [
     {
       template: '{{MyComponent something another b="1" a="2"}}',
+      fixedTemplate: '{{MyComponent something another a="2" b="1"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -43,6 +44,7 @@ generateRuleTests({
               "endColumn": 43,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Attribute a=\\"2\\" is not alphabetized",
               "rule": "attributes-order",
@@ -54,7 +56,54 @@ generateRuleTests({
       },
     },
     {
+      template: '<MyComponent @b="1" @a="2"></MyComponent>',
+      fixedTemplate: '<MyComponent @a="2" @b="1"></MyComponent>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @a=\\"2\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@a=\\"2\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template:
+        '<MyComponent {{did-update (fn this.click @a) @b}} {{did-insert this.click}}></MyComponent>',
+      fixedTemplate:
+        '<MyComponent {{did-insert this.click}} {{did-update (fn this.click @a) @b}}></MyComponent>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 50,
+              "endColumn": 75,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Modifier {{did-insert this.click}} is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "{{did-insert this.click}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '{{MyComponent b="2" a="1"}}',
+      fixedTemplate: '{{MyComponent a="1" b="2"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -63,6 +112,7 @@ generateRuleTests({
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Attribute a=\\"1\\" is not alphabetized",
               "rule": "attributes-order",
@@ -75,6 +125,7 @@ generateRuleTests({
     },
     {
       template: '<div ...attributes @a="1"></div>',
+      fixedTemplate: '<div @a="1" ...attributes></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -83,6 +134,7 @@ generateRuleTests({
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
               "rule": "attributes-order",
@@ -95,6 +147,7 @@ generateRuleTests({
     },
     {
       template: '<div contenteditable @a="1"></div>',
+      fixedTemplate: '<div @a="1" contenteditable></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -103,6 +156,7 @@ generateRuleTests({
               "endColumn": 27,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
               "rule": "attributes-order",
@@ -115,6 +169,7 @@ generateRuleTests({
     },
     {
       template: '<div {{did-render this.someAction}} @a="1"></div>',
+      fixedTemplate: '<div @a="1" {{did-render this.someAction}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -123,6 +178,7 @@ generateRuleTests({
               "endColumn": 42,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
               "rule": "attributes-order",
@@ -135,6 +191,7 @@ generateRuleTests({
     },
     {
       template: '<div ...attributes {{did-render this.someAction}}></div>',
+      fixedTemplate: '<div {{did-render this.someAction}} ...attributes></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -143,6 +200,7 @@ generateRuleTests({
               "endColumn": 18,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Splattribute ...attributes must go after modifiers",
               "rule": "attributes-order",
@@ -155,6 +213,7 @@ generateRuleTests({
     },
     {
       template: '<div {{did-render this.someAction}} aria-label="button"></div>',
+      fixedTemplate: '<div aria-label="button" {{did-render this.someAction}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -163,6 +222,7 @@ generateRuleTests({
               "endColumn": 35,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Modifier {{did-render this.someAction}} must go after attributes",
               "rule": "attributes-order",
@@ -179,6 +239,8 @@ generateRuleTests({
       },
       template:
         '<MyComponent @value="5" data-test-foo @change={{this.foo}} local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
+      fixedTemplate:
+        '<MyComponent @value="5" @change={{this.foo}} data-test-foo local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</MyComponent>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -187,6 +249,7 @@ generateRuleTests({
               "endColumn": 58,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Argument @change={{this.foo}} must go before attributes, modifiers and splattributes",
               "rule": "attributes-order",
@@ -202,6 +265,7 @@ generateRuleTests({
         attributeOrder: ['attributes'],
       },
       template: '{{my-component one two b=1 a=2}}',
+      fixedTemplate: '{{my-component one two a=2 b=1}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -210,6 +274,7 @@ generateRuleTests({
               "endColumn": 30,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Attribute a=2 is not alphabetized",
               "rule": "attributes-order",
@@ -225,6 +290,7 @@ generateRuleTests({
         attributeOrder: ['attributes', 'arguments', 'modifiers', 'splattributes'],
       },
       template: '<div @foo="1" {{did-render this.ok}} ...attributes aria-label="foo"></div>',
+      fixedTemplate: '<div aria-label="foo" @foo="1" {{did-render this.ok}} ...attributes></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -233,6 +299,7 @@ generateRuleTests({
               "endColumn": 67,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Attribute aria-label=\\"foo\\" must go before arguments, modifiers and splattributes",
               "rule": "attributes-order",
@@ -248,15 +315,30 @@ generateRuleTests({
         alphabetize: true,
       },
       template:
-        '<div @foo="1" {{did-update this.notok}} {{did-render this.ok}} ...attributes aria-label="foo"></div>',
+        '<div {{did-update this.notok}} {{did-render this.ok}} ...attributes aria-label="foo" @foo="1"></div>',
+      fixedTemplate:
+        '<div @foo="1" aria-label="foo" {{did-render this.ok}} {{did-update this.notok}} ...attributes></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 40,
-              "endColumn": 62,
+              "column": 85,
+              "endColumn": 93,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @foo=\\"1\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@foo=\\"1\\"",
+            },
+            {
+              "column": 31,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Modifier {{did-render this.ok}} is not alphabetized",
               "rule": "attributes-order",
@@ -272,6 +354,7 @@ generateRuleTests({
         alphabetize: true,
       },
       template: '{{MyComponent b="2" a="1"}}',
+      fixedTemplate: '{{MyComponent a="1" b="2"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -280,6 +363,7 @@ generateRuleTests({
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Attribute a=\\"1\\" is not alphabetized",
               "rule": "attributes-order",
@@ -291,12 +375,10 @@ generateRuleTests({
       },
     },
   ],
-
   error: [
     {
       config: null,
       template: 'test',
-
       result: {
         fatal: true,
         message: createAttributesOrderErrorMessage(null),
@@ -305,7 +387,6 @@ generateRuleTests({
     {
       config: 'true',
       template: 'test',
-
       result: {
         fatal: true,
         message: createAttributesOrderErrorMessage('true'),
@@ -316,7 +397,6 @@ generateRuleTests({
         attributeOrder: ['arguments', 'NOT_AN_OPTION'],
       },
       template: 'test',
-
       result: {
         fatal: true,
         message: createAttributesOrderErrorMessage({
@@ -327,7 +407,6 @@ generateRuleTests({
     {
       config: { invalidOption: true },
       template: 'test',
-
       result: {
         fatal: true,
         message: createAttributesOrderErrorMessage({ invalidOption: true }),
@@ -336,7 +415,6 @@ generateRuleTests({
     {
       config: { alphabetize: 'true' },
       template: 'test',
-
       result: {
         fatal: true,
         message: createAttributesOrderErrorMessage({ alphabetize: 'true' }),
