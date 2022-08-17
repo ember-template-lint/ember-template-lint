@@ -119,7 +119,8 @@ describe('JSON formatter', () => {
             \\"message\\": \\"HTML comment detected\\",
             \\"fix\\": {
               \\"text\\": \\"{{! bad html comment! }}\\"
-            }
+            },
+            \\"isFixable\\": true
           }
         ]
       }"
@@ -222,7 +223,8 @@ describe('JSON formatter', () => {
             \\"message\\": \\"HTML comment detected\\",
             \\"fix\\": {
               \\"text\\": \\"{{! bad html comment! }}\\"
-            }
+            },
+            \\"isFixable\\": true
           }
         ]
       }"
@@ -287,7 +289,8 @@ describe('JSON formatter', () => {
             \\"message\\": \\"HTML comment detected\\",
             \\"fix\\": {
               \\"text\\": \\"{{! bad html comment! }}\\"
-            }
+            },
+            \\"isFixable\\": true
           }
         ]
       }"
@@ -352,7 +355,8 @@ describe('JSON formatter', () => {
               \\"message\\": \\"HTML comment detected\\",
               \\"fix\\": {
                 \\"text\\": \\"{{! bad html comment! }}\\"
-              }
+              },
+              \\"isFixable\\": true
             }
           ]
         }"

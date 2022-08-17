@@ -59,7 +59,7 @@ describe('custom formatters', () => {
     expect(result.stdout).toMatchInlineSnapshot(`
       "errors: 3
       warnings: 0
-      fixable: 0"
+      fixable: 1"
     `);
     expect(result.stderr).toBeFalsy();
   });
@@ -105,7 +105,7 @@ describe('custom formatters', () => {
       "Custom Formatter Header
       errors: 3
       warnings: 0
-      fixable: 0"
+      fixable: 1"
     `);
     expect(result.stderr).toBeFalsy();
   });
@@ -147,7 +147,7 @@ describe('custom formatters', () => {
     expect(result.stdout).toMatchInlineSnapshot(`
       "errors: 3
       warnings: 0
-      fixable: 0"
+      fixable: 1"
     `);
     expect(result.stderr).toBeFalsy();
   });
