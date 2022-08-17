@@ -1,8 +1,6 @@
 # attributes-order
 
-Element attributes must be ordered, by default the order is:
-
-For angle bracket invocation syntax:
+Element attributes must be ordered. By default, the order is:
 
 - arguments
 - attributes
@@ -10,9 +8,7 @@ For angle bracket invocation syntax:
 - ...attributes
 - ?attributes
 
-For mustache/curly invoication syntax:
-
-- attributes
+Note that this ordering only applies to angle bracket invocation syntax, as mustache/curly invocation syntax only includes a single type `attributes`.
 
 ## Configuration
 
@@ -22,9 +18,11 @@ The following values are valid configuration:
   - [`attributes`] for curly invocation
 - alphabetize: default `true` - `true` to enforce alphabetically ordered values within attributes
 
+Note that the position of ...attributes is significant in that the other attributes will override or be overridden by anything in ...attributes depending on whether it comes before or after.
+
 ## Examples
 
-This rule **forbids** the following:
+This rule **forbids** the following (in the default ordering):
 
 ```hbs
 <MyComponent ...attributes @name='Hello' />

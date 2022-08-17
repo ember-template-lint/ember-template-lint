@@ -374,7 +374,186 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template:
+        '<Button @description="a" @block={{@b}} @dialogTitle="a" @dialogButton="b" @button="b" @alert="b" @alertDescription="d"></Button>',
+      fixedTemplate:
+        '<Button @alert="b" @alertDescription="d" @block={{@b}} @button="b" @description="a" @dialogButton="b" @dialogTitle="a"></Button>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 25,
+              "endColumn": 38,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @block={{@b}} is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@block={{@b}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `<MyComponent
+        @c="2"
+        @b="3"
+      ></MyComponent>`,
+      fixedTemplate: `<MyComponent @b="3" @c="2"></MyComponent>`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 14,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Argument @b=\\"3\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@b=\\"3\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `<MyComponent
+        {{did-update this.ok}}
+        a=1
+        @c="2"
+      ></MyComponent>`,
+      fixedTemplate: `<MyComponent @c="2" a="1" {{did-update this.ok}}></MyComponent>`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 14,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 4,
+              "message": "Argument @c=\\"2\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@c=\\"2\\"",
+            },
+            {
+              "column": 8,
+              "endColumn": 30,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Modifier {{did-update this.ok}} must go after attributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "{{did-update this.ok}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `{{MyComponent
+        c="2"
+        b="3"
+      }}`,
+      fixedTemplate: `{{MyComponent
+        b="3"
+        c="2"
+      }}`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 13,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Attribute b=\\"3\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "b=\\"3\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `<Shared::Modal b="2" a="1" @close={{action "closeModal"}} as |modal| {{did-insert this.ok}}>
+        content
+      </Shared::Modal>`,
+      fixedTemplate: `<Shared::Modal @close={{action "closeModal"}} a="1" b="2" {{did-insert this.ok}} as |modal|>
+        content
+      </Shared::Modal>`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 27,
+              "endColumn": 57,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @close={{action \\"closeModal\\"}} must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@close={{action \\"closeModal\\"}}",
+            },
+            {
+              "column": 21,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute a=\\"1\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "a=\\"1\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `<Input
+      @type="checkbox"
+      @checked={{@title.isVisible}}
+    />`,
+      fixedTemplate: `<Input @checked={{@title.isVisible}} @type="checkbox" />`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 6,
+              "endColumn": 35,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Argument @checked={{@title.isVisible}} is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@checked={{@title.isVisible}}",
+            },
+          ]
+        `);
+      },
+    },
   ],
+
   error: [
     {
       config: null,
