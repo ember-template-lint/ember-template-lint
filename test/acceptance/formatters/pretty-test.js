@@ -102,15 +102,7 @@ describe('pretty formatter', () => {
 
     expect(result.exitCode).toEqual(1);
 
-    expect(result.stdout.split('\n')).toMatchInlineSnapshot(
-      [
-        'app/components/click-me-button.hbs',
-        '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
-        '',
-        '✖ 1 problems (1 errors, 0 warnings)',
-        '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
-      ],
-      `
+    expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
       [
         "app/components/click-me-button.hbs",
         "  1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type",
@@ -118,8 +110,7 @@ describe('pretty formatter', () => {
         "✖ 1 problems (1 errors, 0 warnings)",
         "  1 errors and 0 warnings potentially fixable with the \`--fix\` option.",
       ]
-    `
-    );
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
