@@ -125,7 +125,7 @@ Each rule has emojis denoting:
 | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                               | ✅  |     |     |     |
 | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                                             | ✅  |     |     |     |
 | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                                       | ✅  |     | ⌨️  |     |
-| [no-html-comments](./docs/rule/no-html-comments.md)                                                       | ✅  |     |     |     |
+| [no-html-comments](./docs/rule/no-html-comments.md)                                                       | ✅  |     |     | 🔧  |
 | [no-implicit-this](./docs/rule/no-implicit-this.md)                                                       | ✅  |     |     |     |
 | [no-index-component-invocation](./docs/rule/no-index-component-invocation.md)                             | ✅  |     |     |     |
 | [no-inline-styles](./docs/rule/no-inline-styles.md)                                                       | ✅  |     |     |     |
