@@ -938,5 +938,32 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: 'foo<wbr data-custom="50" {{my-modifier true "baz"}} as |paramA paramB|>bar',
+      fixedTemplate: 'foo<wbr data-custom="50" {{my-modifier true "baz"}} as |paramA paramB| />bar',
+      config: 'require',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 71,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} as |paramA paramB|/>",
+              },
+              "isFixable": true,
+              "line": 1,
+              "message": "Self-closing a void element is required",
+              "rule": "self-closing-void-elements",
+              "severity": 2,
+              "source": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} as |paramA paramB|>",
+            },
+          ]
+        `);
+      },
+    },
   ],
 });
