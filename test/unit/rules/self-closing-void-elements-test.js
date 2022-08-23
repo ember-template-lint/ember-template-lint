@@ -939,8 +939,10 @@ generateRuleTests({
       },
     },
     {
-      template: 'foo<wbr data-custom="50" {{my-modifier true "baz"}} as |paramA paramB|>bar',
-      fixedTemplate: 'foo<wbr data-custom="50" {{my-modifier true "baz"}} as |paramA paramB| />bar',
+      template:
+        'foo<wbr data-custom="50" {{my-modifier true "baz"}} {{!comment}} as |paramA paramB| >bar',
+      fixedTemplate:
+        'foo<wbr data-custom="50" {{my-modifier true "baz"}} {{!comment}} as |paramA paramB| />bar',
       config: 'require',
 
       verifyResults(results) {
@@ -948,18 +950,18 @@ generateRuleTests({
           [
             {
               "column": 3,
-              "endColumn": 71,
+              "endColumn": 85,
               "endLine": 1,
               "filePath": "layout.hbs",
               "fix": {
-                "text": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} as |paramA paramB|/>",
+                "text": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} {{!comment}} as |paramA paramB| />",
               },
               "isFixable": true,
               "line": 1,
               "message": "Self-closing a void element is required",
               "rule": "self-closing-void-elements",
               "severity": 2,
-              "source": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} as |paramA paramB|>",
+              "source": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} {{!comment}} as |paramA paramB| >",
             },
           ]
         `);
