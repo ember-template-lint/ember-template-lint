@@ -38,7 +38,6 @@ This rule **forbids** the following:
 <spacer></spacer>
 <strike></strike>
 <tt></tt>
-<u></u>
 <xmp></xmp>
 ```
 
