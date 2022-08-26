@@ -916,13 +916,7 @@ app/dist/application.hbs
   1:53  error  HTML comment detected  no-html-comments
 
 ✖ 4 problems (4 errors, 0 warnings)
-app/dist/application.hbs
-            1:4  error  Non-translated string used  no-bare-strings
-            1:24  error  Non-translated string used  no-bare-strings
-            1:53  error  HTML comment detected  no-html-comments
-
-          ✖ 3 problems (3 errors, 0 warnings)
-            1 errors and 0 warnings potentially fixable with the \`--fix\` option.`
+  1 errors and 0 warnings potentially fixable with the \`--fix\` option.`
         );
         expect(result.stderr).toBeFalsy();
       });
