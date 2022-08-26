@@ -16,6 +16,25 @@ describe('extractTemplates', function () {
         },
       ]);
     });
+    it.only('returns the parsed template', function () {
+      const embedded = `import { hbs } from 'ember-cli-htmlbars';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+
+      export const SomeComponent = setComponentTemplate(hbs\`
+          <button></button>
+          \`,
+          templateOnly()
+      );`;
+      expect(extractTemplates(embedded)).toEqual([
+        {
+          column: 39,
+          line: 1,
+          isEmbedded: true,
+          template: '\n<button></button>\n',
+        },
+      ]);
+    });
     it('returns the parsed template if the content could be parsed as a script', function () {
       expect(extractTemplates(script)).toEqual([
         {
