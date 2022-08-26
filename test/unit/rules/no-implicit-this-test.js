@@ -29,25 +29,38 @@ let good = [
     template: '{{foo-bar data-test-foo}}',
   },
   {
-    template: '{{book}}',
+    template: `import { hbs } from 'ember-cli-htmlbars';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
     meta: {
       filePath: 'layout.gjs',
     },
   },
   {
-    template: '{{book}}',
+    template: `import { hbs } from 'ember-cli-htmlbars';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
     meta: {
       filePath: 'layout.gts',
     },
   },
   {
-    template: '{{book}}',
+    config: { isStrictMode: false },
+    template: `import { hbs } from 'ember-cli-htmlbars';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
     meta: {
       filePath: 'layout.js',
     },
   },
   {
-    template: '{{book}}',
+    template: `import { hbs } from 'ember-cli-htmlbars';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
     meta: {
       filePath: 'layout.ts',
     },
@@ -255,19 +268,71 @@ generateRuleTests({
       },
     },
     {
-      template: '{{book}}',
+      template: '<template>{{book}}</template>',
       meta: {
-        filePath: undefined,
+        filePath: 'layout.gjs',
       },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 2,
-              "endColumn": 6,
+              "column": 12,
+              "endColumn": 16,
               "endLine": 1,
-              "filePath": "layout.hbs",
+              "filePath": "layout.gjs",
               "line": 1,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      meta: {
+        filePath: 'layout.gjs',
+      },
+      template: `import { hbs } from 'ember-template-imports';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 62,
+              "endColumn": 66,
+              "endLine": 4,
+              "filePath": "layout.gjs",
+              "line": 4,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      meta: {
+        filePath: 'layout.gjs',
+      },
+      template: `import { hbs as theHbs } from 'ember-template-imports';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(theHbs\`{{book}}\`, templateOnly());`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 62,
+              "endColumn": 66,
+              "endLine": 4,
+              "filePath": "layout.gjs",
+              "line": 4,
               "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
               "rule": "no-implicit-this",
               "severity": 2,
