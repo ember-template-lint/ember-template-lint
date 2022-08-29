@@ -296,12 +296,6 @@ describe('editors integration', function () {
       let missingButtonType =
         'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>';
 
-      let usingLocalVariable =
-        'export const SomeComponent = <template>\n' +
-        '  <Something />\n' +
-        '  {{something}}\n' +
-        '</template>';
-
       let typescriptWithInlineTemplate =
         `import { hbs } from 'ember-cli-htmlbars';\n` +
         `import { setComponentTemplate } from '@ember/component';\n` +
@@ -471,20 +465,6 @@ describe('editors integration', function () {
             '  <button type="button"></button>\n' +
             '</template>'
         );
-      });
-
-      it('no-implicit-this is muted for embedded templates', async function () {
-        project.setConfig({ rules: { 'no-implicit-this': true } });
-        project.write({ 'some-module.gjs': usingLocalVariable });
-
-        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', {
-          shell: false,
-          input: fs.readFileSync(path.resolve('some-module.gjs')),
-        });
-
-        expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toBeFalsy();
-        expect(result.stderr).toBeFalsy();
       });
     });
   });

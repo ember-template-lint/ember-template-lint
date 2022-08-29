@@ -328,8 +328,8 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 62,
-              "endColumn": 66,
+              "column": 65,
+              "endColumn": 69,
               "endLine": 4,
               "filePath": "layout.gjs",
               "line": 4,
