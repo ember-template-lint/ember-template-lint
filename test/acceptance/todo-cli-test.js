@@ -5,7 +5,7 @@ import { differenceInDays, subDays } from 'date-fns';
 import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
-jest.setTimeout(10_000);
+jest.setTimeout(100_000);
 
 function buildReadOptions() {
   return { engine: 'ember-template-lint' };
