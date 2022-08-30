@@ -10,6 +10,9 @@ on:
   schedule:
     - cron: '0 3 * * *' # daily, at 3am
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Node 16.x - ubuntu
