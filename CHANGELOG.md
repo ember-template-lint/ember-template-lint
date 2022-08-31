@@ -18,6 +18,30 @@
 
 
 
+
+## v4.13.0 (2022-08-30)
+
+#### :rocket: Enhancement
+* [#2583](https://github.com/ember-template-lint/ember-template-lint/pull/2583) Add autofixer to `self-closing-void-elements` rule ([@locks](https://github.com/locks))
+* [#2581](https://github.com/ember-template-lint/ember-template-lint/pull/2581) Add autofixer to `no-html-comments` rule ([@locks](https://github.com/locks))
+* [#2582](https://github.com/ember-template-lint/ember-template-lint/pull/2582) Add autofixer to `no-quoteless-attributes` rule ([@locks](https://github.com/locks))
+
+#### :bug: Bug Fix
+* [#2589](https://github.com/ember-template-lint/ember-template-lint/pull/2589) Remove `<s>` and `<u>` from `no-obsolete-elements` ([@sukima](https://github.com/sukima))
+* [#2593](https://github.com/ember-template-lint/ember-template-lint/pull/2593) Add `unique-id` to allowed built-in helpers in `no-curly-component-invocation` and `no-implicit-this` rules ([@geneukum](https://github.com/geneukum))
+
+#### :house: Internal
+* [#2598](https://github.com/ember-template-lint/ember-template-lint/pull/2598) Limit permissions for CI workflow ([@sashashura](https://github.com/sashashura))
+* [#2434](https://github.com/ember-template-lint/ember-template-lint/pull/2434) Extract `hasParentTag` utility function ([@JoaoDsv](https://github.com/JoaoDsv))
+
+#### Committers: 5
+- Alex ([@sashashura](https://github.com/sashashura))
+- Devin Weaver ([@sukima](https://github.com/sukima))
+- Geordan Neukum ([@geneukum](https://github.com/geneukum))
+- Joao Da Silva Marly ([@JoaoDsv](https://github.com/JoaoDsv))
+- Ricardo Mendes ([@locks](https://github.com/locks))
+
+
 ## v4.12.0 (2022-08-05)
 
 #### :rocket: Enhancement

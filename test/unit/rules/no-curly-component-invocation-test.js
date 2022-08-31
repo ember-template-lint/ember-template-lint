@@ -36,6 +36,7 @@ const SHARED_GOOD = [
   '{{hasBlock}}',
   '{{hash}}',
   '{{outlet}}',
+  '{{unique-id}}',
   '{{yield}}',
   '{{yield to="inverse"}}',
 
