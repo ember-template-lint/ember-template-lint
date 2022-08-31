@@ -76,7 +76,8 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
+                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -139,7 +140,8 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
+                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -552,7 +554,8 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
+                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -812,6 +815,11 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            foo: {
+              'bar.gjs': 'export const SomeComponent = <template>\n' + 'Not good\n' + '</template>',
+            },
+            'other.gjs':
+              'export const SomeComponent = <template>\n' + 'Not so good\n' + '</template>',
             'other.hbs': '<div></div>',
           },
         });
@@ -891,22 +899,25 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            'other.gjs': 'export const SomeComponent = <template>Not so good</template>',
           },
         });
 
         let result = await runBin('app/**/*', '--no-ignore-pattern');
 
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toMatchInlineSnapshot(`
-          "app/dist/application.hbs
-            1:4  error  Non-translated string used  no-bare-strings
-            1:24  error  Non-translated string used  no-bare-strings
-            1:53  error  HTML comment detected  no-html-comments
+        expect(result.stdout).toEqual(
+          `app/other.gjs
+  1:39  error  Non-translated string used  no-bare-strings
 
-          ✖ 3 problems (3 errors, 0 warnings)
-            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-        `);
+app/dist/application.hbs
+  1:4  error  Non-translated string used  no-bare-strings
+  1:24  error  Non-translated string used  no-bare-strings
+  1:53  error  HTML comment detected  no-html-comments
 
+✖ 4 problems (4 errors, 0 warnings)
+  1 errors and 0 warnings potentially fixable with the \`--fix\` option.`
+        );
         expect(result.stderr).toBeFalsy();
       });
     });
