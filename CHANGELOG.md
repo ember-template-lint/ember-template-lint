@@ -19,6 +19,24 @@
 
 
 
+
+## v4.14.0 (2022-09-01)
+
+#### :rocket: Enhancement
+* [#2483](https://github.com/ember-template-lint/ember-template-lint/pull/2483) Implement support for embedded templates ([@ventuno](https://github.com/ventuno))
+
+#### :bug: Bug Fix
+* [#2604](https://github.com/ember-template-lint/ember-template-lint/pull/2604) Fix `--version` to actually give the right value ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#2605](https://github.com/ember-template-lint/ember-template-lint/pull/2605) Add `concurrency` setup to GitHub Actions workflow ([@rwjblue](https://github.com/rwjblue))
+* [#2602](https://github.com/ember-template-lint/ember-template-lint/pull/2602) Update GitHub Actions setup to volta-cli/action@v3 ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@ventuno](https://github.com/ventuno)
+
+
 ## v4.13.0 (2022-08-30)
 
 #### :rocket: Enhancement
