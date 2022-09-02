@@ -36,7 +36,7 @@ describe('get-config', function () {
     });
   });
 
-  it('it supports severity level', async function () {
+  it('supports severity level', async function () {
     let expected = {
       rules: {
         foo: { config: true, severity: 1 },
@@ -76,7 +76,7 @@ describe('get-config', function () {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('it supports severity level with custom configuration', async function () {
+  it('supports severity level with custom configuration', async function () {
     let expected = {
       rules: {
         foo: { config: { allow: [1, 2, 3] }, severity: 1 },

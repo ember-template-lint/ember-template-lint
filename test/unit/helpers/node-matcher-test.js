@@ -27,7 +27,7 @@ describe('testNode matched against single refNode', function () {
     expect(match(testNode, refNode)).toBe(false);
   });
 
-  it('No Match: keys(testNode) === keys(refNode), values(testNode) !== values(refNode)', function () {
+  it('No Match: keys(testNode) === keys(refNode), values(testNode) !== values(refNode) -- with parse', function () {
     let refNode = { type: 'ElementNode', tag: 'div' };
     let testNode = parse('<img />').body[0];
     expect(match(testNode, refNode)).toBe(false);
@@ -51,7 +51,7 @@ describe('testNode matched against Array of valid refNodes', function () {
     expect(match(testNode, refNodes)).toBe(true);
   });
 
-  it('Match: testNode === refNodes[i]', function () {
+  it('Match: testNode === refNodes[i] - with parse', function () {
     let refNodes = [
       { type: 'ElementNode', tag: 'img' },
       { type: 'ElementNode', tag: 'div' },
