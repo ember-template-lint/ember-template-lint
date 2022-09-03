@@ -22,6 +22,7 @@ module.exports = {
     'plugin:eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:jest/recommended',
     'plugin:node/recommended',
     'plugin:unicorn/recommended',
     'plugin:prettier/recommended',
@@ -112,6 +113,10 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
+
+    // Jest rules:
+    'jest/no-conditional-expect': 'off',
+    'jest/no-standalone-expect': 'off', // False positives from using: verifyResults(results) { expect(results).toMatchInlineSnapshot }
 
     // Node rules:
     'node/no-unsupported-features/es-syntax': [

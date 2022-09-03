@@ -897,7 +897,7 @@ describe('public api', function () {
       ]);
     });
 
-    it('it looks for embedded templates if no filePath was given', async function () {
+    it('looks for embedded templates if no filePath was given', async function () {
       linter = new Linter({
         config: {
           rules: { 'no-debugger': true },

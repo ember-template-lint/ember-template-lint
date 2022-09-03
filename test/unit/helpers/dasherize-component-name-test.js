@@ -1,7 +1,7 @@
 import dasherizeComponentName from '../../../lib/helpers/dasherize-component-name.js';
 
 describe('dasherizeComponentName', function () {
-  it('it works as expected', function () {
+  it('works as expected', function () {
     expect(dasherizeComponentName('foo')).toEqual('foo');
     expect(dasherizeComponentName('foo-bar')).toEqual('foo-bar');
     expect(dasherizeComponentName('FooBar')).toEqual('foo-bar');
