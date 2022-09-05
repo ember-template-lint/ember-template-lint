@@ -116,7 +116,6 @@ module.exports = {
 
     // Jest rules:
     'jest/no-conditional-expect': 'off',
-    'jest/no-standalone-expect': 'off', // False positives from using: verifyResults(results) { expect(results).toMatchInlineSnapshot }
 
     // Node rules:
     'node/no-unsupported-features/es-syntax': [
@@ -149,30 +148,41 @@ module.exports = {
 
   overrides: [
     {
+      // CJS
       files: ['**/*.cjs'],
       parserOptions: {
         sourceType: 'script',
       },
     },
     {
+      // CLI
       files: ['bin/**/*.js', 'lib/helpers/cli.js'],
       rules: {
         'no-console': 'off',
       },
     },
     {
+      // Rules
       files: ['lib/rules/**/*.js'],
       rules: {
         'filenames/match-exported': ['error', 'kebab'],
       },
     },
     {
+      // Tests
       files: ['test/**/*.js'],
       env: {
         jest: true,
       },
       rules: {
         'import/no-dynamic-require': 'off',
+      },
+    },
+    {
+      // Rule tests
+      files: ['test/unit/rules/*.js'],
+      rules: {
+        'jest/no-standalone-expect': 'off', // False positives from using: verifyResults(results) { expect(results).toMatchInlineSnapshot }
       },
     },
   ],
