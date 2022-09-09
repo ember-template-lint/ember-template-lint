@@ -14,11 +14,12 @@ Note that this ordering only applies to angle bracket invocation syntax, as must
 
 The following values are valid configuration:
 
-- attributeOrder: default [`arguments`, `attributes`, `modifiers`, `splattributes`]
+- attributeOrder: default [`arguments`, `attributes`, `modifiers`]
   - [`attributes`] for curly invocation
 - alphabetize: default `true` - `true` to enforce alphabetically ordered values within attributes
 
 Note that the position of ...attributes is significant in that the other attributes will override or be overridden by anything in ...attributes depending on whether it comes before or after.
+For a particular node, if splattributes(...attributes) are already in the first position or last position then they will be left as-is and sorting will occur as normal. Nodes which contain splattributes that are surrounded by other attribute types cannot be ordered easily in a way that does not cause breakage and thus will not be checked.
 
 ## Examples
 
