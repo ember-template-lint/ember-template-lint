@@ -7,12 +7,13 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<div bar="baz" {{did-render this.ok}} ...attributes label="foo"></div>',
+    '<div @a="1" ...attributes></div>',
     '<div @foo="1" aria-label="foo" {{did-render this.ok}} ...attributes bar="baz"></div>',
     '<div @foo="1" aria-label="foo"></div>',
     '<div @foo="1" ...attributes></div>',
     '<div @foo="1" {{did-render this.ok}}></div>',
     '<div @foo="1" bar="baz"></div>',
-    '<div bar="baz" {{did-render this.ok}} ...attributes label="foo"></div>',
     '<div aria-label="foo" bar="baz"></div>',
     '<div bar="baz" ...attributes></div>',
     '<div bar="baz" {{did-render this.ok}}></div>',
@@ -33,6 +34,66 @@ generateRuleTests({
   ],
 
   bad: [
+    {
+      config: {
+        attributeOrder: ['attributes', 'arguments', 'modifiers'],
+      },
+      template: '<div @foo="1" {{did-render this.ok}} aria-label="foo"></div>',
+      fixedTemplate: '<div aria-label="foo" @foo="1" {{did-render this.ok}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 37,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute aria-label=\\"foo\\" must go before arguments, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "aria-label=\\"foo\\"",
+            },
+            {
+              "column": 5,
+              "endColumn": 13,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @foo=\\"1\\" must go after attributes and before modifiers
+                      ",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@foo=\\"1\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div ...attributes @a="1"></div>',
+      fixedTemplate: '<div @a="1" ...attributes></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 19,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@a=\\"1\\"",
+            },
+          ]
+        `);
+      },
+    },
     {
       template: '{{MyComponent something another b="1" a="2"}}',
       fixedTemplate: '{{MyComponent something another a="2" b="1"}}',
@@ -124,88 +185,23 @@ generateRuleTests({
       },
     },
     {
-      template: '<div ...attributes @a="1"></div>',
-      fixedTemplate: '<div @a="1" ...attributes></div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 19,
-              "endColumn": 25,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
-              "rule": "attributes-order",
-              "severity": 2,
-              "source": "@a=\\"1\\"",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<div contenteditable @a="1"></div>',
-      fixedTemplate: '<div @a="1" contenteditable></div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 21,
-              "endColumn": 27,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
-              "rule": "attributes-order",
-              "severity": 2,
-              "source": "@a=\\"1\\"",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<div {{did-render this.someAction}} @a="1"></div>',
-      fixedTemplate: '<div @a="1" {{did-render this.someAction}}></div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 36,
-              "endColumn": 42,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
-              "rule": "attributes-order",
-              "severity": 2,
-              "source": "@a=\\"1\\"",
-            },
-          ]
-        `);
-      },
-    },
-    {
       template: '<div ...attributes {{did-render this.someAction}}></div>',
       fixedTemplate: '<div {{did-render this.someAction}} ...attributes></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 5,
-              "endColumn": 18,
+              "column": 19,
+              "endColumn": 49,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Splattribute ...attributes must go after modifiers",
+              "message": "Modifier {{did-render this.someAction}} must go after attributes and before undefined
+                      ",
               "rule": "attributes-order",
               "severity": 2,
-              "source": "...attributes",
+              "source": "{{did-render this.someAction}}",
             },
           ]
         `);
@@ -218,13 +214,27 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
+              "column": 36,
+              "endColumn": 55,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute aria-label=\\"button\\" must go after arguments and before modifiers
+                      ",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "aria-label=\\"button\\"",
+            },
+            {
               "column": 5,
               "endColumn": 35,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Modifier {{did-render this.someAction}} must go after attributes",
+              "message": "Modifier {{did-render this.someAction}} must go after attributes and before undefined
+                      ",
               "rule": "attributes-order",
               "severity": 2,
               "source": "{{did-render this.someAction}}",
@@ -287,43 +297,18 @@ generateRuleTests({
     },
     {
       config: {
-        attributeOrder: ['attributes', 'arguments', 'modifiers', 'splattributes'],
-      },
-      template: '<div @foo="1" {{did-render this.ok}} ...attributes aria-label="foo"></div>',
-      fixedTemplate: '<div aria-label="foo" @foo="1" {{did-render this.ok}} ...attributes></div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 51,
-              "endColumn": 67,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Attribute aria-label=\\"foo\\" must go before arguments, modifiers and splattributes",
-              "rule": "attributes-order",
-              "severity": 2,
-              "source": "aria-label=\\"foo\\"",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      config: {
         alphabetize: true,
       },
       template:
-        '<div {{did-update this.notok}} {{did-render this.ok}} ...attributes aria-label="foo" @foo="1"></div>',
+        '<div {{did-update this.notok}} {{did-render this.ok}} aria-label="foo" @foo="1"></div>',
       fixedTemplate:
-        '<div @foo="1" aria-label="foo" {{did-render this.ok}} {{did-update this.notok}} ...attributes></div>',
+        '<div @foo="1" aria-label="foo" {{did-render this.ok}} {{did-update this.notok}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 85,
-              "endColumn": 93,
+              "column": 71,
+              "endColumn": 79,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
@@ -334,6 +319,19 @@ generateRuleTests({
               "source": "@foo=\\"1\\"",
             },
             {
+              "column": 54,
+              "endColumn": 70,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute aria-label=\\"foo\\" must go after arguments and before modifiers
+                      ",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "aria-label=\\"foo\\"",
+            },
+            {
               "column": 31,
               "endColumn": 53,
               "endLine": 1,
@@ -341,6 +339,19 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Modifier {{did-render this.ok}} is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "{{did-render this.ok}}",
+            },
+            {
+              "column": 31,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Modifier {{did-render this.ok}} must go after attributes and before undefined
+                      ",
               "rule": "attributes-order",
               "severity": 2,
               "source": "{{did-render this.ok}}",
@@ -447,12 +458,26 @@ generateRuleTests({
             },
             {
               "column": 8,
+              "endColumn": 11,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Attribute a=1 must go after arguments and before modifiers
+                      ",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "a=1",
+            },
+            {
+              "column": 8,
               "endColumn": 30,
               "endLine": 2,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Modifier {{did-update this.ok}} must go after attributes",
+              "message": "Modifier {{did-update this.ok}} must go after attributes and before undefined
+                      ",
               "rule": "attributes-order",
               "severity": 2,
               "source": "{{did-update this.ok}}",
@@ -523,6 +548,19 @@ generateRuleTests({
               "severity": 2,
               "source": "a=\\"1\\"",
             },
+            {
+              "column": 21,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute a=\\"1\\" must go after arguments and before modifiers
+                      ",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "a=\\"1\\"",
+            },
           ]
         `);
       },
@@ -547,6 +585,28 @@ generateRuleTests({
               "rule": "attributes-order",
               "severity": 2,
               "source": "@checked={{@title.isVisible}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div {{did-render this.someAction}} @a="1"></div>',
+      fixedTemplate: '<div @a="1" {{did-render this.someAction}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 36,
+              "endColumn": 42,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@a=\\"1\\"",
             },
           ]
         `);
