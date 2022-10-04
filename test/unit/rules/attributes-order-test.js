@@ -7,7 +7,16 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<MyComponent @name="1" bar="baz" {{did-render this.someAction}} ...attributes aria-role="button" />',
+    '<MyComponent @name="1" aria-role="button" />',
+    '<MyComponent @name="1" ...attributes />',
+    '<MyComponent @name="1" {{did-render this.someAction}} />',
+    '<MyComponent @name="1" bar="baz" />',
+    '<div b="1" ...attributes aria-label="foo"></div>',
+    '<div ...attributes {{did-render this.someAction}}></div>',
+    '<div ...attributes @a="1"></div>',
     '<div bar="baz" {{did-render this.ok}} ...attributes label="foo"></div>',
+    '<div ...attributes @a="1" b="2"></div>',
     '<div @a="1" ...attributes></div>',
     '<div @foo="1" aria-label="foo" {{did-render this.ok}} ...attributes bar="baz"></div>',
     '<div @foo="1" aria-label="foo"></div>',
@@ -34,6 +43,41 @@ generateRuleTests({
   ],
 
   bad: [
+    {
+      template: '<MyComponent data-test-id="Hello" @name="World" />',
+      fixedTemplate: '<MyComponent @name="World" data-test-id="Hello" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 34,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @name=\\"World\\" must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@name=\\"World\\"",
+            },
+            {
+              "column": 13,
+              "endColumn": 33,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute data-test-id=\\"Hello\\" must go after arguments and before modifiers
+                      ",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "data-test-id=\\"Hello\\"",
+            },
+          ]
+        `);
+      },
+    },
     {
       config: {
         attributeOrder: ['attributes', 'arguments', 'modifiers'],
@@ -67,28 +111,6 @@ generateRuleTests({
               "rule": "attributes-order",
               "severity": 2,
               "source": "@foo=\\"1\\"",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<div ...attributes @a="1"></div>',
-      fixedTemplate: '<div @a="1" ...attributes></div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 19,
-              "endColumn": 25,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
-              "rule": "attributes-order",
-              "severity": 2,
-              "source": "@a=\\"1\\"",
             },
           ]
         `);
@@ -185,29 +207,6 @@ generateRuleTests({
       },
     },
     {
-      template: '<div ...attributes {{did-render this.someAction}}></div>',
-      fixedTemplate: '<div {{did-render this.someAction}} ...attributes></div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 19,
-              "endColumn": 49,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Modifier {{did-render this.someAction}} must go after attributes and before undefined
-                      ",
-              "rule": "attributes-order",
-              "severity": 2,
-              "source": "{{did-render this.someAction}}",
-            },
-          ]
-        `);
-      },
-    },
-    {
       template: '<div {{did-render this.someAction}} aria-label="button"></div>',
       fixedTemplate: '<div aria-label="button" {{did-render this.someAction}}></div>',
       verifyResults(results) {
@@ -233,7 +232,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Modifier {{did-render this.someAction}} must go after attributes and before undefined
+              "message": "Modifier {{did-render this.someAction}} must go after attributes and before splattributes
                       ",
               "rule": "attributes-order",
               "severity": 2,
@@ -254,6 +253,42 @@ generateRuleTests({
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
+            {
+              "column": 38,
+              "endColumn": 58,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @change={{this.foo}} must go before attributes, modifiers and splattributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@change={{this.foo}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template:
+        '<MyComponent @value="5" data-test-foo @change={{this.foo}} local-class="foo" {{on "click" this.foo}} as |sth|>content</MyComponent>',
+      fixedTemplate:
+        '<MyComponent @change={{this.foo}} @value="5" data-test-foo local-class="foo" {{on "click" this.foo}} as |sth|>content</MyComponent>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 38,
+              "endColumn": 58,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @change={{this.foo}} is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@change={{this.foo}}",
+            },
             {
               "column": 38,
               "endColumn": 58,
@@ -350,7 +385,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Modifier {{did-render this.ok}} must go after attributes and before undefined
+              "message": "Modifier {{did-render this.ok}} must go after attributes and before splattributes
                       ",
               "rule": "attributes-order",
               "severity": 2,
@@ -476,7 +511,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Modifier {{did-update this.ok}} must go after attributes and before undefined
+              "message": "Modifier {{did-update this.ok}} must go after attributes and before splattributes
                       ",
               "rule": "attributes-order",
               "severity": 2,

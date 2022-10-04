@@ -26,7 +26,7 @@ For a particular node, if splattributes(...attributes) are already in the first 
 This rule **forbids** the following (in the default ordering):
 
 ```hbs
-<MyComponent ...attributes @name='Hello' />
+<MyComponent data-test-id='Hello' @name='World' />
 ```
 
 ```hbs
@@ -34,11 +34,11 @@ This rule **forbids** the following (in the default ordering):
 ```
 
 ```hbs
-<MyComponent ...attributes {{did-render this.someAction}} />
+<MyComponent {{did-render this.someAction}} data-test-id='World' />
 ```
 
 ```hbs
-<MyComponent @b='1' a='2' />
+<MyComponent a='2' @b='1' />
 ```
 
 This rule **allows** the following:
