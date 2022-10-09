@@ -2,6 +2,8 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 This rule strongly advises against `{{unless}}` blocks in the following situations:
 
 * With other block helpers (e.g. `{{else}}`, `{{else if}}`)
