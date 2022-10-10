@@ -20,6 +20,20 @@
 
 
 
+
+## v4.15.0 (2022-10-10)
+
+#### :rocket: Enhancement
+* [#2629](https://github.com/ember-template-lint/ember-template-lint/pull/2629) Add autofixer to `simple-unless` rule for simplest case ([@godric3](https://github.com/godric3))
+
+#### :house: Internal
+* [#2607](https://github.com/ember-template-lint/ember-template-lint/pull/2607) Add eslint-plugin-jest ([@bmish](https://github.com/bmish))
+
+#### Committers: 2
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+
+
 ## v4.14.0 (2022-09-01)
 
 #### :rocket: Enhancement
