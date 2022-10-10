@@ -67,7 +67,7 @@
   "dependencies": {
     "@lint-todo/utils": "^13.0.3",
     "aria-query": "^5.0.2",
-    "chalk": "^4.1.2",
+    "chalk": "^5.1.0",
     "ci-info": "^3.4.0",
     "date-fns": "^2.29.2",
     "ember-template-imports": "^3.1.1",
