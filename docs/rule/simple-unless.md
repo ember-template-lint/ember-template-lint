@@ -65,7 +65,7 @@ The following values are valid configuration:
 * object --
   * `allowlist` -- array - `['or']` for specific helpers / `[]` for wildcard
   * `denylist` -- array - `['or']` for specific helpers / `[]` for none
-  * `maxHelpers` -- number - use -1 for no limit
+  * `maxHelpers` -- number - default `0` - use `-1` for no limit
 
 ## Related Rules
 
