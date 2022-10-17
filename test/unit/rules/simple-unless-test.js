@@ -381,7 +381,7 @@ generateRuleTests({
         '{{/unless}}',
       ].join('\n'),
       fixedTemplate: [
-        '{{#if (not (not isBrown isSticky))}}',
+        '{{#if (or isBrown isSticky)}}',
         '  I think I am a brown stick',
         '{{/if}}',
       ].join('\n'),
@@ -400,6 +400,75 @@ generateRuleTests({
               "rule": "simple-unless",
               "severity": 2,
               "source": "{{unless (not ...",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: ['{{#unless (not isBrown)}}', '  I think I am a brown', '{{/unless}}'].join('\n'),
+      fixedTemplate: ['{{#if isBrown}}', '  I think I am a brown', '{{/if}}'].join('\n'),
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (not ...",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<img class={{unless (not condition) "some-class"}}>',
+      fixedTemplate: '<img class={{if condition "some-class"}}>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (not ...",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<img class={{unless (one condition) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{if (not (one condition)) "some-class" "other-class"}}>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (one ...",
             },
           ]
         `);
