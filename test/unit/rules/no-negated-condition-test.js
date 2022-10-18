@@ -15,6 +15,8 @@ generateRuleTests({
     '{{#if (or c1 c2)}}{{/if}}',
     '{{#if (not (or c1 c2))}}{{/if}}', // Valid since we don't want to suggest `unless` with helpers in the condition.
     '{{#if (not c1 c2)}}{{/if}}', // Valid since there is not way to simplify.
+    '{{#if (not (not c1) c2)}}<img>{{/if}}',
+    '{{#if (not c1 (not c2))}}<img>{{/if}}',
 
     // if ... else ...
     '{{#if condition}}<img>{{else}}<img>{{/if}}',
@@ -139,6 +141,29 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#if (not (not condition))}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{#if (not (not c1 c2))}}<img>{{/if}}',
+      fixedTemplate: '{{#if (or c1 c2)}}<img>{{/if}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 37,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove double negation",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not (not c1 c2))}}<img>{{/if}}",
             },
           ]
         `);
