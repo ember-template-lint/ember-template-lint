@@ -121,7 +121,29 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '{{#if (not (not condition))}}<img>{{/if}}',
+      fixedTemplate: '{{#if condition}}<img>{{/if}}',
 
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove double negation",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not (not condition))}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
     // if ... else ...
     {
       template: '{{#if (not condition)}}<img>{{else}}<input>{{/if}}',
@@ -166,6 +188,29 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#unless (not condition)}}<img>{{/unless}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{#unless (not (not condition))}}<img>{{/unless}}',
+      fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 49,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove double negation",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not (not condition))}}<img>{{/unless}}",
             },
           ]
         `);
@@ -216,6 +261,31 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template:
+        '{{#unless (not (not condition))}}<img>{{else if (not (not condition))}}<input>{{/unless}}',
+      fixedTemplate:
+        '{{#unless condition}}<img>{{else if (not (not condition))}}<input>{{/unless}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 89,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove double negation",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not (not condition))}}<img>{{else if (not (not condition))}}<input>{{/unless}}",
             },
           ]
         `);
@@ -353,6 +423,29 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '<img class={{if (not (not condition)) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{if condition "some-class" "other-class"}}>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove double negation",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{if (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
+            },
+          ]
+        `);
+      },
+    },
 
     // unless ...
     {
@@ -403,7 +496,29 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '<img class={{unless (not (not condition)) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{unless condition "some-class" "other-class"}}>',
 
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 70,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove double negation",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{unless (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
+            },
+          ]
+        `);
+      },
+    },
     // ******************************************
     // SubExpression
     // ******************************************
@@ -502,6 +617,29 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "(unless (not condition) \\"some-class\\" \\"other-class\\")",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{input class=(unless (not (not condition)) "some-class" "other-class")}}',
+      fixedTemplate: '{{input class=(unless condition "some-class" "other-class")}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 71,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove double negation",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "(unless (not (not condition)) \\"some-class\\" \\"other-class\\")",
             },
           ]
         `);
