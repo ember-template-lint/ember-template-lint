@@ -22,6 +22,16 @@
 
 
 
+
+## v4.16.1 (2022-10-18)
+
+#### :bug: Bug Fix
+* [#2648](https://github.com/ember-template-lint/ember-template-lint/pull/2648) Allow negation with multiple parameters in `no-negated-condition` rule ([@godric3](https://github.com/godric3))
+
+#### Committers: 1
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+
+
 ## v4.16.0 (2022-10-18)
 
 #### :rocket: Enhancement
