@@ -21,6 +21,25 @@
 
 
 
+
+## v4.16.0 (2022-10-18)
+
+#### :rocket: Enhancement
+* [#2639](https://github.com/ember-template-lint/ember-template-lint/pull/2639) Add autofix for case with helpers to `simple-unless` rule ([@godric3](https://github.com/godric3))
+
+#### :memo: Documentation
+* [#2643](https://github.com/ember-template-lint/ember-template-lint/pull/2643) Clarify default `maxHelpers` option value for `simple-unless` rule ([@bmish](https://github.com/bmish))
+* [#2636](https://github.com/ember-template-lint/ember-template-lint/pull/2636) Add link to RFC for `no-array-prototype-extensions` rule ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2638](https://github.com/ember-template-lint/ember-template-lint/pull/2638) Bump volta-cli/action@v4 ([@ctjhoa](https://github.com/ctjhoa))
+
+#### Committers: 3
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Camille TJHOA ([@ctjhoa](https://github.com/ctjhoa))
+
+
 ## v4.15.0 (2022-10-10)
 
 #### :rocket: Enhancement
