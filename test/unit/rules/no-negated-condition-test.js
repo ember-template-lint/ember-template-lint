@@ -137,7 +137,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Remove double negation",
+              "message": "Remove unnecessary double negation.",
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#if (not (not condition))}}<img>{{/if}}",
@@ -160,7 +160,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Remove double negation",
+              "message": "Remove unnecessary double negation.",
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#if (not (not c1 c2))}}<img>{{/if}}",
@@ -232,7 +232,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Remove double negation",
+              "message": "Remove unnecessary double negation.",
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#unless (not (not condition))}}<img>{{/unless}}",
@@ -294,8 +294,7 @@ generateRuleTests({
     {
       template:
         '{{#unless (not (not condition))}}<img>{{else if (not (not condition))}}<input>{{/unless}}',
-      fixedTemplate:
-        '{{#unless condition}}<img>{{else if (not (not condition))}}<input>{{/unless}}',
+      fixedTemplate: '{{#unless condition}}<img>{{else if condition}}<input>{{/unless}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -307,10 +306,22 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Remove double negation",
+              "message": "Remove unnecessary double negation.",
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#unless (not (not condition))}}<img>{{else if (not (not condition))}}<input>{{/unless}}",
+            },
+            {
+              "column": 38,
+              "endColumn": 78,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove unnecessary double negation.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{else if (not (not condition))}}<input>",
             },
           ]
         `);
@@ -337,6 +348,42 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/unless}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template:
+        '{{#unless (not condition)}}<img>{{else if (not (not c1 c2))}}<input>{{else}}<hr>{{/unless}}',
+      fixedTemplate: '{{#if condition}}<img>{{else if (or c1 c2)}}<input>{{else}}<hr>{{/if}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 91,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not condition)}}<img>{{else if (not (not c1 c2))}}<input>{{else}}<hr>{{/unless}}",
+            },
+            {
+              "column": 32,
+              "endColumn": 80,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Remove unnecessary double negation.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{else if (not (not c1 c2))}}<input>{{else}}<hr>",
             },
           ]
         `);
@@ -462,7 +509,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Remove double negation",
+              "message": "Remove unnecessary double negation.",
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{if (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
@@ -535,7 +582,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Remove double negation",
+              "message": "Remove unnecessary double negation.",
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{unless (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
@@ -661,7 +708,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Remove double negation",
+              "message": "Remove unnecessary double negation.",
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "(unless (not (not condition)) \\"some-class\\" \\"other-class\\")",
