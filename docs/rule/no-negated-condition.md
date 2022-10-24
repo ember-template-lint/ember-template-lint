@@ -81,6 +81,14 @@ And similar examples with non-block forms like:
 {{input class=(if condition "some-class" "other-class")}}
 ```
 
+## Configuration
+
+The following values are valid configuration:
+
+* boolean -- `true` for enabled / `false` for disabled
+* object --
+  * `simplifyHelpers` -- boolean - simplify negated helpers like `(not (eq ...))` or `(not (gt ...))`, `true` to enable / `false` to disable (default)
+  
 ## Related Rules
 
 * [simple-unless](simple-unless.md)
