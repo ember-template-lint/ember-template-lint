@@ -7,6 +7,7 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<MyComponent @a="1" {{on "change" this.click}} ...attributes />',
     '<MyComponent @name="1" bar="baz" {{did-render this.someAction}} ...attributes aria-role="button" />',
     '<MyComponent @name="1" aria-role="button" />',
     '<MyComponent @name="1" ...attributes />',
@@ -44,6 +45,28 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<div b="1" aria-label="foo"></div>',
+      fixedTemplate: '<div aria-label="foo" b="1"></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute aria-label=\\"foo\\" is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "aria-label=\\"foo\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<MyComponent data-test-id="Hello" @name="World" />',
       fixedTemplate: '<MyComponent @name="World" data-test-id="Hello" />',
       verifyResults(results) {
@@ -56,7 +79,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @name=\\"World\\" must go before attributes, modifiers and splattributes",
+              "message": "Argument @name=\\"World\\" must go before attributes and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@name=\\"World\\"",
@@ -68,8 +91,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute data-test-id=\\"Hello\\" must go after arguments and before modifiers
-                      ",
+              "message": "Attribute data-test-id=\\"Hello\\" must go after arguments",
               "rule": "attributes-order",
               "severity": 2,
               "source": "data-test-id=\\"Hello\\"",
@@ -94,7 +116,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"foo\\" must go before arguments, modifiers and splattributes",
+              "message": "Attribute aria-label=\\"foo\\" must go before arguments and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "aria-label=\\"foo\\"",
@@ -106,8 +128,56 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @foo=\\"1\\" must go after attributes and before modifiers
-                      ",
+              "message": "Argument @foo=\\"1\\" must go after attributes",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "@foo=\\"1\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: {
+        attributeOrder: ['modifiers', 'attributes', 'arguments'],
+      },
+      template: '<div @foo="1" {{did-render this.ok}} aria-label="foo"></div>',
+      fixedTemplate: '<div {{did-render this.ok}} aria-label="foo" @foo="1"></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Modifier {{did-render this.ok}} must go before attributes and arguments",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "{{did-render this.ok}}",
+            },
+            {
+              "column": 37,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute aria-label=\\"foo\\" must go after modifiers",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "aria-label=\\"foo\\"",
+            },
+            {
+              "column": 5,
+              "endColumn": 13,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @foo=\\"1\\" must go after attributes",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@foo=\\"1\\"",
@@ -219,8 +289,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"button\\" must go after arguments and before modifiers
-                      ",
+              "message": "Attribute aria-label=\\"button\\" must go after arguments",
               "rule": "attributes-order",
               "severity": 2,
               "source": "aria-label=\\"button\\"",
@@ -232,8 +301,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Modifier {{did-render this.someAction}} must go after attributes and before splattributes
-                      ",
+              "message": "Modifier {{did-render this.someAction}} must go after attributes",
               "rule": "attributes-order",
               "severity": 2,
               "source": "{{did-render this.someAction}}",
@@ -260,7 +328,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @change={{this.foo}} must go before attributes, modifiers and splattributes",
+              "message": "Argument @change={{this.foo}} must go before attributes and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@change={{this.foo}}",
@@ -296,7 +364,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @change={{this.foo}} must go before attributes, modifiers and splattributes",
+              "message": "Argument @change={{this.foo}} must go before attributes and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@change={{this.foo}}",
@@ -348,7 +416,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @foo=\\"1\\" must go before attributes, modifiers and splattributes",
+              "message": "Argument @foo=\\"1\\" must go before attributes and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@foo=\\"1\\"",
@@ -360,8 +428,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"foo\\" must go after arguments and before modifiers
-                      ",
+              "message": "Attribute aria-label=\\"foo\\" must go after arguments",
               "rule": "attributes-order",
               "severity": 2,
               "source": "aria-label=\\"foo\\"",
@@ -385,8 +452,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Modifier {{did-render this.ok}} must go after attributes and before splattributes
-                      ",
+              "message": "Modifier {{did-render this.ok}} must go after attributes",
               "rule": "attributes-order",
               "severity": 2,
               "source": "{{did-render this.ok}}",
@@ -486,7 +552,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 4,
-              "message": "Argument @c=\\"2\\" must go before attributes, modifiers and splattributes",
+              "message": "Argument @c=\\"2\\" must go before attributes and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@c=\\"2\\"",
@@ -498,8 +564,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 3,
-              "message": "Attribute a=1 must go after arguments and before modifiers
-                      ",
+              "message": "Attribute a=1 must go after arguments",
               "rule": "attributes-order",
               "severity": 2,
               "source": "a=1",
@@ -511,8 +576,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Modifier {{did-update this.ok}} must go after attributes and before splattributes
-                      ",
+              "message": "Modifier {{did-update this.ok}} must go after attributes",
               "rule": "attributes-order",
               "severity": 2,
               "source": "{{did-update this.ok}}",
@@ -566,7 +630,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @close={{action \\"closeModal\\"}} must go before attributes, modifiers and splattributes",
+              "message": "Argument @close={{action \\"closeModal\\"}} must go before attributes and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@close={{action \\"closeModal\\"}}",
@@ -590,8 +654,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute a=\\"1\\" must go after arguments and before modifiers
-                      ",
+              "message": "Attribute a=\\"1\\" must go after arguments",
               "rule": "attributes-order",
               "severity": 2,
               "source": "a=\\"1\\"",
@@ -638,7 +701,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @a=\\"1\\" must go before attributes, modifiers and splattributes",
+              "message": "Argument @a=\\"1\\" must go before attributes and modifiers",
               "rule": "attributes-order",
               "severity": 2,
               "source": "@a=\\"1\\"",

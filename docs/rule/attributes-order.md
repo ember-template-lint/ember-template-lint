@@ -5,8 +5,6 @@ Element attributes must be ordered. By default, the order is:
 - arguments
 - attributes
 - element modifiers
-- ...attributes
-- ?attributes
 
 Note that this ordering only applies to angle bracket invocation syntax, as mustache/curly invocation syntax only includes a single type `attributes`.
 
