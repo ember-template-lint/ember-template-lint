@@ -22,6 +22,9 @@ jobs:
     name: Node 16.x - ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
 
     steps:
       - uses: actions/checkout@v3
@@ -74,6 +77,9 @@ jobs:
     name: Node 12
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 15
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
 
     strategy:
       matrix:
@@ -100,6 +106,8 @@ jobs:
     name: Floating Dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
       - uses: actions/checkout@v3
