@@ -3,7 +3,7 @@ import generateRuleTests from '../../helpers/rule-test-harness.js';
 generateRuleTests({
   name: 'no-negated-condition',
 
-  config: { simplifyHelpers: true },
+  config: true,
 
   good: [
     // ******************************************
@@ -132,6 +132,7 @@ generateRuleTests({
       },
     },
     {
+      config: { simplifyHelpers: true },
       template: '{{#if (not (not condition))}}<img>{{/if}}',
       fixedTemplate: '{{#if condition}}<img>{{/if}}',
 
@@ -155,6 +156,7 @@ generateRuleTests({
       },
     },
     {
+      config: { simplifyHelpers: true },
       template: '{{#if (not (not c1 c2))}}<img>{{/if}}',
       fixedTemplate: '{{#if (or c1 c2)}}<img>{{/if}}',
 
@@ -347,6 +349,7 @@ generateRuleTests({
       },
     },
     {
+      config: { simplifyHelpers: true },
       template:
         '{{#unless (not (not condition))}}<img>{{else if (not (not condition))}}<input>{{/unless}}',
       fixedTemplate: '{{#unless condition}}<img>{{else if condition}}<input>{{/unless}}',
@@ -445,6 +448,7 @@ generateRuleTests({
       },
     },
     {
+      config: { simplifyHelpers: true },
       template:
         '{{#unless (not condition)}}<img>{{else if (not (not c1 c2))}}<input>{{else}}<hr>{{/unless}}',
       fixedTemplate: '{{#if condition}}<img>{{else if (or c1 c2)}}<input>{{else}}<hr>{{/if}}',
@@ -611,6 +615,7 @@ generateRuleTests({
       },
     },
     {
+      config: { simplifyHelpers: true },
       template: '<img class={{if (not (not condition)) "some-class" "other-class"}}>',
       fixedTemplate: '<img class={{if condition "some-class" "other-class"}}>',
 

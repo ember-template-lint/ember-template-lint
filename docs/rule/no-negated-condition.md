@@ -87,7 +87,7 @@ The following values are valid configuration:
 
 * boolean -- `true` for enabled / `false` for disabled
 * object --
-  * `simplifyHelpers` -- boolean - simplify negated helpers like `(not (eq ...))` or `(not (gt ...))`, `true` to enable / `false` to disable (default)
+  * `simplifyHelpers` -- boolean - whether to flag and autofix negated helpers like `(not (eq ...))` or `(not (gt ...))` that can be simplified (default `false`) (TODO: enable by default in next major release)
   
 ## Related Rules
 
