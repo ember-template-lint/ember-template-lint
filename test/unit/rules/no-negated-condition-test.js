@@ -17,10 +17,7 @@ generateRuleTests({
     '{{#if (not c1 c2)}}{{/if}}', // Valid since there is not way to simplify.
     '{{#if (not (not c1) c2)}}<img>{{/if}}',
     '{{#if (not c1 (not c2))}}<img>{{/if}}',
-    {
-      config: true,
-      template: '{{#if (not (not c2))}}<img>{{/if}}',
-    },
+    '{{#if (not (not c2))}}<img>{{/if}}',
     {
       config: { simplifyHelpers: false },
       template: '{{#if (not (eq c2))}}<img>{{/if}}',
