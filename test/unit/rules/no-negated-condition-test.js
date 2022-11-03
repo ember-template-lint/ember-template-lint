@@ -14,6 +14,14 @@ generateRuleTests({
     '{{#if condition}}<img>{{/if}}',
     '{{#if (or c1 c2)}}{{/if}}',
     '{{#if (not (or c1 c2))}}{{/if}}', // Valid since we don't want to suggest `unless` with helpers in the condition.
+    '{{#if (not c1 c2)}}{{/if}}', // Valid since there is not way to simplify.
+    '{{#if (not (not c1) c2)}}<img>{{/if}}',
+    '{{#if (not c1 (not c2))}}<img>{{/if}}',
+    '{{#if (not (not c2))}}<img>{{/if}}',
+    {
+      config: { simplifyHelpers: false },
+      template: '{{#if (not (eq c2))}}<img>{{/if}}',
+    },
 
     // if ... else ...
     '{{#if condition}}<img>{{else}}<img>{{/if}}',
@@ -31,6 +39,7 @@ generateRuleTests({
     // unless ...
     '{{#unless condition}}<img>{{/unless}}',
     '{{#unless (or c1 c2)}}<img>{{/unless}}',
+    '{{#unless (not c1 c2)}}<img>{{/unless}}',
 
     // unless ... else ...
     '{{#unless condition}}<img>{{else}}<img>{{/unless}}',
@@ -52,6 +61,7 @@ generateRuleTests({
     '<img class={{if condition "some-class"}}>',
     '<img class={{if (or c1 c2) "some-class"}}>',
     '<img class={{if (not (or c1 c2)) "some-class"}}>', // Valid since we don't want to suggest `unless` with helpers in the condition.
+    '<img class={{if (not c1 c2) "some-class"}}>',
 
     // if ... else ...
     '<img class={{if condition "some-class" "other-class"}}>',
@@ -60,6 +70,7 @@ generateRuleTests({
     // unless ...
     '<img class={{unless condition "some-class"}}>',
     '<img class={{unless (or c1 c2) "some-class"}}>',
+    '<img class={{unless (not c1 c2) "some-class"}}>',
 
     // unless ... else ...
     '<img class={{unless condition "some-class" "other-class"}}>',
@@ -73,6 +84,7 @@ generateRuleTests({
     '{{input class=(if condition "some-class")}}',
     '{{input class=(if (or c1 c2) "some-class")}}',
     '{{input class=(if (not (or c1 c2)) "some-class")}}', // Valid since we don't want to suggest `unless` with helpers in the condition.
+    '{{input class=(if (not c1 c2) "some-class")}}',
 
     // if ... else ...
     '{{input class=(if condition "some-class" "other-class")}}',
@@ -116,7 +128,78 @@ generateRuleTests({
         `);
       },
     },
+    {
+      config: { simplifyHelpers: true },
+      template: '{{#if (not (not condition))}}<img>{{/if}}',
+      fixedTemplate: '{{#if condition}}<img>{{/if}}',
 
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not (not condition))}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { simplifyHelpers: true },
+      template: '{{#if (not (not c1 c2))}}<img>{{/if}}',
+      fixedTemplate: '{{#if (or c1 c2)}}<img>{{/if}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 37,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not (not c1 c2))}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { simplifyHelpers: true },
+      template: '{{#if (not (eq c1 c2))}}<img>{{/if}}',
+      fixedTemplate: '{{#if (not-eq c1 c2)}}<img>{{/if}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not (eq c1 c2))}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
     // if ... else ...
     {
       template: '{{#if (not condition)}}<img>{{else}}<input>{{/if}}',
@@ -166,6 +249,29 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '{{#unless (not (not condition))}}<img>{{/unless}}',
+      fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 49,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not (not condition))}}<img>{{/unless}}",
+            },
+          ]
+        `);
+      },
+    },
 
     // unless ... else ...
     {
@@ -191,7 +297,30 @@ generateRuleTests({
         `);
       },
     },
+    {
+      config: { simplifyHelpers: true },
+      template: '{{#unless (not (not-eq c1 c2))}}<img>{{else}}<input>{{/unless}}',
+      fixedTemplate: '{{#unless (eq c1 c2)}}<img>{{else}}<input>{{/unless}}',
 
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 63,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not (not-eq c1 c2))}}<img>{{else}}<input>{{/unless}}",
+            },
+          ]
+        `);
+      },
+    },
     // unless ... else if ...
     {
       template: '{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}',
@@ -211,6 +340,79 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{/unless}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { simplifyHelpers: true },
+      template:
+        '{{#unless (not (not condition))}}<img>{{else if (not (not condition))}}<input>{{/unless}}',
+      fixedTemplate: '{{#unless condition}}<img>{{else if condition}}<input>{{/unless}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 89,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not (not condition))}}<img>{{else if (not (not condition))}}<input>{{/unless}}",
+            },
+            {
+              "column": 38,
+              "endColumn": 78,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{else if (not (not condition))}}<input>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { simplifyHelpers: true },
+      template: '{{#unless (not (gt c 10))}}<img>{{else if (not (lt c 5))}}<input>{{/unless}}',
+      fixedTemplate: '{{#unless (lte c 10)}}<img>{{else if (gte c 5)}}<input>{{/unless}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 76,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not (gt c 10))}}<img>{{else if (not (lt c 5))}}<input>{{/unless}}",
+            },
+            {
+              "column": 32,
+              "endColumn": 65,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{else if (not (lt c 5))}}<input>",
             },
           ]
         `);
@@ -237,6 +439,43 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#unless (not condition)}}<img>{{else if (not condition)}}<input>{{else}}<hr>{{/unless}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { simplifyHelpers: true },
+      template:
+        '{{#unless (not condition)}}<img>{{else if (not (not c1 c2))}}<input>{{else}}<hr>{{/unless}}',
+      fixedTemplate: '{{#if condition}}<img>{{else if (or c1 c2)}}<input>{{else}}<hr>{{/if}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 91,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`unless (not condition)\` to \`if condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#unless (not condition)}}<img>{{else if (not (not c1 c2))}}<input>{{else}}<hr>{{/unless}}",
+            },
+            {
+              "column": 32,
+              "endColumn": 80,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{else if (not (not c1 c2))}}<input>{{else}}<hr>",
             },
           ]
         `);
@@ -323,6 +562,30 @@ generateRuleTests({
         `);
       },
     },
+    {
+      config: { simplifyHelpers: true },
+      template: '<img class={{if (not (gte c 10)) "some-class"}}>',
+      fixedTemplate: '<img class={{if (lt c 10) "some-class"}}>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{if (not (gte c 10)) \\"some-class\\"}}",
+            },
+          ]
+        `);
+      },
+    },
 
     // if ... else ...
     {
@@ -343,6 +606,30 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{if (not condition) \\"some-class\\" \\"other-class\\"}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { simplifyHelpers: true },
+      template: '<img class={{if (not (not condition)) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{if condition "some-class" "other-class"}}>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{if (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
             },
           ]
         `);
@@ -398,7 +685,29 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '<img class={{unless (not (not condition)) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{unless condition "some-class" "other-class"}}>',
 
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 70,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{unless (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
+            },
+          ]
+        `);
+      },
+    },
     // ******************************************
     // SubExpression
     // ******************************************
@@ -452,6 +761,30 @@ generateRuleTests({
         `);
       },
     },
+    {
+      config: { simplifyHelpers: true },
+      template: '{{input class=(if (not (lte c 10)) "some-class" "other-class")}}',
+      fixedTemplate: '{{input class=(if (gt c 10) "some-class" "other-class")}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 62,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "(if (not (lte c 10)) \\"some-class\\" \\"other-class\\")",
+            },
+          ]
+        `);
+      },
+    },
 
     // unless ...
     {
@@ -497,6 +830,29 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "(unless (not condition) \\"some-class\\" \\"other-class\\")",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{input class=(unless (not (not condition)) "some-class" "other-class")}}',
+      fixedTemplate: '{{input class=(unless condition "some-class" "other-class")}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 71,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "(unless (not (not condition)) \\"some-class\\" \\"other-class\\")",
             },
           ]
         `);

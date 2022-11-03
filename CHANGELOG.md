@@ -19,6 +19,83 @@
 
 
 
+
+
+
+
+
+## v4.17.0 (2022-10-29)
+
+#### :rocket: Enhancement
+* [#2653](https://github.com/ember-template-lint/ember-template-lint/pull/2653) Add `simplifyHelpers` option in `no-negated-condition` rule ([@godric3](https://github.com/godric3))
+
+#### :house: Internal
+* [#2661](https://github.com/ember-template-lint/ember-template-lint/pull/2661) Remove usage of `cross-env` ([@rwjblue](https://github.com/rwjblue))
+* [#2659](https://github.com/ember-template-lint/ember-template-lint/pull/2659) Remove eslint-plugin-import-helpers ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+
+## v4.16.1 (2022-10-18)
+
+#### :bug: Bug Fix
+* [#2648](https://github.com/ember-template-lint/ember-template-lint/pull/2648) Allow negation with multiple parameters in `no-negated-condition` rule ([@godric3](https://github.com/godric3))
+
+#### Committers: 1
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+
+
+## v4.16.0 (2022-10-18)
+
+#### :rocket: Enhancement
+* [#2639](https://github.com/ember-template-lint/ember-template-lint/pull/2639) Add autofix for case with helpers to `simple-unless` rule ([@godric3](https://github.com/godric3))
+
+#### :memo: Documentation
+* [#2643](https://github.com/ember-template-lint/ember-template-lint/pull/2643) Clarify default `maxHelpers` option value for `simple-unless` rule ([@bmish](https://github.com/bmish))
+* [#2636](https://github.com/ember-template-lint/ember-template-lint/pull/2636) Add link to RFC for `no-array-prototype-extensions` rule ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2638](https://github.com/ember-template-lint/ember-template-lint/pull/2638) Bump volta-cli/action@v4 ([@ctjhoa](https://github.com/ctjhoa))
+
+#### Committers: 3
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Camille TJHOA ([@ctjhoa](https://github.com/ctjhoa))
+
+
+## v4.15.0 (2022-10-10)
+
+#### :rocket: Enhancement
+* [#2629](https://github.com/ember-template-lint/ember-template-lint/pull/2629) Add autofixer to `simple-unless` rule for simplest case ([@godric3](https://github.com/godric3))
+
+#### :house: Internal
+* [#2607](https://github.com/ember-template-lint/ember-template-lint/pull/2607) Add eslint-plugin-jest ([@bmish](https://github.com/bmish))
+
+#### Committers: 2
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+
+
+## v4.14.0 (2022-09-01)
+
+#### :rocket: Enhancement
+* [#2483](https://github.com/ember-template-lint/ember-template-lint/pull/2483) Implement support for embedded templates ([@ventuno](https://github.com/ventuno))
+
+#### :bug: Bug Fix
+* [#2604](https://github.com/ember-template-lint/ember-template-lint/pull/2604) Fix `--version` to actually give the right value ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#2605](https://github.com/ember-template-lint/ember-template-lint/pull/2605) Add `concurrency` setup to GitHub Actions workflow ([@rwjblue](https://github.com/rwjblue))
+* [#2602](https://github.com/ember-template-lint/ember-template-lint/pull/2602) Update GitHub Actions setup to volta-cli/action@v3 ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@ventuno](https://github.com/ventuno)
+
+
 ## v4.13.0 (2022-08-30)
 
 #### :rocket: Enhancement
