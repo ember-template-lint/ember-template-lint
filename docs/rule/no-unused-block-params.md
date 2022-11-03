@@ -2,6 +2,8 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 This rule forbids unused block parameters except when they are needed to access a later parameter.
 
 ## Examples
