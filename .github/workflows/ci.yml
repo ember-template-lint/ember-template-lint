@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   test:
-    name: Node 16.x - ubuntu
+    name: Node 18.x - ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -55,7 +55,7 @@ jobs:
         # excluded because it is the `test` job above
         exclude:
           - os: ubuntu
-            node-version: 16.x
+            node-version: 18.x
 
     steps:
       - uses: actions/checkout@v3
