@@ -115,7 +115,6 @@ Each rule has emojis denoting:
 | [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     | ✅  |     |     |     |
 | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             | ✅  |     |     | 🔧  |
 | [no-debugger](./docs/rule/no-debugger.md)                                                                 | ✅  |     |     |     |
-| [no-down-event-binding](./docs/rule/no-down-event-binding.md)                                             | ✅  |     | ⌨️  |     |
 | [no-duplicate-attributes](./docs/rule/no-duplicate-attributes.md)                                         | ✅  |     | ⌨️  |     |
 | [no-duplicate-id](./docs/rule/no-duplicate-id.md)                                                         | ✅  |     | ⌨️  |     |
 | [no-duplicate-landmark-elements](./docs/rule/no-duplicate-landmark-elements.md)                           | ✅  |     | ⌨️  |     |
@@ -152,6 +151,7 @@ Each rule has emojis denoting:
 | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                                       | ✅  |     |     |     |
 | [no-partial](./docs/rule/no-partial.md)                                                                   | ✅  |     |     |     |
 | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                                 | ✅  |     |     |     |
+| [no-pointer-down-event-binding](./docs/rule/no-pointer-down-event-binding.md)                             | ✅  |     | ⌨️  |     |
 | [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)                     | ✅  |     |     | 🔧  |
 | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                               | ✅  |     | ⌨️  |     |
 | [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                                     | ✅  |     |     |     |
