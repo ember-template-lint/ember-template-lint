@@ -76,8 +76,7 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
-                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -140,8 +139,7 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
-                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -554,8 +552,7 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
-                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
+                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -815,11 +812,6 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
-            foo: {
-              'bar.gjs': 'export const SomeComponent = <template>\n' + 'Not good\n' + '</template>',
-            },
-            'other.gjs':
-              'export const SomeComponent = <template>\n' + 'Not so good\n' + '</template>',
             'other.hbs': '<div></div>',
           },
         });
