@@ -23,6 +23,22 @@
 
 
 
+
+## v4.17.0 (2022-10-29)
+
+#### :rocket: Enhancement
+* [#2653](https://github.com/ember-template-lint/ember-template-lint/pull/2653) Add `simplifyHelpers` option in `no-negated-condition` rule ([@godric3](https://github.com/godric3))
+
+#### :house: Internal
+* [#2661](https://github.com/ember-template-lint/ember-template-lint/pull/2661) Remove usage of `cross-env` ([@rwjblue](https://github.com/rwjblue))
+* [#2659](https://github.com/ember-template-lint/ember-template-lint/pull/2659) Remove eslint-plugin-import-helpers ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 3
+- Andrzej Żak ([@godric3](https://github.com/godric3))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+
 ## v4.16.1 (2022-10-18)
 
 #### :bug: Bug Fix
