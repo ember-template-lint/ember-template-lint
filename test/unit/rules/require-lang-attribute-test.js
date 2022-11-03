@@ -8,7 +8,6 @@ generateRuleTests({
     '<html lang="en"></html>',
     '<html lang="en-US"></html>',
     '<html lang={{lang}}></html>',
-    '<html lang="hurrah"></html>', // allows invalid value when `validateValues` option defaults to `false`
     {
       config: {
         validateValues: true,
@@ -117,6 +116,27 @@ generateRuleTests({
               "rule": "require-lang-attribute",
               "severity": 2,
               "source": "<html lang=\\"\\"></html>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      // no config, allows validateValues to default to true
+      template: '<html lang="gibberish"></html>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
+              "rule": "require-lang-attribute",
+              "severity": 2,
+              "source": "<html lang=\\"gibberish\\"></html>",
             },
           ]
         `);

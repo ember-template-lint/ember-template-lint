@@ -60,7 +60,7 @@ Add the `lang` attribute to the `app/index.html` file in your Ember app. If you 
 
 - object -- containing the following property:
   - boolean -- `validateValues` -- if `true`, the rule checks whether the value in the `lang` attribute is a known IETF's BCP 47 language tag
-    (default: `false`) (TODO: enable by default in next major release)
+    (default: `true`)
 
 ## References
 
