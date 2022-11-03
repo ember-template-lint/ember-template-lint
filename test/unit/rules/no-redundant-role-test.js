@@ -1,7 +1,7 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'no-redundant-landmark-role',
+  name: 'no-redundant-role',
 
   config: true,
 
@@ -10,8 +10,10 @@ generateRuleTests({
     '<footer role={{this.foo}}></footer>',
     '<footer role="{{this.stuff}}{{this.foo}}"></footer>',
     '<nav role="navigation"></nav>',
-    '<body role="document"></body>', // allows redundant non-landmark role when `checkAllHTMLElements` option defaults to `false`
-
+    {
+      config: { checkAllHTMLElements: false },
+      template: '<body role="document"></body>',
+    },
     {
       config: { checkAllHTMLElements: true },
       template: '<footer role={{this.bar}}></footer>',
@@ -56,6 +58,29 @@ generateRuleTests({
 
   bad: [
     {
+      // with no config, checkAllHTMLElements defaults to true
+      template: '<dialog role="dialog" />',
+      fixedTemplate: '<dialog />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Use of redundant or invalid role: dialog on <dialog> detected.",
+              "rule": "no-redundant-role",
+              "severity": 2,
+              "source": "<dialog role=\\"dialog\\" />",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<header role="banner"></header>',
       fixedTemplate: '<header></header>',
 
@@ -70,7 +95,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: banner on <header> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<header role=\\"banner\\"></header>",
             },
@@ -93,7 +118,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: contentinfo on <footer> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<footer role=\\"contentinfo\\"></footer>",
             },
@@ -116,7 +141,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: main on <main> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<main role=\\"main\\"></main>",
             },
@@ -139,7 +164,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: complementary on <aside> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<aside role=\\"complementary\\"></aside>",
             },
@@ -162,7 +187,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: form on <form> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<form role=\\"form\\"></form>",
             },
@@ -185,7 +210,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: banner on <header> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<header role=\\"banner\\" class=\\"page-header\\"></header>",
             },
@@ -209,7 +234,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: button on <button> detected.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<button role=\\"button\\"></button>",
             },
@@ -233,7 +258,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: checkbox on <input> detected.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<input type=\\"checkbox\\" name=\\"agree\\" value=\\"checkbox1\\" role=\\"checkbox\\" />",
             },
@@ -257,7 +282,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: columnheader on <th> detected.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<th role=\\"columnheader\\">Some heading</th>",
             },
@@ -283,7 +308,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: listbox on <select> detected.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<select name=\\"color\\" id=\\"color\\" role=\\"listbox\\" multiple><option value=\\"default-color\\">black</option></select>",
             },
@@ -307,7 +332,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: main on <main> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<main role=\\"main\\"></main>",
             },
@@ -331,7 +356,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Use of redundant or invalid role: complementary on <aside> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
-              "rule": "no-redundant-landmark-role",
+              "rule": "no-redundant-role",
               "severity": 2,
               "source": "<aside role=\\"complementary\\"></aside>",
             },
