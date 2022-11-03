@@ -1,5 +1,7 @@
 # no-aria-unsupported-elements
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Certain reserved DOM elements do not support ARIA roles, states and properties. This is often because they are not visible.
 
 These elements include:

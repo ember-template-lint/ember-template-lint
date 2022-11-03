@@ -1,5 +1,7 @@
 # require-mandatory-role-attributes
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Elements with ARIA roles must also include all required attributes for that role. This ensures that a given element possesses the necessary states and properties to behave consistently with user expectations for other elements with the same ARIA role.
 
 This rule enforces that elements with an ARIA role also declare all required ARIA attributes for that role.
