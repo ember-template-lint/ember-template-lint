@@ -1,12 +1,12 @@
-# no-redundant-landmark-role
+# no-redundant-role
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
-If a landmark element is used, any role provided will either be redundant or incorrect.
-This rule adds support for landmark elements, to ensure that no role attribute is placed on any of
-the landmark elements, with the following exceptions:
+The rule checks for redundancy between any semantic HTML element with a default/implicit ARIA role and the role provided.
+
+For example, if a landmark element is used, any role provided will either be redundant or incorrect. This rule ensures that no role attribute is placed on any of the landmark elements, with the following exceptions:
 
 - a `nav` element with the `navigation` role to [make the structure of the page more accessible to user agents](/https://www.w3.org/WAI/GL/wiki/Using_HTML5_nav_element#Example:The_.3Cnav.3E_element)s
 - a `form` element with the `search` role to [identify the form's search functionality](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role#examples)
@@ -50,8 +50,7 @@ This rule **allows** the following:
 - boolean -- if `true`, default configuration is applied
 
 - object -- containing the following property:
-  - boolean -- `checkAllHTMLElements` -- if `true`, the rule checks for redundancy between any semantic HTML element with a default/implicit ARIA role and the role provided
-    (default: `false`) (TODO: enable by default in next major release)
+  - boolean -- `checkAllHTMLElements` -- if `true`, the rule checks for redundancy between any semantic HTML element with a default/implicit ARIA role and the role provided, instead of just landmark roles (default: `true`)
 
 ## References
 
