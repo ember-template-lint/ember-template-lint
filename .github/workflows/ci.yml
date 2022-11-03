@@ -10,16 +10,26 @@ on:
   schedule:
     - cron: '0 3 * * *' # daily, at 3am
 
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Node 16.x - ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
 
       - name: install dependencies
         run: npm ci
@@ -50,7 +60,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -67,6 +77,9 @@ jobs:
     name: Node 12
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 15
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
 
     strategy:
       matrix:
@@ -75,7 +88,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
         with:
           node-version: 12.x
 
@@ -93,11 +106,13 @@ jobs:
     name: Floating Dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
 
       - name: install dependencies
         run: npm install --no-package-lock

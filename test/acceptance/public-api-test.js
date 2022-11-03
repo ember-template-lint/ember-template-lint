@@ -457,6 +457,72 @@ describe('public api', function () {
       project.dispose();
     });
 
+    it('parses gts templates correctly', async function () {
+      project.setConfig({
+        rules: {
+          'no-debugger': 'error',
+        },
+      });
+
+      project.write({
+        app: {
+          components: {
+            'bar.gts':
+              `import { hbs } from 'ember-cli-htmlbars';\n` +
+              `import { setComponentTemplate } from '@ember/component';\n` +
+              `import Component from '@glimmer/component';\n` +
+              '\n' +
+              'interface Args {}\n' +
+              '\n' +
+              'export const SomeComponent = setComponentTemplate(hbs`\n' +
+              '  {{debugger}}\n' +
+              '  `,\n' +
+              '  class Some extends Component<Args> {}\n' +
+              ');\n' +
+              '\n' +
+              '<template>\n' +
+              '  {{debugger}}\n' +
+              '</template>',
+          },
+        },
+      });
+
+      let componentPath = project.path('app/components/bar.gts');
+      let templateContents = fs.readFileSync(componentPath, { encoding: 'utf8' });
+      let expected = [
+        {
+          message: 'Unexpected {{debugger}} usage.',
+          filePath: componentPath,
+          line: 8,
+          column: 2,
+          endColumn: 14,
+          endLine: 8,
+          source: '{{debugger}}',
+          rule: 'no-debugger',
+          severity: 2,
+        },
+        {
+          message: 'Unexpected {{debugger}} usage.',
+          filePath: componentPath,
+          line: 14,
+          column: 2,
+          endColumn: 14,
+          endLine: 14,
+          source: '{{debugger}}',
+          rule: 'no-debugger',
+          severity: 2,
+        },
+      ];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: componentPath,
+        moduleId: componentPath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+
     it('returns an array of issues with the provided template', async function () {
       let templatePath = project.path('app/templates/application.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
@@ -827,6 +893,33 @@ describe('public api', function () {
           message: "Definition for rule 'missing-rule' was not found",
           filePath: 'some/path/here.hbs',
           severity: 2,
+        },
+      ]);
+    });
+
+    it('looks for embedded templates if no filePath was given', async function () {
+      linter = new Linter({
+        config: {
+          rules: { 'no-debugger': true },
+        },
+      });
+
+      let template =
+        'export const SomeComponent = <template>\n' + '  {{debugger}}\n' + '</template>';
+      let result = await linter.verify({
+        source: template,
+      });
+
+      expect(result).toEqual([
+        {
+          column: 2,
+          endColumn: 14,
+          endLine: 2,
+          line: 2,
+          message: 'Unexpected {{debugger}} usage.',
+          rule: 'no-debugger',
+          severity: 2,
+          source: '{{debugger}}',
         },
       ]);
     });

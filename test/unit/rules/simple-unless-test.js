@@ -71,6 +71,7 @@ generateRuleTests({
         maxHelpers: 2,
       },
       template: "{{unless (if (or true))  'Please no'}}",
+      fixedTemplate: "{{if (not (if (or true)))  'Please no'}}",
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -80,6 +81,7 @@ generateRuleTests({
               "endColumn": 23,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
               "rule": "simple-unless",
@@ -92,6 +94,7 @@ generateRuleTests({
     },
     {
       template: "{{unless (if true)  'Please no'}}",
+      fixedTemplate: "{{if (not (if true))  'Please no'}}",
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -101,6 +104,7 @@ generateRuleTests({
               "endColumn": 18,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
               "rule": "simple-unless",
@@ -113,6 +117,7 @@ generateRuleTests({
     },
     {
       template: "{{unless (and isBad isAwful)  'notBadAndAwful'}}",
+      fixedTemplate: "{{if (not (and isBad isAwful))  'notBadAndAwful'}}",
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -122,6 +127,7 @@ generateRuleTests({
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
               "rule": "simple-unless",
@@ -140,6 +146,13 @@ generateRuleTests({
         '  Go Seahawks!',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if bandwagoner}}',
+        '  Go Seahawks!',
+        '{{else}}',
+        '  Go Niners!',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -149,6 +162,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
@@ -160,7 +174,8 @@ generateRuleTests({
       },
     },
     {
-      template: ['{{#unless bandwagoner}}', '{{else}}', '{{/unless}}'].join('\n'),
+      template: ['{{#unless bandwagoner}}', 'Test1', '{{else}}', 'Test2', '{{/unless}}'].join('\n'),
+      fixedTemplate: ['{{#if bandwagoner}}', 'Test2', '{{else}}', 'Test1', '{{/if}}'].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -168,9 +183,10 @@ generateRuleTests({
             {
               "column": 0,
               "endColumn": 0,
-              "endLine": 2,
+              "endLine": 3,
               "filePath": "layout.hbs",
-              "line": 2,
+              "isFixable": true,
+              "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
@@ -188,6 +204,13 @@ generateRuleTests({
         '  {{/my-component}}',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if bandwagoner}}',
+        '  {{#my-component}}',
+        '  {{/my-component}}',
+        '{{else}}',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -197,6 +220,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
@@ -224,6 +248,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
@@ -253,6 +278,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
@@ -282,6 +308,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
@@ -305,6 +332,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 5,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 3,
               "message": "Using an \`{{else unless}}\` block should be avoided.",
               "rule": "simple-unless",
@@ -321,6 +349,11 @@ generateRuleTests({
         '  I am a green celery!',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (not (and isFruit isYellow))}}',
+        '  I am a green celery!',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -330,6 +363,7 @@ generateRuleTests({
               "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
               "rule": "simple-unless",
@@ -346,6 +380,11 @@ generateRuleTests({
         '  I think I am a brown stick',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (or isBrown isSticky)}}',
+        '  I think I am a brown stick',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -355,11 +394,81 @@ generateRuleTests({
               "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
               "rule": "simple-unless",
               "severity": 2,
               "source": "{{unless (not ...",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: ['{{#unless (not isBrown)}}', '  I think I am a brown', '{{/unless}}'].join('\n'),
+      fixedTemplate: ['{{#if isBrown}}', '  I think I am a brown', '{{/if}}'].join('\n'),
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (not ...",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<img class={{unless (not condition) "some-class"}}>',
+      fixedTemplate: '<img class={{if condition "some-class"}}>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (not ...",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<img class={{unless (one condition) "some-class" "other-class"}}>',
+      fixedTemplate: '<img class={{if (not (one condition)) "some-class" "other-class"}}>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helpers: or,eq,not-eq",
+              "rule": "simple-unless",
+              "severity": 2,
+              "source": "{{unless (one ...",
             },
           ]
         `);
@@ -373,6 +482,13 @@ generateRuleTests({
         '  Not a brown stick',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if isSticky}}',
+        '  Not a brown stick',
+        '{{else}}',
+        '  I think I am a brown stick',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -382,6 +498,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 3,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
@@ -398,6 +515,11 @@ generateRuleTests({
         '  MUCH HELPERS, VERY BAD',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (not (or (eq foo bar) (not-eq baz "beer")))}}',
+        '  MUCH HELPERS, VERY BAD',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -407,6 +529,7 @@ generateRuleTests({
               "endColumn": 46,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2",
               "rule": "simple-unless",
@@ -424,6 +547,11 @@ generateRuleTests({
         '  I think I am a brown stick',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (not (concat "blue" "red"))}}',
+        '  I think I am a brown stick',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -433,6 +561,7 @@ generateRuleTests({
               "endColumn": 31,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 0",
               "rule": "simple-unless",
@@ -453,6 +582,11 @@ generateRuleTests({
         '  I think I am a brown stick',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (not (one (test power) two))}}',
+        '  I think I am a brown stick',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -462,6 +596,7 @@ generateRuleTests({
               "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Allowed helper: test",
               "rule": "simple-unless",
@@ -473,6 +608,7 @@ generateRuleTests({
               "endColumn": 27,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 1",
               "rule": "simple-unless",
@@ -493,6 +629,11 @@ generateRuleTests({
         '  I think I am a brown stick',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (not (one (two three) (four five)))}}',
+        '  I think I am a brown stick',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -502,6 +643,7 @@ generateRuleTests({
               "endColumn": 38,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. MaxHelpers: 2",
               "rule": "simple-unless",
@@ -522,6 +664,11 @@ generateRuleTests({
         '  I think I am a brown stick',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (not (one (two three) (four five)))}}',
+        '  I think I am a brown stick',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -531,6 +678,7 @@ generateRuleTests({
               "endColumn": 26,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Restricted helper: two",
               "rule": "simple-unless",
@@ -551,6 +699,11 @@ generateRuleTests({
         '  I think I am a brown stick',
         '{{/unless}}',
       ].join('\n'),
+      fixedTemplate: [
+        '{{#if (not (one (two three) (four five)))}}',
+        '  I think I am a brown stick',
+        '{{/if}}',
+      ].join('\n'),
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -560,6 +713,7 @@ generateRuleTests({
               "endColumn": 26,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four",
               "rule": "simple-unless",
@@ -571,6 +725,7 @@ generateRuleTests({
               "endColumn": 38,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Using {{unless}} in combination with other helpers should be avoided. Restricted helpers: two,four",
               "rule": "simple-unless",

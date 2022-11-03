@@ -5,11 +5,18 @@ const STDIN = '/dev/stdin';
 
 describe('getFilesToLint', function () {
   let project = null;
-
   beforeEach(async function () {
     project = await setupProject();
     await project.chdir();
     await project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
+    await project.write({
+      'application.hbs': 'almost empty',
+      'other.hbs': 'ZOMG',
+      'js-module.js': 'export const two = 2;',
+      'ts-module.ts': 'export const two = 2;',
+      'gjs-module.gjs': 'export const two = 2;',
+      'gts-module.gts': 'export const two = 2;',
+    });
   });
 
   afterEach(function () {
