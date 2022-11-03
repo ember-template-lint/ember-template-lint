@@ -541,7 +541,9 @@ generateRuleTests({
       },
     },
     {
-      config: true,
+      config: {
+        maxHelpers: 0,
+      },
       template: [
         '{{#unless (concat "blue" "red")}}',
         '  I think I am a brown stick',
