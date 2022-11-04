@@ -1,3 +1,4 @@
+/* eslint jest/expect-expect:"off",jest/no-standalone-expect:"off" -- false positives due to the lint framework running some tests for us */
 import path from 'node:path';
 
 import defaultTestHarness from '../../lib/helpers/rule-test-harness.js';
@@ -85,8 +86,8 @@ describe('rule public api', function () {
           template: '<div></div>',
           verifyResults(results) {
             expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
+              [
+                {
                   "column": 0,
                   "endColumn": 11,
                   "endLine": 1,
@@ -342,8 +343,8 @@ describe('rule public api', function () {
           template: '<div></div>',
           verifyResults(results) {
             expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
+              [
+                {
                   "column": 0,
                   "endColumn": 11,
                   "endLine": 1,
@@ -366,8 +367,8 @@ describe('rule public api', function () {
           template: '<div></div>',
           verifyResults(results) {
             expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
+              [
+                {
                   "column": 0,
                   "endColumn": 11,
                   "endLine": 1,
@@ -578,7 +579,7 @@ describe('regression tests', function () {
     await group.run();
 
     expect(group.runLog).toMatchInlineSnapshot(`
-      Array [
+      [
         "<div></div>: logs errors",
         "<div></div>: passes when rule is disabled",
         "<div></div>: passes when disabled via inline comment - single rule",
@@ -669,7 +670,7 @@ describe('regression tests', function () {
     );
 
     expect(group.runLog).toMatchInlineSnapshot(`
-      Array [
+      [
         "<div></div>: logs errors",
       ]
     `);

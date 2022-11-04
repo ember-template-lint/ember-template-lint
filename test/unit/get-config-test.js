@@ -1,6 +1,7 @@
 // TODO: This test file is temporarily disabled in Node versions before 16 (see ci.yml).
 
 import { stripIndent } from 'common-tags';
+import { join } from 'node:path';
 
 import recommendedConfig from '../../lib/config/recommended.js';
 import { getProjectConfig, resolveProjectConfig, getRuleFromString } from '../../lib/get-config.js';
@@ -11,8 +12,9 @@ import Project from '../helpers/fake-project.js';
 describe('get-config', function () {
   let project = null;
 
-  beforeEach(function () {
+  beforeEach(async function () {
     project = new Project();
+    await project.write();
   });
 
   afterEach(function () {
@@ -34,7 +36,7 @@ describe('get-config', function () {
     });
   });
 
-  it('it supports severity level', async function () {
+  it('supports severity level', async function () {
     let expected = {
       rules: {
         foo: { config: true, severity: 1 },
@@ -74,7 +76,7 @@ describe('get-config', function () {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('it supports severity level with custom configuration', async function () {
+  it('supports severity level with custom configuration', async function () {
     let expected = {
       rules: {
         foo: { config: { allow: [1, 2, 3] }, severity: 1 },
@@ -111,7 +113,7 @@ describe('get-config', function () {
     // clone to ensure we are not mutating
     let expected = JSON.parse(JSON.stringify(config));
 
-    project.setConfig(expected);
+    await project.setConfig(expected);
     project.chdir();
 
     let actual = await getProjectConfig(project.baseDir, {});
@@ -152,7 +154,7 @@ describe('get-config', function () {
     project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
       someOtherPathConfig
     )};`;
-    project.writeSync();
+    await project.write();
 
     let actual = await getProjectConfig(project.baseDir, {
       configPath: project.path('some-other-path.js'),
@@ -203,6 +205,34 @@ describe('get-config', function () {
     );
   });
 
+  it('returns empty format object when no config.format is provided', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
+      config: {},
+    });
+
+    expect(actual.format).toEqual({});
+  });
+
+  it('throws when invalid format property in config.format is provided', async function () {
+    await expect(
+      async () =>
+        await getProjectConfig(project.baseDir, {
+          config: {
+            format: {
+              formatters: [
+                {
+                  name: 'pretty',
+                  foo: 'bar',
+                },
+              ],
+            },
+          },
+        })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"An invalid \`format.formatter\` in \`.template-lintrc.js\` was provided. Unexpected property \`foo\`"`
+    );
+  });
+
   it('throws when providing wrong type for config.extends', async function () {
     await expect(
       async () =>
@@ -245,7 +275,7 @@ describe('get-config', function () {
   it('resolves plugins by string', async function () {
     let console = buildFakeConsole();
 
-    project.setConfig({
+    await project.setConfig({
       extends: ['my-awesome-thing:stylistic'],
       plugins: ['my-awesome-thing'],
     });
@@ -279,7 +309,7 @@ describe('get-config', function () {
   it('resolves plugins by string when using specified config (not resolved project config)', async function () {
     let console = buildFakeConsole();
 
-    project.setConfig();
+    await project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = stripIndent`
@@ -332,7 +362,7 @@ describe('get-config', function () {
   });
 
   it('throws when non-inline plugin is missing name', async function () {
-    project.setConfig();
+    await project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = 'module.exports = {};';
@@ -355,7 +385,7 @@ describe('get-config', function () {
   });
 
   it('throws when non-inline plugin is wrong type', async function () {
-    project.setConfig();
+    await project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = 'module.exports = 123;';
@@ -679,7 +709,8 @@ describe('determineRuleConfig', function () {
 
 describe('resolveProjectConfig', function () {
   it('should return an empty object when options.configPath is set explicitly false', async function () {
-    let project = Project.defaultSetup();
+    let project = new Project();
+    await project.write();
 
     try {
       const config = await resolveProjectConfig(project.baseDir, { configPath: false });
@@ -690,13 +721,68 @@ describe('resolveProjectConfig', function () {
     }
   });
 
+  it('should search for config from sub to parent directory', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      top: {
+        bottom: {},
+      },
+    });
+
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+      });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('should search for config from sub to middle directory', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      top: {
+        bottom: {},
+        '.template-lintrc.js': `
+'use strict';
+
+module.exports = {
+  extends: 'recommended',
+  rules: {
+    'no-bare-strings': 'off'
+  }
+};
+`,
+      },
+    });
+
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+        rules: {
+          'no-bare-strings': 'off',
+        },
+      });
+    } finally {
+      project.dispose();
+    }
+  });
+
   it('should search for config relative to the specified working directory', async function () {
-    let project1 = Project.defaultSetup();
-    let project2 = Project.defaultSetup();
+    let project1 = new Project();
+    await project1.write();
+    let project2 = new Project();
+    await project2.write();
 
-    project1.chdir();
+    await project1.chdir();
 
-    project2.setConfig({
+    await project2.setConfig({
       extends: 'foo',
     });
 
@@ -716,8 +802,9 @@ describe('resolveProjectConfig', function () {
 describe('getProjectConfig', function () {
   let project = null;
 
-  beforeEach(function () {
-    project = Project.defaultSetup();
+  beforeEach(async function () {
+    project = new Project();
+    await project.write();
   });
 
   afterEach(function () {

@@ -97,7 +97,7 @@ Each rule has emojis denoting:
 | [linebreak-style](./docs/rule/linebreak-style.md)                                                         |     | 💅  |     |     |
 | [link-href-attributes](./docs/rule/link-href-attributes.md)                                               | ✅  |     | ⌨️  |     |
 | [link-rel-noopener](./docs/rule/link-rel-noopener.md)                                                     | ✅  |     |     | 🔧  |
-| [modifier-name-case](./docs/rule/modifier-name-case.md)                                                   |     | 💅  |     |     |
+| [modifier-name-case](./docs/rule/modifier-name-case.md)                                                   |     | 💅  |     | 🔧  |
 | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                                     | ✅  |     | ⌨️  |     |
 | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           | ✅  |     | ⌨️  | 🔧  |
 | [no-action](./docs/rule/no-action.md)                                                                     | ✅  |     |     |     |
@@ -105,6 +105,8 @@ Each rule has emojis denoting:
 | [no-args-paths](./docs/rule/no-args-paths.md)                                                             | ✅  |     |     |     |
 | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | ✅  |     |     |     |
 | [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 | ✅  |     | ⌨️  | 🔧  |
+| [no-aria-unsupported-elements](./docs/rule/no-aria-unsupported-elements.md)                               |     |     | ⌨️  |     |
+| [no-array-prototype-extensions](./docs/rule/no-array-prototype-extensions.md)                             |     |     |     | 🔧  |
 | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           | ✅  |     |     |     |
 | [no-autofocus-attribute](./docs/rule/no-autofocus-attribute.md)                                           | ✅  |     | ⌨️  |     |
 | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |     |     |     |     |
@@ -123,7 +125,7 @@ Each rule has emojis denoting:
 | [no-extra-mut-helper-argument](./docs/rule/no-extra-mut-helper-argument.md)                               | ✅  |     |     |     |
 | [no-forbidden-elements](./docs/rule/no-forbidden-elements.md)                                             | ✅  |     |     |     |
 | [no-heading-inside-button](./docs/rule/no-heading-inside-button.md)                                       | ✅  |     | ⌨️  |     |
-| [no-html-comments](./docs/rule/no-html-comments.md)                                                       | ✅  |     |     |     |
+| [no-html-comments](./docs/rule/no-html-comments.md)                                                       | ✅  |     |     | 🔧  |
 | [no-implicit-this](./docs/rule/no-implicit-this.md)                                                       | ✅  |     |     |     |
 | [no-index-component-invocation](./docs/rule/no-index-component-invocation.md)                             | ✅  |     |     |     |
 | [no-inline-styles](./docs/rule/no-inline-styles.md)                                                       | ✅  |     |     |     |
@@ -145,6 +147,7 @@ Each rule has emojis denoting:
 | [no-nested-interactive](./docs/rule/no-nested-interactive.md)                                             | ✅  |     | ⌨️  |     |
 | [no-nested-landmark](./docs/rule/no-nested-landmark.md)                                                   | ✅  |     | ⌨️  |     |
 | [no-nested-splattributes](./docs/rule/no-nested-splattributes.md)                                         | ✅  |     |     |     |
+| [no-obscure-array-access](./docs/rule/no-obscure-array-access.md)                                         |     |     |     | 🔧  |
 | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                               | ✅  |     | ⌨️  |     |
 | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                                       | ✅  |     |     |     |
 | [no-partial](./docs/rule/no-partial.md)                                                                   | ✅  |     |     |     |
@@ -152,11 +155,12 @@ Each rule has emojis denoting:
 | [no-positional-data-test-selectors](./docs/rule/no-positional-data-test-selectors.md)                     | ✅  |     |     | 🔧  |
 | [no-positive-tabindex](./docs/rule/no-positive-tabindex.md)                                               | ✅  |     | ⌨️  |     |
 | [no-potential-path-strings](./docs/rule/no-potential-path-strings.md)                                     | ✅  |     |     |     |
-| [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                                         | ✅  |     |     |     |
+| [no-quoteless-attributes](./docs/rule/no-quoteless-attributes.md)                                         | ✅  |     |     | 🔧  |
 | [no-redundant-fn](./docs/rule/no-redundant-fn.md)                                                         | ✅  |     |     | 🔧  |
 | [no-redundant-landmark-role](./docs/rule/no-redundant-landmark-role.md)                                   | ✅  |     | ⌨️  | 🔧  |
 | [no-restricted-invocations](./docs/rule/no-restricted-invocations.md)                                     |     |     |     |     |
 | [no-route-action](./docs/rule/no-route-action.md)                                                         | ✅  |     |     |     |
+| [no-scope-outside-table-headings](./docs/rule/no-scope-outside-table-headings.md)                         |     |     | ⌨️  |     |
 | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                               | ✅  |     |     |     |
 | [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)                 |     |     |     | 🔧  |
 | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |     | 💅  |     |     |
@@ -164,8 +168,9 @@ Each rule has emojis denoting:
 | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                                             | ✅  |     |     |     |
 | [no-unbound](./docs/rule/no-unbound.md)                                                                   | ✅  |     |     |     |
 | [no-unknown-arguments-for-builtin-components](./docs/rule/no-unknown-arguments-for-builtin-components.md) | ✅  |     |     | 🔧  |
-| [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     |     |
-| [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     |     |
+| [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     | 🔧  |
+| [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     | 🔧  |
+| [no-unsupported-role-attributes](./docs/rule/no-unsupported-role-attributes.md)                           |     |     | ⌨️  | 🔧  |
 | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | ✅  |     |     |     |
 | [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           | ✅  |     |     |     |
 | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       | ✅  |     | ⌨️  |     |
@@ -174,6 +179,7 @@ Each rule has emojis denoting:
 | [no-yield-only](./docs/rule/no-yield-only.md)                                                             | ✅  |     |     |     |
 | [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 | ✅  |     |     |     |
 | [quotes](./docs/rule/quotes.md)                                                                           |     | 💅  |     | 🔧  |
+| [require-aria-activedescendant-tabindex](./docs/rule/require-aria-activedescendant-tabindex.md)           |     |     | ⌨️  |     |
 | [require-button-type](./docs/rule/require-button-type.md)                                                 | ✅  |     |     | 🔧  |
 | [require-context-role](./docs/rule/require-context-role.md)                                               | ✅  |     | ⌨️  |     |
 | [require-each-key](./docs/rule/require-each-key.md)                                                       |     |     |     |     |
@@ -182,12 +188,14 @@ Each rule has emojis denoting:
 | [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | ✅  |     | ⌨️  |     |
 | [require-input-label](./docs/rule/require-input-label.md)                                                 | ✅  |     | ⌨️  |     |
 | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | ✅  |     | ⌨️  |     |
+| [require-mandatory-role-attributes](./docs/rule/require-mandatory-role-attributes.md)                     |     |     | ⌨️  |     |
+| [require-media-caption](./docs/rule/require-media-caption.md)                                             |     |     | ⌨️  |     |
 | [require-presentational-children](./docs/rule/require-presentational-children.md)                         | ✅  |     | ⌨️  |     |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |
-| [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     |     |
-| [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     |     |
-| [simple-unless](./docs/rule/simple-unless.md)                                                             | ✅  |     |     |     |
+| [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     | 🔧  |
+| [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     | 🔧  |
+| [simple-unless](./docs/rule/simple-unless.md)                                                             | ✅  |     |     | 🔧  |
 | [splat-attributes-only](./docs/rule/splat-attributes-only.md)                                             | ✅  |     |     |     |
 | [style-concatenation](./docs/rule/style-concatenation.md)                                                 | ✅  |     |     |     |
 | [table-groups](./docs/rule/table-groups.md)                                                               | ✅  |     | ⌨️  |     |

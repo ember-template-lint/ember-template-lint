@@ -19,8 +19,8 @@ generateRuleTests({
       template: '<div as |blockName|></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 26,
               "endLine": 1,
@@ -39,8 +39,8 @@ generateRuleTests({
       template: '<div as |a b c|></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,

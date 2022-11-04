@@ -8,20 +8,13 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: [
-    'eslint-comments',
-    'filenames',
-    'import',
-    'import-helpers',
-    'node',
-    'prettier',
-    'unicorn',
-  ],
+  plugins: ['eslint-comments', 'filenames', 'import', 'node', 'prettier', 'unicorn'],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:jest/recommended',
     'plugin:node/recommended',
     'plugin:unicorn/recommended',
     'plugin:prettier/recommended',
@@ -100,18 +93,8 @@ module.exports = {
     'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
 
-    'import-helpers/order-imports': [
-      'error',
-      {
-        newlinesBetween: 'always',
-        groups: [
-          '/^(assert|async_hooks|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|http2|https|inspector|module|net|os|path|perf_hooks|process|punycode|querystring|readline|repl|stream|string_decoder|timers|tls|trace_events|tty|url|util|v8|vm|zli)/',
-          ['module'],
-          ['parent', 'sibling', 'index'],
-        ],
-        alphabetize: { order: 'asc', ignoreCase: true },
-      },
-    ],
+    // Jest rules:
+    'jest/no-conditional-expect': 'off',
 
     // Node rules:
     'node/no-unsupported-features/es-syntax': [
@@ -139,34 +122,46 @@ module.exports = {
     'unicorn/no-useless-undefined': 'off',
     'unicorn/prefer-ternary': 'off',
     'unicorn/prevent-abbreviations': 'off',
+    'unicorn/text-encoding-identifier-case': 'off',
   },
 
   overrides: [
     {
+      // CJS
       files: ['**/*.cjs'],
       parserOptions: {
         sourceType: 'script',
       },
     },
     {
+      // CLI
       files: ['bin/**/*.js', 'lib/helpers/cli.js'],
       rules: {
         'no-console': 'off',
       },
     },
     {
+      // Rules
       files: ['lib/rules/**/*.js'],
       rules: {
         'filenames/match-exported': ['error', 'kebab'],
       },
     },
     {
+      // Tests
       files: ['test/**/*.js'],
       env: {
         jest: true,
       },
       rules: {
         'import/no-dynamic-require': 'off',
+      },
+    },
+    {
+      // Rule tests
+      files: ['test/unit/rules/*.js'],
+      rules: {
+        'jest/no-standalone-expect': 'off', // False positives from using: verifyResults(results) { expect(results).toMatchInlineSnapshot }
       },
     },
   ],

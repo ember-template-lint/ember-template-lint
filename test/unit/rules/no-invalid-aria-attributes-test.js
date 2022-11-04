@@ -11,22 +11,26 @@ generateRuleTests({
     '<input type="email" aria-required="true" />',
     '<input type="text" aria-labelledby="label1 label2" />',
     '<div role="checkbox" aria-checked="true" onclick="handleCheckbox()" tabindex="0"></div>',
+    '<button aria-haspopup="true"></button>',
+    '<button aria-haspopup="dialog"></button>',
     '<div role="slider" aria-valuenow="50" aria-valuemax="100" aria-valuemin="0" />',
     '<div role="heading" aria-level={{2}}></div>',
     '<input type="text" id="name" aria-invalid="grammar" />',
     '<div role="region" aria-live="polite" aria-relevant="additions text">Valid live region</div>',
+    '<div aria-label="{{@foo.bar}} baz"></div>',
     '<CustomComponent @ariaRequired={{this.ariaRequired}} aria-errormessage="errorId" />',
     '<button type="submit" aria-disabled={{this.isDisabled}}>Submit</button>',
     '<div role="textbox" aria-sort={{if this.hasCustomSort "other" "ascending"}}></div>',
     '<div role="combobox" aria-expanded="undefined"></div>',
+    '<button aria-label={{if @isNew (t "actions.add") (t "actions.edit")}}></button>',
   ],
   bad: [
     {
       template: '<input aria-text="inaccessible text" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 39,
               "endLine": 1,
@@ -46,8 +50,8 @@ generateRuleTests({
         '<div role="slider" aria-valuenow={{this.foo}} aria-valuemax={{this.bar}} aria-value-min={{this.baz}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 103,
               "endLine": 1,
@@ -66,8 +70,8 @@ generateRuleTests({
       template: '<h1 aria--hidden="true">Broken heading</h1>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 43,
               "endLine": 1,
@@ -86,8 +90,8 @@ generateRuleTests({
       template: '<CustomComponent role="region" aria-alert="polite" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 53,
               "endLine": 1,
@@ -107,8 +111,8 @@ generateRuleTests({
         '<span role="checkbox" aria-checked="bad-value" tabindex="0" aria-label="Forget me"></span>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 90,
               "endLine": 1,
@@ -127,8 +131,8 @@ generateRuleTests({
       template: '<button type="submit" disabled="true" aria-disabled="123">Submit</button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 73,
               "endLine": 1,
@@ -147,8 +151,8 @@ generateRuleTests({
       template: '<input type="text" disabled="true" aria-errormessage="false" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 63,
               "endLine": 1,
@@ -164,32 +168,12 @@ generateRuleTests({
       },
     },
     {
-      template: '<input type="password" required="true" aria-errormessage={{0}} />',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 65,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-errormessage must be a string that represents a DOM element ID",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<input type=\\"password\\" required=\\"true\\" aria-errormessage={{0}} />",
-            },
-          ]
-        `);
-      },
-    },
-    {
       template:
         '<button type="submit" aria-describedby="blah false">Continue at your own risk</button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 86,
               "endLine": 1,
@@ -205,31 +189,11 @@ generateRuleTests({
       },
     },
     {
-      template: '<button type="submit" aria-describedby={{false}} >broken button</button>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 72,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-describedby must be a list of strings that represent DOM element IDs (idlist)",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<button type=\\"submit\\" aria-describedby={{false}} >broken button</button>",
-            },
-          ]
-        `);
-      },
-    },
-    {
       template: '<div role="heading" aria-level="bogus">Inaccessible heading</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 65,
               "endLine": 1,
@@ -248,8 +212,8 @@ generateRuleTests({
       template: '<div role="heading" aria-level="true">Another inaccessible heading</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 72,
               "endLine": 1,
@@ -265,32 +229,12 @@ generateRuleTests({
       },
     },
     {
-      template: '<div role="heading" aria-level={{"blah"}}>Broken heading</div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 62,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-level must be an integer.",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<div role=\\"heading\\" aria-level={{\\"blah\\"}}>Broken heading</div>",
-            },
-          ]
-        `);
-      },
-    },
-    {
       template:
         '<div role="slider" aria-valuenow=(2*2)  aria-valuemax="100" aria-valuemin="30">Broken slider</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 98,
               "endLine": 1,
@@ -309,8 +253,8 @@ generateRuleTests({
       template: '<div role="region" aria-live="no-such-value">Inaccessible live region</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 75,
               "endLine": 1,
@@ -330,8 +274,8 @@ generateRuleTests({
         '<div role="region" aria-live="polite" aria-relevant="additions errors">Inaccessible live region</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 101,
               "endLine": 1,
@@ -347,31 +291,11 @@ generateRuleTests({
       },
     },
     {
-      template: '<input type="text" aria-required={{if this.foo "true" "woosh"}} />',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 66,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-required must be a boolean.",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<input type=\\"text\\" aria-required={{if this.foo \\"true\\" \\"woosh\\"}} />",
-            },
-          ]
-        `);
-      },
-    },
-    {
       template: '<input type="text" aria-required="undefined" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 47,
               "endLine": 1,

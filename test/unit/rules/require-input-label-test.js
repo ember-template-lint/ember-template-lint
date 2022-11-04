@@ -74,8 +74,8 @@ generateRuleTests({
       template: '<my-label><input /></my-label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 19,
               "endLine": 1,
@@ -94,8 +94,8 @@ generateRuleTests({
       template: '<div><input /></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -114,8 +114,8 @@ generateRuleTests({
       template: '<input />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 9,
               "endLine": 1,
@@ -134,8 +134,8 @@ generateRuleTests({
       template: '<input title="some title value" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 34,
               "endLine": 1,
@@ -154,8 +154,8 @@ generateRuleTests({
       template: '<label><input></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 14,
               "endLine": 1,
@@ -174,8 +174,8 @@ generateRuleTests({
       template: '<div>{{input}}</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -194,8 +194,8 @@ generateRuleTests({
       template: '<Input/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
@@ -214,8 +214,8 @@ generateRuleTests({
       template: '<input aria-label="first label" aria-labelledby="second label">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 63,
               "endLine": 1,
@@ -234,8 +234,8 @@ generateRuleTests({
       template: '<input id="label-input" aria-label="second label">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 50,
               "endLine": 1,
@@ -254,8 +254,8 @@ generateRuleTests({
       template: '<label>Input label<input aria-label="Custom label"></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 51,
               "endLine": 1,
@@ -274,8 +274,8 @@ generateRuleTests({
       template: '{{input type="button"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 23,
               "endLine": 1,
@@ -294,8 +294,8 @@ generateRuleTests({
       template: '{{input type=myType}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,
@@ -314,8 +314,8 @@ generateRuleTests({
       template: '<input type="button"/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -334,8 +334,8 @@ generateRuleTests({
       template: '<input type={{myType}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
@@ -354,8 +354,8 @@ generateRuleTests({
       template: '<Input type="button"/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -374,8 +374,8 @@ generateRuleTests({
       template: '<Input type={{myType}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
@@ -394,8 +394,8 @@ generateRuleTests({
       template: '<div><textarea /></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 17,
               "endLine": 1,
@@ -414,8 +414,8 @@ generateRuleTests({
       template: '<textarea />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 12,
               "endLine": 1,
@@ -434,8 +434,8 @@ generateRuleTests({
       template: '<textarea title="some title value" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 37,
               "endLine": 1,
@@ -454,8 +454,8 @@ generateRuleTests({
       template: '<label><textarea /></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 19,
               "endLine": 1,
@@ -474,8 +474,8 @@ generateRuleTests({
       template: '<div>{{textarea}}</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 17,
               "endLine": 1,
@@ -494,8 +494,8 @@ generateRuleTests({
       template: '<Textarea />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 12,
               "endLine": 1,
@@ -514,8 +514,8 @@ generateRuleTests({
       template: '<textarea aria-label="first label" aria-labelledby="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 68,
               "endLine": 1,
@@ -534,8 +534,8 @@ generateRuleTests({
       template: '<textarea id="label-input" aria-label="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 55,
               "endLine": 1,
@@ -554,8 +554,8 @@ generateRuleTests({
       template: '<label>Textarea label<textarea aria-label="Custom label" /></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 59,
               "endLine": 1,
@@ -574,8 +574,8 @@ generateRuleTests({
       template: '<div><select></select></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 22,
               "endLine": 1,
@@ -594,8 +594,8 @@ generateRuleTests({
       template: '<select></select>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 17,
               "endLine": 1,
@@ -614,8 +614,8 @@ generateRuleTests({
       template: '<select title="some title value" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -634,8 +634,8 @@ generateRuleTests({
       template: '<label><select></select></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 24,
               "endLine": 1,
@@ -654,8 +654,8 @@ generateRuleTests({
       template: '<select aria-label="first label" aria-labelledby="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 66,
               "endLine": 1,
@@ -674,8 +674,8 @@ generateRuleTests({
       template: '<select id="label-input" aria-label="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 53,
               "endLine": 1,
@@ -694,8 +694,8 @@ generateRuleTests({
       template: '<label>Select label<select aria-label="Custom label" /></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 55,
               "endLine": 1,

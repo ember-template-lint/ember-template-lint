@@ -23,13 +23,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{ken-griffey}}",
               },
               "line": 1,
@@ -47,13 +47,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 36,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{baseball-player model=pitcher}}",
               },
               "line": 1,

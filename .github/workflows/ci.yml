@@ -10,35 +10,47 @@ on:
   schedule:
     - cron: '0 3 * * *' # daily, at 3am
 
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Node 16.x - ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
 
       - name: install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
-      - run: yarn lint
+      - run: npm run lint
 
-      - run: yarn test:jest
+      - run: npm run test:jest
 
-      - run: yarn update && git diff --exit-code
+      - run: npm run update && git diff --exit-code
 
   nodeX:
     name: Node ${{ matrix.node-version }} - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 15
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [12.x, 14.x, 16.x, 17.x]
+        node-version: [14.x, 16.x, 17.x, 18.x]
 
         # excluded because it is the `test` job above
         exclude:
@@ -46,32 +58,63 @@ jobs:
             node-version: 16.x
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
       # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
       #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
       # Possibly related: https://github.com/facebook/jest/issues/11438
-      - run: yarn test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
+      - run: npm run test:jest -- --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
+
+  node12:
+    name: Node 12
+    runs-on: ${{ matrix.os }}-latest
+    timeout-minutes: 15
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
+
+    strategy:
+      matrix:
+        os: [ubuntu, windows]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: volta-cli/action@v4
+        with:
+          node-version: 12.x
+
+      - name: install dependencies
+        # Temporary fix for Node 12 pulling in devDependencies who's engines require > 14
+        run: npm ci --force
+
+      # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
+      # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
+      #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
+      # Possibly related: https://github.com/facebook/jest/issues/11438
+      - run: npm run test:jest -- --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js test:jest --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
 
   floating-dependencies:
     name: Floating Dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
 
       - name: install dependencies
-        run: yarn install --no-lockfile
+        run: npm install --no-package-lock
 
-      - run: yarn test:jest
+      - run: npm run test:jest

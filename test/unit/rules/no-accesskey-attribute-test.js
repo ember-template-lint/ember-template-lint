@@ -13,8 +13,8 @@ generateRuleTests({
       fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 21,
               "endLine": 1,
@@ -35,8 +35,8 @@ generateRuleTests({
       fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 17,
               "endLine": 1,
@@ -57,8 +57,8 @@ generateRuleTests({
       fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 30,
               "endLine": 1,
@@ -79,8 +79,8 @@ generateRuleTests({
       fixedTemplate: '<button></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 32,
               "endLine": 1,

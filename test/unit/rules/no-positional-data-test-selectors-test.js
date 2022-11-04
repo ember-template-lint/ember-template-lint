@@ -74,8 +74,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 10,
               "endLine": 6,

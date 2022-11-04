@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint require-atomic-updates:"off" */
 /* eslint node/shebang:"off" -- shebang needed so this script can be run directly */
 
 // Use V8's code cache to speed up instantiation time:
@@ -16,8 +17,8 @@ import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
 
-import Printer from '../lib/formatters/default.js';
 import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
+import printResults from '../lib/helpers/print-results.js';
 import processResults from '../lib/helpers/process-results.js';
 import Linter from '../lib/linter.js';
 
@@ -66,11 +67,13 @@ function getTodoConfigFromCommandLineOptions(options) {
 }
 
 function _isOverridingConfig(options) {
+  let defaultArgs = parseArgv(['fake-file-to-get-default-options.hbs']);
+
   return Boolean(
-    options.config ||
-      options.rule ||
-      options.inlineConfig === false ||
-      options.configPath !== '.template-lintrc.js'
+    options.config !== defaultArgs.config ||
+      options.rule !== defaultArgs.rule ||
+      options.inlineConfig !== defaultArgs.inlineConfig ||
+      options.configPath !== defaultArgs.configPath
   );
 }
 
@@ -91,7 +94,10 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
-  let shouldWriteToStdout = !(options.quiet || ['sarif', 'json'].includes(options.format));
+  let shouldWriteToStdout = !(
+    options.quiet ||
+    (options.outputFile && ['sarif', 'json'].includes(options.format))
+  );
   let _console = shouldWriteToStdout ? console : NOOP_CONSOLE;
 
   if (options.config) {
@@ -169,9 +175,13 @@ async function run() {
   try {
     filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
   } catch (error) {
-    console.error(error.message);
-    process.exitCode = 1;
-    return;
+    if (error.name === 'NoMatchingFilesError' && options.errorOnUnmatchedPattern === false) {
+      return;
+    } else {
+      console.error(error.message);
+      process.exitCode = 1;
+      return;
+    }
   }
 
   if (options.printConfig) {
@@ -245,16 +255,7 @@ async function run() {
     process.exitCode = 1;
   }
 
-  let hasErrors = results.errorCount > 0;
-  let hasWarnings = results.warningCount > 0;
-  let hasTodos = options.includeTodo && results.todoCount;
-  let hasUpdatedTodos = options.updateTodo;
-
-  let printer = new Printer({
-    ...options,
-    hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
-  });
-  printer.print(results, todoInfo);
+  await printResults(results, { options, todoInfo, config: linter.config });
 }
 
 run();

@@ -34,6 +34,7 @@ generateRuleTests({
     '<div role="list">{{#each someList as |item|}}{{list-item item=item}}{{/each}}</div>',
     '<div role="list">{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}</div>',
     '<div role="list">{{#if this.show}}{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}{{/if}}</div>',
+    '<div role="table"><div role="row"><div role="cell">One</div></div></div>',
   ],
 
   bad: [
@@ -41,14 +42,14 @@ generateRuleTests({
       template: '<div role="tablist"><div role="treeitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 25,
               "endColumn": 40,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#treeitem.",
+              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"treeitem\\"",
@@ -61,14 +62,14 @@ generateRuleTests({
       template: '<div><div role="columnheader">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 29,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"columnheader\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#columnheader.",
+              "message": "You have an element with the role of \\"columnheader\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#columnheader.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"columnheader\\"",
@@ -81,14 +82,14 @@ generateRuleTests({
       template: '<div><div role="gridcell">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"gridcell\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#gridcell.",
+              "message": "You have an element with the role of \\"gridcell\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#gridcell.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"gridcell\\"",
@@ -101,14 +102,14 @@ generateRuleTests({
       template: '<div><div role="listitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"listitem\\" but it is missing the required (immediate) parent element of \\"[group, list]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#listitem.",
+              "message": "You have an element with the role of \\"listitem\\" but it is missing the required (immediate) parent element of \\"[group, list]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#listitem.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"listitem\\"",
@@ -121,14 +122,14 @@ generateRuleTests({
       template: '<div><div role="menuitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#menuitem.",
+              "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"menuitem\\"",
@@ -141,14 +142,14 @@ generateRuleTests({
       template: '<div><div role="menuitemcheckbox">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 33,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"menuitemcheckbox\\" but it is missing the required (immediate) parent element of \\"[menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#menuitemcheckbox.",
+              "message": "You have an element with the role of \\"menuitemcheckbox\\" but it is missing the required (immediate) parent element of \\"[menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitemcheckbox.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"menuitemcheckbox\\"",
@@ -161,14 +162,14 @@ generateRuleTests({
       template: '<div><div role="menuitemradio">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 30,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"menuitemradio\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#menuitemradio.",
+              "message": "You have an element with the role of \\"menuitemradio\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitemradio.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"menuitemradio\\"",
@@ -181,14 +182,14 @@ generateRuleTests({
       template: '<div><div role="option">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 23,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"option\\" but it is missing the required (immediate) parent element of \\"[listbox]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#option.",
+              "message": "You have an element with the role of \\"option\\" but it is missing the required (immediate) parent element of \\"[listbox]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#option.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"option\\"",
@@ -201,14 +202,14 @@ generateRuleTests({
       template: '<div><div role="row">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"row\\" but it is missing the required (immediate) parent element of \\"[grid, rowgroup, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#row.",
+              "message": "You have an element with the role of \\"row\\" but it is missing the required (immediate) parent element of \\"[grid, rowgroup, table, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#row.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"row\\"",
@@ -221,14 +222,14 @@ generateRuleTests({
       template: '<div><div role="rowgroup">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"rowgroup\\" but it is missing the required (immediate) parent element of \\"[grid]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#rowgroup.",
+              "message": "You have an element with the role of \\"rowgroup\\" but it is missing the required (immediate) parent element of \\"[grid, table, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#rowgroup.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"rowgroup\\"",
@@ -241,14 +242,14 @@ generateRuleTests({
       template: '<div><div role="rowheader">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 26,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"rowheader\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#rowheader.",
+              "message": "You have an element with the role of \\"rowheader\\" but it is missing the required (immediate) parent element of \\"[grid, row]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#rowheader.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"rowheader\\"",
@@ -261,14 +262,14 @@ generateRuleTests({
       template: '<div><div role="tab">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"tab\\" but it is missing the required (immediate) parent element of \\"[tablist]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#tab.",
+              "message": "You have an element with the role of \\"tab\\" but it is missing the required (immediate) parent element of \\"[tablist]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#tab.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"tab\\"",
@@ -281,14 +282,14 @@ generateRuleTests({
       template: '<div><div role="treeitem">Item One</div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.0/roles#treeitem.",
+              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"treeitem\\"",

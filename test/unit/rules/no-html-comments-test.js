@@ -16,18 +16,20 @@ generateRuleTests({
   bad: [
     {
       template: '<!-- comment here -->',
+      fixedTemplate: '{{!-- comment here --}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{! comment here }}",
               },
+              "isFixable": true,
               "line": 1,
               "message": "HTML comment detected",
               "rule": "no-html-comments",
@@ -40,18 +42,20 @@ generateRuleTests({
     },
     {
       template: '<!--comment here-->',
+      fixedTemplate: '{{!--comment here--}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{!comment here}}",
               },
+              "isFixable": true,
               "line": 1,
               "message": "HTML comment detected",
               "rule": "no-html-comments",

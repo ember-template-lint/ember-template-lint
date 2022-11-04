@@ -3,10 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import Project from '../helpers/fake-project.js';
+import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
-
-const binPath = fileURLToPath(new URL('../../bin/ember-template-lint.js', import.meta.url));
 
 describe('ember-template-lint executable', function () {
   setupEnvVar('FORCE_COLOR', '0');
@@ -14,14 +12,14 @@ describe('ember-template-lint executable', function () {
 
   // Fake project
   let project;
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.setConfig({
+  beforeEach(async function () {
+    project = await setupProject();
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
       },
     });
-    project.write({
+    await project.write({
       'template.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
       components: {
         'foo.hbs': '{{fooData}}',
@@ -31,16 +29,16 @@ describe('ember-template-lint executable', function () {
   });
 
   afterEach(function () {
-    project.dispose();
+    teardownProject();
   });
 
   describe('command: `node ember-template-lint --filename template.hbs < template.hbs`', function () {
     it('reports errors to stdout', async function () {
-      let result = await execa(
-        process.execPath,
-        [binPath, '--filename', 'template.hbs', '<', 'template.hbs'],
-        { shell: true, reject: false, cwd: project.path('.') }
-      );
+      let result = await runBin('--filename', 'template.hbs', '<', 'template.hbs', {
+        shell: true,
+        reject: false,
+        cwd: project.path('.'),
+      });
 
       expect(result.stdout).toMatchInlineSnapshot(`
         "template.hbs
@@ -53,7 +51,7 @@ describe('ember-template-lint executable', function () {
     });
 
     it('has exit code 1 and reports errors to stdout', async function () {
-      let result = await execa(process.execPath, [binPath, '--filename', 'template.hbs'], {
+      let result = await runBin('--filename', 'template.hbs', {
         shell: false,
         reject: false,
         cwd: project.path('.'),
@@ -76,6 +74,9 @@ describe('ember-template-lint executable', function () {
     describe('posix environments', function () {
       describe('command: `cat template.hbs | ember-template-lint --filename template.hbs -`', function () {
         it('has exit code 1 and reports errors to stdout', async function () {
+          const binPath = fileURLToPath(
+            new URL('../../bin/ember-template-lint.js', import.meta.url)
+          );
           let result = await execa(
             'cat',
             ['template.hbs', '|', binPath, '--filename', 'template.hbs', '-'],
