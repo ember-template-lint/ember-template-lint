@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const commandToRunThisScript = 'yarn update:indices';
+const commandToRunThisScript = 'npm run update:indices';
 
 // Generate index file for rules.
 const rulesPath = join(__dirname, '..', 'lib', 'rules');

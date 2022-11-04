@@ -11,27 +11,26 @@ const DEFAULT_CONFIG_PATH = path.join(__dirname, '..', '..', 'lib', 'config');
 describe('default configurations', function () {
   let configFiles = fs.readdirSync(DEFAULT_CONFIG_PATH);
 
-  for (const file of configFiles) {
-    describe(file, function () {
-      it('should contain only valid rules', async function () {
-        const { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
+  describe.each(configFiles)('%s', (file) => {
+    it('should contain only valid rules', async function () {
+      const { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
 
-        for (let rule in config.rules) {
-          expect(rules).toHaveProperty(rule);
-        }
-      });
-
-      it.skip('should contain only valid rule configuration', async function () {
-        const { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
-
-        for (let rule in config.rules) {
-          let options = {
-            config: config.rules[rule],
-          };
-
-          expect(() => new rules[rule](options)).not.toThrow();
-        }
-      });
+      for (let rule in config.rules) {
+        expect(rules).toHaveProperty(rule);
+      }
     });
-  }
+
+    // eslint-disable-next-line jest/no-disabled-tests -- TODO: broken since ESM conversion
+    it.skip('should contain only valid rule configuration', async function () {
+      const { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
+
+      for (let rule in config.rules) {
+        let options = {
+          config: config.rules[rule],
+        };
+
+        expect(() => new rules[rule](options)).not.toThrow();
+      }
+    });
+  });
 });
