@@ -45,6 +45,30 @@ generateRuleTests({
 
   bad: [
     {
+      template:
+        '<div {{in-viewport onEnter=this.loadMore viewportSpy=true}} {{did-update this.loadMore this.activeTab}}></div>',
+      fixedTemplate:
+        '<div {{did-update this.loadMore this.activeTab}} {{in-viewport onEnter=this.loadMore viewportSpy=true}}></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 60,
+              "endColumn": 103,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Modifier {{did-update this.loadMore this.activeTab}} is not alphabetized",
+              "rule": "attributes-order",
+              "severity": 2,
+              "source": "{{did-update this.loadMore this.activeTab}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<div b="1" aria-label="foo"></div>',
       fixedTemplate: '<div aria-label="foo" b="1"></div>',
       verifyResults(results) {

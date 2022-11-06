@@ -3,7 +3,7 @@ import isValidConfigObjectFormat from '../../../lib/helpers/is-valid-config-obje
 const POSSIBLE_CONFIG = { order: ['add', 'subtract', 'multiply', 'divide'] };
 
 describe('isValidConfigObjectFormat', function () {
-  it('checks that config must be defined', function () {
+  it('checks that config must not be null or undefined', function () {
     expect(isValidConfigObjectFormat(null)).toBe(false);
     expect(isValidConfigObjectFormat(undefined)).toBe(false);
   });
@@ -25,7 +25,7 @@ describe('isValidConfigObjectFormat', function () {
     expect(isValidConfigObjectFormat({ order: {}, border: {} }, POSSIBLE_CONFIG)).toBe(false);
   });
 
-  it('checks that config must be defined', function () {
+  it('checks that config can be a boolean', function () {
     expect(isValidConfigObjectFormat(true)).toBe(true);
     expect(isValidConfigObjectFormat(false)).toBe(true);
   });
