@@ -76,7 +76,8 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
+                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -139,7 +140,8 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
+                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -552,7 +554,8 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+            [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\",\\"**/*.js\\",\\"**
+                                                            /*.ts\\",\\"**/*.gjs\\",\\"**/*.gts\\"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -683,12 +686,15 @@ describe('ember-template-lint executable', function () {
       let result = await runBin('.', '--no-config-path', '--rule', 'no-html-comments:warn');
 
       expect(result.exitCode).toEqual(0);
-      expect(result.stdout.split('\n')).toEqual([
-        'app/templates/application.hbs',
-        '  1:53  warning  HTML comment detected  no-html-comments',
-        '',
-        '✖ 1 problems (0 errors, 1 warnings)',
-      ]);
+      expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+        [
+          "app/templates/application.hbs",
+          "  1:53  warning  HTML comment detected  no-html-comments",
+          "",
+          "✖ 1 problems (0 errors, 1 warnings)",
+          "  0 errors and 1 warnings potentially fixable with the \`--fix\` option.",
+        ]
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -711,12 +717,15 @@ describe('ember-template-lint executable', function () {
       let result = await runBin('.', '--no-config-path', '--rule', 'no-html-comments:error');
 
       expect(result.exitCode).toEqual(1);
-      expect(result.stdout.split('\n')).toEqual([
-        'app/templates/application.hbs',
-        '  1:53  error  HTML comment detected  no-html-comments',
-        '',
-        '✖ 1 problems (1 errors, 0 warnings)',
-      ]);
+      expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+        [
+          "app/templates/application.hbs",
+          "  1:53  error  HTML comment detected  no-html-comments",
+          "",
+          "✖ 1 problems (1 errors, 0 warnings)",
+          "  1 errors and 0 warnings potentially fixable with the \`--fix\` option.",
+        ]
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -744,12 +753,15 @@ describe('ember-template-lint executable', function () {
       );
 
       expect(result.exitCode).toEqual(0);
-      expect(result.stdout.split('\n')).toEqual([
-        'app/templates/application.hbs',
-        '  1:53  warning  HTML comment detected  no-html-comments',
-        '',
-        '✖ 1 problems (0 errors, 1 warnings)',
-      ]);
+      expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+        [
+          "app/templates/application.hbs",
+          "  1:53  warning  HTML comment detected  no-html-comments",
+          "",
+          "✖ 1 problems (0 errors, 1 warnings)",
+          "  0 errors and 1 warnings potentially fixable with the \`--fix\` option.",
+        ]
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -777,12 +789,15 @@ describe('ember-template-lint executable', function () {
       );
 
       expect(result.exitCode).toEqual(1);
-      expect(result.stdout.split('\n')).toEqual([
-        'app/templates/application.hbs',
-        '  1:53  error  HTML comment detected  no-html-comments',
-        '',
-        '✖ 1 problems (1 errors, 0 warnings)',
-      ]);
+      expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+        [
+          "app/templates/application.hbs",
+          "  1:53  error  HTML comment detected  no-html-comments",
+          "",
+          "✖ 1 problems (1 errors, 0 warnings)",
+          "  1 errors and 0 warnings potentially fixable with the \`--fix\` option.",
+        ]
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -800,6 +815,11 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            foo: {
+              'bar.gjs': 'export const SomeComponent = <template>\n' + 'Not good\n' + '</template>',
+            },
+            'other.gjs':
+              'export const SomeComponent = <template>\n' + 'Not so good\n' + '</template>',
             'other.hbs': '<div></div>',
           },
         });
@@ -879,6 +899,7 @@ describe('ember-template-lint executable', function () {
               'application.hbs':
                 '<h2>Here too!!</h2><div>Bare strings are bad...</div><!-- bad html comment! -->',
             },
+            'other.gjs': 'export const SomeComponent = <template>Not so good</template>',
           },
         });
 
@@ -886,14 +907,17 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toEqual(
-          `app/dist/application.hbs
+          `app/other.gjs
+  1:39  error  Non-translated string used  no-bare-strings
+
+app/dist/application.hbs
   1:4  error  Non-translated string used  no-bare-strings
   1:24  error  Non-translated string used  no-bare-strings
   1:53  error  HTML comment detected  no-html-comments
 
-✖ 3 problems (3 errors, 0 warnings)`
+✖ 4 problems (4 errors, 0 warnings)
+  1 errors and 0 warnings potentially fixable with the \`--fix\` option.`
         );
-
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -922,12 +946,14 @@ describe('ember-template-lint executable', function () {
           let result = await runBin('.', '--config-path', 'temp-templatelint-rc.js');
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout.split('\n')).toEqual([
-            'template.hbs',
-            '  1:23  error  Ambiguous element used (`div`)  no-shadowed-elements',
-            '',
-            '✖ 1 problems (1 errors, 0 warnings)',
-          ]);
+          expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+            [
+              "template.hbs",
+              "  1:23  error  Ambiguous element used (\`div\`)  no-shadowed-elements",
+              "",
+              "✖ 1 problems (1 errors, 0 warnings)",
+            ]
+          `);
           expect(result.stderr).toBeFalsy();
         });
       });
@@ -962,13 +988,15 @@ describe('ember-template-lint executable', function () {
           );
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout.split('\n')).toEqual([
-            'app/templates/application.hbs',
-            '  1:4  error  Non-translated string used  no-bare-strings',
-            '  1:39  error  Non-translated string used  no-bare-strings',
-            '',
-            '✖ 2 problems (2 errors, 0 warnings)',
-          ]);
+          expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+            [
+              "app/templates/application.hbs",
+              "  1:4  error  Non-translated string used  no-bare-strings",
+              "  1:39  error  Non-translated string used  no-bare-strings",
+              "",
+              "✖ 2 problems (2 errors, 0 warnings)",
+            ]
+          `);
           expect(result.stderr).toBeFalsy();
         });
       });
@@ -993,13 +1021,15 @@ describe('ember-template-lint executable', function () {
           let result = await runBin('.', '--config-path', project.path('other-file.js'));
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout.split('\n')).toEqual([
-            'app/templates/application.hbs',
-            '  1:4  error  Non-translated string used  no-bare-strings',
-            '  1:39  error  Non-translated string used  no-bare-strings',
-            '',
-            '✖ 2 problems (2 errors, 0 warnings)',
-          ]);
+          expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+            [
+              "app/templates/application.hbs",
+              "  1:4  error  Non-translated string used  no-bare-strings",
+              "  1:39  error  Non-translated string used  no-bare-strings",
+              "",
+              "✖ 2 problems (2 errors, 0 warnings)",
+            ]
+          `);
           expect(result.stderr).toBeFalsy();
         });
       });
@@ -1075,14 +1105,17 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stderr).toBeFalsy();
-        expect(result.stdout.split('\n')).toEqual([
-          'app/templates/application.hbs',
-          '  1:4  warning  Non-translated string used  no-bare-strings',
-          '  1:24  warning  Non-translated string used  no-bare-strings',
-          '  1:53  warning  HTML comment detected  no-html-comments',
-          '',
-          '✖ 3 problems (0 errors, 3 warnings)',
-        ]);
+        expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+          [
+            "app/templates/application.hbs",
+            "  1:4  warning  Non-translated string used  no-bare-strings",
+            "  1:24  warning  Non-translated string used  no-bare-strings",
+            "  1:53  warning  HTML comment detected  no-html-comments",
+            "",
+            "✖ 3 problems (0 errors, 3 warnings)",
+            "  0 errors and 1 warnings potentially fixable with the \`--fix\` option.",
+          ]
+        `);
       });
 
       it('should exit with error if error count is greater than zero regardless of max-warnings', async function () {

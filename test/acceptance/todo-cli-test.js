@@ -834,7 +834,7 @@ describe('todo usage', () => {
       `);
     });
 
-    for (const { name, isLegacy, setTodoConfig } of [
+    describe.each([
       {
         name: 'Shorthand todo configuration',
         isLegacy: true,
@@ -853,8 +853,13 @@ describe('todo usage', () => {
         setTodoConfig: async (daysToDecay, daysToDecayByRule) =>
           await project.setLintTodorc(daysToDecay, daysToDecayByRule),
       },
-    ]) {
-      describe(name, () => {
+    ])(
+      '$name',
+      ({
+        /* eslint-disable-line no-unused-vars -- used in test name */ name,
+        isLegacy,
+        setTodoConfig,
+      }) => {
         it('removes expired todo file if a todo item has expired when running with --clean-todo', async function () {
           await project.setConfig({
             rules: {
@@ -1554,7 +1559,7 @@ describe('todo usage', () => {
             }
           });
         }
-      });
-    }
+      }
+    );
   });
 });

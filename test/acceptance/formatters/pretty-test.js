@@ -38,13 +38,15 @@ describe('pretty formatter', () => {
     let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout.split('\n')).toEqual([
-      'app/templates/application.hbs',
-      '  1:4  error  Non-translated string used  no-bare-strings',
-      '  1:25  error  Non-translated string used  no-bare-strings',
-      '',
-      '✖ 2 problems (2 errors, 0 warnings)',
-    ]);
+    expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+      [
+        "app/templates/application.hbs",
+        "  1:4  error  Non-translated string used  no-bare-strings",
+        "  1:25  error  Non-translated string used  no-bare-strings",
+        "",
+        "✖ 2 problems (2 errors, 0 warnings)",
+      ]
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
@@ -67,14 +69,17 @@ describe('pretty formatter', () => {
     let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout.split('\n')).toEqual([
-      'app/templates/application.hbs',
-      '  1:4  error  Non-translated string used  no-bare-strings',
-      '  1:24  error  Non-translated string used  no-bare-strings',
-      '  1:53  warning  HTML comment detected  no-html-comments',
-      '',
-      '✖ 3 problems (2 errors, 1 warnings)',
-    ]);
+    expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+      [
+        "app/templates/application.hbs",
+        "  1:4  error  Non-translated string used  no-bare-strings",
+        "  1:24  error  Non-translated string used  no-bare-strings",
+        "  1:53  warning  HTML comment detected  no-html-comments",
+        "",
+        "✖ 3 problems (2 errors, 1 warnings)",
+        "  0 errors and 1 warnings potentially fixable with the \`--fix\` option.",
+      ]
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
@@ -97,13 +102,15 @@ describe('pretty formatter', () => {
 
     expect(result.exitCode).toEqual(1);
 
-    expect(result.stdout.split('\n')).toEqual([
-      'app/components/click-me-button.hbs',
-      '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
-      '',
-      '✖ 1 problems (1 errors, 0 warnings)',
-      '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
-    ]);
+    expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+      [
+        "app/components/click-me-button.hbs",
+        "  1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type",
+        "",
+        "✖ 1 problems (1 errors, 0 warnings)",
+        "  1 errors and 0 warnings potentially fixable with the \`--fix\` option.",
+      ]
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
@@ -132,7 +139,8 @@ describe('pretty formatter', () => {
         1:24  error  Non-translated string used  no-bare-strings
         1:53  warning  HTML comment detected  no-html-comments
 
-      ✖ 3 problems (2 errors, 1 warnings)"
+      ✖ 3 problems (2 errors, 1 warnings)
+        0 errors and 1 warnings potentially fixable with the \`--fix\` option."
     `);
     expect(result.stderr).toBeFalsy();
   });
@@ -163,7 +171,8 @@ describe('pretty formatter', () => {
         1:24  error  Non-translated string used  no-bare-strings
         1:53  warning  HTML comment detected  no-html-comments
 
-      ✖ 3 problems (2 errors, 1 warnings)"
+      ✖ 3 problems (2 errors, 1 warnings)
+        0 errors and 1 warnings potentially fixable with the \`--fix\` option."
     `);
     expect(result.stderr).toBeFalsy();
   });
@@ -188,13 +197,16 @@ describe('pretty formatter', () => {
       let result = await runBin('.', '--quiet');
 
       expect(result.exitCode).toEqual(1);
-      expect(result.stdout.split('\n')).toEqual([
-        'app/templates/application.hbs',
-        '  1:4  error  Non-translated string used  no-bare-strings',
-        '  1:24  error  Non-translated string used  no-bare-strings',
-        '',
-        '✖ 2 problems (2 errors, 0 warnings)',
-      ]);
+      expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+        [
+          "app/templates/application.hbs",
+          "  1:4  error  Non-translated string used  no-bare-strings",
+          "  1:24  error  Non-translated string used  no-bare-strings",
+          "",
+          "✖ 2 problems (2 errors, 0 warnings)",
+          "  0 errors and 1 warnings potentially fixable with the \`--fix\` option.",
+        ]
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
