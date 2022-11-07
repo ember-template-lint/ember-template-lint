@@ -399,7 +399,7 @@ generateRuleTests({
     },
     {
       config: {
-        attributeOrder: ['attributes'],
+        attributeOrder: ['attributes', 'arguments', 'modifiers'],
       },
       template: '{{my-component one two b=1 a=2}}',
       fixedTemplate: '{{my-component one two a=2 b=1}}',

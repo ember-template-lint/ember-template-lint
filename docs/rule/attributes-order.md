@@ -52,9 +52,23 @@ The following values are valid configuration:
 - `alphabetize` -- `true` to enforce ordering attributes alphabetically (defaults to `true`)
 
 Note that the position of `...attributes` (“splattributes”) is significant: attributes that appear _before_ `...attributes` can be overridden by values present in `...attributes` but attributes appearing _after_ `...attributes` will always take precedence and cannot be overridden by `...attributes`.
-For this reason, nodes which contain `...attributes` surrounded by other attribute types cannot be safely reordered without causing breakages. If `...attributes` is the first or last attribute of a node however, it will be left as-is and sorting will occur as normal.
+For this reason, nodes which contain `...attributes` surrounded by other attribute types cannot be safely reordered without causing breakages. If `...attributes` is the first or last attribute of a node however, the splattributes will be left in the same position and sorting for the rest of the attribute types will be ordered as normal.
+
+An example with splattributes where ordering can occur automatically:
+```hbs
+<Component @value="5" data-test-foo @change={{this.foo}} local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</Component>
+```
+Fixed version:
+```hbs
+<Component @value="5" @change={{this.foo}} data-test-foo local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</Component>
+```
+
+A different example with splattributes where ordering can not automatically:
+```hbs
+<div bar="baz" {{did-render this.ok}} ...attributes label="foo"></div>
+```
 
 ## References
 
 - [eslint-plugin-vue/rules/attributes-order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/attributes-order.md)
-- [Ember guides on the `...attributes` syntax](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/#toc_html-attributes).)
+- [Ember guides on the `...attributes` syntax](https://guides.emberjs.com/release/components/component-arguments-and-html-attributes/#toc_html-attributes)
