@@ -781,5 +781,17 @@ generateRuleTests({
         message: createAttributesOrderErrorMessage({ alphabetize: 'true' }),
       },
     },
+    {
+      config: {
+        order: ['attributes'],
+      },
+      template: 'test',
+      result: {
+        fatal: true,
+        message: createAttributesOrderErrorMessage({
+          order: ['attributes'],
+        }),
+      },
+    },
   ],
 });

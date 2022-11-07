@@ -1,5 +1,7 @@
 # attributes-order
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 Element attributes must be ordered. By default, the order is:
 
 - arguments
@@ -47,7 +49,7 @@ The following values are valid configuration:
 
 - boolean -- `true` to enable / `false` to disable
 - object -- An object with the following keys:
-  - `attributeOrder` -- An array of attribute types (defaults to `['arguments', 'attributes', 'modifiers']`
+  - `order` -- An array of attribute types (defaults to `['arguments', 'attributes', 'modifiers']`
     - Note that curly component invocations will default to `['attributes']` since they don’t have other attribute types
 - `alphabetize` -- `true` to enforce ordering attributes alphabetically (defaults to `true`)
 
@@ -55,15 +57,19 @@ Note that the position of `...attributes` (“splattributes”) is significant: 
 For this reason, nodes which contain `...attributes` surrounded by other attribute types cannot be safely reordered without causing breakages. If `...attributes` is the first or last attribute of a node however, the splattributes will be left in the same position and sorting for the rest of the attribute types will be ordered as normal.
 
 An example with splattributes where ordering can occur automatically:
+
 ```hbs
 <Component @value="5" data-test-foo @change={{this.foo}} local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</Component>
 ```
+
 Fixed version:
+
 ```hbs
 <Component @value="5" @change={{this.foo}} data-test-foo local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</Component>
 ```
 
 A different example with splattributes where ordering can not occur automatically:
+
 ```hbs
 <div bar="baz" {{did-render this.ok}} ...attributes label="foo"></div>
 ```
