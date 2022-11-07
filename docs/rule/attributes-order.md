@@ -63,7 +63,7 @@ Fixed version:
 <Component @value="5" @change={{this.foo}} data-test-foo local-class="foo" {{on "click" this.foo}} ...attributes as |sth|>content</Component>
 ```
 
-A different example with splattributes where ordering can not automatically:
+A different example with splattributes where ordering can not occur automatically:
 ```hbs
 <div bar="baz" {{did-render this.ok}} ...attributes label="foo"></div>
 ```
