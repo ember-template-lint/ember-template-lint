@@ -1,4 +1,4 @@
-# attributes-order
+# attribute-order
 
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
