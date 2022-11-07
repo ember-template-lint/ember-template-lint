@@ -126,7 +126,7 @@ generateRuleTests({
     },
     {
       config: {
-        attributeOrder: ['attributes', 'arguments', 'modifiers'],
+        order: ['attributes', 'arguments', 'modifiers'],
       },
       template: '<div @foo="1" {{did-render this.ok}} aria-label="foo"></div>',
       fixedTemplate: '<div aria-label="foo" @foo="1" {{did-render this.ok}}></div>',
@@ -163,7 +163,7 @@ generateRuleTests({
     },
     {
       config: {
-        attributeOrder: ['modifiers', 'attributes', 'arguments'],
+        order: ['modifiers', 'attributes', 'arguments'],
       },
       template: '<div @foo="1" {{did-render this.ok}} aria-label="foo"></div>',
       fixedTemplate: '<div {{did-render this.ok}} aria-label="foo" @foo="1"></div>',
@@ -399,7 +399,7 @@ generateRuleTests({
     },
     {
       config: {
-        attributeOrder: ['attributes', 'arguments', 'modifiers'],
+        order: ['attributes', 'arguments', 'modifiers'],
       },
       template: '{{my-component one two b=1 a=2}}',
       fixedTemplate: '{{my-component one two a=2 b=1}}',
@@ -755,13 +755,13 @@ generateRuleTests({
     },
     {
       config: {
-        attributeOrder: ['arguments', 'NOT_AN_OPTION'],
+        order: ['arguments', 'NOT_AN_OPTION'],
       },
       template: 'test',
       result: {
         fatal: true,
         message: createAttributesOrderErrorMessage({
-          attributeOrder: ['arguments', 'NOT_AN_OPTION'],
+          order: ['arguments', 'NOT_AN_OPTION'],
         }),
       },
     },
