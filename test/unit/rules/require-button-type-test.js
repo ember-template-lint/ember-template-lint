@@ -141,5 +141,32 @@ generateRuleTests({
       template: '<form><button></button></form>',
       fixedTemplate: '<form><button type="submit"></button></form>',
     },
+    {
+      template: '/** silly example <button> usage */ <template><button><button></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+      fixedTemplate:
+        '/** silly example <button> usage */ <template><button type="button"></button></template>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
+              "filePath": "layout.gjs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button/>",
+            },
+          ]
+        `);
+      },
+    },
   ],
 });
