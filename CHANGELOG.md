@@ -1,30 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## v5.0.0-alpha.0 (2022-11-03)
 
 #### :boom: Breaking Change
@@ -46,6 +19,16 @@
 - Bryan Mishkin ([@bmish](https://github.com/bmish))
 - Jacob ([@jfdnc](https://github.com/jfdnc))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## v4.18.0 (2022-11-08)
+
+Related note: The first v5 preview release is available for testing: [v5.0.0-alpha.0](https://github.com/ember-template-lint/ember-template-lint/releases/tag/v5.0.0-alpha.0).
+
+#### :rocket: Enhancement
+* [#2575](https://github.com/ember-template-lint/ember-template-lint/pull/2575) Add new rule `attribute-order` ([@rob-long](https://github.com/rob-long))
+
+#### Committers: 1
+- Rob Long ([@rob-long](https://github.com/rob-long))
 
 
 ## v4.17.0 (2022-10-29)
