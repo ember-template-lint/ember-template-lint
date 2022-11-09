@@ -11,11 +11,9 @@ generateRuleTests({
     '<button type="button">label</button>',
     '<button type="submit" />',
     '<button type="reset" />',
-
     // dynamic values
     '<button type="{{buttonType}}" />',
     '<button type={{buttonType}} />',
-
     '<div/>',
     '<div></div>',
     '<div type="randomType"></div>',
@@ -142,19 +140,20 @@ generateRuleTests({
       fixedTemplate: '<form><button type="submit"></button></form>',
     },
     {
-      template: '/** silly example <button> usage */ <template><button><button></template>',
+      template: '/** silly example <button> usage */ <template><button></button></template>',
       meta: {
         filePath: 'layout.gjs',
       },
       fixedTemplate:
         '/** silly example <button> usage */ <template><button type="button"></button></template>',
+      skipDisabledTests: true,
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 9,
+              "column": 46,
+              "endColumn": 63,
               "endLine": 1,
               "filePath": "layout.gjs",
               "isFixable": true,
@@ -162,7 +161,44 @@ generateRuleTests({
               "message": "All \`<button>\` elements should have a valid \`type\` attribute",
               "rule": "require-button-type",
               "severity": 2,
-              "source": "<button/>",
+              "source": "<button></button>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `
+        import { hbs } from 'ember-template-imports';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
+        /** silly example <button> usage */
+        export const SomeComponent = setComponentTemplate(hbs\`<button></button>\`, templateOnly());`,
+      meta: {
+        filePath: 'layout.js',
+      },
+      fixedTemplate: `
+        import { hbs } from 'ember-template-imports';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
+        /** silly example <button> usage */
+        export const SomeComponent = setComponentTemplate(hbs\`<button type="button"></button>\`, templateOnly());`,
+      skipDisabledTests: true,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 62,
+              "endColumn": 79,
+              "endLine": 6,
+              "filePath": "layout.js",
+              "isFixable": true,
+              "line": 6,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button></button>",
             },
           ]
         `);
