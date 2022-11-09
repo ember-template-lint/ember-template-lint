@@ -11,11 +11,9 @@ generateRuleTests({
     '<button type="button">label</button>',
     '<button type="submit" />',
     '<button type="reset" />',
-
     // dynamic values
     '<button type="{{buttonType}}" />',
     '<button type={{buttonType}} />',
-
     '<div/>',
     '<div></div>',
     '<div type="randomType"></div>',
@@ -153,8 +151,8 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 9,
+              "column": 28,
+              "endColumn": 37,
               "endLine": 1,
               "filePath": "layout.gjs",
               "isFixable": true,
@@ -163,6 +161,18 @@ generateRuleTests({
               "rule": "require-button-type",
               "severity": 2,
               "source": "<button/>",
+            },
+            {
+              "column": 47,
+              "endColumn": 64,
+              "endLine": 1,
+              "filePath": "layout.gjs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button></button>",
             },
           ]
         `);
