@@ -167,5 +167,42 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: `
+        import { hbs } from 'ember-template-imports';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
+        /** silly example <button> usage */
+        export const SomeComponent = setComponentTemplate(hbs\`<button></button>\`, templateOnly());`,
+      meta: {
+        filePath: 'layout.js',
+      },
+      fixedTemplate: `
+        import { hbs } from 'ember-template-imports';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
+        /** silly example <button> usage */
+        export const SomeComponent = setComponentTemplate(hbs\`<button type="button"></button>\`, templateOnly());`,
+      skipDisabledTests: true,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 62,
+              "endColumn": 79,
+              "endLine": 6,
+              "filePath": "layout.js",
+              "isFixable": true,
+              "line": 6,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button></button>",
+            },
+          ]
+        `);
+      },
+    },
   ],
 });
