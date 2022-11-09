@@ -336,7 +336,7 @@ describe('todo usage', () => {
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/require-button-type.hbs
-            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
             1 errors and 0 warnings potentially fixable with the \`--fix\` option."
@@ -386,7 +386,7 @@ describe('todo usage', () => {
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/require-button-type.hbs
-            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
             1 errors and 0 warnings potentially fixable with the \`--fix\` option."
@@ -441,7 +441,7 @@ describe('todo usage', () => {
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/require-button-type.hbs
-            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
             1 errors and 0 warnings potentially fixable with the \`--fix\` option."
@@ -491,7 +491,7 @@ describe('todo usage', () => {
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
           "app/templates/require-button-type.hbs
-            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
+            -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
             1 errors and 0 warnings potentially fixable with the \`--fix\` option."
