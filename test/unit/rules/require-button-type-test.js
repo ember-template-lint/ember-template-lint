@@ -140,7 +140,7 @@ generateRuleTests({
     //   fixedTemplate: '<form><button type="submit"></button></form>',
     // },
     {
-      template: '/** silly example </button> usage */ <template><button></button></template>',
+      template: '/** silly example <button> usage */ <template><button></button></template>',
       meta: {
         filePath: 'layout.gjs',
       },
