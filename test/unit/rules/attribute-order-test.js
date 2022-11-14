@@ -560,12 +560,12 @@ generateRuleTests({
       },
     },
     {
-      template: `<MyComponent
+      template: `<!-- hi --> <MyComponent
         {{did-update this.ok}}
         a=1
         @c="2"
       ></MyComponent>`,
-      fixedTemplate: `<MyComponent @c="2" a="1" {{did-update this.ok}}></MyComponent>`,
+      fixedTemplate: `<!-- hi --> <MyComponent @c="2" a=1 {{did-update this.ok}}></MyComponent>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -729,6 +729,79 @@ generateRuleTests({
               "rule": "attribute-order",
               "severity": 2,
               "source": "@a=\\"1\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<Foo class="asd" @tagName="" />',
+      fixedTemplate: '<Foo @tagName="" class="asd" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @tagName=\\"\\" must go before attributes and modifiers",
+              "rule": "attribute-order",
+              "severity": 2,
+              "source": "@tagName=\\"\\"",
+            },
+            {
+              "column": 5,
+              "endColumn": 16,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Attribute class=\\"asd\\" must go after arguments",
+              "rule": "attribute-order",
+              "severity": 2,
+              "source": "class=\\"asd\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `<Foo
+      {{!-- @glint-expect-error --}}
+      id="op"
+      {{!-- @second --}}
+      @foo={{1}}
+    />`,
+      fixedTemplate: `<Foo {{!-- @second --}} @foo={{1}} {{!-- @glint-expect-error --}} id="op" />`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 6,
+              "endColumn": 16,
+              "endLine": 5,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 5,
+              "message": "Argument @foo={{1}} must go before attributes and modifiers",
+              "rule": "attribute-order",
+              "severity": 2,
+              "source": "@foo={{1}}",
+            },
+            {
+              "column": 6,
+              "endColumn": 13,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Attribute id=\\"op\\" must go after arguments",
+              "rule": "attribute-order",
+              "severity": 2,
+              "source": "id=\\"op\\"",
             },
           ]
         `);
