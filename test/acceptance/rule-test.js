@@ -415,7 +415,7 @@ describe('rule public api', function () {
         bad: [{ foo: true }],
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, meta, name, result, results, template, verifyResults."`
+      `"Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, meta, name, result, results, template, verifyResults, skipDisabledTests."`
     );
   });
 

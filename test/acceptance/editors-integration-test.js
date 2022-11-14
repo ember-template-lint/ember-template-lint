@@ -4,8 +4,6 @@ import path from 'node:path';
 import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
-jest.setTimeout(10_000);
-
 describe('editors integration', function () {
   setupEnvVar('FORCE_COLOR', '0');
   setupEnvVar('LC_ALL', 'en_US');
