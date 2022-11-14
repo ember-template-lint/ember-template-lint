@@ -109,7 +109,7 @@
     "release-it": "^14.14.3",
     "release-it-lerna-changelog": "^4.0.1",
     "sort-package-json": "^1.55.0",
-    "yeoman-environment": "^3.10.0",
+    "yeoman-environment": "^3.12.1",
     "yeoman-generator": "^5.7.0",
     "yeoman-test": "^6.3.0"
   },
