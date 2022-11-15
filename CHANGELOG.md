@@ -25,6 +25,26 @@
 
 
 
+
+## v4.18.1 (2022-11-15)
+
+#### :bug: Bug Fix
+* [#2701](https://github.com/ember-template-lint/ember-template-lint/pull/2701) Fix autofixer for value-less attributes and comment order in `attribute-order` rule ([@rob-long](https://github.com/rob-long))
+
+#### :memo: Documentation
+* [#2694](https://github.com/ember-template-lint/ember-template-lint/pull/2694) Use `npx` in stale todo command suggestion ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :house: Internal
+* [#2698](https://github.com/ember-template-lint/ember-template-lint/pull/2698) Add CodeQL ([@bmish](https://github.com/bmish))
+* [#2658](https://github.com/ember-template-lint/ember-template-lint/pull/2658) Utilize new contents data from ember-template-imports ([@gabrielcsapo](https://github.com/gabrielcsapo))
+
+#### Committers: 4
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Gabriel Csapo ([@gabrielcsapo](https://github.com/gabrielcsapo))
+- Rob Long ([@rob-long](https://github.com/rob-long))
+
+
 ## v4.18.0 (2022-11-08)
 
 Related note: The first v5 preview release is available for testing: [v5.0.0-alpha.0](https://github.com/ember-template-lint/ember-template-lint/releases/tag/v5.0.0-alpha.0).
