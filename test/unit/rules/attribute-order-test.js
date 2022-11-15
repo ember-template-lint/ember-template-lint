@@ -807,6 +807,49 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: `<Foo
+        {{!-- @glint-expect-error --}}
+        id="op"
+        {{!-- double comment --}}
+        {{!-- @second --}}
+        @foo={{1}}
+        {{!-- another comment --}}
+        {{!-- second last --}}
+        {{!-- trailing comment --}}
+      />`,
+      fixedTemplate: `<Foo {{!-- double comment --}} {{!-- @second --}} @foo={{1}} {{!-- @glint-expect-error --}} id="op" {{!-- another comment --}} {{!-- second last --}} {{!-- trailing comment --}} />`,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 18,
+              "endLine": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 6,
+              "message": "Argument @foo={{1}} must go before attributes and modifiers",
+              "rule": "attribute-order",
+              "severity": 2,
+              "source": "@foo={{1}}",
+            },
+            {
+              "column": 8,
+              "endColumn": 15,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Attribute id=\\"op\\" must go after arguments",
+              "rule": "attribute-order",
+              "severity": 2,
+              "source": "id=\\"op\\"",
+            },
+          ]
+        `);
+      },
+    },
   ],
 
   error: [
