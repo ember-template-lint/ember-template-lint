@@ -26,6 +26,16 @@
 
 
 
+
+## v4.18.2 (2022-11-17)
+
+#### :bug: Bug Fix
+* [#2696](https://github.com/ember-template-lint/ember-template-lint/pull/2696) Ensure `--fix` works properly for `.gjs`/`.gts` files ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 1
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+
+
 ## v4.18.1 (2022-11-15)
 
 #### :bug: Bug Fix
