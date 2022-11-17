@@ -1249,5 +1249,27 @@ app/dist/application.hbs
 
       expect(fileContents).toEqual('<button type="button">Klikk</button>');
     });
+
+    it('should support writing a `.gts` file to fs', async function () {
+      let config = { rules: { 'require-button-type': true } };
+      await project.setConfig(config);
+      await project.write({
+        'require-button-type.gts': `/** Some docs here: Use this <button> like blah blah */ <template><button>Klikk</button></template>`,
+      });
+
+      let result = await runBin('./require-button-type.gts', '--fix');
+
+      expect(result.stdout).toBeFalsy();
+      expect(result.stderr).toBeFalsy();
+      expect(result.exitCode).toEqual(0);
+
+      let fileContents = fs.readFileSync(project.path('require-button-type.gts'), {
+        encoding: 'utf8',
+      });
+
+      expect(fileContents).toEqual(
+        `/** Some docs here: Use this <button> like blah blah */ <template><button type="button">Klikk</button></template>`
+      );
+    });
   });
 });

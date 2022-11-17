@@ -21,37 +21,80 @@ describe('extractTemplates', function () {
 
   describe('extractTemplates with relativePath undefined (receiving input from stdin)', function () {
     it('returns the entire content if the content could be parsed as a script', function () {
-      expect(extractTemplates(handlebarsTemplate)).toEqual([
-        {
-          column: 0,
-          line: 0,
-          isEmbedded: undefined,
-          isStrictMode: true,
-          template: handlebarsTemplate,
-        },
-      ]);
+      expect(extractTemplates(handlebarsTemplate)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 0,
+            "end": 0,
+            "isEmbedded": undefined,
+            "isStrictMode": true,
+            "line": 0,
+            "start": 0,
+            "template": "<div></div>",
+            "templateMatch": undefined,
+          },
+        ]
+      `);
     });
     it('isStrictMode is false for template literal that do not require strict mode', function () {
-      expect(extractTemplates(scriptTemplateLiteral)).toEqual([
-        {
-          column: 60,
-          line: 4,
-          isEmbedded: true,
-          isStrictMode: false,
-          template: '{{book}}',
-        },
-      ]);
+      expect(extractTemplates(scriptTemplateLiteral)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 60,
+            "end": 238,
+            "isEmbedded": true,
+            "isStrictMode": false,
+            "line": 4,
+            "start": 226,
+            "template": "{{book}}",
+            "templateMatch": {
+              "contents": "{{book}}",
+              "end": [
+                "\`",
+                undefined,
+              ],
+              "importIdentifier": "hbs",
+              "importPath": "ember-cli-htmlbars",
+              "start": [
+                "hbs\`",
+                "hbs",
+              ],
+              "tagName": "hbs",
+              "type": "template-literal",
+            },
+          },
+        ]
+      `);
     });
     it('isStrictMode is true for template literal that requires strict mode', function () {
-      expect(extractTemplates(scriptTemplateLiteralStrictMode)).toEqual([
-        {
-          column: 60,
-          line: 4,
-          isEmbedded: true,
-          isStrictMode: true,
-          template: '{{book}}',
-        },
-      ]);
+      expect(extractTemplates(scriptTemplateLiteralStrictMode)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 60,
+            "end": 242,
+            "isEmbedded": true,
+            "isStrictMode": true,
+            "line": 4,
+            "start": 230,
+            "template": "{{book}}",
+            "templateMatch": {
+              "contents": "{{book}}",
+              "end": [
+                "\`",
+                undefined,
+              ],
+              "importIdentifier": "hbs",
+              "importPath": "ember-template-imports",
+              "start": [
+                "hbs\`",
+                "hbs",
+              ],
+              "tagName": "hbs",
+              "type": "template-literal",
+            },
+          },
+        ]
+      `);
     });
     /* TODO
      * when the import identifier is aliased as in:
@@ -62,51 +105,117 @@ describe('extractTemplates', function () {
      *
      */
     it('isStrictMode is true for template literal that requires strict mode when the template identifier is aliased', function () {
-      expect(extractTemplates(scriptTemplateLiteralStrictModeAliased)).toEqual([
-        {
-          column: 63,
-          line: 4,
-          isEmbedded: true,
-          isStrictMode: true,
-          template: '{{book}}',
-        },
-      ]);
+      expect(extractTemplates(scriptTemplateLiteralStrictModeAliased)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 63,
+            "end": 255,
+            "isEmbedded": true,
+            "isStrictMode": true,
+            "line": 4,
+            "start": 240,
+            "template": "{{book}}",
+            "templateMatch": {
+              "contents": "{{book}}",
+              "end": [
+                "\`",
+                undefined,
+              ],
+              "importIdentifier": "hbs",
+              "importPath": "ember-template-imports",
+              "start": [
+                "theHbs\`",
+                "theHbs",
+              ],
+              "tagName": "theHbs",
+              "type": "template-literal",
+            },
+          },
+        ]
+      `);
     });
     it('returns the parsed template if the content could be parsed as a script', function () {
-      expect(extractTemplates(script)).toEqual([
-        {
-          column: 39,
-          line: 1,
-          isEmbedded: true,
-          isStrictMode: true,
-          template: '\n<button></button>\n',
-        },
-      ]);
+      expect(extractTemplates(script)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 39,
+            "end": 58,
+            "isEmbedded": true,
+            "isStrictMode": true,
+            "line": 1,
+            "start": 29,
+            "template": "
+        <button></button>
+        ",
+            "templateMatch": {
+              "contents": "
+        <button></button>
+        ",
+              "end": [
+                "</template>",
+                undefined,
+              ],
+              "start": [
+                "<template>",
+                undefined,
+              ],
+              "tagName": "template",
+              "type": "template-tag",
+            },
+          },
+        ]
+      `);
     });
   });
 
   describe('extractTemplates with relativePath', function () {
     it('returns the entire content as the extension is not a script file', function () {
-      expect(extractTemplates(handlebarsTemplate, 'layout.hbs')).toEqual([
-        {
-          column: 0,
-          line: 0,
-          isEmbedded: undefined,
-          isStrictMode: true,
-          template: handlebarsTemplate,
-        },
-      ]);
+      expect(extractTemplates(handlebarsTemplate, 'layout.hbs')).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 0,
+            "end": 0,
+            "isEmbedded": undefined,
+            "isStrictMode": true,
+            "line": 0,
+            "start": 0,
+            "template": "<div></div>",
+            "templateMatch": undefined,
+          },
+        ]
+      `);
     });
     it('returns the entire content as the extension is a script file', function () {
-      expect(extractTemplates(script)).toEqual([
-        {
-          column: 39,
-          line: 1,
-          isEmbedded: true,
-          isStrictMode: true,
-          template: '\n<button></button>\n',
-        },
-      ]);
+      expect(extractTemplates(script)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 39,
+            "end": 58,
+            "isEmbedded": true,
+            "isStrictMode": true,
+            "line": 1,
+            "start": 29,
+            "template": "
+        <button></button>
+        ",
+            "templateMatch": {
+              "contents": "
+        <button></button>
+        ",
+              "end": [
+                "</template>",
+                undefined,
+              ],
+              "start": [
+                "<template>",
+                undefined,
+              ],
+              "tagName": "template",
+              "type": "template-tag",
+            },
+          },
+        ]
+      `);
     });
   });
 });
