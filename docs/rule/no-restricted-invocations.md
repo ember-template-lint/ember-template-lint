@@ -1,6 +1,6 @@
 # no-restricted-invocations
 
-Disallow certain components or helpers from being used.
+Disallow certain components, helpers or modifiers from being used.
 
 Use cases include:
 

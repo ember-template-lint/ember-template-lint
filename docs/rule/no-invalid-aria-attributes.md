@@ -1,5 +1,7 @@
 # no-invalid-aria-attributes
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 ARIA attributes are used to provide an element with specific accessibility functions. An ARIA attribute is invalid if its name or values are either misspelled or do not currently exist in the [WAI-ARIA States and Properties spec](https://www.w3.org/WAI/PF/aria-1.1/states_and_properties).
 
 This rule disallows the use of invalid ARIA attributes.

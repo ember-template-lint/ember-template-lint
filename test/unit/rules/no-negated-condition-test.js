@@ -17,7 +17,10 @@ generateRuleTests({
     '{{#if (not c1 c2)}}{{/if}}', // Valid since there is not way to simplify.
     '{{#if (not (not c1) c2)}}<img>{{/if}}',
     '{{#if (not c1 (not c2))}}<img>{{/if}}',
-    '{{#if (not (not c2))}}<img>{{/if}}',
+    {
+      config: { simplifyHelpers: false },
+      template: '{{#if (not (not c2))}}<img>{{/if}}',
+    },
     {
       config: { simplifyHelpers: false },
       template: '{{#if (not (eq c2))}}<img>{{/if}}',
@@ -147,6 +150,30 @@ generateRuleTests({
               "rule": "no-negated-condition",
               "severity": 2,
               "source": "{{#if (not (not condition))}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      // no config, allowing simplifyHelpers to default to true.
+      template: '{{#if (not (not c1 c2))}}<img>{{/if}}',
+      fixedTemplate: '{{#if (or c1 c2)}}<img>{{/if}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 37,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Simplify unnecessary negation of helper.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not (not c1 c2))}}<img>{{/if}}",
             },
           ]
         `);

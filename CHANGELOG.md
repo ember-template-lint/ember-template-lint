@@ -1,29 +1,24 @@
+## v5.0.0-alpha.0 (2022-11-03)
 
+#### :boom: Breaking Change
+* [#2669](https://github.com/ember-template-lint/ember-template-lint/pull/2669) Drop Node 12 and 17 support ([@bmish](https://github.com/bmish))
+* [#2606](https://github.com/ember-template-lint/ember-template-lint/pull/2606) Lint embedded templates by default ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* [#2671](https://github.com/ember-template-lint/ember-template-lint/pull/2671) Enabled additional `recommended` rules `no-aria-unsupported-elements`, `no-array-prototype-extensions`, `no-invalid-aria-attributes`, `no-obscure-array-access`, `no-scope-outside-table-headings`, `no-unsupported-role-attributes`, `require-aria-activedescendant-tabindex`, `require-mandatory-role-attributes`, `require-media-caption` ([@bmish](https://github.com/bmish))
+* [#2675](https://github.com/ember-template-lint/ember-template-lint/pull/2675) Rename `no-redundant-landmark-role` rule to `no-redundant-role` and change `checkAllHTMLElements` option default to `true` ([@bmish](https://github.com/bmish))
+* [#2054](https://github.com/ember-template-lint/ember-template-lint/pull/2054) Rename and narrow rule `no-down-event-binding` to `no-pointer-down-event-binding` ([@jfdnc](https://github.com/jfdnc))
+* [#2674](https://github.com/ember-template-lint/ember-template-lint/pull/2674) Change `validateValues` option default to `true` in `require-lang-attribute` rule ([@bmish](https://github.com/bmish))
+* [#2673](https://github.com/ember-template-lint/ember-template-lint/pull/2673) Change `simplifyHelpers` option default to `true` in `no-negated-condition` rule ([@bmish](https://github.com/bmish))
+* [#2672](https://github.com/ember-template-lint/ember-template-lint/pull/2672) Change `maxHelpers` option default to `1` in `simple-unless` rule ([@bmish](https://github.com/bmish))
+* [#2657](https://github.com/ember-template-lint/ember-template-lint/pull/2657) Include modifiers in `no-restricted-invocations` rule ([@achambers](https://github.com/achambers))
 
+#### :house: Internal
+* [#2676](https://github.com/ember-template-lint/ember-template-lint/pull/2676) Refresh lockfile from scratch ([@bmish](https://github.com/bmish))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#### Committers: 4
+- Aaron Chambers ([@achambers](https://github.com/achambers))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Jacob ([@jfdnc](https://github.com/jfdnc))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 
 
@@ -64,7 +59,6 @@ Related note: The first v5 preview release is available for testing: [v5.0.0-alp
 
 #### Committers: 1
 - Rob Long ([@rob-long](https://github.com/rob-long))
-
 
 
 ## v4.17.0 (2022-10-29)

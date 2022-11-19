@@ -87,8 +87,8 @@ The following values are valid configuration:
 
 * boolean -- `true` for enabled / `false` for disabled
 * object --
-  * `simplifyHelpers` -- boolean - whether to flag and autofix negated helpers like `(not (eq ...))` or `(not (gt ...))` that can be simplified (default `false`) (TODO: enable by default in next major release)
-  
+  * `simplifyHelpers` -- boolean - whether to flag and autofix negated helpers like `(not (eq ...))` or `(not (gt ...))` that can be simplified (default `true`)
+
 ## Related Rules
 
 * [simple-unless](simple-unless.md)
