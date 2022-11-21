@@ -1,4 +1,14 @@
 
+
+## v5.0.1 (2022-11-21)
+
+#### :bug: Bug Fix
+* [#2714](https://github.com/ember-template-lint/ember-template-lint/pull/2714) Allow `role=list` on `<ul>` and `<ol>` in `no-redundant-role` rule ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 1
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+
 ## v5.0.0 (2022-11-19)
 
 #### :boom: Breaking Change
