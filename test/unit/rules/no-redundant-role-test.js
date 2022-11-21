@@ -10,6 +10,8 @@ generateRuleTests({
     '<footer role={{this.foo}}></footer>',
     '<footer role="{{this.stuff}}{{this.foo}}"></footer>',
     '<nav role="navigation"></nav>',
+    '<ol role="list"></ol>',
+    '<ul role="list"></ul>',
     {
       config: { checkAllHTMLElements: false },
       template: '<body role="document"></body>',
