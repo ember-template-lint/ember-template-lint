@@ -1,5 +1,15 @@
 
 
+
+## v5.0.2 (2022-11-28)
+
+#### :bug: Bug Fix
+* [#2722](https://github.com/ember-template-lint/ember-template-lint/pull/2722) Fix autofixer bug with `firstObject` inside a `MustacheStatement` in `no-array-prototype-extensions` rule ([@tgvrssanthosh](https://github.com/tgvrssanthosh))
+
+#### Committers: 1
+- Santhosh Venkata Rama Siva Thanakala Gani ([@tgvrssanthosh](https://github.com/tgvrssanthosh))
+
+
 ## v5.0.1 (2022-11-21)
 
 #### :bug: Bug Fix
