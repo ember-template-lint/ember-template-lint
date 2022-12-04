@@ -1,6 +1,23 @@
 
 
 
+
+## v5.1.0 (2022-12-04)
+
+#### :rocket: Enhancement
+* [#2730](https://github.com/ember-template-lint/ember-template-lint/pull/2730) Add autofixer to `no-duplicate-attributes` rule ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
+
+#### :bug: Bug Fix
+* [#2726](https://github.com/ember-template-lint/ember-template-lint/pull/2726) Allow passing only `@model` or `@models` for `<LinkTo>` in `no-unknown-arguments-for-builtin-components` rule ([@geneukum](https://github.com/geneukum))
+
+#### :memo: Documentation
+* [#2727](https://github.com/ember-template-lint/ember-template-lint/pull/2727) Add note about `title` property limitations to `require-valid-alt-text` rule doc ([@geneukum](https://github.com/geneukum))
+
+#### Committers: 2
+- Geordan Neukum ([@geneukum](https://github.com/geneukum))
+- Shivareddy-Aluri ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
+
+
 ## v5.0.2 (2022-11-28)
 
 #### :bug: Bug Fix
