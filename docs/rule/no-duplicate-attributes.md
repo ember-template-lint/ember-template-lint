@@ -2,6 +2,8 @@
 
 ✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 This rule forbids multiple attributes passed to a Component, Helper, or an ElementNode with the same name. According to the [HTML attributes Spec](https://html.spec.whatwg.org/multipage/syntax.html#attributes-2):
 
 > There must never be two or more attributes on the same start tag whose names are an ASCII case-insensitive match for each other.
