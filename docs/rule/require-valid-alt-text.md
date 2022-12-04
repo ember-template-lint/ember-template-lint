@@ -49,6 +49,8 @@ This rule **allows** the following:
 
 Add alternative text to all embedded `<object>` elements using either inner text, setting the `title` prop, or using the `aria-label` or `aria-labelledby` props.
 
+Note, the `title` prop is generally less reliable than the alternatives. Some screen readers will not read this value aloud, leaving no description of the non-text content.
+
 This rule **forbids** the following:
 
 ```hbs
