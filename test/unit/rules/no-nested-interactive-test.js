@@ -15,6 +15,18 @@ generateRuleTests({
     '<div tabindex=-1><button>Click me!</button></div>',
     '<div tabindex="1"><button></button></div>',
     '<label><input></label>',
+    `
+    <ul role="menubar" aria-label="functions" id="appmenu">
+      <li role="menuitem" aria-haspopup="true">
+        File
+        <ul role="menu">
+          <li role="menuitem">New</li>
+          <li role="menuitem">Open</li>
+          <li role="menuitem">Print</li>
+        </ul>
+      </li>
+    </ul>
+    `,
     {
       config: {
         ignoredTags: ['button'],
