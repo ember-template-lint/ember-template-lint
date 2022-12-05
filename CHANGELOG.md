@@ -2,6 +2,19 @@
 
 
 
+
+## v5.1.1 (2022-12-05)
+
+#### :bug: Bug Fix
+* [#2731](https://github.com/ember-template-lint/ember-template-lint/pull/2731) Allow nested `menuitem`s in `no-nested-interactive` rule ([@geneukum](https://github.com/geneukum))
+
+#### :memo: Documentation
+* [#2732](https://github.com/ember-template-lint/ember-template-lint/pull/2732)  Link to "skipping helpers" part of the codemod doc in `no-curly-component-invocation` rule doc ([@geneukum](https://github.com/geneukum))
+
+#### Committers: 1
+- Geordan Neukum ([@geneukum](https://github.com/geneukum))
+
+
 ## v5.1.0 (2022-12-04)
 
 #### :rocket: Enhancement
