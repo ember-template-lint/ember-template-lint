@@ -3,6 +3,19 @@
 
 
 
+
+## v5.2.0 (2022-12-07)
+
+#### :rocket: Enhancement
+* [#2591](https://github.com/ember-template-lint/ember-template-lint/pull/2591) Add formatter for Kakoune editor ([@velrest](https://github.com/velrest))
+
+#### :bug: Bug Fix
+* [#2725](https://github.com/ember-template-lint/ember-template-lint/pull/2725) Fix `--no-ignore-pattern` ([@velrest](https://github.com/velrest))
+
+#### Committers: 1
+- Jonas Cosandey ([@velrest](https://github.com/velrest))
+
+
 ## v5.1.1 (2022-12-05)
 
 #### :bug: Bug Fix
