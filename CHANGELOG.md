@@ -4,6 +4,16 @@
 
 
 
+
+## v5.3.0 (2022-12-14)
+
+#### :rocket: Enhancement
+* [#2746](https://github.com/ember-template-lint/ember-template-lint/pull/2746) Add autofixer to `no-multiple-empty-lines` rule ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
+
+#### Committers: 1
+- Shivareddy-Aluri ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
+
+
 ## v5.2.0 (2022-12-07)
 
 #### :rocket: Enhancement
