@@ -26,7 +26,7 @@ generateRuleTests({
   bad: [
     {
       template: '<div>foo</div>\n\n\n<div>bar</div>',
-      fixedTemplate: '<div>foo</div>\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n\n<div>bar</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -51,7 +51,7 @@ generateRuleTests({
     },
     {
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
-      fixedTemplate: '<div>foo</div>\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n\n<div>bar</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -80,7 +80,7 @@ generateRuleTests({
       config: { max: 3 },
 
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
-      fixedTemplate: '<div>foo</div>\n\n\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n\n\n\n<div>bar</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
