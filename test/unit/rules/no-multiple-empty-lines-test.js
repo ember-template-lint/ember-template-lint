@@ -26,6 +26,7 @@ generateRuleTests({
   bad: [
     {
       template: '<div>foo</div>\n\n\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n<div>bar</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -35,6 +36,7 @@ generateRuleTests({
               "endColumn": 14,
               "endLine": 4,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "More than 1 blank line not allowed.",
               "rule": "no-multiple-empty-lines",
@@ -49,6 +51,7 @@ generateRuleTests({
     },
     {
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n<div>bar</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -58,6 +61,7 @@ generateRuleTests({
               "endColumn": 14,
               "endLine": 6,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "More than 1 blank line not allowed.",
               "rule": "no-multiple-empty-lines",
@@ -76,6 +80,7 @@ generateRuleTests({
       config: { max: 3 },
 
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n\n\n<div>bar</div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -85,6 +90,7 @@ generateRuleTests({
               "endColumn": 14,
               "endLine": 6,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 4,
               "message": "More than 3 blank lines not allowed.",
               "rule": "no-multiple-empty-lines",
