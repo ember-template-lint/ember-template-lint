@@ -16,6 +16,7 @@ generateRuleTests({
   bad: [
     {
       template: 'test ',
+      fixedTemplate: 'test',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -25,6 +26,7 @@ generateRuleTests({
               "endColumn": 5,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "line cannot end with space",
               "rule": "no-trailing-spaces",
@@ -37,6 +39,7 @@ generateRuleTests({
     },
     {
       template: 'test \n',
+      fixedTemplate: 'test\n',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -46,6 +49,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "line cannot end with space",
               "rule": "no-trailing-spaces",
@@ -58,6 +62,7 @@ generateRuleTests({
     },
     {
       template: 'test\n' + ' \n',
+      fixedTemplate: 'test\n' + '\n',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -67,6 +72,7 @@ generateRuleTests({
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "line cannot end with space",
               "rule": "no-trailing-spaces",
@@ -81,6 +87,7 @@ generateRuleTests({
     // only generates one error instead of two
     {
       template: '{{#my-component}}\n' + '  test \n' + '{{/my-component}}',
+      fixedTemplate: '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -90,6 +97,7 @@ generateRuleTests({
               "endColumn": 17,
               "endLine": 3,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 2,
               "message": "line cannot end with space",
               "rule": "no-trailing-spaces",
