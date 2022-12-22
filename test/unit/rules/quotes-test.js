@@ -28,6 +28,14 @@ generateRuleTests({
       config: 'single',
       template: "<input type='checkbox'>",
     },
+    {
+      config: { hbs: 'single', html: 'double' },
+      template: `<input type="checkbox"> {{hello 'test' x='test'}}`,
+    },
+    {
+      config: { hbs: 'double', html: 'single' },
+      template: `<input type='checkbox'> {{hello "test" x="test"}}`,
+    },
   ],
 
   bad: [
@@ -268,6 +276,102 @@ generateRuleTests({
         `);
       },
     },
+    {
+      config: { hbs: 'double', html: 'single' },
+      template: `<input type="checkbox"> {{hello 'test' x='test'}}`,
+      fixedTemplate: `<input type='checkbox'> {{hello "test" x="test"}}`,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes x and single quotes in y in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "type=\\"checkbox\\"",
+            },
+            {
+              "column": 32,
+              "endColumn": 38,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes x and single quotes in y in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{hello 'test' x='test'}}",
+            },
+            {
+              "column": 41,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes x and single quotes in y in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "x='test'",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: { hbs: 'double', html: 'single' },
+      template: `<input type="checkbox"> {{hello 'test' x='test'}}`,
+      fixedTemplate: `<input type='checkbox'> {{hello "test" x="test"}}`,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes x and single quotes in y in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "type=\\"checkbox\\"",
+            },
+            {
+              "column": 32,
+              "endColumn": 38,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes x and single quotes in y in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{hello 'test' x='test'}}",
+            },
+            {
+              "column": 41,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes x and single quotes in y in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "x='test'",
+            },
+          ]
+        `);
+      },
+    },
   ],
 
   error: [
@@ -287,6 +391,24 @@ generateRuleTests({
       result: {
         fatal: true,
         message: 'You specified `true`',
+      },
+    },
+    {
+      config: { hbs: 'double' },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `{"hbs":"double"}`',
+      },
+    },
+    {
+      config: { hbs: 'double', html: 'sometimes' },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `{"hbs":"double","html":"sometimes"}`',
       },
     },
   ],
