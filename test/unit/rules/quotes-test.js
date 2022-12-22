@@ -291,7 +291,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "you must use double quotes x and single quotes in y in templates",
+              "message": "you must use double quotes for Handlebars syntax and single quotes for HTML attributes in templates",
               "rule": "quotes",
               "severity": 2,
               "source": "type=\\"checkbox\\"",
@@ -303,7 +303,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "you must use double quotes x and single quotes in y in templates",
+              "message": "you must use double quotes for Handlebars syntax and single quotes for HTML attributes in templates",
               "rule": "quotes",
               "severity": 2,
               "source": "{{hello 'test' x='test'}}",
@@ -315,7 +315,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "you must use double quotes x and single quotes in y in templates",
+              "message": "you must use double quotes for Handlebars syntax and single quotes for HTML attributes in templates",
               "rule": "quotes",
               "severity": 2,
               "source": "x='test'",
@@ -325,9 +325,9 @@ generateRuleTests({
       },
     },
     {
-      config: { hbs: 'double', html: 'single' },
-      template: `<input type="checkbox"> {{hello 'test' x='test'}}`,
-      fixedTemplate: `<input type='checkbox'> {{hello "test" x="test"}}`,
+      config: { hbs: 'single', html: 'double' },
+      template: `<input type='checkbox'> {{hello "test" x="test"}}`,
+      fixedTemplate: `<input type="checkbox"> {{hello 'test' x='test'}}`,
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -339,10 +339,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "you must use double quotes x and single quotes in y in templates",
+              "message": "you must use double quotes for HTML attributes and single quotes for Handlebars syntax in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "type=\\"checkbox\\"",
+              "source": "type='checkbox'",
             },
             {
               "column": 32,
@@ -351,10 +351,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "you must use double quotes x and single quotes in y in templates",
+              "message": "you must use double quotes for HTML attributes and single quotes for Handlebars syntax in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "{{hello 'test' x='test'}}",
+              "source": "{{hello \\"test\\" x=\\"test\\"}}",
             },
             {
               "column": 41,
@@ -363,10 +363,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "you must use double quotes x and single quotes in y in templates",
+              "message": "you must use double quotes for HTML attributes and single quotes for Handlebars syntax in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "x='test'",
+              "source": "x=\\"test\\"",
             },
           ]
         `);
