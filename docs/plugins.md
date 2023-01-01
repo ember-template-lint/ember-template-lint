@@ -175,6 +175,7 @@ generateRuleTests({
 
   config: true,
 
+  // Passing test cases:
   good: [
     // Simple string test case:
     '{{#if condition}}<img>{{/if}}',
@@ -187,6 +188,7 @@ generateRuleTests({
     },
   ],
 
+  // Failing test cases:
   bad: [
     {
       // Jest snapshot test case (recommended):
@@ -224,7 +226,19 @@ generateRuleTests({
         line: 1,
         column: 0,
         isFixable: true,
-      }
+      },
+    },
+  ],
+
+  // Test cases that we expect to cause the rule to throw an exception (e.g. invalid config).
+  error: [
+    {
+      template: 'test',
+      config: { foo: true },
+      result: {
+        fatal: true,
+        message: 'Some exception message...',
+      },
     },
   ],
 });
