@@ -5,6 +5,25 @@
 
 
 
+
+## v5.3.1 (2023-01-06)
+
+#### :bug: Bug Fix
+* [#2765](https://github.com/ember-template-lint/ember-template-lint/pull/2765) Throw the more-helpful, original exception when encountering an ESM plugin/config loading error ([@jsturgis](https://github.com/jsturgis))
+
+#### :memo: Documentation
+* [#2760](https://github.com/ember-template-lint/ember-template-lint/pull/2760) Document how to write rule test cases for fatal errors ([@bmish](https://github.com/bmish))
+* [#2759](https://github.com/ember-template-lint/ember-template-lint/pull/2759) Improve snapshot test documentation ([@bmish](https://github.com/bmish))
+
+#### :house: Internal
+* [#2761](https://github.com/ember-template-lint/ember-template-lint/pull/2761) Add Node v19 to CI ([@ddzz](https://github.com/ddzz))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Darius Dzien ([@ddzz](https://github.com/ddzz))
+- Jeff Sturgis ([@jsturgis](https://github.com/jsturgis))
+
+
 ## v5.3.0 (2022-12-14)
 
 #### :rocket: Enhancement
