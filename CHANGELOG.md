@@ -6,6 +6,16 @@
 
 
 
+
+## v5.3.2 (2023-01-22)
+
+#### :bug: Bug Fix
+* [#2778](https://github.com/ember-template-lint/ember-template-lint/pull/2778) Ignore `unique-id` helper in `no-duplicate-id` rule ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+
 ## v5.3.1 (2023-01-06)
 
 #### :bug: Bug Fix
