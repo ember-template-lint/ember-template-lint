@@ -8,6 +8,11 @@ generateRuleTests({
   good: [
     // Unique sibling TextNode IDs
     '<div id="id-00"></div><div id="id-01"></div>',
+    '<div id={{unique-id}}></div><div id={{unique-id}}></div>',
+
+    // Built-in helpers:
+    '<div id="{{unique-id}}"></div><div id="{{unique-id}}"></div>',
+    "<div id='{{unique-id}}'></div><div id='{{unique-id}}'></div>",
 
     // Mustache Statements
     '<div id={{"id-00"}}></div>',
