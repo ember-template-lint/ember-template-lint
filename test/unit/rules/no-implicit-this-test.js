@@ -65,6 +65,13 @@ let good = [
       filePath: 'layout.ts',
     },
   },
+  {
+    template: `let book = 'foo';
+      <template>{{book}}</template>`,
+    meta: {
+      filePath: 'layout.gjs',
+    },
+  },
 ];
 
 for (const statement of statements) {
