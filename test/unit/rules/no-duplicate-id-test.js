@@ -14,6 +14,10 @@ generateRuleTests({
     '<div id="{{unique-id}}"></div><div id="{{unique-id}}"></div>',
     "<div id='{{unique-id}}'></div><div id='{{unique-id}}'></div>",
 
+    // argument-less helpers have to be invoked with parens
+    '<div id="{{(unique-id)}}"></div><div id="{{(unique-id)}}"></div>',
+    '<div id={{(unique-id)}}></div><div id={{(unique-id)}}></div>',
+
     // Mustache Statements
     '<div id={{"id-00"}}></div>',
     '<div id={{this.divId00}}></div>',
@@ -724,6 +728,35 @@ generateRuleTests({
               "rule": "no-duplicate-id",
               "severity": 2,
               "source": "id=\\"nested\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `
+        {{#if this.foo}}
+          {{#if this.other}}
+            <div id={{(hello-world)}}></div>
+          {{/if}}
+        {{else}}
+          <div id={{(hello-world)}}></div>
+        {{/if}}
+        <div id={{(hello-world)}}></div>
+      `,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 33,
+              "endLine": 9,
+              "filePath": "layout.hbs",
+              "line": 9,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{(hello-world)}}",
             },
           ]
         `);
