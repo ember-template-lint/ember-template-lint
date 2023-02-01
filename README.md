@@ -150,6 +150,7 @@ Each rule has emojis denoting:
 | [no-obscure-array-access](./docs/rule/no-obscure-array-access.md)                                         | ✅  |     |     | 🔧  |
 | [no-obsolete-elements](./docs/rule/no-obsolete-elements.md)                                               | ✅  |     | ⌨️  |     |
 | [no-outlet-outside-routes](./docs/rule/no-outlet-outside-routes.md)                                       | ✅  |     |     |     |
+| [no-parens-enclosing-mustache](./docs/rule/no-parens-enclosing-mustache.md)                               |     |     |     | 🔧  |
 | [no-partial](./docs/rule/no-partial.md)                                                                   | ✅  |     |     |     |
 | [no-passed-in-event-handlers](./docs/rule/no-passed-in-event-handlers.md)                                 | ✅  |     |     |     |
 | [no-pointer-down-event-binding](./docs/rule/no-pointer-down-event-binding.md)                             | ✅  |     | ⌨️  |     |
