@@ -9,13 +9,23 @@ string values need not be wrapped in the mustache expressions.
 This rule **forbids** the following:
 
 ```hbs
-class={{"btn"}}
+<FooBar class={{"btn"}} />
 ```
+
+```hbs
+<FooBar class="btn">{{"Hello"}}</FooBar>
+```
+
 This rule **allows** the following:
 
 ```hbs
-class="btn"
+<FooBar class="btn" />
 ```
+
+```hbs
+<FooBar class="btn">Hello</FooBar>
+```
+
 ## References
 
 * Ember's [Helper Functions](https://guides.emberjs.com/release/components/helper-functions/) guide

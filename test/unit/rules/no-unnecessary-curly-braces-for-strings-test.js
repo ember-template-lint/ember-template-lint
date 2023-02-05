@@ -5,19 +5,19 @@ generateRuleTests({
 
   config: true,
 
-  good: ['class="btn"'],
+  good: ['<FooBar class="btn" />', '{{foo}}'],
 
   bad: [
     {
-      template: '{{"btn"}}',
-      fixedTemplate: '"btn"',
+      template: '<FooBar class={{"btn"}} />',
+      fixedTemplate: '<FooBar class="btn" />',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 9,
+              "column": 14,
+              "endColumn": 23,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
@@ -32,15 +32,15 @@ generateRuleTests({
       },
     },
     {
-      template: 'class={{"btn"}}',
-      fixedTemplate: 'class="btn"',
+      template: '<FooBar class="btn">{{"Foo"}}</FooBar>',
+      fixedTemplate: '<FooBar class="btn">Foo</FooBar>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 6,
-              "endColumn": 15,
+              "column": 20,
+              "endColumn": 29,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
@@ -48,42 +48,7 @@ generateRuleTests({
               "message": "Unnecessary curly braces around string",
               "rule": "no-unnecessary-curly-braces-for-strings",
               "severity": 2,
-              "source": "{{\\"btn\\"}}",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: 'class={{"btn"}} value={{"xyz"}}',
-      fixedTemplate: 'class="btn" value="xyz"',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 6,
-              "endColumn": 15,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Unnecessary curly braces around string",
-              "rule": "no-unnecessary-curly-braces-for-strings",
-              "severity": 2,
-              "source": "{{\\"btn\\"}}",
-            },
-            {
-              "column": 22,
-              "endColumn": 31,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "isFixable": true,
-              "line": 1,
-              "message": "Unnecessary curly braces around string",
-              "rule": "no-unnecessary-curly-braces-for-strings",
-              "severity": 2,
-              "source": "{{\\"xyz\\"}}",
+              "source": "{{\\"Foo\\"}}",
             },
           ]
         `);
