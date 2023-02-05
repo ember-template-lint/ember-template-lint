@@ -16,5 +16,6 @@ This rule **allows** the following:
 ```hbs
 class="btn"
 ```
+## References
 
 * Ember's [Helper Functions](https://guides.emberjs.com/release/components/helper-functions/) guide
