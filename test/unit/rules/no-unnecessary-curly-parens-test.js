@@ -1,7 +1,7 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'no-parens-enclosing-mustache',
+  name: 'no-unnecessary-curly-parens',
 
   config: true,
 
@@ -23,7 +23,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Unnecessary parentheses enclosing statement",
-              "rule": "no-parens-enclosing-mustache",
+              "rule": "no-unnecessary-curly-parens",
               "severity": 2,
               "source": "{{(foo)}}",
             },
@@ -47,7 +47,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Unnecessary parentheses enclosing statement",
-              "rule": "no-parens-enclosing-mustache",
+              "rule": "no-unnecessary-curly-parens",
               "severity": 2,
               "source": "{{(concat \\"a\\" \\"b\\")}}",
             },
@@ -71,7 +71,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Unnecessary parentheses enclosing statement",
-              "rule": "no-parens-enclosing-mustache",
+              "rule": "no-unnecessary-curly-parens",
               "severity": 2,
               "source": "{{((concat \\"a\\" \\"b\\"))}}",
             },
