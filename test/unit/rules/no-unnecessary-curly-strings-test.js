@@ -1,7 +1,7 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'no-unnecessary-curly-braces-for-strings',
+  name: 'no-unnecessary-curly-strings',
 
   config: true,
 
@@ -23,7 +23,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Unnecessary curly braces around string",
-              "rule": "no-unnecessary-curly-braces-for-strings",
+              "rule": "no-unnecessary-curly-strings",
               "severity": 2,
               "source": "{{\\"btn\\"}}",
             },
@@ -46,7 +46,7 @@ generateRuleTests({
               "isFixable": true,
               "line": 1,
               "message": "Unnecessary curly braces around string",
-              "rule": "no-unnecessary-curly-braces-for-strings",
+              "rule": "no-unnecessary-curly-strings",
               "severity": 2,
               "source": "{{\\"Foo\\"}}",
             },
