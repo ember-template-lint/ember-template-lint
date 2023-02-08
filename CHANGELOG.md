@@ -8,6 +8,16 @@
 
 
 
+
+## v5.4.0 (2023-02-08)
+
+#### :rocket: Enhancement
+* [#2792](https://github.com/ember-template-lint/ember-template-lint/pull/2792) Add new rule `no-unnecessary-curly-parens` ([@raycohen](https://github.com/raycohen))
+
+#### Committers: 1
+- Ray Cohen ([@raycohen](https://github.com/raycohen))
+
+
 ## v5.3.3 (2023-01-27)
 
 #### :bug: Bug Fix

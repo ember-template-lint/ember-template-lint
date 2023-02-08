@@ -172,6 +172,7 @@ Each rule has emojis denoting:
 | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     | 🔧  |
 | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     | 🔧  |
 | [no-unnecessary-curly-literals](./docs/rule/no-unnecessary-curly-literals.md)                             |     |     |     |     |
+| [no-unnecessary-curly-parens](./docs/rule/no-unnecessary-curly-parens.md)                                 |     |     |     | 🔧  |
 | [no-unsupported-role-attributes](./docs/rule/no-unsupported-role-attributes.md)                           | ✅  |     | ⌨️  | 🔧  |
 | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | ✅  |     |     |     |
 | [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           | ✅  |     |     |     |
