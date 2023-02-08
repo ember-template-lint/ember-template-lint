@@ -1,7 +1,7 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'no-unnecessary-curly-strings',
+  name: 'no-unnecessary-curly-literals',
 
   config: true,
 
@@ -33,7 +33,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unnecessary curly braces around StringLiteral",
-              "rule": "no-unnecessary-curly-strings",
+              "rule": "no-unnecessary-curly-literals",
               "severity": 2,
               "source": "{{\\"btn\\"}}",
             },
@@ -54,7 +54,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unnecessary curly braces around StringLiteral",
-              "rule": "no-unnecessary-curly-strings",
+              "rule": "no-unnecessary-curly-literals",
               "severity": 2,
               "source": "{{\\"Foo\\"}}",
             },
@@ -75,7 +75,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unnecessary curly braces around NumberLiteral",
-              "rule": "no-unnecessary-curly-strings",
+              "rule": "no-unnecessary-curly-literals",
               "severity": 2,
               "source": "{{12345}}",
             },
@@ -96,7 +96,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unnecessary curly braces around NullLiteral",
-              "rule": "no-unnecessary-curly-strings",
+              "rule": "no-unnecessary-curly-literals",
               "severity": 2,
               "source": "{{null}}",
             },
@@ -117,7 +117,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unnecessary curly braces around BooleanLiteral",
-              "rule": "no-unnecessary-curly-strings",
+              "rule": "no-unnecessary-curly-literals",
               "severity": 2,
               "source": "{{true}}",
             },
@@ -138,7 +138,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Unnecessary curly braces around UndefinedLiteral",
-              "rule": "no-unnecessary-curly-strings",
+              "rule": "no-unnecessary-curly-literals",
               "severity": 2,
               "source": "{{undefined}}",
             },
