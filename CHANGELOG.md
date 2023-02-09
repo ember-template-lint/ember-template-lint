@@ -1,19 +1,7 @@
-
-
-
-
-
-
-
-
-
-
-
-
 ## v5.5.0 (2023-02-08)
 
 #### :rocket: Enhancement
-* [#2794](https://github.com/ember-template-lint/ember-template-lint/pull/2794) Add new rule `no-unnecessary-curly-strings` ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
+* [#2794](https://github.com/ember-template-lint/ember-template-lint/pull/2794) Add new rule `no-unnecessary-curly-literals` ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
 
 #### Committers: 1
 - Shivareddy-Aluri ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
