@@ -1,3 +1,13 @@
+
+## v5.5.1 (2023-02-10)
+
+#### :bug: Bug Fix
+* [#2802](https://github.com/ember-template-lint/ember-template-lint/pull/2802) Rename `no-unnecessary-curly-literals` rule to `no-unnecessary-curly-strings` ([@bmish](https://github.com/bmish))
+
+#### Committers: 1
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+
+
 ## v5.5.0 (2023-02-08)
 
 #### :rocket: Enhancement
