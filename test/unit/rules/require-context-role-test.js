@@ -280,6 +280,26 @@ generateRuleTests({
       },
     },
     {
+      template: '<div><div role="treeitem">Item One</div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
+              "rule": "require-context-role",
+              "severity": 2,
+              "source": "role=\\"treeitem\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<div role="menu"><div><a role="menuitem">Item One</a></div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
