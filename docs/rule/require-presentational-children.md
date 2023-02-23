@@ -53,6 +53,13 @@ This rule **allows** the following:
 
 If violations are found, remediation should be planned to either add `role="presentation"` to the descendants as a quickfix. A better fix is to not use semantic descendants.
 
+## Configuration
+
+ The following values are valid configuration:
+
+* object -- An object with the following keys:
+  * `nonSemanticTags` -- An array of additional tags that should be considered presentation
+
 ## References
 
 * [Roles That Automatically Hide Semantics by Making Their Descendants Presentational](https://w3c.github.io/aria-practices/#children_presentational)
