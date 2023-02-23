@@ -21,6 +21,7 @@ generateRuleTests({
     '<div role="group"><div role="menuitemradio">Item One</div></div>',
     '<div role="menu"><div role="menuitemradio">Item One</div></div>',
     '<div role="menubar"><div role="menuitemradio">Item One</div></div>',
+    '<div role="menubar"><div role="presentation"><a role="menuitem">Item One</a></div></div>',
     '<div role="listbox"><div role="option">Item One</div></div>',
     '<div role="grid"><div role="row">Item One</div></div>',
     '<div role="rowgroup"><div role="row">Item One</div></div>',
@@ -279,20 +280,40 @@ generateRuleTests({
       },
     },
     {
-      template: '<div><div role="treeitem">Item One</div></div>',
+      template: '<div role="menu"><div><a role="menuitem">Item One</a></div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 10,
-              "endColumn": 25,
+              "column": 25,
+              "endColumn": 39,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
+              "message": You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"treeitem\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div role="menu"><div role="button"><a role="menuitem">Item One</a></div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 39,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "rule": "require-context-role",
+              "severity": 2,
+              "source": "role=\\"menuitem\\"",
             },
           ]
         `);
