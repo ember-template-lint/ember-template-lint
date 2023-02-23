@@ -58,7 +58,7 @@ If violations are found, remediation should be planned to either add `role="pres
  The following values are valid configuration:
 
 * object -- An object with the following keys:
-  * `nonSemanticTags` -- An array of additional tags that should be considered presentation
+  * `additionalNonSemanticTags` -- An array of additional tags that should be considered presentation
 
 ## References
 
