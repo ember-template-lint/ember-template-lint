@@ -286,14 +286,14 @@ generateRuleTests({
           [
             {
               "column": 25,
-              "endColumn": 39,
+              "endColumn": 40,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"treeitem\\"",
+              "source": "role=\\"menuitem\\"",
             },
           ]
         `);
@@ -306,11 +306,11 @@ generateRuleTests({
           [
             {
               "column": 39,
-              "endColumn": 53,
+              "endColumn": 54,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"menuitem\\"",
