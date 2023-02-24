@@ -17,6 +17,8 @@ generateRuleTests({
     '<span role="presentation"></span>',
     '<svg role="none"></svg>',
     '<svg role="presentation"></svg>',
+    '<li role="none"></li>',
+    '<li role="presentation"></li>',
     '<custom-component role="none"></custom-component>',
     '<AwesomeThing role="none"></AwesomeThing>',
     '<AwesomeThing role="presentation"></AwesomeThing>',
@@ -66,26 +68,6 @@ generateRuleTests({
               "rule": "no-invalid-role",
               "severity": 2,
               "source": "<ol role=\\"presentation\\"></ol>",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<li role="presentation"></li>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 29,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "Use of presentation role on <li> detected. Semantic elements should not be used for presentation.",
-              "rule": "no-invalid-role",
-              "severity": 2,
-              "source": "<li role=\\"presentation\\"></li>",
             },
           ]
         `);
