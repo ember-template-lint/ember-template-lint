@@ -21,6 +21,7 @@ generateRuleTests({
     '<div role="group"><div role="menuitemradio">Item One</div></div>',
     '<div role="menu"><div role="menuitemradio">Item One</div></div>',
     '<div role="menubar"><div role="menuitemradio">Item One</div></div>',
+    '<div role="menubar"><div role="presentation"><a role="menuitem">Item One</a></div></div>',
     '<div role="listbox"><div role="option">Item One</div></div>',
     '<div role="grid"><div role="row">Item One</div></div>',
     '<div role="rowgroup"><div role="row">Item One</div></div>',
@@ -293,6 +294,46 @@ generateRuleTests({
               "rule": "require-context-role",
               "severity": 2,
               "source": "role=\\"treeitem\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div role="menu"><div><a role="menuitem">Item One</a></div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 25,
+              "endColumn": 40,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "rule": "require-context-role",
+              "severity": 2,
+              "source": "role=\\"menuitem\\"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div role="menu"><div role="button"><a role="menuitem">Item One</a></div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 39,
+              "endColumn": 54,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "rule": "require-context-role",
+              "severity": 2,
+              "source": "role=\\"menuitem\\"",
             },
           ]
         `);
