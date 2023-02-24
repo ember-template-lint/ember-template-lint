@@ -1,4 +1,18 @@
 
+
+## v5.6.0 (2023-02-24)
+
+#### :rocket: Enhancement
+* [#2818](https://github.com/ember-template-lint/ember-template-lint/pull/2818) Add `additionalNonSemanticTags` option to `require-presentational-children` rule ([@Techn1x](https://github.com/Techn1x))
+
+#### :bug: Bug Fix
+* [#2819](https://github.com/ember-template-lint/ember-template-lint/pull/2819) Allow intermediate presentation role before context in `require-context-role` rule ([@Techn1x](https://github.com/Techn1x))
+* [#2820](https://github.com/ember-template-lint/ember-template-lint/pull/2820) Allow presentation role for `li` in `no-invalid-role` rule ([@Techn1x](https://github.com/Techn1x))
+
+#### Committers: 1
+- Brad Overton ([@Techn1x](https://github.com/Techn1x))
+
+
 ## v5.5.1 (2023-02-10)
 
 #### :bug: Bug Fix
