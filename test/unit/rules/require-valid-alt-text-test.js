@@ -11,15 +11,13 @@ generateRuleTests({
     '<img alt="blah {{derp}}">',
     '<img aria-hidden="true">',
     '<img hidden>',
-    '<img alt="" role="none" src="zoey.jpg">',
-    '<img alt="" role="presentation" src="zoey.jpg">',
+    '<img alt="" src="zoey.jpg">',
     '<img alt="a stylized graphic of a female hamster" src="zoey.jpg">',
 
     '<img alt="some-alt-name">',
     '<img alt="name {{picture}}">',
     '<img alt="{{picture}}">',
-    '<img alt="" role="none">',
-    '<img alt="" role="presentation">',
+    '<img alt="">',
 
     // Valid words containing redundant words.
     '<img alt="logout">',
@@ -50,7 +48,7 @@ generateRuleTests({
     '<area aria-hidden="true">',
     '<area aria-labelledby="some-alt">',
     '<area aria-label="some-alt">',
-    '<img role={{unless this.altText "presentation"}} alt={{this.altText}}>',
+    '<img alt={{this.altText}}>',
   ],
 
   bad: [
@@ -91,48 +89,6 @@ generateRuleTests({
               "rule": "require-valid-alt-text",
               "severity": 2,
               "source": "<img src=\\"zoey.jpg\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt="" src="zoey.jpg">',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 27,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt=\\"\\" src=\\"zoey.jpg\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt src="zoey.jpg">',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 24,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt src=\\"zoey.jpg\\">",
             },
           ]
         `);
@@ -376,7 +332,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
+              "message": "The \`role\` attribute should not be given in \`<img>\` tags",
               "rule": "require-valid-alt-text",
               "severity": 2,
               "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"none\\">",
@@ -396,7 +352,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
+              "message": "The \`role\` attribute should not be given in \`<img>\` tags",
               "rule": "require-valid-alt-text",
               "severity": 2,
               "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"presentation\\">",

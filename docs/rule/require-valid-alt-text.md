@@ -12,7 +12,7 @@ This rule **forbids** the following:
 
 ### `<img>`
 
-An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string. If it is an empty string, the `<img>` element tag must also have `role="presentation"` or `role="none"`.
+An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string.
 
 The content of an `alt` attribute is used to calculate the machine-readable label of an element, whereas the text content is used to produce a label for the element. For this reason, adding a label to an icon can produce a confusing or duplicated label on a control that already has appropriate text content.
 
@@ -32,6 +32,7 @@ This rule **forbids** the following:
 <img src="baz" alt="Picture of baz fixing a bug." />
 <img src="b52.jpg" alt="52" />
 <img src="foo" alt="foo as a banana" role="presentation">
+<img src="foo" alt="" role="presentation"> // Adding a role breaks semantic
 ```
 
 This rule **allows** the following:
@@ -42,7 +43,7 @@ This rule **allows** the following:
 <img src="bar" aria-hidden="true" alt="Picture of me taking a photo of an image" /> // Will pass because it is hidden.
 <img src="baz" alt="Baz taking a {{photo}}" /> // This is valid since photo is a variable name.
 <img src="b52.jpg" alt="b52 bomber jet" />
-<img src="foo" alt="" role="presentation"> // This is valid because it has a role of presentation.
+<img src="foo" alt="">
 ```
 
 ### `<object>`
