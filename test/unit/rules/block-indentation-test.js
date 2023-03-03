@@ -232,6 +232,22 @@ generateRuleTests({
     {
       template: '<title></title>\n<path/><path/>',
     },
+    {
+      template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
+        "test('it renders', async (assert) => {",
+        '  await render(hbs`',
+        '    <div class="parent">',
+        '      <div class="child"></div>',
+        '    </div>',
+        '  `);',
+        ');',
+      ].join('\n'),
+      meta: {
+        filePath: 'layout.js',
+      },
+    },
   ],
 
   bad: [
