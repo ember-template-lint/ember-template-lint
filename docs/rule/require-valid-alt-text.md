@@ -16,7 +16,7 @@ An `<img>` must have the `alt` attribute. It must have either meaningful text, o
 
 The content of an `alt` attribute is used to calculate the machine-readable label of an element, whereas the text content is used to produce a label for the element. For this reason, adding a label to an icon can produce a confusing or duplicated label on a control that already has appropriate text content.
 
-If it's not a meaningful image, it should have an empty alt attribute value and have the role of presentation or none.
+If it's not a meaningful image, it should have an empty alt attribute value.
 
 `img` alt attribute does not contain the word image, picture, or photo. Screen readers already announce `img` elements as an image. There is no need to use words such as *image*, *photo*, *logo*, *spacer*, and/or *picture*.
 
@@ -31,8 +31,6 @@ This rule **forbids** the following:
 <img src="bar" alt="Image of me at a bar!" />
 <img src="baz" alt="Picture of baz fixing a bug." />
 <img src="b52.jpg" alt="52" />
-<img src="foo" alt="foo as a banana" role="presentation">
-<img src="foo" alt="" role="presentation"> // Adding a role breaks semantic
 ```
 
 This rule **allows** the following:

@@ -12,12 +12,17 @@ generateRuleTests({
     '<img aria-hidden="true">',
     '<img hidden>',
     '<img alt="" src="zoey.jpg">',
+    '<img alt="" role="none" src="zoey.jpg">',
+    '<img alt="" role="presentation" src="zoey.jpg">',
     '<img alt="a stylized graphic of a female hamster" src="zoey.jpg">',
+    '<img alt="a stylized graphic of a female hamster" role="presentation" src="zoey.jpg">',
 
     '<img alt="some-alt-name">',
     '<img alt="name {{picture}}">',
     '<img alt="{{picture}}">',
     '<img alt="">',
+    '<img alt="" role="none">',
+    '<img alt="" role="presentation">',
 
     // Valid words containing redundant words.
     '<img alt="logout">',
@@ -48,7 +53,7 @@ generateRuleTests({
     '<area aria-hidden="true">',
     '<area aria-labelledby="some-alt">',
     '<area aria-label="some-alt">',
-    '<img alt={{this.altText}}>',
+    '<img role={{unless this.altText "presentation"}} alt={{this.altText}}>',
   ],
 
   bad: [
@@ -316,46 +321,6 @@ generateRuleTests({
               "rule": "require-valid-alt-text",
               "severity": 2,
               "source": "<img alt=\\"52\\" src=\\"b52.jpg\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 51,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The \`role\` attribute should not be given in \`<img>\` tags",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"none\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 59,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The \`role\` attribute should not be given in \`<img>\` tags",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"presentation\\">",
             },
           ]
         `);
