@@ -171,6 +171,8 @@ Each rule has emojis denoting:
 | [no-unknown-arguments-for-builtin-components](./docs/rule/no-unknown-arguments-for-builtin-components.md) | ✅  |     |     | 🔧  |
 | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     | 🔧  |
 | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     | 🔧  |
+| [no-unnecessary-curly-parens](./docs/rule/no-unnecessary-curly-parens.md)                                 |     |     |     | 🔧  |
+| [no-unnecessary-curly-strings](./docs/rule/no-unnecessary-curly-strings.md)                               |     |     |     |     |
 | [no-unsupported-role-attributes](./docs/rule/no-unsupported-role-attributes.md)                           | ✅  |     | ⌨️  | 🔧  |
 | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | ✅  |     |     |     |
 | [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           | ✅  |     |     |     |

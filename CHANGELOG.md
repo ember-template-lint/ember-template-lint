@@ -1,9 +1,61 @@
 
 
+## v5.6.0 (2023-02-24)
+
+#### :rocket: Enhancement
+* [#2818](https://github.com/ember-template-lint/ember-template-lint/pull/2818) Add `additionalNonSemanticTags` option to `require-presentational-children` rule ([@Techn1x](https://github.com/Techn1x))
+
+#### :bug: Bug Fix
+* [#2819](https://github.com/ember-template-lint/ember-template-lint/pull/2819) Allow intermediate presentation role before context in `require-context-role` rule ([@Techn1x](https://github.com/Techn1x))
+* [#2820](https://github.com/ember-template-lint/ember-template-lint/pull/2820) Allow presentation role for `li` in `no-invalid-role` rule ([@Techn1x](https://github.com/Techn1x))
+
+#### Committers: 1
+- Brad Overton ([@Techn1x](https://github.com/Techn1x))
 
 
+## v5.5.1 (2023-02-10)
+
+#### :bug: Bug Fix
+* [#2802](https://github.com/ember-template-lint/ember-template-lint/pull/2802) Rename `no-unnecessary-curly-literals` rule to `no-unnecessary-curly-strings` ([@bmish](https://github.com/bmish))
+
+#### Committers: 1
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
 
 
+## v5.5.0 (2023-02-08)
+
+#### :rocket: Enhancement
+* [#2794](https://github.com/ember-template-lint/ember-template-lint/pull/2794) Add new rule `no-unnecessary-curly-literals` ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
+
+#### Committers: 1
+- Shivareddy-Aluri ([@Shivareddy-Aluri](https://github.com/Shivareddy-Aluri))
+
+
+## v5.4.0 (2023-02-08)
+
+#### :rocket: Enhancement
+* [#2792](https://github.com/ember-template-lint/ember-template-lint/pull/2792) Add new rule `no-unnecessary-curly-parens` ([@raycohen](https://github.com/raycohen))
+
+#### Committers: 1
+- Ray Cohen ([@raycohen](https://github.com/raycohen))
+
+
+## v5.3.3 (2023-01-27)
+
+#### :bug: Bug Fix
+* [#2780](https://github.com/ember-template-lint/ember-template-lint/pull/2780) Ignore `{{(unique-id)}}` helper variation in `no-duplicate-id` rule ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+
+## v5.3.2 (2023-01-22)
+
+#### :bug: Bug Fix
+* [#2778](https://github.com/ember-template-lint/ember-template-lint/pull/2778) Ignore `unique-id` helper in `no-duplicate-id` rule ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
 
 
 ## v5.3.1 (2023-01-06)
