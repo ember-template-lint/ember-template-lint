@@ -25,6 +25,7 @@ describe('extractTemplates', function () {
         [
           {
             "column": 0,
+            "columnOffset": 0,
             "end": 0,
             "isEmbedded": undefined,
             "isStrictMode": true,
@@ -41,6 +42,7 @@ describe('extractTemplates', function () {
         [
           {
             "column": 60,
+            "columnOffset": 6,
             "end": 238,
             "isEmbedded": true,
             "isStrictMode": false,
@@ -71,6 +73,7 @@ describe('extractTemplates', function () {
         [
           {
             "column": 60,
+            "columnOffset": 6,
             "end": 242,
             "isEmbedded": true,
             "isStrictMode": true,
@@ -109,6 +112,7 @@ describe('extractTemplates', function () {
         [
           {
             "column": 63,
+            "columnOffset": 6,
             "end": 255,
             "isEmbedded": true,
             "isStrictMode": true,
@@ -139,6 +143,7 @@ describe('extractTemplates', function () {
         [
           {
             "column": 39,
+            "columnOffset": 0,
             "end": 58,
             "isEmbedded": true,
             "isStrictMode": true,
@@ -174,6 +179,7 @@ describe('extractTemplates', function () {
         [
           {
             "column": 0,
+            "columnOffset": 0,
             "end": 0,
             "isEmbedded": undefined,
             "isStrictMode": true,
@@ -190,6 +196,7 @@ describe('extractTemplates', function () {
         [
           {
             "column": 39,
+            "columnOffset": 0,
             "end": 58,
             "isEmbedded": true,
             "isStrictMode": true,
@@ -237,6 +244,7 @@ describe('calculate template coordinates', function () {
     expect(coordinatesOf(typescript, 228)).toEqual({
       line: 8,
       column: 12,
+      columnOffset: 2,
     });
   });
 });
