@@ -4,7 +4,7 @@
 
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
-Require or disallow newline at the end of files.
+Require or disallow newline at the end of template files. This rule doesn't apply to embedded templates (e.g. a rendered template in a -test.js file).
 
 ## Examples
 
@@ -25,9 +25,9 @@ or this (with newline at end):
 
 The following values are valid configuration:
 
-- "always" - enforces that files end with a newline
+- "always" - enforces that template files end with a newline
 - "editorconfig" - requires or disallows final newlines based your projects `.editorconfig` settings (via `insert_final_newline`)
-- "never" - enforces that files do not end with a newline'
+- "never" - enforces that template files do not end with a newline'
 
 ## Related Rules
 
