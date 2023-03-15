@@ -11,6 +11,22 @@ generateRuleTests({
     'test\n' + '\n',
     // test the re-entering of yielded content
     '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
+    {
+      template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
+        "test('it renders', async (assert) => {",
+        '  await render(hbs`',
+        '    <div class="parent">',
+        '      <div class="child"></div>',
+        '    </div>',
+        '  `);',
+        ');',
+      ].join('\n'),
+      meta: {
+        filePath: 'layout.js',
+      },
+    },
   ],
 
   bad: [
@@ -95,6 +111,74 @@ generateRuleTests({
               "rule": "no-trailing-spaces",
               "severity": 2,
               "source": "  test ",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
+        "test('it renders', async (assert) => {",
+        '  await render(hbs`  ',
+        '    <div class="parent">',
+        '      <div class="child"></div>',
+        '    </div>',
+        '  `);',
+        ');',
+      ].join('\n'),
+      meta: {
+        filePath: 'layout.js',
+      },
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 21,
+              "endLine": 8,
+              "filePath": "layout.js",
+              "line": 4,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "  ",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
+        "test('it renders', async (assert) => {",
+        '  await render(hbs`',
+        '    <div></div>',
+        '  ',
+        '    <div></div>',
+        '  `);',
+        ');',
+      ].join('\n'),
+      meta: {
+        filePath: 'layout.js',
+      },
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 1,
+              "endColumn": 2,
+              "endLine": 8,
+              "filePath": "layout.js",
+              "line": 6,
+              "message": "line cannot end with space",
+              "rule": "no-trailing-spaces",
+              "severity": 2,
+              "source": "  ",
             },
           ]
         `);

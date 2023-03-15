@@ -1,5 +1,26 @@
 
 
+
+## v5.7.0 (2023-03-15)
+
+#### :rocket: Enhancement
+* [#2818](https://github.com/ember-template-lint/ember-template-lint/pull/2818) Add `additionalNonSemanticTags` option to `require-presentational-children` rule ([@Techn1x](https://github.com/Techn1x))
+
+#### :bug: Bug Fix
+* [#2843](https://github.com/ember-template-lint/ember-template-lint/pull/2843) Avoid crash with dynamic `aria-label` in `no-invalid-link-text` rule ([@StephanH90](https://github.com/StephanH90))
+* [#2838](https://github.com/ember-template-lint/ember-template-lint/pull/2838) Fix embedded templates handling in `block-indentation` rule  ([@robinborst95](https://github.com/robinborst95))
+* [#2833](https://github.com/ember-template-lint/ember-template-lint/pull/2833) Fix incorrect violation with embedded templates in `no-trailing-spaces` rule ([@robinborst95](https://github.com/robinborst95))
+* [#2845](https://github.com/ember-template-lint/ember-template-lint/pull/2845) Recognize imports from `@glimmerx/component` ([@tstewart15](https://github.com/tstewart15))
+* [#2819](https://github.com/ember-template-lint/ember-template-lint/pull/2819) Allow intermediate presentation role before context in `require-context-role` rule ([@Techn1x](https://github.com/Techn1x))
+* [#2820](https://github.com/ember-template-lint/ember-template-lint/pull/2820) Allow presentation role for `li` in `no-invalid-role` rule ([@Techn1x](https://github.com/Techn1x))
+
+#### Committers: 4
+- Brad Overton ([@Techn1x](https://github.com/Techn1x))
+- Robin Borst  ([@robinborst95](https://github.com/robinborst95))
+- Tom Stewart ([@tstewart15](https://github.com/tstewart15))
+- [@StephanH90](https://github.com/StephanH90)
+
+
 ## v5.6.0 (2023-02-24)
 
 #### :rocket: Enhancement
