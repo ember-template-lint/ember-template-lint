@@ -1,3 +1,15 @@
+## v5.7.1 (2023-03-16)
+
+#### :bug: Bug Fix
+
+* [#2846](https://github.com/ember-template-lint/ember-template-lint/pull/2846) Disable embedded templates handling for `eol-last` rule ([@robinborst95](https://github.com/robinborst95))
+* [#2844](https://github.com/ember-template-lint/ember-template-lint/pull/2844) Disable `no-curly-component-invocation` and `no-implicit-this` rules for `gjs` / `gts` files ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+
+- NullVoxPopuli ([@NullVoxPopuli](https://github.com/NullVoxPopuli)
+- Robin Borst ([@robinborst95](https://github.com/robinborst95))
+
 ## v5.7.0 (2023-03-15)
 
 #### :bug: Bug Fix
@@ -6,7 +18,7 @@
 * [#2833](https://github.com/ember-template-lint/ember-template-lint/pull/2833) Fix incorrect violation with embedded templates in `no-trailing-spaces` rule ([@robinborst95](https://github.com/robinborst95))
 * [#2845](https://github.com/ember-template-lint/ember-template-lint/pull/2845) Recognize imports from `@glimmerx/component` ([@tstewart15](https://github.com/tstewart15))
 
-#### Committers: 4
+#### Committers: 3
 - Robin Borst  ([@robinborst95](https://github.com/robinborst95))
 - Tom Stewart ([@tstewart15](https://github.com/tstewart15))
 - [@StephanH90](https://github.com/StephanH90)
