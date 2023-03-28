@@ -850,6 +850,28 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '<Link @b="b" @a="a">Foo</Link>',
+      fixedTemplate: '<Link @a="a" @b="b">Foo</Link>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Argument @a=\\"a\\" is not alphabetized",
+              "rule": "attribute-order",
+              "severity": 2,
+              "source": "@a=\\"a\\"",
+            },
+          ]
+        `);
+      },
+    },
   ],
 
   error: [
