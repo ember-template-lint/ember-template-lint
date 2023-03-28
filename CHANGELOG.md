@@ -1,3 +1,13 @@
+
+## v5.7.2 (2023-03-28)
+
+#### :bug: Bug Fix
+* [#2853](https://github.com/ember-template-lint/ember-template-lint/pull/2853) Bump `ember-template-recast` to v6.1.4 ([@bertdeblock](https://github.com/bertdeblock))
+
+#### Committers: 1
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+
+
 ## v5.7.1 (2023-03-16)
 
 #### :bug: Bug Fix
