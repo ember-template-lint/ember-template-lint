@@ -483,12 +483,12 @@ describe('ember-template-lint executable', function () {
   describe('multiplatform config resolve', function () {
     describe('given absolute config path and path to single file without errors', function () {
       it('should exit without error and any console output', async function () {
-        project.setConfig({
+        await project.setConfig({
           rules: {
             'no-bare-strings': false,
           },
         });
-        project.write({
+        await project.write({
           app: {
             templates: {
               'application.hbs':
@@ -502,7 +502,12 @@ describe('ember-template-lint executable', function () {
         expect(path.isAbsolute(configPath)).toBeTruthy();
         expect(fs.existsSync(configPath)).toBeTruthy();
 
-        let result = await run(['app/templates/application.hbs', '--config-path', configPath]);
+        let result = await runBin(
+          '--filename',
+          'app/templates/application.hbs',
+          '--config-path',
+          configPath
+        );
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
