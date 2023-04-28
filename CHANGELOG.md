@@ -1,4 +1,14 @@
 
+
+## v5.7.3 (2023-04-28)
+
+#### :bug: Bug Fix
+* [#2339](https://github.com/ember-template-lint/ember-template-lint/pull/2339) Convert path to URL before import of config/plugin for Windows support ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+
 ## v5.7.2 (2023-03-28)
 
 #### :bug: Bug Fix
