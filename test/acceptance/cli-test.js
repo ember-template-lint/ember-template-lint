@@ -480,6 +480,37 @@ describe('ember-template-lint executable', function () {
     });
   });
 
+  describe('multiplatform config resolve', function () {
+    describe('given absolute config path and path to single file without errors', function () {
+      it('should exit without error and any console output', async function () {
+        await project.setConfig({
+          rules: {
+            'no-bare-strings': false,
+          },
+        });
+        await project.write({
+          app: {
+            templates: {
+              'application.hbs':
+                '<h2>Love for bare strings!!!</h2> <div>Bare strings are great!</div>',
+            },
+          },
+        });
+
+        let configPath = path.join(project.baseDir, '.template-lintrc.js');
+
+        expect(path.isAbsolute(configPath)).toBeTruthy();
+        expect(fs.existsSync(configPath)).toBeTruthy();
+
+        let result = await runBin('app/templates/application.hbs', '--config-path', configPath);
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+  });
+
   describe('reading from stdin', function () {
     describe('given no path', function () {
       setupEnvVar('CI', null);
