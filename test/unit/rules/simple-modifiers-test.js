@@ -10,6 +10,9 @@ generateRuleTests({
     '<div {{(modifier this.trackInteraction @controlName)}}></div>',
     '<div {{(modifier @trackInteraction @controlName)}}></div>',
     '<div {{(if @isActionVisible (modifier "track-interaction" eventName=myEventName eventBody=myEventbody))}}></div>',
+    '<div {{(my-modifier (unless this.hasBeenClicked "track-interaction") "click" customizeData=this.customizeClickData)}}></div>',
+    '<MyComponent @people={{array "Tom Dale" "Yehuda Katz" this.myOtherPerson}} />',
+    '<div {{(if this.foo (modifier "foo-bar"))}}></div>',
   ],
 
   bad: [
