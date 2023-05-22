@@ -1,6 +1,6 @@
 # simple-modifiers
 
-This rule strongly advises against using the `{{modifier}}` helper with its first argument being either:
+This rule strongly advises against passing complex statements or conditionals to the first argument of the `{{modifier}}` helper. Instead, it recommends using the `{{modifier}}` helper with its first argument being either:
 
 - a string literal (.e.g. `{{modifier "tracking-interaction"}}`)
 - a variable in the template's JS backing class context (e.g. `{{modifier this.trackingInteraction}}`)
