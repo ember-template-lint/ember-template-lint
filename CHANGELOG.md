@@ -1,5 +1,19 @@
 
 
+
+## v5.8.0 (2023-05-23)
+
+#### :rocket: Enhancement
+* [#2887](https://github.com/ember-template-lint/ember-template-lint/pull/2887) Add new rule `simple-modifiers` ([@rmonzon](https://github.com/rmonzon))
+
+#### :bug: Bug Fix
+* [#2891](https://github.com/ember-template-lint/ember-template-lint/pull/2891) Fix override for gjs files in `recommended` config ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Raul Rivero ([@rmonzon](https://github.com/rmonzon))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+
 ## v5.7.3 (2023-04-28)
 
 #### :bug: Bug Fix
