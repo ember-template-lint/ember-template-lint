@@ -1,5 +1,7 @@
 # simple-modifiers
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule strongly advises against passing complex statements or conditionals to the first argument of the `{{modifier}}` helper. Instead, it recommends using the `{{modifier}}` helper with its first argument being either:
 
 - a string literal (.e.g. `{{modifier "tracking-interaction"}}`)
