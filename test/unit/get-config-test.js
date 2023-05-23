@@ -174,6 +174,7 @@ describe('get-config', function () {
     });
 
     expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
+    expect(actual.overrides[0]?.files).toEqual(['**/*.gjs', '**/*.gts']);
   });
 
   it('can extend and override a default configuration', async function () {
