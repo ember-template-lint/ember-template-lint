@@ -4,6 +4,7 @@ generateRuleTests({
   name: 'quotes',
 
   good: [
+    // string config
     {
       config: 'double',
       template: '{{component "test"}}',
@@ -28,12 +29,26 @@ generateRuleTests({
       config: 'single',
       template: "<input type='checkbox'>",
     },
+
+    // object config
     {
-      config: { hbs: 'single', html: 'double' },
+      config: { curlies: false, html: false },
+      template: `{{component "test"}} {{hello x='test'}} <input type='checkbox'> <input type="checkbox">`,
+    },
+    {
+      config: { curlies: false, html: 'single' },
+      template: `{{component "test"}} {{hello x='test'}} <input type='checkbox'>`,
+    },
+    {
+      config: { curlies: 'double', html: false },
+      template: `{{component "test"}} <input type='checkbox'> <input type="checkbox">`,
+    },
+    {
+      config: { curlies: 'single', html: 'double' },
       template: `<input type="checkbox"> {{hello 'test' x='test'}}`,
     },
     {
-      config: { hbs: 'double', html: 'single' },
+      config: { curlies: 'double', html: 'single' },
       template: `<input type='checkbox'> {{hello "test" x="test"}}`,
     },
   ],
@@ -277,7 +292,7 @@ generateRuleTests({
       },
     },
     {
-      config: { hbs: 'double', html: 'single' },
+      config: { curlies: 'double', html: 'single' },
       template: `<input type="checkbox"> {{hello 'test' x='test'}}`,
       fixedTemplate: `<input type='checkbox'> {{hello "test" x="test"}}`,
 
@@ -325,7 +340,7 @@ generateRuleTests({
       },
     },
     {
-      config: { hbs: 'single', html: 'double' },
+      config: { curlies: 'single', html: 'double' },
       template: `<input type='checkbox'> {{hello "test" x="test"}}`,
       fixedTemplate: `<input type="checkbox"> {{hello 'test' x='test'}}`,
 
@@ -394,21 +409,39 @@ generateRuleTests({
       },
     },
     {
-      config: { hbs: 'double' },
+      config: { curlies: 'double', html: 'sometimes' },
       template: 'test',
 
       result: {
         fatal: true,
-        message: 'You specified `{"hbs":"double"}`',
+        message: 'You specified `{"curlies":"double","html":"sometimes"}`',
       },
     },
     {
-      config: { hbs: 'double', html: 'sometimes' },
+      config: { curlies: 'double' },
       template: 'test',
 
       result: {
         fatal: true,
-        message: 'You specified `{"hbs":"double","html":"sometimes"}`',
+        message: 'You specified `{"curlies":"double"}`',
+      },
+    },
+    {
+      config: { html: 'sometimes' },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `{"html":"sometimes"}`',
+      },
+    },
+    {
+      config: { curlies: 'double', html: 'single', other: 'foobar' },
+      template: 'test',
+
+      result: {
+        fatal: true,
+        message: 'You specified `{"curlies":"double","html":"single","other":"foobar"}`',
       },
     },
   ],
