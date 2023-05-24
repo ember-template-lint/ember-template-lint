@@ -11,8 +11,8 @@ Enforce the consistent use of either double or single quotes.
 Enforce either:
 
 ```hbs
-<div class='my-class'>test</div>
-{{my-helper 'hello there'}}
+<div class="my-class">test</div>
+{{my-helper "hello there"}}
 ```
 
 or:
