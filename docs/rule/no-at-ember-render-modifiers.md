@@ -2,7 +2,7 @@
 
 `@ember/render-modifiers` were meant as a transitional tool from the pre-Octane era, and not long-term usage.
 
-More information about this can be found on the [`@ember/render-modifiers` README](https://github.com/emberjs/ember-render-modifiers#when-to-use-these-modifiers-and-when-not-to-use-them)
+More information about this can be found on the [`@ember/render-modifiers` README](https://github.com/emberjs/ember-render-modifiers#when-to-use-these-modifiers-and-when-not-to-use-them).
 
 ## Examples
 
@@ -22,7 +22,7 @@ This rule **forbids** the following:
 
 ## Migration
 
-The migration path typically depends on what the render-modifier was used for, but if you need a customm modifier, the [`ember-modifier` README](https://github.com/ember-modifier/ember-modifier) covers everything you need to know for making custom modifiers.
+The migration path typically depends on what the render-modifier was used for, but if you need a custom modifier, the [`ember-modifier` README](https://github.com/ember-modifier/ember-modifier) covers everything you need to know for making custom modifiers.
 
 For example, if render modifiers were used for setup/teardown, the migration to `ember-modifier` could be the following:
 
@@ -46,5 +46,5 @@ export default class MyComponent extends Component {
 
 ## References
 
-- [`@ember/render-modifiers`](https://github.com/emberjs/ember-render-modifiers)
+- [`@ember/render-modifiers`](https://github.com/emberjs/ember-render-modifiers) (deprecated)
 - [`ember-modifier`](https://github.com/ember-modifier/ember-modifier)
