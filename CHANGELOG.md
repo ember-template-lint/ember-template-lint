@@ -1,6 +1,16 @@
 
 
 
+
+## v5.9.0 (2023-05-24)
+
+#### :rocket: Enhancement
+* [#2754](https://github.com/ember-template-lint/ember-template-lint/pull/2754) Add options for different `html` / `hbs` quote styles in `quotes` rule ([@robclancy](https://github.com/robclancy))
+
+#### Committers: 1
+- Robert Clancy (Robbo) ([@robclancy](https://github.com/robclancy))
+
+
 ## v5.8.0 (2023-05-23)
 
 #### :rocket: Enhancement
