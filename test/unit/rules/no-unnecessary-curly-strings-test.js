@@ -25,7 +25,8 @@ generateRuleTests({
 
   bad: [
     {
-      template: '<FooBar class={{"btn"}} />',
+      template: '<FooBar class={{"btn"}} @fooArg={{\'barbaz\'}} />',
+      fixedTemplate: '<FooBar class="btn" @fooArg=\'barbaz\' />',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -35,11 +36,24 @@ generateRuleTests({
               "endColumn": 23,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Unnecessary curly braces around string",
               "rule": "no-unnecessary-curly-strings",
               "severity": 2,
               "source": "{{\\"btn\\"}}",
+            },
+            {
+              "column": 32,
+              "endColumn": 44,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Unnecessary curly braces around string",
+              "rule": "no-unnecessary-curly-strings",
+              "severity": 2,
+              "source": "{{'barbaz'}}",
             },
           ]
         `);
@@ -47,6 +61,7 @@ generateRuleTests({
     },
     {
       template: '<FooBar class="btn">{{"Foo"}}</FooBar>',
+      fixedTemplate: '<FooBar class="btn">Foo</FooBar>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -56,6 +71,7 @@ generateRuleTests({
               "endColumn": 29,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Unnecessary curly braces around string",
               "rule": "no-unnecessary-curly-strings",

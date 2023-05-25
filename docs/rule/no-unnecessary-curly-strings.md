@@ -1,5 +1,7 @@
 # no-unnecessary-curly-strings
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 Strings need not be wrapped in the curly braces (mustache expressions).
 
 ## Examples
