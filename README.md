@@ -164,7 +164,7 @@ Each rule has emojis denoting:
 | [no-scope-outside-table-headings](./docs/rule/no-scope-outside-table-headings.md)                         | ✅  |     | ⌨️  |     |
 | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                               | ✅  |     |     |     |
 | [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)                 |     |     |     | 🔧  |
-| [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |     | 💅  |     |     |
+| [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |     | 💅  |     | 🔧  |
 | [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                                     | ✅  |     |     |     |
 | [no-unbalanced-curlies](./docs/rule/no-unbalanced-curlies.md)                                             | ✅  |     |     |     |
 | [no-unbound](./docs/rule/no-unbound.md)                                                                   | ✅  |     |     |     |
