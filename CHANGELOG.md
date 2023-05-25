@@ -2,6 +2,17 @@
 
 
 
+
+## v5.10.0 (2023-05-25)
+
+#### :rocket: Enhancement
+* [#2895](https://github.com/ember-template-lint/ember-template-lint/pull/2895) Add autofixer to `no-unnecessary-curly-strings` rule ([@lin-ll](https://github.com/lin-ll))
+* [#2894](https://github.com/ember-template-lint/ember-template-lint/pull/2894) Add autofixer to `no-trailing-spaces`  rule ([@lin-ll](https://github.com/lin-ll))
+
+#### Committers: 1
+- Lucy Lin ([@lin-ll](https://github.com/lin-ll))
+
+
 ## v5.9.0 (2023-05-24)
 
 #### :rocket: Enhancement
