@@ -115,7 +115,7 @@
     "prettier": "^2.8.8",
     "release-it": "^15.10.3",
     "sort-package-json": "^2.4.1",
-    "yeoman-environment": "^3.18.3",
+    "yeoman-environment": "^3.18.4",
     "yeoman-generator": "^5.9.0",
     "yeoman-test": "^7.4.0"
   },
