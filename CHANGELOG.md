@@ -3,6 +3,16 @@
 
 
 
+
+## v5.10.1 (2023-06-07)
+
+#### :bug: Bug Fix
+* [#2907](https://github.com/ember-template-lint/ember-template-lint/pull/2907) Fix location reporting in `block-indentation` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 3
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v5.10.0 (2023-05-25)
 
 #### :rocket: Enhancement
