@@ -4,6 +4,22 @@
 
 
 
+
+## v5.10.2 (2023-06-16)
+
+#### :bug: Bug Fix
+* [#2914](https://github.com/ember-template-lint/ember-template-lint/pull/2914) Fix `aria-query` related crash in `no-unsupported-role-attributes` rule ([@bmish](https://github.com/bmish))
+* [#2907](https://github.com/ember-template-lint/ember-template-lint/pull/2907) Fix location reporting in `block-indentation` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :house: Internal
+* [#2915](https://github.com/ember-template-lint/ember-template-lint/pull/2915) Update incorrect tests ([@ef4](https://github.com/ef4))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v5.10.1 (2023-06-07)
 
 #### :bug: Bug Fix
