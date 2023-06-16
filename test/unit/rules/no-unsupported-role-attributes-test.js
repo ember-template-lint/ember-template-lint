@@ -15,7 +15,7 @@ generateRuleTests({
     '<dialog />',
     '<a href="#" aria-describedby=""></a>',
     '<menu type="toolbar" aria-hidden="true" />',
-    '<menuitem type="command" aria-labelledby={{this.label}} />',
+    '<a role="menuitem" aria-labelledby={{this.label}} />',
     '<input type="image" aria-atomic />',
     '<input type="submit" aria-disabled="true" />',
     '<select aria-expanded="false" aria-controls="ctrlID" />',
@@ -167,38 +167,38 @@ generateRuleTests({
       },
     },
     {
-      template: '<menuitem type="command" aria-checked={{this.checked}} />',
-      fixedTemplate: '<menuitem type="command" />',
+      template: '<a role="menuitem" aria-checked={{this.checked}} />',
+      fixedTemplate: '<a role="menuitem" />',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 0,
-              "endColumn": 57,
+              "endColumn": 51,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "The attribute aria-checked is not supported by the element menuitem with the implicit role of command",
+              "message": "The attribute aria-checked is not supported by the role menuitem",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<menuitem type=\\"command\\" aria-checked={{this.checked}} />",
+              "source": "<a role=\\"menuitem\\" aria-checked={{this.checked}} />",
             },
           ]
         `);
       },
     },
     {
-      template: '<input type="checkbox" aria-invalid="grammar" />',
-      fixedTemplate: '<input type="checkbox" />',
+      template: '<input type="button" aria-invalid="grammar" />',
+      fixedTemplate: '<input type="button" />',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 0,
-              "endColumn": 48,
+              "endColumn": 46,
               "endLine": 1,
               "filePath": "layout.hbs",
               "isFixable": true,
@@ -206,7 +206,7 @@ generateRuleTests({
               "message": "The attribute aria-invalid is not supported by the element input with the implicit role of button",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<input type=\\"checkbox\\" aria-invalid=\\"grammar\\" />",
+              "source": "<input type=\\"button\\" aria-invalid=\\"grammar\\" />",
             },
           ]
         `);
