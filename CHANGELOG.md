@@ -5,6 +5,16 @@
 
 
 
+
+## v5.10.3 (2023-06-17)
+
+#### :bug: Bug Fix
+* [#2917](https://github.com/ember-template-lint/ember-template-lint/pull/2917) Fix crash in `no-unsupported-role-attributes` rule ([@jaswilli](https://github.com/jaswilli))
+
+#### Committers: 1
+- Jason Williams ([@jaswilli](https://github.com/jaswilli))
+
+
 ## v5.10.2 (2023-06-16)
 
 #### :bug: Bug Fix
