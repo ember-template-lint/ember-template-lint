@@ -24,6 +24,7 @@ generateRuleTests({
     '{{other-component role=this.role aria-bogus="true"}}',
     '<ItemCheckbox @model={{@model}} @checkable={{@checkable}} />',
     '<some-custom-element />',
+    '<input type="password">',
   ],
 
   bad: [
