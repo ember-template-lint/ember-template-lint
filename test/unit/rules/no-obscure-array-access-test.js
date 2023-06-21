@@ -154,5 +154,27 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '<Foo @onClick={{fn this.func @foo.0.bar}} />',
+      fixedTemplate: '<Foo @onClick={{fn this.func (get @foo "0.bar")}} />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 38,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Obscure expressions are prohibited. Please use Ember's get helper instead. e.g. {{get @list '0'}}",
+              "rule": "no-obscure-array-access",
+              "severity": 2,
+              "source": "@foo.0.bar",
+            },
+          ]
+        `);
+      },
+    },
   ],
 });
