@@ -27,6 +27,7 @@ The migration path typically depends on what the render-modifier was used for, b
 For example, if render modifiers were used for setup/teardown, the migration to `ember-modifier` could be the following:
 
 ```js
+import Component from '@glimmer/component';
 import { modifier } from 'ember-modifier';
 
 export default class MyComponent extends Component {
