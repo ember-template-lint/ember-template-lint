@@ -108,6 +108,7 @@ Each rule has emojis denoting:
 | [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 | ✅  |     | ⌨️  | 🔧  |
 | [no-aria-unsupported-elements](./docs/rule/no-aria-unsupported-elements.md)                               | ✅  |     | ⌨️  |     |
 | [no-array-prototype-extensions](./docs/rule/no-array-prototype-extensions.md)                             | ✅  |     |     | 🔧  |
+| [no-at-ember-render-modifiers](./docs/rule/no-at-ember-render-modifiers.md)                               |     |     |     |     |
 | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           | ✅  |     |     |     |
 | [no-autofocus-attribute](./docs/rule/no-autofocus-attribute.md)                                           | ✅  |     | ⌨️  |     |
 | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |     |     |     |     |
