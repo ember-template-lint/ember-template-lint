@@ -21,61 +21,118 @@ generateRuleTests({
     {
       template: '<div {{did-insert}}></div>',
       verifyResults(results) {
-        expect({ results }).toMatchInlineSnapshot({
-          results: [
-            {
-              column: 5,
-              endColumn: 19,
-              endLine: 1,
-              filePath: 'layout.hbs',
-              line: 1,
-              message: MESSAGES['did-insert'],
-              rule: 'no-at-ember-render-modifiers',
-              severity: 2,
-              source: '{{did-insert}}',
-            },
-          ],
-        });
+        expect({ results }).toMatchInlineSnapshot(
+          {
+            results: [
+              {
+                column: 5,
+                endColumn: 19,
+                endLine: 1,
+                filePath: 'layout.hbs',
+                line: 1,
+                message: MESSAGES['did-insert'],
+                rule: 'no-at-ember-render-modifiers',
+                severity: 2,
+                source: '{{did-insert}}',
+              },
+            ],
+          },
+          `
+          {
+            "results": [
+              {
+                "column": 5,
+                "endColumn": 19,
+                "endLine": 1,
+                "filePath": "layout.hbs",
+                "line": 1,
+                "message": "Do not use the \`did-insert\` modifier. This modifier was intended to ease migration to Octane and not for long-term side-effects. Instead, refactor to use a custom modifier. See https://github.com/ember-modifier/ember-modifier",
+                "rule": "no-at-ember-render-modifiers",
+                "severity": 2,
+                "source": "{{did-insert}}",
+              },
+            ],
+          }
+        `
+        );
       },
     },
     {
       template: '<div {{did-update}}></div>',
       verifyResults(results) {
-        expect({ results }).toMatchInlineSnapshot({
-          results: [
-            {
-              column: 5,
-              endColumn: 19,
-              endLine: 1,
-              filePath: 'layout.hbs',
-              line: 1,
-              message: MESSAGES['did-update'],
-              rule: 'no-at-ember-render-modifiers',
-              severity: 2,
-              source: '{{did-update}}',
-            },
-          ],
-        });
+        expect({ results }).toMatchInlineSnapshot(
+          {
+            results: [
+              {
+                column: 5,
+                endColumn: 19,
+                endLine: 1,
+                filePath: 'layout.hbs',
+                line: 1,
+                message: MESSAGES['did-update'],
+                rule: 'no-at-ember-render-modifiers',
+                severity: 2,
+                source: '{{did-update}}',
+              },
+            ],
+          },
+          `
+          {
+            "results": [
+              {
+                "column": 5,
+                "endColumn": 19,
+                "endLine": 1,
+                "filePath": "layout.hbs",
+                "line": 1,
+                "message": "Do not use the \`did-update\` modifier. This modifier was intended to ease migration to Octane and not for long-term side-effects. Instead, refactor to use a custom modifier. See https://github.com/ember-modifier/ember-modifier",
+                "rule": "no-at-ember-render-modifiers",
+                "severity": 2,
+                "source": "{{did-update}}",
+              },
+            ],
+          }
+        `
+        );
       },
     },
     {
       template: '<div {{will-destroy}}></div>',
       verifyResults(results) {
-        expect({ results }).toMatchInlineSnapshot({
-          results: [
-            {
-              column: 5,
-              endColumn: 21,
-              endLine: 1,
-              filePath: 'layout.hbs',
-              line: 1,
-              message: MESSAGES['will-destroy'],
-              rule: 'no-at-ember-render-modifiers',
-              severity: 2,
-              source: '{{will-destroy}}',
-            },
-          ],
-        });
+        expect({ results }).toMatchInlineSnapshot(
+          {
+            results: [
+              {
+                column: 5,
+                endColumn: 21,
+                endLine: 1,
+                filePath: 'layout.hbs',
+                line: 1,
+                message: MESSAGES['will-destroy'],
+                rule: 'no-at-ember-render-modifiers',
+                severity: 2,
+                source: '{{will-destroy}}',
+              },
+            ],
+          },
+          `
+          {
+            "results": [
+              {
+                "column": 5,
+                "endColumn": 21,
+                "endLine": 1,
+                "filePath": "layout.hbs",
+                "line": 1,
+                "message": "Do not use the \`will-destroy\` modifier. This modifier was intended to ease migration to Octane and not for long-term side-effects. Instead, refactor to use a custom modifier. See https://github.com/ember-modifier/ember-modifier",
+                "rule": "no-at-ember-render-modifiers",
+                "severity": 2,
+                "source": "{{will-destroy}}",
+              },
+            ],
+          }
+        `
+        );
       },
     },
   ],
