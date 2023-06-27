@@ -6,6 +6,16 @@
 
 
 
+
+## v5.11.0 (2023-06-27)
+
+#### :rocket: Enhancement
+* [#2554](https://github.com/ember-template-lint/ember-template-lint/pull/2554) Add new rule `no-at-ember-render-modifiers` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+
 ## v5.10.3 (2023-06-17)
 
 #### :bug: Bug Fix
