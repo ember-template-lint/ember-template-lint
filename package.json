@@ -81,7 +81,7 @@
     "find-up": "^6.3.0",
     "fuse.js": "^6.5.3",
     "get-stdin": "^9.0.0",
-    "globby": "^13.2.0",
+    "globby": "^13.2.1",
     "is-glob": "^4.0.3",
     "language-tags": "^1.0.8",
     "micromatch": "^4.0.5",
