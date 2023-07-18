@@ -158,12 +158,12 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
+              "column": 23,
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
               "isFixable": true,
-              "line": 3,
+              "line": 1,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
@@ -181,12 +181,12 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
+              "column": 23,
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
               "isFixable": true,
-              "line": 3,
+              "line": 1,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
@@ -216,12 +216,12 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
+              "column": 23,
               "endColumn": 0,
               "endLine": 2,
               "filePath": "layout.hbs",
               "isFixable": true,
-              "line": 2,
+              "line": 1,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
@@ -244,12 +244,12 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
+              "column": 23,
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
               "isFixable": false,
-              "line": 3,
+              "line": 1,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
@@ -274,12 +274,12 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
+              "column": 23,
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
               "isFixable": false,
-              "line": 3,
+              "line": 1,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
@@ -304,12 +304,12 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
+              "column": 23,
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
               "isFixable": false,
-              "line": 3,
+              "line": 1,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
@@ -494,12 +494,12 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
+              "column": 20,
               "endColumn": 0,
               "endLine": 3,
               "filePath": "layout.hbs",
               "isFixable": true,
-              "line": 3,
+              "line": 1,
               "message": "Using an {{else}} block with {{unless}} should be avoided.",
               "rule": "simple-unless",
               "severity": 2,
