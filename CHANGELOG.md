@@ -7,6 +7,16 @@
 
 
 
+
+## v5.11.1 (2023-07-19)
+
+#### :bug: Bug Fix
+* [#2940](https://github.com/ember-template-lint/ember-template-lint/pull/2940) Fixes location reporting in `simple-unless` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 1
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v5.11.0 (2023-06-27)
 
 #### :rocket: Enhancement
