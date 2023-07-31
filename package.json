@@ -98,7 +98,7 @@
     "@scalvert/bin-tester": "^2.1.0",
     "common-tags": "^1.8.2",
     "eslint": "^8.45.0",
-    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.27.5",
