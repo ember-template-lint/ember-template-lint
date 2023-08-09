@@ -12,7 +12,7 @@ This rule **forbids** the following:
 
 ### `<img>`
 
-An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string. If it is an empty string, the `<img>` element tag must also have `role="presentation"` or `role="none"`.
+An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string.
 
 The content of an `alt` attribute is used to calculate the machine-readable label of an element, whereas the text content is used to produce a label for the element. For this reason, adding a label to an icon can produce a confusing or duplicated label on a control that already has appropriate text content.
 
