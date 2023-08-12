@@ -8,6 +8,18 @@
 
 
 
+
+## v5.11.2 (2023-08-12)
+
+#### :bug: Bug Fix
+* [#2954](https://github.com/ember-template-lint/ember-template-lint/pull/2954) Don't require redundant role for `<img alt="" />` in `require-valid-alt-text` rule ([@HeroicEric](https://github.com/HeroicEric))
+* [#2955](https://github.com/ember-template-lint/ember-template-lint/pull/2955) Update @lint-todo/utils to 3.1.1 ([@Techn1x](https://github.com/Techn1x))
+
+#### Committers: 2
+- Brad Overton ([@Techn1x](https://github.com/Techn1x))
+- Eric Kelly ([@HeroicEric](https://github.com/HeroicEric))
+
+
 ## v5.11.1 (2023-07-19)
 
 #### :bug: Bug Fix
