@@ -90,7 +90,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.9",
+    "@babel/eslint-parser": "^7.22.11",
     "@babel/parser": "^7.21.8",
     "@babel/traverse": "^7.22.8",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
