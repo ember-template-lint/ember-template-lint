@@ -19,7 +19,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<h*><span aria-hidden="true">Inaccessible text<span></h*>
+<h*><span aria-hidden="true">Inaccessible text</span></h*>
 ```
 
 This rule **allows** the following:

@@ -25,13 +25,13 @@ Numbers are not considered valid alt text, and this rule disallows using only nu
 This rule **forbids** the following:
 
 ```hbs
-<img src="rwjblue.png">
+<img src="rwjblue.png" />
 <img src="foo" alt="Photo of foo being weird." />
 <img src="foo" alt="YourCompany logo" />
 <img src="bar" alt="Image of me at a bar!" />
 <img src="baz" alt="Picture of baz fixing a bug." />
 <img src="b52.jpg" alt="52" />
-<img src="foo" alt="foo as a banana" role="presentation">
+<img src="foo" alt="foo as a banana" role="presentation" />
 ```
 
 This rule **allows** the following:
