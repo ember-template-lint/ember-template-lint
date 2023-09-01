@@ -970,4 +970,36 @@ describe('getRuleFromString', function () {
       );
     }
   });
+
+  it('supports a `.template-lintrc.mjs` config file', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      '.template-lintrc.mjs': `export default { extends: 'recommended' };`,
+    });
+
+    try {
+      const config = await resolveProjectConfig(project.baseDir, {});
+
+      expect(config).toEqual({ extends: 'recommended' });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('supports a `.template-lintrc.cjs` config file', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      '.template-lintrc.cjs': `module.exports = { extends: 'recommended' };`,
+    });
+
+    try {
+      const config = await resolveProjectConfig(project.baseDir, {});
+
+      expect(config).toEqual({ extends: 'recommended' });
+    } finally {
+      project.dispose();
+    }
+  });
 });
