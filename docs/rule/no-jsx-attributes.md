@@ -65,3 +65,6 @@ Convert attributes to kebab-case[^camelCaseNote]
 [^camelCaseNote]: keep in mind that `@args`, and `<:blocks>` should be js-compatible identifiers and be camelCase
 
 
+## References
+
+- [HTML attribute reference on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) 
