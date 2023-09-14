@@ -138,6 +138,7 @@ Each rule has emojis denoting:
 | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                                             | ✅  |     | ⌨️  |     |
 | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                                         | ✅  |     | ⌨️  |     |
 | [no-invalid-role](./docs/rule/no-invalid-role.md)                                                         | ✅  |     | ⌨️  |     |
+| [no-jsx-attributes](./docs/rule/no-jsx-attributes.md)                                                     |     |     |     |     |
 | [no-link-to-positional-params](./docs/rule/no-link-to-positional-params.md)                               | ✅  |     |     |     |
 | [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   | ✅  |     |     |     |
 | [no-log](./docs/rule/no-log.md)                                                                           | ✅  |     |     |     |
