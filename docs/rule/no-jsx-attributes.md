@@ -9,48 +9,46 @@ However, since Ember uses HTML, camelCase attributes are not valid when writing 
 
 This rule **forbids** the following attributes:
 
-```
-acceptCharset
-accessKey
-allowFullScreen
-allowTransparency
-autoComplete
-autoFocus
-autoPlay
-cellPadding
-cellSpacing
-charSet
-className
-contentEditable
-contextMenu
-crossOrigin
-dataTime
-encType
-formAction
-formEncType
-formMethod
-formNoValidate
-formTarget
-frameBorder
-httpEquiv
-inputMode
-keyParams
-keyType
-noValidate
-marginHeight
-marginWidth
-maxLength
-mediaGroup
-minLength
-radioGroup
-readOnly
-rowSpan
-spellCheck
-srcDoc
-srcSet
-tabIndex
-useMap
-```
+- acceptCharset
+- accessKey
+- allowFullScreen
+- allowTransparency
+- autoComplete
+- autoFocus
+- autoPlay
+- cellPadding
+- cellSpacing
+- charSet
+- className
+- contentEditable
+- contextMenu
+- crossOrigin
+- dataTime
+- encType
+- formAction
+- formEncType
+- formMethod
+- formNoValidate
+- formTarget
+- frameBorder
+- httpEquiv
+- inputMode
+- keyParams
+- keyType
+- noValidate
+- marginHeight
+- marginWidth
+- maxLength
+- mediaGroup
+- minLength
+- radioGroup
+- readOnly
+- rowSpan
+- spellCheck
+- srcDoc
+- srcSet
+- tabIndex
+- useMap
 
 ## Migration
 
@@ -61,10 +59,8 @@ Convert attributes to kebab-case[^camelCaseNote]
 - `<div contentEditable>` -> `<div content-editable>`
 - etc
 
-
 [^camelCaseNote]: keep in mind that `@args`, and `<:blocks>` should be js-compatible identifiers and be camelCase
-
 
 ## References
 
-- [HTML attribute reference on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) 
+- [HTML attribute reference on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes)
