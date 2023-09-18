@@ -6,41 +6,51 @@ generateRuleTests({
   config: true,
 
   good: [
-    // valid buttons with "button" type
-    '<button type="button" />',
-    '<button type="button" {{action this.handleClick}} />',
-    '<button type="button" {{action this.handleClick on="click"}} />',
-    '<button type="button" {{action this.handleMouseover on="mouseOver"}} />',
-    '<button type="button" {{on "click" this.handleClick}} />',
-    '<button type="button" {{on "mouseover" this.handleMouseover}} />',
+    // valid buttons with "button" type, in a form
+    '<form><button type="button" /></form>',
+    '<form><button type="button" {{action this.handleClick}} /></form>',
+    '<form><button type="button" {{action this.handleClick on="click"}} /></form>',
+    '<form><button type="button" {{action this.handleMouseover on="mouseOver"}} /></form>',
+    '<form><button type="button" {{on "click" this.handleClick}} /></form>',
+    '<form><button type="button" {{on "mouseover" this.handleMouseover}} /></form>',
 
-    // valid buttons with "submit" type
-    '<button />',
-    '<button type="submit" />',
-    '<button type="submit" {{action this.handleMouseover on="mouseOver"}} />',
-    '<button type="submit" {{on "mouseover" this.handleMouseover}} />',
+    // valid buttons with "submit" type, in a form
+    '<form><button /></form>',
+    '<form><button type="submit" /></form>',
+    '<form><button type="submit" {{action this.handleMouseover on="mouseOver"}} /></form>',
+    '<form><button type="submit" {{on "mouseover" this.handleMouseover}} /></form>',
 
-    // valid div elements
-    '<div/>',
-    '<div></div>',
-    '<div type="submit"></div>',
-    '<div type="submit" {{action this.handleClick}}></div>',
-    '<div type="submit" {{on "click" this.handleClick}}></div>',
+    // valid div elements, in a form
+    '<form><div/></form>',
+    '<form><div></div></form>',
+    '<form><div type="submit"></div></form>',
+    '<form><div type="submit" {{action this.handleClick}}></div></form>',
+    '<form><div type="submit" {{on "click" this.handleClick}}></div></form>',
+
+    // valid buttons, only outside a form
+    '<button {{action this.handleClick}} />',
+    '<button {{action this.handleClick on="click"}}/>',
+    '<button {{on "click" this.handleClick}} />',
+    '<button type="submit" {{action this.handleClick}} />',
+    '<button type="submit" {{action this.handleClick on="click"}} />',
+    '<button type="submit" {{action (fn this.someAction "foo")}} />',
+    '<button type="submit" {{on "click" this.handleClick}} />',
+    '<button type="submit" {{on "click" (fn this.addNumber 123)}} />',
   ],
 
   bad: [
     {
-      template: '<button {{action this.handleClick}} />',
+      template: '<form><button {{action this.handleClick}} /></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 38,
+              "column": 6,
+              "endColumn": 44,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button {{action this.handleClick}} />",
@@ -50,17 +60,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<button {{action this.handleClick on="click"}}/>',
+      template: '<form><button {{action this.handleClick on="click"}}/></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 48,
+              "column": 6,
+              "endColumn": 54,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button {{action this.handleClick on=\\"click\\"}}/>",
@@ -70,17 +80,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<button {{on "click" this.handleClick}} />',
+      template: '<form><button {{on "click" this.handleClick}} /></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 42,
+              "column": 6,
+              "endColumn": 48,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button {{on \\"click\\" this.handleClick}} />",
@@ -90,17 +100,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<button type="submit" {{action this.handleClick}} />',
+      template: '<form><button type="submit" {{action this.handleClick}} /></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 52,
+              "column": 6,
+              "endColumn": 58,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button type=\\"submit\\" {{action this.handleClick}} />",
@@ -110,17 +120,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<button type="submit" {{action this.handleClick on="click"}} />',
+      template: '<form><button type="submit" {{action this.handleClick on="click"}} /></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 63,
+              "column": 6,
+              "endColumn": 69,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button type=\\"submit\\" {{action this.handleClick on=\\"click\\"}} />",
@@ -130,17 +140,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<button type="submit" {{action (fn this.someAction "foo")}} />',
+      template: '<form><button type="submit" {{action (fn this.someAction "foo")}} /></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 62,
+              "column": 6,
+              "endColumn": 68,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button type=\\"submit\\" {{action (fn this.someAction \\"foo\\")}} />",
@@ -150,17 +160,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<button type="submit" {{on "click" this.handleClick}} />',
+      template: '<form><button type="submit" {{on "click" this.handleClick}} /></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 56,
+              "column": 6,
+              "endColumn": 62,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button type=\\"submit\\" {{on \\"click\\" this.handleClick}} />",
@@ -170,17 +180,17 @@ generateRuleTests({
       },
     },
     {
-      template: '<button type="submit" {{on "click" (fn this.addNumber 123)}} />',
+      template: '<form><button type="submit" {{on "click" (fn this.addNumber 123)}} /></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 63,
+              "column": 6,
+              "endColumn": 69,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button type=\\"submit\\" {{on \\"click\\" (fn this.addNumber 123)}} />",
@@ -190,7 +200,7 @@ generateRuleTests({
       },
     },
     {
-      template: '<div><button type="submit" {{action this.handleClick}} /></div>',
+      template: '<form><div><button type="submit" {{action this.handleClick}} /></div></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -200,7 +210,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button type=\\"submit\\" {{action this.handleClick}} />",

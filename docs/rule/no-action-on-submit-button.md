@@ -1,6 +1,6 @@
 # no-action-on-submit-button
 
-This rule requires all `<button>` elements with a `type="submit"` attribute to not have any click action.
+In a `<form>`, this rule requires all `<button>` elements with a `type="submit"` attribute to not have any click action.
 
 When the `type` attribute of `<button>` elements is `submit`, the action should be on the `<form>` element instead of directly on the button.
 
@@ -11,19 +11,30 @@ By default, the `type` attribute of `<button>` elements is `submit`.
 This rule **forbids** the following:
 
 ```hbs
-<button type="submit" {{on "click" this.handleClick}} />
-<button type="submit" {{action "handleClick"}} />
-<button {{on "click" this.handleClick}} />
-<button {{action "handleClick"}} />
+<form>
+  <button type='submit' {{on 'click' this.handleClick}} />
+  <button type='submit' {{action 'handleClick'}} />
+  <button {{on 'click' this.handleClick}} />
+  <button {{action 'handleClick'}} />
+</form>
 ```
 
 This rule **allows** the following:
 
 ```hbs
-<button type="button" {{on "click" this.handleClick}} />
-<button type="button" {{action "handleClick"}} />
-<button type="submit" />
-<button />
+// In a <form>
+<form>
+  <button type='button' {{on 'click' this.handleClick}} />
+  <button type='button' {{action 'handleClick'}} />
+  <button type='submit' />
+  <button />
+</form>
+
+// Outside a <form>
+<button type='submit' {{on 'click' this.handleClick}} />
+<button type='submit' {{action 'handleClick'}} />
+<button {{on 'click' this.handleClick}} />
+<button {{action 'handleClick'}} />
 ```
 
 ## Related Rules
