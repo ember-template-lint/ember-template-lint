@@ -9,6 +9,26 @@
 
 
 
+
+## v5.12.0 (2023-11-04)
+
+#### :rocket: Enhancement
+* [#1931](https://github.com/ember-template-lint/ember-template-lint/pull/1931) Add new rule `no-action-on-submit-button` ([@JoaoDsv](https://github.com/JoaoDsv))
+* [#2970](https://github.com/ember-template-lint/ember-template-lint/pull/2970) Support auto-lookup of `.mjs` and `.cjs` config files ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :bug: Bug Fix
+* [#2982](https://github.com/ember-template-lint/ember-template-lint/pull/2982) Disable `modifier-name-case` rule for gjs/gts ([@chancancode](https://github.com/chancancode))
+
+#### :memo: Documentation
+* [#2967](https://github.com/ember-template-lint/ember-template-lint/pull/2967) Update example markup for consistency and errors ([@chrisrng](https://github.com/chrisrng))
+
+#### Committers: 4
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Chris Ng ([@chrisrng](https://github.com/chrisrng))
+- Godfrey Chan ([@chancancode](https://github.com/chancancode))
+- Joao Da Silva Marly ([@JoaoDsv](https://github.com/JoaoDsv))
+
+
 ## v5.11.2 (2023-08-12)
 
 #### :bug: Bug Fix
