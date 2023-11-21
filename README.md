@@ -114,6 +114,7 @@ Each rule has emojis denoting:
 | [no-autofocus-attribute](./docs/rule/no-autofocus-attribute.md)                                           | ✅  |     | ⌨️  |     |
 | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |     |     |     |     |
 | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     | ✅  |     |     |     |
+| [no-builtin-form-components](./docs/rule/no-builtin-form-components.md)                                   |     |     |     |     |
 | [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               | ✅  |     |     |     |
 | [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     | ✅  |     |     |     |
 | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             | ✅  |     |     | 🔧  |
