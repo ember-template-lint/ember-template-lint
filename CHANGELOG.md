@@ -10,6 +10,16 @@
 
 
 
+
+## v5.13.0 (2023-11-21)
+
+#### :rocket: Enhancement
+* [#2990](https://github.com/ember-template-lint/ember-template-lint/pull/2990) Add new rule `no-builtin-form-components` ([@gilest](https://github.com/gilest))
+
+#### Committers: 1
+- Giles Thompson ([@gilest](https://github.com/gilest))
+
+
 ## v5.12.0 (2023-11-04)
 
 #### :rocket: Enhancement
