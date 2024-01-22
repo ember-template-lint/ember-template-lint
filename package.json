@@ -94,7 +94,7 @@
     "@babel/parser": "^7.21.8",
     "@babel/traverse": "^7.22.8",
     "@microsoft/jest-sarif": "^1.0.0-beta.0",
-    "@release-it-plugins/lerna-changelog": "^5.0.0",
+    "@release-it-plugins/lerna-changelog": "^6.1.0",
     "@scalvert/bin-tester": "^2.1.0",
     "common-tags": "^1.8.2",
     "eslint": "^8.47.0",
