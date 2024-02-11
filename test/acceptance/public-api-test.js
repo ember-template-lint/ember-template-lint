@@ -40,6 +40,21 @@ describe('public api', function () {
       );
     });
 
+    it('throws the correct error if the config file has an error on parsing - ESM', async function () {
+      await project.write({
+        '.template-lintrc.mjs': "import foo from '../foo/bar';\n export {};\n",
+      });
+
+      const linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(project.baseDir, '.template-lintrc.mjs'),
+      });
+
+      await expect(async () => await linter.loadConfig()).rejects.toThrow(
+        /Cannot find module '..\/foo\/bar'/
+      );
+    });
+
     it('uses an empty set of rules if no .template-lintrc is present', async function () {
       let linter = new Linter({
         console: mockConsole,

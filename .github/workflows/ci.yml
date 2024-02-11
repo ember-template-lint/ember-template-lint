@@ -27,7 +27,7 @@ jobs:
 
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: volta-cli/action@v4
 
@@ -50,7 +50,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x, 16.x, 18.x, 19.x]
 
         # excluded because it is the `test` job above
         exclude:
@@ -58,7 +58,7 @@ jobs:
             node-version: 18.x
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: volta-cli/action@v4
         with:
@@ -81,7 +81,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: volta-cli/action@v4
 

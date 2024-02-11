@@ -2,6 +2,8 @@
 
 💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 Disallow trailing whitespace at the end of lines.
 
 ## Examples

@@ -14,6 +14,8 @@ generateRuleTests({
     '<a href="https://myurl.com" aria-label="click here to read about our company"></a>',
     '<a href="https://myurl.com" aria-hidden="true"></a>',
     '<a href="https://myurl.com" hidden></a>',
+    '<LinkTo aria-label={{t "some-translation"}}>A link with translation</LinkTo>',
+    '<a href="#" aria-label={{this.anAriaLabel}}>A link with a variable as aria-label</a>',
     {
       config: { allowEmptyLinks: true },
       template: '<a href="https://myurl.com"></a>',

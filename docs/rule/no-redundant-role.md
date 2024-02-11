@@ -8,7 +8,7 @@ The rule checks for redundancy between any semantic HTML element with a default/
 
 For example, if a landmark element is used, any role provided will either be redundant or incorrect. This rule ensures that no role attribute is placed on any of the landmark elements, with the following exceptions:
 
-- a `nav` element with the `navigation` role to [make the structure of the page more accessible to user agents](/https://www.w3.org/WAI/GL/wiki/Using_HTML5_nav_element#Example:The_.3Cnav.3E_element)s
+- a `nav` element with the `navigation` role to [make the structure of the page more accessible to user agents](https://www.w3.org/WAI/GL/wiki/Using_HTML5_nav_element#Example:The_.3Cnav.3E_element)
 - a `form` element with the `search` role to [identify the form's search functionality](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role#examples)
 
 ## Examples

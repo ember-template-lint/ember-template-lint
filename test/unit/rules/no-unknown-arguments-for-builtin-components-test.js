@@ -11,6 +11,8 @@ generateRuleTests({
     '<LinkTo @route="info" @model={{this.model}} />',
     '<LinkTo @route="info" />',
     '<LinkTo @query={{hash foo=bar}} />',
+    '<LinkTo @model={{this.model}} />',
+    '<LinkTo @models={{array comment.photo comment}} />',
   ],
 
   bad: [
@@ -94,27 +96,6 @@ generateRuleTests({
               "rule": "no-unknown-arguments-for-builtin-components",
               "severity": 2,
               "source": "@madel",
-            },
-          ]
-        `);
-      },
-    },
-
-    {
-      template: '<LinkTo @model={{this.model}} />',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 1,
-              "endColumn": 32,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "Arguments \\"@route\\" or \\"@query\\" is required for <LinkTo /> component.",
-              "rule": "no-unknown-arguments-for-builtin-components",
-              "severity": 2,
-              "source": "LinkTo",
             },
           ]
         `);

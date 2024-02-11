@@ -25,6 +25,10 @@ generateRuleTests({
       <title>Title here</title>
       <circle cx="10" cy="10" r="10"></circle>
     </svg>`,
+    {
+      config: { additionalNonSemanticTags: ['custom-element'] },
+      template: `<button><div>item1</div><custom-element>item2</custom-element></button>`,
+    },
   ],
 
   bad: [

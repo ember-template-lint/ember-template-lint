@@ -12,7 +12,7 @@ This rule **forbids** the following:
 
 ```hbs
 <input type="text" aria-not-real="true" />
-<div role="region" aria-live="bogus">Inaccessible live region</div>',
+<div role="region" aria-live="bogus">Inaccessible live region</div>
 <button type="submit" disabled="true" aria-disabled="123">Submit</button>
 ```
 
