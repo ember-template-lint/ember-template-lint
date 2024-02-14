@@ -76,8 +76,6 @@ describe('editors integration', function () {
         'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>';
 
       let typescriptWithInlineTemplate =
-        `import { hbs } from 'ember-cli-htmlbars';\n` +
-        `import { setComponentTemplate } from '@ember/component';\n` +
         `import Component from '@glimmer/component';\n` +
         '\n' +
         'interface Args {}\n' +
