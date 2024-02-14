@@ -483,17 +483,15 @@ describe('public api', function () {
         app: {
           components: {
             'bar.gts':
-              `import { hbs } from 'ember-cli-htmlbars';\n` +
-              `import { setComponentTemplate } from '@ember/component';\n` +
               `import Component from '@glimmer/component';\n` +
               '\n' +
               'interface Args {}\n' +
               '\n' +
-              'export const SomeComponent = setComponentTemplate(hbs`\n' +
-              '  {{debugger}}\n' +
-              '  `,\n' +
-              '  class Some extends Component<Args> {}\n' +
-              ');\n' +
+              'export class Some extends Component<Args> {\n' +
+              '  <template>\n' +
+              '    {{debugger}}\n' +
+              '  </template>\n' +
+              '}\n' +
               '\n' +
               '<template>\n' +
               '  {{debugger}}\n' +
