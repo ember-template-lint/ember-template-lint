@@ -133,11 +133,11 @@ describe('editors integration', function () {
 
       it('for multiple components in one module, it has exit code 1 and reports errors to stdout', async function () {
         project.setConfig({ rules: { 'no-debugger': true } });
-        project.write({ 'some-module.js': multipleComponents });
+        project.write({ 'some-module.gjs': multipleComponents });
 
-        let result = await runBin('--format', 'json', '--filename', 'some-module.js', {
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', {
           shell: false,
-          input: fs.readFileSync(path.resolve('some-module.js')),
+          input: fs.readFileSync(path.resolve('some-module.gjs')),
         });
 
         let expectedOutputData = {};
@@ -145,14 +145,14 @@ describe('editors integration', function () {
          * Indentation is adjusted for the whole file, and not
          * scoped to the template
          */
-        expectedOutputData['some-module.js'] = [
+        expectedOutputData['some-module.gjs'] = [
           {
             column: 2,
             endColumn: 14,
             endLine: 6,
             line: 6,
             message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
+            filePath: 'some-module.gjs',
             rule: 'no-debugger',
             severity: 2,
             source: '{{debugger}}',
@@ -163,7 +163,7 @@ describe('editors integration', function () {
             endLine: 12,
             line: 12,
             message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
+            filePath: 'some-module.gjs',
             rule: 'no-debugger',
             severity: 2,
             source: '{{debugger}}',
