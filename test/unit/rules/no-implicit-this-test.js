@@ -29,40 +29,21 @@ let good = [
     template: '{{foo-bar data-test-foo}}',
   },
   {
-    template: `import { hbs } from 'ember-cli-htmlbars';
-      import { setComponentTemplate } from '@ember/component';
-      import templateOnly from '@ember/component/template-only';
-      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
+    template: `
+      export const SomeComponent = <template>
+        {{book}}
+      </template>;`,
     meta: {
       filePath: 'layout.gjs',
     },
   },
   {
-    template: `import { hbs } from 'ember-cli-htmlbars';
-      import { setComponentTemplate } from '@ember/component';
-      import templateOnly from '@ember/component/template-only';
-      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
+    template: `
+      export const SomeComponent = <template>
+        {{book}}
+      </template>;`,
     meta: {
       filePath: 'layout.gts',
-    },
-  },
-  {
-    config: { isStrictMode: false },
-    template: `import { hbs } from 'ember-cli-htmlbars';
-      import { setComponentTemplate } from '@ember/component';
-      import templateOnly from '@ember/component/template-only';
-      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
-    meta: {
-      filePath: 'layout.js',
-    },
-  },
-  {
-    template: `import { hbs } from 'ember-cli-htmlbars';
-      import { setComponentTemplate } from '@ember/component';
-      import templateOnly from '@ember/component/template-only';
-      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
-    meta: {
-      filePath: 'layout.ts',
     },
   },
 ];
@@ -294,10 +275,7 @@ generateRuleTests({
       meta: {
         filePath: 'layout.gjs',
       },
-      template: `import { hbs } from 'ember-template-imports';
-      import { setComponentTemplate } from '@ember/component';
-      import templateOnly from '@ember/component/template-only';
-      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
+      template: `export const SomeComponent = <template>{{book}}</template>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -320,10 +298,7 @@ generateRuleTests({
       meta: {
         filePath: 'layout.gjs',
       },
-      template: `import { hbs as theHbs } from 'ember-template-imports';
-      import { setComponentTemplate } from '@ember/component';
-      import templateOnly from '@ember/component/template-only';
-      export const SomeComponent = setComponentTemplate(theHbs\`{{book}}\`, templateOnly());`,
+      template: `export const SomeComponent = <template>{{book}}</template>`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
