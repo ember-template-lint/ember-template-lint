@@ -1,6 +1,7 @@
-import * as util from 'ember-template-imports/src/util.js';
-
 import { coordinatesOf, extractTemplates } from '../../lib/extract-templates.js';
+import { Preprocessor } from 'content-tag';
+
+const p = new Preprocessor();
 
 describe('extractTemplates', function () {
   const handlebarsTemplate = '<div></div>';
@@ -118,19 +119,20 @@ describe('extractTemplates', function () {
 describe('calculate template coordinates', function () {
   it('should contain only valid rule configuration', function () {
     let typescript =
-      `import Component from '@glimmer/component';\n` +
-      '\n' +
-      'interface Args {}\n' +
-      '\n' +
-      'export class SomeComponent extends Component<Args> {\n' +
-      '  <template>\n' +
-      '    {{debugger}}\n' +
-      '  </template>\n' +
-      '}\n';
-    expect(coordinatesOf(typescript, 228)).toEqual({
-      line: 8,
-      column: 12,
-      columnOffset: 2,
-    });
+      /* 1 */ `import Component from '@glimmer/component';\n` +
+      /* 2 */ '\n' +
+      /* 3 */ 'interface Args {}\n' +
+      /* 4 */ '\n' +
+      /* 5 */ 'export class SomeComponent extends Component<Args> {\n' +
+      /* 6 */ '  <template>\n' +
+      /* 7 */ '    {{debugger}}\n' +
+      /* 8 */ '  </template>\n' +
+      /* 9 */ '}\n';
+
+    const parsed = p.parse(typescript);
+    const result = coordinatesOf(typescript, parsed[0]);
+    expect(result.line).toBe(6);
+    expect(result.column).toBe(2);
+    expect(result.columnOffset).toBe(2);
   });
 });
