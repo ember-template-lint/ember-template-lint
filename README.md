@@ -18,7 +18,7 @@ the `no-bare-strings` rule found an error.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) `^16.0.0 || ^18.0.0 || >= 20.0.0`
+- [Node.js](https://nodejs.org/) `^18.0.0 || ^20.0.0 || >= 21.0.0`
 
 ## Installation
 
