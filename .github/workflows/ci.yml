@@ -25,7 +25,6 @@ jobs:
     env:
       NODE_OPTIONS: --max-old-space-size=4096
 
-
     steps:
       - uses: actions/checkout@v4
 
@@ -50,7 +49,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [14.x, 16.x, 18.x, 19.x]
+        node-version: [18.x, 20.x, 21.x]
 
         # excluded because it is the `test` job above
         exclude:
