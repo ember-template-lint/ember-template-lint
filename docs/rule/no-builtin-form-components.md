@@ -1,5 +1,7 @@
 # no-builtin-form-components
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Ember's built-in form components use two-way data binding, where the property passed as `@value` or `@checked` is mutated by user interaction. This goes against the Data Down Actions Up principle, goes against Glimmer Components’ intention to have immutable arguments, and is [discouraged by the Ember Core team](https://www.pzuraq.com/on-mut-and-2-way-binding/).
 
 ## Examples
