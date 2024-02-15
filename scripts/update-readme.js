@@ -55,6 +55,6 @@ const readmeNewContent = readmeContent.replace(
   `<!--RULES_TABLE_START-->\n\n| Name | ${EMOJI_RECOMMENDED} | ${EMOJI_STYLISTIC} | ${EMOJI_A11Y} | ${EMOJI_FIXABLE} |\n|:--------|:---|:---|:---|\n${rulesTableContent}\n\n<!--RULES_TABLE_END-->`
 );
 
-const readmeFormattedNewContent = prettier.format(readmeNewContent, prettierConfig);
+const readmeFormattedNewContent = await prettier.format(readmeNewContent, prettierConfig);
 
 fs.writeFileSync(pathReadme, readmeFormattedNewContent);
