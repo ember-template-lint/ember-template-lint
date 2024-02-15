@@ -48,14 +48,12 @@ generateRuleTests({
     {
       config: 'always',
       template: [
-        "import { hbs } from 'ember-cli-htmlbars';",
-        '',
         "test('it renders', async (assert) => {",
-        '  await render(hbs`<img>`);',
+        '  await render(<template><img></template>);',
         ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.js',
+        filePath: 'layout.gjs',
       },
     },
   ],
