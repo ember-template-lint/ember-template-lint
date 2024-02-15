@@ -1,5 +1,7 @@
 # no-action-on-submit-button
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 In a `<form>`, this rule requires all `<button>` elements with a `type="submit"` attribute to not have any click action.
 
 When the `type` attribute of `<button>` elements is `submit`, the action should be on the `<form>` element instead of directly on the button.

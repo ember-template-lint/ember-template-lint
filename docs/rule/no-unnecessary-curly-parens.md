@@ -1,5 +1,7 @@
 # no-unnecessary-curly-parens
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 Parentheses are used to wrap helpers within mustache expressions. The only situation where it is required to wrap the entire mustache expression is when invoking a helper without providing any arguments.
