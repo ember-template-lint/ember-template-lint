@@ -8,14 +8,14 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: ['eslint-comments', 'filenames', 'import', 'n', 'prettier', 'unicorn'],
+  plugins: ['eslint-comments', 'filenames', 'import', 'node', 'prettier', 'unicorn'],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:jest/recommended',
-    'plugin:n/recommended',
+    'plugin:node/recommended',
     'plugin:unicorn/recommended',
     'plugin:prettier/recommended',
   ],
@@ -97,14 +97,14 @@ module.exports = {
     'jest/no-conditional-expect': 'off',
 
     // Node rules:
-    'n/no-unsupported-features/es-syntax': [
+    'node/no-unsupported-features/es-syntax': [
       'error',
       {
         ignores: ['dynamicImport', 'modules'], // False positives: https://github.com/mysticatea/eslint-plugin-node/issues/250
       },
     ],
 
-    'n/no-extraneous-import': [
+    'node/no-extraneous-import': [
       'error',
       {
         allowModules: ['@jest/globals'],
