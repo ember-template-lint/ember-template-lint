@@ -33,7 +33,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<html lang="abracadabra"></Html>
+<html lang="abracadabra"></html>
 ```
 
 This rule **allows** the following:

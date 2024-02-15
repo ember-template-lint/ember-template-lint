@@ -25,9 +25,8 @@ jobs:
     env:
       NODE_OPTIONS: --max-old-space-size=4096
 
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: volta-cli/action@v4
 
@@ -50,7 +49,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [14.x, 16.x, 18.x, 19.x]
+        node-version: [18.x, 20.x, 21.x]
 
         # excluded because it is the `test` job above
         exclude:
@@ -58,7 +57,7 @@ jobs:
             node-version: 18.x
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: volta-cli/action@v4
         with:
@@ -67,11 +66,7 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-      # Temporarily exclude `test/unit/get-config-test.js` in Node versions before 16 (TODO: remove eventually).
-      # Tests triggering `resolveProjectConfig` and thus `await import()` for config/plugin loading cause this error:
-      #   ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.
-      # Possibly related: https://github.com/facebook/jest/issues/11438
-      - run: npm run test:jest -- --testPathIgnorePatterns=test/unit/get-config-test.js --testPathIgnorePatterns=test/acceptance/public-api-test.js
+      - run: npm run test:jest
 
   floating-dependencies:
     name: Floating Dependencies
@@ -81,7 +76,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: volta-cli/action@v4
 

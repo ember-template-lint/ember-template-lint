@@ -18,7 +18,7 @@ the `no-bare-strings` rule found an error.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) `^14.18.0 || ^16.0.0 || >=18.0.0`
+- [Node.js](https://nodejs.org/) `^18.18.0 || ^20.9.0 || >=21.1.0`
 
 ## Installation
 
@@ -103,15 +103,18 @@ Each rule has emojis denoting:
 | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           | ✅  |     | ⌨️  | 🔧  |
 | [no-action](./docs/rule/no-action.md)                                                                     | ✅  |     |     |     |
 | [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |     |     |     |     |
+| [no-action-on-submit-button](./docs/rule/no-action-on-submit-button.md)                                   | ✅  |     |     |     |
 | [no-args-paths](./docs/rule/no-args-paths.md)                                                             | ✅  |     |     |     |
 | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | ✅  |     |     |     |
 | [no-aria-hidden-body](./docs/rule/no-aria-hidden-body.md)                                                 | ✅  |     | ⌨️  | 🔧  |
 | [no-aria-unsupported-elements](./docs/rule/no-aria-unsupported-elements.md)                               | ✅  |     | ⌨️  |     |
 | [no-array-prototype-extensions](./docs/rule/no-array-prototype-extensions.md)                             | ✅  |     |     | 🔧  |
+| [no-at-ember-render-modifiers](./docs/rule/no-at-ember-render-modifiers.md)                               | ✅  |     |     |     |
 | [no-attrs-in-components](./docs/rule/no-attrs-in-components.md)                                           | ✅  |     |     |     |
 | [no-autofocus-attribute](./docs/rule/no-autofocus-attribute.md)                                           | ✅  |     | ⌨️  |     |
 | [no-bare-strings](./docs/rule/no-bare-strings.md)                                                         |     |     |     |     |
 | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     | ✅  |     |     |     |
+| [no-builtin-form-components](./docs/rule/no-builtin-form-components.md)                                   | ✅  |     |     |     |
 | [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               | ✅  |     |     |     |
 | [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     | ✅  |     |     |     |
 | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             | ✅  |     |     | 🔧  |
@@ -171,8 +174,8 @@ Each rule has emojis denoting:
 | [no-unknown-arguments-for-builtin-components](./docs/rule/no-unknown-arguments-for-builtin-components.md) | ✅  |     |     | 🔧  |
 | [no-unnecessary-component-helper](./docs/rule/no-unnecessary-component-helper.md)                         | ✅  |     |     | 🔧  |
 | [no-unnecessary-concat](./docs/rule/no-unnecessary-concat.md)                                             |     | 💅  |     | 🔧  |
-| [no-unnecessary-curly-parens](./docs/rule/no-unnecessary-curly-parens.md)                                 |     |     |     | 🔧  |
-| [no-unnecessary-curly-strings](./docs/rule/no-unnecessary-curly-strings.md)                               |     |     |     | 🔧  |
+| [no-unnecessary-curly-parens](./docs/rule/no-unnecessary-curly-parens.md)                                 | ✅  |     |     | 🔧  |
+| [no-unnecessary-curly-strings](./docs/rule/no-unnecessary-curly-strings.md)                               | ✅  |     |     | 🔧  |
 | [no-unsupported-role-attributes](./docs/rule/no-unsupported-role-attributes.md)                           | ✅  |     | ⌨️  | 🔧  |
 | [no-unused-block-params](./docs/rule/no-unused-block-params.md)                                           | ✅  |     |     |     |
 | [no-valueless-arguments](./docs/rule/no-valueless-arguments.md)                                           | ✅  |     |     |     |
@@ -198,7 +201,7 @@ Each rule has emojis denoting:
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |
 | [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     | 🔧  |
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     | 🔧  |
-| [simple-modifiers](./docs/rule/simple-modifiers.md)                                                       |     |     |     |     |
+| [simple-modifiers](./docs/rule/simple-modifiers.md)                                                       | ✅  |     |     |     |
 | [simple-unless](./docs/rule/simple-unless.md)                                                             | ✅  |     |     | 🔧  |
 | [splat-attributes-only](./docs/rule/splat-attributes-only.md)                                             | ✅  |     |     |     |
 | [style-concatenation](./docs/rule/style-concatenation.md)                                                 | ✅  |     |     |     |

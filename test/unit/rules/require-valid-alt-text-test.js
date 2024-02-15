@@ -18,8 +18,15 @@ generateRuleTests({
     '<img alt="some-alt-name">',
     '<img alt="name {{picture}}">',
     '<img alt="{{picture}}">',
+    '<img alt="">',
+    '<img alt="" src="zoey.jpg">',
     '<img alt="" role="none">',
     '<img alt="" role="presentation">',
+
+    '<img alt>',
+    '<img alt role="none">',
+    '<img alt role="presentation">',
+    '<img alt src="zoey.jpg">',
 
     // Valid words containing redundant words.
     '<img alt="logout">',
@@ -91,48 +98,6 @@ generateRuleTests({
               "rule": "require-valid-alt-text",
               "severity": 2,
               "source": "<img src=\\"zoey.jpg\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt="" src="zoey.jpg">',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 27,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt=\\"\\" src=\\"zoey.jpg\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt src="zoey.jpg">',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 24,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt src=\\"zoey.jpg\\">",
             },
           ]
         `);

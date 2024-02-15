@@ -4,6 +4,94 @@
 
 
 
+
+
+
+
+
+
+
+## v5.13.0 (2023-11-21)
+
+#### :rocket: Enhancement
+* [#2990](https://github.com/ember-template-lint/ember-template-lint/pull/2990) Add new rule `no-builtin-form-components` ([@gilest](https://github.com/gilest))
+
+#### Committers: 1
+- Giles Thompson ([@gilest](https://github.com/gilest))
+
+
+## v5.12.0 (2023-11-04)
+
+#### :rocket: Enhancement
+* [#1931](https://github.com/ember-template-lint/ember-template-lint/pull/1931) Add new rule `no-action-on-submit-button` ([@JoaoDsv](https://github.com/JoaoDsv))
+* [#2970](https://github.com/ember-template-lint/ember-template-lint/pull/2970) Support auto-lookup of `.mjs` and `.cjs` config files ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :bug: Bug Fix
+* [#2982](https://github.com/ember-template-lint/ember-template-lint/pull/2982) Disable `modifier-name-case` rule for gjs/gts ([@chancancode](https://github.com/chancancode))
+
+#### :memo: Documentation
+* [#2967](https://github.com/ember-template-lint/ember-template-lint/pull/2967) Update example markup for consistency and errors ([@chrisrng](https://github.com/chrisrng))
+
+#### Committers: 4
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- Chris Ng ([@chrisrng](https://github.com/chrisrng))
+- Godfrey Chan ([@chancancode](https://github.com/chancancode))
+- Joao Da Silva Marly ([@JoaoDsv](https://github.com/JoaoDsv))
+
+
+## v5.11.2 (2023-08-12)
+
+#### :bug: Bug Fix
+* [#2954](https://github.com/ember-template-lint/ember-template-lint/pull/2954) Don't require redundant role for `<img alt="" />` in `require-valid-alt-text` rule ([@HeroicEric](https://github.com/HeroicEric))
+* [#2955](https://github.com/ember-template-lint/ember-template-lint/pull/2955) Update @lint-todo/utils to 3.1.1 ([@Techn1x](https://github.com/Techn1x))
+
+#### Committers: 2
+- Brad Overton ([@Techn1x](https://github.com/Techn1x))
+- Eric Kelly ([@HeroicEric](https://github.com/HeroicEric))
+
+
+## v5.11.1 (2023-07-19)
+
+#### :bug: Bug Fix
+* [#2940](https://github.com/ember-template-lint/ember-template-lint/pull/2940) Fixes location reporting in `simple-unless` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### Committers: 1
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
+## v5.11.0 (2023-06-27)
+
+#### :rocket: Enhancement
+* [#2554](https://github.com/ember-template-lint/ember-template-lint/pull/2554) Add new rule `no-at-ember-render-modifiers` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+
+## v5.10.3 (2023-06-17)
+
+#### :bug: Bug Fix
+* [#2917](https://github.com/ember-template-lint/ember-template-lint/pull/2917) Fix crash in `no-unsupported-role-attributes` rule ([@jaswilli](https://github.com/jaswilli))
+
+#### Committers: 1
+- Jason Williams ([@jaswilli](https://github.com/jaswilli))
+
+
+## v5.10.2 (2023-06-16)
+
+#### :bug: Bug Fix
+* [#2914](https://github.com/ember-template-lint/ember-template-lint/pull/2914) Fix `aria-query` related crash in `no-unsupported-role-attributes` rule ([@bmish](https://github.com/bmish))
+* [#2907](https://github.com/ember-template-lint/ember-template-lint/pull/2907) Fix location reporting in `block-indentation` rule ([@judithhinlung](https://github.com/judithhinlung))
+
+#### :house: Internal
+* [#2915](https://github.com/ember-template-lint/ember-template-lint/pull/2915) Update incorrect tests ([@ef4](https://github.com/ef4))
+
+#### Committers: 3
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+- Judith Lung ([@judithhinlung](https://github.com/judithhinlung))
+
+
 ## v5.10.1 (2023-06-07)
 
 #### :bug: Bug Fix

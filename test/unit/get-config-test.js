@@ -1,5 +1,3 @@
-// TODO: This test file is temporarily disabled in Node versions before 16 (see ci.yml).
-
 import { stripIndent } from 'common-tags';
 import { join } from 'node:path';
 
@@ -968,6 +966,38 @@ describe('getRuleFromString', function () {
       expect(error.message).toEqual(
         'Error parsing specified `--rule` config no-implicit-this:["error", "allow": ["some-helper"] }] as JSON.'
       );
+    }
+  });
+
+  it('supports a `.template-lintrc.mjs` config file', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      '.template-lintrc.mjs': `export default { extends: 'recommended' };`,
+    });
+
+    try {
+      const config = await resolveProjectConfig(project.baseDir, {});
+
+      expect(config).toEqual({ extends: 'recommended' });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('supports a `.template-lintrc.cjs` config file', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      '.template-lintrc.cjs': `module.exports = { extends: 'recommended' };`,
+    });
+
+    try {
+      const config = await resolveProjectConfig(project.baseDir, {});
+
+      expect(config).toEqual({ extends: 'recommended' });
+    } finally {
+      project.dispose();
     }
   });
 });

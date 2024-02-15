@@ -12,7 +12,7 @@ This rule **forbids** the following:
 
 ### `<img>`
 
-An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string. If it is an empty string, the `<img>` element tag must also have `role="presentation"` or `role="none"`.
+An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string.
 
 The content of an `alt` attribute is used to calculate the machine-readable label of an element, whereas the text content is used to produce a label for the element. For this reason, adding a label to an icon can produce a confusing or duplicated label on a control that already has appropriate text content.
 
@@ -25,13 +25,13 @@ Numbers are not considered valid alt text, and this rule disallows using only nu
 This rule **forbids** the following:
 
 ```hbs
-<img src="rwjblue.png">
+<img src="rwjblue.png" />
 <img src="foo" alt="Photo of foo being weird." />
 <img src="foo" alt="YourCompany logo" />
 <img src="bar" alt="Image of me at a bar!" />
 <img src="baz" alt="Picture of baz fixing a bug." />
 <img src="b52.jpg" alt="52" />
-<img src="foo" alt="foo as a banana" role="presentation">
+<img src="foo" alt="foo as a banana" role="presentation" />
 ```
 
 This rule **allows** the following:
