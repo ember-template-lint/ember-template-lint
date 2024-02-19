@@ -117,7 +117,7 @@
     "sort-package-json": "^2.5.1",
     "yeoman-environment": "^3.19.3",
     "yeoman-generator": "^5.9.0",
-    "yeoman-test": "^7.4.0"
+    "yeoman-test": "^8.2.0"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
