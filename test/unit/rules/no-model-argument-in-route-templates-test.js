@@ -6,7 +6,6 @@ generateRuleTests({
   config: true,
   meta: {
     filePath: 'app/templates/foo.hbs',
-    moduleId: 'app/templates/foo',
   },
 
   good: [
@@ -17,14 +16,12 @@ generateRuleTests({
       template: '{{@model}}',
       meta: {
         filePath: 'app/components/foo.hbs',
-        moduleId: 'app/components/foo',
       },
     },
     {
       template: '{{@model}}',
       meta: {
         filePath: 'app/templates/components/foo.hbs',
-        moduleId: 'app/templates/components/foo',
       },
     },
   ],
