@@ -12,6 +12,30 @@
 
 
 
+## v6.0.0 (2024-03-29)
+
+#### :boom: Breaking Change
+* [#3029](https://github.com/ember-template-lint/ember-template-lint/pull/3029) Enable more `recommended` rules: `no-action-on-submit-button`, `no-at-ember-render-modifiers`, `no-builtin-form-components`, `no-unnecessary-curly-parens`, `no-unnecessary-curly-strings`, `simple-modifiers` ([@bmish](https://github.com/bmish))
+* [#3031](https://github.com/ember-template-lint/ember-template-lint/pull/3031) Replace `4-x-recommended` config with `5-x-recommended` ([@bmish](https://github.com/bmish))
+* [#3023](https://github.com/ember-template-lint/ember-template-lint/pull/3023) Drop support for Node 14, 16, 19 ([@Techn1x](https://github.com/Techn1x))
+* [#2913](https://github.com/ember-template-lint/ember-template-lint/pull/2913) Add additional elements to `DOCUMENT_STRUCTURE_ROLES` for `no-invalid-role` rule ([@mrloop](https://github.com/mrloop))
+* [#2729](https://github.com/ember-template-lint/ember-template-lint/pull/2729) Add `param` to obsolete list in `no-obsolete-elements` rule ([@geneukum](https://github.com/geneukum))
+
+#### :house: Internal
+* [#3024](https://github.com/ember-template-lint/ember-template-lint/pull/3024) Switch to eslint-plugin-n ([@Techn1x](https://github.com/Techn1x))
+* [#3026](https://github.com/ember-template-lint/ember-template-lint/pull/3026) Update to eslint-plugin-unicorn v51 ([@Techn1x](https://github.com/Techn1x))
+* [#3025](https://github.com/ember-template-lint/ember-template-lint/pull/3025) Update to prettier v3 ([@Techn1x](https://github.com/Techn1x))
+* [#3028](https://github.com/ember-template-lint/ember-template-lint/pull/3028) Start running test that was disabled in Node 14 ([@bmish](https://github.com/bmish))
+
+#### Committers: 4
+- Brad Overton ([@Techn1x](https://github.com/Techn1x))
+- Bryan Mishkin ([@bmish](https://github.com/bmish))
+- Ewan McDougall ([@mrloop](https://github.com/mrloop))
+- Geordan Neukum ([@geneukum](https://github.com/geneukum))
+
+Tracking issue: https://github.com/ember-template-lint/ember-template-lint/issues/2712
+
+
 ## v6.0.0-alpha.0 (2024-02-15)
 
 #### :boom: Breaking Change
