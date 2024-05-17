@@ -56,6 +56,12 @@ generateRuleTests({
       },
       template: '<ul class="list" role="combobox"></ul>',
     },
+    {
+      config: {
+        checkAllHTMLElements: false,
+      },
+      template: '<input role="combobox" />',
+    },
   ],
 
   bad: [
@@ -268,6 +274,30 @@ generateRuleTests({
         `);
       },
     },
+    // {
+    //   config: { checkAllHTMLElements: true },
+    //   template: '<input type="checkbox" name="agree" value="checkbox1" role="combobox" />',
+    //   fixedTemplate: '<input type="checkbox" name="agree" value="checkbox1" />',
+
+    //   verifyResults(results) {
+    //     expect(results).toMatchInlineSnapshot(`
+    //       [
+    //         {
+    //           "column": 0,
+    //           "endColumn": 72,
+    //           "endLine": 1,
+    //           "filePath": "layout.hbs",
+    //           "isFixable": true,
+    //           "line": 1,
+    //           "message": "Use of redundant or invalid role: combobox on <input> detected.",
+    //           "rule": "no-redundant-role",
+    //           "severity": 2,
+    //           "source": "<input type=\\"checkbox\\" name=\\"agree\\" value=\\"checkbox1\\" role=\\"combobox\\" />",
+    //         },
+    //       ]
+    //     `);
+    //   },
+    // },
     {
       config: { checkAllHTMLElements: true },
       template: '<table><th role="columnheader">Some heading</th><td>cell1</td></table>',
