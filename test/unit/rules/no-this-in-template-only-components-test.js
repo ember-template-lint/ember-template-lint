@@ -16,6 +16,18 @@ generateRuleTests({
         filePath: 'app/templates/route-template.hbs',
       },
     },
+    {
+      template: '<button {{on "click" this.nested}}>Button</button>',
+      meta: {
+        filePath: 'app/components/foo/index.hbs',
+      },
+    },
+    {
+      template: '<button {{on "click" this.pod}}>Button</button>',
+      meta: {
+        filePath: 'app/components/foo/template.hbs',
+      },
+    },
   ],
 
   bad: [
