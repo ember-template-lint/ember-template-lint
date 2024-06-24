@@ -116,7 +116,7 @@
     "release-it": "^17.0.0",
     "sort-package-json": "^2.5.1",
     "yeoman-environment": "^3.19.3",
-    "yeoman-generator": "^5.9.0",
+    "yeoman-generator": "^7.3.1",
     "yeoman-test": "^7.4.0"
   },
   "engines": {
