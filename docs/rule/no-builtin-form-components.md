@@ -73,16 +73,6 @@ export default class MyComponent extends Component {
 />
 ```
 
-You may consider composing the [set helper](https://github.com/pzuraq/ember-set-helper) with the [pick helper](https://github.com/DockYard/ember-composable-helpers#pick) to avoid creating an action within a component class.
-
-```hbs
-<input
-  type="text"
-  value={{this.name}}
-  {{on "input" (pick "target.value" (set this "name"))}}
-/>
-```
-
 ## Related Rules
 
 * [no-mut-helper](no-mut-helper.md)
