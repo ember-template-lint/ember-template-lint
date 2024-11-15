@@ -31,23 +31,17 @@ const NOOP_CONSOLE = {
   error: () => {},
 };
 
-function removeExt(filePath) {
-  return filePath.slice(0, -path.extname(filePath).length);
-}
-
 async function buildLinterOptions(workingDir, filePath, filename = '', isReadingStdin) {
   if (isReadingStdin) {
     let filePath = filename;
-    let moduleId = removeExt(filePath);
     let source = await getStdin();
 
-    return { source, filePath, moduleId };
+    return { source, filePath };
   } else {
-    let moduleId = removeExt(filePath);
     let resolvedFilePath = path.resolve(workingDir, filePath);
     let source = await readFile(resolvedFilePath, { encoding: 'utf8' });
 
-    return { source, filePath, moduleId };
+    return { source, filePath };
   }
 }
 
