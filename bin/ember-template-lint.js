@@ -172,15 +172,16 @@ async function run() {
 
   let filePaths;
   try {
-    filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+    filePaths = getFilesToLint(
+      options.workingDirectory,
+      positional,
+      options.ignorePattern,
+      options.errorOnUnmatchedPattern !== false
+    );
   } catch (error) {
-    if (error.name === 'NoMatchingFilesError' && options.errorOnUnmatchedPattern === false) {
-      return;
-    } else {
-      console.error(error.message);
-      process.exitCode = 1;
-      return;
-    }
+    console.error(error.message);
+    process.exitCode = 1;
+    return;
   }
 
   if (options.printConfig) {
