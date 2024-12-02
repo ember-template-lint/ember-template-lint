@@ -239,6 +239,36 @@ describe('ember-template-lint executable', function () {
       });
     });
 
+    describe('given --no-error-on-unmatched-pattern flag and a path to multiple files', function () {
+      it('should exit without an error', async function () {
+        await project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        await project.write({
+          app: {
+            templates: {
+              'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await runBin(
+          '--no-error-on-unmatched-pattern',
+          'app/templates/application.hbs',
+          'app/templates/application-1.hbs'
+        );
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
     describe('given path to single file with errors', function () {
       it('should print errors', async function () {
         await project.setConfig({
