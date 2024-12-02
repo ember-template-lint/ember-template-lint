@@ -1,0 +1,7 @@
+# Unlabeled Changes
+
+* `ember-template-lint`
+  * [#3087](https://github.com/ember-template-lint/ember-template-lint/pull/3087) Remove bad advice about ember-composable-helpers ([@ef4](https://github.com/ef4))
+
+
+*Cannot plan release until the above changes are labeled*.
