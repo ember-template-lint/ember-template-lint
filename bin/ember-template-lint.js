@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 /* eslint require-atomic-updates:"off" */
-/* eslint node/shebang:"off" -- shebang needed so this script can be run directly */
 
 // Use V8's code cache to speed up instantiation time:
 import 'v8-compile-cache'; // eslint-disable-line import/no-unassigned-import
@@ -173,15 +172,16 @@ async function run() {
 
   let filePaths;
   try {
-    filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+    filePaths = getFilesToLint(
+      options.workingDirectory,
+      positional,
+      options.ignorePattern,
+      options.errorOnUnmatchedPattern !== false
+    );
   } catch (error) {
-    if (error.name === 'NoMatchingFilesError' && options.errorOnUnmatchedPattern === false) {
-      return;
-    } else {
-      console.error(error.message);
-      process.exitCode = 1;
-      return;
-    }
+    console.error(error.message);
+    process.exitCode = 1;
+    return;
   }
 
   if (options.printConfig) {

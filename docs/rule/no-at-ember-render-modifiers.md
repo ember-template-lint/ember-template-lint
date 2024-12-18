@@ -1,5 +1,7 @@
 # no-at-ember-render-modifiers
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 `@ember/render-modifiers` were meant as a transitional tool from the pre-Octane era, and not long-term usage.
 
 More information about this can be found on the [`@ember/render-modifiers` README](https://github.com/emberjs/ember-render-modifiers#when-to-use-these-modifiers-and-when-not-to-use-them).
