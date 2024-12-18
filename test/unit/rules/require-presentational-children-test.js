@@ -20,6 +20,9 @@ generateRuleTests({
       </li>
     </ul>
     `,
+    `<button><img aria-hidden="true" /></button>`,
+    `<div role="button"><img aria-hidden="true" /></div>`,
+    `<div role="button"><img role="none" /></div>`,
     `
     <svg role="img">
       <title>Title here</title>
@@ -28,6 +31,10 @@ generateRuleTests({
     {
       config: { additionalNonSemanticTags: ['custom-element'] },
       template: `<button><div>item1</div><custom-element>item2</custom-element></button>`,
+    },
+    {
+      config: { additionalNonSemanticTags: ['custom-element'] },
+      template: `<div role="button"><div>item1</div><custom-element>item2</custom-element></div>`,
     },
   ],
 
