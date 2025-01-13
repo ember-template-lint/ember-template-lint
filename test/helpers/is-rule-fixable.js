@@ -15,7 +15,11 @@ export default function isRuleFixable(ruleName) {
 
   let isFixable = false;
 
-  traverse(ast, {
+  // the usage here depends on the running environment...
+  // which means @babel/traverse is compiled incorrectly...
+  //
+  // Errors on Node 18 without the '.default'
+  ('default' in traverse ? traverse.default : traverse)(ast, {
     ObjectProperty(path) {
       if (
         path.node.key.type === 'Identifier' &&
