@@ -75,6 +75,7 @@
     "@babel/parser": "^7.21.8",
     "@babel/traverse": "^7.22.8",
     "@scalvert/bin-tester": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.8",
     "common-tags": "^1.8.2",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.1.0",
