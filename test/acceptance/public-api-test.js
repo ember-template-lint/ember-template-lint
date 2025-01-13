@@ -339,8 +339,7 @@ describe('public api', function () {
       });
 
       expect(result).toMatchInlineSnapshot(
-        { messages: [{ filePath: expect.any(String) }] },
-        `
+        { messages: [{ filePath: expect.any(String) }] }, `
         {
           "isFixed": false,
           "messages": [
@@ -350,7 +349,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",
@@ -358,8 +357,7 @@ describe('public api', function () {
           ],
           "output": "<div>FORBIDDEN</div>",
         }
-      `
-      );
+      `);
     });
 
     it('ensures template parsing errors are only reported once (not once per-rule)', async function () {
@@ -1406,8 +1404,7 @@ describe('public api', function () {
       });
 
       expect(result).toMatchInlineSnapshot(
-        { messages: [{ filePath: expect.any(String) }] },
-        `
+        { messages: [{ filePath: expect.any(String) }] }, `
         {
           "isFixed": false,
           "messages": [
@@ -1417,7 +1414,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",
@@ -1425,8 +1422,7 @@ describe('public api', function () {
           ],
           "output": "<div>FORBIDDEN</div>",
         }
-      `
-      );
+      `);
     });
 
     it('[.html] ensures template parsing errors are only reported once (not once per-rule)', async function () {

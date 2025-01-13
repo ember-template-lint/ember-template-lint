@@ -56,28 +56,28 @@ describe('multi formatter', () => {
     `);
     expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
       "{
-        \\"app/templates/application.hbs\\": [
+        "app/templates/application.hbs": [
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 4,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 14,
-            \\"source\\": \\"Here too!!\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 4,
+            "endLine": 1,
+            "endColumn": 14,
+            "source": "Here too!!",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 25,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 48,
-            \\"source\\": \\"Bare strings are bad...\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 25,
+            "endLine": 1,
+            "endColumn": 48,
+            "source": "Bare strings are bad...",
+            "message": "Non-translated string used"
           }
         ]
       }"

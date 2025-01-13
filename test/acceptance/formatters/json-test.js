@@ -34,28 +34,28 @@ describe('JSON formatter', () => {
     expect(result.exitCode).toEqual(1);
     expect(result.stdout).toMatchInlineSnapshot(`
       "{
-        \\"app/templates/application.hbs\\": [
+        "app/templates/application.hbs": [
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 4,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 14,
-            \\"source\\": \\"Here too!!\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 4,
+            "endLine": 1,
+            "endColumn": 14,
+            "source": "Here too!!",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 25,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 48,
-            \\"source\\": \\"Bare strings are bad...\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 25,
+            "endLine": 1,
+            "endColumn": 48,
+            "source": "Bare strings are bad...",
+            "message": "Non-translated string used"
           }
         ]
       }"
@@ -84,43 +84,43 @@ describe('JSON formatter', () => {
     expect(result.exitCode).toEqual(1);
     expect(result.stdout).toMatchInlineSnapshot(`
       "{
-        \\"app/templates/application.hbs\\": [
+        "app/templates/application.hbs": [
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 4,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 14,
-            \\"source\\": \\"Here too!!\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 4,
+            "endLine": 1,
+            "endColumn": 14,
+            "source": "Here too!!",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 24,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 47,
-            \\"source\\": \\"Bare strings are bad...\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 24,
+            "endLine": 1,
+            "endColumn": 47,
+            "source": "Bare strings are bad...",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-html-comments\\",
-            \\"severity\\": 1,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 53,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 79,
-            \\"source\\": \\"<!-- bad html comment! -->\\",
-            \\"message\\": \\"HTML comment detected\\",
-            \\"fix\\": {
-              \\"text\\": \\"{{! bad html comment! }}\\"
+            "rule": "no-html-comments",
+            "severity": 1,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 53,
+            "endLine": 1,
+            "endColumn": 79,
+            "source": "<!-- bad html comment! -->",
+            "message": "HTML comment detected",
+            "fix": {
+              "text": "{{! bad html comment! }}"
             },
-            \\"isFixable\\": true
+            "isFixable": true
           }
         ]
       }"
@@ -148,18 +148,18 @@ describe('JSON formatter', () => {
     expect(result.exitCode).toEqual(1);
     expect(result.stdout).toMatchInlineSnapshot(`
       "{
-        \\"app/components/click-me-button.hbs\\": [
+        "app/components/click-me-button.hbs": [
           {
-            \\"rule\\": \\"require-button-type\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/components/click-me-button.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 0,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 26,
-            \\"source\\": \\"<button>Click me!</button>\\",
-            \\"message\\": \\"All \`<button>\` elements should have a valid \`type\` attribute\\",
-            \\"isFixable\\": true
+            "rule": "require-button-type",
+            "severity": 2,
+            "filePath": "app/components/click-me-button.hbs",
+            "line": 1,
+            "column": 0,
+            "endLine": 1,
+            "endColumn": 26,
+            "source": "<button>Click me!</button>",
+            "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+            "isFixable": true
           }
         ]
       }"
@@ -188,43 +188,43 @@ describe('JSON formatter', () => {
     expect(result.exitCode).toEqual(1);
     expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
       "{
-        \\"app/templates/application.hbs\\": [
+        "app/templates/application.hbs": [
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 4,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 14,
-            \\"source\\": \\"Here too!!\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 4,
+            "endLine": 1,
+            "endColumn": 14,
+            "source": "Here too!!",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 24,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 47,
-            \\"source\\": \\"Bare strings are bad...\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 24,
+            "endLine": 1,
+            "endColumn": 47,
+            "source": "Bare strings are bad...",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-html-comments\\",
-            \\"severity\\": 1,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 53,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 79,
-            \\"source\\": \\"<!-- bad html comment! -->\\",
-            \\"message\\": \\"HTML comment detected\\",
-            \\"fix\\": {
-              \\"text\\": \\"{{! bad html comment! }}\\"
+            "rule": "no-html-comments",
+            "severity": 1,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 53,
+            "endLine": 1,
+            "endColumn": 79,
+            "source": "<!-- bad html comment! -->",
+            "message": "HTML comment detected",
+            "fix": {
+              "text": "{{! bad html comment! }}"
             },
-            \\"isFixable\\": true
+            "isFixable": true
           }
         ]
       }"
@@ -254,43 +254,43 @@ describe('JSON formatter', () => {
     expect(result.stdout).toMatch(/.*json-output\.json/);
     expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
       "{
-        \\"app/templates/application.hbs\\": [
+        "app/templates/application.hbs": [
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 4,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 14,
-            \\"source\\": \\"Here too!!\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 4,
+            "endLine": 1,
+            "endColumn": 14,
+            "source": "Here too!!",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 24,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 47,
-            \\"source\\": \\"Bare strings are bad...\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 24,
+            "endLine": 1,
+            "endColumn": 47,
+            "source": "Bare strings are bad...",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-html-comments\\",
-            \\"severity\\": 1,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 53,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 79,
-            \\"source\\": \\"<!-- bad html comment! -->\\",
-            \\"message\\": \\"HTML comment detected\\",
-            \\"fix\\": {
-              \\"text\\": \\"{{! bad html comment! }}\\"
+            "rule": "no-html-comments",
+            "severity": 1,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 53,
+            "endLine": 1,
+            "endColumn": 79,
+            "source": "<!-- bad html comment! -->",
+            "message": "HTML comment detected",
+            "fix": {
+              "text": "{{! bad html comment! }}"
             },
-            \\"isFixable\\": true
+            "isFixable": true
           }
         ]
       }"
@@ -320,43 +320,43 @@ describe('JSON formatter', () => {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
         "{
-          \\"app/templates/application.hbs\\": [
+          "app/templates/application.hbs": [
             {
-              \\"rule\\": \\"no-bare-strings\\",
-              \\"severity\\": 2,
-              \\"filePath\\": \\"app/templates/application.hbs\\",
-              \\"line\\": 1,
-              \\"column\\": 4,
-              \\"endLine\\": 1,
-              \\"endColumn\\": 14,
-              \\"source\\": \\"Here too!!\\",
-              \\"message\\": \\"Non-translated string used\\"
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "filePath": "app/templates/application.hbs",
+              "line": 1,
+              "column": 4,
+              "endLine": 1,
+              "endColumn": 14,
+              "source": "Here too!!",
+              "message": "Non-translated string used"
             },
             {
-              \\"rule\\": \\"no-bare-strings\\",
-              \\"severity\\": 2,
-              \\"filePath\\": \\"app/templates/application.hbs\\",
-              \\"line\\": 1,
-              \\"column\\": 24,
-              \\"endLine\\": 1,
-              \\"endColumn\\": 47,
-              \\"source\\": \\"Bare strings are bad...\\",
-              \\"message\\": \\"Non-translated string used\\"
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "filePath": "app/templates/application.hbs",
+              "line": 1,
+              "column": 24,
+              "endLine": 1,
+              "endColumn": 47,
+              "source": "Bare strings are bad...",
+              "message": "Non-translated string used"
             },
             {
-              \\"rule\\": \\"no-html-comments\\",
-              \\"severity\\": 2,
-              \\"filePath\\": \\"app/templates/application.hbs\\",
-              \\"line\\": 1,
-              \\"column\\": 53,
-              \\"endLine\\": 1,
-              \\"endColumn\\": 79,
-              \\"source\\": \\"<!-- bad html comment! -->\\",
-              \\"message\\": \\"HTML comment detected\\",
-              \\"fix\\": {
-                \\"text\\": \\"{{! bad html comment! }}\\"
+              "rule": "no-html-comments",
+              "severity": 2,
+              "filePath": "app/templates/application.hbs",
+              "line": 1,
+              "column": 53,
+              "endLine": 1,
+              "endColumn": 79,
+              "source": "<!-- bad html comment! -->",
+              "message": "HTML comment detected",
+              "fix": {
+                "text": "{{! bad html comment! }}"
               },
-              \\"isFixable\\": true
+              "isFixable": true
             }
           ]
         }"
@@ -383,7 +383,7 @@ describe('JSON formatter', () => {
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toMatchInlineSnapshot(`
         "{
-          \\"app/templates/application.hbs\\": []
+          "app/templates/application.hbs": []
         }"
       `);
       expect(result.stderr).toBeFalsy();

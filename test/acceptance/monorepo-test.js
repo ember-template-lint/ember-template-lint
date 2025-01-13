@@ -113,7 +113,7 @@ describe('monorepo setups', function () {
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
           "src/foo.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
@@ -158,7 +158,7 @@ describe('monorepo setups', function () {
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
           "src/bar.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
@@ -173,7 +173,7 @@ describe('monorepo setups', function () {
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
           "src/foo.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
@@ -188,10 +188,10 @@ describe('monorepo setups', function () {
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
           "packages/bar/src/bar.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           packages/foo/src/foo.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 2 problems (2 errors, 0 warnings)"
         `);
@@ -228,7 +228,7 @@ describe('monorepo setups', function () {
       expect(result.stderr).toMatchInlineSnapshot(`""`);
       expect(result.stdout).toMatchInlineSnapshot(`
         "src/foo.hbs
-          1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+          1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
         ✖ 1 problems (1 errors, 0 warnings)"
       `);
