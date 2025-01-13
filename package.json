@@ -17,6 +17,13 @@
     "type": "git",
     "url": "git+ssh://git@github.com/ember-template-lint/ember-template-lint.git"
   },
+  "files": [
+    "bin",
+    "lib",
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "README.md"
+  ],
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
   "type": "module",
