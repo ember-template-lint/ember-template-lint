@@ -50,8 +50,11 @@ describe('public api', function () {
         configPath: path.join(project.baseDir, '.template-lintrc.mjs'),
       });
 
+      /**
+       * This will be an absolute path in Node 22
+       */
       await expect(async () => await linter.loadConfig()).rejects.toThrow(
-        /Failed to load url \.\.\/foo\/bar/
+        /\/foo\/bar/
       );
     });
 
