@@ -51,7 +51,7 @@ describe('public api', function () {
       });
 
       await expect(async () => await linter.loadConfig()).rejects.toThrow(
-        /Cannot find module '..\/foo\/bar'/
+        /Failed to load url \.\.\/foo\/bar/
       );
     });
 
