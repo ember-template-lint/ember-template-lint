@@ -35,7 +35,7 @@ jobs:
 
       - run: npm run lint
 
-      - run: npm run test:jest
+      - run: npm run test:node
 
       - run: npm run update && git diff --exit-code
 
@@ -66,7 +66,7 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-      - run: npm run test:jest
+      - run: npm run test:node
 
   floating-dependencies:
     name: Floating Dependencies
@@ -83,4 +83,4 @@ jobs:
       - name: install dependencies
         run: npm install --no-package-lock
 
-      - run: npm run test:jest
+      - run: npm run test:node
