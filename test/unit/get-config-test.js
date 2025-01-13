@@ -200,7 +200,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Unknown top-level configuration property detected: foo"`
+      `[Error: Unknown top-level configuration property detected: foo]`
     );
   });
 
@@ -228,7 +228,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"An invalid \`format.formatter\` in \`.template-lintrc.js\` was provided. Unexpected property \`foo\`"`
+      `[Error: An invalid \`format.formatter\` in \`.template-lintrc.js\` was provided. Unexpected property \`foo\`]`
     );
   });
 
@@ -240,7 +240,7 @@ describe('get-config', function () {
             extends: 123,
           },
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"config.extends should be string or array"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`[TypeError: config.extends should be string or array]`);
   });
 
   it('warns for unknown rules', async function () {
@@ -267,7 +267,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Cannot find configuration for extends: plugin1:wrong-extend"`
+      `[Error: Cannot find configuration for extends: plugin1:wrong-extend]`
     );
   });
 
@@ -347,7 +347,7 @@ describe('get-config', function () {
           config: { plugins: [{}] },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Inline plugin object has not defined the plugin \`name\` property"`
+      `[Error: Inline plugin object has not defined the plugin \`name\` property]`
     );
   });
 
@@ -357,7 +357,7 @@ describe('get-config', function () {
         await getProjectConfig(project.baseDir, {
           config: { plugins: [123] },
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"Inline plugin is not a plain object"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Inline plugin is not a plain object]`);
   });
 
   it('throws when non-inline plugin is missing name', async function () {
@@ -379,7 +379,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Plugin (my-awesome-thing) has not defined the plugin \`name\` property"`
+      `[Error: Plugin (my-awesome-thing) has not defined the plugin \`name\` property]`
     );
   });
 
@@ -402,7 +402,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Plugin (my-awesome-thing) did not return a plain object"`
+      `[Error: Plugin (my-awesome-thing) did not return a plain object]`
     );
   });
 

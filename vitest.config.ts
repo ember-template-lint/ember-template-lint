@@ -5,7 +5,6 @@ export default defineConfig({
     // migration from jest
     globals: true,
     include: ['test/**/*-test.js'],
-    setupFiles: ['test/jest-setup.js'],
     coverage: {
       provider: 'v8',
       enabled: true,

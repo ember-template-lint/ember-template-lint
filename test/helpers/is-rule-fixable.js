@@ -15,7 +15,7 @@ export default function isRuleFixable(ruleName) {
 
   let isFixable = false;
 
-  traverse.default(ast, {
+  traverse(ast, {
     ObjectProperty(path) {
       if (
         path.node.key.type === 'Identifier' &&

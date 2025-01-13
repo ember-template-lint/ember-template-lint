@@ -28,7 +28,10 @@ describe('default configurations', function () {
           config: config.rules[rule],
         };
 
-        expect(() => new rules[rule](options)).not.toThrow();
+        expect(() => {
+          let klass = rules[rule];
+          new klass(options);
+        }).not.toThrow();
       }
     });
   });

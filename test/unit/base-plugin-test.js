@@ -174,7 +174,7 @@ describe('base plugin', function () {
       await expect(
         async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
       ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"ember-template-lint: (awesome-rule) Must pass the node or all loc properties (line, column, endLine, endColumn) when calling log."`
+        `[Error: ember-template-lint: (awesome-rule) Must pass the node or all loc properties (line, column, endLine, endColumn) when calling log.]`
       );
     });
 
@@ -188,7 +188,7 @@ describe('base plugin', function () {
       await expect(
         async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
       ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"ember-template-lint: (awesome-rule): must provide violation \`message\` when calling log."`
+        `[Error: ember-template-lint: (awesome-rule): must provide violation \`message\` when calling log.]`
       );
     });
 
