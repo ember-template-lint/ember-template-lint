@@ -69,7 +69,7 @@ generateRuleTests({
               "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
               "rule": "require-lang-attribute",
               "severity": 2,
-              "source": "<html lang=\\"\\"></html>",
+              "source": "<html lang=""></html>",
             },
           ]
         `);
@@ -115,7 +115,7 @@ generateRuleTests({
               "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
               "rule": "require-lang-attribute",
               "severity": 2,
-              "source": "<html lang=\\"\\"></html>",
+              "source": "<html lang=""></html>",
             },
           ]
         `);
@@ -136,7 +136,7 @@ generateRuleTests({
               "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
               "rule": "require-lang-attribute",
               "severity": 2,
-              "source": "<html lang=\\"gibberish\\"></html>",
+              "source": "<html lang="gibberish"></html>",
             },
           ]
         `);
@@ -159,7 +159,7 @@ generateRuleTests({
               "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
               "rule": "require-lang-attribute",
               "severity": 2,
-              "source": "<html lang=\\"gibberish\\"></html>",
+              "source": "<html lang="gibberish"></html>",
             },
           ]
         `);
@@ -205,7 +205,7 @@ generateRuleTests({
               "message": "The \`<html>\` element must have the \`lang\` attribute with a valid value",
               "rule": "require-lang-attribute",
               "severity": 2,
-              "source": "<html lang=\\"\\"></html>",
+              "source": "<html lang=""></html>",
             },
           ]
         `);

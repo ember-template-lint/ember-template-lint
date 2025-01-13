@@ -231,7 +231,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\"}}",
+              "source": "{{component "foo"}}",
             },
           ]
         `);
@@ -252,7 +252,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\" foo=bar}}",
+              "source": "{{component "foo" foo=bar}}",
             },
           ]
         `);
@@ -273,7 +273,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\" foo=(baz)}}",
+              "source": "{{component "foo" foo=(baz)}}",
             },
           ]
         `);
@@ -294,7 +294,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\"}}{{/component}}",
+              "source": "{{#component "foo"}}{{/component}}",
             },
           ]
         `);
@@ -315,7 +315,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\" foo=bar}}{{/component}}",
+              "source": "{{#component "foo" foo=bar}}{{/component}}",
             },
           ]
         `);
@@ -336,7 +336,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\" foo=(baz)}}{{/component}}",
+              "source": "{{#component "foo" foo=(baz)}}{{/component}}",
             },
           ]
         `);
@@ -357,7 +357,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\")",
+              "source": "(component "foo")",
             },
           ]
         `);
@@ -378,7 +378,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\" foo=bar)",
+              "source": "(component "foo" foo=bar)",
             },
           ]
         `);
@@ -399,7 +399,7 @@ generateRuleTests({
               "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\" foo=(baz))",
+              "source": "(component "foo" foo=(baz))",
             },
           ]
         `);

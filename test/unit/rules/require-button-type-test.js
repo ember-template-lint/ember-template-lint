@@ -83,7 +83,7 @@ generateRuleTests({
               "message": "All \`<button>\` elements should have a valid \`type\` attribute",
               "rule": "require-button-type",
               "severity": 2,
-              "source": "<button type=\\"\\" />",
+              "source": "<button type="" />",
             },
           ]
         `);
@@ -106,7 +106,7 @@ generateRuleTests({
               "message": "All \`<button>\` elements should have a valid \`type\` attribute",
               "rule": "require-button-type",
               "severity": 2,
-              "source": "<button type=\\"foo\\" />",
+              "source": "<button type="foo" />",
             },
           ]
         `);

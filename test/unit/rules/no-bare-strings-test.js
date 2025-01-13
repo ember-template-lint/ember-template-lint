@@ -547,7 +547,7 @@ generateRuleTests({
               "message": "Non-translated string used",
               "rule": "no-bare-strings",
               "severity": 2,
-              "source": " / error / &lpar;\\"",
+              "source": " / error / &lpar;"",
             },
           ]
         `);

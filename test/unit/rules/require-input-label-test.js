@@ -144,7 +144,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input title=\\"some title value\\" />",
+              "source": "<input title="some title value" />",
             },
           ]
         `);
@@ -224,7 +224,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input aria-label=\\"first label\\" aria-labelledby=\\"second label\\">",
+              "source": "<input aria-label="first label" aria-labelledby="second label">",
             },
           ]
         `);
@@ -244,7 +244,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input id=\\"label-input\\" aria-label=\\"second label\\">",
+              "source": "<input id="label-input" aria-label="second label">",
             },
           ]
         `);
@@ -264,7 +264,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input aria-label=\\"Custom label\\">",
+              "source": "<input aria-label="Custom label">",
             },
           ]
         `);
@@ -284,7 +284,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "{{input type=\\"button\\"}}",
+              "source": "{{input type="button"}}",
             },
           ]
         `);
@@ -324,7 +324,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input type=\\"button\\"/>",
+              "source": "<input type="button"/>",
             },
           ]
         `);
@@ -364,7 +364,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<Input type=\\"button\\"/>",
+              "source": "<Input type="button"/>",
             },
           ]
         `);
@@ -444,7 +444,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea title=\\"some title value\\" />",
+              "source": "<textarea title="some title value" />",
             },
           ]
         `);
@@ -524,7 +524,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea aria-label=\\"first label\\" aria-labelledby=\\"second label\\" />",
+              "source": "<textarea aria-label="first label" aria-labelledby="second label" />",
             },
           ]
         `);
@@ -544,7 +544,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea id=\\"label-input\\" aria-label=\\"second label\\" />",
+              "source": "<textarea id="label-input" aria-label="second label" />",
             },
           ]
         `);
@@ -564,7 +564,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea aria-label=\\"Custom label\\" />",
+              "source": "<textarea aria-label="Custom label" />",
             },
           ]
         `);
@@ -624,7 +624,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select title=\\"some title value\\" />",
+              "source": "<select title="some title value" />",
             },
           ]
         `);
@@ -664,7 +664,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select aria-label=\\"first label\\" aria-labelledby=\\"second label\\" />",
+              "source": "<select aria-label="first label" aria-labelledby="second label" />",
             },
           ]
         `);
@@ -684,7 +684,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select id=\\"label-input\\" aria-label=\\"second label\\" />",
+              "source": "<select id="label-input" aria-label="second label" />",
             },
           ]
         `);
@@ -704,7 +704,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select aria-label=\\"Custom label\\" />",
+              "source": "<select aria-label="Custom label" />",
             },
           ]
         `);

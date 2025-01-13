@@ -1068,7 +1068,7 @@ generateRuleTests({
               "source": "{{my-component
             foo=bar
             baz=qux
-            my-attr=(component \\"my-other-component\\" data=(hash
+            my-attr=(component "my-other-component" data=(hash
               foo=bar
               foo=bar
               baz=qux))
@@ -1111,7 +1111,7 @@ generateRuleTests({
               "source": "{{my-component
             foo=bar
             baz=qux
-            my-attr=(component \\"my-other-component\\" data=(hash
+            my-attr=(component "my-other-component" data=(hash
               foo=bar
               foo=bar
               baz=qux))}}",
@@ -1264,7 +1264,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'disabled' beginning at L1:C7. Expected 'disabled' to be at L2:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<input disabled type=\\"text\\" value=\\"abc\\" class=\\"classy classic classist\\" id=\\"input-now\\">",
+              "source": "<input disabled type="text" value="abc" class="classy classic classist" id="input-now">",
             },
             {
               "column": 16,
@@ -1275,7 +1275,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'type' beginning at L1:C16. Expected 'type' to be at L3:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<input disabled type=\\"text\\" value=\\"abc\\" class=\\"classy classic classist\\" id=\\"input-now\\">",
+              "source": "<input disabled type="text" value="abc" class="classy classic classist" id="input-now">",
             },
             {
               "column": 28,
@@ -1286,7 +1286,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'value' beginning at L1:C28. Expected 'value' to be at L4:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<input disabled type=\\"text\\" value=\\"abc\\" class=\\"classy classic classist\\" id=\\"input-now\\">",
+              "source": "<input disabled type="text" value="abc" class="classy classic classist" id="input-now">",
             },
             {
               "column": 40,
@@ -1297,7 +1297,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'class' beginning at L1:C40. Expected 'class' to be at L5:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<input disabled type=\\"text\\" value=\\"abc\\" class=\\"classy classic classist\\" id=\\"input-now\\">",
+              "source": "<input disabled type="text" value="abc" class="classy classic classist" id="input-now">",
             },
             {
               "column": 72,
@@ -1308,7 +1308,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'id' beginning at L1:C72. Expected 'id' to be at L6:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<input disabled type=\\"text\\" value=\\"abc\\" class=\\"classy classic classist\\" id=\\"input-now\\">",
+              "source": "<input disabled type="text" value="abc" class="classy classic classist" id="input-now">",
             },
             {
               "column": 86,
@@ -1319,7 +1319,7 @@ generateRuleTests({
               "message": "Incorrect indentation of close bracket '>' for the element '<input>' beginning at L1:C86. Expected '<input>' to be at L7:C0.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<input disabled type=\\"text\\" value=\\"abc\\" class=\\"classy classic classist\\" id=\\"input-now\\">",
+              "source": "<input disabled type="text" value="abc" class="classy classic classist" id="input-now">",
             },
           ]
         `);
@@ -1364,8 +1364,8 @@ generateRuleTests({
               "source": "<a
             disabled={{if
               true
-              (action \\"mostPowerfulAction\\" value=target.value)
-              (action \\"lessPowerfulAction\\" value=target.value)
+              (action "mostPowerfulAction" value=target.value)
+              (action "lessPowerfulAction" value=target.value)
             }}
           >{{contact-details
              firstName
@@ -1394,7 +1394,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'href' beginning at L1:C3. Expected 'href' to be at L2:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<a href=\\"https://www.emberjs.com\\" class=\\"emberjs-home link\\" rel=\\"noopener\\" target=\\"_blank\\">Ember JS</a>",
+              "source": "<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>",
             },
             {
               "column": 34,
@@ -1405,7 +1405,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'class' beginning at L1:C34. Expected 'class' to be at L3:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<a href=\\"https://www.emberjs.com\\" class=\\"emberjs-home link\\" rel=\\"noopener\\" target=\\"_blank\\">Ember JS</a>",
+              "source": "<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>",
             },
             {
               "column": 60,
@@ -1416,7 +1416,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'rel' beginning at L1:C60. Expected 'rel' to be at L4:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<a href=\\"https://www.emberjs.com\\" class=\\"emberjs-home link\\" rel=\\"noopener\\" target=\\"_blank\\">Ember JS</a>",
+              "source": "<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>",
             },
             {
               "column": 75,
@@ -1427,7 +1427,7 @@ generateRuleTests({
               "message": "Incorrect indentation of htmlAttribute 'target' beginning at L1:C75. Expected 'target' to be at L5:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<a href=\\"https://www.emberjs.com\\" class=\\"emberjs-home link\\" rel=\\"noopener\\" target=\\"_blank\\">Ember JS</a>",
+              "source": "<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>",
             },
             {
               "column": 90,
@@ -1438,7 +1438,7 @@ generateRuleTests({
               "message": "Incorrect indentation of close bracket '>' for the element '<a>' beginning at L1:C90. Expected '<a>' to be at L6:C0.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<a href=\\"https://www.emberjs.com\\" class=\\"emberjs-home link\\" rel=\\"noopener\\" target=\\"_blank\\">Ember JS</a>",
+              "source": "<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>",
             },
             {
               "column": 99,
@@ -1449,7 +1449,7 @@ generateRuleTests({
               "message": "Incorrect indentation of close tag '</a>' for element '<a>' beginning at L1:C99. Expected '</a>' to be at L1:C0.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "<a href=\\"https://www.emberjs.com\\" class=\\"emberjs-home link\\" rel=\\"noopener\\" target=\\"_blank\\">Ember JS</a>",
+              "source": "<a href="https://www.emberjs.com" class="emberjs-home link" rel="noopener" target="_blank">Ember JS</a>",
             },
           ]
         `);
@@ -1535,7 +1535,7 @@ generateRuleTests({
             disabled
           >
           {{#each
-            class=\\"abc\\"
+            class="abc"
           }}spam me
           {{/each}}</a>",
             },
@@ -1815,7 +1815,7 @@ generateRuleTests({
               "message": "Incorrect indentation of positional param 'or' beginning at L1:C5. Expected 'or' to be at L2:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) \\"Logging Out...\\" \\"Log Out\\"}}",
+              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}",
             },
             {
               "column": 57,
@@ -1826,7 +1826,7 @@ generateRuleTests({
               "message": "Incorrect indentation of positional param 'Logging Out...' beginning at L1:C57. Expected 'Logging Out...' to be at L3:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) \\"Logging Out...\\" \\"Log Out\\"}}",
+              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}",
             },
             {
               "column": 74,
@@ -1837,7 +1837,7 @@ generateRuleTests({
               "message": "Incorrect indentation of positional param 'Log Out' beginning at L1:C74. Expected 'Log Out' to be at L4:C2.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) \\"Logging Out...\\" \\"Log Out\\"}}",
+              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}",
             },
             {
               "column": 83,
@@ -1848,7 +1848,7 @@ generateRuleTests({
               "message": "Incorrect indentation of close curly braces '}}' for the component '{{if}}' beginning at L1:C83. Expected '{{if}}' to be at L5:C0.",
               "rule": "attribute-indentation",
               "severity": 2,
-              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) \\"Logging Out...\\" \\"Log Out\\"}}",
+              "source": "{{if (or logout.isRunning (not session.isAuthenticated)) "Logging Out..." "Log Out"}}",
             },
           ]
         `);
@@ -1939,7 +1939,7 @@ generateRuleTests({
               "rule": "attribute-indentation",
               "severity": 2,
               "source": "<div
-            class=\\"classy\\">
+            class="classy">
           {{#contact-details
             param0
             param1=abc
@@ -2012,7 +2012,7 @@ generateRuleTests({
               "rule": "attribute-indentation",
               "severity": 2,
               "source": "<div
-            class=\\"classy\\"
+            class="classy"
           >
           {{#contact-details
             param0
@@ -2086,7 +2086,7 @@ generateRuleTests({
               "rule": "attribute-indentation",
               "severity": 2,
               "source": "<div
-            class=\\"classy\\">
+            class="classy">
           {{#contact-details
             param0
             param1=abc
@@ -2159,7 +2159,7 @@ generateRuleTests({
               "rule": "attribute-indentation",
               "severity": 2,
               "source": "<div
-            class=\\"classy\\"
+            class="classy"
           >
           {{#contact-details
             param0

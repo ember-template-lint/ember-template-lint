@@ -26,7 +26,7 @@ generateRuleTests({
               "message": "command is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"command\\">",
+              "source": "<img role="command">",
             },
           ]
         `);
@@ -47,7 +47,7 @@ generateRuleTests({
               "message": "composite is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"composite\\">",
+              "source": "<img role="composite">",
             },
           ]
         `);
@@ -68,7 +68,7 @@ generateRuleTests({
               "message": "input is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<input role=\\"input\\">",
+              "source": "<input role="input">",
             },
           ]
         `);
@@ -89,7 +89,7 @@ generateRuleTests({
               "message": "landmark is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"landmark\\">",
+              "source": "<img role="landmark">",
             },
           ]
         `);
@@ -110,7 +110,7 @@ generateRuleTests({
               "message": "range is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<input role=\\"range\\">",
+              "source": "<input role="range">",
             },
           ]
         `);
@@ -131,7 +131,7 @@ generateRuleTests({
               "message": "roletype is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"roletype\\">",
+              "source": "<img role="roletype">",
             },
           ]
         `);
@@ -152,7 +152,7 @@ generateRuleTests({
               "message": "section is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"section\\">",
+              "source": "<img role="section">",
             },
           ]
         `);
@@ -173,7 +173,7 @@ generateRuleTests({
               "message": "sectionhead is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"sectionhead\\">",
+              "source": "<img role="sectionhead">",
             },
           ]
         `);
@@ -194,7 +194,7 @@ generateRuleTests({
               "message": "select is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<select role=\\"select\\"></select>",
+              "source": "<select role="select"></select>",
             },
           ]
         `);
@@ -215,7 +215,7 @@ generateRuleTests({
               "message": "structure is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<div role=\\"structure\\"></div>",
+              "source": "<div role="structure"></div>",
             },
           ]
         `);
@@ -236,7 +236,7 @@ generateRuleTests({
               "message": "widget is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"widget\\">",
+              "source": "<img role="widget">",
             },
           ]
         `);
@@ -257,7 +257,7 @@ generateRuleTests({
               "message": "window is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"window\\">",
+              "source": "<img role="window">",
             },
           ]
         `);

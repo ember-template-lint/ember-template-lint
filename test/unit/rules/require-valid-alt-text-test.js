@@ -97,7 +97,7 @@ generateRuleTests({
               "message": "All \`<img>\` tags must have an alt attribute",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img src=\\"zoey.jpg\\">",
+              "source": "<img src="zoey.jpg">",
             },
           ]
         `);
@@ -117,7 +117,7 @@ generateRuleTests({
               "message": "The alt text must not be the same as the image source",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"path/to/zoey.jpg\\" src=\\"path/to/zoey.jpg\\">",
+              "source": "<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">",
             },
           ]
         `);
@@ -135,10 +135,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "All <input> elements with type=\\"image\\" must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
+              "message": "All <input> elements with type="image" must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<input type=\\"image\\">",
+              "source": "<input type="image">",
             },
           ]
         `);
@@ -219,7 +219,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"picture\\">",
+              "source": "<img alt="picture">",
             },
           ]
         `);
@@ -240,7 +240,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"photo\\">",
+              "source": "<img alt="photo">",
             },
           ]
         `);
@@ -261,7 +261,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"image\\">",
+              "source": "<img alt="image">",
             },
           ]
         `);
@@ -282,7 +282,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"  IMAGE \\">",
+              "source": "<img alt="  IMAGE ">",
             },
           ]
         `);
@@ -303,7 +303,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"  IMAGE {{picture}} {{word}} \\">",
+              "source": "<img alt="  IMAGE {{picture}} {{word}} ">",
             },
           ]
         `);
@@ -324,7 +324,7 @@ generateRuleTests({
               "message": "A number is not valid alt text",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"52\\" src=\\"b52.jpg\\">",
+              "source": "<img alt="52" src="b52.jpg">",
             },
           ]
         `);
@@ -344,7 +344,7 @@ generateRuleTests({
               "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"none\\">",
+              "source": "<img alt="not-null-alt" src="zoey.jpg" role="none">",
             },
           ]
         `);
@@ -364,7 +364,7 @@ generateRuleTests({
               "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"presentation\\">",
+              "source": "<img alt="not-null-alt" src="zoey.jpg" role="presentation">",
             },
           ]
         `);

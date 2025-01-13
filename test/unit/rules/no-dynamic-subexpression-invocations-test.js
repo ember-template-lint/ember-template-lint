@@ -41,7 +41,7 @@ generateRuleTests({
               "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);
@@ -125,7 +125,7 @@ generateRuleTests({
               "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);
@@ -147,7 +147,7 @@ generateRuleTests({
               "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{thing \\"some-arg\\"}}",
+              "source": "{{thing "some-arg"}}",
             },
           ]
         `);
@@ -168,7 +168,7 @@ generateRuleTests({
               "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{this.thing \\"some-arg\\"}}",
+              "source": "{{this.thing "some-arg"}}",
             },
           ]
         `);
@@ -189,7 +189,7 @@ generateRuleTests({
               "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{lol.other.path \\"some-arg\\"}}",
+              "source": "{{lol.other.path "some-arg"}}",
             },
           ]
         `);
@@ -231,7 +231,7 @@ generateRuleTests({
               "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);
@@ -252,7 +252,7 @@ generateRuleTests({
               "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);

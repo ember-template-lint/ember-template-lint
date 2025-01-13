@@ -70,7 +70,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<div {{on \\"click\\" this.actionName}}>...</div>",
+              "source": "<div {{on "click" this.actionName}}>...</div>",
             },
           ]
         `);
@@ -91,7 +91,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<div {{action \\"foo\\"}}></div>",
+              "source": "<div {{action "foo"}}></div>",
             },
           ]
         `);
@@ -113,7 +113,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<div onclick={{action \\"foo\\"}}></div>",
+              "source": "<div onclick={{action "foo"}}></div>",
             },
           ]
         `);
@@ -136,7 +136,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<div onclick={{pipe-action \\"foo\\"}}></div>",
+              "source": "<div onclick={{pipe-action "foo"}}></div>",
             },
           ]
         `);
@@ -158,7 +158,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<div onsubmit={{action \\"foo\\"}}></div>",
+              "source": "<div onsubmit={{action "foo"}}></div>",
             },
           ]
         `);
@@ -181,7 +181,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<div randomAttribute={{action \\"foo\\"}}></div>",
+              "source": "<div randomAttribute={{action "foo"}}></div>",
             },
           ]
         `);
@@ -203,7 +203,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<form {{action \\"foo\\" on=\\"click\\"}}></form>",
+              "source": "<form {{action "foo" on="click"}}></form>",
             },
           ]
         `);
@@ -225,7 +225,7 @@ generateRuleTests({
               "message": "Interaction added to non-interactive element",
               "rule": "no-invalid-interactive",
               "severity": 2,
-              "source": "<div {{action \\"foo\\" on=\\"submit\\"}}></div>",
+              "source": "<div {{action "foo" on="submit"}}></div>",
             },
           ]
         `);

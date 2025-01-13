@@ -93,7 +93,7 @@ generateRuleTests({
               "message": "Duplicate attribute 'class' found in the Element.",
               "rule": "no-duplicate-attributes",
               "severity": 2,
-              "source": "<a class=\\"btn\\" class=\\"btn\\">{{btnLabel}}</a>",
+              "source": "<a class="btn" class="btn">{{btnLabel}}</a>",
             },
           ]
         `);
