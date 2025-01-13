@@ -17,6 +17,12 @@
     "type": "git",
     "url": "git+ssh://git@github.com/ember-template-lint/ember-template-lint.git"
   },
+  "license": "MIT",
+  "author": "Robert Jackson <me@rwjblue.com>",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "main": "./lib/index.js",
+  "bin": "./bin/ember-template-lint.js",
   "files": [
     "bin",
     "lib",
@@ -24,12 +30,6 @@
     "LICENSE.md",
     "README.md"
   ],
-  "license": "MIT",
-  "author": "Robert Jackson <me@rwjblue.com>",
-  "type": "module",
-  "exports": "./lib/index.js",
-  "main": "./lib/index.js",
-  "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "format": "prettier --write .",
     "lint": "npm-run-all --continue-on-error --parallel lint:* && npm run format",

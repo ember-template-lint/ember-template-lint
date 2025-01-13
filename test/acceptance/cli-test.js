@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -7,7 +7,7 @@ import setupEnvVar from '../helpers/setup-env-var.js';
 
 const ROOT = process.cwd();
 
-jest.setTimeout(10_000);
+vi.setConfig({ testTimeout: 10_000 })
 
 describe('ember-template-lint executable', function () {
   setupEnvVar('FORCE_COLOR', '0');

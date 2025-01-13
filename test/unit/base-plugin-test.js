@@ -523,7 +523,6 @@ describe('base plugin', function () {
       let expectedEvents = data.events;
       let config = data.config;
 
-      // eslint-disable-next-line jest/valid-title
       it(description, async function () {
         await processTemplate(template, config);
         expect(events).toEqual(expectedEvents);

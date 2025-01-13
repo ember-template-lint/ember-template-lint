@@ -1,4 +1,3 @@
-/* eslint jest/expect-expect:"off",jest/no-standalone-expect:"off" -- false positives due to the lint framework running some tests for us */
 import path from 'node:path';
 
 import defaultTestHarness from '../../lib/helpers/rule-test-harness.js';
