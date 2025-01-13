@@ -56,6 +56,9 @@ describe('public api', function () {
       await expect(async () => await linter.loadConfig()).rejects.toThrow(
         /\/foo\/bar/
       );
+      await expect(async () => await linter.loadConfig()).rejects.toThrow(
+        /Failed to load url/
+      );
     });
 
     it('uses an empty set of rules if no .template-lintrc is present', async function () {
