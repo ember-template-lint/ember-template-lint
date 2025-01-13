@@ -125,7 +125,9 @@ describe('expandFileGlobs', function () {
         // Debug info in case the above doesn't throw an exception
         // eslint-disable-next-line no-console
         console.log(files);
-      }).toThrowErrorMatchingInlineSnapshot(`[NoMatchingFilesError: No files matching the pattern were found: "*"]`);
+      }).toThrowErrorMatchingInlineSnapshot(
+        `[NoMatchingFilesError: No files matching the pattern were found: "*"]`
+      );
     });
   });
 });

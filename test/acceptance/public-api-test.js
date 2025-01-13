@@ -339,7 +339,8 @@ describe('public api', function () {
       });
 
       expect(result).toMatchInlineSnapshot(
-        { messages: [{ filePath: expect.any(String) }] }, `
+        { messages: [{ filePath: expect.any(String) }] },
+        `
         {
           "isFixed": false,
           "messages": [
@@ -357,7 +358,8 @@ describe('public api', function () {
           ],
           "output": "<div>FORBIDDEN</div>",
         }
-      `);
+      `
+      );
     });
 
     it('ensures template parsing errors are only reported once (not once per-rule)', async function () {
@@ -1404,7 +1406,8 @@ describe('public api', function () {
       });
 
       expect(result).toMatchInlineSnapshot(
-        { messages: [{ filePath: expect.any(String) }] }, `
+        { messages: [{ filePath: expect.any(String) }] },
+        `
         {
           "isFixed": false,
           "messages": [
@@ -1422,7 +1425,8 @@ describe('public api', function () {
           ],
           "output": "<div>FORBIDDEN</div>",
         }
-      `);
+      `
+      );
     });
 
     it('[.html] ensures template parsing errors are only reported once (not once per-rule)', async function () {

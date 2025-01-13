@@ -240,7 +240,9 @@ describe('get-config', function () {
             extends: 123,
           },
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`[TypeError: config.extends should be string or array]`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[TypeError: config.extends should be string or array]`
+    );
   });
 
   it('warns for unknown rules', async function () {
