@@ -32,6 +32,7 @@
   "bin": "./bin/ember-template-lint.js",
   "scripts": {
     "lint": "npm-run-all --continue-on-error --parallel lint:*",
+    "lint:fix": "npm-run-all lint:*:fix",
     "lint:docs": "markdownlint \"**/*.md\"",
     "lint:docs:fix": "npm run lint:docs -- --fix",
     "lint:js": "eslint --cache .",
@@ -40,9 +41,9 @@
     "lint:package-json-sorting": "sort-package-json --check",
     "lint:package-json-sorting:fix": "sort-package-json package.json",
     "new:rule": "node dev/generate.js new-rule",
-    "test": "npm-run-all lint:* test:*",
-    "test:jest": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage",
-    "test:jest:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "test": "npm-run-all lint:* test:node",
+    "test:node": "vitest --run",
+    "test:watch": "vitest",
     "update": "npm-run-all update:*",
     "update:indices": "node ./scripts/update-indices.js",
     "update:readme": "node ./scripts/update-readme.js"

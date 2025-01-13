@@ -135,6 +135,14 @@ module.exports = {
       },
     },
     {
+      files: ['vitest.config.ts'],
+      rules: {
+        'filenames/match-regex': 'off',
+        'import/no-unresolved': 'off',
+        'import/extensions': 'off',
+      },
+    },
+    {
       // CLI
       files: ['bin/**/*.js', 'lib/helpers/cli.js'],
       rules: {
