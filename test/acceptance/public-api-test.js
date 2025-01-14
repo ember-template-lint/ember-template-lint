@@ -52,13 +52,11 @@ describe('public api', function () {
 
       /**
        * This will be an absolute path in Node 22
+       *
+       * Node <22 "Cannot find module"
+       * Node 22+ "Failed to load url"
        */
-      await expect(async () => await linter.loadConfig()).rejects.toThrow(
-        /\/foo\/bar/
-      );
-      await expect(async () => await linter.loadConfig()).rejects.toThrow(
-        /Failed to load url/
-      );
+      await expect(async () => await linter.loadConfig()).rejects.toThrow(/\/foo\/bar/);
     });
 
     it('uses an empty set of rules if no .template-lintrc is present', async function () {
