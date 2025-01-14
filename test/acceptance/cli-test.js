@@ -658,7 +658,6 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('given - (stdin) path', function () {
-
       it('should print errors', async function () {
         // there is no such path on Windows OS
         if (process.platform === 'win32') {

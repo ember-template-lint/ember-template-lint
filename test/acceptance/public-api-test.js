@@ -56,7 +56,11 @@ describe('public api', function () {
        * Node <22 "Cannot find module"
        * Node 22+ "Failed to load url"
        */
-      await expect(async () => await linter.loadConfig()).rejects.toThrow(/\/foo\/bar/);
+      if (process.platform === 'win32') {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow(/\\foo\\bar/);
+      } else {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow(/\/foo\/bar/);
+      }
     });
 
     it('uses an empty set of rules if no .template-lintrc is present', async function () {

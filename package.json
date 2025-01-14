@@ -32,10 +32,10 @@
   ],
   "scripts": {
     "format": "prettier --write .",
-    "lint": "npm-run-all --continue-on-error --parallel \"lint:!(fix)\" && npm run format",
+    "lint": "npm-run-all --continue-on-error --parallel \"lint:!(fix)\"",
     "lint:docs": "markdownlint \"**/*.md\"",
     "lint:docs:fix": "npm run lint:docs -- --fix",
-    "lint:fix": "npm-run-all lint:*:fix",
+    "lint:fix": "npm-run-all lint:*:fix && npm run format",
     "lint:format": "prettier --check .",
     "lint:js": "eslint --cache .",
     "lint:js:fix": "npm run lint:js -- --fix",
