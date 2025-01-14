@@ -691,12 +691,12 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('given /dev/stdin path', function () {
-      // there is no such path on Windows OS
-      if (process.platform === 'win32') {
-        return;
-      }
-
       it('should print errors', async function () {
+        // there is no such path on Windows OS
+        if (process.platform === 'win32') {
+          return;
+        }
+
         await project.setConfig({
           rules: {
             'no-bare-strings': true,
