@@ -583,7 +583,7 @@ generateRuleTests({
               "message": "Change \`if (not condition)\` to \`unless condition\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "{{if (not condition) \\"some-class\\"}}",
+              "source": "{{if (not condition) "some-class"}}",
             },
           ]
         `);
@@ -607,7 +607,7 @@ generateRuleTests({
               "message": "Simplify unnecessary negation of helper.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "{{if (not (gte c 10)) \\"some-class\\"}}",
+              "source": "{{if (not (gte c 10)) "some-class"}}",
             },
           ]
         `);
@@ -632,7 +632,7 @@ generateRuleTests({
               "message": "Change \`{{if (not condition)}} {{prop1}} {{else}} {{prop2}} {{/if}}\` to \`{{if condition}} {{prop2}} {{else}} {{prop1}} {{/if}}\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "{{if (not condition) \\"some-class\\" \\"other-class\\"}}",
+              "source": "{{if (not condition) "some-class" "other-class"}}",
             },
           ]
         `);
@@ -656,7 +656,7 @@ generateRuleTests({
               "message": "Simplify unnecessary negation of helper.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "{{if (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
+              "source": "{{if (not (not condition)) "some-class" "other-class"}}",
             },
           ]
         `);
@@ -681,7 +681,7 @@ generateRuleTests({
               "message": "Change \`unless (not condition)\` to \`if condition\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "{{unless (not condition) \\"some-class\\"}}",
+              "source": "{{unless (not condition) "some-class"}}",
             },
           ]
         `);
@@ -706,7 +706,7 @@ generateRuleTests({
               "message": "Change \`unless (not condition)\` to \`if condition\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "{{unless (not condition) \\"some-class\\" \\"other-class\\"}}",
+              "source": "{{unless (not condition) "some-class" "other-class"}}",
             },
           ]
         `);
@@ -729,7 +729,7 @@ generateRuleTests({
               "message": "Simplify unnecessary negation of helper.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "{{unless (not (not condition)) \\"some-class\\" \\"other-class\\"}}",
+              "source": "{{unless (not (not condition)) "some-class" "other-class"}}",
             },
           ]
         `);
@@ -757,7 +757,7 @@ generateRuleTests({
               "message": "Change \`if (not condition)\` to \`unless condition\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "(if (not condition) \\"some-class\\")",
+              "source": "(if (not condition) "some-class")",
             },
           ]
         `);
@@ -782,7 +782,7 @@ generateRuleTests({
               "message": "Change \`{{if (not condition)}} {{prop1}} {{else}} {{prop2}} {{/if}}\` to \`{{if condition}} {{prop2}} {{else}} {{prop1}} {{/if}}\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "(if (not condition) \\"some-class\\" \\"other-class\\")",
+              "source": "(if (not condition) "some-class" "other-class")",
             },
           ]
         `);
@@ -806,7 +806,7 @@ generateRuleTests({
               "message": "Simplify unnecessary negation of helper.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "(if (not (lte c 10)) \\"some-class\\" \\"other-class\\")",
+              "source": "(if (not (lte c 10)) "some-class" "other-class")",
             },
           ]
         `);
@@ -831,7 +831,7 @@ generateRuleTests({
               "message": "Change \`unless (not condition)\` to \`if condition\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "(unless (not condition) \\"some-class\\")",
+              "source": "(unless (not condition) "some-class")",
             },
           ]
         `);
@@ -856,7 +856,7 @@ generateRuleTests({
               "message": "Change \`unless (not condition)\` to \`if condition\`.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "(unless (not condition) \\"some-class\\" \\"other-class\\")",
+              "source": "(unless (not condition) "some-class" "other-class")",
             },
           ]
         `);
@@ -879,7 +879,7 @@ generateRuleTests({
               "message": "Simplify unnecessary negation of helper.",
               "rule": "no-negated-condition",
               "severity": 2,
-              "source": "(unless (not (not condition)) \\"some-class\\" \\"other-class\\")",
+              "source": "(unless (not (not condition)) "some-class" "other-class")",
             },
           ]
         `);

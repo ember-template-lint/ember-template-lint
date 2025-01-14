@@ -41,7 +41,7 @@ generateRuleTests({
               "message": "The attributes aria-controls, aria-expanded are required by the role combobox",
               "rule": "require-mandatory-role-attributes",
               "severity": 2,
-              "source": "<div role=\\"combobox\\" aria-controls=\\"someId\\" />",
+              "source": "<div role="combobox" aria-controls="someId" />",
             },
           ]
         `);
@@ -62,7 +62,7 @@ generateRuleTests({
               "message": "The attribute aria-selected is required by the role option",
               "rule": "require-mandatory-role-attributes",
               "severity": 2,
-              "source": "<div role=\\"option\\"  />",
+              "source": "<div role="option"  />",
             },
           ]
         `);
@@ -83,7 +83,7 @@ generateRuleTests({
               "message": "The attribute aria-checked is required by the role checkbox",
               "rule": "require-mandatory-role-attributes",
               "severity": 2,
-              "source": "<CustomComponent role=\\"checkbox\\" aria-required=\\"true\\" />",
+              "source": "<CustomComponent role="checkbox" aria-required="true" />",
             },
           ]
         `);
@@ -105,7 +105,7 @@ generateRuleTests({
               "message": "The attributes aria-controls, aria-valuenow are required by the role scrollbar",
               "rule": "require-mandatory-role-attributes",
               "severity": 2,
-              "source": "<SomeComponent role=\\"scrollbar\\" @aria-now={{this.valuenow}} aria-controls={{some-id}} />",
+              "source": "<SomeComponent role="scrollbar" @aria-now={{this.valuenow}} aria-controls={{some-id}} />",
             },
           ]
         `);
@@ -126,7 +126,7 @@ generateRuleTests({
               "message": "The attribute aria-level is required by the role heading",
               "rule": "require-mandatory-role-attributes",
               "severity": 2,
-              "source": "{{some-component role=\\"heading\\"}}",
+              "source": "{{some-component role="heading"}}",
             },
           ]
         `);

@@ -45,7 +45,7 @@ generateRuleTests({
               "message": "The attribute aria-checked is not supported by the role link",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<div role=\\"link\\" href=\\"#\\" aria-checked />",
+              "source": "<div role="link" href="#" aria-checked />",
             },
           ]
         `);
@@ -68,7 +68,7 @@ generateRuleTests({
               "message": "The attribute aria-level is not supported by the role listbox",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<CustomComponent role=\\"listbox\\" aria-level=\\"2\\" />",
+              "source": "<CustomComponent role="listbox" aria-level="2" />",
             },
           ]
         `);
@@ -91,7 +91,7 @@ generateRuleTests({
               "message": "The attribute aria-notreal is not supported by the role option",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<div role=\\"option\\" aria-notreal=\\"bogus\\" aria-selected=\\"false\\" />",
+              "source": "<div role="option" aria-notreal="bogus" aria-selected="false" />",
             },
           ]
         `);
@@ -115,7 +115,7 @@ generateRuleTests({
               "message": "The attribute aria-multiline is not supported by the role combobox",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<div role=\\"combobox\\" aria-multiline=\\"true\\" aria-expanded=\\"false\\" aria-controls=\\"someId\\" />",
+              "source": "<div role="combobox" aria-multiline="true" aria-expanded="false" aria-controls="someId" />",
             },
           ]
         `);
@@ -138,7 +138,7 @@ generateRuleTests({
               "message": "The attribute aria-valuetext is not supported by the element button with the implicit role of button",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<button type=\\"submit\\" aria-valuetext=\\"woosh\\"></button>",
+              "source": "<button type="submit" aria-valuetext="woosh"></button>",
             },
           ]
         `);
@@ -161,7 +161,7 @@ generateRuleTests({
               "message": "The attribute aria-expanded is not supported by the element menu with the implicit role of list",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<menu type=\\"toolbar\\" aria-expanded=\\"true\\" />",
+              "source": "<menu type="toolbar" aria-expanded="true" />",
             },
           ]
         `);
@@ -184,7 +184,7 @@ generateRuleTests({
               "message": "The attribute aria-checked is not supported by the role menuitem",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<a role=\\"menuitem\\" aria-checked={{this.checked}} />",
+              "source": "<a role="menuitem" aria-checked={{this.checked}} />",
             },
           ]
         `);
@@ -207,7 +207,7 @@ generateRuleTests({
               "message": "The attribute aria-invalid is not supported by the element input with the implicit role of button",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<input type=\\"button\\" aria-invalid=\\"grammar\\" />",
+              "source": "<input type="button" aria-invalid="grammar" />",
             },
           ]
         `);
@@ -230,7 +230,7 @@ generateRuleTests({
               "message": "The attribute aria-level is not supported by the element input with the implicit role of combobox",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "<input type=\\"email\\" aria-level={{this.level}} />",
+              "source": "<input type="email" aria-level={{this.level}} />",
             },
           ]
         `);
@@ -253,7 +253,7 @@ generateRuleTests({
               "message": "The attribute aria-valuetext is not supported by the role button",
               "rule": "no-unsupported-role-attributes",
               "severity": 2,
-              "source": "{{foo-component role=\\"button\\" aria-valuetext=\\"blahblahblah\\"}}",
+              "source": "{{foo-component role="button" aria-valuetext="blahblahblah"}}",
             },
           ]
         `);

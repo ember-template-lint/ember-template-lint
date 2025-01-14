@@ -32,7 +32,7 @@ generateRuleTests({
               "message": "Unnecessary parentheses enclosing statement",
               "rule": "no-unnecessary-curly-parens",
               "severity": 2,
-              "source": "{{(concat \\"a\\" \\"b\\")}}",
+              "source": "{{(concat "a" "b")}}",
             },
           ]
         `);
@@ -56,7 +56,7 @@ generateRuleTests({
               "message": "Unnecessary parentheses enclosing statement",
               "rule": "no-unnecessary-curly-parens",
               "severity": 2,
-              "source": "{{(helper a=\\"b\\")}}",
+              "source": "{{(helper a="b")}}",
             },
           ]
         `);

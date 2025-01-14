@@ -76,7 +76,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: dialog on <dialog> detected.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<dialog role=\\"dialog\\" />",
+              "source": "<dialog role="dialog" />",
             },
           ]
         `);
@@ -99,7 +99,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: banner on <header> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<header role=\\"banner\\"></header>",
+              "source": "<header role="banner"></header>",
             },
           ]
         `);
@@ -122,7 +122,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: contentinfo on <footer> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<footer role=\\"contentinfo\\"></footer>",
+              "source": "<footer role="contentinfo"></footer>",
             },
           ]
         `);
@@ -145,7 +145,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: main on <main> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<main role=\\"main\\"></main>",
+              "source": "<main role="main"></main>",
             },
           ]
         `);
@@ -168,7 +168,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: complementary on <aside> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<aside role=\\"complementary\\"></aside>",
+              "source": "<aside role="complementary"></aside>",
             },
           ]
         `);
@@ -191,7 +191,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: form on <form> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<form role=\\"form\\"></form>",
+              "source": "<form role="form"></form>",
             },
           ]
         `);
@@ -214,7 +214,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: banner on <header> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<header role=\\"banner\\" class=\\"page-header\\"></header>",
+              "source": "<header role="banner" class="page-header"></header>",
             },
           ]
         `);
@@ -238,7 +238,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: button on <button> detected.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<button role=\\"button\\"></button>",
+              "source": "<button role="button"></button>",
             },
           ]
         `);
@@ -262,7 +262,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: checkbox on <input> detected.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<input type=\\"checkbox\\" name=\\"agree\\" value=\\"checkbox1\\" role=\\"checkbox\\" />",
+              "source": "<input type="checkbox" name="agree" value="checkbox1" role="checkbox" />",
             },
           ]
         `);
@@ -286,7 +286,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: columnheader on <th> detected.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<th role=\\"columnheader\\">Some heading</th>",
+              "source": "<th role="columnheader">Some heading</th>",
             },
           ]
         `);
@@ -312,7 +312,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: listbox on <select> detected.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<select name=\\"color\\" id=\\"color\\" role=\\"listbox\\" multiple><option value=\\"default-color\\">black</option></select>",
+              "source": "<select name="color" id="color" role="listbox" multiple><option value="default-color">black</option></select>",
             },
           ]
         `);
@@ -336,7 +336,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: main on <main> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<main role=\\"main\\"></main>",
+              "source": "<main role="main"></main>",
             },
           ]
         `);
@@ -360,7 +360,7 @@ generateRuleTests({
               "message": "Use of redundant or invalid role: complementary on <aside> detected. If a landmark element is used, any role provided will either be redundant or incorrect.",
               "rule": "no-redundant-role",
               "severity": 2,
-              "source": "<aside role=\\"complementary\\"></aside>",
+              "source": "<aside role="complementary"></aside>",
             },
           ]
         `);

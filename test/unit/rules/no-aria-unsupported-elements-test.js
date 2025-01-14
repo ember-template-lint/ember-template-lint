@@ -26,10 +26,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The <meta> element does not support the use of ARIA roles, states, and properties such as \\"aria-hidden\\"",
+              "message": "The <meta> element does not support the use of ARIA roles, states, and properties such as "aria-hidden"",
               "rule": "no-aria-unsupported-elements",
               "severity": 2,
-              "source": "<meta charset=\\"UTF-8\\" aria-hidden=\\"false\\" />",
+              "source": "<meta charset="UTF-8" aria-hidden="false" />",
             },
           ]
         `);
@@ -46,10 +46,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The <html> element does not support the use of ARIA roles, states, and properties such as \\"role\\"",
+              "message": "The <html> element does not support the use of ARIA roles, states, and properties such as "role"",
               "rule": "no-aria-unsupported-elements",
               "severity": 2,
-              "source": "<html lang=\\"en\\" role=\\"application\\"></html>",
+              "source": "<html lang="en" role="application"></html>",
             },
           ]
         `);
@@ -66,10 +66,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The <script> element does not support the use of ARIA roles, states, and properties such as \\"aria-hidden\\"",
+              "message": "The <script> element does not support the use of ARIA roles, states, and properties such as "aria-hidden"",
               "rule": "no-aria-unsupported-elements",
               "severity": 2,
-              "source": "<script aria-hidden=\\"false\\"></script>",
+              "source": "<script aria-hidden="false"></script>",
             },
           ]
         `);

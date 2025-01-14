@@ -954,14 +954,14 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "fix": {
-                "text": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} {{!comment}} as |paramA paramB| />",
+                "text": "<wbr data-custom="50" {{my-modifier true "baz"}} {{!comment}} as |paramA paramB| />",
               },
               "isFixable": true,
               "line": 1,
               "message": "Self-closing a void element is required",
               "rule": "self-closing-void-elements",
               "severity": 2,
-              "source": "<wbr data-custom=\\"50\\" {{my-modifier true \\"baz\\"}} {{!comment}} as |paramA paramB| >",
+              "source": "<wbr data-custom="50" {{my-modifier true "baz"}} {{!comment}} as |paramA paramB| >",
             },
           ]
         `);

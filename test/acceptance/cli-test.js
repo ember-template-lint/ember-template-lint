@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -7,7 +7,7 @@ import setupEnvVar from '../helpers/setup-env-var.js';
 
 const ROOT = process.cwd();
 
-jest.setTimeout(10_000);
+vi.setConfig({ testTimeout: 10_000 });
 
 describe('ember-template-lint executable', function () {
   setupEnvVar('FORCE_COLOR', '0');
@@ -40,25 +40,25 @@ describe('ember-template-lint executable', function () {
             --config-path                    Define a custom config path (default: .templa
                                              te-lintrc.js)                        [string]
             --config                         Define a custom configuration to be used - (
-                                             e.g. '{ \\"rules\\": { \\"no-implicit-this\\": \\"erro
-                                             r\\" } }')                             [string]
+                                             e.g. '{ "rules": { "no-implicit-this": "erro
+                                             r" } }')                             [string]
             --quiet                          Ignore warnings and only show errors[boolean]
             --rule                           Specify a rule and its severity to add that r
                                              ule to loaded rules - (e.g. \`no-implicit-this
-                                             :error\` or \`rule:[\\"error\\", { \\"allow\\": [\\"some-
-                                             helper\\"] }]\`)                        [string]
+                                             :error\` or \`rule:["error", { "allow": ["some-
+                                             helper"] }]\`)                        [string]
             --filename                       Used to indicate the filename to be assumed f
                                              or contents from STDIN               [string]
             --fix                            Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                         Specify format to be used in printing output
-                                                              [string] [default: \\"pretty\\"]
+                                                              [string] [default: "pretty"]
             --output-file                    Specify file to write report to      [string]
             --verbose                        Output errors with source description
                                                                                  [boolean]
             --working-directory, --cwd       Path to a directory that should be considered
                                               as the current working directory.
-                                                                   [string] [default: \\".\\"]
+                                                                   [string] [default: "."]
             --no-config-path                 Does not use the local template-lintrc, will
                                              use a blank template-lintrc instead [boolean]
             --update-todo                    Update list of linting todos by transforming
@@ -76,7 +76,7 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+                        [array] [default: ["**/dist/**","**/tmp/**","**/node_modules/**"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -103,25 +103,25 @@ describe('ember-template-lint executable', function () {
             --config-path                    Define a custom config path (default: .templa
                                              te-lintrc.js)                        [string]
             --config                         Define a custom configuration to be used - (
-                                             e.g. '{ \\"rules\\": { \\"no-implicit-this\\": \\"erro
-                                             r\\" } }')                             [string]
+                                             e.g. '{ "rules": { "no-implicit-this": "erro
+                                             r" } }')                             [string]
             --quiet                          Ignore warnings and only show errors[boolean]
             --rule                           Specify a rule and its severity to add that r
                                              ule to loaded rules - (e.g. \`no-implicit-this
-                                             :error\` or \`rule:[\\"error\\", { \\"allow\\": [\\"some-
-                                             helper\\"] }]\`)                        [string]
+                                             :error\` or \`rule:["error", { "allow": ["some-
+                                             helper"] }]\`)                        [string]
             --filename                       Used to indicate the filename to be assumed f
                                              or contents from STDIN               [string]
             --fix                            Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                         Specify format to be used in printing output
-                                                              [string] [default: \\"pretty\\"]
+                                                              [string] [default: "pretty"]
             --output-file                    Specify file to write report to      [string]
             --verbose                        Output errors with source description
                                                                                  [boolean]
             --working-directory, --cwd       Path to a directory that should be considered
                                               as the current working directory.
-                                                                   [string] [default: \\".\\"]
+                                                                   [string] [default: "."]
             --no-config-path                 Does not use the local template-lintrc, will
                                              use a blank template-lintrc instead [boolean]
             --update-todo                    Update list of linting todos by transforming
@@ -139,7 +139,7 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+                        [array] [default: ["**/dist/**","**/tmp/**","**/node_modules/**"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -577,25 +577,25 @@ describe('ember-template-lint executable', function () {
             --config-path                    Define a custom config path (default: .templa
                                              te-lintrc.js)                        [string]
             --config                         Define a custom configuration to be used - (
-                                             e.g. '{ \\"rules\\": { \\"no-implicit-this\\": \\"erro
-                                             r\\" } }')                             [string]
+                                             e.g. '{ "rules": { "no-implicit-this": "erro
+                                             r" } }')                             [string]
             --quiet                          Ignore warnings and only show errors[boolean]
             --rule                           Specify a rule and its severity to add that r
                                              ule to loaded rules - (e.g. \`no-implicit-this
-                                             :error\` or \`rule:[\\"error\\", { \\"allow\\": [\\"some-
-                                             helper\\"] }]\`)                        [string]
+                                             :error\` or \`rule:["error", { "allow": ["some-
+                                             helper"] }]\`)                        [string]
             --filename                       Used to indicate the filename to be assumed f
                                              or contents from STDIN               [string]
             --fix                            Fix any errors that are reported as fixable
                                                                 [boolean] [default: false]
             --format                         Specify format to be used in printing output
-                                                              [string] [default: \\"pretty\\"]
+                                                              [string] [default: "pretty"]
             --output-file                    Specify file to write report to      [string]
             --verbose                        Output errors with source description
                                                                                  [boolean]
             --working-directory, --cwd       Path to a directory that should be considered
                                               as the current working directory.
-                                                                   [string] [default: \\".\\"]
+                                                                   [string] [default: "."]
             --no-config-path                 Does not use the local template-lintrc, will
                                              use a blank template-lintrc instead [boolean]
             --update-todo                    Update list of linting todos by transforming
@@ -613,7 +613,7 @@ describe('ember-template-lint executable', function () {
                                               todo transitions into an error      [number]
             --ignore-pattern                 Specify custom ignore pattern (can be disable
                                              d with --no-ignore-pattern)
-                        [array] [default: [\\"**/dist/**\\",\\"**/tmp/**\\",\\"**/node_modules/**\\"]]
+                        [array] [default: ["**/dist/**","**/tmp/**","**/node_modules/**"]]
             --no-inline-config               Prevent inline configuration comments from ch
                                              anging config or rules              [boolean]
             --print-config                   Print the configuration for the given file
@@ -658,12 +658,12 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('given - (stdin) path', function () {
-      // there is no such path on Windows OS
-      if (process.platform === 'win32') {
-        return;
-      }
-
       it('should print errors', async function () {
+        // there is no such path on Windows OS
+        if (process.platform === 'win32') {
+          return;
+        }
+
         await project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -691,12 +691,12 @@ describe('ember-template-lint executable', function () {
     });
 
     describe('given /dev/stdin path', function () {
-      // there is no such path on Windows OS
-      if (process.platform === 'win32') {
-        return;
-      }
-
       it('should print errors', async function () {
+        // there is no such path on Windows OS
+        if (process.platform === 'win32') {
+          return;
+        }
+
         await project.setConfig({
           rules: {
             'no-bare-strings': true,
@@ -1240,21 +1240,21 @@ app/dist/application.hbs
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot(`
           "{
-            \\"rules\\": {
-              \\"no-bare-strings\\": {
-                \\"config\\": true,
-                \\"severity\\": 1
+            "rules": {
+              "no-bare-strings": {
+                "config": true,
+                "severity": 1
               },
-              \\"no-html-comments\\": {
-                \\"config\\": true,
-                \\"severity\\": 2
+              "no-html-comments": {
+                "config": true,
+                "severity": 2
               }
             },
-            \\"overrides\\": [],
-            \\"ignore\\": [],
-            \\"format\\": {},
-            \\"plugins\\": {},
-            \\"loadedRules\\": {}
+            "overrides": [],
+            "ignore": [],
+            "format": {},
+            "plugins": {},
+            "loadedRules": {}
           }"
         `);
       });

@@ -50,7 +50,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
               "source": "<button {{action this.handleClick}} />",
@@ -70,10 +70,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button {{action this.handleClick on=\\"click\\"}}/>",
+              "source": "<button {{action this.handleClick on="click"}}/>",
             },
           ]
         `);
@@ -90,10 +90,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button {{on \\"click\\" this.handleClick}} />",
+              "source": "<button {{on "click" this.handleClick}} />",
             },
           ]
         `);
@@ -110,10 +110,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button type=\\"submit\\" {{action this.handleClick}} />",
+              "source": "<button type="submit" {{action this.handleClick}} />",
             },
           ]
         `);
@@ -130,10 +130,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button type=\\"submit\\" {{action this.handleClick on=\\"click\\"}} />",
+              "source": "<button type="submit" {{action this.handleClick on="click"}} />",
             },
           ]
         `);
@@ -150,10 +150,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button type=\\"submit\\" {{action (fn this.someAction \\"foo\\")}} />",
+              "source": "<button type="submit" {{action (fn this.someAction "foo")}} />",
             },
           ]
         `);
@@ -170,10 +170,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button type=\\"submit\\" {{on \\"click\\" this.handleClick}} />",
+              "source": "<button type="submit" {{on "click" this.handleClick}} />",
             },
           ]
         `);
@@ -190,10 +190,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button type=\\"submit\\" {{on \\"click\\" (fn this.addNumber 123)}} />",
+              "source": "<button type="submit" {{on "click" (fn this.addNumber 123)}} />",
             },
           ]
         `);
@@ -210,10 +210,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "In a \`<form>\`, a \`<button>\` with \`type=\\"submit\\"\` should have no click action",
+              "message": "In a \`<form>\`, a \`<button>\` with \`type="submit"\` should have no click action",
               "rule": "no-action-on-submit-button",
               "severity": 2,
-              "source": "<button type=\\"submit\\" {{action this.handleClick}} />",
+              "source": "<button type="submit" {{action this.handleClick}} />",
             },
           ]
         `);

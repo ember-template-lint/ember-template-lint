@@ -83,10 +83,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "to=\\"foo-bar\\"",
+              "source": "to="foo-bar"",
             },
           ]
         `);
@@ -105,10 +105,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -127,10 +127,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -149,10 +149,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -171,10 +171,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -196,10 +196,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "to=\\"foo-bar\\"",
+              "source": "to="foo-bar"",
             },
           ]
         `);
@@ -219,10 +219,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -242,10 +242,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -265,10 +265,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -288,10 +288,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -313,10 +313,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "to=\\"fooBar\\"",
+              "source": "to="fooBar"",
             },
           ]
         `);
@@ -336,10 +336,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -359,10 +359,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -382,10 +382,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -405,10 +405,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);

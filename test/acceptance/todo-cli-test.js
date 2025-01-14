@@ -1,11 +1,12 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
+
 import { todoStorageFileExists, writeTodos, readTodoData } from '@lint-todo/utils';
 import { differenceInDays, subDays } from 'date-fns';
 
 import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
-jest.setTimeout(10_000);
+vi.setConfig({ testTimeout: 10_000 });
 
 function buildReadOptions() {
   return { engine: 'ember-template-lint' };
@@ -891,13 +892,13 @@ describe('todo usage', () => {
           let result = await runBin('.', '--clean-todo');
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/require-button-type.hbs
-              1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
-
-            ✖ 1 problems (1 errors, 0 warnings)
-              1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/require-button-type.hbs',
+            '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
+            '',
+            '✖ 1 problems (1 errors, 0 warnings)',
+            '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
+          ]);
           expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
         });
 
@@ -1303,12 +1304,12 @@ describe('todo usage', () => {
           result = await runBin('.', '--include-todo');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  todo  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/application.hbs',
+            '  1:5  todo  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 0 warnings, 1 todos)',
+          ]);
         });
 
         it('should set to todo if errorDate is not expired', async function () {
@@ -1334,12 +1335,12 @@ describe('todo usage', () => {
           result = await runBin('.', '--include-todo');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  todo  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/application.hbs',
+            '  1:5  todo  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 0 warnings, 1 todos)',
+          ]);
         });
 
         it('should set todo to warn if warnDate has expired via config', async function () {
@@ -1369,12 +1370,12 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  warning  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 1 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/application.hbs',
+            '  1:5  warning  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 1 warnings)',
+          ]);
         });
 
         it('should set todo to warn if warnDate has expired via option', async function () {
@@ -1400,12 +1401,12 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  warning  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 1 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/application.hbs',
+            '  1:5  warning  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 1 warnings)',
+          ]);
         });
 
         it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
@@ -1436,12 +1437,12 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  warning  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 1 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/application.hbs',
+            '  1:5  warning  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 1 warnings)',
+          ]);
         });
 
         it('should set todo to error if errorDate has expired via config', async function () {
@@ -1471,12 +1472,12 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  error  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (1 errors, 0 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/application.hbs',
+            '  1:5  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (1 errors, 0 warnings)',
+          ]);
         });
 
         it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
@@ -1507,12 +1508,12 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  error  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (1 errors, 0 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'app/templates/application.hbs',
+            '  1:5  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (1 errors, 0 warnings)',
+          ]);
         });
 
         if (!isLegacy) {

@@ -48,7 +48,7 @@ generateRuleTests({
               "message": "All \`<form>\` elements should have \`method\` attribute with value of \`GET\`",
               "rule": "require-form-method",
               "severity": 2,
-              "source": "<form method=\\"POST\\"></form>",
+              "source": "<form method="POST"></form>",
             },
           ]
         `);
@@ -72,7 +72,7 @@ generateRuleTests({
               "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST\`",
               "rule": "require-form-method",
               "severity": 2,
-              "source": "<form method=\\"GET\\"></form>",
+              "source": "<form method="GET"></form>",
             },
           ]
         `);
@@ -114,7 +114,7 @@ generateRuleTests({
               "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
               "rule": "require-form-method",
               "severity": 2,
-              "source": "<form method=\\"\\"></form>",
+              "source": "<form method=""></form>",
             },
           ]
         `);
@@ -156,7 +156,7 @@ generateRuleTests({
               "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
               "rule": "require-form-method",
               "severity": 2,
-              "source": "<form method=\\" ge t \\"></form>",
+              "source": "<form method=" ge t "></form>",
             },
           ]
         `);
@@ -177,7 +177,7 @@ generateRuleTests({
               "message": "All \`<form>\` elements should have \`method\` attribute with value of \`POST,GET,DIALOG\`",
               "rule": "require-form-method",
               "severity": 2,
-              "source": "<form method=\\" pos t \\"></form>",
+              "source": "<form method=" pos t "></form>",
             },
           ]
         `);

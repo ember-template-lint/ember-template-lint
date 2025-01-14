@@ -32,7 +32,7 @@ generateRuleTests({
               "message": "The modifier helper should have a string or a variable name containing the modifier name as a first argument.",
               "rule": "simple-modifiers",
               "severity": 2,
-              "source": "(unless this.hasBeenClicked \\"track-interaction\\")",
+              "source": "(unless this.hasBeenClicked "track-interaction")",
             },
           ]
         `);

@@ -168,7 +168,7 @@ generateRuleTests({
               "message": "you must use single quotes in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "{{component \\"test\\"}}",
+              "source": "{{component "test"}}",
             },
           ]
         `);
@@ -192,7 +192,7 @@ generateRuleTests({
               "message": "you must use single quotes in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "x=\\"test\\"",
+              "source": "x="test"",
             },
           ]
         `);
@@ -216,7 +216,7 @@ generateRuleTests({
               "message": "you must use single quotes in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "type=\\"checkbox\\"",
+              "source": "type="checkbox"",
             },
           ]
         `);
@@ -239,7 +239,7 @@ generateRuleTests({
               "message": "you must use single quotes in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "alt=\\"Abdul's house\\"",
+              "source": "alt="Abdul's house"",
             },
           ]
         `);
@@ -262,7 +262,7 @@ generateRuleTests({
               "message": "you must use double quotes in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "class='a \\"so-called\\" btn {{this.otherClass}}'",
+              "source": "class='a "so-called" btn {{this.otherClass}}'",
             },
           ]
         `);
@@ -285,7 +285,7 @@ generateRuleTests({
               "message": "you must use single quotes in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "{{helper \\"Priya's house\\"}}",
+              "source": "{{helper "Priya's house"}}",
             },
           ]
         `);
@@ -309,7 +309,7 @@ generateRuleTests({
               "message": "you must use double quotes for Handlebars syntax and single quotes for HTML attributes in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "type=\\"checkbox\\"",
+              "source": "type="checkbox"",
             },
             {
               "column": 32,
@@ -369,7 +369,7 @@ generateRuleTests({
               "message": "you must use double quotes for HTML attributes and single quotes for Handlebars syntax in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "{{hello \\"test\\" x=\\"test\\"}}",
+              "source": "{{hello "test" x="test"}}",
             },
             {
               "column": 41,
@@ -381,7 +381,7 @@ generateRuleTests({
               "message": "you must use double quotes for HTML attributes and single quotes for Handlebars syntax in templates",
               "rule": "quotes",
               "severity": 2,
-              "source": "x=\\"test\\"",
+              "source": "x="test"",
             },
           ]
         `);

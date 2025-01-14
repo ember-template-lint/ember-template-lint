@@ -67,7 +67,7 @@ generateRuleTests({
               "message": "Invoke component directly instead of using \`component\` helper",
               "rule": "no-unnecessary-component-helper",
               "severity": 2,
-              "source": "{{component \\"my-component-name\\" foo=123 bar=456}}",
+              "source": "{{component "my-component-name" foo=123 bar=456}}",
             },
           ]
         `);
@@ -91,7 +91,7 @@ generateRuleTests({
               "message": "Invoke component directly instead of using \`component\` helper",
               "rule": "no-unnecessary-component-helper",
               "severity": 2,
-              "source": "{{#component \\"my-component-name\\" foo=123 bar=456}}{{/component}}",
+              "source": "{{#component "my-component-name" foo=123 bar=456}}{{/component}}",
             },
           ]
         `);
@@ -115,7 +115,7 @@ generateRuleTests({
               "message": "Invoke component directly instead of using \`component\` helper",
               "rule": "no-unnecessary-component-helper",
               "severity": 2,
-              "source": "{{component \\"forbidden-component\\"}}",
+              "source": "{{component "forbidden-component"}}",
             },
           ]
         `);

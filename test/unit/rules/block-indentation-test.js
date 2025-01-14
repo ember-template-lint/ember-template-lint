@@ -1469,8 +1469,8 @@ generateRuleTests({
               "message": "Incorrect indentation for \`<div>\` beginning at L2:C2. Expected \`<div>\` to be at an indentation of 4, but was found at 2.",
               "rule": "block-indentation",
               "severity": 2,
-              "source": "<div class=\\"parent\\">
-              <div class=\\"child\\"></div>
+              "source": "<div class="parent">
+              <div class="child"></div>
             </div>",
             },
           ]
@@ -1513,8 +1513,8 @@ generateRuleTests({
               "message": "Incorrect indentation for \`<div>\` beginning at L1:C2. Expected \`<div>\` to be at an indentation of 0, but was found at 2.",
               "rule": "block-indentation",
               "severity": 2,
-              "source": "<div class=\\"parent\\">
-          <div class=\\"child\\"></div>
+              "source": "<div class="parent">
+          <div class="child"></div>
           </div>",
             },
             {
@@ -1527,8 +1527,8 @@ generateRuleTests({
               "message": "Incorrect indentation for \`div\` beginning at L1:C2. Expected \`</div>\` ending at L3:C6 to be at an indentation of 2 but was found at 0.",
               "rule": "block-indentation",
               "severity": 2,
-              "source": "<div class=\\"parent\\">
-          <div class=\\"child\\"></div>
+              "source": "<div class="parent">
+          <div class="child"></div>
           </div>",
             },
             {
@@ -1541,8 +1541,8 @@ generateRuleTests({
               "message": "Incorrect indentation for \`<div>\` beginning at L2:C0. Expected \`<div>\` to be at an indentation of 4 but was found at 0.",
               "rule": "block-indentation",
               "severity": 2,
-              "source": "<div class=\\"parent\\">
-          <div class=\\"child\\"></div>
+              "source": "<div class="parent">
+          <div class="child"></div>
           </div>",
             },
           ]

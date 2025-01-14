@@ -18,6 +18,20 @@ permissions:
   contents: read
 
 jobs:
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: volta-cli/action@v4
+      - name: install dependencies
+        run: npm ci
+      - run: npm run lint
+
   test:
     name: Node 18.x - ubuntu
     runs-on: ubuntu-latest
@@ -32,11 +46,7 @@ jobs:
 
       - name: install dependencies
         run: npm ci
-
-      - run: npm run lint
-
-      - run: npm run test:jest
-
+      - run: npm run test:node
       - run: npm run update && git diff --exit-code
 
   nodeX:
@@ -66,7 +76,7 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-      - run: npm run test:jest
+      - run: npm run test:node
 
   floating-dependencies:
     name: Floating Dependencies
@@ -83,4 +93,4 @@ jobs:
       - name: install dependencies
         run: npm install --no-package-lock
 
-      - run: npm run test:jest
+      - run: npm run test:node

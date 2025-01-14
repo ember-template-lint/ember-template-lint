@@ -50,9 +50,17 @@ describe('public api', function () {
         configPath: path.join(project.baseDir, '.template-lintrc.mjs'),
       });
 
-      await expect(async () => await linter.loadConfig()).rejects.toThrow(
-        /Cannot find module '..\/foo\/bar'/
-      );
+      /**
+       * This will be an absolute path in Node 22
+       *
+       * Node <22 "Cannot find module"
+       * Node 22+ "Failed to load url"
+       */
+      if (process.platform === 'win32') {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow();
+      } else {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow(/\/foo\/bar/);
+      }
     });
 
     it('uses an empty set of rules if no .template-lintrc is present', async function () {
@@ -350,7 +358,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",
@@ -1417,7 +1425,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",

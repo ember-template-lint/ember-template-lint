@@ -57,7 +57,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"1\\"",
+              "source": "tabindex="1"",
             },
           ]
         `);
@@ -78,7 +78,7 @@ generateRuleTests({
               "message": "Tabindex values must be negative numeric.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"text\\"",
+              "source": "tabindex="text"",
             },
           ]
         `);
@@ -120,7 +120,7 @@ generateRuleTests({
               "message": "Tabindex values must be negative numeric.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{false}}\\"",
+              "source": "tabindex="{{false}}"",
             },
           ]
         `);
@@ -141,7 +141,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{5}}\\"",
+              "source": "tabindex="{{5}}"",
             },
           ]
         `);
@@ -162,7 +162,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if a 1 -1}}\\"",
+              "source": "tabindex="{{if a 1 -1}}"",
             },
           ]
         `);
@@ -183,7 +183,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if a -1 1}}\\"",
+              "source": "tabindex="{{if a -1 1}}"",
             },
           ]
         `);
@@ -204,7 +204,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if a 1}}\\"",
+              "source": "tabindex="{{if a 1}}"",
             },
           ]
         `);
@@ -225,7 +225,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if (not a) 1}}\\"",
+              "source": "tabindex="{{if (not a) 1}}"",
             },
           ]
         `);
@@ -246,7 +246,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{unless a 1}}\\"",
+              "source": "tabindex="{{unless a 1}}"",
             },
           ]
         `);
@@ -267,7 +267,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{unless a -1 1}}\\"",
+              "source": "tabindex="{{unless a -1 1}}"",
             },
           ]
         `);
