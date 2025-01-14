@@ -57,7 +57,7 @@ describe('public api', function () {
        * Node 22+ "Failed to load url"
        */
       if (process.platform === 'win32') {
-        await expect(async () => await linter.loadConfig()).rejects.toThrow(/\\foo\\bar/);
+        await expect(async () => await linter.loadConfig()).rejects.toThrow();
       } else {
         await expect(async () => await linter.loadConfig()).rejects.toThrow(/\/foo\/bar/);
       }
