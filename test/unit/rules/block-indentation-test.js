@@ -1294,8 +1294,16 @@ generateRuleTests({
       },
     },
     {
-      template: '<div>\n</div>\n  <span>\n  </span>',
-      fixedTemplate: '<div>\n</div>\n<span>\n</span>',
+      template:
+      /* 1 */ '<div>\n' +
+      /* 2 */ '</div>\n' +
+      /* 3 */ '  <span>\n' +
+      /* 4 */ '  </span>',
+      fixedTemplate:
+      /* 1 */ '<div>\n' +
+      /* 2 */ '</div>\n' +
+      /* 3 */ '<span>\n' +
+      /* 4 */ '</span>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`

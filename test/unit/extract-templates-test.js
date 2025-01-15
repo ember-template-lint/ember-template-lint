@@ -6,11 +6,13 @@ const p = new Preprocessor();
 describe('extractTemplates', function () {
   const handlebarsTemplate = '<div></div>';
   const script =
-    'export const SomeComponent = <template>\n' + '<button></button>\n' + '</template>';
+    /* 1 */ 'export const SomeComponent = <template>\n' +
+    /* 2 */ '<button></button>\n' +
+    /* 3 */ '</template>';
 
   describe('extractTemplates with relativePath undefined (receiving input from stdin)', function () {
-    it('returns the entire content if the content could be parsed as a script', function () {
-      expect(extractTemplates(handlebarsTemplate)).toMatchInlineSnapshot(`
+    it('returns the raw template if the content could be a template', function () {
+      expect(extractTemplates(handlebarsTemplate, 'foo.hbs')).toMatchInlineSnapshot(`
         [
           {
             "column": 0,
@@ -27,13 +29,17 @@ describe('extractTemplates', function () {
       `);
     });
 
+    it('returns nothing if the content could be parsed as a script', function () {
+      expect(extractTemplates(handlebarsTemplate)).toMatchInlineSnapshot(`[]`);
+    });
+
     it('returns the parsed template if the content could be parsed as a script', function () {
       expect(extractTemplates(script)).toMatchInlineSnapshot(`
         [
           {
-            "column": 39,
+            "column": 29,
             "columnOffset": 0,
-            "end": 58,
+            "end": 69,
             "isEmbedded": true,
             "isStrictMode": true,
             "line": 1,
@@ -42,19 +48,27 @@ describe('extractTemplates', function () {
         <button></button>
         ",
             "templateMatch": {
+              "contentRange": {
+                "end": 58,
+                "start": 39,
+              },
               "contents": "
         <button></button>
         ",
-              "end": [
-                "</template>",
-                undefined,
-              ],
-              "start": [
-                "<template>",
-                undefined,
-              ],
+              "endRange": {
+                "end": 69,
+                "start": 58,
+              },
+              "range": {
+                "end": 69,
+                "start": 29,
+              },
+              "startRange": {
+                "end": 39,
+                "start": 29,
+              },
               "tagName": "template",
-              "type": "template-tag",
+              "type": "expression",
             },
           },
         ]
@@ -84,9 +98,9 @@ describe('extractTemplates', function () {
       expect(extractTemplates(script)).toMatchInlineSnapshot(`
         [
           {
-            "column": 39,
+            "column": 29,
             "columnOffset": 0,
-            "end": 58,
+            "end": 69,
             "isEmbedded": true,
             "isStrictMode": true,
             "line": 1,
@@ -95,19 +109,27 @@ describe('extractTemplates', function () {
         <button></button>
         ",
             "templateMatch": {
+              "contentRange": {
+                "end": 58,
+                "start": 39,
+              },
               "contents": "
         <button></button>
         ",
-              "end": [
-                "</template>",
-                undefined,
-              ],
-              "start": [
-                "<template>",
-                undefined,
-              ],
+              "endRange": {
+                "end": 69,
+                "start": 58,
+              },
+              "range": {
+                "end": 69,
+                "start": 29,
+              },
+              "startRange": {
+                "end": 39,
+                "start": 29,
+              },
               "tagName": "template",
-              "type": "template-tag",
+              "type": "expression",
             },
           },
         ]
