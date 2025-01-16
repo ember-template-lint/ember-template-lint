@@ -91,6 +91,8 @@ module.exports = {
     'import/no-useless-path-segments': 'error',
     'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
+    // broken -- does not support package.json#exports
+    'import/no-unresolved': 'off',
 
     // Node rules:
     'n/no-unsupported-features/es-syntax': [
