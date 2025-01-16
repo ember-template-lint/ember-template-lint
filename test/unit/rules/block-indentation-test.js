@@ -1448,10 +1448,10 @@ generateRuleTests({
             {
               "column": 2,
               "endColumn": 8,
-              "endLine": 7,
-              "filePath": "layout.js",
+              "endLine": 5,
+              "filePath": "layout.gjs",
               "isFixable": true,
-              "line": 5,
+              "line": 3,
               "message": "Incorrect indentation for \`<div>\` beginning at L2:C2. Expected \`<div>\` to be at an indentation of 4, but was found at 2.",
               "rule": "block-indentation",
               "severity": 2,
