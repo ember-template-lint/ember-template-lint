@@ -169,14 +169,20 @@ generateRuleTests({
     },
     {
       template: `
+        import { hbs } from 'ember-template-imports';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
         /** silly example <button> usage */
-        export const SomeComponent = <template><button></button></template>;`,
+        export const SomeComponent = setComponentTemplate(hbs\`<button></button>\`, templateOnly());`,
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
       fixedTemplate: `
+        import { hbs } from 'ember-template-imports';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
         /** silly example <button> usage */
-        export const SomeComponent = <template><button type="button"></button></template>;`,
+        export const SomeComponent = setComponentTemplate(hbs\`<button type="button"></button>\`, templateOnly());`,
       skipDisabledTests: true,
 
       verifyResults(results) {

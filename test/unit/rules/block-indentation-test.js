@@ -234,66 +234,74 @@ generateRuleTests({
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>',
+        '  await render(hbs`',
         '    <div class="parent">',
         '      <div class="child"></div>',
         '    </div>',
-        '  </template>);',
-        '});',
+        '  `);',
+        ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(',
-        '    <template>',
-        '      <div class="child"></div>',
-        '    </template>',
-        '  );',
-        '});',
+        '  await render(hbs`<div class="parent">',
+        '    <div class="child"></div>',
+        '  </div>`);',
+        ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>',
+        '  await render(hbs`',
         '    {{#if foo}}',
         '      {{foo}}',
         '    {{else}}',
         '      {{bar}}',
         '    {{/if}}',
-        '  </template>);',
-        '});',
+        '  `);',
+        ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>{{#if foo}}',
+        '  await render(hbs`{{#if foo}}',
         '    {{foo}}',
         '  {{else}}',
         '    {{bar}}',
-        '  {{/if}}</template>);',
-        '});',
+        '  {{/if}}`);',
+        ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>',
+        '  await render(hbs`',
         '    {{#if foo}}',
         '      {{foo}}',
         '    {{else if bar}}',
@@ -301,27 +309,29 @@ generateRuleTests({
         '    {{else}}',
         '      {{baz}}',
         '    {{/if}}',
-        '  </template>);',
+        '  `);',
         ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>{{#if foo}}',
+        '  await render(hbs`{{#if foo}}',
         '    {{foo}}',
         '  {{else if bar}}',
         '    {{bar}}',
         '  {{else}}',
         '    {{baz}}',
-        '  {{/if}}</template>);',
+        '  {{/if}}`);',
         ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
     },
   ],
@@ -1294,16 +1304,8 @@ generateRuleTests({
       },
     },
     {
-      template:
-      /* 1 */ '<div>\n' +
-      /* 2 */ '</div>\n' +
-      /* 3 */ '  <span>\n' +
-      /* 4 */ '  </span>',
-      fixedTemplate:
-      /* 1 */ '<div>\n' +
-      /* 2 */ '</div>\n' +
-      /* 3 */ '<span>\n' +
-      /* 4 */ '</span>',
+      template: '<div>\n</div>\n  <span>\n  </span>',
+      fixedTemplate: '<div>\n</div>\n<span>\n</span>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -1429,25 +1431,29 @@ generateRuleTests({
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>',
+        '  await render(hbs`',
         '  <div class="parent">',
         '    <div class="child"></div>',
         '  </div>',
-        '  </template>);',
+        '  `);',
         ');',
       ].join('\n'),
       fixedTemplate: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>',
+        '  await render(hbs`',
         '    <div class="parent">',
         '      <div class="child"></div>',
         '    </div>',
-        '  </template>);',
+        '  `);',
         ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
 
       verifyResults(results) {
@@ -1473,21 +1479,25 @@ generateRuleTests({
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>  <div class="parent">',
+        '  await render(hbs`  <div class="parent">',
         '<div class="child"></div>',
-        '</div></template>);',
+        '</div>`);',
         ');',
       ].join('\n'),
       fixedTemplate: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template><div class="parent">',
+        '  await render(hbs`<div class="parent">',
         '    <div class="child"></div>',
-        '  </div></template>);',
+        '  </div>`);',
         ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
 
       verifyResults(results) {
@@ -1541,8 +1551,10 @@ generateRuleTests({
     },
     {
       template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>',
+        '  await render(hbs`',
         '   {{#if foo}}',
         '    {{foo}}',
         '    {{else if bar}}',
@@ -1550,12 +1562,14 @@ generateRuleTests({
         '  {{else}}',
         '      {{baz}}',
         '    {{/if}}',
-        '  </template>);',
+        '  `);',
         ');',
       ].join('\n'),
       fixedTemplate: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
-        '  await render(<template>',
+        '  await render(hbs`',
         '    {{#if foo}}',
         '      {{foo}}',
         '    {{else if bar}}',
@@ -1563,11 +1577,11 @@ generateRuleTests({
         '    {{else}}',
         '      {{baz}}',
         '    {{/if}}',
-        '  </template>);',
+        '  `);',
         ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
 
       verifyResults(results) {

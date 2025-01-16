@@ -13,15 +13,17 @@ generateRuleTests({
     // test the re-entering of yielded content
     '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
     {
-      template: `test('it renders', async (assert) => {
-  await render(<template>
+      template: `import { hbs } from 'ember-cli-htmlbars';
+
+test('it renders', async (assert) => {
+  await render(hbs\`
     <div class="parent">
       <div class="child"></div>
     </div>
-  </template>);
+  \`);
 );`,
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
     },
   ],
@@ -118,22 +120,26 @@ generateRuleTests({
       },
     },
     {
-      template: `test('it renders', async (assert) => {
-  await render(<template>
+      template: `import { hbs } from 'ember-cli-htmlbars';
+
+test('it renders', async (assert) => {
+  await render(hbs\`  
     <div class="parent">
       <div class="child"></div>
     </div>
-  </template>);
+  \`);
 );`,
-      fixedTemplate: `test('it renders', async (assert) => {
-  await render(<template>
+      fixedTemplate: `import { hbs } from 'ember-cli-htmlbars';
+
+test('it renders', async (assert) => {
+  await render(hbs\`
     <div class="parent">
       <div class="child"></div>
     </div>
-  </template>);
+  \`);
 );`,
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -142,7 +148,7 @@ generateRuleTests({
               "column": 19,
               "endColumn": 23,
               "endLine": 5,
-              "filePath": "layout.gjs",
+              "filePath": "layout.js",
               "isFixable": true,
               "line": 4,
               "message": "line cannot end with space",
@@ -155,22 +161,26 @@ generateRuleTests({
       },
     },
     {
-      template: `test('it renders', async (assert) => {
-  await render(<template>
-    <div></div>
+      template: `import { hbs } from 'ember-cli-htmlbars';
 
+test('it renders', async (assert) => {
+  await render(hbs\`
     <div></div>
-  </template>);
+  
+    <div></div>
+  \`);
 );`,
-      fixedTemplate: `test('it renders', async (assert) => {
-  await render(<template>
+      fixedTemplate: `import { hbs } from 'ember-cli-htmlbars';
+
+test('it renders', async (assert) => {
+  await render(hbs\`
     <div></div>
 
     <div></div>
-  </template>);
+  \`);
 );`,
       meta: {
-        filePath: 'layout.gjs',
+        filePath: 'layout.js',
       },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -179,7 +189,7 @@ generateRuleTests({
               "column": 0,
               "endColumn": 4,
               "endLine": 7,
-              "filePath": "layout.gjs",
+              "filePath": "layout.js",
               "isFixable": true,
               "line": 6,
               "message": "line cannot end with space",

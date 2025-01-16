@@ -1,18 +1,27 @@
-import { coordinatesOf, extractTemplates } from '../../lib/extract-templates.js';
-import { Preprocessor } from 'content-tag';
+import * as util from 'ember-template-imports/src/util.js';
 
-const p = new Preprocessor();
+import { coordinatesOf, extractTemplates, isStrictMode } from '../../lib/extract-templates.js';
 
 describe('extractTemplates', function () {
   const handlebarsTemplate = '<div></div>';
   const script =
-    /* 1 */ 'export const SomeComponent = <template>\n' +
-    /* 2 */ '<button></button>\n' +
-    /* 3 */ '</template>';
+    'export const SomeComponent = <template>\n' + '<button></button>\n' + '</template>';
+  const scriptTemplateLiteral = `import { hbs } from 'ember-cli-htmlbars';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`;
+  const scriptTemplateLiteralStrictMode = `import { hbs } from 'ember-template-imports';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`;
+  const scriptTemplateLiteralStrictModeAliased = `import { hbs as theHbs } from 'ember-template-imports';
+      import { setComponentTemplate } from '@ember/component';
+      import templateOnly from '@ember/component/template-only';
+      export const SomeComponent = setComponentTemplate(theHbs\`{{book}}\`, templateOnly());`;
 
   describe('extractTemplates with relativePath undefined (receiving input from stdin)', function () {
-    it('returns the raw template if the content could be a template', function () {
-      expect(extractTemplates(handlebarsTemplate, 'foo.hbs')).toMatchInlineSnapshot(`
+    it('returns the entire content if the content could be parsed as a script', function () {
+      expect(extractTemplates(handlebarsTemplate)).toMatchInlineSnapshot(`
         [
           {
             "column": 0,
@@ -28,18 +37,114 @@ describe('extractTemplates', function () {
         ]
       `);
     });
-
-    it('returns nothing if the content could be parsed as a script', function () {
-      expect(extractTemplates(handlebarsTemplate)).toMatchInlineSnapshot(`[]`);
+    it('isStrictMode is false for template literal that do not require strict mode', function () {
+      expect(extractTemplates(scriptTemplateLiteral)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 60,
+            "columnOffset": 6,
+            "end": 238,
+            "isEmbedded": true,
+            "isStrictMode": false,
+            "line": 4,
+            "start": 226,
+            "template": "{{book}}",
+            "templateMatch": {
+              "contents": "{{book}}",
+              "end": [
+                "\`",
+                undefined,
+              ],
+              "importIdentifier": "hbs",
+              "importPath": "ember-cli-htmlbars",
+              "start": [
+                "hbs\`",
+                "hbs",
+              ],
+              "tagName": "hbs",
+              "type": "template-literal",
+            },
+          },
+        ]
+      `);
     });
-
+    it('isStrictMode is true for template literal that requires strict mode', function () {
+      expect(extractTemplates(scriptTemplateLiteralStrictMode)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 60,
+            "columnOffset": 6,
+            "end": 242,
+            "isEmbedded": true,
+            "isStrictMode": true,
+            "line": 4,
+            "start": 230,
+            "template": "{{book}}",
+            "templateMatch": {
+              "contents": "{{book}}",
+              "end": [
+                "\`",
+                undefined,
+              ],
+              "importIdentifier": "hbs",
+              "importPath": "ember-template-imports",
+              "start": [
+                "hbs\`",
+                "hbs",
+              ],
+              "tagName": "hbs",
+              "type": "template-literal",
+            },
+          },
+        ]
+      `);
+    });
+    /* TODO
+     * when the import identifier is aliased as in:
+     * import { hbs as theHbs } from 'ember-template-imports';
+     * parseTemplates returns:
+     * { importIdentifier: theHbs, importPath: 'ember-template-imports'
+     * as isStrictMode() checks for importIdentifier === 'hbs' this case is interpreted as isStrictMode = false.
+     *
+     */
+    it('isStrictMode is true for template literal that requires strict mode when the template identifier is aliased', function () {
+      expect(extractTemplates(scriptTemplateLiteralStrictModeAliased)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 63,
+            "columnOffset": 6,
+            "end": 255,
+            "isEmbedded": true,
+            "isStrictMode": true,
+            "line": 4,
+            "start": 240,
+            "template": "{{book}}",
+            "templateMatch": {
+              "contents": "{{book}}",
+              "end": [
+                "\`",
+                undefined,
+              ],
+              "importIdentifier": "hbs",
+              "importPath": "ember-template-imports",
+              "start": [
+                "theHbs\`",
+                "theHbs",
+              ],
+              "tagName": "theHbs",
+              "type": "template-literal",
+            },
+          },
+        ]
+      `);
+    });
     it('returns the parsed template if the content could be parsed as a script', function () {
       expect(extractTemplates(script)).toMatchInlineSnapshot(`
         [
           {
-            "column": 29,
+            "column": 39,
             "columnOffset": 0,
-            "end": 69,
+            "end": 58,
             "isEmbedded": true,
             "isStrictMode": true,
             "line": 1,
@@ -48,27 +153,19 @@ describe('extractTemplates', function () {
         <button></button>
         ",
             "templateMatch": {
-              "contentRange": {
-                "end": 58,
-                "start": 39,
-              },
               "contents": "
         <button></button>
         ",
-              "endRange": {
-                "end": 69,
-                "start": 58,
-              },
-              "range": {
-                "end": 69,
-                "start": 29,
-              },
-              "startRange": {
-                "end": 39,
-                "start": 29,
-              },
+              "end": [
+                "</template>",
+                undefined,
+              ],
+              "start": [
+                "<template>",
+                undefined,
+              ],
               "tagName": "template",
-              "type": "expression",
+              "type": "template-tag",
             },
           },
         ]
@@ -98,9 +195,9 @@ describe('extractTemplates', function () {
       expect(extractTemplates(script)).toMatchInlineSnapshot(`
         [
           {
-            "column": 29,
+            "column": 39,
             "columnOffset": 0,
-            "end": 69,
+            "end": 58,
             "isEmbedded": true,
             "isStrictMode": true,
             "line": 1,
@@ -109,27 +206,19 @@ describe('extractTemplates', function () {
         <button></button>
         ",
             "templateMatch": {
-              "contentRange": {
-                "end": 58,
-                "start": 39,
-              },
               "contents": "
         <button></button>
         ",
-              "endRange": {
-                "end": 69,
-                "start": 58,
-              },
-              "range": {
-                "end": 69,
-                "start": 29,
-              },
-              "startRange": {
-                "end": 39,
-                "start": 29,
-              },
+              "end": [
+                "</template>",
+                undefined,
+              ],
+              "start": [
+                "<template>",
+                undefined,
+              ],
               "tagName": "template",
-              "type": "expression",
+              "type": "template-tag",
             },
           },
         ]
@@ -141,20 +230,44 @@ describe('extractTemplates', function () {
 describe('calculate template coordinates', function () {
   it('should contain only valid rule configuration', function () {
     let typescript =
-      /* 1 */ `import Component from '@glimmer/component';\n` +
-      /* 2 */ '\n' +
-      /* 3 */ 'interface Args {}\n' +
-      /* 4 */ '\n' +
-      /* 5 */ 'export class SomeComponent extends Component<Args> {\n' +
-      /* 6 */ '  <template>\n' +
-      /* 7 */ '    {{debugger}}\n' +
-      /* 8 */ '  </template>\n' +
-      /* 9 */ '}\n';
+      `import { hbs } from 'ember-cli-htmlbars';\n` +
+      `import { setComponentTemplate } from '@ember/component';\n` +
+      `import Component from '@glimmer/component';\n` +
+      '\n' +
+      'interface Args {}\n' +
+      '\n' +
+      'export class SomeComponent extends Component<Args> {\n' +
+      '  <template>\n' +
+      '    {{debugger}}\n' +
+      '  </template>\n' +
+      '}\n';
+    expect(coordinatesOf(typescript, 228)).toEqual({
+      line: 8,
+      column: 12,
+      columnOffset: 2,
+    });
+  });
+});
 
-    const parsed = p.parse(typescript);
-    const result = coordinatesOf(typescript, parsed[0]);
-    expect(result.line).toBe(6);
-    expect(result.column).toBe(2);
-    expect(result.columnOffset).toBe(2);
+describe('isStrictMode', function () {
+  it.each([
+    {
+      importIdentifier: util.TEMPLATE_LITERAL_IDENTIFIER,
+      importPath: util.TEMPLATE_LITERAL_MODULE_SPECIFIER,
+    },
+    { type: 'template-tag' },
+  ])('isStrictMode returns true', function (templateInfo) {
+    expect(isStrictMode(templateInfo)).toBe(true);
+  });
+  it.each([
+    { importIdentifier: 'hbs', importPath: 'ember-cli-htmlbars' },
+    { importIdentifier: 'hbs', importPath: '@ember/template-compilation' },
+    { importIdentifier: 'hbs', importPath: '@ember/template-compilation' },
+    { importIdentifier: 'default', importPath: 'ember-cli-htmlbars-inline-precompile' },
+    { importIdentifier: 'default', importPath: 'htmlbars-inline-precompile' },
+    { importIdentifier: 'precompileTemplate', importPath: '@ember/template-compilation' },
+    { type: 'template-literal' },
+  ])('isStrictMode returns false', function (templateInfo) {
+    expect(isStrictMode(templateInfo)).toBe(false);
   });
 });
