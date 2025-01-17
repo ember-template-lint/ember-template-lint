@@ -198,6 +198,7 @@ Each rule has emojis denoting:
 | [require-media-caption](./docs/rule/require-media-caption.md)                                             | ✅  |     | ⌨️  |     |
 | [require-presentational-children](./docs/rule/require-presentational-children.md)                         | ✅  |     | ⌨️  |     |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
+| [require-strict-mode](./docs/rule/require-strict-mode.md)                                                 |     |     |     |     |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |
 | [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     | 🔧  |
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     | 🔧  |
