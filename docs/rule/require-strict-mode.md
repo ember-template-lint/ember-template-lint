@@ -34,7 +34,6 @@ This rule **allows** the following:
 
 ```gjs
 // button-test.gjs
-import { hbs } from 'ember-cli-htmlbars';
 import { Button } from 'ember-awesome-button';
 
 test('it renders', async (assert) => {
