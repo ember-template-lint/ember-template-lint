@@ -1,5 +1,35 @@
 # Changelog
 
+## Release (2025-01-17)
+
+ember-template-lint 6.1.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3102](https://github.com/ember-template-lint/ember-template-lint/pull/3102) Add new require-strict-mode rule  ([@simonihmig](https://github.com/simonihmig))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3101](https://github.com/ember-template-lint/ember-template-lint/pull/3101) Fix strict mode detection ([@simonihmig](https://github.com/simonihmig))
+  * [#3095](https://github.com/ember-template-lint/ember-template-lint/pull/3095) Fix `--no-error-on-unmatched-pattern` for multiple patterns ([@davidtaylorhq](https://github.com/davidtaylorhq))
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3103](https://github.com/ember-template-lint/ember-template-lint/pull/3103) Fix new rule example in contributing guide ([@simonihmig](https://github.com/simonihmig))
+  * [#3087](https://github.com/ember-template-lint/ember-template-lint/pull/3087) Remove bad advice about ember-composable-helpers ([@ef4](https://github.com/ef4))
+
+#### :house: Internal
+* `ember-template-lint`
+  * [#3100](https://github.com/ember-template-lint/ember-template-lint/pull/3100) Migrate from Jest to Vitest ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3096](https://github.com/ember-template-lint/ember-template-lint/pull/3096) Add Release plan, remove release-it ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3097](https://github.com/ember-template-lint/ember-template-lint/pull/3097) Fix node version (node 22 instead of node 21) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 4
+- David Taylor ([@davidtaylorhq](https://github.com/davidtaylorhq))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 
 
 
