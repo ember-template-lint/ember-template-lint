@@ -234,7 +234,7 @@ generateRuleTests({
     },
     {
       template: [
-        "test('it renders', async (assert) => {",
+        "test('1 it renders', async (assert) => {",
         '  await render(',
         '    <template>',
         '      <div class="parent">',
@@ -250,10 +250,10 @@ generateRuleTests({
     },
     {
       template: [
-        "test('it renders', async (assert) => {",
+        "test('2 it renders', async (assert) => {",
         '  await render(<template><div class="parent">',
         '    <div class="child"></div>',
-        '  </template>);',
+        '  </div></template>);',
         '});',
       ].join('\n'),
       meta: {
@@ -262,7 +262,7 @@ generateRuleTests({
     },
     {
       template: [
-        "test('it renders', async (assert) => {",
+        "test('3 it renders', async (assert) => {",
         '  await render(<template>',
         '    {{#if foo}}',
         '      {{foo}}',
@@ -278,7 +278,7 @@ generateRuleTests({
     },
     {
       template: [
-        "test('it renders', async (assert) => {",
+        "test('4 it renders', async (assert) => {",
         '  await render(<template>{{#if foo}}',
         '    {{foo}}',
         '  {{else}}',
@@ -292,7 +292,7 @@ generateRuleTests({
     },
     {
       template: [
-        "test('it renders', async (assert) => {",
+        "test('5 it renders', async (assert) => {",
         '  await render(<template>',
         '    {{#if foo}}',
         '      {{foo}}',
@@ -310,7 +310,7 @@ generateRuleTests({
     },
     {
       template: [
-        "test('it renders', async (assert) => {",
+        "test('6 it renders', async (assert) => {",
         '  await render(<template>{{#if foo}}',
         '    {{foo}}',
         '  {{else if bar}}',
@@ -1421,7 +1421,7 @@ generateRuleTests({
     },
     {
       template: [
-        "test('it renders', async (assert) => {",
+        "test('1424 it renders', async (assert) => {",
         '  await render(<template>',
         '  <div class="parent">',
         '    <div class="child"></div>',
@@ -1430,7 +1430,7 @@ generateRuleTests({
         '});',
       ].join('\n'),
       fixedTemplate: [
-        "test('it renders', async (assert) => {",
+        "test('1424 it renders', async (assert) => {",
         '  await render(<template>',
         '    <div class="parent">',
         '      <div class="child"></div>',
@@ -1465,82 +1465,31 @@ generateRuleTests({
     },
     {
       template: [
-        "import { hbs } from 'ember-cli-htmlbars';",
-        '',
-        "test('it renders', async (assert) => {",
-        '  await render(hbs`  <div class="parent">',
+        "test('1468 it renders', async (assert) => {",
+        '  await render(<template>  <div class="parent">',
         '<div class="child"></div>',
-        '</div>`);',
+        '</div></template>);',
         ');',
       ].join('\n'),
       fixedTemplate: [
-        "import { hbs } from 'ember-cli-htmlbars';",
-        '',
-        "test('it renders', async (assert) => {",
-        '  await render(hbs`<div class="parent">',
+        "test('1468 it renders', async (assert) => {",
+        '  await render(<template><div class="parent">',
         '    <div class="child"></div>',
-        '  </div>`);',
+        '  </div></template>);',
         ');',
       ].join('\n'),
       meta: {
-        filePath: 'layout.js',
+        filePath: 'layout.gjs',
       },
 
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 21,
-              "endColumn": 25,
-              "endLine": 6,
-              "filePath": "layout.js",
-              "isFixable": true,
-              "line": 4,
-              "message": "Incorrect indentation for \`<div>\` beginning at L1:C2. Expected \`<div>\` to be at an indentation of 0, but was found at 2.",
-              "rule": "block-indentation",
-              "severity": 2,
-              "source": "<div class="parent">
-          <div class="child"></div>
-          </div>",
-            },
-            {
-              "column": 21,
-              "endColumn": 25,
-              "endLine": 6,
-              "filePath": "layout.js",
-              "isFixable": true,
-              "line": 4,
-              "message": "Incorrect indentation for \`div\` beginning at L1:C2. Expected \`</div>\` ending at L3:C6 to be at an indentation of 2 but was found at 0.",
-              "rule": "block-indentation",
-              "severity": 2,
-              "source": "<div class="parent">
-          <div class="child"></div>
-          </div>",
-            },
-            {
-              "column": 0,
-              "endColumn": 6,
-              "endLine": 6,
-              "filePath": "layout.js",
-              "isFixable": true,
-              "line": 5,
-              "message": "Incorrect indentation for \`<div>\` beginning at L2:C0. Expected \`<div>\` to be at an indentation of 4 but was found at 0.",
-              "rule": "block-indentation",
-              "severity": 2,
-              "source": "<div class="parent">
-          <div class="child"></div>
-          </div>",
-            },
-          ]
-        `);
+        expect(results).toMatchInlineSnapshot();
       },
     },
     {
       template: [
-        "import { hbs } from 'ember-cli-htmlbars';",
-        '',
-        "test('it renders', async (assert) => {",
-        '  await render(hbs`',
+        "test('1491 it renders', async (assert) => {",
+        '  await render(<template>',
         '   {{#if foo}}',
         '    {{foo}}',
         '    {{else if bar}}',
@@ -1548,14 +1497,12 @@ generateRuleTests({
         '  {{else}}',
         '      {{baz}}',
         '    {{/if}}',
-        '  `);',
+        '  </template>);',
         ');',
       ].join('\n'),
       fixedTemplate: [
-        "import { hbs } from 'ember-cli-htmlbars';",
-        '',
-        "test('it renders', async (assert) => {",
-        '  await render(hbs`',
+        "test('1491 it renders', async (assert) => {",
+        '  await render(<template>',
         '    {{#if foo}}',
         '      {{foo}}',
         '    {{else if bar}}',
@@ -1563,7 +1510,7 @@ generateRuleTests({
         '    {{else}}',
         '      {{baz}}',
         '    {{/if}}',
-        '  `);',
+        '  </template>);',
         ');',
       ].join('\n'),
       meta: {
