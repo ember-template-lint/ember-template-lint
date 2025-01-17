@@ -1469,21 +1469,66 @@ generateRuleTests({
         '  await render(<template>  <div class="parent">',
         '<div class="child"></div>',
         '</div></template>);',
-        ');',
+        '});',
       ].join('\n'),
       fixedTemplate: [
         "test('1468 it renders', async (assert) => {",
         '  await render(<template><div class="parent">',
         '    <div class="child"></div>',
         '  </div></template>);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.gjs',
       },
 
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot();
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 21,
+              "endLine": 4,
+              "filePath": "layout.gjs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation for \`<div>\` beginning at L1:C2. Expected \`<div>\` to be at an indentation of 0, but was found at 2.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div class="parent">
+          <div class="child"></div>
+          </div>",
+            },
+            {
+              "column": 17,
+              "endColumn": 21,
+              "endLine": 4,
+              "filePath": "layout.gjs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Incorrect indentation for \`div\` beginning at L1:C2. Expected \`</div>\` ending at L3:C6 to be at an indentation of 2 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div class="parent">
+          <div class="child"></div>
+          </div>",
+            },
+            {
+              "column": 0,
+              "endColumn": 6,
+              "endLine": 4,
+              "filePath": "layout.gjs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Incorrect indentation for \`<div>\` beginning at L2:C0. Expected \`<div>\` to be at an indentation of 4 but was found at 0.",
+              "rule": "block-indentation",
+              "severity": 2,
+              "source": "<div class="parent">
+          <div class="child"></div>
+          </div>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -1498,7 +1543,7 @@ generateRuleTests({
         '      {{baz}}',
         '    {{/if}}',
         '  </template>);',
-        ');',
+        '});',
       ].join('\n'),
       fixedTemplate: [
         "test('1491 it renders', async (assert) => {",
@@ -1511,7 +1556,7 @@ generateRuleTests({
         '      {{baz}}',
         '    {{/if}}',
         '  </template>);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -1523,10 +1568,10 @@ generateRuleTests({
             {
               "column": 3,
               "endColumn": 11,
-              "endLine": 11,
+              "endLine": 9,
               "filePath": "layout.js",
               "isFixable": true,
-              "line": 5,
+              "line": 3,
               "message": "Incorrect indentation for \`{{#if}}\` beginning at L2:C3. Expected \`{{#if}}\` to be at an indentation of 4, but was found at 3.",
               "rule": "block-indentation",
               "severity": 2,
@@ -1541,10 +1586,10 @@ generateRuleTests({
             {
               "column": 4,
               "endColumn": 11,
-              "endLine": 11,
+              "endLine": 9,
               "filePath": "layout.js",
               "isFixable": true,
-              "line": 7,
+              "line": 5,
               "message": "Incorrect indentation for inverse block of \`{{#if}}\` beginning at L2:C3. Expected \`{{else}}\` starting at L4:C4 to be at an indentation of 3 but was found at 4.",
               "rule": "block-indentation",
               "severity": 2,
@@ -1559,10 +1604,10 @@ generateRuleTests({
             {
               "column": 3,
               "endColumn": 11,
-              "endLine": 11,
+              "endLine": 9,
               "filePath": "layout.js",
               "isFixable": true,
-              "line": 5,
+              "line": 3,
               "message": "Incorrect indentation for \`if\` beginning at L2:C3. Expected \`{{/if}}\` ending at L8:C11 to be at an indentation of 3 but was found at 4.",
               "rule": "block-indentation",
               "severity": 2,
@@ -1577,10 +1622,10 @@ generateRuleTests({
             {
               "column": 4,
               "endColumn": 11,
-              "endLine": 11,
+              "endLine": 9,
               "filePath": "layout.js",
               "isFixable": true,
-              "line": 6,
+              "line": 4,
               "message": "Incorrect indentation for \`{{foo}}\` beginning at L3:C4. Expected \`{{foo}}\` to be at an indentation of 5 but was found at 4.",
               "rule": "block-indentation",
               "severity": 2,
@@ -1595,10 +1640,10 @@ generateRuleTests({
             {
               "column": 2,
               "endColumn": 4,
-              "endLine": 11,
+              "endLine": 9,
               "filePath": "layout.js",
               "isFixable": true,
-              "line": 9,
+              "line": 7,
               "message": "Incorrect indentation for inverse block of \`{{#if}}\` beginning at L4:C4. Expected \`{{else}}\` starting at L6:C2 to be at an indentation of 4 but was found at 2.",
               "rule": "block-indentation",
               "severity": 2,

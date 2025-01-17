@@ -419,9 +419,9 @@ describe('replaceTemplates', () => {
     ].join('\n');
 
     let parsed = p.parse(gjs);
-    let templateInfo = parsed[0];
+    let first = parsed[0];
 
-    let result = replaceTemplates(gjs, [{ templateInfo, transformed: templateInfo.contents }]);
+    let result = replaceTemplates(gjs, [{ templateInfo: { templateMatch: first }, transformed: first.contents }]);
 
     expect(result).toEqual(gjs);
   });
@@ -438,9 +438,9 @@ describe('replaceTemplates', () => {
     ].join('\n');
 
     let parsed = p.parse(gjs);
-    let templateInfo = parsed[0];
+    let first = parsed[0];
 
-    let result = replaceTemplates(gjs, [{ templateInfo, transformed: `new content` }]);
+    let result = replaceTemplates(gjs, [{ templateInfo: { templateMatch: first  }, transformed: `new content` }]);
 
     expect(result).toMatchInlineSnapshot(`
       "test('it renders', async (assert) => {
