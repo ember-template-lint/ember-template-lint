@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-01-18)
+
+ember-template-lint 6.1.1 (patch)
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3104](https://github.com/ember-template-lint/ember-template-lint/pull/3104) Fix require-strict-mode example ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 1
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+
 ## Release (2025-01-17)
 
 ember-template-lint 6.1.0 (minor)
