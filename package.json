@@ -57,7 +57,7 @@
     "ci-info": "^4.0.0",
     "date-fns": "^3.6.0",
     "ember-template-imports": "^3.4.2",
-    "ember-template-recast": "^6.1.4",
+    "ember-template-recast": "^6.1.5",
     "eslint-formatter-kakoune": "^1.0.0",
     "find-up": "^7.0.0",
     "fuse.js": "^7.0.0",
