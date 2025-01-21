@@ -15,7 +15,7 @@ generateRuleTests({
     {
       template: `import Component from '@glimmer/component';
 
-  export default HelloComponent extends Component {
+  export default class HelloComponent extends Component {
     <template>hello</template>
   }`,
       meta: {
@@ -67,15 +67,19 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 19,
-              "endColumn": 24,
-              "endLine": 4,
+              "column": 0,
+              "endColumn": 3,
+              "endLine": 5,
               "filePath": "hello-test.js",
-              "line": 4,
+              "line": 1,
               "message": "Templates are required to be in strict mode. Consider refactoring to template tag format.",
               "rule": "require-strict-mode",
               "severity": 2,
-              "source": "hello",
+              "source": "import { hbs } from 'ember-cli-htmlbars';
+
+          test('it renders', async (assert) => {
+            await render(hbs\`hello\`);
+          });",
             },
           ]
         `);
