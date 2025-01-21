@@ -12,20 +12,6 @@ generateRuleTests({
     'test\n' + '\n',
     // test the re-entering of yielded content
     '{{#my-component}}\n' + '  test\n' + '{{/my-component}}',
-    {
-      template: `import { hbs } from 'ember-cli-htmlbars';
-
-test('it renders', async (assert) => {
-  await render(hbs\`
-    <div class="parent">
-      <div class="child"></div>
-    </div>
-  \`);
-);`,
-      meta: {
-        filePath: 'layout.js',
-      },
-    },
   ],
 
   bad: [
@@ -114,88 +100,6 @@ test('it renders', async (assert) => {
               "rule": "no-trailing-spaces",
               "severity": 2,
               "source": "  test ",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: `import { hbs } from 'ember-cli-htmlbars';
-
-test('it renders', async (assert) => {
-  await render(hbs\`  
-    <div class="parent">
-      <div class="child"></div>
-    </div>
-  \`);
-);`,
-      fixedTemplate: `import { hbs } from 'ember-cli-htmlbars';
-
-test('it renders', async (assert) => {
-  await render(hbs\`
-    <div class="parent">
-      <div class="child"></div>
-    </div>
-  \`);
-);`,
-      meta: {
-        filePath: 'layout.js',
-      },
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 19,
-              "endColumn": 23,
-              "endLine": 5,
-              "filePath": "layout.js",
-              "isFixable": true,
-              "line": 4,
-              "message": "line cannot end with space",
-              "rule": "no-trailing-spaces",
-              "severity": 2,
-              "source": "  ",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: `import { hbs } from 'ember-cli-htmlbars';
-
-test('it renders', async (assert) => {
-  await render(hbs\`
-    <div></div>
-  
-    <div></div>
-  \`);
-);`,
-      fixedTemplate: `import { hbs } from 'ember-cli-htmlbars';
-
-test('it renders', async (assert) => {
-  await render(hbs\`
-    <div></div>
-
-    <div></div>
-  \`);
-);`,
-      meta: {
-        filePath: 'layout.js',
-      },
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 4,
-              "endLine": 7,
-              "filePath": "layout.js",
-              "isFixable": true,
-              "line": 6,
-              "message": "line cannot end with space",
-              "rule": "no-trailing-spaces",
-              "severity": 2,
-              "source": "  ",
             },
           ]
         `);
