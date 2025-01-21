@@ -511,19 +511,10 @@ describe('public api', function () {
       });
 
       let componentPath = project.path('app/components/bar.gts');
+      // NOTE: linting templates using hbs is not supported, as it would
+      //       require a babel-parse-pass on each file.
       let templateContents = fs.readFileSync(componentPath, { encoding: 'utf8' });
       let expected = [
-        {
-          message: 'Unexpected {{debugger}} usage.',
-          filePath: componentPath,
-          line: 8,
-          column: 2,
-          endColumn: 14,
-          endLine: 8,
-          source: '{{debugger}}',
-          rule: 'no-debugger',
-          severity: 2,
-        },
         {
           message: 'Unexpected {{debugger}} usage.',
           filePath: componentPath,
