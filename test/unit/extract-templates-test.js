@@ -1,4 +1,9 @@
-import { coordinatesOf, extractTemplates, replaceTemplates, coordinatesOfResult } from '../../lib/extract-templates.js';
+import {
+  coordinatesOf,
+  extractTemplates,
+  replaceTemplates,
+  coordinatesOfResult,
+} from '../../lib/extract-templates.js';
 import { Preprocessor } from 'content-tag';
 
 const p = new Preprocessor();
@@ -6,7 +11,6 @@ const p = new Preprocessor();
 function templateFromByteOffsets(source, start, end) {
   return source.slice(start, end + 1);
 }
-
 
 describe('extractTemplates', function () {
   const handlebarsTemplate = '<div></div>';
@@ -18,7 +22,9 @@ describe('extractTemplates', function () {
   describe('extractTemplates with relativePath undefined (receiving input from stdin)', function () {
     it('returns the raw template if the content could be a template', function () {
       let result = extractTemplates(handlebarsTemplate, 'foo.hbs');
-      expect(templateFromByteOffsets(handlebarsTemplate, 0, 10)).toMatchInlineSnapshot(`"<div></div>"`);
+      expect(templateFromByteOffsets(handlebarsTemplate, 0, 10)).toMatchInlineSnapshot(
+        `"<div></div>"`
+      );
       expect(result).toMatchInlineSnapshot(`
         [
           {
@@ -312,7 +318,7 @@ describe('coordinatesOf', function () {
     `);
   });
 
-  it('has correct templateInfos when in a function', function() {
+  it('has correct templateInfos when in a function', function () {
     const multiTemplateScript = [
       /* 1 */ `export function foo() {`,
       /* 2 */ `  const bar = 2;`,
@@ -441,7 +447,9 @@ describe('replaceTemplates', () => {
     let parsed = p.parse(gjs);
     let first = parsed[0];
 
-    let result = replaceTemplates(gjs, [{ templateInfo: { templateMatch: first }, transformed: first.contents }]);
+    let result = replaceTemplates(gjs, [
+      { templateInfo: { templateMatch: first }, transformed: first.contents },
+    ]);
 
     expect(result).toEqual(gjs);
   });
@@ -460,34 +468,35 @@ describe('replaceTemplates', () => {
     let parsed = p.parse(gjs);
     let first = parsed[0];
 
-    let result = replaceTemplates(gjs, [{ templateInfo: { templateMatch: first  }, transformed: `new content` }]);
+    let result = replaceTemplates(gjs, [
+      { templateInfo: { templateMatch: first }, transformed: `new content` },
+    ]);
 
     expect(result).toMatchInlineSnapshot(`
       "test('it renders', async (assert) => {
         await render(<template>new content</template>);
       });"
     `);
-  })
+  });
 });
-
 
 describe('coordinatesOfResult', () => {
   it('transforms the coordinates', () => {
-      let js = '<template>{{book}}</template>';
+    let js = '<template>{{book}}</template>';
 
-      // Return value of buildRules + transform
-      const lintResult = {
-        column: 2,
-        endColumn: 6,
-        endLine: 1,
-        line: 1,
-        // not needed: rule, message, filePath, severity, source
-      };
-      const templateInfos = extractTemplates(js, 'file.gjs');
-      const result = coordinatesOfResult(templateInfos[0], lintResult);
+    // Return value of buildRules + transform
+    const lintResult = {
+      column: 2,
+      endColumn: 6,
+      endLine: 1,
+      line: 1,
+      // not needed: rule, message, filePath, severity, source
+    };
+    const templateInfos = extractTemplates(js, 'file.gjs');
+    const result = coordinatesOfResult(templateInfos[0], lintResult);
 
-      expect(result.line).toBe(1);
-      expect(result.endLine).toBe(1);
-      expect(result.column).toBe(12);
+    expect(result.line).toBe(1);
+    expect(result.endLine).toBe(1);
+    expect(result.column).toBe(12);
   });
 });
