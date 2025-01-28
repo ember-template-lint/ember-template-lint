@@ -27,7 +27,7 @@ describe('recommended config', function () {
         config,
       });
 
-      expect(await linter.verify({ source, moduleId: 'some/thing.hbs' })).toEqual([]);
+      expect(await linter.verify({ source, filePath: 'some/thing.hbs' })).toEqual([]);
     });
   }
 
