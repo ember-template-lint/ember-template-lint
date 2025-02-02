@@ -68,6 +68,227 @@ describe('editors integration', function () {
   });
 
   describe('with embedded templates', function () {
+    describe('hbs (tests and manual low-level usage)', function () {
+      let missingButtonType =
+        `import { hbs } from 'ember-cli-htmlbars';\n` +
+        `import { setComponentTemplate } from '@ember/component';\n` +
+        `import templateOnly from '@ember/component/template-only';\n` +
+        '\n' +
+        'export const SomeComponent = setComponentTemplate(hbs`\n' +
+        '  <button></button>\n' +
+        '  `,\n' +
+        '  templateOnly()\n' +
+        ');';
+
+      let typescript =
+        `import { hbs } from 'ember-cli-htmlbars';\n` +
+        `import { setComponentTemplate } from '@ember/component';\n` +
+        `import Component from '@glimmer/component';\n` +
+        '\n' +
+        'interface Args {}\n' +
+        '\n' +
+        'export const SomeComponent = setComponentTemplate(hbs`\n' +
+        '  {{debugger}}\n' +
+        '  `,\n' +
+        '  class Some extends Component<Args> {}\n' +
+        ');';
+
+      let multipleComponents =
+        `import { hbs } from 'ember-cli-htmlbars';\n` +
+        `import { setComponentTemplate } from '@ember/component';\n` +
+        `import templateOnly from '@ember/component/template-only';\n` +
+        '\n' +
+        'export const SomeComponent = setComponentTemplate(hbs`\n' +
+        '  {{debugger}}\n' +
+        '  `,\n' +
+        '  templateOnly()\n' +
+        ');\n' +
+        '\n' +
+        'export const AnotherComponent = setComponentTemplate(hbs`\n' +
+        '  {{debugger}}\n' +
+        '  `,\n' +
+        '  templateOnly()\n' +
+        ');\n';
+
+      const templateThatShouldNotBeParsed =
+        'export default class Foo extends Service {\n' +
+        '  indentedThing = stripIndent`\n' +
+        '  Hahaha, this is just a plain string. Definitely not a template.\n' +
+        '`\n' +
+        '}';
+
+      it('does not parse regular strings as a template', async function () {
+        project.setConfig({ rules: { 'no-bare-strings': true } });
+        project.write({ 'some-module.gjs': templateThatShouldNotBeParsed });
+
+        let result = await runBin('--format', 'json', '--filename', 'some-module.gjs', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.gjs')),
+        });
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('for multiple components in one module, it has exit code 1 and reports errors to stdout', async function () {
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.js': multipleComponents });
+
+        let result = await runBin('--format', 'json', '--filename', 'some-module.js', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.js')),
+        });
+
+        let expectedOutputData = {};
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expectedOutputData['some-module.js'] = [
+          {
+            column: 2,
+            endColumn: 14,
+            endLine: 6,
+            line: 6,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.js',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+          {
+            column: 2,
+            endColumn: 14,
+            endLine: 12,
+            line: 12,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.js',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('for typescript files, it has exit code 1 and reports errors to stdout', async function () {
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.ts': typescript });
+
+        let result = await runBin('--format', 'json', '--filename', 'some-module.ts', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.ts')),
+        });
+
+        let expectedOutputData = {};
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expectedOutputData['some-module.ts'] = [
+          {
+            column: 2,
+            endColumn: 14,
+            endLine: 8,
+            line: 8,
+            message: 'Unexpected {{debugger}} usage.',
+            filePath: 'some-module.ts',
+            rule: 'no-debugger',
+            severity: 2,
+            source: '{{debugger}}',
+          },
+        ];
+
+        expect(result.exitCode).toEqual(1);
+        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+        expect(result.stderr).toBeFalsy();
+      });
+
+      it('has exit code 0 and writes fixes if --filename is provided', async function () {
+        project.setConfig({ rules: { 'require-button-type': true } });
+        project.write({ 'some-module.js': missingButtonType });
+
+        let result = await runBin('--format', 'json', '--filename', 'some-module.js', '--fix', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.js')),
+        });
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stdout).toBeFalsy();
+        expect(result.stderr).toBeFalsy();
+
+        let template = fs.readFileSync(path.resolve('some-module.js'), { encoding: 'utf8' });
+        expect(template).toBe(
+          `import { hbs } from 'ember-cli-htmlbars';\n` +
+            `import { setComponentTemplate } from '@ember/component';\n` +
+            `import templateOnly from '@ember/component/template-only';\n` +
+            '\n' +
+            'export const SomeComponent = setComponentTemplate(hbs`\n' +
+            '  <button type="button"></button>\n' +
+            '  `,\n' +
+            '  templateOnly()\n' +
+            ');'
+        );
+      });
+
+      it.each([
+        `import { hbs } from 'ember-cli-htmlbars'`,
+        `import { hbs } from '@ember/template-compilation'`,
+        `import hbs from 'ember-cli-htmlbars-inline-precompile'`,
+        `import hbs from 'htmlbars-inline-precompile'`,
+        `import { precompileTemplate as hbs } from '@ember/template-compilation'`,
+      ])(
+        'for typescript files, it has exit code 1 and reports errors to stdout',
+        async function (importStatement) {
+          let code =
+            `${importStatement};\n` +
+            `import { setComponentTemplate } from '@ember/component';\n` +
+            `import Component from '@glimmer/component';\n` +
+            '\n' +
+            'interface Args {}\n' +
+            '\n' +
+            'export const SomeComponent = hbs`\n' +
+            '  {{debugger}}\n' +
+            '  `,\n' +
+            '  class Some extends Component<Args> {};';
+          project.setConfig({ rules: { 'no-debugger': true } });
+          project.write({ 'some-module.ts': code });
+
+          let result = await runBin('--format', 'json', '--filename', 'some-module.ts', {
+            shell: false,
+            input: fs.readFileSync(path.resolve('some-module.ts')),
+          });
+
+          let expectedOutputData = {};
+          /**
+           * Indentation is adjusted for the whole file, and not
+           * scoped to the template
+           */
+          expectedOutputData['some-module.ts'] = [
+            {
+              column: 2,
+              endColumn: 14,
+              endLine: 8,
+              line: 8,
+              message: 'Unexpected {{debugger}} usage.',
+              filePath: 'some-module.ts',
+              rule: 'no-debugger',
+              severity: 2,
+              source: '{{debugger}}',
+            },
+          ];
+
+          expect(result.exitCode).toEqual(1);
+          expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
+          expect(result.stderr).toBeFalsy();
+        }
+      );
+    });
+
     describe('<template>', function () {
       let templateDefinitionOnOneLine =
         'export const SomeComponent = <template>{{debugger}}</template>';

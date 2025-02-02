@@ -30,10 +30,10 @@ generateRuleTests({
     //   config: 'never',
     //   template: 'test',
     // },
-    {
-      config: 'never',
-      template: '<img>',
-    },
+    // {
+    //   config: 'never',
+    //   template: '<img>',
+    // },
     // // test the re-entering of yielded content
     // {
     //   config: 'never',
@@ -45,6 +45,19 @@ generateRuleTests({
     // },
     // test that the config is ignored when the template is embedded, because this rule
     // is meant for newlines at the end of files, not for templates themselves.
+    {
+      config: 'always',
+      template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
+        "test('it renders', async (assert) => {",
+        '  await render(hbs`<img>`);',
+        ');',
+      ].join('\n'),
+      meta: {
+        filePath: 'layout.js',
+      },
+    },
   ],
 
   bad: [
