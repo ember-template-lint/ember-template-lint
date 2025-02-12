@@ -21,7 +21,7 @@ test('it renders', async (assert) => {
       <div class="child"></div>
     </div>
   \`);
-);`,
+});`,
       meta: {
         filePath: 'layout.js',
       },
@@ -123,12 +123,12 @@ test('it renders', async (assert) => {
       template: `import { hbs } from 'ember-cli-htmlbars';
 
 test('it renders', async (assert) => {
-  await render(hbs\`  
+  await render(hbs\`
     <div class="parent">
       <div class="child"></div>
     </div>
   \`);
-);`,
+});`,
       fixedTemplate: `import { hbs } from 'ember-cli-htmlbars';
 
 test('it renders', async (assert) => {
@@ -137,7 +137,7 @@ test('it renders', async (assert) => {
       <div class="child"></div>
     </div>
   \`);
-);`,
+});`,
       meta: {
         filePath: 'layout.js',
       },
@@ -166,10 +166,10 @@ test('it renders', async (assert) => {
 test('it renders', async (assert) => {
   await render(hbs\`
     <div></div>
-  
+
     <div></div>
   \`);
-);`,
+});`,
       fixedTemplate: `import { hbs } from 'ember-cli-htmlbars';
 
 test('it renders', async (assert) => {
@@ -178,7 +178,7 @@ test('it renders', async (assert) => {
 
     <div></div>
   \`);
-);`,
+});`,
       meta: {
         filePath: 'layout.js',
       },
