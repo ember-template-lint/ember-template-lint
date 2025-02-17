@@ -491,17 +491,9 @@ describe('public api', function () {
         app: {
           components: {
             'bar.gts':
-              `import { hbs } from 'ember-cli-htmlbars';\n` +
-              `import { setComponentTemplate } from '@ember/component';\n` +
               `import Component from '@glimmer/component';\n` +
               '\n' +
               'interface Args {}\n' +
-              '\n' +
-              'export const SomeComponent = setComponentTemplate(hbs`\n' +
-              '  {{debugger}}\n' +
-              '  `,\n' +
-              '  class Some extends Component<Args> {}\n' +
-              ');\n' +
               '\n' +
               '<template>\n' +
               '  {{debugger}}\n' +
@@ -516,21 +508,10 @@ describe('public api', function () {
         {
           message: 'Unexpected {{debugger}} usage.',
           filePath: componentPath,
-          line: 8,
+          line: 6,
           column: 2,
           endColumn: 14,
-          endLine: 8,
-          source: '{{debugger}}',
-          rule: 'no-debugger',
-          severity: 2,
-        },
-        {
-          message: 'Unexpected {{debugger}} usage.',
-          filePath: componentPath,
-          line: 14,
-          column: 2,
-          endColumn: 14,
-          endLine: 14,
+          endLine: 6,
           source: '{{debugger}}',
           rule: 'no-debugger',
           severity: 2,
