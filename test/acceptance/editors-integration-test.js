@@ -291,10 +291,10 @@ describe('editors integration', function () {
 
     describe('<template>', function () {
       let templateDefinitionOnOneLine =
-        'export const SomeComponent = <template>{{debugger}}</template>';
+        'export const SomeComponent = <template>{{debugger}}</template>;';
 
       let missingButtonType =
-        'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>';
+        'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>;';
 
       let typescriptWithInlineTemplate =
         `import { hbs } from 'ember-cli-htmlbars';\n` +
@@ -463,7 +463,7 @@ describe('editors integration', function () {
         expect(template).toBe(
           'export const SomeComponent = <template>\n' +
             '  <button type="button"></button>\n' +
-            '</template>'
+            '</template>;'
         );
       });
     });
