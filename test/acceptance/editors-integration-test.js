@@ -140,38 +140,35 @@ describe('editors integration', function () {
           input: fs.readFileSync(path.resolve('some-module.js')),
         });
 
-        let expectedOutputData = {};
-        /**
-         * Indentation is adjusted for the whole file, and not
-         * scoped to the template
-         */
-        expectedOutputData['some-module.js'] = [
-          {
-            column: 2,
-            endColumn: 14,
-            endLine: 6,
-            line: 6,
-            message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
-            rule: 'no-debugger',
-            severity: 2,
-            source: '{{debugger}}',
-          },
-          {
-            column: 2,
-            endColumn: 14,
-            endLine: 12,
-            line: 12,
-            message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
-            rule: 'no-debugger',
-            severity: 2,
-            source: '{{debugger}}',
-          },
-        ];
-
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "{
+            "some-module.js": [
+              {
+                "rule": "no-debugger",
+                "severity": 2,
+                "filePath": "some-module.js",
+                "line": 6,
+                "column": 2,
+                "endLine": 6,
+                "endColumn": 14,
+                "source": "{{debugger}}",
+                "message": "Unexpected {{debugger}} usage."
+              },
+              {
+                "rule": "no-debugger",
+                "severity": 2,
+                "filePath": "some-module.js",
+                "line": 12,
+                "column": 2,
+                "endLine": 12,
+                "endColumn": 14,
+                "source": "{{debugger}}",
+                "message": "Unexpected {{debugger}} usage."
+              }
+            ]
+          }"
+        `)
         expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -217,9 +214,10 @@ describe('editors integration', function () {
           input: fs.readFileSync(path.resolve('some-module.js')),
         });
 
-        expect(result.exitCode).toEqual(0);
+
         expect(result.stdout).toBeFalsy();
         expect(result.stderr).toBeFalsy();
+        expect(result.exitCode).toEqual(0);
 
         let template = fs.readFileSync(path.resolve('some-module.js'), { encoding: 'utf8' });
         expect(template).toBe(
@@ -259,22 +257,22 @@ describe('editors integration', function () {
          * Indentation is adjusted for the whole file, and not
          * scoped to the template
          */
-        expect(JSON.parse(result.stdout)).toMatchInlineSnapshot(`
-          {
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "{
             "some-module.ts": [
               {
-                "column": 2,
-                "endColumn": 14,
-                "endLine": 8,
-                "filePath": "some-module.ts",
-                "line": 8,
-                "message": "Unexpected {{debugger}} usage.",
                 "rule": "no-debugger",
                 "severity": 2,
+                "filePath": "some-module.ts",
+                "line": 8,
+                "column": 2,
+                "endLine": 8,
+                "endColumn": 14,
                 "source": "{{debugger}}",
-              },
-            ],
-          }
+                "message": "Unexpected {{debugger}} usage."
+              }
+            ]
+          }"
         `);
 
         expect(result.exitCode).toEqual(1);
