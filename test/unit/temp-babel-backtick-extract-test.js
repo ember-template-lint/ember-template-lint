@@ -28,7 +28,7 @@ describe('template-info', () => {
         [
           {
             "column": 19,
-            "columnOffset": 18,
+            "columnOffset": 2,
             "end": 129,
             "isEmbedded": true,
             "isStrictMode": false,
@@ -49,7 +49,7 @@ describe('template-info', () => {
         [
           {
             "column": 24,
-            "columnOffset": 23,
+            "columnOffset": 0,
             "end": 37,
             "isEmbedded": true,
             "isStrictMode": false,
@@ -61,7 +61,7 @@ describe('template-info', () => {
           },
           {
             "column": 28,
-            "columnOffset": 27,
+            "columnOffset": 0,
             "end": 105,
             "isEmbedded": true,
             "isStrictMode": false,
