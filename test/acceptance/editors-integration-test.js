@@ -167,7 +167,7 @@ describe('editors integration', function () {
               }
             ]
           }"
-        `)
+        `);
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toBeFalsy();
       });
@@ -213,7 +213,6 @@ describe('editors integration', function () {
           shell: false,
           input: fs.readFileSync(path.resolve('some-module.js')),
         });
-
 
         expect(result.stdout).toBeFalsy();
         expect(result.stderr).toBeFalsy();
