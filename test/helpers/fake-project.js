@@ -58,7 +58,10 @@ export default class FakeProject extends BinTesterProject {
         ? DEFAULT_TEMPLATE_LINTRC
         : `module.exports = ${JSON.stringify(config, null, 2)};`;
 
-    this.files['.template-lintrc.js'] = configFileContents;
+    this.files = {
+      ...this.files,
+      '.template-lintrc.js': configFileContents,
+    };
 
     return this.write();
   }
@@ -69,7 +72,10 @@ export default class FakeProject extends BinTesterProject {
   }
 
   setEditorConfig(value = DEFAULT_EDITOR_CONFIG) {
-    this.files['.editorconfig'] = value;
+    this.files = {
+      ...this.files,
+      '.editorconfig': value,
+    };
 
     return this.write();
   }
