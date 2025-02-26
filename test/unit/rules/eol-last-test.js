@@ -52,7 +52,7 @@ generateRuleTests({
         '',
         "test('it renders', async (assert) => {",
         '  await render(hbs`<img>`);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',

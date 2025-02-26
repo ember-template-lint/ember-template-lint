@@ -15,7 +15,7 @@ generateRuleTests({
     {
       template: `import Component from '@glimmer/component';
 
-  export default HelloComponent extends Component {
+  export default class HelloComponent extends Component {
     <template>hello</template>
   }`,
       meta: {

@@ -242,7 +242,7 @@ generateRuleTests({
         '      <div class="child"></div>',
         '    </div>',
         '  `);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -256,7 +256,7 @@ generateRuleTests({
         '  await render(hbs`<div class="parent">',
         '    <div class="child"></div>',
         '  </div>`);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -274,7 +274,7 @@ generateRuleTests({
         '      {{bar}}',
         '    {{/if}}',
         '  `);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -290,7 +290,7 @@ generateRuleTests({
         '  {{else}}',
         '    {{bar}}',
         '  {{/if}}`);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -310,7 +310,7 @@ generateRuleTests({
         '      {{baz}}',
         '    {{/if}}',
         '  `);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -328,7 +328,7 @@ generateRuleTests({
         '  {{else}}',
         '    {{baz}}',
         '  {{/if}}`);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -1439,7 +1439,7 @@ generateRuleTests({
         '    <div class="child"></div>',
         '  </div>',
         '  `);',
-        ');',
+        '});',
       ].join('\n'),
       fixedTemplate: [
         "import { hbs } from 'ember-cli-htmlbars';",
@@ -1450,7 +1450,7 @@ generateRuleTests({
         '      <div class="child"></div>',
         '    </div>',
         '  `);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -1485,7 +1485,7 @@ generateRuleTests({
         '  await render(hbs`  <div class="parent">',
         '<div class="child"></div>',
         '</div>`);',
-        ');',
+        '});',
       ].join('\n'),
       fixedTemplate: [
         "import { hbs } from 'ember-cli-htmlbars';",
@@ -1494,7 +1494,7 @@ generateRuleTests({
         '  await render(hbs`<div class="parent">',
         '    <div class="child"></div>',
         '  </div>`);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
@@ -1563,7 +1563,7 @@ generateRuleTests({
         '      {{baz}}',
         '    {{/if}}',
         '  `);',
-        ');',
+        '});',
       ].join('\n'),
       fixedTemplate: [
         "import { hbs } from 'ember-cli-htmlbars';",
@@ -1578,7 +1578,7 @@ generateRuleTests({
         '      {{baz}}',
         '    {{/if}}',
         '  `);',
-        ');',
+        '});',
       ].join('\n'),
       meta: {
         filePath: 'layout.js',
