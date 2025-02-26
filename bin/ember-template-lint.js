@@ -93,10 +93,7 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
-  let shouldWriteToStdout = !(
-    options.quiet ||
-    (options.outputFile && ['sarif', 'json'].includes(options.format))
-  );
+  let shouldWriteToStdout = !(options.quiet || ['sarif', 'json'].includes(options.format));
   let _console = shouldWriteToStdout ? console : NOOP_CONSOLE;
 
   if (options.config) {
