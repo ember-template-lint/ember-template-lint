@@ -118,6 +118,36 @@ describe('monorepo setups', function () {
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
       });
+
+      it('ignores based on the config', async function () {
+        buildPlugin('fail-on-word');
+
+        let foo = buildWorkspace('packages/foo');
+
+        await foo.setConfig({
+          plugins: ['fail-on-word'],
+          ignore: ['**/foo.hbs'],
+          rules: {
+            'fail-on-word': ['error', 'evil'],
+          },
+        });
+
+        await foo.write({
+          src: {
+            'foo.hbs': 'evil deeds',
+          },
+        });
+
+        await project.write();
+
+        let result = await runBin('.', {
+          cwd: foo.baseDir,
+        });
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stderr).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`""`);
+      });
     });
 
     describe('multiple sub-projects can share a single .template-lintrc.js file', function () {

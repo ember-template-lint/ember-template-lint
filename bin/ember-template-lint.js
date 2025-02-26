@@ -20,6 +20,7 @@ import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
 import printResults from '../lib/helpers/print-results.js';
 import processResults from '../lib/helpers/process-results.js';
 import Linter from '../lib/linter.js';
+import { getProjectConfig } from '../lib/get-config.js';
 
 const readFile = promisify(fs.readFile);
 
@@ -169,11 +170,13 @@ async function run() {
 
   let filePaths;
   try {
+    let config = await getProjectConfig(options.workingDirectory, options);
     filePaths = getFilesToLint(
       options.workingDirectory,
       positional,
       options.ignorePattern,
-      options.errorOnUnmatchedPattern !== false
+      options.errorOnUnmatchedPattern !== false,
+      config
     );
   } catch (error) {
     console.error(error.message);
