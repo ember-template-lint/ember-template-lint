@@ -981,6 +981,45 @@ describe('public api', function () {
     });
   });
 
+  describe('Linter using plugins with reportUnusedDisableDirectives', function () {
+    let basePath = path.join(fixturePath, 'report-unused-disable-directives');
+    let linter;
+
+    beforeEach(function () {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
+      });
+    });
+
+    it('reports unnecessary disables', async function () {
+      let templatePath = path.join(basePath, 'app', 'templates', 'unnecessary-disabled-rule.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          column: 2,
+          endColumn: 63,
+          endLine: 7,
+          filePath: templatePath,
+          isFixable: true,
+          line: 7,
+          message: 'Unnecessary disable declaration',
+          rule: 'no-html-comments',
+          severity: 2,
+          source: '{{! template-lint-disable no-html-comments no-bare-strings }}',
+        },
+      ];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+  });
+
   describe('Linter using plugin with extends', function () {
     let basePath = path.join(fixturePath, 'with-plugin-with-configurations');
     let linter;

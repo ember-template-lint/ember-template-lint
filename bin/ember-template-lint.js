@@ -154,6 +154,7 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
+      reportUnusedDisableDirectives: options.reportUnusedDisableDirectives,
       console: _console,
     });
   } catch (error) {

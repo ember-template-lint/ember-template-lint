@@ -70,7 +70,9 @@ describe('base plugin', function () {
   function buildPlugin(visitor) {
     class FakeRule extends Rule {
       log(result) {
-        messages.push(result.source);
+        if (!this.isDisabled() || result.rule === 'global') {
+          messages.push(result.source);
+        }
       }
 
       process(node) {
@@ -284,7 +286,9 @@ describe('base plugin', function () {
       });
 
       Rule.prototype.log = function (result) {
-        messages.push(result.message);
+        if (!this.isDisabled() || result.rule === 'global') {
+          messages.push(result.message);
+        }
       };
       Rule.prototype.process = function (node) {
         config = this._processInstructionNode(node);
@@ -302,24 +306,30 @@ describe('base plugin', function () {
     }
 
     // Global enable/disable
-    expectConfig('template-lint-disable', { value: false, tree: false });
-    expectConfig('template-lint-disable-tree', { value: false, tree: true });
+    expectConfig('template-lint-disable', { value: 'foo', disabled: true, tree: false });
+    expectConfig('template-lint-disable-tree', { value: 'foo', disabled: true, tree: true });
     expectConfig('template-lint-enable', { value: 'foo', tree: false });
     expectConfig('template-lint-enable-tree', { value: 'foo', tree: true });
     expectConfig('  template-lint-enable-tree ', { value: 'foo', tree: true });
 
     // Specific enable/disable
-    expectConfig('template-lint-disable fake', { value: false, tree: false });
-    expectConfig('template-lint-disable-tree "fake"', { value: false, tree: true });
-    expectConfig("template-lint-disable fake 'no-bare-strings'", { value: false, tree: false });
+    expectConfig('template-lint-disable fake', { value: 'foo', disabled: true, tree: false });
+    expectConfig('template-lint-disable-tree "fake"', { value: 'foo', disabled: true, tree: true });
+    expectConfig("template-lint-disable fake 'no-bare-strings'", {
+      value: 'foo',
+      disabled: true,
+      tree: false,
+    });
     expectConfig('template-lint-disable no-bare-strings fake block-indentation', {
-      value: false,
+      value: 'foo',
+      disabled: true,
       tree: false,
     });
     expectConfig('template-lint-disable no-bare-strings', null);
-    expectConfig(' template-lint-disable   fake ', { value: false, tree: false });
+    expectConfig(' template-lint-disable   fake ', { value: 'foo', disabled: true, tree: false });
     expectConfig('template-lint-disable   no-bare-strings    fake   block-indentation ', {
-      value: false,
+      value: 'foo',
+      disabled: true,
       tree: false,
     });
 
@@ -412,7 +422,9 @@ describe('base plugin', function () {
         });
 
         Rule.prototype.log = function (result) {
-          messages.push(result.message);
+          if (!this.isDisabled() || result.rule === 'global') {
+            messages.push(result.message);
+          }
         };
         Rule.prototype.process = function (node) {
           config = this._processInstructionNode(node);
@@ -464,7 +476,9 @@ describe('base plugin', function () {
     function buildPlugin() {
       class FakeRule extends Rule {
         log(result) {
-          messages.push(result.source);
+          if ((!this.isDisabled() || result.rule === 'global') && result.source) {
+            messages.push(result.source);
+          }
         }
 
         visitor() {
@@ -940,7 +954,7 @@ describe('base plugin', function () {
     });
 
     expectEvents({
-      desc: "it doesn't call a disabled rule's visitor handlers",
+      desc: "it doesn't call a disabled rule's visitor handlers when not reporting unused",
       template: [
         '<div id="id1">',
         '  <span id="id2" {{! template-lint-disable fake }}>',
