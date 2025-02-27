@@ -3,6 +3,12 @@ import { setupProject, teardownProject } from '../../helpers/bin-tester.js';
 
 const STDIN = '/dev/stdin';
 
+const NOOP_CONSOLE = {
+  log: () => {},
+  warn: () => {},
+  error: () => {},
+};
+
 describe('getFilesToLint', function () {
   let project = null;
   beforeEach(async function () {
@@ -26,7 +32,7 @@ describe('getFilesToLint', function () {
   // npx ember-template-lint --filename application.hbs < application.hbs
   describe('when given empty array', function () {
     it('returns a set including stdin', async function () {
-      let files = await getFilesToLint(project.baseDir, [], 'other.hbs', true, {});
+      let files = await getFilesToLint(project.baseDir, [], 'other.hbs', true, {}, NOOP_CONSOLE);
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain(STDIN);
@@ -36,7 +42,14 @@ describe('getFilesToLint', function () {
   // cat applications.hbs | npx ember-template-lint --filename application.hbs STDIN
   describe('when given stdin', function () {
     it('returns a set including stdin', async function () {
-      let files = await getFilesToLint(project.baseDir, [STDIN, 'other.hbs'], [], true, {});
+      let files = await getFilesToLint(
+        project.baseDir,
+        [STDIN, 'other.hbs'],
+        [],
+        true,
+        {},
+        NOOP_CONSOLE
+      );
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain(STDIN);
@@ -47,7 +60,14 @@ describe('getFilesToLint', function () {
     describe("when given stdin through unix's dash", function () {
       // cat applications.hbs | npx ember-template-lint --filename application.hbs -
       it('returns a set including stdin', async function () {
-        let files = await getFilesToLint(project.baseDir, ['-', 'other.hbs'], [], true, {});
+        let files = await getFilesToLint(
+          project.baseDir,
+          ['-', 'other.hbs'],
+          [],
+          true,
+          {},
+          NOOP_CONSOLE
+        );
 
         expect(files.size).toBe(1);
         expect(files.values()).toContain(STDIN);
@@ -57,7 +77,7 @@ describe('getFilesToLint', function () {
 
   describe('when given a pattern', function () {
     it('returns a set including some files', async function () {
-      let files = await getFilesToLint(project.baseDir, ['app*'], [], true, {});
+      let files = await getFilesToLint(project.baseDir, ['app*'], [], true, {}, NOOP_CONSOLE);
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain('application.hbs');
@@ -66,7 +86,14 @@ describe('getFilesToLint', function () {
 
   describe('when given a specific path', function () {
     it('returns a set including some files', async function () {
-      let files = await getFilesToLint(project.baseDir, ['application.hbs'], [], true, {});
+      let files = await getFilesToLint(
+        project.baseDir,
+        ['application.hbs'],
+        [],
+        true,
+        {},
+        NOOP_CONSOLE
+      );
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain('application.hbs');
@@ -75,7 +102,14 @@ describe('getFilesToLint', function () {
     it('supports arbitrary extension when explictly passed', async function () {
       await project.write({ 'foo.frizzle': 'whatever' });
 
-      let files = await getFilesToLint(project.baseDir, ['foo.frizzle'], [], true, {});
+      let files = await getFilesToLint(
+        project.baseDir,
+        ['foo.frizzle'],
+        [],
+        true,
+        {},
+        NOOP_CONSOLE
+      );
 
       expect(files).toEqual(new Set(['foo.frizzle']));
     });

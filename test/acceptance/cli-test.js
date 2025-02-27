@@ -234,7 +234,11 @@ describe('ember-template-lint executable', function () {
         );
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toBeFalsy();
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 0 Total Files with TemplateLint
+
+          "
+        `);
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -326,7 +330,10 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/application.hbs
             1:4  error  Non-translated string used  no-bare-strings
             1:25  error  Non-translated string used  no-bare-strings
 
@@ -409,7 +416,10 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/application.hbs
             1:4  error  Non-translated string used  no-bare-strings
             1:25  error  Non-translated string used  no-bare-strings
 
@@ -426,7 +436,10 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/application.hbs
             1:4  error  Non-translated string used  no-bare-strings
             1:25  error  Non-translated string used  no-bare-strings
 
@@ -443,7 +456,10 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/application.hbs
             1:4  error  Non-translated string used  no-bare-strings
             1:25  error  Non-translated string used  no-bare-strings
 
@@ -475,7 +491,10 @@ describe('ember-template-lint executable', function () {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/application.hbs
+          "Linting 2 Total Files with TemplateLint
+          	.hbs: 2
+
+          app/templates/application.hbs
             1:4  error  Non-translated string used  no-bare-strings
             1:25  error  Non-translated string used  no-bare-strings
 
@@ -504,7 +523,12 @@ describe('ember-template-lint executable', function () {
         let result = await runBin('app/templates/application.hbs');
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toBeFalsy();
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -535,7 +559,12 @@ describe('ember-template-lint executable', function () {
         let result = await runBin('app/templates/application.hbs', '--config-path', configPath);
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toBeFalsy();
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(result.stderr).toBeFalsy();
       });
     });
@@ -746,6 +775,9 @@ describe('ember-template-lint executable', function () {
       expect(result.exitCode).toEqual(0);
       expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
         [
+          "Linting 1 Total Files with TemplateLint",
+          "	.hbs: 1",
+          "",
           "app/templates/application.hbs",
           "  1:53  warning  HTML comment detected  no-html-comments",
           "",
@@ -777,6 +809,9 @@ describe('ember-template-lint executable', function () {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
         [
+          "Linting 1 Total Files with TemplateLint",
+          "	.hbs: 1",
+          "",
           "app/templates/application.hbs",
           "  1:53  error  HTML comment detected  no-html-comments",
           "",
@@ -813,6 +848,9 @@ describe('ember-template-lint executable', function () {
       expect(result.exitCode).toEqual(0);
       expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
         [
+          "Linting 1 Total Files with TemplateLint",
+          "	.hbs: 1",
+          "",
           "app/templates/application.hbs",
           "  1:53  warning  HTML comment detected  no-html-comments",
           "",
@@ -849,6 +887,9 @@ describe('ember-template-lint executable', function () {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
         [
+          "Linting 1 Total Files with TemplateLint",
+          "	.hbs: 1",
+          "",
           "app/templates/application.hbs",
           "  1:53  error  HTML comment detected  no-html-comments",
           "",
@@ -880,7 +921,12 @@ describe('ember-template-lint executable', function () {
         let result = await runBin('app/**/*');
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toEqual('');
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -914,7 +960,12 @@ describe('ember-template-lint executable', function () {
         );
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toEqual('');
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -959,17 +1010,23 @@ describe('ember-template-lint executable', function () {
         let result = await runBin('app/**/*', '--no-ignore-pattern');
 
         expect(result.exitCode).toEqual(1);
-        expect(result.stdout).toEqual(
-          `app/other.gjs
-  1:39  error  Non-translated string used  no-bare-strings
+        expect(result.stdout).toMatchInlineSnapshot(
+          `
+          "Linting 2 Total Files with TemplateLint
+          	.gjs: 1
+          	.hbs: 1
 
-app/dist/application.hbs
-  1:4  error  Non-translated string used  no-bare-strings
-  1:24  error  Non-translated string used  no-bare-strings
-  1:53  error  HTML comment detected  no-html-comments
+          app/other.gjs
+            1:39  error  Non-translated string used  no-bare-strings
 
-✖ 4 problems (4 errors, 0 warnings)
-  1 errors and 0 warnings potentially fixable with the \`--fix\` option.`
+          app/dist/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:24  error  Non-translated string used  no-bare-strings
+            1:53  error  HTML comment detected  no-html-comments
+
+          ✖ 4 problems (4 errors, 0 warnings)
+            1 errors and 0 warnings potentially fixable with the \`--fix\` option."
+        `
         );
         expect(result.stderr).toBeFalsy();
       });
@@ -986,7 +1043,13 @@ app/dist/application.hbs
           let result = await runBin('.', '--config-path', 'temp-templatelint-rc.js');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toBeFalsy();
+          expect(result.stdout).toMatchInlineSnapshot(`
+            "Linting 2 Total Files with TemplateLint
+            	.hbs: 1
+            	.js: 1
+
+            "
+          `);
           expect(result.stderr).toBeFalsy();
         });
 
@@ -1001,6 +1064,10 @@ app/dist/application.hbs
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
             [
+              "Linting 2 Total Files with TemplateLint",
+              "	.js: 1",
+              "	.hbs: 1",
+              "",
               "template.hbs",
               "  1:23  error  Ambiguous element used (\`div\`)  no-shadowed-elements",
               "",
@@ -1043,6 +1110,10 @@ app/dist/application.hbs
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
             [
+              "Linting 2 Total Files with TemplateLint",
+              "	.js: 1",
+              "	.hbs: 1",
+              "",
               "app/templates/application.hbs",
               "  1:4  error  Non-translated string used  no-bare-strings",
               "  1:39  error  Non-translated string used  no-bare-strings",
@@ -1076,6 +1147,10 @@ app/dist/application.hbs
           expect(result.exitCode).toEqual(1);
           expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
             [
+              "Linting 2 Total Files with TemplateLint",
+              "	.js: 1",
+              "	.hbs: 1",
+              "",
               "app/templates/application.hbs",
               "  1:4  error  Non-translated string used  no-bare-strings",
               "  1:39  error  Non-translated string used  no-bare-strings",
@@ -1109,7 +1184,13 @@ app/dist/application.hbs
           let result = await runBin('.', '--config-path', project.path('other-file.js'));
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toBeFalsy();
+          expect(result.stdout).toMatchInlineSnapshot(`
+            "Linting 3 Total Files with TemplateLint
+            	.js: 1
+            	.hbs: 2
+
+            "
+          `);
           expect(result.stderr).toBeFalsy();
         });
       });
@@ -1160,6 +1241,9 @@ app/dist/application.hbs
         expect(result.stderr).toBeFalsy();
         expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
           [
+            "Linting 1 Total Files with TemplateLint",
+            "	.hbs: 1",
+            "",
             "app/templates/application.hbs",
             "  1:4  warning  Non-translated string used  no-bare-strings",
             "  1:24  warning  Non-translated string used  no-bare-strings",
@@ -1239,7 +1323,10 @@ app/dist/application.hbs
 
         expect(result.exitCode).toEqual(0);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "{
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          {
             "rules": {
               "no-bare-strings": {
                 "config": true,
@@ -1293,7 +1380,12 @@ app/dist/application.hbs
       let result = await runBin('.', '--fix');
 
       expect(result.exitCode).toEqual(0);
-      expect(result.stdout).toBeFalsy();
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        "
+      `);
       expect(result.stderr).toBeFalsy();
 
       let fileContents = fs.readFileSync(project.path('require-button-type.hbs'), {
@@ -1312,7 +1404,12 @@ app/dist/application.hbs
 
       let result = await runBin('./require-button-type.gts', '--fix');
 
-      expect(result.stdout).toBeFalsy();
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "Linting 1 Total Files with TemplateLint
+        	.gts: 1
+
+        "
+      `);
       expect(result.stderr).toBeFalsy();
       expect(result.exitCode).toEqual(0);
 

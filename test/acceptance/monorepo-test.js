@@ -112,7 +112,11 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "src/foo.hbs
+          "Linting 2 Total Files with TemplateLint
+          	.js: 1
+          	.hbs: 1
+
+          src/foo.hbs
             1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
@@ -146,7 +150,12 @@ describe('monorepo setups', function () {
 
         expect(result.exitCode).toEqual(0);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
-        expect(result.stdout).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.js: 1
+
+          "
+        `);
       });
     });
 
@@ -187,7 +196,11 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "src/bar.hbs
+          "Linting 2 Total Files with TemplateLint
+          	.js: 1
+          	.hbs: 1
+
+          src/bar.hbs
             1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
@@ -202,7 +215,11 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "src/foo.hbs
+          "Linting 2 Total Files with TemplateLint
+          	.js: 1
+          	.hbs: 1
+
+          src/foo.hbs
             1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
@@ -217,7 +234,11 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "packages/bar/src/bar.hbs
+          "Linting 4 Total Files with TemplateLint
+          	.js: 2
+          	.hbs: 2
+
+          packages/bar/src/bar.hbs
             1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           packages/foo/src/foo.hbs
@@ -257,7 +278,11 @@ describe('monorepo setups', function () {
       expect(result.exitCode).toEqual(1);
       expect(result.stderr).toMatchInlineSnapshot(`""`);
       expect(result.stdout).toMatchInlineSnapshot(`
-        "src/foo.hbs
+        "Linting 2 Total Files with TemplateLint
+        	.js: 1
+        	.hbs: 1
+
+        src/foo.hbs
           1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
         ✖ 1 problems (1 errors, 0 warnings)"

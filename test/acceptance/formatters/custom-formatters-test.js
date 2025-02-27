@@ -57,7 +57,11 @@ describe('custom formatters', () => {
     let result = await runBin('.', '--format', './custom-formatter.js');
 
     expect(result.stdout).toMatchInlineSnapshot(`
-      "errors: 3
+      "Linting 2 Total Files with TemplateLint
+      	.js: 1
+      	.hbs: 1
+
+      errors: 3
       warnings: 0
       fixable: 1"
     `);
@@ -102,7 +106,10 @@ describe('custom formatters', () => {
     let result = await runBin('.', '--format', 'ember-template-lint-formatter-test');
 
     expect(result.stdout).toMatchInlineSnapshot(`
-      "Custom Formatter Header
+      "Linting 1 Total Files with TemplateLint
+      	.hbs: 1
+
+      Custom Formatter Header
       errors: 3
       warnings: 0
       fixable: 1"
@@ -145,7 +152,11 @@ describe('custom formatters', () => {
     let result = await runBin('.', '--format', './legacy-formatter.js');
 
     expect(result.stdout).toMatchInlineSnapshot(`
-      "errors: 3
+      "Linting 2 Total Files with TemplateLint
+      	.js: 1
+      	.hbs: 1
+
+      errors: 3
       warnings: 0
       fixable: 1"
     `);

@@ -176,7 +176,8 @@ async function run() {
       positional,
       options.ignorePattern,
       options.errorOnUnmatchedPattern !== false,
-      config
+      config,
+      _console
     );
   } catch (error) {
     console.error(error.message);
