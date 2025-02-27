@@ -88,7 +88,7 @@ describe('monorepo setups', function () {
       it('sub-projects can leverage plugins installed at the monorepo root', async function () {
         buildPlugin('fail-on-word');
 
-        let foo = await buildWorkspace('packages/foo');
+        let foo = buildWorkspace('packages/foo');
 
         await foo.setConfig({
           plugins: ['fail-on-word'],
@@ -155,8 +155,8 @@ describe('monorepo setups', function () {
       beforeEach(async function () {
         buildPlugin('fail-on-word');
 
-        foo = await buildWorkspace('packages/foo');
-        bar = await buildWorkspace('packages/bar');
+        foo = buildWorkspace('packages/foo');
+        bar = buildWorkspace('packages/bar');
 
         await foo.write({
           src: {
@@ -233,7 +233,7 @@ describe('monorepo setups', function () {
     it('sub-projects can leverage plugins installed at the monorepo root', async function () {
       buildPlugin('fail-on-word');
 
-      let foo = await buildWorkspace('packages/foo');
+      let foo = buildWorkspace('packages/foo');
 
       await foo.setConfig({
         plugins: ['fail-on-word'],
