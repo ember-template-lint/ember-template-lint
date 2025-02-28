@@ -1,5 +1,32 @@
 # Changelog
 
+## Release (2025-02-28)
+
+ember-template-lint 7.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-template-lint`
+  * [#3021](https://github.com/ember-template-lint/ember-template-lint/pull/3021) Remove template-imports, add content-tag, drop support for the hbs template literals from ember-template-imports (keeping support for ember-cli-htmlbars) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3130](https://github.com/ember-template-lint/ember-template-lint/pull/3130) Report unused disables ([@wagenet](https://github.com/wagenet))
+  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3132](https://github.com/ember-template-lint/ember-template-lint/pull/3132) Fix the no-yield-only rule ([@wagenet](https://github.com/wagenet))
+  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3104](https://github.com/ember-template-lint/ember-template-lint/pull/3104) Fix require-strict-mode example ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 3
+- Peter Wagenet ([@wagenet](https://github.com/wagenet))
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-01-17)
 
 ember-template-lint 6.1.0 (minor)
