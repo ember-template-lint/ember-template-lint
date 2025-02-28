@@ -20,6 +20,7 @@ import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
 import printResults from '../lib/helpers/print-results.js';
 import processResults from '../lib/helpers/process-results.js';
 import Linter from '../lib/linter.js';
+import { getProjectConfig } from '../lib/get-config.js';
 
 const readFile = promisify(fs.readFile);
 
@@ -93,10 +94,7 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
-  let shouldWriteToStdout = !(
-    options.quiet ||
-    (options.outputFile && ['sarif', 'json'].includes(options.format))
-  );
+  let shouldWriteToStdout = !(options.quiet || ['sarif', 'json'].includes(options.format));
   let _console = shouldWriteToStdout ? console : NOOP_CONSOLE;
 
   if (options.config) {
@@ -172,11 +170,14 @@ async function run() {
 
   let filePaths;
   try {
+    let config = await getProjectConfig(options.workingDirectory, options);
     filePaths = getFilesToLint(
       options.workingDirectory,
       positional,
       options.ignorePattern,
-      options.errorOnUnmatchedPattern !== false
+      options.errorOnUnmatchedPattern !== false,
+      config,
+      _console
     );
   } catch (error) {
     console.error(error.message);

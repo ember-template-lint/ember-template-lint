@@ -46,7 +46,10 @@ describe('multi formatter', () => {
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout.replace(project.baseDir, '')).toMatchInlineSnapshot(`
-      "app/templates/application.hbs
+      "Linting 2 Total Files with TemplateLint
+      	.hbs: 2
+
+      app/templates/application.hbs
         1:4  error  Non-translated string used  no-bare-strings
         1:25  error  Non-translated string used  no-bare-strings
 

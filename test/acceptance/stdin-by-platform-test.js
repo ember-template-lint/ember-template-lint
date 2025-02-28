@@ -41,7 +41,10 @@ describe('ember-template-lint executable', function () {
       });
 
       expect(result.stdout).toMatchInlineSnapshot(`
-        "template.hbs
+        "Linting 1 Total Files with TemplateLint
+        	: 1
+
+        template.hbs
           1:4  error  Non-translated string used  no-bare-strings
           1:25  error  Non-translated string used  no-bare-strings
 
@@ -60,7 +63,10 @@ describe('ember-template-lint executable', function () {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-        "template.hbs
+        "Linting 1 Total Files with TemplateLint
+        	: 1
+
+        template.hbs
           1:4  error  Non-translated string used  no-bare-strings
           1:25  error  Non-translated string used  no-bare-strings
 
@@ -85,7 +91,10 @@ describe('ember-template-lint executable', function () {
 
           expect(result.exitCode).toEqual(1);
           expect(result.stdout).toMatchInlineSnapshot(`
-            "template.hbs
+            "Linting 1 Total Files with TemplateLint
+            	: 1
+
+            template.hbs
               1:4  error  Non-translated string used  no-bare-strings
               1:25  error  Non-translated string used  no-bare-strings
 
