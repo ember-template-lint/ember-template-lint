@@ -1,10 +1,14 @@
 {
   "solution": {
     "ember-template-lint": {
-      "impact": "minor",
-      "oldVersion": "6.0.0",
-      "newVersion": "6.1.0",
+      "impact": "major",
+      "oldVersion": "6.1.0",
+      "newVersion": "7.0.0",
       "constraints": [
+        {
+          "impact": "major",
+          "reason": "Appears in changelog section :boom: Breaking Change"
+        },
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
@@ -16,14 +20,10 @@
         {
           "impact": "patch",
           "reason": "Appears in changelog section :memo: Documentation"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-01-17)\n\nember-template-lint 6.1.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#3102](https://github.com/ember-template-lint/ember-template-lint/pull/3102) Add new require-strict-mode rule  ([@simonihmig](https://github.com/simonihmig))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3101](https://github.com/ember-template-lint/ember-template-lint/pull/3101) Fix strict mode detection ([@simonihmig](https://github.com/simonihmig))\n  * [#3095](https://github.com/ember-template-lint/ember-template-lint/pull/3095) Fix `--no-error-on-unmatched-pattern` for multiple patterns ([@davidtaylorhq](https://github.com/davidtaylorhq))\n\n#### :memo: Documentation\n* `ember-template-lint`\n  * [#3103](https://github.com/ember-template-lint/ember-template-lint/pull/3103) Fix new rule example in contributing guide ([@simonihmig](https://github.com/simonihmig))\n  * [#3087](https://github.com/ember-template-lint/ember-template-lint/pull/3087) Remove bad advice about ember-composable-helpers ([@ef4](https://github.com/ef4))\n\n#### :house: Internal\n* `ember-template-lint`\n  * [#3100](https://github.com/ember-template-lint/ember-template-lint/pull/3100) Migrate from Jest to Vitest ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#3096](https://github.com/ember-template-lint/ember-template-lint/pull/3096) Add Release plan, remove release-it ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#3097](https://github.com/ember-template-lint/ember-template-lint/pull/3097) Fix node version (node 22 instead of node 21) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 4\n- David Taylor ([@davidtaylorhq](https://github.com/davidtaylorhq))\n- Edward Faulkner ([@ef4](https://github.com/ef4))\n- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-02-28)\n\nember-template-lint 7.0.0 (major)\n\n#### :boom: Breaking Change\n* `ember-template-lint`\n  * [#3021](https://github.com/ember-template-lint/ember-template-lint/pull/3021) Remove template-imports, add content-tag, drop support for the hbs template literals from ember-template-imports (keeping support for ember-cli-htmlbars) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#3130](https://github.com/ember-template-lint/ember-template-lint/pull/3130) Report unused disables ([@wagenet](https://github.com/wagenet))\n  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3132](https://github.com/ember-template-lint/ember-template-lint/pull/3132) Fix the no-yield-only rule ([@wagenet](https://github.com/wagenet))\n  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))\n\n#### :memo: Documentation\n* `ember-template-lint`\n  * [#3104](https://github.com/ember-template-lint/ember-template-lint/pull/3104) Fix require-strict-mode example ([@simonihmig](https://github.com/simonihmig))\n\n#### Committers: 3\n- Peter Wagenet ([@wagenet](https://github.com/wagenet))\n- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }
