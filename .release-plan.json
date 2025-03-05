@@ -1,29 +1,17 @@
 {
   "solution": {
     "ember-template-lint": {
-      "impact": "major",
-      "oldVersion": "6.1.0",
-      "newVersion": "7.0.0",
+      "impact": "patch",
+      "oldVersion": "7.0.0",
+      "newVersion": "7.0.1",
       "constraints": [
-        {
-          "impact": "major",
-          "reason": "Appears in changelog section :boom: Breaking Change"
-        },
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-02-28)\n\nember-template-lint 7.0.0 (major)\n\n#### :boom: Breaking Change\n* `ember-template-lint`\n  * [#3021](https://github.com/ember-template-lint/ember-template-lint/pull/3021) Remove template-imports, add content-tag, drop support for the hbs template literals from ember-template-imports (keeping support for ember-cli-htmlbars) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#3130](https://github.com/ember-template-lint/ember-template-lint/pull/3130) Report unused disables ([@wagenet](https://github.com/wagenet))\n  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3132](https://github.com/ember-template-lint/ember-template-lint/pull/3132) Fix the no-yield-only rule ([@wagenet](https://github.com/wagenet))\n  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))\n\n#### :memo: Documentation\n* `ember-template-lint`\n  * [#3104](https://github.com/ember-template-lint/ember-template-lint/pull/3104) Fix require-strict-mode example ([@simonihmig](https://github.com/simonihmig))\n\n#### Committers: 3\n- Peter Wagenet ([@wagenet](https://github.com/wagenet))\n- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-03-05)\n\nember-template-lint 7.0.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3133](https://github.com/ember-template-lint/ember-template-lint/pull/3133) Correctly handled file extensions like .d.ts and .css.d.ts ([@ijlee2](https://github.com/ijlee2))\n\n#### Committers: 1\n- Isaac Lee ([@ijlee2](https://github.com/ijlee2))\n"
 }
