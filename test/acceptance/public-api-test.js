@@ -480,6 +480,45 @@ describe('public api', function () {
       project.dispose();
     });
 
+    it('handles .d.ts files', async function () {
+      project.write({
+        app: {
+          styles: {
+            'app.css.d.ts':
+              'declare const styles: Record<string, never>;\n\nexport default styles;',
+          },
+        },
+        types: {
+          'global.d.ts':
+            "import '@glint/environment-ember-loose';\nimport '@glint/environment-ember-template-imports';\n\nimport type EmberPageTitleRegistry from 'ember-page-title/template-registry';\n\ndeclare module '@glint/environment-ember-loose/registry' {\n  export default interface Registry extends EmberPageTitleRegistry {\n    // Add any registry entries from other addons here that your addon itself uses (in non-strict mode templates)\n    // See https://typed-ember.gitbook.io/glint/using-glint/ember/using-addons\n  }\n}",
+        },
+      });
+
+      let filePath = project.path('app/styles/app.css.d.ts');
+      let templateContents = fs.readFileSync(filePath, { encoding: 'utf8' });
+      let expected = [];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath,
+        moduleId: filePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+
+      filePath = project.path('types/global.d.ts');
+      templateContents = fs.readFileSync(filePath, { encoding: 'utf8' });
+      expected = [];
+
+      result = await linter.verify({
+        source: templateContents,
+        filePath,
+        moduleId: filePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+
     it('parses gts templates correctly', async function () {
       project.setConfig({
         rules: {
