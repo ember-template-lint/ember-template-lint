@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-03-05)
+
+ember-template-lint 7.0.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3133](https://github.com/ember-template-lint/ember-template-lint/pull/3133) Correctly handled file extensions like .d.ts and .css.d.ts ([@ijlee2](https://github.com/ijlee2))
+
+#### Committers: 1
+- Isaac Lee ([@ijlee2](https://github.com/ijlee2))
+
 ## Release (2025-02-28)
 
 ember-template-lint 7.0.0 (major)
