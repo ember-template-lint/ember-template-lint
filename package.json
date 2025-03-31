@@ -80,7 +80,7 @@
     "@babel/eslint-parser": "^7.22.9",
     "@microsoft/sarif-matcher-utils": "^1.0.0-beta.0",
     "@scalvert/bin-tester": "^2.1.0",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/coverage-v8": "^2.1.9",
     "common-tags": "^1.8.2",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.1.0",
@@ -97,7 +97,7 @@
     "prettier": "^3.2.5",
     "release-plan": "^0.11.0",
     "sort-package-json": "^2.14.0",
-    "vitest": "^2.1.8",
+    "vitest": "^2.1.9",
     "yeoman-environment": "^3.19.3",
     "yeoman-generator": "^5.9.0",
     "yeoman-test": "^7.4.0"
