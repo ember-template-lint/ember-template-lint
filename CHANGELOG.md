@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-03-31)
+
+ember-template-lint 7.0.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3148](https://github.com/ember-template-lint/ember-template-lint/pull/3148) Support decorator usage in js/ts source files ([@Windvis](https://github.com/Windvis))
+
+#### Committers: 1
+- Sam Van Campenhout ([@Windvis](https://github.com/Windvis))
+
 ## Release (2025-03-05)
 
 ember-template-lint 7.0.1 (patch)
