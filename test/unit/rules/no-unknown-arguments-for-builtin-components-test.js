@@ -13,6 +13,23 @@ generateRuleTests({
     '<LinkTo @query={{hash foo=bar}} />',
     '<LinkTo @model={{this.model}} />',
     '<LinkTo @models={{array comment.photo comment}} />',
+    // Components from non-Ember locations should not be flagged
+    {
+      template: 'import { Input } from "my-custom-components";\n\n<template><Input @valuee="foo" /></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+    {
+      template: 'import { Input } from "my-custom-components";\n\n<template><Input @valuee="foo" /></template>',
+      meta: { filePath: 'template.gts' },
+    },
+    {
+      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea @valuee="hello" /></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+    {
+      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea @valuee="hello" /></template>',
+      meta: { filePath: 'template.gts' },
+    },
   ],
 
   bad: [
@@ -387,6 +404,96 @@ generateRuleTests({
               "rule": "no-unknown-arguments-for-builtin-components",
               "severity": 2,
               "source": "@random",
+            },
+          ]
+        `);
+      },
+    },
+
+    // Components with aliases should be flagged with the original name
+    {
+      template: 'import { Input as CustomInput } from "@ember/component";\n\n<template><CustomInput @valuee="foo" /></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 23,
+              "endColumn": 36,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "isFixable": false,
+              "line": 3,
+              "message": ""@valuee" is not a known argument for the <Input /> component. Did you mean "@value"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@valuee",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Input as CustomInput } from "@ember/component";\n\n<template><CustomInput @valuee="foo" /></template>',
+      meta: { filePath: 'template.gts' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 23,
+              "endColumn": 36,
+              "endLine": 3,
+              "filePath": "template.gts",
+              "isFixable": false,
+              "line": 3,
+              "message": ""@valuee" is not a known argument for the <Input /> component. Did you mean "@value"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@valuee",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Textarea as CustomTextarea } from "@ember/component";\n\n<template><CustomTextarea @valuee="hello" /></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 26,
+              "endColumn": 41,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "isFixable": false,
+              "line": 3,
+              "message": ""@valuee" is not a known argument for the <Textarea /> component. Did you mean "@value"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@valuee",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Textarea as CustomTextarea } from "@ember/component";\n\n<template><CustomTextarea @valuee="hello" /></template>',
+      meta: { filePath: 'template.gts' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 26,
+              "endColumn": 41,
+              "endLine": 3,
+              "filePath": "template.gts",
+              "isFixable": false,
+              "line": 3,
+              "message": ""@valuee" is not a known argument for the <Textarea /> component. Did you mean "@value"?",
+              "rule": "no-unknown-arguments-for-builtin-components",
+              "severity": 2,
+              "source": "@valuee",
             },
           ]
         `);
