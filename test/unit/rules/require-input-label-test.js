@@ -58,6 +58,25 @@ generateRuleTests({
     '<Input type="hidden" />',
     '{{input type="hidden"}}',
 
+    // Components from non-Ember sources
+    {
+      template: 'import { Input } from "my-custom-components";\n\n<template><Input /></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+    {
+      template: 'import { Input } from "my-custom-components";\n\n<template><Input /></template>',
+      meta: { filePath: 'template.gts' },
+    },
+    {
+      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea></Textarea></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+    {
+      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea></Textarea></template>',
+      meta: { filePath: 'template.gts' },
+    },
+
+    // Custom label components
     {
       config: { labelTags: ['CustomLabel'] },
       template: '<CustomLabel><input /></CustomLabel>',
@@ -210,6 +229,94 @@ generateRuleTests({
         `);
       },
     },
+
+    // Template files with imports
+    {
+      template: 'import { Input } from "@ember/component";\n\n<template><Input /></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 19,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Input } from "@ember/component";\n\n<template><Input /></template>',
+      meta: { filePath: 'template.gts' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 19,
+              "endLine": 3,
+              "filePath": "template.gts",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea></Textarea></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 31,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Textarea></Textarea>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea></Textarea></template>',
+      meta: { filePath: 'template.gts' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 31,
+              "endLine": 3,
+              "filePath": "template.gts",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Textarea></Textarea>",
+            },
+          ]
+        `);
+      },
+    },
+
+    // Multiple labels cases
     {
       template: '<input aria-label="first label" aria-labelledby="second label">',
       verifyResults(results) {
@@ -270,6 +377,8 @@ generateRuleTests({
         `);
       },
     },
+
+    // Input type cases
     {
       template: '{{input type="button"}}',
       verifyResults(results) {
@@ -390,6 +499,8 @@ generateRuleTests({
         `);
       },
     },
+
+    // Textarea cases
     {
       template: '<div><textarea /></div>',
       verifyResults(results) {
@@ -570,6 +681,8 @@ generateRuleTests({
         `);
       },
     },
+
+    // Select cases
     {
       template: '<div><select></select></div>',
       verifyResults(results) {
@@ -710,5 +823,158 @@ generateRuleTests({
         `);
       },
     },
-  ],
+
+    // Custom label component cases
+    {
+      config: { labelTags: [/web-label/] },
+      template: '<my-label><input /></my-label>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input />",
+            },
+          ]
+        `);
+      },
+    },
+
+    // Additional test cases for components from @ember/component
+    {
+      template: 'import { Input } from "@ember/component";\n\n<template><Input type="text" /></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 31,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input type="text" />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Input } from "@ember/component";\n\n<template><Input type="text" /></template>',
+      meta: { filePath: 'template.gts' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 31,
+              "endLine": 3,
+              "filePath": "template.gts",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input type="text" />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3"></Textarea></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 40,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Textarea rows="3"></Textarea>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3"></Textarea></template>',
+      meta: { filePath: 'template.gts' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 40,
+              "endLine": 3,
+              "filePath": "template.gts",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Textarea rows="3"></Textarea>",
+            },
+          ]
+        `);
+      },
+    },
+
+    // Additional test cases for components from @ember/component with attributes
+    {
+      template: 'import { Input } from "@ember/component";\n\n<template><Input type="text" placeholder="Enter text" /></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 56,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input type="text" placeholder="Enter text" />",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3" placeholder="Enter text"></Textarea></template>',
+      meta: { filePath: 'template.gjs' },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 65,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Textarea rows="3" placeholder="Enter text"></Textarea>",
+            },
+          ]
+        `);
+      },
+    },
+  ]
 });
