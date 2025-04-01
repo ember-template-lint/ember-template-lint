@@ -58,6 +58,27 @@ generateRuleTests({
       },
       template: '{{foo submit=this.handleClick}}',
     },
+
+    {
+      template: 'import { Input } from "@ember/component";\n\n<template><Input @click={{this.handleClick}} /></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+
+    {
+      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea @click={{this.handleClick}} /></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+
+    {
+      template: 'import { Input } from "my-custom-components";\n\n<template><Input /></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+
+    {
+      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea /></template>',
+      meta: { filePath: 'template.gjs' },
+    },
+
   ],
   bad: [
     {
@@ -181,6 +202,52 @@ generateRuleTests({
               "rule": "no-passed-in-event-handlers",
               "severity": 2,
               "source": "submit=this.handleClick",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      template: 'import { Input } from "my-custom-components";\n\n<template><Input @click={{this.handleClick}} /></template>',
+      meta: { filePath: 'template.gjs' },
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 44,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "Event handler methods like \`click\` should not be passed in as a component arguments",
+              "rule": "no-passed-in-event-handlers",
+              "severity": 2,
+              "source": "@click={{this.handleClick}}",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea @click={{this.handleClick}} /></template>',
+      meta: { filePath: 'template.gjs' },
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 47,
+              "endLine": 3,
+              "filePath": "template.gjs",
+              "line": 3,
+              "message": "Event handler methods like \`click\` should not be passed in as a component arguments",
+              "rule": "no-passed-in-event-handlers",
+              "severity": 2,
+              "source": "@click={{this.handleClick}}",
             },
           ]
         `);
