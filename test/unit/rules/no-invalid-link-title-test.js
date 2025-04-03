@@ -21,6 +21,12 @@ generateRuleTests({
         {{svg-jar "left-pag"}}
       </LinkTo>
     `,
+    {
+      template: '<template><LinkTo>Quickstart</LinkTo></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
   ],
 
   bad: [
