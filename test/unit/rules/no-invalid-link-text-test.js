@@ -20,6 +20,19 @@ generateRuleTests({
       config: { allowEmptyLinks: true },
       template: '<a href="https://myurl.com"></a>',
     },
+    // In strict mode (gjs/gts files), LinkTo is ignored even with invalid text
+    {
+      template: '<template><LinkTo>click here</LinkTo></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
+    {
+      template: '<template><LinkTo></LinkTo></template>',
+      meta: {
+        filePath: 'layout.gts',
+      },
+    },
   ],
 
   bad: [

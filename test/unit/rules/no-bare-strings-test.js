@@ -112,6 +112,33 @@ generateRuleTests({
     '{{page-title @model.foo}}',
     '{{page-title this.model.foo}}',
     '{{page-title this.model.foo " - " this.model.bar}}',
+
+    // In strict mode (gjs/gts files), Input and Textarea should be ignored
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><Input placeholder="This is a placeholder" /></template>',
+    },
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><Input @placeholder="This is a named argument" /></template>',
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><Textarea placeholder="This is a placeholder" /></template>',
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><Textarea @placeholder="This is a named argument" /></template>',
+    },
+    // Regular HTML elements should still be checked in strict mode
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><input placeholder={{t "placeholder"}} /></template>',
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><img alt={{t "alt text"}} /></template>',
+    },
   ],
 
   bad: [
@@ -594,6 +621,50 @@ generateRuleTests({
               "rule": "no-bare-strings",
               "severity": 2,
               "source": "hahaha",
+            },
+          ]
+        `);
+      },
+    },
+
+    // Strict mode tests for regular HTML elements
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><input placeholder="This is a placeholder" /></template>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 51,
+              "endLine": 1,
+              "filePath": "template.gjs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "This is a placeholder",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><img alt="This is alt text" /></template>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 15,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "template.gts",
+              "line": 1,
+              "message": "Non-translated string used in \`alt\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "This is alt text",
             },
           ]
         `);
