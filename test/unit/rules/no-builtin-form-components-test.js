@@ -105,7 +105,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Input as BuiltInInput } from "@ember/component";\n\n<template><BuiltInInput /></template>',
+      template:
+        'import { Input as BuiltInInput } from "@ember/component";\n\n<template><BuiltInInput /></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toHaveLength(1);

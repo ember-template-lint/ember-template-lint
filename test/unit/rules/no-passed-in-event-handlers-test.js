@@ -60,12 +60,14 @@ generateRuleTests({
     },
 
     {
-      template: 'import { Input } from "@ember/component";\n\n<template><Input @click={{this.handleClick}} /></template>',
+      template:
+        'import { Input } from "@ember/component";\n\n<template><Input @click={{this.handleClick}} /></template>',
       meta: { filePath: 'template.gjs' },
     },
 
     {
-      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea @click={{this.handleClick}} /></template>',
+      template:
+        'import { Textarea } from "@ember/component";\n\n<template><Textarea @click={{this.handleClick}} /></template>',
       meta: { filePath: 'template.gjs' },
     },
 
@@ -75,10 +77,10 @@ generateRuleTests({
     },
 
     {
-      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea /></template>',
+      template:
+        'import { Textarea } from "my-custom-components";\n\n<template><Textarea /></template>',
       meta: { filePath: 'template.gjs' },
     },
-
   ],
   bad: [
     {
@@ -209,7 +211,8 @@ generateRuleTests({
     },
 
     {
-      template: 'import { Input } from "my-custom-components";\n\n<template><Input @click={{this.handleClick}} /></template>',
+      template:
+        'import { Input } from "my-custom-components";\n\n<template><Input @click={{this.handleClick}} /></template>',
       meta: { filePath: 'template.gjs' },
 
       verifyResults(results) {
@@ -232,7 +235,8 @@ generateRuleTests({
     },
 
     {
-      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea @click={{this.handleClick}} /></template>',
+      template:
+        'import { Textarea } from "my-custom-components";\n\n<template><Textarea @click={{this.handleClick}} /></template>',
       meta: { filePath: 'template.gjs' },
 
       verifyResults(results) {

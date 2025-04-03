@@ -13,19 +13,23 @@ generateRuleTests({
     '<Textarea @value="Tomster" />',
     // Components from non-Ember locations should not be flagged
     {
-      template: 'import { Input } from "my-custom-components";\n\n<template><Input type="text" /></template>',
+      template:
+        'import { Input } from "my-custom-components";\n\n<template><Input type="text" /></template>',
       meta: { filePath: 'template.gjs' },
     },
     {
-      template: 'import { Input } from "my-custom-components";\n\n<template><Input type="text" /></template>',
+      template:
+        'import { Input } from "my-custom-components";\n\n<template><Input type="text" /></template>',
       meta: { filePath: 'template.gts' },
     },
     {
-      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea value="world" /></template>',
+      template:
+        'import { Textarea } from "my-custom-components";\n\n<template><Textarea value="world" /></template>',
       meta: { filePath: 'template.gjs' },
     },
     {
-      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea value="world" /></template>',
+      template:
+        'import { Textarea } from "my-custom-components";\n\n<template><Textarea value="world" /></template>',
       meta: { filePath: 'template.gts' },
     },
   ],
@@ -93,7 +97,8 @@ generateRuleTests({
     },
     // Components with aliases should be flagged with the original name
     {
-      template: 'import { Input as CustomInput } from "@ember/component";\n\n<template><CustomInput type="text" /></template>',
+      template:
+        'import { Input as CustomInput } from "@ember/component";\n\n<template><CustomInput type="text" /></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -114,7 +119,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Input as CustomInput } from "@ember/component";\n\n<template><CustomInput type="text" /></template>',
+      template:
+        'import { Input as CustomInput } from "@ember/component";\n\n<template><CustomInput type="text" /></template>',
       meta: { filePath: 'template.gts' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -135,7 +141,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Textarea as CustomTextarea } from "@ember/component";\n\n<template><CustomTextarea value="world" /></template>',
+      template:
+        'import { Textarea as CustomTextarea } from "@ember/component";\n\n<template><CustomTextarea value="world" /></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -156,7 +163,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Textarea as CustomTextarea } from "@ember/component";\n\n<template><CustomTextarea value="world" /></template>',
+      template:
+        'import { Textarea as CustomTextarea } from "@ember/component";\n\n<template><CustomTextarea value="world" /></template>',
       meta: { filePath: 'template.gts' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`

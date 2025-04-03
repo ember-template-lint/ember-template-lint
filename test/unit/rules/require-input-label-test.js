@@ -68,11 +68,13 @@ generateRuleTests({
       meta: { filePath: 'template.gts' },
     },
     {
-      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea></Textarea></template>',
+      template:
+        'import { Textarea } from "my-custom-components";\n\n<template><Textarea></Textarea></template>',
       meta: { filePath: 'template.gjs' },
     },
     {
-      template: 'import { Textarea } from "my-custom-components";\n\n<template><Textarea></Textarea></template>',
+      template:
+        'import { Textarea } from "my-custom-components";\n\n<template><Textarea></Textarea></template>',
       meta: { filePath: 'template.gts' },
     },
 
@@ -274,7 +276,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea></Textarea></template>',
+      template:
+        'import { Textarea } from "@ember/component";\n\n<template><Textarea></Textarea></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -295,7 +298,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea></Textarea></template>',
+      template:
+        'import { Textarea } from "@ember/component";\n\n<template><Textarea></Textarea></template>',
       meta: { filePath: 'template.gts' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -849,7 +853,8 @@ generateRuleTests({
 
     // Additional test cases for components from @ember/component
     {
-      template: 'import { Input } from "@ember/component";\n\n<template><Input type="text" /></template>',
+      template:
+        'import { Input } from "@ember/component";\n\n<template><Input type="text" /></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -870,7 +875,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Input } from "@ember/component";\n\n<template><Input type="text" /></template>',
+      template:
+        'import { Input } from "@ember/component";\n\n<template><Input type="text" /></template>',
       meta: { filePath: 'template.gts' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -891,7 +897,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3"></Textarea></template>',
+      template:
+        'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3"></Textarea></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -912,7 +919,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3"></Textarea></template>',
+      template:
+        'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3"></Textarea></template>',
       meta: { filePath: 'template.gts' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -935,7 +943,8 @@ generateRuleTests({
 
     // Additional test cases for components from @ember/component with attributes
     {
-      template: 'import { Input } from "@ember/component";\n\n<template><Input type="text" placeholder="Enter text" /></template>',
+      template:
+        'import { Input } from "@ember/component";\n\n<template><Input type="text" placeholder="Enter text" /></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -956,7 +965,8 @@ generateRuleTests({
       },
     },
     {
-      template: 'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3" placeholder="Enter text"></Textarea></template>',
+      template:
+        'import { Textarea } from "@ember/component";\n\n<template><Textarea rows="3" placeholder="Enter text"></Textarea></template>',
       meta: { filePath: 'template.gjs' },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -976,5 +986,5 @@ generateRuleTests({
         `);
       },
     },
-  ]
+  ],
 });
