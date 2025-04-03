@@ -58,6 +58,22 @@ generateRuleTests({
     '<Input type="hidden" />',
     '{{input type="hidden"}}',
 
+    // In strict mode (gjs/gts files), Input and Textarea are ignored
+    // This is because we can't tell if they are actually built-in components
+    // or just have the same name. It's better to risk false negatives than false positives.
+    {
+      template: '<template><Input /></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
+    {
+      template: '<template><Textarea /></template>',
+      meta: {
+        filePath: 'layout.gts',
+      },
+    },
+
     {
       config: { labelTags: ['CustomLabel'] },
       template: '<CustomLabel><input /></CustomLabel>',
