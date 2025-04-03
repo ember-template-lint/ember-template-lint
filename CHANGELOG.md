@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-03)
+
+ember-template-lint 7.0.3 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3155](https://github.com/ember-template-lint/ember-template-lint/pull/3155) Avoid template tag false positives ([@wagenet](https://github.com/wagenet))
+
+#### Committers: 1
+- Peter Wagenet ([@wagenet](https://github.com/wagenet))
+
 ## Release (2025-03-31)
 
 ember-template-lint 7.0.2 (patch)
