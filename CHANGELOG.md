@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-04)
+
+ember-template-lint 7.0.4 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3151](https://github.com/ember-template-lint/ember-template-lint/pull/3151) Fix block-indentation not working correctly for GJS files ([@robinborst95](https://github.com/robinborst95))
+
+#### Committers: 1
+- Robin Borst  ([@robinborst95](https://github.com/robinborst95))
+
 ## Release (2025-04-03)
 
 ember-template-lint 7.0.3 (patch)
