@@ -477,6 +477,32 @@ describe('ember-template-lint executable', function () {
       });
     });
 
+    describe('given wildcard path resolving to single file with compound extension', function () {
+      it('should print errors', async function () {
+        await project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        await project.write({
+          app: {
+            templates: {
+              'application.example.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await runBin('app/templates/*');
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toBeTruthy();
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
     describe('given directory path', function () {
       it('should print errors', async function () {
         await project.setConfig({
@@ -503,6 +529,45 @@ describe('ember-template-lint executable', function () {
           	.hbs: 2
 
           app/templates/application.hbs
+            1:4  error  Non-translated string used  no-bare-strings
+            1:25  error  Non-translated string used  no-bare-strings
+
+          ✖ 2 problems (2 errors, 0 warnings)"
+        `);
+        expect(result.stderr).toBeFalsy();
+      });
+    });
+
+    describe('given directory path containing file with compound extension', function () {
+      it('should print errors', async function () {
+        await project.setConfig({
+          rules: {
+            'no-bare-strings': true,
+          },
+        });
+        await project.write({
+          app: {
+            templates: {
+              'application.example.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+              'index.ts': '// not ignored',
+              'index.d.ts': 'ignored',
+              components: {
+                'foo.hbs': '{{fooData}}',
+              },
+            },
+          },
+        });
+
+        let result = await runBin('app');
+
+        expect(result.exitCode).toEqual(1);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 3 Total Files with TemplateLint
+          	.example.hbs: 1
+          	.ts: 1
+          	.hbs: 1
+
+          app/templates/application.example.hbs
             1:4  error  Non-translated string used  no-bare-strings
             1:25  error  Non-translated string used  no-bare-strings
 
