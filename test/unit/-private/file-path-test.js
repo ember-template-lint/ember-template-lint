@@ -1,4 +1,9 @@
-import { parseFilePath, canProcessFile, processFile, isDTS } from '../../../lib/-private/file-path.js';
+import {
+  parseFilePath,
+  canProcessFile,
+  processFile,
+  isDTS,
+} from '../../../lib/-private/file-path.js';
 import { vi } from 'vitest';
 
 describe('file-path', function () {
@@ -152,12 +157,12 @@ describe('file-path', function () {
     });
   });
 
-  describe('isDTS', function() {
-    it("matches extensions ending in .d.ts", () => {
-      expect(isDTS(".d.ts")).toBe(true);
-      expect(isDTS(".compound.d.ts")).toBe(true);
-      expect(isDTS(".ts")).toBe(false);
-      expect(isDTS(".d.js")).toBe(false);
+  describe('isDTS', function () {
+    it('matches extensions ending in .d.ts', () => {
+      expect(isDTS('.d.ts')).toBe(true);
+      expect(isDTS('.compound.d.ts')).toBe(true);
+      expect(isDTS('.ts')).toBe(false);
+      expect(isDTS('.d.js')).toBe(false);
     });
   });
 });
