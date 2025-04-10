@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-10)
+
+ember-template-lint 7.0.5 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3165](https://github.com/ember-template-lint/ember-template-lint/pull/3165) Support compound extensions ending in .hbs ([@JuiHsuan-Kuo](https://github.com/JuiHsuan-Kuo))
+
+#### Committers: 1
+- [@JuiHsuan-Kuo](https://github.com/JuiHsuan-Kuo)
+
 ## Release (2025-04-04)
 
 ember-template-lint 7.0.4 (patch)
