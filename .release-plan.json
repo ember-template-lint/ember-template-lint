@@ -2,8 +2,8 @@
   "solution": {
     "ember-template-lint": {
       "impact": "patch",
-      "oldVersion": "7.0.4",
-      "newVersion": "7.0.5",
+      "oldVersion": "7.0.5",
+      "newVersion": "7.0.6",
       "constraints": [
         {
           "impact": "patch",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-04-10)\n\nember-template-lint 7.0.5 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3165](https://github.com/ember-template-lint/ember-template-lint/pull/3165) Support compound extensions ending in .hbs ([@JuiHsuan-Kuo](https://github.com/JuiHsuan-Kuo))\n\n#### Committers: 1\n- [@JuiHsuan-Kuo](https://github.com/JuiHsuan-Kuo)\n"
+  "description": "## Release (2025-04-11)\n\nember-template-lint 7.0.6 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3167](https://github.com/ember-template-lint/ember-template-lint/pull/3167) fix: support compound extensions when globbing ([@simshanith](https://github.com/simshanith))\n\n#### Committers: 1\n- Shane Daniel ([@simshanith](https://github.com/simshanith))\n"
 }

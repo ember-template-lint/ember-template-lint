@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-11)
+
+ember-template-lint 7.0.6 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3167](https://github.com/ember-template-lint/ember-template-lint/pull/3167) fix: support compound extensions when globbing ([@simshanith](https://github.com/simshanith))
+
+#### Committers: 1
+- Shane Daniel ([@simshanith](https://github.com/simshanith))
+
 ## Release (2025-04-10)
 
 ember-template-lint 7.0.5 (patch)
