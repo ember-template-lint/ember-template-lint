@@ -1,4 +1,9 @@
-import { parseFilePath, canProcessFile, processFile } from '../../../lib/-private/file-path.js';
+import {
+  parseFilePath,
+  canProcessFile,
+  processFile,
+  isDTS,
+} from '../../../lib/-private/file-path.js';
 import { vi } from 'vitest';
 
 describe('file-path', function () {
@@ -149,6 +154,15 @@ describe('file-path', function () {
       expect(tasks.glimmerScript).not.toHaveBeenCalled();
       expect(tasks.script).not.toHaveBeenCalled();
       expect(tasks.default).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('isDTS', function () {
+    it('matches extensions ending in .d.ts', () => {
+      expect(isDTS('.d.ts')).toBe(true);
+      expect(isDTS('.compound.d.ts')).toBe(true);
+      expect(isDTS('.ts')).toBe(false);
+      expect(isDTS('.d.js')).toBe(false);
     });
   });
 });
