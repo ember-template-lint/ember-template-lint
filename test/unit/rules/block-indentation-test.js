@@ -252,6 +252,24 @@ generateRuleTests({
       template: [
         "import { hbs } from 'ember-cli-htmlbars';",
         '',
+        'hooks.beforeEach(function() {',
+        '  this.renderTemplate = () => {',
+        '    return render(hbs`',
+        '      <div class="parent">',
+        '        <div class="child"></div>',
+        '      </div>',
+        '    `);',
+        '  };',
+        '});',
+      ].join('\n'),
+      meta: {
+        filePath: 'layout.js',
+      },
+    },
+    {
+      template: [
+        "import { hbs } from 'ember-cli-htmlbars';",
+        '',
         "test('it renders', async (assert) => {",
         '  await render(hbs`<div class="parent">',
         '    <div class="child"></div>',

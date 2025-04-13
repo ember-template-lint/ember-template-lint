@@ -402,7 +402,7 @@ describe('rule public api', function () {
         good: [{ foo: true }],
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `[AssertionError: Unexpected property passed to good test case: foo. Expected one of: config, meta, name, template.]`
+      `[AssertionError: Unexpected property passed to good test case: foo. Expected one of: config, focus, meta, name, template.]`
     );
   });
 
@@ -412,7 +412,7 @@ describe('rule public api', function () {
         bad: [{ foo: true }],
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `[AssertionError: Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, meta, name, result, results, template, verifyResults, skipDisabledTests.]`
+      `[AssertionError: Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, focus, meta, name, result, results, skipDisabledTests, template, verifyResults.]`
     );
   });
 

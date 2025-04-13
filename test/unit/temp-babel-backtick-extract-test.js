@@ -10,6 +10,18 @@ const simpleTest = [
   '});',
 ].join('\n');
 
+const returnTest = [
+  'hooks.beforeEach(function() {',
+  '  this.renderTemplate = () => {',
+  '    return render(hbs`',
+  '      <div class="parent">',
+  '        <div class="child"></div>',
+  '      </div>',
+  '    `);',
+  '  };',
+  '});',
+].join('\n');
+
 const multiTemplate = [
   'export const Name = hbs`',
   '  {{@name}}',
@@ -39,6 +51,27 @@ describe('template-info', () => {
               <div class="child"></div>
             </div>
           ",
+          },
+        ]
+      `);
+    });
+
+    it('return', () => {
+      expect(templateInfoForScript(returnTest)).toMatchInlineSnapshot(`
+        [
+          {
+            "column": 22,
+            "columnOffset": 4,
+            "end": 163,
+            "isEmbedded": true,
+            "isStrictMode": false,
+            "line": 3,
+            "start": 84,
+            "template": "
+              <div class="parent">
+                <div class="child"></div>
+              </div>
+            ",
           },
         ]
       `);
