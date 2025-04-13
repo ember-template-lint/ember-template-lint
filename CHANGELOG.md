@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-13)
+
+ember-template-lint 7.0.7 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3163](https://github.com/ember-template-lint/ember-template-lint/pull/3163) [js, ts] Fix columnOffset of embedded 'backtick' template from 'return' ([@robinborst95](https://github.com/robinborst95))
+
+#### Committers: 1
+- Robin Borst  ([@robinborst95](https://github.com/robinborst95))
+
 ## Release (2025-04-11)
 
 ember-template-lint 7.0.6 (patch)

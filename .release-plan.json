@@ -2,8 +2,8 @@
   "solution": {
     "ember-template-lint": {
       "impact": "patch",
-      "oldVersion": "7.0.5",
-      "newVersion": "7.0.6",
+      "oldVersion": "7.0.6",
+      "newVersion": "7.0.7",
       "constraints": [
         {
           "impact": "patch",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-04-11)\n\nember-template-lint 7.0.6 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3167](https://github.com/ember-template-lint/ember-template-lint/pull/3167) fix: support compound extensions when globbing ([@simshanith](https://github.com/simshanith))\n\n#### Committers: 1\n- Shane Daniel ([@simshanith](https://github.com/simshanith))\n"
+  "description": "## Release (2025-04-13)\n\nember-template-lint 7.0.7 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3163](https://github.com/ember-template-lint/ember-template-lint/pull/3163) [js, ts] Fix columnOffset of embedded 'backtick' template from 'return' ([@robinborst95](https://github.com/robinborst95))\n\n#### Committers: 1\n- Robin Borst  ([@robinborst95](https://github.com/robinborst95))\n"
 }
