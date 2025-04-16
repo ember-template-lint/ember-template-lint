@@ -5,7 +5,7 @@ generateRuleTests({
 
   config: true,
 
-  good: ['{{foo}}', '{{button}}'],
+  good: ['{{foo}}', '{{button}}', '<Component @param={{"partial"}} />'],
 
   bad: [
     {
