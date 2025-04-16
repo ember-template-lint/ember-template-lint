@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-16)
+
+ember-template-lint 7.0.8 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3174](https://github.com/ember-template-lint/ember-template-lint/pull/3174) Closes [#3171](https://github.com/ember-template-lint/ember-template-lint/issues/3171) False positive in TypeScript files ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
 ## Release (2025-04-13)
 
 ember-template-lint 7.0.7 (patch)
