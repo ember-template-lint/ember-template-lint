@@ -92,6 +92,21 @@ describe('file-path', function () {
   });
 
   describe('processFile', function () {
+    it('execute script task .ts file has complex extension', async function () {
+      const tasks = {
+        template: vi.fn(),
+        glimmerScript: vi.fn(),
+        script: vi.fn().mockResolvedValue('template result'),
+        default: vi.fn(),
+      };
+
+      const result = await processFile('image.helper.ts', tasks);
+      expect(result).toBe('template result');
+      expect(tasks.template).not.toHaveBeenCalled();
+      expect(tasks.glimmerScript).not.toHaveBeenCalled();
+      expect(tasks.script).toHaveBeenCalled();
+      expect(tasks.default).not.toHaveBeenCalled();
+    });
     it('processes .hbs files as templates', async function () {
       const tasks = {
         template: vi.fn().mockResolvedValue('template result'),
