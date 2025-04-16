@@ -69,13 +69,17 @@ describe('file-path', function () {
       // Glimmer script files
       expect(canProcessFile('component.gjs')).toBe(true);
       expect(canProcessFile('component.gts')).toBe(true);
+      expect(canProcessFile('app/app/helpers/feature.test.gjs')).toBe(true);
 
       // HTML files
       expect(canProcessFile('template.html')).toBe(true);
+      expect(canProcessFile('template.test.html')).toBe(true);
 
       // JavaScript and TypeScript files (soon deprecated)
       expect(canProcessFile('script.js')).toBe(true);
+      expect(canProcessFile('script.test.js')).toBe(true);
       expect(canProcessFile('script.ts')).toBe(true);
+      expect(canProcessFile('script.test.ts')).toBe(true);
 
       // TypeScript declaration files
       expect(canProcessFile('types.d.ts')).toBe(true);
