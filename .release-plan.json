@@ -2,8 +2,8 @@
   "solution": {
     "ember-template-lint": {
       "impact": "patch",
-      "oldVersion": "7.0.6",
-      "newVersion": "7.0.7",
+      "oldVersion": "7.0.7",
+      "newVersion": "7.0.8",
       "constraints": [
         {
           "impact": "patch",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-04-13)\n\nember-template-lint 7.0.7 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3163](https://github.com/ember-template-lint/ember-template-lint/pull/3163) [js, ts] Fix columnOffset of embedded 'backtick' template from 'return' ([@robinborst95](https://github.com/robinborst95))\n\n#### Committers: 1\n- Robin Borst  ([@robinborst95](https://github.com/robinborst95))\n"
+  "description": "## Release (2025-04-16)\n\nember-template-lint 7.0.8 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3174](https://github.com/ember-template-lint/ember-template-lint/pull/3174) Closes [#3171](https://github.com/ember-template-lint/ember-template-lint/issues/3171) False positive in TypeScript files ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 1\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n"
 }
