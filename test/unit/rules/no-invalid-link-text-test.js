@@ -321,5 +321,26 @@ generateRuleTests({
         `);
       },
     },
+    {
+      template: '<MyLink>click here</MyLink>',
+      config: { linkComponents: ['MyLink'] },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Links should have descriptive text",
+              "rule": "no-invalid-link-text",
+              "severity": 2,
+              "source": "<MyLink>click here</MyLink>",
+            },
+          ]
+        `);
+      },
+    },
   ],
 });
