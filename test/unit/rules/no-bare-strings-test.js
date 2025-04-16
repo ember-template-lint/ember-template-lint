@@ -48,6 +48,10 @@ generateRuleTests({
       config: { globalAttributes: ['data-foo'] },
       template: '<div data-foo={{foo}}></div>',
     },
+    {
+      config: { ignoredElements: ['mj-style'] },
+      template: '<mj-style>some style</mj-style>',
+    },
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
     '(),.&+-=*/#%!?:[]{}',
