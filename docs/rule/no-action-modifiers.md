@@ -1,5 +1,7 @@
 # no-action-modifiers
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 This rule forbids the use of `{{action}}` modifiers on elements.
 
 The recommended alternative is the `on` modifier. `on` is available in Ember 3.11+ and by [polyfill](https://github.com/buschtoens/ember-on-modifier) for earlier versions.

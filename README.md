@@ -102,7 +102,7 @@ Each rule has emojis denoting:
 | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                                     | ✅  |     | ⌨️  |     |
 | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           | ✅  |     | ⌨️  | 🔧  |
 | [no-action](./docs/rule/no-action.md)                                                                     | ✅  |     |     |     |
-| [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |     |     |     |     |
+| [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |     |     |     | 🔧  |
 | [no-action-on-submit-button](./docs/rule/no-action-on-submit-button.md)                                   | ✅  |     |     |     |
 | [no-args-paths](./docs/rule/no-args-paths.md)                                                             | ✅  |     |     |     |
 | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | ✅  |     |     |     |
