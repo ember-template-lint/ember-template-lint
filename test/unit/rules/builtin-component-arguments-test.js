@@ -28,7 +28,7 @@ generateRuleTests({
               "message": "Setting the \`type\` attribute on the builtin <Input> component is not allowed. Did you mean \`@type\`?",
               "rule": "builtin-component-arguments",
               "severity": 2,
-              "source": "type=\\"text\\"",
+              "source": "type="text"",
             },
           ]
         `);
@@ -68,7 +68,7 @@ generateRuleTests({
               "message": "Setting the \`value\` attribute on the builtin <Textarea> component is not allowed. Did you mean \`@value\`?",
               "rule": "builtin-component-arguments",
               "severity": 2,
-              "source": "value=\\"Tomster\\"",
+              "source": "value="Tomster"",
             },
           ]
         `);

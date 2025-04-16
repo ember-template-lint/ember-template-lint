@@ -1,5 +1,7 @@
 # require-media-caption
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Captions provide a text version of the spoken and non-spoken audio information for media. They are essential for making audio and video content accessible for users who are deaf as well as those for whom the media is unavailable (similar to `alt` text on an image when it is unable to load).
 
 Captions should contain all relevant information needed to help users understand the media content, which may include a transcription of the dialogue and descriptions of meaningful sound effects. They are synchronized with the media to allow users access to the portion of the content conveyed via the audio track. Note that when audio or video components include the `muted` attribute, however, captions are *not* necessary.

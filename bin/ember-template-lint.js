@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 /* eslint require-atomic-updates:"off" */
-/* eslint node/shebang:"off" -- shebang needed so this script can be run directly */
 
 // Use V8's code cache to speed up instantiation time:
 import 'v8-compile-cache'; // eslint-disable-line import/no-unassigned-import
@@ -21,6 +20,7 @@ import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
 import printResults from '../lib/helpers/print-results.js';
 import processResults from '../lib/helpers/process-results.js';
 import Linter from '../lib/linter.js';
+import { getProjectConfig } from '../lib/get-config.js';
 
 const readFile = promisify(fs.readFile);
 
@@ -88,10 +88,7 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
-  let shouldWriteToStdout = !(
-    options.quiet ||
-    (options.outputFile && ['sarif', 'json'].includes(options.format))
-  );
+  let shouldWriteToStdout = !(options.quiet || ['sarif', 'json'].includes(options.format));
   let _console = shouldWriteToStdout ? console : NOOP_CONSOLE;
 
   if (options.config) {
@@ -149,6 +146,7 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
+      reportUnusedDisableDirectives: options.reportUnusedDisableDirectives,
       console: _console,
     });
   } catch (error) {
@@ -167,15 +165,19 @@ async function run() {
 
   let filePaths;
   try {
-    filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+    let config = await getProjectConfig(options.workingDirectory, options);
+    filePaths = getFilesToLint(
+      options.workingDirectory,
+      positional,
+      options.ignorePattern,
+      options.errorOnUnmatchedPattern !== false,
+      config,
+      _console
+    );
   } catch (error) {
-    if (error.name === 'NoMatchingFilesError' && options.errorOnUnmatchedPattern === false) {
-      return;
-    } else {
-      console.error(error.message);
-      process.exitCode = 1;
-      return;
-    }
+    console.error(error.message);
+    process.exitCode = 1;
+    return;
   }
 
   if (options.printConfig) {

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`rule public api general test harness support no-elements can use verifyResults directly (with external snapshots): logs errors 1`] = `
+exports[`rule public api > general test harness support > no-elements > can use verifyResults directly (with external snapshots): logs errors 1`] = `
 [
   {
     "column": 0,

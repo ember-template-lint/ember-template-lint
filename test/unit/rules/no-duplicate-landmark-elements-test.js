@@ -53,7 +53,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<div role=\\"navigation\\"></div>",
+              "source": "<div role="navigation"></div>",
             },
           ]
         `);
@@ -93,7 +93,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<div role=\\"main\\"></div>",
+              "source": "<div role="main"></div>",
             },
           ]
         `);
@@ -113,7 +113,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<nav aria-label=\\"site navigation\\"></nav>",
+              "source": "<nav aria-label="site navigation"></nav>",
             },
           ]
         `);
@@ -133,7 +133,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<form aria-label=\\"search-form\\"></form>",
+              "source": "<form aria-label="search-form"></form>",
             },
           ]
         `);
@@ -154,7 +154,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<form aria-labelledby=\\"form-title\\"></form>",
+              "source": "<form aria-labelledby="form-title"></form>",
             },
           ]
         `);

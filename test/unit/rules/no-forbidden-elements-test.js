@@ -97,7 +97,7 @@ generateRuleTests({
               "message": "Use of <meta> detected. Do not use forbidden elements.",
               "rule": "no-forbidden-elements",
               "severity": 2,
-              "source": "<meta charset=\\"utf-8\\">",
+              "source": "<meta charset="utf-8">",
             },
           ]
         `);

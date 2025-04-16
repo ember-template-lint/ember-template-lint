@@ -36,10 +36,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "message": "links with target="_blank" must have rel="noopener noreferrer"",
               "rule": "link-rel-noopener",
               "severity": 2,
-              "source": "<a href=\\"/some/where\\" target=\\"_blank\\"></a>",
+              "source": "<a href="/some/where" target="_blank"></a>",
             },
           ]
         `);
@@ -60,10 +60,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "message": "links with target="_blank" must have rel="noopener noreferrer"",
               "rule": "link-rel-noopener",
               "severity": 2,
-              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"nofollow\\"></a>",
+              "source": "<a href="/some/where" target="_blank" rel="nofollow"></a>",
             },
           ]
         `);
@@ -83,10 +83,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "message": "links with target="_blank" must have rel="noopener noreferrer"",
               "rule": "link-rel-noopener",
               "severity": 2,
-              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"noopener\\"></a>",
+              "source": "<a href="/some/where" target="_blank" rel="noopener"></a>",
             },
           ]
         `);
@@ -106,10 +106,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "links with target=\\"_blank\\" must have rel=\\"noopener noreferrer\\"",
+              "message": "links with target="_blank" must have rel="noopener noreferrer"",
               "rule": "link-rel-noopener",
               "severity": 2,
-              "source": "<a href=\\"/some/where\\" target=\\"_blank\\" rel=\\"noreferrer\\"></a>",
+              "source": "<a href="/some/where" target="_blank" rel="noreferrer"></a>",
             },
           ]
         `);

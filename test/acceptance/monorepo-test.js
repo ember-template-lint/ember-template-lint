@@ -88,7 +88,7 @@ describe('monorepo setups', function () {
       it('sub-projects can leverage plugins installed at the monorepo root', async function () {
         buildPlugin('fail-on-word');
 
-        let foo = await buildWorkspace('packages/foo');
+        let foo = buildWorkspace('packages/foo');
 
         await foo.setConfig({
           plugins: ['fail-on-word'],
@@ -112,10 +112,49 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "src/foo.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+          "Linting 2 Total Files with TemplateLint
+          	.js: 1
+          	.hbs: 1
+
+          src/foo.hbs
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
+        `);
+      });
+
+      it('ignores based on the config', async function () {
+        buildPlugin('fail-on-word');
+
+        let foo = buildWorkspace('packages/foo');
+
+        await foo.setConfig({
+          plugins: ['fail-on-word'],
+          ignore: ['**/foo.hbs'],
+          rules: {
+            'fail-on-word': ['error', 'evil'],
+          },
+        });
+
+        await foo.write({
+          src: {
+            'foo.hbs': 'evil deeds',
+          },
+        });
+
+        await project.write();
+
+        let result = await runBin('.', {
+          cwd: foo.baseDir,
+        });
+
+        expect(result.exitCode).toEqual(0);
+        expect(result.stderr).toMatchInlineSnapshot(`""`);
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.js: 1
+
+          "
         `);
       });
     });
@@ -125,8 +164,8 @@ describe('monorepo setups', function () {
       beforeEach(async function () {
         buildPlugin('fail-on-word');
 
-        foo = await buildWorkspace('packages/foo');
-        bar = await buildWorkspace('packages/bar');
+        foo = buildWorkspace('packages/foo');
+        bar = buildWorkspace('packages/bar');
 
         await foo.write({
           src: {
@@ -157,8 +196,12 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "src/bar.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+          "Linting 2 Total Files with TemplateLint
+          	.js: 1
+          	.hbs: 1
+
+          src/bar.hbs
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
@@ -172,8 +215,12 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "src/foo.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+          "Linting 2 Total Files with TemplateLint
+          	.js: 1
+          	.hbs: 1
+
+          src/foo.hbs
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 1 problems (1 errors, 0 warnings)"
         `);
@@ -187,11 +234,15 @@ describe('monorepo setups', function () {
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "packages/bar/src/bar.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+          "Linting 4 Total Files with TemplateLint
+          	.js: 2
+          	.hbs: 2
+
+          packages/bar/src/bar.hbs
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           packages/foo/src/foo.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 2 problems (2 errors, 0 warnings)"
         `);
@@ -203,7 +254,7 @@ describe('monorepo setups', function () {
     it('sub-projects can leverage plugins installed at the monorepo root', async function () {
       buildPlugin('fail-on-word');
 
-      let foo = await buildWorkspace('packages/foo');
+      let foo = buildWorkspace('packages/foo');
 
       await foo.setConfig({
         plugins: ['fail-on-word'],
@@ -227,8 +278,12 @@ describe('monorepo setups', function () {
       expect(result.exitCode).toEqual(1);
       expect(result.stderr).toMatchInlineSnapshot(`""`);
       expect(result.stdout).toMatchInlineSnapshot(`
-        "src/foo.hbs
-          1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+        "Linting 2 Total Files with TemplateLint
+        	.js: 1
+        	.hbs: 1
+
+        src/foo.hbs
+          1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
         ✖ 1 problems (1 errors, 0 warnings)"
       `);

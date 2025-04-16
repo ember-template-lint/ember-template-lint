@@ -17,6 +17,8 @@ generateRuleTests({
     '<span role="presentation"></span>',
     '<svg role="none"></svg>',
     '<svg role="presentation"></svg>',
+    '<li role="none"></li>',
+    '<li role="presentation"></li>',
     '<custom-component role="none"></custom-component>',
     '<AwesomeThing role="none"></AwesomeThing>',
     '<AwesomeThing role="presentation"></AwesomeThing>',
@@ -45,7 +47,7 @@ generateRuleTests({
               "message": "Use of presentation role on <ul> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<ul role=\\"presentation\\"></ul>",
+              "source": "<ul role="presentation"></ul>",
             },
           ]
         `);
@@ -65,27 +67,7 @@ generateRuleTests({
               "message": "Use of presentation role on <ol> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<ol role=\\"presentation\\"></ol>",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<li role="presentation"></li>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 29,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "Use of presentation role on <li> detected. Semantic elements should not be used for presentation.",
-              "rule": "no-invalid-role",
-              "severity": 2,
-              "source": "<li role=\\"presentation\\"></li>",
+              "source": "<ol role="presentation"></ol>",
             },
           ]
         `);
@@ -105,7 +87,7 @@ generateRuleTests({
               "message": "Use of presentation role on <table> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<table role=\\"presentation\\"></table>",
+              "source": "<table role="presentation"></table>",
             },
           ]
         `);
@@ -125,7 +107,7 @@ generateRuleTests({
               "message": "Use of presentation role on <table> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<table role=\\"none\\"></table>",
+              "source": "<table role="none"></table>",
             },
           ]
         `);
@@ -145,7 +127,7 @@ generateRuleTests({
               "message": "Use of presentation role on <button> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<button role=\\"presentation\\"></button>",
+              "source": "<button role="presentation"></button>",
             },
           ]
         `);
@@ -165,7 +147,7 @@ generateRuleTests({
               "message": "Use of presentation role on <button> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<button role=\\"none\\"></button>",
+              "source": "<button role="none"></button>",
             },
           ]
         `);
@@ -185,7 +167,7 @@ generateRuleTests({
               "message": "Use of presentation role on <label> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<label role=\\"presentation\\"></label>",
+              "source": "<label role="presentation"></label>",
             },
           ]
         `);
@@ -205,7 +187,7 @@ generateRuleTests({
               "message": "Use of presentation role on <label> detected. Semantic elements should not be used for presentation.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<label role=\\"none\\"></label>",
+              "source": "<label role="none"></label>",
             },
           ]
         `);
@@ -225,7 +207,7 @@ generateRuleTests({
               "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<div role=\\"command interface\\"></div>",
+              "source": "<div role="command interface"></div>",
             },
           ]
         `);
@@ -248,7 +230,7 @@ generateRuleTests({
               "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<div role=\\"command interface\\"></div>",
+              "source": "<div role="command interface"></div>",
             },
           ]
         `);
@@ -268,7 +250,7 @@ generateRuleTests({
               "message": "Use of invalid role on <div> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.",
               "rule": "no-invalid-role",
               "severity": 2,
-              "source": "<div role=\\"COMMAND INTERFACE\\"></div>",
+              "source": "<div role="COMMAND INTERFACE"></div>",
             },
           ]
         `);

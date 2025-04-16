@@ -32,3 +32,6 @@ indent_size = 2
 
 [*.{diff,md}]
 trim_trailing_whitespace = false
+
+[test/unit/rules/no-trailing-spaces-test.js]
+trim_trailing_whitespace = false

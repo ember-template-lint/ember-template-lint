@@ -34,7 +34,7 @@ generateRuleTests({
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<button {{action \\"foo\\"}}></button>",
+              "source": "<button {{action "foo"}}></button>",
             },
           ]
         `);
@@ -55,7 +55,7 @@ generateRuleTests({
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<a href=\\"#\\" {{action \\"foo\\"}}></a>",
+              "source": "<a href="#" {{action "foo"}}></a>",
             },
           ]
         `);
@@ -77,7 +77,7 @@ generateRuleTests({
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<a href=\\"#\\" {{action \\"foo\\"}}></a>",
+              "source": "<a href="#" {{action "foo"}}></a>",
             },
           ]
         `);

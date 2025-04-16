@@ -56,7 +56,7 @@ generateRuleTests({
               "message": "No autofocus attribute allowed, as it reduces accessibility by moving users to an element without warning and context",
               "rule": "no-autofocus-attribute",
               "severity": 2,
-              "source": "autofocus=\\"autofocus\\"",
+              "source": "autofocus="autofocus"",
             },
           ]
         `);
@@ -140,7 +140,7 @@ generateRuleTests({
               "message": "No autofocus attribute allowed, as it reduces accessibility by moving users to an element without warning and context",
               "rule": "no-autofocus-attribute",
               "severity": 2,
-              "source": "autofocus=\\"true\\"",
+              "source": "autofocus="true"",
             },
           ]
         `);
@@ -161,7 +161,7 @@ generateRuleTests({
               "message": "No autofocus attribute allowed, as it reduces accessibility by moving users to an element without warning and context",
               "rule": "no-autofocus-attribute",
               "severity": 2,
-              "source": "autofocus=\\"autofocus\\"",
+              "source": "autofocus="autofocus"",
             },
           ]
         `);

@@ -1,57 +1,57 @@
 import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
-  name: 'no-down-event-binding',
+  name: 'no-pointer-down-event-binding',
 
   config: true,
 
   good: [
     // Typical event binding
-    "<div {{on 'keyup' this.doSomething}}></div>",
-    "<div {{action this.doSomething on='keyup'}}></div>",
+    "<div {{on 'mouseup' this.doSomething}}></div>",
+    "<div {{action this.doSomething on='mouseup'}}></div>",
     // DOM event handling through attributes
-    '<input type="text" onkeyup="myFunction()">',
+    '<input type="text" onmouseup="myFunction()">',
     // For now, we're not catching component arguments
-    '{{my-component keyDown=this.doSomething}}',
-    '<MyComponent @keyDown={{this.doSomething}} />',
+    '{{my-component mouseDown=this.doSomething}}',
+    '<MyComponent @mouseDown={{this.doSomething}} />',
   ],
 
   bad: [
     {
-      template: "<div {{on 'keydown' this.doSomething}}></div>",
+      template: '<div {{on "mousedown" this.doSomething}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 10,
-              "endColumn": 19,
+              "endColumn": 21,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
-              "rule": "no-down-event-binding",
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "'keydown'",
+              "source": ""mousedown"",
             },
           ]
         `);
       },
     },
     {
-      template: "<div {{action this.doSomething on='keydown'}}></div>",
+      template: '<div {{action this.doSomething on="mousedown"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 34,
-              "endColumn": 43,
+              "endColumn": 45,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
-              "rule": "no-down-event-binding",
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "'keydown'",
+              "source": ""mousedown"",
             },
           ]
         `);
@@ -59,20 +59,20 @@ generateRuleTests({
     },
     {
       // Detecting the `on` param works, even if it's not the first hash param to `{{action}}`
-      template: "<div {{action this.doSomething preventDefault=true on='keydown'}}></div>",
+      template: '<div {{action this.doSomething preventDefault=true on="mousedown"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 54,
-              "endColumn": 63,
+              "endColumn": 65,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
-              "rule": "no-down-event-binding",
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "'keydown'",
+              "source": ""mousedown"",
             },
           ]
         `);
@@ -80,20 +80,20 @@ generateRuleTests({
     },
     {
       // DOM event handling through attributes
-      template: '<input type="text" onkeydown="myFunction()">',
+      template: '<input type="text" onmousedown="myFunction()">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 19,
-              "endColumn": 43,
+              "endColumn": 45,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Avoid binding to a \`down\` event; bind to an \`up\` event instead",
-              "rule": "no-down-event-binding",
+              "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
+              "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "onkeydown=\\"myFunction()\\"",
+              "source": "onmousedown="myFunction()"",
             },
           ]
         `);

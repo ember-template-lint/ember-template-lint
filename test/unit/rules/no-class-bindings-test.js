@@ -23,7 +23,7 @@ generateRuleTests({
               "message": "Passing the \`classBinding\` property as an argument within templates is not allowed.",
               "rule": "no-class-bindings",
               "severity": 2,
-              "source": "classBinding=\\"lol:wat\\"",
+              "source": "classBinding="lol:wat"",
             },
           ]
         `);
@@ -44,7 +44,7 @@ generateRuleTests({
               "message": "Passing the \`@classBinding\` property as an argument within templates is not allowed.",
               "rule": "no-class-bindings",
               "severity": 2,
-              "source": "@classBinding=\\"lol:wat\\"",
+              "source": "@classBinding="lol:wat"",
             },
           ]
         `);
@@ -65,7 +65,7 @@ generateRuleTests({
               "message": "Passing the \`classNameBindings\` property as an argument within templates is not allowed.",
               "rule": "no-class-bindings",
               "severity": 2,
-              "source": "classNameBindings=\\"lol:foo:bar\\"",
+              "source": "classNameBindings="lol:foo:bar"",
             },
           ]
         `);
@@ -86,7 +86,7 @@ generateRuleTests({
               "message": "Passing the \`@classNameBindings\` property as an argument within templates is not allowed.",
               "rule": "no-class-bindings",
               "severity": 2,
-              "source": "@classNameBindings=\\"lol:foo:bar\\"",
+              "source": "@classNameBindings="lol:foo:bar"",
             },
           ]
         `);

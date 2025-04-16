@@ -24,7 +24,7 @@ generateRuleTests({
               "message": "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.",
               "rule": "no-accesskey-attribute",
               "severity": 2,
-              "source": "accesskey=\\"n\\"",
+              "source": "accesskey="n"",
             },
           ]
         `);
@@ -90,7 +90,7 @@ generateRuleTests({
               "message": "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard comments used by screenreader and keyboard only users create a11y complications.",
               "rule": "no-accesskey-attribute",
               "severity": 2,
-              "source": "accesskey=\\"{{some-key}}\\"",
+              "source": "accesskey="{{some-key}}"",
             },
           ]
         `);

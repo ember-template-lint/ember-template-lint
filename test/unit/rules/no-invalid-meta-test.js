@@ -39,7 +39,7 @@ generateRuleTests({
               "message": "a meta redirect should not have a delay value greater than zero",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta http-equiv=\\"refresh\\" content=\\"1; url=http://www.example.com\\">",
+              "source": "<meta http-equiv="refresh" content="1; url=http://www.example.com">",
             },
           ]
         `);
@@ -60,7 +60,7 @@ generateRuleTests({
               "message": "a meta refresh should have a delay greater than 72000 seconds",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta http-equiv=\\"refresh\\" content=\\"71999\\">",
+              "source": "<meta http-equiv="refresh" content="71999">",
             },
           ]
         `);
@@ -81,7 +81,7 @@ generateRuleTests({
               "message": "a meta viewport should not restrict user-scalable",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"user-scalable=no\\">",
+              "source": "<meta name="viewport" content="user-scalable=no">",
             },
           ]
         `);
@@ -102,7 +102,7 @@ generateRuleTests({
               "message": "a meta viewport should not restrict user-scalable",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"user-scalable = no\\">",
+              "source": "<meta name="viewport" content="user-scalable = no">",
             },
           ]
         `);
@@ -123,7 +123,7 @@ generateRuleTests({
               "message": "a meta viewport should not restrict user-scalable",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"user-scalable= no\\">",
+              "source": "<meta name="viewport" content="user-scalable= no">",
             },
           ]
         `);
@@ -145,7 +145,7 @@ generateRuleTests({
               "message": "a meta viewport should not set a maximum scale on content",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0, maximum-scale=1.0\\">",
+              "source": "<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">",
             },
           ]
         `);
@@ -167,7 +167,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\">",
+              "source": "<meta name="viewport">",
             },
           ]
         `);
@@ -188,7 +188,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta property=\\"og:type\\">",
+              "source": "<meta property="og:type">",
             },
           ]
         `);
@@ -209,7 +209,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta itemprop=\\"type\\">",
+              "source": "<meta itemprop="type">",
             },
           ]
         `);
@@ -230,7 +230,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta http-equiv=\\"refresh\\">",
+              "source": "<meta http-equiv="refresh">",
             },
           ]
         `);
@@ -251,7 +251,7 @@ generateRuleTests({
               "message": "a meta content attribute cannot be defined if the name, property, itemprop nor the http-equiv attributes are defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta content=\\"72001\\">",
+              "source": "<meta content="72001">",
             },
           ]
         `);

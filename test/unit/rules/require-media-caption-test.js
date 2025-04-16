@@ -68,7 +68,7 @@ generateRuleTests({
               "message": "Media elements such as <audio> and <video> must have a <track> for captions.",
               "rule": "require-media-caption",
               "severity": 2,
-              "source": "<video><track kind=\\"subtitles\\" /></video>",
+              "source": "<video><track kind="subtitles" /></video>",
             },
           ]
         `);
@@ -88,7 +88,7 @@ generateRuleTests({
               "message": "Media elements such as <audio> and <video> must have a <track> for captions.",
               "rule": "require-media-caption",
               "severity": 2,
-              "source": "<audio muted=\\"false\\"></audio>",
+              "source": "<audio muted="false"></audio>",
             },
           ]
         `);
@@ -108,7 +108,7 @@ generateRuleTests({
               "message": "Media elements such as <audio> and <video> must have a <track> for captions.",
               "rule": "require-media-caption",
               "severity": 2,
-              "source": "<audio muted=\\"false\\"><track kind=\\"descriptions\\" /></audio>",
+              "source": "<audio muted="false"><track kind="descriptions" /></audio>",
             },
           ]
         `);

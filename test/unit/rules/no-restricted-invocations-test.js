@@ -49,6 +49,27 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<div {{foo}} />',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 12,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{foo}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '{{foo}}',
 
       verifyResults(results) {
@@ -60,7 +81,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{foo}}",
@@ -81,7 +102,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '<Foo />'",
+              "message": "Cannot use disallowed helper, component or modifier '<Foo />'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "<Foo />",
@@ -102,7 +123,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{foo foo=bar}}",
@@ -123,7 +144,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{foo foo=(baz)}}",
@@ -144,7 +165,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{#foo}}{{/foo}}",
@@ -165,7 +186,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{#foo foo=bar}}{{/foo}}",
@@ -186,7 +207,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{#foo foo=(baz)}}{{/foo}}",
@@ -207,10 +228,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\"}}",
+              "source": "{{component "foo"}}",
             },
           ]
         `);
@@ -228,10 +249,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\" foo=bar}}",
+              "source": "{{component "foo" foo=bar}}",
             },
           ]
         `);
@@ -249,10 +270,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\" foo=(baz)}}",
+              "source": "{{component "foo" foo=(baz)}}",
             },
           ]
         `);
@@ -270,10 +291,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\"}}{{/component}}",
+              "source": "{{#component "foo"}}{{/component}}",
             },
           ]
         `);
@@ -291,10 +312,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\" foo=bar}}{{/component}}",
+              "source": "{{#component "foo" foo=bar}}{{/component}}",
             },
           ]
         `);
@@ -312,10 +333,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\" foo=(baz)}}{{/component}}",
+              "source": "{{#component "foo" foo=(baz)}}{{/component}}",
             },
           ]
         `);
@@ -333,10 +354,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\")",
+              "source": "(component "foo")",
             },
           ]
         `);
@@ -354,10 +375,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\" foo=bar)",
+              "source": "(component "foo" foo=bar)",
             },
           ]
         `);
@@ -375,10 +396,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\" foo=(baz))",
+              "source": "(component "foo" foo=(baz))",
             },
           ]
         `);
@@ -396,7 +417,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo (baz) bar)",
@@ -417,7 +438,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo)",
@@ -438,7 +459,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo)",
@@ -459,7 +480,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo)",
@@ -480,7 +501,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{nested-scope/foo-bar}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{nested-scope/foo-bar}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{nested-scope/foo-bar}}",
@@ -501,7 +522,7 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '<NestedScope::FooBar />'",
+              "message": "Cannot use disallowed helper, component or modifier '<NestedScope::FooBar />'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "<NestedScope::FooBar/>",

@@ -34,7 +34,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as {{action ...}}. Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "{{action \\"foo\\"}}",
+              "source": "{{action "foo"}}",
             },
           ]
         `);
@@ -54,7 +54,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as <button {{action ...}} />. Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "{{action \\"submit\\"}}",
+              "source": "{{action "submit"}}",
             },
           ]
         `);
@@ -74,7 +74,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as {{action ...}}. Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "{{action \\"submit\\"}}",
+              "source": "{{action "submit"}}",
             },
           ]
         `);
@@ -94,7 +94,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as (action ...). Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "(action \\"foo\\")",
+              "source": "(action "foo")",
             },
           ]
         `);

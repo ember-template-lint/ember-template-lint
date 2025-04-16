@@ -40,7 +40,7 @@ generateRuleTests({
               "message": "Do not use HTML element event properties like \`onclick\`. Instead, use the \`on\` modifier.",
               "rule": "no-element-event-actions",
               "severity": 2,
-              "source": "onclick={{action \\"myAction\\"}}",
+              "source": "onclick={{action "myAction"}}",
             },
             {
               "column": 38,
@@ -51,7 +51,7 @@ generateRuleTests({
               "message": "Do not use HTML element event properties like \`onclick\`. Instead, use the \`on\` modifier.",
               "rule": "no-element-event-actions",
               "severity": 2,
-              "source": "ONFOCUS={{action \\"myAction\\"}}",
+              "source": "ONFOCUS={{action "myAction"}}",
             },
           ]
         `);
@@ -73,7 +73,7 @@ generateRuleTests({
               "message": "Do not use HTML element event properties like \`onclick\`. Instead, use the \`on\` modifier.",
               "rule": "no-element-event-actions",
               "severity": 2,
-              "source": "onclick={{action \\"myAction\\"}}",
+              "source": "onclick={{action "myAction"}}",
             },
           ]
         `);

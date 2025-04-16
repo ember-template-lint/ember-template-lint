@@ -1,10 +1,15 @@
 import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildMatcher } from '@microsoft/sarif-matcher-utils';
 
 import SarifFormatter from '../../../lib/formatters/sarif.js';
 import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
 import { getOutputFileContents } from '../../helpers/index.js';
+
+const toBeValidSarifLog = buildMatcher();
+
+expect.extend({ toBeValidSarifLog });
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

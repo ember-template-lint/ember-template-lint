@@ -4,7 +4,7 @@
 
 ## `<* role><* role /></*>`
 
-The required context role defines the owning container where this role is allowed. If a role has a required context, authors MUST ensure that an element with the role is contained inside (or owned by) an element with the required context role. For example, an element with `role="listitem"` is only meaningful when contained inside (or owned by) an element with `role="list"`.
+The required context role defines the owning container where this role is allowed. If a role has a required context, authors MUST ensure that an element with the role is contained inside (or owned by) an element with the required context role. For example, an element with `role="listitem"` is only meaningful when contained inside (or owned by) an element with `role="list"`. You may place intermediate elements with `role="presentation"` or `role="none"` to remove their semantic meaning.
 
 ## Roles to check
 
@@ -34,12 +34,34 @@ This rule **allows** the following:
 </div>
 ```
 
+```hbs
+<div role="menu">
+  <div role="presentation">
+    <a role="menuitem">Item One</a>
+  </div>
+  <div role="presentation">
+    <a role="menuitem">Item Two</a>
+  </div>
+</div>
+```
+
 This rule **forbids** the following:
 
 ```hbs
 <div>
   <div role="listitem">Item One</div>
   <div role="listitem">Item Two</div>
+</div>
+```
+
+```hbs
+<div role="menu">
+  <div role="button">
+    <a role="menuitem">Item One</a>
+  </div>
+  <div>
+    <a role="menuitem">Item Two</a>
+  </div>
 </div>
 ```
 

@@ -22,6 +22,7 @@ generateRuleTests({
   bad: [
     {
       template: '<div {{didInsert}}></div>',
+      fixedTemplate: '<div {{did-insert}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -30,6 +31,7 @@ generateRuleTests({
               "endColumn": 16,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`didInsert\` with \`did-insert\`.",
               "rule": "modifier-name-case",
@@ -42,6 +44,7 @@ generateRuleTests({
     },
     {
       template: '<div class="monkey" {{didInsert "something" with="somethingElse"}}></div>',
+      fixedTemplate: '<div class="monkey" {{did-insert "something" with="somethingElse"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -50,6 +53,7 @@ generateRuleTests({
               "endColumn": 31,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`didInsert\` with \`did-insert\`.",
               "rule": "modifier-name-case",
@@ -62,6 +66,7 @@ generateRuleTests({
     },
     {
       template: '<a href="#" onclick={{amazingActionThing "foo"}} {{doSomething}}></a>',
+      fixedTemplate: '<a href="#" onclick={{amazingActionThing "foo"}} {{do-something}}></a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -70,6 +75,7 @@ generateRuleTests({
               "endColumn": 62,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`doSomething\` with \`do-something\`.",
               "rule": "modifier-name-case",
@@ -82,6 +88,7 @@ generateRuleTests({
     },
     {
       template: '<div {{(modifier "fooBar")}}></div>',
+      fixedTemplate: '<div {{(modifier "foo-bar")}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -90,11 +97,12 @@ generateRuleTests({
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`fooBar\` with \`foo-bar\`.",
               "rule": "modifier-name-case",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -102,6 +110,7 @@ generateRuleTests({
     },
     {
       template: '<div {{(if this.foo (modifier "fooBar"))}}></div>',
+      fixedTemplate: '<div {{(if this.foo (modifier "foo-bar"))}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -110,11 +119,12 @@ generateRuleTests({
               "endColumn": 38,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Use dasherized names for modifier invocation. Please replace \`fooBar\` with \`foo-bar\`.",
               "rule": "modifier-name-case",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);

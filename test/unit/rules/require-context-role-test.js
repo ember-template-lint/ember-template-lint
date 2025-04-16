@@ -21,6 +21,7 @@ generateRuleTests({
     '<div role="group"><div role="menuitemradio">Item One</div></div>',
     '<div role="menu"><div role="menuitemradio">Item One</div></div>',
     '<div role="menubar"><div role="menuitemradio">Item One</div></div>',
+    '<div role="menubar"><div role="presentation"><a role="menuitem">Item One</a></div></div>',
     '<div role="listbox"><div role="option">Item One</div></div>',
     '<div role="grid"><div role="row">Item One</div></div>',
     '<div role="rowgroup"><div role="row">Item One</div></div>',
@@ -49,10 +50,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
+              "message": "You have an element with the role of "treeitem" but it is missing the required (immediate) parent element of "[group, tree]". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"treeitem\\"",
+              "source": "role="treeitem"",
             },
           ]
         `);
@@ -69,10 +70,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"columnheader\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#columnheader.",
+              "message": "You have an element with the role of "columnheader" but it is missing the required (immediate) parent element of "[row]". Reference: https://www.w3.org/TR/wai-aria-1.1/#columnheader.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"columnheader\\"",
+              "source": "role="columnheader"",
             },
           ]
         `);
@@ -89,10 +90,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"gridcell\\" but it is missing the required (immediate) parent element of \\"[row]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#gridcell.",
+              "message": "You have an element with the role of "gridcell" but it is missing the required (immediate) parent element of "[row]". Reference: https://www.w3.org/TR/wai-aria-1.1/#gridcell.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"gridcell\\"",
+              "source": "role="gridcell"",
             },
           ]
         `);
@@ -109,10 +110,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"listitem\\" but it is missing the required (immediate) parent element of \\"[group, list]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#listitem.",
+              "message": "You have an element with the role of "listitem" but it is missing the required (immediate) parent element of "[group, list]". Reference: https://www.w3.org/TR/wai-aria-1.1/#listitem.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"listitem\\"",
+              "source": "role="listitem"",
             },
           ]
         `);
@@ -129,10 +130,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"menuitem\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "message": "You have an element with the role of "menuitem" but it is missing the required (immediate) parent element of "[group, menu, menubar]". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"menuitem\\"",
+              "source": "role="menuitem"",
             },
           ]
         `);
@@ -149,10 +150,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"menuitemcheckbox\\" but it is missing the required (immediate) parent element of \\"[menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitemcheckbox.",
+              "message": "You have an element with the role of "menuitemcheckbox" but it is missing the required (immediate) parent element of "[menu, menubar]". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitemcheckbox.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"menuitemcheckbox\\"",
+              "source": "role="menuitemcheckbox"",
             },
           ]
         `);
@@ -169,10 +170,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"menuitemradio\\" but it is missing the required (immediate) parent element of \\"[group, menu, menubar]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitemradio.",
+              "message": "You have an element with the role of "menuitemradio" but it is missing the required (immediate) parent element of "[group, menu, menubar]". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitemradio.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"menuitemradio\\"",
+              "source": "role="menuitemradio"",
             },
           ]
         `);
@@ -189,10 +190,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"option\\" but it is missing the required (immediate) parent element of \\"[listbox]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#option.",
+              "message": "You have an element with the role of "option" but it is missing the required (immediate) parent element of "[listbox]". Reference: https://www.w3.org/TR/wai-aria-1.1/#option.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"option\\"",
+              "source": "role="option"",
             },
           ]
         `);
@@ -209,10 +210,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"row\\" but it is missing the required (immediate) parent element of \\"[grid, rowgroup, table, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#row.",
+              "message": "You have an element with the role of "row" but it is missing the required (immediate) parent element of "[grid, rowgroup, table, treegrid]". Reference: https://www.w3.org/TR/wai-aria-1.1/#row.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"row\\"",
+              "source": "role="row"",
             },
           ]
         `);
@@ -229,10 +230,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"rowgroup\\" but it is missing the required (immediate) parent element of \\"[grid, table, treegrid]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#rowgroup.",
+              "message": "You have an element with the role of "rowgroup" but it is missing the required (immediate) parent element of "[grid, table, treegrid]". Reference: https://www.w3.org/TR/wai-aria-1.1/#rowgroup.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"rowgroup\\"",
+              "source": "role="rowgroup"",
             },
           ]
         `);
@@ -249,10 +250,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"rowheader\\" but it is missing the required (immediate) parent element of \\"[grid, row]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#rowheader.",
+              "message": "You have an element with the role of "rowheader" but it is missing the required (immediate) parent element of "[grid, row]". Reference: https://www.w3.org/TR/wai-aria-1.1/#rowheader.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"rowheader\\"",
+              "source": "role="rowheader"",
             },
           ]
         `);
@@ -269,10 +270,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"tab\\" but it is missing the required (immediate) parent element of \\"[tablist]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#tab.",
+              "message": "You have an element with the role of "tab" but it is missing the required (immediate) parent element of "[tablist]". Reference: https://www.w3.org/TR/wai-aria-1.1/#tab.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"tab\\"",
+              "source": "role="tab"",
             },
           ]
         `);
@@ -289,10 +290,50 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You have an element with the role of \\"treeitem\\" but it is missing the required (immediate) parent element of \\"[group, tree]\\". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
+              "message": "You have an element with the role of "treeitem" but it is missing the required (immediate) parent element of "[group, tree]". Reference: https://www.w3.org/TR/wai-aria-1.1/#treeitem.",
               "rule": "require-context-role",
               "severity": 2,
-              "source": "role=\\"treeitem\\"",
+              "source": "role="treeitem"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div role="menu"><div><a role="menuitem">Item One</a></div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 25,
+              "endColumn": 40,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "You have an element with the role of "menuitem" but it is missing the required (immediate) parent element of "[group, menu, menubar]". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "rule": "require-context-role",
+              "severity": 2,
+              "source": "role="menuitem"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div role="menu"><div role="button"><a role="menuitem">Item One</a></div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 39,
+              "endColumn": 54,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "You have an element with the role of "menuitem" but it is missing the required (immediate) parent element of "[group, menu, menubar]". Reference: https://www.w3.org/TR/wai-aria-1.1/#menuitem.",
+              "rule": "require-context-role",
+              "severity": 2,
+              "source": "role="menuitem"",
             },
           ]
         `);

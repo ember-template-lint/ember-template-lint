@@ -30,7 +30,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style=\\"{{myStyle}}\\"",
+              "source": "style="{{myStyle}}"",
             },
           ]
         `);
@@ -51,7 +51,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style=\\"background-image: {{url}}\\"",
+              "source": "style="background-image: {{url}}"",
             },
           ]
         `);
@@ -72,7 +72,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style=\\"{{background-image url}}\\"",
+              "source": "style="{{background-image url}}"",
             },
           ]
         `);
@@ -93,7 +93,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style={{concat knownSafeStyle1 \\";\\" knownSafeStyle2}}",
+              "source": "style={{concat knownSafeStyle1 ";" knownSafeStyle2}}",
             },
           ]
         `);

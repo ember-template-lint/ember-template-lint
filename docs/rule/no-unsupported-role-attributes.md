@@ -1,5 +1,7 @@
 # no-unsupported-role-attributes
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 Many ARIA states and properties are only available to elements with particular roles. This ensures that the appropriate information gets exposed to a browser's accessibility API for the given element.

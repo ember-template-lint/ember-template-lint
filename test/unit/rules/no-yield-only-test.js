@@ -11,6 +11,7 @@ generateRuleTests({
     '{{#yield}}{{/yield}}',
     '<Yield/>',
     '<yield/>',
+    '{{! template-lint-disable no-yield-only }}{{yield}}',
   ],
 
   bad: [
@@ -65,6 +66,27 @@ generateRuleTests({
             {
               "column": 2,
               "endColumn": 11,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "{{yield}}-only templates are not allowed",
+              "rule": "no-yield-only",
+              "severity": 2,
+              "source": "{{yield}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '\n{{! some comment }}  {{yield}}\n     ',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 21,
+              "endColumn": 30,
               "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,

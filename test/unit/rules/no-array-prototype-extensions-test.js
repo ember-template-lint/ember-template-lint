@@ -112,6 +112,28 @@ generateRuleTests({
     },
     /** Fixable `firstObject` */
     {
+      template: `<div data-test={{eq this.list.firstObject.abc "def"}}>Hello</div>`,
+      fixedTemplate: '<div data-test={{eq (get this.list "0.abc") "def"}}>Hello</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 20,
+              "endColumn": 45,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Array prototype extension property firstObject usage is disallowed. Please use Ember's get helper instead. e.g. {{get @list '0'}}",
+              "rule": "no-array-prototype-extensions",
+              "severity": 2,
+              "source": "this.list.firstObject.abc",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '{{foo bar=this.list.firstObject}}',
       fixedTemplate: '{{foo bar=(get this.list "0")}}',
       verifyResults(results) {

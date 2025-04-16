@@ -30,7 +30,7 @@ generateRuleTests({
               "message": "A generic element using the aria-activedescendant attribute must have a tabindex",
               "rule": "require-aria-activedescendant-tabindex",
               "severity": 2,
-              "source": "<input aria-activedescendant=\\"option0\\" tabindex=\\"-2\\" />",
+              "source": "<input aria-activedescendant="option0" tabindex="-2" />",
             },
           ]
         `);
@@ -90,7 +90,7 @@ generateRuleTests({
               "message": "A generic element using the aria-activedescendant attribute must have a tabindex",
               "rule": "require-aria-activedescendant-tabindex",
               "severity": 2,
-              "source": "<div aria-activedescendant=\\"fixme\\" tabindex=-100></div>",
+              "source": "<div aria-activedescendant="fixme" tabindex=-100></div>",
             },
           ]
         `);

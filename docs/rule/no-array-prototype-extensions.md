@@ -1,8 +1,13 @@
 # no-array-prototype-extensions
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
-Using array prototype extension properties like `{{list.firstObject.name}}`, `{{list.lastObject}}` is discouraged and is likely to be deprecated soon.
+Do not use array prototype extension properties like `{{list.firstObject.name}}`, `{{list.lastObject}}`.
+
+The prototype extensions for the `Array` object were deprecated in [RFC #848](https://rfcs.emberjs.com/id/0848-deprecate-array-prototype-extensions).
+
 This rule recommends the use of Ember's `get` helper as an alternative for accessing array values.
 
 ## Examples
@@ -60,6 +65,13 @@ Or if you have ember-math-helpers addon included:
 
 ## References
 
-- [Eslint rule: `ember/no-array-prototype-extensions`](https://github.com/ember-cli/eslint-plugin-ember/blob/master/docs/rules/no-array-prototype-extensions.md)
 - [ember-math-helpers](https://shipshapecode.github.io/ember-math-helpers/)
 - [Ember `get` helper documentation](https://guides.emberjs.com/release/components/helper-functions/#toc_the-get-helper)
+- [EmberArray](https://api.emberjs.com/ember/release/classes/EmberArray)
+- Ember [MutableArray](https://api.emberjs.com/ember/release/classes/MutableArray)
+- [Ember prototype extensions documentation](https://guides.emberjs.com/release/configuring-ember/disabling-prototype-extensions/)
+- [Ember Array prototype extensions deprecation RFC](https://rfcs.emberjs.com/id/0848-deprecate-array-prototype-extensions)
+
+## Related rules
+
+- [`ember/no-array-prototype-extensions`](https://github.com/ember-cli/eslint-plugin-ember/blob/master/docs/rules/no-array-prototype-extensions.md) from eslint-plugin-ember

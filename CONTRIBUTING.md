@@ -38,7 +38,7 @@ If you are opening an issue to request a new feature, please provide:
 
 ```bash
 # create a new rule
-- npm run new:rule rule-name
+- npm run new:rule
 
 # test rule
 - npm run test:jest rule-name

@@ -2,6 +2,8 @@
 
 💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 It is currently possible to invoke a modifier with multiple words in its name
 using camelCase: `{{didInsert}}` or using dasherized-case: `{{did-insert}}`.
 This means that you can potentially have a lot of inconsistency throughout your

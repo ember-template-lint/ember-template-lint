@@ -48,7 +48,7 @@ generateRuleTests({
               "message": "{{#each}} helper requires a valid key value to avoid performance issues",
               "rule": "require-each-key",
               "severity": 2,
-              "source": "{{#each this.items key=\\"@invalid\\" as |item|}} {{item.name}} {{/each}}",
+              "source": "{{#each this.items key="@invalid" as |item|}} {{item.name}} {{/each}}",
             },
           ]
         `);
@@ -68,7 +68,7 @@ generateRuleTests({
               "message": "{{#each}} helper requires a valid key value to avoid performance issues",
               "rule": "require-each-key",
               "severity": 2,
-              "source": "{{#each this.items key=\\"\\" as |item|}} {{item.name}} {{/each}}",
+              "source": "{{#each this.items key="" as |item|}} {{item.name}} {{/each}}",
             },
           ]
         `);
