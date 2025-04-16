@@ -12,6 +12,7 @@ generateRuleTests({
     '<this.foo as |blah|></this.foo>',
     '{{#let (component \'foo\') as |bar|}} <bar @name="1" as |n|><n/></bar> {{/let}}',
     '<Something><:Item as |foo|></:Item></Something>',
+    '<Layouts.Navigation @tag="div" as |navs|><navs></navs></Layouts.Navigation>'
   ],
 
   bad: [
