@@ -6,6 +6,7 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<a role="link" aria-disabled="true">valid</a>',
     '<form role="search"></form>',
     '<footer role={{this.foo}}></footer>',
     '<footer role="{{this.stuff}}{{this.foo}}"></footer>',

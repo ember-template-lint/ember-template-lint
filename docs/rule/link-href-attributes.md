@@ -34,3 +34,5 @@ This rule **allows** the following:
 * <https://marcysutton.com/links-vs-buttons-in-modern-web-applications>
 * <https://a11y-101.com/design/button-vs-link>
 * <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role>
+* <https://www.scottohara.me/blog/2021/05/28/disabled-links.html>
+* <https://github.com/w3c/html-aria/pull/305>
