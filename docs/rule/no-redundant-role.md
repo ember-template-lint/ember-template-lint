@@ -58,3 +58,4 @@ This rule **allows** the following:
 - [Using ARIA landmarks to identify regions of a page](https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA11)
 - [Document conformance requirements for use of ARIA attributes in HTML](https://www.w3.org/TR/html-aria/#docconformance)
 - [ARIA Spec, ARIA Adds Nothing to Default Semantics of Most HTML Elements](https://www.w3.org/TR/using-aria/#aria-does-nothing)
+- [Disabling a link](https://www.scottohara.me/blog/2021/05/28/disabled-links.html)
