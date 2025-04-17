@@ -29,7 +29,7 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
 const STDIN = '/dev/stdin';
-const MIN_FILES_TO_USE_WORKERS = 2;
+const MIN_FILES_TO_USE_WORKERS = 100;
 
 const NOOP_CONSOLE = {
   log: () => {},
