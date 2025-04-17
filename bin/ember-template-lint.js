@@ -15,6 +15,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
+import { Worker } from 'node:worker_threads';
+import { fileURLToPath } from 'node:url';
 
 import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
 import printResults from '../lib/helpers/print-results.js';
@@ -23,8 +25,10 @@ import Linter from '../lib/linter.js';
 import { getProjectConfig } from '../lib/get-config.js';
 
 const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
 
 const STDIN = '/dev/stdin';
+const BATCH_SIZE = 100;
 
 const NOOP_CONSOLE = {
   log: () => {},
@@ -89,6 +93,111 @@ function _todoStorageDirExists(baseDir) {
   }
 }
 
+class WorkerPool {
+  constructor(size, options) {
+    this.size = size;
+    this.options = options;
+    this.workers = [];
+    this.workerPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../lib/worker.js');
+    this.availableWorkers = [];
+    this.pendingTasks = [];
+  }
+
+  async initialize() {
+    // Ensure working directory is absolute
+    const workingDir = path.resolve(this.options.workingDirectory);
+    
+    for (let i = 0; i < this.size; i++) {
+      const worker = new Worker(this.workerPath, {
+        // Set the working directory for the worker
+        cwd: workingDir
+      });
+      
+      // Handle worker stdout
+      worker.on('message', (message) => {
+        if (message.type === 'stdout') {
+          const { method, args } = message;
+          // Forward to main process console
+          console[method](...args);
+        }
+      });
+      
+      await new Promise((resolve, reject) => {
+        worker.on('message', (message) => {
+          if (message.type === 'ready') {
+            resolve();
+          }
+        });
+        
+        worker.on('error', reject);
+        worker.on('exit', (code) => {
+          if (code !== 0) {
+            reject(new Error(`Worker stopped with exit code ${code}`));
+          }
+        });
+        
+        worker.postMessage({
+          type: 'init',
+          options: {
+            ...this.options,
+            workingDir,
+            // Ensure config paths are absolute
+            configPath: this.options.configPath ? path.resolve(workingDir, this.options.configPath) : this.options.configPath
+          }
+        });
+      });
+
+      this.workers.push(worker);
+      this.availableWorkers.push(worker);
+    }
+  }
+
+  async processBatch(fileBatch, options) {
+    return new Promise((resolve, reject) => {
+      const worker = this.availableWorkers.pop();
+      
+      if (!worker) {
+        this.pendingTasks.push({ fileBatch, options, resolve, reject });
+        return;
+      }
+
+      worker.once('message', (message) => {
+        if (message.type === 'error') {
+          reject(new Error(message.error));
+          return;
+        }
+
+        if (message.type === 'results') {
+          this.availableWorkers.push(worker);
+          
+          if (this.pendingTasks.length > 0) {
+            const task = this.pendingTasks.shift();
+            this.processBatch(task.fileBatch, task.options)
+              .then(task.resolve)
+              .catch(task.reject);
+          }
+
+          resolve(message);
+        }
+      });
+
+      worker.postMessage({
+        type: 'lint',
+        options: {
+          ...options,
+          // Ensure working directory is passed to worker
+          workingDir: this.options.workingDirectory
+        },
+        fileBatch
+      });
+    });
+  }
+
+  async terminate() {
+    await Promise.all(this.workers.map(worker => worker.terminate()));
+  }
+}
+
 async function run() {
   let options = parseArgv(process.argv.slice(2));
   let positional = options._;
@@ -134,7 +243,6 @@ async function run() {
     return;
   }
 
-  let linter;
   let todoInfo = {
     added: 0,
     removed: 0,
@@ -144,30 +252,6 @@ async function run() {
       getTodoConfigFromCommandLineOptions(options)
     ),
   };
-
-  try {
-    linter = new Linter({
-      workingDir: options.workingDirectory,
-      configPath: options.configPath,
-      config,
-      rule: options.rule,
-      allowInlineConfig: !options.noInlineConfig,
-      reportUnusedDisableDirectives: options.reportUnusedDisableDirectives,
-      console: _console,
-    });
-  } catch (error) {
-    console.error(error.message);
-    process.exitCode = 1;
-    return;
-  }
-
-  if ((options.todoDaysToWarn || options.todoDaysToError) && !options.updateTodo) {
-    console.error(
-      'Using `--todo-days-to-warn` or `--todo-days-to-error` is only valid when the `--update-todo` option is being used.'
-    );
-    process.exitCode = 1;
-    return;
-  }
 
   let filePaths;
   try {
@@ -194,58 +278,64 @@ async function run() {
     }
   }
 
+  // Create worker pool
+  const numWorkers = Math.min(require('os').cpus().length, Math.ceil(filePaths.size / BATCH_SIZE));
+  const workerPool = new WorkerPool(numWorkers, options);
+  await workerPool.initialize();
+
   let resultsAccumulator = [];
-  for (let relativeFilePath of filePaths) {
-    let linterOptions = await buildLinterOptions(
-      options.workingDirectory,
-      relativeFilePath,
-      options.filename,
-      filePaths.has(STDIN)
+  let hasError = false;
+
+  // Process files in batches
+  const fileArray = Array.from(filePaths);
+  const batches = [];
+  
+  for (let i = 0; i < fileArray.length; i += BATCH_SIZE) {
+    const batch = fileArray.slice(i, i + BATCH_SIZE);
+    const batchPromises = batch.map(async (relativeFilePath) => {
+      return buildLinterOptions(
+        options.workingDirectory,
+        relativeFilePath,
+        options.filename,
+        filePaths.has(STDIN)
+      );
+    });
+    
+    batches.push(Promise.all(batchPromises));
+  }
+
+  try {
+    const batchResults = await Promise.all(
+      batches.map(async (batchPromise) => {
+        const fileBatch = await batchPromise;
+        return workerPool.processBatch(fileBatch, {
+          fix: options.fix,
+          updateTodo: options.updateTodo,
+          cleanTodo: options.cleanTodo,
+          todoConfig: todoInfo.todoConfig,
+          isOverridingConfig,
+          isStdin: filePaths.has(STDIN)
+        });
+      })
     );
 
-    let fileResults;
-
-    if (options.printConfig) {
-      let fileConfig = await linter.getConfigForFile(linterOptions);
-
-      _console.log(JSON.stringify(fileConfig, null, 2));
-      process.exitCode = 0;
-      return;
-    }
-
-    if (options.fix) {
-      let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
-      if (isFixed) {
-        fs.writeFileSync(linterOptions.filePath, output, { encoding: 'utf-8' });
+    for (const result of batchResults) {
+      if (result.type === 'results') {
+        resultsAccumulator.push(...result.results);
+        todoInfo.added += result.todoAdded;
+        todoInfo.removed += result.todoRemoved;
       }
-      fileResults = messages;
-    } else {
-      fileResults = await linter.verify(linterOptions);
     }
+  } catch (error) {
+    console.error(error.message);
+    hasError = true;
+  } finally {
+    await workerPool.terminate();
+  }
 
-    if (options.updateTodo) {
-      let { addedCount, removedCount } = linter.updateTodo(
-        linterOptions,
-        fileResults,
-        todoInfo.todoConfig,
-        isOverridingConfig
-      );
-
-      todoInfo.added += addedCount;
-      todoInfo.removed += removedCount;
-    }
-
-    if (!filePaths.has(STDIN)) {
-      fileResults = linter.processTodos(
-        linterOptions,
-        fileResults,
-        todoInfo.todoConfig,
-        options.fix || options.cleanTodo,
-        isOverridingConfig
-      );
-    }
-
-    resultsAccumulator.push(...fileResults);
+  if (hasError) {
+    process.exitCode = 1;
+    return;
   }
 
   let results = processResults(resultsAccumulator);
@@ -257,7 +347,7 @@ async function run() {
     process.exitCode = 1;
   }
 
-  await printResults(results, { options, todoInfo, config: linter.config });
+  await printResults(results, { options, todoInfo, config });
 }
 
 run();
