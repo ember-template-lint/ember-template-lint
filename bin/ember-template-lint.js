@@ -21,8 +21,10 @@ import printResults from '../lib/helpers/print-results.js';
 import processResults from '../lib/helpers/process-results.js';
 import Linter from '../lib/linter.js';
 import { getProjectConfig } from '../lib/get-config.js';
+import { processWithPool } from '../lib/-private/process-with-pool.js';
 
 const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
 
 const STDIN = '/dev/stdin';
 
@@ -36,11 +38,11 @@ function removeExt(filePath) {
   return filePath.slice(0, -path.extname(filePath).length);
 }
 
-async function buildLinterOptions(workingDir, filePath, filename = '', isReadingStdin) {
-  if (isReadingStdin) {
+async function buildLinterOptions(workingDir, filePath, filename = '', stdin) {
+  if (stdin) {
     let filePath = filename;
     let moduleId = removeExt(filePath);
-    let source = await getStdin();
+    let source = stdin;
 
     return { source, filePath, moduleId };
   } else {
@@ -186,37 +188,49 @@ async function run() {
     return;
   }
 
+  let resultsAccumulator = [];
+  const filePathsArray = [...filePaths];
+
+  const isReadingStdin = filePaths.has(STDIN);
+  const maybeStdin = isReadingStdin ? await getStdin() : undefined;
+
+  // Handle --print-config option early, as it should exit immediately
   if (options.printConfig) {
-    if (filePaths.size > 1) {
+    if (filePathsArray.length > 1) {
       console.error('The --print-config option must be used with exactly one file name.');
       process.exitCode = 1;
       return;
     }
-  }
 
-  let resultsAccumulator = [];
-  for (let relativeFilePath of filePaths) {
+    const relativeFilePath = filePathsArray[0];
     let linterOptions = await buildLinterOptions(
       options.workingDirectory,
       relativeFilePath,
       options.filename,
-      filePaths.has(STDIN)
+      maybeStdin
+    );
+
+    let fileConfig = await linter.getConfigForFile(linterOptions);
+    _console.log(JSON.stringify(fileConfig, null, 2));
+    process.exitCode = 0;
+    return;
+  }
+
+  // Process a single file and return its results
+  async function processFile(relativeFilePath) {
+    let linterOptions = await buildLinterOptions(
+      options.workingDirectory,
+      relativeFilePath,
+      options.filename,
+      maybeStdin
     );
 
     let fileResults;
 
-    if (options.printConfig) {
-      let fileConfig = await linter.getConfigForFile(linterOptions);
-
-      _console.log(JSON.stringify(fileConfig, null, 2));
-      process.exitCode = 0;
-      return;
-    }
-
     if (options.fix) {
       let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
       if (isFixed) {
-        fs.writeFileSync(linterOptions.filePath, output, { encoding: 'utf-8' });
+        await writeFile(linterOptions.filePath, output, { encoding: 'utf-8' });
       }
       fileResults = messages;
     } else {
@@ -235,7 +249,7 @@ async function run() {
       todoInfo.removed += removedCount;
     }
 
-    if (!filePaths.has(STDIN)) {
+    if (!isReadingStdin) {
       fileResults = linter.processTodos(
         linterOptions,
         fileResults,
@@ -245,8 +259,30 @@ async function run() {
       );
     }
 
-    resultsAccumulator.push(...fileResults);
+    // Return both the file path and its results to maintain ordering information
+    return {
+      filePath: relativeFilePath,
+      results: fileResults,
+    };
   }
+
+  // Process all files with a pool of 10 concurrent workers
+  const allResults = await processWithPool(filePathsArray, 10, processFile);
+
+  // Flatten all results into the accumulator
+  for (const { results } of allResults) {
+    resultsAccumulator.push(...results);
+  }
+
+  // Sort the resultsAccumulator to match the original file order in filePathsArray
+  resultsAccumulator.sort((a, b) => {
+    // Find the original index in filePathsArray for each result
+    const indexA = filePathsArray.indexOf(a.filePath);
+    const indexB = filePathsArray.indexOf(b.filePath);
+
+    // Sort based on original position
+    return indexA - indexB;
+  });
 
   let results = processResults(resultsAccumulator);
 
