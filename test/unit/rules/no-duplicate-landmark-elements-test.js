@@ -16,6 +16,8 @@ generateRuleTests({
     '<header></header><main></main><footer></footer>',
     '<nav aria-label="primary navigation"></nav><nav aria-label={{this.something}}></nav>',
     '<img role="none"><img role="none">',
+    "<main><header><h1>Main Page Header</h1></header><button commandfor='my-dialog'>Open Dialog</button></main><dialog id='my-dialog'><header><h1>Dialog Header</h1></header><p>Some content in the dialog.</p></dialog>",
+    "<main><header><h1>Main Page Header</h1></header><button commandfor='my-dialog'>Open Dialog</button></main><div popover id='my-dialog'><header><h1>Dialog Header</h1></header><p>Some content in the dialog.</p></div>",
   ],
 
   bad: [
