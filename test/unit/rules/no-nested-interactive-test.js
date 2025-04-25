@@ -27,6 +27,28 @@ generateRuleTests({
       </li>
     </ul>
     `,
+    `
+  <label> My input:
+    {{#if @select}}
+      <select></select>
+    {{else}}
+      <input type='text'>
+    {{/if}}
+  </label>
+    `,
+    `
+  <label> My input:
+    {{#if @select}}
+      {{#if @multiple}}
+        <select multiple></select>
+      {{else}}
+        <select></select>
+      {{/if}}
+    {{else}}
+      <input type='text'>
+    {{/if}}
+  </label>
+    `,
     {
       config: {
         ignoredTags: ['button'],
