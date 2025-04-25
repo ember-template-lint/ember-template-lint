@@ -2,6 +2,21 @@
 
 ## Release (2025-04-25)
 
+ember-template-lint 7.2.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3183](https://github.com/ember-template-lint/ember-template-lint/pull/3183) Closes [#2969](https://github.com/ember-template-lint/ember-template-lint/issues/2969) allow no-invalid-link-text to be configured for custom link… ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3180](https://github.com/ember-template-lint/ember-template-lint/pull/3180) Closes [#3042](https://github.com/ember-template-lint/ember-template-lint/issues/3042) fix false-positive for no-block-params-for-html-elements ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+## Release (2025-04-25)
+
 ember-template-lint 7.1.0 (minor)
 
 #### :rocket: Enhancement
