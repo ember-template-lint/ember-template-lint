@@ -1,5 +1,30 @@
 # Changelog
 
+## Release (2025-04-25)
+
+ember-template-lint 7.1.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3190](https://github.com/ember-template-lint/ember-template-lint/pull/3190) peformance: batch & file processing ([@lifeart](https://github.com/lifeart))
+  * [#3181](https://github.com/ember-template-lint/ember-template-lint/pull/3181) Closes [#2399](https://github.com/ember-template-lint/ember-template-lint/issues/2399) table-groups should accept configuration for components to … ([@lifeart](https://github.com/lifeart))
+  * [#3178](https://github.com/ember-template-lint/ember-template-lint/pull/3178) fix: #3122 extend no-bare-strings rule config ([@lifeart](https://github.com/lifeart))
+  * [#3175](https://github.com/ember-template-lint/ember-template-lint/pull/3175) fix mode for no-action-modifier with PathExpressions ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3187](https://github.com/ember-template-lint/ember-template-lint/pull/3187) Closes [#2654](https://github.com/ember-template-lint/ember-template-lint/issues/2654) require-presentational-children fails for named blocks ([@lifeart](https://github.com/lifeart))
+  * [#3186](https://github.com/ember-template-lint/ember-template-lint/pull/3186) Closes [#2924](https://github.com/ember-template-lint/ember-template-lint/issues/2924) no-obscure-array-access fix is incorrect with modifier usage ([@lifeart](https://github.com/lifeart))
+  * [#3185](https://github.com/ember-template-lint/ember-template-lint/pull/3185) Closes [#2893](https://github.com/ember-template-lint/ember-template-lint/issues/2893) improve no-partial rule ([@lifeart](https://github.com/lifeart))
+  * [#3184](https://github.com/ember-template-lint/ember-template-lint/pull/3184) Closes [#2968](https://github.com/ember-template-lint/ember-template-lint/issues/2968) ARIA-compliant disabled link communication ([@lifeart](https://github.com/lifeart))
+  * [#3182](https://github.com/ember-template-lint/ember-template-lint/pull/3182) Closes [#3140](https://github.com/ember-template-lint/ember-template-lint/issues/3140) Does not work with multi dot names anymore ([@lifeart](https://github.com/lifeart))
+  * [#3179](https://github.com/ember-template-lint/ember-template-lint/pull/3179) Closes [#3092](https://github.com/ember-template-lint/ember-template-lint/issues/3092) fix missing characters on no-unnecessary-curly-parens fix ([@lifeart](https://github.com/lifeart))
+  * [#3177](https://github.com/ember-template-lint/ember-template-lint/pull/3177) fix: #3159 [no-nested-interactive]  false positive with content within {{#if}}/{{else}} ([@lifeart](https://github.com/lifeart))
+  * [#3176](https://github.com/ember-template-lint/ember-template-lint/pull/3176) #3152 fix no-duplicate-landmark false-positive ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
 ## Release (2025-04-16)
 
 ember-template-lint 7.0.8 (patch)
