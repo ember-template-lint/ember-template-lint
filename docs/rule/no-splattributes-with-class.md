@@ -37,6 +37,7 @@ This rule **allows** the following:
 When using `...attributes`, any classes passed from the parent component will be automatically merged with the component's own classes. Adding a `class` attribute alongside `...attributes` can lead to confusion about which classes take precedence and may result in unexpected styling behavior.
 
 For example:
+
 ```hbs
 {{!-- Parent component --}}
 <MyComponent class="parent-class" />
@@ -48,6 +49,7 @@ For example:
 ```
 
 Instead, you should either:
+
 1. Use `...attributes` alone to allow class merging from the parent
 2. Use `class` alone if you want to enforce specific classes
 
