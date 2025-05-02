@@ -22,19 +22,22 @@ Each plugin object can include these properties.
 
   Object that defines new configurations that can be extended.
   Each key represents the name of the configuration object.
-  Each value should be a configuration object, that can include the [same properties as the base config object](../README.md#configuration-keys) in any `.template-lintrc.js` -- i.e. `rules`, `extends`, `ignore`, etc.
+  Each value should be a configuration object, that can include the [same properties as the base config object](./configuration.md#configuration-properties) in any `.template-lintrc.js` -- i.e. `rules`, `extends`, `ignore`, etc.
 
 Sample plugin object:
 
 ```javascript
-{
+import disallowInlineComponents from './lib/template-lint-rules/disallow-inline-components.js';
+import anotherCustomRule from './lib/template-lint-rules/another-custom-rule.js';
+
+export default {
   // Name of plugin
   name: 'my-plugin',
 
   // Define rules for this plugin. Each path should map to a plugin rule
   rules: {
-    'disallow-inline-components': require('./lib/template-lint-rules/disallow-inline-components'),
-    'another-custom-rule': require('./lib/template-lint-rules/another-custom-rule')
+    'disallow-inline-components': disallowInlineComponents,
+    'another-custom-rule': anotherCustomRule
   },
 
   // Define configurations for this plugin that can be extended by the base configuration
@@ -48,7 +51,9 @@ Sample plugin object:
 }
 ```
 
-## Adding Plugins to Your Configuration
+Plugins that directly import/export rules must be written in ESM.
+
+## Adding plugins to your configuration
 
 In order to enable a plugin, you must add it to the `plugins` key in your configuration file.
 
@@ -93,18 +98,16 @@ module.exports = {
 
 Every rule defined by a plugin can use these public APIs defined by `ember-template-lint`.
 
-### Building a rule object
+### Rule implementation
 
-Each file that defines a rule should export a class that extends from the base rule object.
+Each file that defines a rule should export a class that extends from the base rule object. Rules must be written in ESM.
 
 Sample rule:
 
 ```javascript
-'use strict';
+import { Rule } from 'ember-template-lint';
 
-const Rule = require('ember-template-lint').Rule;
-
-module.exports = class NoEmptyComments extends Rule {
+export default class NoEmptyComments extends Rule {
   visitor() {
     return {
       CommentStatement(node) {
@@ -133,6 +136,8 @@ The base rule also has a few helper functions that can be useful in defining rul
   Report a lint error. The `log` function accepts an Object as its only argument, which can contain the following parameters:
   * `message` -- `string`
     The error message to display.
+  * `node` -- `ASTNode`
+    The node that the error applies to.
   * `line` -- `number`
     The line number of the error in the source string.
   * `column` -- `number`
@@ -150,14 +155,107 @@ The base rule also has a few helper functions that can be useful in defining rul
 
   Given an AST node, check if it is derived from a local / block param.
 
-### AST Node Helpers
+### Rule tests
+
+Here's an example of how to write tests for a rule:
+
+```js
+// test/unit/rules/no-negated-condition-test.js
+
+import { generateRuleTests } from 'ember-template-lint';
+import plugin from '../../../index.js';
+
+generateRuleTests({
+  name: 'no-negated-condition',
+
+  groupMethodBefore: beforeEach,
+  groupingMethod: describe,
+  testMethod: it,
+  plugins: [plugin],
+
+  config: true,
+
+  // Passing test cases:
+  good: [
+    // Simple string test case:
+    '{{#if condition}}<img>{{/if}}',
+
+    // Object test case:
+    {
+      template: '{{#if condition}}<img>{{/if}}',
+      config: {}, // Custom config for this test case.
+      meta: { moduleId: 'app/templates/index.hbs' }, // Custom filepath for this test case.
+    },
+  ],
+
+  // Failing test cases:
+  bad: [
+    {
+      // Jest snapshot test case (recommended):
+      template: '{{#if (not condition)}}<img>{{/if}}',
+      fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Change \`if (not condition)\` to \`unless condition\`.",
+              "rule": "no-negated-condition",
+              "severity": 2,
+              "source": "{{#if (not condition)}}<img>{{/if}}",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      // Non-snapshot version of the above test case:
+      template: '{{#if (not condition)}}<img>{{/if}}',
+      fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
+
+      result: {
+        message: 'Some error message...',
+        source: '{{#if (not condition)}}<img>{{/if}}',
+        line: 1,
+        column: 0,
+        isFixable: true,
+      },
+    },
+  ],
+
+  // Test cases that we expect to cause the rule to throw an exception (e.g. invalid config).
+  error: [
+    {
+      template: 'test',
+      config: { foo: true },
+      result: {
+        fatal: true,
+        message: 'Some exception message...',
+      },
+    },
+  ],
+});
+```
+
+#### Snapshot tests
+
+The [Jest Snapshot](https://jestjs.io/docs/snapshot-testing) version of `bad` test cases is recommended as it can be easily updated with `jest --updateSnapshot`.
+
+### Helper: `ASTHelpers`
 
 There are a number of helper functions exported by [`ember-template-lint`](../lib/helpers/ast-node-info.js) that can be used with AST nodes in your rule's visitor handlers.
 
 You can access these helpers via:
 
 ```js
-const helpers = require('ember-template-lint').ASTHelpers;
+import { ASTHelpers } from 'ember-template-lint';
 ```
 
 * `function isConfigurationHtmlComment(node): boolean`
@@ -184,14 +282,14 @@ const helpers = require('ember-template-lint').ASTHelpers;
 
   Returns true if this node has any child nodes.
 
-### Node Matcher Helper
+### Helper: `NodeMatcher`
 
 `ember-template-lint` also exports a `.match` helper that is useful for defining a given rule's 'target nodes' -- that is, the set of nodes for which it is appropriate to apply the rule's logic.
 
 You access this helper via:
 
 ```js
-const NodeMatcher = require('ember-template-lint').NodeMatcher;
+import { NodeMatcher } from 'ember-template-lint';
 ```
 
 * `function match(testNode, ref): boolean`
@@ -271,4 +369,10 @@ const NodeMatcher = require('ember-template-lint').NodeMatcher;
   ```
 
   TODO: complex example (multiple supported types of `links`?)
-  
+
+## Discoverability
+
+Add these `keywords` to your plugin's `package.json` file to make it easy for others to find:
+
+* `ember-template-lint`
+* `ember-template-lint-plugin`

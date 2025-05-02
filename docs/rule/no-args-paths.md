@@ -1,6 +1,6 @@
 # no-args-paths
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Arguments that are passed to components are prefixed with the `@` symbol in Angle bracket syntax.
 Ember Octane leverages this in the component's templates by allowing users to directly refer to an argument using the same prefix:

@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-redundant-fn');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-redundant-fn',
@@ -21,34 +18,67 @@ generateRuleTests({
     {
       template: '<button {{on "click" (fn this.handleClick)}}>Click Me</button>',
       fixedTemplate: '<button {{on "click" this.handleClick}}>Click Me</button>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 21,
-        source: '(fn this.handleClick)',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 21,
+              "endColumn": 42,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`fn\` helpers without additional arguments are not allowed",
+              "rule": "no-redundant-fn",
+              "severity": 2,
+              "source": "(fn this.handleClick)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<SomeComponent @onClick={{fn this.handleClick}} />',
       fixedTemplate: '<SomeComponent @onClick={{this.handleClick}} />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 24,
-        source: '{{fn this.handleClick}}',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 24,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`fn\` helpers without additional arguments are not allowed",
+              "rule": "no-redundant-fn",
+              "severity": 2,
+              "source": "{{fn this.handleClick}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{foo bar=(fn this.handleClick)}}>',
       fixedTemplate: '{{foo bar=this.handleClick}}>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 10,
-        source: '(fn this.handleClick)',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 31,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "\`fn\` helpers without additional arguments are not allowed",
+              "rule": "no-redundant-fn",
+              "severity": 2,
+              "source": "(fn this.handleClick)",
+            },
+          ]
+        `);
       },
     },
   ],

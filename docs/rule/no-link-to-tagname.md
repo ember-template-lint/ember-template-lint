@@ -1,5 +1,7 @@
 # no-link-to-tagname
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 The builtin `LinkTo` component generates an `<a>` element. Since it is still
 built on top of `Ember.Component` it is possible to assign a `tagName` from the
 outside to change that `<a>` element into something else. This goes against
@@ -48,7 +50,6 @@ This rule **allows** the following:
 
 - [no-input-tagname](no-input-tagname.md)
 - [no-unknown-arguments-for-builtin-components](no-unknown-arguments-for-builtin-components.md)
-
 
 ## References
 

@@ -1,10 +1,4 @@
-'use strict';
-
-const {
-  ERROR_MESSAGE,
-  ERROR_MESSAGE_MULTIPLE_LABEL,
-} = require('../../../lib/rules/require-input-label');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-input-label',
@@ -13,6 +7,7 @@ generateRuleTests({
 
   good: [
     '<label>LabelText<input /></label>',
+    '<label>LabelText<input id="foo" /></label>',
     '<label><input />LabelText</label>',
     '<label>LabelText<Input /></label>',
     '<label><Input />LabelText</label>',
@@ -24,7 +19,9 @@ generateRuleTests({
     '<input ...attributes/>', // we are unable to correctly determine if this has a label or not, so we have to allow it
     '<Input ...attributes />',
     '<Input id="foo" />',
+    '<label>text<Input id="foo" /></label>',
     '{{input id="foo"}}',
+    '<label>text{{input id="foo"}}</label>',
     '<label>Text here<Input /></label>',
     '<label>Text here {{input}}</label>',
     '<input id="label-input" ...attributes>',
@@ -60,286 +57,673 @@ generateRuleTests({
     '<input type="hidden"/>',
     '<Input type="hidden" />',
     '{{input type="hidden"}}',
+
+    // In strict mode (gjs/gts files), Input and Textarea are ignored
+    // This is because we can't tell if they are actually built-in components
+    // or just have the same name. It's better to risk false negatives than false positives.
+    {
+      template: '<template><Input /></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
+    {
+      template: '<template><Textarea /></template>',
+      meta: {
+        filePath: 'layout.gts',
+      },
+    },
+
+    {
+      config: { labelTags: ['CustomLabel'] },
+      template: '<CustomLabel><input /></CustomLabel>',
+    },
+    {
+      config: { labelTags: [/web-label/] },
+      template: '<web-label><input /></web-label>',
+    },
   ],
 
   bad: [
     {
+      config: { labelTags: [/web-label/] },
+      template: '<my-label><input /></my-label>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input />",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<div><input /></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: '<input />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<input />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 9,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input title="some title value" />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<input title="some title value" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 34,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input title="some title value" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label><input></label>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 7,
-        source: '<input>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>{{input}}</div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: '{{input}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "{{input}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Input/>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<Input/>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 8,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input aria-label="first label" aria-labelledby="second label">',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 0,
-        source: '<input aria-label="first label" aria-labelledby="second label">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 63,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input aria-label="first label" aria-labelledby="second label">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input id="label-input" aria-label="second label">',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 0,
-        source: '<input id="label-input" aria-label="second label">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 50,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input id="label-input" aria-label="second label">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label>Input label<input aria-label="Custom label"></label>',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 18,
-        source: '<input aria-label="Custom label">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 18,
+              "endColumn": 51,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input aria-label="Custom label">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{input type="button"}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{input type="button"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "{{input type="button"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{input type=myType}}',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{input type=myType}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "{{input type=myType}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input type="button"/>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<input type="button"/>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input type="button"/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input type={{myType}}/>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<input type={{myType}}/>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<input type={{myType}}/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Input type="button"/>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<Input type="button"/>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input type="button"/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Input type={{myType}}/>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<Input type={{myType}}/>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Input type={{myType}}/>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div><textarea /></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: '<textarea />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<textarea />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<textarea />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<textarea />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 12,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<textarea />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<textarea title="some title value" />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<textarea title="some title value" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 37,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<textarea title="some title value" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label><textarea /></label>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 7,
-        source: '<textarea />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<textarea />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>{{textarea}}</div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: '{{textarea}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "{{textarea}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Textarea />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<Textarea />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 12,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<Textarea />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<textarea aria-label="first label" aria-labelledby="second label" />',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 0,
-        source: '<textarea aria-label="first label" aria-labelledby="second label" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 68,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<textarea aria-label="first label" aria-labelledby="second label" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<textarea id="label-input" aria-label="second label" />',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 0,
-        source: '<textarea id="label-input" aria-label="second label" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 55,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<textarea id="label-input" aria-label="second label" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label>Textarea label<textarea aria-label="Custom label" /></label>',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 21,
-        source: '<textarea aria-label="Custom label" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 21,
+              "endColumn": 59,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<textarea aria-label="Custom label" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div><select></select></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: '<select></select>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<select></select>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<select></select>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<select></select>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 17,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<select></select>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<select title="some title value" />',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '<select title="some title value" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<select title="some title value" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label><select></select></label>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 7,
-        source: '<select></select>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements require a valid associated label.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<select></select>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<select aria-label="first label" aria-labelledby="second label" />',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 0,
-        source: '<select aria-label="first label" aria-labelledby="second label" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<select aria-label="first label" aria-labelledby="second label" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<select id="label-input" aria-label="second label" />',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 0,
-        source: '<select id="label-input" aria-label="second label" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<select id="label-input" aria-label="second label" />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<label>Select label<select aria-label="Custom label" /></label>',
-      result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
-        line: 1,
-        column: 19,
-        source: '<select aria-label="Custom label" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 19,
+              "endColumn": 55,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "form elements should not have multiple labels.",
+              "rule": "require-input-label",
+              "severity": 2,
+              "source": "<select aria-label="Custom label" />",
+            },
+          ]
+        `);
       },
     },
   ],

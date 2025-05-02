@@ -1,8 +1,10 @@
 # no-negated-condition
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
-It can be hard to reason about negated conditions:
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
+Negated conditions can be hard to reason about and require additional nesting/parenthesis around the condition:
 
 * `if (not condition)`
 * `unless (not condition)`
@@ -78,6 +80,14 @@ And similar examples with non-block forms like:
 ```hbs
 {{input class=(if condition "some-class" "other-class")}}
 ```
+
+## Configuration
+
+The following values are valid configuration:
+
+* boolean -- `true` for enabled / `false` for disabled
+* object --
+  * `simplifyHelpers` -- boolean - whether to flag and autofix negated helpers like `(not (eq ...))` or `(not (gt ...))` that can be simplified (default `true`)
 
 ## Related Rules
 

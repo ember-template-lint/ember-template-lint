@@ -26,11 +26,11 @@ If you are opening an issue to request a new feature, please provide:
 # navigate to the cloned directory
  - cd ember-template-lint
 
-# ensure Node.js and yarn are installed
+# ensure Node.js and npm are installed
 
 # run tests to make sure everything will start out in a good state
- - yarn install
- - yarn test
+ - npm install
+ - npm test
 
 ```
 
@@ -38,25 +38,17 @@ If you are opening an issue to request a new feature, please provide:
 
 ```bash
 # create a new rule
-- yarn new:rule rule-name
+- npm run new:rule
 
 # test rule
-- yarn test:jest rule-name
-
-```
-
-### Updating rules index file
-
-```bash
-# update rules index file
-- yarn update:rules-index
+- npm run test:jest rule-name
 
 ```
 
 ### Updating Rules Table in README
 
 ```bash
-- yarn update:readme
+- npm run update:readme
 ```
 
 ### Supported Commands
@@ -64,15 +56,15 @@ If you are opening an issue to request a new feature, please provide:
 When working on the linter, you'll need to lint and test your work.
 For the linter, there are a few options:
 
-1. Lint everything at once - `yarn lint`
-2. Lint just the docs - `yarn lint:docs .` (to automatically fix issues, run `yarn lint:docs . --fix`)
-3. Lint just the js files - `yarn lint:js` (to automatically fix issues, run `yarn lint:js --fix`)
+1. Lint everything at once - `npm run lint`
+2. Lint just the docs - `npm run lint:docs .` (to automatically fix issues, run `npm run lint:docs . --fix`)
+3. Lint just the js files - `npm run lint:js` (to automatically fix issues, run `npm run lint:js --fix`)
 
 To test:
 
-1. To run tests and the linter at once, run `yarn test`
-2. To just run the tests, run `yarn test:jest`
-3. To just run a specific test (i.e., `require-valid-alt-text`), run `yarn test:jest require-valid-alt-text`
+1. To run tests and the linter at once, run `npm test` (or `npm run test`)
+2. To just run the tests, run `npm run test:jest`
+3. To just run a specific test (i.e., `require-valid-alt-text`), run `npm run test:jest require-valid-alt-text`
 
 ### Submitting a Pull Request(PR)
 

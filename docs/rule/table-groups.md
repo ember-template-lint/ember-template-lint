@@ -1,6 +1,6 @@
 # table-groups
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 It is best practice to group table rows into one of:
 
@@ -83,7 +83,7 @@ allow it with your configuration.
 
 ```js
 'table-groups': {
-  'allowable-tbody-components': 'some-component-with-tag-name-tbody',
+  'allowed-tbody-components': ['some-component-with-tag-name-tbody'],
 }
 ```
 

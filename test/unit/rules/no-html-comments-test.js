@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-html-comments',
@@ -18,28 +16,54 @@ generateRuleTests({
   bad: [
     {
       template: '<!-- comment here -->',
+      fixedTemplate: '{{!-- comment here --}}',
 
-      result: {
-        message: 'HTML comment detected',
-        source: '<!-- comment here -->',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{! comment here }}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{! comment here }}",
+              },
+              "isFixable": true,
+              "line": 1,
+              "message": "HTML comment detected",
+              "rule": "no-html-comments",
+              "severity": 2,
+              "source": "<!-- comment here -->",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<!--comment here-->',
+      fixedTemplate: '{{!--comment here--}}',
 
-      result: {
-        message: 'HTML comment detected',
-        source: '<!--comment here-->',
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{!comment here}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{!comment here}}",
+              },
+              "isFixable": true,
+              "line": 1,
+              "message": "HTML comment detected",
+              "rule": "no-html-comments",
+              "severity": 2,
+              "source": "<!--comment here-->",
+            },
+          ]
+        `);
       },
     },
   ],

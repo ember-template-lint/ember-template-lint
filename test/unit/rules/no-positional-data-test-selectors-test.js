@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-positional-data-test-selectors',
@@ -74,14 +72,27 @@ generateRuleTests({
           degreeA11yText=(t "i18n_distance_a11y_v2" distance=recipientDistance)
         }}
       `,
-      result: {
-        message:
-          'Passing a `data-test-*` positional param to a curly invocation should be avoided.',
-        line: 2,
-        column: 8,
-        source:
-          '{{badge\n          data-test-profile-card-one-to-one-connection-distance\n          degreeText=(t "i18n_distance_v2" distance=recipientDistance)\n          degreeA11yText=(t "i18n_distance_a11y_v2" distance=recipientDistance)\n        }}',
-        isFixable: true,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Passing a \`data-test-*\` positional param to a curly invocation should be avoided.",
+              "rule": "no-positional-data-test-selectors",
+              "severity": 2,
+              "source": "{{badge
+                    data-test-profile-card-one-to-one-connection-distance
+                    degreeText=(t "i18n_distance_v2" distance=recipientDistance)
+                    degreeA11yText=(t "i18n_distance_a11y_v2" distance=recipientDistance)
+                  }}",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-shadowed-elements',
@@ -18,11 +16,22 @@ generateRuleTests({
     {
       template: '<FooBar as |div|><div></div></FooBar>',
 
-      result: {
-        message: 'Ambiguous element used (`div`)',
-        line: 1,
-        column: 17,
-        source: '<div></div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Ambiguous element used (\`div\`)",
+              "rule": "no-shadowed-elements",
+              "severity": 2,
+              "source": "<div></div>",
+            },
+          ]
+        `);
       },
     },
   ],

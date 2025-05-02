@@ -1,8 +1,8 @@
 # no-curly-component-invocation
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
-:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 There are two ways to invoke a component in a template: curly component syntax
 (`{{my-component}}`), and angle bracket syntax (`<MyComponent />`). The
@@ -97,3 +97,4 @@ look like they could be component invocations.
 - [RFC #311](https://github.com/emberjs/rfcs/pull/311) (Angle Bracket Syntax)
 - [RFC #457](https://github.com/emberjs/rfcs/pull/457) (Nested Components)
 - [RFC #459](https://github.com/emberjs/rfcs/pull/459) (Angle Bracket Syntax for built-in components)
+- [Skipping Helpers](https://github.com/ember-codemods/ember-angle-brackets-codemod#skipping-helpers) (Code snippet to obtain list of helpers in an ember app)

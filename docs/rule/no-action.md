@@ -1,10 +1,10 @@
 # no-action
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 What's wrong with `{{action}}`?
 
-"Action" is an overloaded term in Ember parlance. Actions are:
+"Action" is an overloaded term in Ember. Actions are:
 
 1.) Methods on the `actions` hash
 
@@ -99,6 +99,16 @@ to
     <option>{{opt.value}}<option>
   {{/each}}
 </select>
+```
+
+```hbs
+<MyComponent @onValidationChange={{action "onDateValidation"}} />
+```
+
+to
+
+```hbs
+<MyComponent @onValidationChange={{this.onDateValidation}} />
 ```
 
 ## Related Rules

@@ -1,3 +1,3 @@
 # Template
 
-Please see [dev/new-rule/templates/doc.md](dev/new-rule/templates/doc.md) to find the documentation template for new rules.
+Please see [dev/templates/doc.md](dev/templates/doc.md) to find the documentation template for new rules.

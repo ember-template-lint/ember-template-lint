@@ -1,6 +1,6 @@
 # require-input-label
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Users with assistive technology need user-input form elements to have associated labels.
 
@@ -80,6 +80,14 @@ This rule **allows** the following:
 * the recommended fix is to add an associated label element.
 * another option is to add an aria-label to the input element.
 * wrapping the input element in a label element is also allowed; however this is less flexible for styling purposes, so use with awareness.
+
+## Configuration
+
+ The following values are valid configuration:
+
+* boolean - `true` to enable / `false` to disable
+* object -- An object with the following keys:
+  * `labelTags` -- An array of component names for that may be used as label replacements (in addition to the HTML `label` tag)
 
 ## References
 

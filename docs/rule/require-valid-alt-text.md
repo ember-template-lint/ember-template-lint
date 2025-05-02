@@ -1,6 +1,6 @@
 # require-valid-alt-text
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Enforce that all elements that require alternative text have meaningful information to relay back to the end user. This is a critical component of accessibility for screenreader users in order for them to understand the content's purpose on the page. By default, this rule checks for alternative text on the following elements: `<img>`, `<area>`, `<input type="image">`, and `<object>`.
 
@@ -12,7 +12,7 @@ This rule **forbids** the following:
 
 ### `<img>`
 
-An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string. If it is an empty string, the `<img>` element tag must also have `role="presentation"` or `role="none"`.
+An `<img>` must have the `alt` attribute. It must have either meaningful text, or be an empty string.
 
 The content of an `alt` attribute is used to calculate the machine-readable label of an element, whereas the text content is used to produce a label for the element. For this reason, adding a label to an icon can produce a confusing or duplicated label on a control that already has appropriate text content.
 
@@ -25,13 +25,13 @@ Numbers are not considered valid alt text, and this rule disallows using only nu
 This rule **forbids** the following:
 
 ```hbs
-<img src="rwjblue.png">
+<img src="rwjblue.png" />
 <img src="foo" alt="Photo of foo being weird." />
 <img src="foo" alt="YourCompany logo" />
 <img src="bar" alt="Image of me at a bar!" />
 <img src="baz" alt="Picture of baz fixing a bug." />
 <img src="b52.jpg" alt="52" />
-<img src="foo" alt="foo as a banana" role="presentation">
+<img src="foo" alt="foo as a banana" role="presentation" />
 ```
 
 This rule **allows** the following:
@@ -48,6 +48,8 @@ This rule **allows** the following:
 ### `<object>`
 
 Add alternative text to all embedded `<object>` elements using either inner text, setting the `title` prop, or using the `aria-label` or `aria-labelledby` props.
+
+Note, the `title` prop is generally less reliable than the alternatives. Some screen readers will not read this value aloud, leaving no description of the non-text content.
 
 This rule **forbids** the following:
 
