@@ -497,7 +497,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath,
-        moduleId: filePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -509,7 +508,6 @@ describe('public api', function () {
       result = await linter.verify({
         source: templateContents,
         filePath,
-        moduleId: filePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -556,7 +554,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: componentPath,
-        moduleId: componentPath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
@@ -1053,7 +1050,6 @@ describe('public api', function () {
       let result = await linter.verify({
         source: templateContents,
         filePath: templatePath,
-        moduleId: templatePath.slice(0, -4),
       });
 
       expect(result).toEqual(expected);
