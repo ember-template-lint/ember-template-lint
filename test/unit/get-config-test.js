@@ -1,6 +1,5 @@
-// TODO: This test file is temporarily disabled in Node versions before 16 (see ci.yml).
-
 import { stripIndent } from 'common-tags';
+import { join } from 'node:path';
 
 import recommendedConfig from '../../lib/config/recommended.js';
 import { getProjectConfig, resolveProjectConfig, getRuleFromString } from '../../lib/get-config.js';
@@ -35,7 +34,7 @@ describe('get-config', function () {
     });
   });
 
-  it('it supports severity level', async function () {
+  it('supports severity level', async function () {
     let expected = {
       rules: {
         foo: { config: true, severity: 1 },
@@ -75,7 +74,7 @@ describe('get-config', function () {
     expect(actual.rules).toEqual(expected.rules);
   });
 
-  it('it supports severity level with custom configuration', async function () {
+  it('supports severity level with custom configuration', async function () {
     let expected = {
       rules: {
         foo: { config: { allow: [1, 2, 3] }, severity: 1 },
@@ -112,7 +111,7 @@ describe('get-config', function () {
     // clone to ensure we are not mutating
     let expected = JSON.parse(JSON.stringify(config));
 
-    project.setConfig(expected);
+    await project.setConfig(expected);
     project.chdir();
 
     let actual = await getProjectConfig(project.baseDir, {});
@@ -173,6 +172,7 @@ describe('get-config', function () {
     });
 
     expect(actual.rules['no-debugger']).toEqual({ config: true, severity: 2 });
+    expect(actual.overrides[0]?.files).toEqual(['**/*.gjs', '**/*.gts']);
   });
 
   it('can extend and override a default configuration', async function () {
@@ -200,7 +200,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Unknown top-level configuration property detected: foo"`
+      `[Error: Unknown top-level configuration property detected: foo]`
     );
   });
 
@@ -228,7 +228,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"An invalid \`format.formatter\` in \`.template-lintrc.js\` was provided. Unexpected property \`foo\`"`
+      `[Error: An invalid \`format.formatter\` in \`.template-lintrc.js\` was provided. Unexpected property \`foo\`]`
     );
   });
 
@@ -240,7 +240,9 @@ describe('get-config', function () {
             extends: 123,
           },
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"config.extends should be string or array"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[TypeError: config.extends should be string or array]`
+    );
   });
 
   it('warns for unknown rules', async function () {
@@ -267,14 +269,14 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Cannot find configuration for extends: plugin1:wrong-extend"`
+      `[Error: Cannot find configuration for extends: plugin1:wrong-extend]`
     );
   });
 
   it('resolves plugins by string', async function () {
     let console = buildFakeConsole();
 
-    project.setConfig({
+    await project.setConfig({
       extends: ['my-awesome-thing:stylistic'],
       plugins: ['my-awesome-thing'],
     });
@@ -308,7 +310,7 @@ describe('get-config', function () {
   it('resolves plugins by string when using specified config (not resolved project config)', async function () {
     let console = buildFakeConsole();
 
-    project.setConfig();
+    await project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = stripIndent`
@@ -347,7 +349,7 @@ describe('get-config', function () {
           config: { plugins: [{}] },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Inline plugin object has not defined the plugin \`name\` property"`
+      `[Error: Inline plugin object has not defined the plugin \`name\` property]`
     );
   });
 
@@ -357,11 +359,11 @@ describe('get-config', function () {
         await getProjectConfig(project.baseDir, {
           config: { plugins: [123] },
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"Inline plugin is not a plain object"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Inline plugin is not a plain object]`);
   });
 
   it('throws when non-inline plugin is missing name', async function () {
-    project.setConfig();
+    await project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = 'module.exports = {};';
@@ -379,12 +381,12 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Plugin (my-awesome-thing) has not defined the plugin \`name\` property"`
+      `[Error: Plugin (my-awesome-thing) has not defined the plugin \`name\` property]`
     );
   });
 
   it('throws when non-inline plugin is wrong type', async function () {
-    project.setConfig();
+    await project.setConfig();
 
     project.addDevDependency('my-awesome-thing', '0.0.0', (dep) => {
       dep.files['index.js'] = 'module.exports = 123;';
@@ -402,7 +404,7 @@ describe('get-config', function () {
           },
         })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Plugin (my-awesome-thing) did not return a plain object"`
+      `[Error: Plugin (my-awesome-thing) did not return a plain object]`
     );
   });
 
@@ -708,7 +710,8 @@ describe('determineRuleConfig', function () {
 
 describe('resolveProjectConfig', function () {
   it('should return an empty object when options.configPath is set explicitly false', async function () {
-    let project = await Project.defaultSetup();
+    let project = new Project();
+    await project.write();
 
     try {
       const config = await resolveProjectConfig(project.baseDir, { configPath: false });
@@ -719,9 +722,64 @@ describe('resolveProjectConfig', function () {
     }
   });
 
+  it('should search for config from sub to parent directory', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      top: {
+        bottom: {},
+      },
+    });
+
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+      });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('should search for config from sub to middle directory', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      top: {
+        bottom: {},
+        '.template-lintrc.js': `
+'use strict';
+
+module.exports = {
+  extends: 'recommended',
+  rules: {
+    'no-bare-strings': 'off'
+  }
+};
+`,
+      },
+    });
+
+    try {
+      const config = await resolveProjectConfig(join(project.baseDir, 'top', 'bottom'), {});
+
+      expect(config).toEqual({
+        extends: 'recommended',
+        rules: {
+          'no-bare-strings': 'off',
+        },
+      });
+    } finally {
+      project.dispose();
+    }
+  });
+
   it('should search for config relative to the specified working directory', async function () {
-    let project1 = await Project.defaultSetup();
-    let project2 = await Project.defaultSetup();
+    let project1 = new Project();
+    await project1.write();
+    let project2 = new Project();
+    await project2.write();
 
     await project1.chdir();
 
@@ -746,7 +804,8 @@ describe('getProjectConfig', function () {
   let project = null;
 
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = new Project();
+    await project.write();
   });
 
   afterEach(function () {
@@ -909,6 +968,38 @@ describe('getRuleFromString', function () {
       expect(error.message).toEqual(
         'Error parsing specified `--rule` config no-implicit-this:["error", "allow": ["some-helper"] }] as JSON.'
       );
+    }
+  });
+
+  it('supports a `.template-lintrc.mjs` config file', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      '.template-lintrc.mjs': `export default { extends: 'recommended' };`,
+    });
+
+    try {
+      const config = await resolveProjectConfig(project.baseDir, {});
+
+      expect(config).toEqual({ extends: 'recommended' });
+    } finally {
+      project.dispose();
+    }
+  });
+
+  it('supports a `.template-lintrc.cjs` config file', async function () {
+    let project = await Project.defaultSetup();
+
+    project.write({
+      '.template-lintrc.cjs': `module.exports = { extends: 'recommended' };`,
+    });
+
+    try {
+      const config = await resolveProjectConfig(project.baseDir, {});
+
+      expect(config).toEqual({ extends: 'recommended' });
+    } finally {
+      project.dispose();
     }
   });
 });

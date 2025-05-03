@@ -111,7 +111,7 @@ generateRuleTests({
               "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
               "rule": "no-nested-landmark",
               "severity": 2,
-              "source": "<div role=\\"main\\"></div>",
+              "source": "<div role="main"></div>",
             },
           ]
         `);
@@ -131,7 +131,7 @@ generateRuleTests({
               "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
               "rule": "no-nested-landmark",
               "severity": 2,
-              "source": "<div role=\\"main\\"></div>",
+              "source": "<div role="main"></div>",
             },
           ]
         `);
@@ -191,7 +191,7 @@ generateRuleTests({
               "message": "Nested landmark elements on <div> detected. Landmark elements should not be nested within landmark elements of the same name.",
               "rule": "no-nested-landmark",
               "severity": 2,
-              "source": "<div role=\\"banner\\"></div>",
+              "source": "<div role="banner"></div>",
             },
           ]
         `);

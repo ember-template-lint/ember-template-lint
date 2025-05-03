@@ -171,7 +171,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<h1> &nbsp; <div aria-hidden=\\"true\\">Some hidden text</div></h1>",
+              "source": "<h1> &nbsp; <div aria-hidden="true">Some hidden text</div></h1>",
             },
           ]
         `);
@@ -191,7 +191,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<h1><span aria-hidden=\\"true\\">Inaccessible text</span></h1>",
+              "source": "<h1><span aria-hidden="true">Inaccessible text</span></h1>",
             },
           ]
         `);
@@ -292,7 +292,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<h1><span aria-hidden=\\"true\\">Hidden text</span><span aria-hidden=\\"true\\">Hidden text</span></h1>",
+              "source": "<h1><span aria-hidden="true">Hidden text</span><span aria-hidden="true">Hidden text</span></h1>",
             },
           ]
         `);
@@ -312,7 +312,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<div role=\\"heading\\" aria-level=\\"1\\"></div>",
+              "source": "<div role="heading" aria-level="1"></div>",
             },
           ]
         `);
@@ -333,7 +333,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<div role=\\"heading\\" aria-level=\\"1\\"><span aria-hidden=\\"true\\">Inaccessible text</span></div>",
+              "source": "<div role="heading" aria-level="1"><span aria-hidden="true">Inaccessible text</span></div>",
             },
           ]
         `);
@@ -353,7 +353,7 @@ generateRuleTests({
               "message": "Headings (h1, h2, etc. or ARIA:heading role elements) must contain accessible text content.",
               "rule": "no-empty-headings",
               "severity": 2,
-              "source": "<div role=\\"heading\\" aria-level=\\"1\\"><span hidden>Inaccessible text</span></div>",
+              "source": "<div role="heading" aria-level="1"><span hidden>Inaccessible text</span></div>",
             },
           ]
         `);

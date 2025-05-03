@@ -1,23 +1,21 @@
-import { Project, getOutputFileContents, run, setupEnvVar } from '../../helpers/index.js';
-
-const ROOT = process.cwd();
+import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
+import { getOutputFileContents, setupEnvVar } from '../../helpers/index.js';
 
 describe('multi formatter', () => {
   setupEnvVar('FORCE_COLOR', '0');
 
   let project;
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = await setupProject();
     await project.chdir();
   });
 
-  afterEach(async function () {
-    await process.chdir(ROOT);
-    project.dispose();
+  afterEach(function () {
+    teardownProject();
   });
 
   it('should format errors', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
       },
@@ -44,11 +42,14 @@ describe('multi formatter', () => {
       },
     });
 
-    let result = await run(['.', '--format', 'multi']);
+    let result = await runBin('.', '--format', 'multi');
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout.replace(project.baseDir, '')).toMatchInlineSnapshot(`
-      "app/templates/application.hbs
+      "Linting 2 Total Files with TemplateLint
+      	.hbs: 2
+
+      app/templates/application.hbs
         1:4  error  Non-translated string used  no-bare-strings
         1:25  error  Non-translated string used  no-bare-strings
 
@@ -58,28 +59,28 @@ describe('multi formatter', () => {
     `);
     expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
       "{
-        \\"app/templates/application.hbs\\": [
+        "app/templates/application.hbs": [
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 4,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 14,
-            \\"source\\": \\"Here too!!\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 4,
+            "endLine": 1,
+            "endColumn": 14,
+            "source": "Here too!!",
+            "message": "Non-translated string used"
           },
           {
-            \\"rule\\": \\"no-bare-strings\\",
-            \\"severity\\": 2,
-            \\"filePath\\": \\"app/templates/application.hbs\\",
-            \\"line\\": 1,
-            \\"column\\": 25,
-            \\"endLine\\": 1,
-            \\"endColumn\\": 48,
-            \\"source\\": \\"Bare strings are bad...\\",
-            \\"message\\": \\"Non-translated string used\\"
+            "rule": "no-bare-strings",
+            "severity": 2,
+            "filePath": "app/templates/application.hbs",
+            "line": 1,
+            "column": 25,
+            "endLine": 1,
+            "endColumn": 48,
+            "source": "Bare strings are bad...",
+            "message": "Non-translated string used"
           }
         ]
       }"

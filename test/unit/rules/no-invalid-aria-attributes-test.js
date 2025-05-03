@@ -22,6 +22,7 @@ generateRuleTests({
     '<button type="submit" aria-disabled={{this.isDisabled}}>Submit</button>',
     '<div role="textbox" aria-sort={{if this.hasCustomSort "other" "ascending"}}></div>',
     '<div role="combobox" aria-expanded="undefined"></div>',
+    '<button aria-label={{if @isNew (t "actions.add") (t "actions.edit")}}></button>',
   ],
   bad: [
     {
@@ -38,7 +39,7 @@ generateRuleTests({
               "message": "aria-text is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<input aria-text=\\"inaccessible text\\" />",
+              "source": "<input aria-text="inaccessible text" />",
             },
           ]
         `);
@@ -59,7 +60,7 @@ generateRuleTests({
               "message": "aria-value-min is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"slider\\" aria-valuenow={{this.foo}} aria-valuemax={{this.bar}} aria-value-min={{this.baz}} />",
+              "source": "<div role="slider" aria-valuenow={{this.foo}} aria-valuemax={{this.bar}} aria-value-min={{this.baz}} />",
             },
           ]
         `);
@@ -79,7 +80,7 @@ generateRuleTests({
               "message": "aria--hidden is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<h1 aria--hidden=\\"true\\">Broken heading</h1>",
+              "source": "<h1 aria--hidden="true">Broken heading</h1>",
             },
           ]
         `);
@@ -99,7 +100,7 @@ generateRuleTests({
               "message": "aria-alert is an unrecognized ARIA attribute.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<CustomComponent role=\\"region\\" aria-alert=\\"polite\\" />",
+              "source": "<CustomComponent role="region" aria-alert="polite" />",
             },
           ]
         `);
@@ -117,10 +118,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "The value for aria-checked must be a boolean or the string \\"mixed\\".",
+              "message": "The value for aria-checked must be a boolean or the string "mixed".",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<span role=\\"checkbox\\" aria-checked=\\"bad-value\\" tabindex=\\"0\\" aria-label=\\"Forget me\\"></span>",
+              "source": "<span role="checkbox" aria-checked="bad-value" tabindex="0" aria-label="Forget me"></span>",
             },
           ]
         `);
@@ -140,7 +141,7 @@ generateRuleTests({
               "message": "The value for aria-disabled must be a boolean.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<button type=\\"submit\\" disabled=\\"true\\" aria-disabled=\\"123\\">Submit</button>",
+              "source": "<button type="submit" disabled="true" aria-disabled="123">Submit</button>",
             },
           ]
         `);
@@ -160,27 +161,7 @@ generateRuleTests({
               "message": "The value for aria-errormessage must be a string that represents a DOM element ID",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<input type=\\"text\\" disabled=\\"true\\" aria-errormessage=\\"false\\" />",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<input type="password" required="true" aria-errormessage={{0}} />',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 65,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-errormessage must be a string that represents a DOM element ID",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<input type=\\"password\\" required=\\"true\\" aria-errormessage={{0}} />",
+              "source": "<input type="text" disabled="true" aria-errormessage="false" />",
             },
           ]
         `);
@@ -201,27 +182,7 @@ generateRuleTests({
               "message": "The value for aria-describedby must be a list of strings that represent DOM element IDs (idlist)",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<button type=\\"submit\\" aria-describedby=\\"blah false\\">Continue at your own risk</button>",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<button type="submit" aria-describedby={{false}} >broken button</button>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 72,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-describedby must be a list of strings that represent DOM element IDs (idlist)",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<button type=\\"submit\\" aria-describedby={{false}} >broken button</button>",
+              "source": "<button type="submit" aria-describedby="blah false">Continue at your own risk</button>",
             },
           ]
         `);
@@ -241,7 +202,7 @@ generateRuleTests({
               "message": "The value for aria-level must be an integer.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"heading\\" aria-level=\\"bogus\\">Inaccessible heading</div>",
+              "source": "<div role="heading" aria-level="bogus">Inaccessible heading</div>",
             },
           ]
         `);
@@ -261,27 +222,7 @@ generateRuleTests({
               "message": "The value for aria-level must be an integer.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"heading\\" aria-level=\\"true\\">Another inaccessible heading</div>",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<div role="heading" aria-level={{"blah"}}>Broken heading</div>',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 62,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-level must be an integer.",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<div role=\\"heading\\" aria-level={{\\"blah\\"}}>Broken heading</div>",
+              "source": "<div role="heading" aria-level="true">Another inaccessible heading</div>",
             },
           ]
         `);
@@ -302,7 +243,7 @@ generateRuleTests({
               "message": "The value for aria-valuenow must be a number.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"slider\\" aria-valuenow=(2*2)  aria-valuemax=\\"100\\" aria-valuemin=\\"30\\">Broken slider</div>",
+              "source": "<div role="slider" aria-valuenow=(2*2)  aria-valuemax="100" aria-valuemin="30">Broken slider</div>",
             },
           ]
         `);
@@ -322,7 +263,7 @@ generateRuleTests({
               "message": "The value for aria-live must be a single token from the following: assertive, off, polite.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"region\\" aria-live=\\"no-such-value\\">Inaccessible live region</div>",
+              "source": "<div role="region" aria-live="no-such-value">Inaccessible live region</div>",
             },
           ]
         `);
@@ -343,27 +284,7 @@ generateRuleTests({
               "message": "The value for aria-relevant must be a list of one or more tokens from the following: additions, all, removals, text.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<div role=\\"region\\" aria-live=\\"polite\\" aria-relevant=\\"additions errors\\">Inaccessible live region</div>",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<input type="text" aria-required={{if this.foo "true" "woosh"}} />',
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          [
-            {
-              "column": 0,
-              "endColumn": 66,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "The value for aria-required must be a boolean.",
-              "rule": "no-invalid-aria-attributes",
-              "severity": 2,
-              "source": "<input type=\\"text\\" aria-required={{if this.foo \\"true\\" \\"woosh\\"}} />",
+              "source": "<div role="region" aria-live="polite" aria-relevant="additions errors">Inaccessible live region</div>",
             },
           ]
         `);
@@ -383,7 +304,7 @@ generateRuleTests({
               "message": "The value for aria-required must be a boolean.",
               "rule": "no-invalid-aria-attributes",
               "severity": 2,
-              "source": "<input type=\\"text\\" aria-required=\\"undefined\\" />",
+              "source": "<input type="text" aria-required="undefined" />",
             },
           ]
         `);

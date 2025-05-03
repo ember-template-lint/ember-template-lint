@@ -8,9 +8,7 @@ import buildFakeConsole from '../helpers/console.js';
 import failurePlugin from '../helpers/failure-plugin.js';
 import Project from '../helpers/fake-project.js';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const fixturePath = path.join(__dirname, '..', '/fixtures');
+const fixturePath = path.join(dirname(fileURLToPath(import.meta.url)), '..', '/fixtures');
 
 describe('public api', function () {
   let project;
@@ -29,7 +27,7 @@ describe('public api', function () {
 
   describe('Linter.prototype.loadConfig', function () {
     it('throws an error if the config file has an error on parsing', async function () {
-      project.write({
+      await project.write({
         '.template-lintrc.js': "throw Error('error happening during config loading');\n",
       });
 
@@ -40,6 +38,29 @@ describe('public api', function () {
       await expect(async () => await linter.loadConfig()).rejects.toThrow(
         /error happening during config loading/
       );
+    });
+
+    it('throws the correct error if the config file has an error on parsing - ESM', async function () {
+      await project.write({
+        '.template-lintrc.mjs': "import foo from '../foo/bar';\n export {};\n",
+      });
+
+      const linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(project.baseDir, '.template-lintrc.mjs'),
+      });
+
+      /**
+       * This will be an absolute path in Node 22
+       *
+       * Node <22 "Cannot find module"
+       * Node 22+ "Failed to load url"
+       */
+      if (process.platform === 'win32') {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow();
+      } else {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow(/\/foo\/bar/);
+      }
     });
 
     it('uses an empty set of rules if no .template-lintrc is present', async function () {
@@ -58,7 +79,7 @@ describe('public api', function () {
           baz: 'derp',
         },
       };
-      project.setConfig(expected);
+      await project.setConfig(expected);
 
       let linter = new Linter({
         console: mockConsole,
@@ -80,7 +101,7 @@ describe('public api', function () {
         },
       };
 
-      project.setConfig(expected);
+      await project.setConfig(expected);
 
       let linter = new Linter({
         console: mockConsole,
@@ -100,10 +121,10 @@ describe('public api', function () {
           baz: 'derp',
         },
       };
-      project.files['some-other-path.js'] = `module.exports = ${JSON.stringify(
-        someOtherPathConfig
-      )};`;
-      await project.write();
+
+      await project.write({
+        'some-other-path.js': `module.exports = ${JSON.stringify(someOtherPathConfig)};`,
+      });
 
       let linter = new Linter({
         console: mockConsole,
@@ -125,8 +146,8 @@ describe('public api', function () {
         },
       };
 
-      project.setConfig(expected);
-      project.write({
+      await project.setConfig(expected);
+      await project.write({
         app: {
           templates: {
             'application.hbs': '',
@@ -155,7 +176,7 @@ describe('public api', function () {
         },
       };
 
-      project.write({
+      await project.write({
         '.template-lintrc.js': `module.exports = ${JSON.stringify({ rules: { boo: 'baz' } })};`,
         app: {
           '.template-lintrc.js': `module.exports = ${JSON.stringify(appPathConfig)};`,
@@ -194,7 +215,7 @@ describe('public api', function () {
           'no-bare-strings': 'error',
         },
       };
-      project.setConfig(expected);
+      await project.setConfig(expected);
 
       let linter = new Linter({
         console: mockConsole,
@@ -228,7 +249,7 @@ describe('public api', function () {
     });
 
     it('instantiating linter is idempotent', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'require-button-type': 'error',
         },
@@ -271,15 +292,15 @@ describe('public api', function () {
   describe('Linter.prototype.verifyAndFix', function () {
     let linter;
 
-    beforeEach(function () {
-      project.setConfig({
+    beforeEach(async function () {
+      await project.setConfig({
         rules: {
           quotes: ['error', 'double'],
           'require-button-type': 'error',
         },
       });
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': "<input class='mb4'>",
@@ -299,7 +320,7 @@ describe('public api', function () {
     });
 
     it('returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<div>FORBIDDEN</div>',
@@ -337,7 +358,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",
@@ -351,7 +372,7 @@ describe('public api', function () {
 
     it('ensures template parsing errors are only reported once (not once per-rule)', async function () {
       let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.hbs': templateContents,
@@ -375,7 +396,7 @@ describe('public api', function () {
     it('includes updated output when fixable', async function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.hbs': templateContents,
@@ -399,7 +420,7 @@ describe('public api', function () {
     it('updated output includes byte order mark if input source includes it', async function () {
       let templateContents = '\uFEFF<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.hbs': templateContents,
@@ -423,8 +444,8 @@ describe('public api', function () {
 
   describe('Linter.prototype.verify', function () {
     let linter;
-    beforeEach(function () {
-      project.setConfig({
+    beforeEach(async function () {
+      await project.setConfig({
         rules: {
           'no-bare-strings': 'error',
         },
@@ -438,7 +459,7 @@ describe('public api', function () {
         ],
       });
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs': '<h2>Here too!!</h2>\n<div>Bare strings are bad...</div>\n',
@@ -457,6 +478,92 @@ describe('public api', function () {
 
     afterEach(function () {
       project.dispose();
+    });
+
+    it('handles .d.ts files', async function () {
+      project.write({
+        app: {
+          styles: {
+            'app.css.d.ts':
+              'declare const styles: Record<string, never>;\n\nexport default styles;',
+          },
+        },
+        types: {
+          'global.d.ts':
+            "import '@glint/environment-ember-loose';\nimport '@glint/environment-ember-template-imports';\n\nimport type EmberPageTitleRegistry from 'ember-page-title/template-registry';\n\ndeclare module '@glint/environment-ember-loose/registry' {\n  export default interface Registry extends EmberPageTitleRegistry {\n    // Add any registry entries from other addons here that your addon itself uses (in non-strict mode templates)\n    // See https://typed-ember.gitbook.io/glint/using-glint/ember/using-addons\n  }\n}",
+        },
+      });
+
+      let filePath = project.path('app/styles/app.css.d.ts');
+      let templateContents = fs.readFileSync(filePath, { encoding: 'utf8' });
+      let expected = [];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath,
+        moduleId: filePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+
+      filePath = project.path('types/global.d.ts');
+      templateContents = fs.readFileSync(filePath, { encoding: 'utf8' });
+      expected = [];
+
+      result = await linter.verify({
+        source: templateContents,
+        filePath,
+        moduleId: filePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+
+    it('parses gts templates correctly', async function () {
+      project.setConfig({
+        rules: {
+          'no-debugger': 'error',
+        },
+      });
+
+      project.write({
+        app: {
+          components: {
+            'bar.gts':
+              `import Component from '@glimmer/component';\n` +
+              '\n' +
+              'interface Args {}\n' +
+              '\n' +
+              '<template>\n' +
+              '  {{debugger}}\n' +
+              '</template>',
+          },
+        },
+      });
+
+      let componentPath = project.path('app/components/bar.gts');
+      let templateContents = fs.readFileSync(componentPath, { encoding: 'utf8' });
+      let expected = [
+        {
+          message: 'Unexpected {{debugger}} usage.',
+          filePath: componentPath,
+          line: 6,
+          column: 2,
+          endColumn: 14,
+          endLine: 6,
+          source: '{{debugger}}',
+          rule: 'no-debugger',
+          severity: 2,
+        },
+      ];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: componentPath,
+        moduleId: componentPath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
     });
 
     it('returns an array of issues with the provided template', async function () {
@@ -523,7 +630,7 @@ describe('public api', function () {
 
       let expected = {
         message:
-          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2, but was found at 0.',
         filePath: 'some/path/here.hbs',
         isFixable: true,
         line: 2,
@@ -664,7 +771,7 @@ describe('public api', function () {
           rule: 'no-restricted-invocations',
           severity: 2,
           filePath: 'some/path/here.hbs',
-          message: "Cannot use disallowed helper or component '{{foo}}'",
+          message: "Cannot use disallowed helper, component or modifier '{{foo}}'",
           line: 1,
           column: 17,
           endColumn: 24,
@@ -832,6 +939,33 @@ describe('public api', function () {
         },
       ]);
     });
+
+    it('looks for embedded templates if no filePath was given', async function () {
+      linter = new Linter({
+        config: {
+          rules: { 'no-debugger': true },
+        },
+      });
+
+      let template =
+        'export const SomeComponent = <template>\n' + '  {{debugger}}\n' + '</template>';
+      let result = await linter.verify({
+        source: template,
+      });
+
+      expect(result).toEqual([
+        {
+          column: 2,
+          endColumn: 14,
+          endLine: 2,
+          line: 2,
+          message: 'Unexpected {{debugger}} usage.',
+          rule: 'no-debugger',
+          severity: 2,
+          source: '{{debugger}}',
+        },
+      ]);
+    });
   });
 
   describe('Linter using plugins', function () {
@@ -875,6 +1009,45 @@ describe('public api', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'disabled-rule.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('Linter using plugins with reportUnusedDisableDirectives', function () {
+    let basePath = path.join(fixturePath, 'report-unused-disable-directives');
+    let linter;
+
+    beforeEach(function () {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
+      });
+    });
+
+    it('reports unnecessary disables', async function () {
+      let templatePath = path.join(basePath, 'app', 'templates', 'unnecessary-disabled-rule.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          column: 2,
+          endColumn: 63,
+          endLine: 7,
+          filePath: templatePath,
+          isFixable: true,
+          line: 7,
+          message: 'Unnecessary disable declaration',
+          rule: 'no-html-comments',
+          severity: 2,
+          source: '{{! template-lint-disable no-html-comments no-bare-strings }}',
+        },
+      ];
 
       let result = await linter.verify({
         source: templateContents,
@@ -1143,15 +1316,15 @@ describe('public api', function () {
   describe('Linter able to lint and fix .html files', function () {
     let linter;
 
-    beforeEach(function () {
-      project.setConfig({
+    beforeEach(async function () {
+      await project.setConfig({
         rules: {
           quotes: ['error', 'double'],
           'require-button-type': 'error',
         },
       });
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.html': "<input class='mb4'>",
@@ -1172,9 +1345,9 @@ describe('public api', function () {
 
     it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default app/index.html (3.20)', async function () {
       // reset config to default value
-      project.setConfig();
+      await project.setConfig();
 
-      project.write({
+      await project.write({
         app: {
           'index.html': `
 {{!template-lint-disable no-forbidden-elements}}
@@ -1219,9 +1392,9 @@ describe('public api', function () {
 
     it('[.html] does not identify errors (except for no-forbidden-elements) for ember-cli default tests/index.html (3.20)', async function () {
       // reset config to default value
-      project.setConfig();
+      await project.setConfig();
 
-      project.write({
+      await project.write({
         tests: {
           'index.html': `
 {{!template-lint-disable no-forbidden-elements}}
@@ -1273,7 +1446,7 @@ describe('public api', function () {
     });
 
     it('[.html] returns whether the source has been fixed + an array of remaining issues with the provided template', async function () {
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.html': '<div>FORBIDDEN</div>',
@@ -1311,7 +1484,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",
@@ -1325,7 +1498,7 @@ describe('public api', function () {
 
     it('[.html] ensures template parsing errors are only reported once (not once per-rule)', async function () {
       let templateContents = '{{#ach this.foo as |bar|}}{{/each}}';
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.html': templateContents,
@@ -1349,7 +1522,7 @@ describe('public api', function () {
     it('[.html] includes updated output when fixable', async function () {
       let templateContents = '<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.html': templateContents,
@@ -1373,7 +1546,7 @@ describe('public api', function () {
     it('[.html] updated output includes byte order mark if input source includes it', async function () {
       let templateContents = '\uFEFF<button>LOL, Click me!</button>';
 
-      project.write({
+      await project.write({
         app: {
           templates: {
             'other.html': templateContents,

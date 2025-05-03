@@ -87,8 +87,8 @@ generateRuleTests({
               "severity": 2,
               "source": "{{badge
                     data-test-profile-card-one-to-one-connection-distance
-                    degreeText=(t \\"i18n_distance_v2\\" distance=recipientDistance)
-                    degreeA11yText=(t \\"i18n_distance_a11y_v2\\" distance=recipientDistance)
+                    degreeText=(t "i18n_distance_v2" distance=recipientDistance)
+                    degreeA11yText=(t "i18n_distance_a11y_v2" distance=recipientDistance)
                   }}",
             },
           ]

@@ -52,7 +52,7 @@ generateRuleTests({
               "message": "Unexpected {{log}} usage.",
               "rule": "no-log",
               "severity": 2,
-              "source": "{{log \\"Logs are best for debugging!\\"}}",
+              "source": "{{log "Logs are best for debugging!"}}",
             },
           ]
         `);
@@ -94,7 +94,7 @@ generateRuleTests({
               "message": "Unexpected {{log}} usage.",
               "rule": "no-log",
               "severity": 2,
-              "source": "{{#log \\"Foo\\"}}{{/log}}",
+              "source": "{{#log "Foo"}}{{/log}}",
             },
           ]
         `);

@@ -11,11 +11,9 @@ generateRuleTests({
     '<button type="button">label</button>',
     '<button type="submit" />',
     '<button type="reset" />',
-
     // dynamic values
     '<button type="{{buttonType}}" />',
     '<button type={{buttonType}} />',
-
     '<div/>',
     '<div></div>',
     '<div type="randomType"></div>',
@@ -85,7 +83,7 @@ generateRuleTests({
               "message": "All \`<button>\` elements should have a valid \`type\` attribute",
               "rule": "require-button-type",
               "severity": 2,
-              "source": "<button type=\\"\\" />",
+              "source": "<button type="" />",
             },
           ]
         `);
@@ -108,7 +106,7 @@ generateRuleTests({
               "message": "All \`<button>\` elements should have a valid \`type\` attribute",
               "rule": "require-button-type",
               "severity": 2,
-              "source": "<button type=\\"foo\\" />",
+              "source": "<button type="foo" />",
             },
           ]
         `);
@@ -140,6 +138,34 @@ generateRuleTests({
     {
       template: '<form><button></button></form>',
       fixedTemplate: '<form><button type="submit"></button></form>',
+    },
+    {
+      template: '/** silly example <button> usage */ <template><button></button></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+      fixedTemplate:
+        '/** silly example <button> usage */ <template><button type="button"></button></template>',
+      skipDisabledTests: true,
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 46,
+              "endColumn": 63,
+              "endLine": 1,
+              "filePath": "layout.gjs",
+              "isFixable": true,
+              "line": 1,
+              "message": "All \`<button>\` elements should have a valid \`type\` attribute",
+              "rule": "require-button-type",
+              "severity": 2,
+              "source": "<button></button>",
+            },
+          ]
+        `);
+      },
     },
   ],
 });

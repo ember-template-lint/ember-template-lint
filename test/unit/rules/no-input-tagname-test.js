@@ -27,7 +27,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "{{input tagName=\\"foo\\"}}",
+              "source": "{{input tagName="foo"}}",
             },
           ]
         `);
@@ -69,7 +69,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "{{component \\"input\\" tagName=\\"foo\\"}}",
+              "source": "{{component "input" tagName="foo"}}",
             },
           ]
         `);
@@ -90,7 +90,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "{{component \\"input\\" tagName=bar}}",
+              "source": "{{component "input" tagName=bar}}",
             },
           ]
         `);
@@ -111,7 +111,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "(component \\"input\\" tagName=\\"foo\\")",
+              "source": "(component "input" tagName="foo")",
             },
           ]
         `);
@@ -132,7 +132,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "(component \\"input\\" tagName=bar)",
+              "source": "(component "input" tagName=bar)",
             },
           ]
         `);

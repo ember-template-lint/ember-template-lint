@@ -1,5 +1,7 @@
 # no-obscure-array-access
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 Using obscure expressions `{{list.[1].name}}` is discouraged and is likely to be deprecated soon.

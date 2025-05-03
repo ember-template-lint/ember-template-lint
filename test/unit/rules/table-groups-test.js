@@ -150,6 +150,21 @@ generateRuleTests({
     '<table><colgroup></colgroup><colgroup></colgroup><tbody></tbody></table>',
     {
       config: {
+        'allowed-table-components': ['sticky-table'],
+      },
+      template: `
+        <StickyTable>
+          <thead></thead>
+          <tbody></tbody>
+        </StickyTable>
+        <MyThing @tagName="table">
+          <thead></thead>
+          <tbody></tbody>
+        </MyThing>
+      `,
+    },
+    {
+      config: {
         'allowed-caption-components': ['nested/my-caption'],
         'allowed-colgroup-components': ['nested/my-colgroup'],
         'allowed-thead-components': ['nested/my-thead'],
@@ -577,7 +592,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table>{{some-component tagName=\\"div\\"}}</table>",
+              "source": "<table>{{some-component tagName="div"}}</table>",
             },
           ]
         `);
@@ -597,7 +612,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table>{{some-component otherProp=\\"tbody\\"}}</table>",
+              "source": "<table>{{some-component otherProp="tbody"}}</table>",
             },
           ]
         `);
@@ -617,7 +632,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table><SomeComponent @tagName=\\"div\\" /></table>",
+              "source": "<table><SomeComponent @tagName="div" /></table>",
             },
           ]
         `);
@@ -637,7 +652,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table><SomeComponent @otherProp=\\"tbody\\" /></table>",
+              "source": "<table><SomeComponent @otherProp="tbody" /></table>",
             },
           ]
         `);
@@ -854,7 +869,7 @@ generateRuleTests({
               "severity": 2,
               "source": "<table>
                   <thead />
-                  <Nested::MyTbody @tagName=\\"caption\\" />
+                  <Nested::MyTbody @tagName="caption" />
                   <tbody />
                 </table>",
             },

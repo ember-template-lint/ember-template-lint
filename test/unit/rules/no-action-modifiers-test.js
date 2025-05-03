@@ -20,6 +20,14 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<div {{action this.foo}}></div>',
+      fixedTemplate: '<div {{on "click" this.foo}}></div>',
+    },
+    {
+      template: '<div {{action this.foo bar baz}}></div>',
+      fixedTemplate: '<div {{on "click" (fn this.foo bar baz)}}></div>',
+    },
+    {
       template: '<button {{action "foo"}}></button>',
 
       verifyResults(results) {
@@ -30,11 +38,12 @@ generateRuleTests({
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<button {{action \\"foo\\"}}></button>",
+              "source": "<button {{action "foo"}}></button>",
             },
           ]
         `);
@@ -51,11 +60,12 @@ generateRuleTests({
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<a href=\\"#\\" {{action \\"foo\\"}}></a>",
+              "source": "<a href="#" {{action "foo"}}></a>",
             },
           ]
         `);
@@ -73,11 +83,12 @@ generateRuleTests({
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<a href=\\"#\\" {{action \\"foo\\"}}></a>",
+              "source": "<a href="#" {{action "foo"}}></a>",
             },
           ]
         `);

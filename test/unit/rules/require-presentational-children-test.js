@@ -25,6 +25,15 @@ generateRuleTests({
       <title>Title here</title>
       <circle cx="10" cy="10" r="10"></circle>
     </svg>`,
+    {
+      config: { additionalNonSemanticTags: ['custom-element'] },
+      template: `<button><div>item1</div><custom-element>item2</custom-element></button>`,
+    },
+    `
+      <MyButton role="tab">
+        <:default>Button text</:default>
+      </MyButton>
+    `,
   ],
 
   bad: [
@@ -34,15 +43,15 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 38,
+              "column": 19,
+              "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <h2>",
               "rule": "require-presentational-children",
               "severity": 2,
-              "source": "<div role=\\"button\\"><h2>Test</h2></div>",
+              "source": "<h2>Test</h2>",
             },
           ]
         `);
@@ -54,15 +63,15 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 61,
+              "column": 43,
+              "endColumn": 50,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <img>",
               "rule": "require-presentational-children",
               "severity": 2,
-              "source": "<div role=\\"button\\"><h2 role=\\"presentation\\"><img /></h2></div>",
+              "source": "<img />",
             },
           ]
         `);
@@ -76,26 +85,26 @@ generateRuleTests({
         expect(results).toMatchInlineSnapshot(`
           [
             {
-              "column": 0,
-              "endColumn": 82,
+              "column": 43,
+              "endColumn": 71,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <button>",
               "rule": "require-presentational-children",
               "severity": 2,
-              "source": "<div role=\\"button\\"><h2 role=\\"presentation\\"><button>Test <img/></button></h2></div>",
+              "source": "<button>Test <img/></button>",
             },
             {
-              "column": 0,
-              "endColumn": 82,
+              "column": 56,
+              "endColumn": 62,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "<div> has a role of button, it cannot have semantic descendants like <img>",
               "rule": "require-presentational-children",
               "severity": 2,
-              "source": "<div role=\\"button\\"><h2 role=\\"presentation\\"><button>Test <img/></button></h2></div>",
+              "source": "<img/>",
             },
           ]
         `);

@@ -1,5 +1,7 @@
 # require-aria-activedescendant-tabindex
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule requires all non-interactive HTML elements using the `aria-activedescendant` attribute to declare a `tabindex` of zero.
 
 The `aria-activedescendant` attribute identifies the active descendant element of a composite widget, textbox, group, or application with document focus. This attribute is placed on the container element of the input control, and its value is set to the ID of the active child element. This allows screen readers to communicate information about the currently active element as if it has focus, while actual focus of the DOM remains on the container element.

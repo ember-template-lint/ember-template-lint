@@ -21,6 +21,12 @@ generateRuleTests({
         {{svg-jar "left-pag"}}
       </LinkTo>
     `,
+    {
+      template: '<template><LinkTo>Quickstart</LinkTo></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
   ],
 
   bad: [
@@ -38,7 +44,7 @@ generateRuleTests({
               "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<a href=\\"https://myurl.com\\" title=\\"read the tutorial\\">Read the Tutorial</a>",
+              "source": "<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>",
             },
           ]
         `);
@@ -58,7 +64,7 @@ generateRuleTests({
               "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<LinkTo title=\\"quickstart\\">Quickstart</LinkTo>",
+              "source": "<LinkTo title="quickstart">Quickstart</LinkTo>",
             },
           ]
         `);
@@ -78,7 +84,7 @@ generateRuleTests({
               "message": "Specifying title as both an attribute and an argument to <LinkTo /> is invalid.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<LinkTo @title=\\"foo\\" title=\\"blah\\">derp</LinkTo>",
+              "source": "<LinkTo @title="foo" title="blah">derp</LinkTo>",
             },
           ]
         `);
@@ -98,7 +104,7 @@ generateRuleTests({
               "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "{{#link-to title=\\"Do the things\\"}}Do the things{{/link-to}}",
+              "source": "{{#link-to title="Do the things"}}Do the things{{/link-to}}",
             },
           ]
         `);
@@ -118,7 +124,7 @@ generateRuleTests({
               "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<LinkTo @route=\\"some.route\\" @title=\\"Do the things\\">Do the things</LinkTo>",
+              "source": "<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>",
             },
           ]
         `);
@@ -138,7 +144,7 @@ generateRuleTests({
               "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<a href=\\"https://myurl.com\\" title=\\"Tutorial\\">Read the Tutorial</a>",
+              "source": "<a href="https://myurl.com" title="Tutorial">Read the Tutorial</a>",
             },
           ]
         `);
@@ -158,7 +164,7 @@ generateRuleTests({
               "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<LinkTo title=\\"Tutorial\\">Read the Tutorial</LinkTo>",
+              "source": "<LinkTo title="Tutorial">Read the Tutorial</LinkTo>",
             },
           ]
         `);
@@ -178,7 +184,7 @@ generateRuleTests({
               "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "{{#link-to title=\\"Tutorial\\"}}Read the Tutorial{{/link-to}}",
+              "source": "{{#link-to title="Tutorial"}}Read the Tutorial{{/link-to}}",
             },
           ]
         `);
