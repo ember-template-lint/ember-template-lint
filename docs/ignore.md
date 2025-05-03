@@ -2,9 +2,9 @@
 
 You can tell the linter to ignore individual files or entire directories with the `ignore` option.
 
-The ignore option takes an array of strings that either match exact modules or glob-match multiple modules.
+The ignore option takes an array of strings that either match an exact file path or glob-match multiple files.
 
-* **module** -- `'app/templates/exceptional-page'`
+* **file path** -- `'app/templates/exceptional-page.hbs'`
 * **glob** -- `'app/templates/components/odd-ones/**'`
 
 ## Sample configuration
@@ -14,9 +14,9 @@ module.exports = {
   extends: 'recommended',
 
   ignore: [
-    'project-name/templates/login',
+    'project-name/templates/login.hbs',
     'project-name/templates/components/odd-ones/**',
-    'app/templates/login',
+    'app/templates/login.hbs',
     'app/templates/components/odd-ones/**',
   ]
 };

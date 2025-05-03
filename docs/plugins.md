@@ -184,7 +184,7 @@ generateRuleTests({
     {
       template: '{{#if condition}}<img>{{/if}}',
       config: {}, // Custom config for this test case.
-      meta: { moduleId: 'app/templates/index.hbs' }, // Custom filepath for this test case.
+      meta: { filePath: 'app/templates/index.hbs' }, // Custom filepath for this test case.
     },
   ],
 
