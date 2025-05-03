@@ -226,6 +226,30 @@ generateRuleTests({
       </table>
       `,
     },
+    `
+    <table>
+      {{#if someCondition}}
+        <thead />
+        <tbody />
+      {{else}}
+        <caption />
+        <thead />
+        <tbody />
+      {{/if}}
+    </table>
+    `,
+    `
+    <table>
+      {{#unless someCondition}}
+        <thead />
+        <tbody />
+      {{else}}
+        <caption />
+        <thead />
+        <tbody />
+      {{/unless}}
+    </table>
+    `,
   ],
 
   bad: [
