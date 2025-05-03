@@ -22,10 +22,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Unnecessary string concatenation. Use {{clazz}} instead of \\"{{clazz}}\\".",
+              "message": "Unnecessary string concatenation. Use {{clazz}} instead of "{{clazz}}".",
               "rule": "no-unnecessary-concat",
               "severity": 2,
-              "source": "\\"{{clazz}}\\"",
+              "source": ""{{clazz}}"",
             },
           ]
         `);
@@ -45,10 +45,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Unnecessary string concatenation. Use {{url}} instead of \\"{{url}}\\".",
+              "message": "Unnecessary string concatenation. Use {{url}} instead of "{{url}}".",
               "rule": "no-unnecessary-concat",
               "severity": 2,
-              "source": "\\"{{url}}\\"",
+              "source": ""{{url}}"",
             },
             {
               "column": 23,
@@ -57,10 +57,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Unnecessary string concatenation. Use {{t \\"alternate-text\\"}} instead of \\"{{t \\"alternate-text\\"}}\\".",
+              "message": "Unnecessary string concatenation. Use {{t "alternate-text"}} instead of "{{t "alternate-text"}}".",
               "rule": "no-unnecessary-concat",
               "severity": 2,
-              "source": "\\"{{t \\"alternate-text\\"}}\\"",
+              "source": ""{{t "alternate-text"}}"",
             },
           ]
         `);

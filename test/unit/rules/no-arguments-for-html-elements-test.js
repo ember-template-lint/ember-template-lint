@@ -33,7 +33,7 @@ generateRuleTests({
               "message": "Arguments (@value) should not be used on HTML elements (<div>).",
               "rule": "no-arguments-for-html-elements",
               "severity": 2,
-              "source": "@value=\\"1\\"",
+              "source": "@value="1"",
             },
           ]
         `);
@@ -73,7 +73,7 @@ generateRuleTests({
               "message": "Arguments (@src) should not be used on HTML elements (<img>).",
               "rule": "no-arguments-for-html-elements",
               "severity": 2,
-              "source": "@src=\\"12\\"",
+              "source": "@src="12"",
             },
           ]
         `);

@@ -50,9 +50,17 @@ describe('public api', function () {
         configPath: path.join(project.baseDir, '.template-lintrc.mjs'),
       });
 
-      await expect(async () => await linter.loadConfig()).rejects.toThrow(
-        /Cannot find module '..\/foo\/bar'/
-      );
+      /**
+       * This will be an absolute path in Node 22
+       *
+       * Node <22 "Cannot find module"
+       * Node 22+ "Failed to load url"
+       */
+      if (process.platform === 'win32') {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow();
+      } else {
+        await expect(async () => await linter.loadConfig()).rejects.toThrow(/\/foo\/bar/);
+      }
     });
 
     it('uses an empty set of rules if no .template-lintrc is present', async function () {
@@ -350,7 +358,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",
@@ -472,6 +480,45 @@ describe('public api', function () {
       project.dispose();
     });
 
+    it('handles .d.ts files', async function () {
+      project.write({
+        app: {
+          styles: {
+            'app.css.d.ts':
+              'declare const styles: Record<string, never>;\n\nexport default styles;',
+          },
+        },
+        types: {
+          'global.d.ts':
+            "import '@glint/environment-ember-loose';\nimport '@glint/environment-ember-template-imports';\n\nimport type EmberPageTitleRegistry from 'ember-page-title/template-registry';\n\ndeclare module '@glint/environment-ember-loose/registry' {\n  export default interface Registry extends EmberPageTitleRegistry {\n    // Add any registry entries from other addons here that your addon itself uses (in non-strict mode templates)\n    // See https://typed-ember.gitbook.io/glint/using-glint/ember/using-addons\n  }\n}",
+        },
+      });
+
+      let filePath = project.path('app/styles/app.css.d.ts');
+      let templateContents = fs.readFileSync(filePath, { encoding: 'utf8' });
+      let expected = [];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath,
+        moduleId: filePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+
+      filePath = project.path('types/global.d.ts');
+      templateContents = fs.readFileSync(filePath, { encoding: 'utf8' });
+      expected = [];
+
+      result = await linter.verify({
+        source: templateContents,
+        filePath,
+        moduleId: filePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+
     it('parses gts templates correctly', async function () {
       project.setConfig({
         rules: {
@@ -483,17 +530,9 @@ describe('public api', function () {
         app: {
           components: {
             'bar.gts':
-              `import { hbs } from 'ember-cli-htmlbars';\n` +
-              `import { setComponentTemplate } from '@ember/component';\n` +
               `import Component from '@glimmer/component';\n` +
               '\n' +
               'interface Args {}\n' +
-              '\n' +
-              'export const SomeComponent = setComponentTemplate(hbs`\n' +
-              '  {{debugger}}\n' +
-              '  `,\n' +
-              '  class Some extends Component<Args> {}\n' +
-              ');\n' +
               '\n' +
               '<template>\n' +
               '  {{debugger}}\n' +
@@ -508,21 +547,10 @@ describe('public api', function () {
         {
           message: 'Unexpected {{debugger}} usage.',
           filePath: componentPath,
-          line: 8,
+          line: 6,
           column: 2,
           endColumn: 14,
-          endLine: 8,
-          source: '{{debugger}}',
-          rule: 'no-debugger',
-          severity: 2,
-        },
-        {
-          message: 'Unexpected {{debugger}} usage.',
-          filePath: componentPath,
-          line: 14,
-          column: 2,
-          endColumn: 14,
-          endLine: 14,
+          endLine: 6,
           source: '{{debugger}}',
           rule: 'no-debugger',
           severity: 2,
@@ -602,7 +630,7 @@ describe('public api', function () {
 
       let expected = {
         message:
-          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2 but was found at 0.',
+          'Incorrect indentation for `<p>` beginning at L2:C0. Expected `<p>` to be at an indentation of 2, but was found at 0.',
         filePath: 'some/path/here.hbs',
         isFixable: true,
         line: 2,
@@ -981,6 +1009,45 @@ describe('public api', function () {
       let templatePath = path.join(basePath, 'app', 'templates', 'disabled-rule.hbs');
       let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
       let expected = [];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('Linter using plugins with reportUnusedDisableDirectives', function () {
+    let basePath = path.join(fixturePath, 'report-unused-disable-directives');
+    let linter;
+
+    beforeEach(function () {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.cjs'),
+      });
+    });
+
+    it('reports unnecessary disables', async function () {
+      let templatePath = path.join(basePath, 'app', 'templates', 'unnecessary-disabled-rule.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          column: 2,
+          endColumn: 63,
+          endLine: 7,
+          filePath: templatePath,
+          isFixable: true,
+          line: 7,
+          message: 'Unnecessary disable declaration',
+          rule: 'no-html-comments',
+          severity: 2,
+          source: '{{! template-lint-disable no-html-comments no-bare-strings }}',
+        },
+      ];
 
       let result = await linter.verify({
         source: templateContents,
@@ -1417,7 +1484,7 @@ describe('public api', function () {
               "endLine": 1,
               "filePath": Any<String>,
               "line": 1,
-              "message": "The string \\"FORBIDDEN\\" is forbidden in templates",
+              "message": "The string "FORBIDDEN" is forbidden in templates",
               "rule": "fail-on-word",
               "severity": 2,
               "source": "FORBIDDEN",

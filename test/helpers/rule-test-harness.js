@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { beforeEach, describe, test } from 'vitest';
 
 import generateRuleTests from '../../lib/helpers/rule-test-harness.js';
 

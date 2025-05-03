@@ -8,16 +8,15 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: ['eslint-comments', 'filenames', 'import', 'n', 'prettier', 'unicorn'],
+  plugins: ['eslint-comments', 'filenames', 'import', 'n', 'unicorn'],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:jest/recommended',
     'plugin:n/recommended',
     'plugin:unicorn/recommended',
-    'plugin:prettier/recommended',
+    'prettier',
   ],
   rules: {
     // Optional eslint rules:
@@ -92,9 +91,8 @@ module.exports = {
     'import/no-useless-path-segments': 'error',
     'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
-
-    // Jest rules:
-    'jest/no-conditional-expect': 'off',
+    // broken -- does not support package.json#exports
+    'import/no-unresolved': 'off',
 
     // Node rules:
     'n/no-unsupported-features/es-syntax': [
@@ -107,7 +105,7 @@ module.exports = {
     'n/no-extraneous-import': [
       'error',
       {
-        allowModules: ['@jest/globals'],
+        allowModules: [],
       },
     ],
 
@@ -135,6 +133,14 @@ module.exports = {
       },
     },
     {
+      files: ['vitest.config.ts'],
+      rules: {
+        'filenames/match-regex': 'off',
+        'import/no-unresolved': 'off',
+        'import/extensions': 'off',
+      },
+    },
+    {
       // CLI
       files: ['bin/**/*.js', 'lib/helpers/cli.js'],
       rules: {
@@ -156,13 +162,6 @@ module.exports = {
       },
       rules: {
         'import/no-dynamic-require': 'off',
-      },
-    },
-    {
-      // Rule tests
-      files: ['test/unit/rules/*.js'],
-      rules: {
-        'jest/no-standalone-expect': 'off', // False positives from using: verifyResults(results) { expect(results).toMatchInlineSnapshot }
       },
     },
   ],

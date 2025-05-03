@@ -27,6 +27,28 @@ generateRuleTests({
       </li>
     </ul>
     `,
+    `
+  <label> My input:
+    {{#if @select}}
+      <select></select>
+    {{else}}
+      <input type='text'>
+    {{/if}}
+  </label>
+    `,
+    `
+  <label> My input:
+    {{#if @select}}
+      {{#if @multiple}}
+        <select multiple></select>
+      {{else}}
+        <select></select>
+      {{/if}}
+    {{else}}
+      <input type='text'>
+    {{/if}}
+  </label>
+    `,
     {
       config: {
         ignoredTags: ['button'],
@@ -65,7 +87,7 @@ generateRuleTests({
               "message": "Do not use an <a> element with the \`href\` attribute inside an <a> element with the \`href\` attribute",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<a href=\\"/\\">!</a>",
+              "source": "<a href="/">!</a>",
             },
           ]
         `);
@@ -107,7 +129,7 @@ generateRuleTests({
               "message": "Do not use an <a> element with the \`href\` attribute inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<a href=\\"/\\">!</a>",
+              "source": "<a href="/">!</a>",
             },
           ]
         `);
@@ -149,7 +171,7 @@ generateRuleTests({
               "message": "Do not use <input> inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<input type=\\"text\\">",
+              "source": "<input type="text">",
             },
           ]
         `);
@@ -192,7 +214,7 @@ generateRuleTests({
               "message": "Do not use <embed> inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<embed type=\\"video/quicktime\\" src=\\"movie.mov\\" width=\\"640\\" height=\\"480\\">",
+              "source": "<embed type="video/quicktime" src="movie.mov" width="640" height="480">",
             },
           ]
         `);
@@ -213,7 +235,7 @@ generateRuleTests({
               "message": "Do not use <iframe> inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<iframe src=\\"/frame.html\\" width=\\"640\\" height=\\"480\\"></iframe>",
+              "source": "<iframe src="/frame.html" width="640" height="480"></iframe>",
             },
           ]
         `);
@@ -276,7 +298,7 @@ generateRuleTests({
               "message": "Do not use an element with the \`tabindex\` attribute inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<div tabindex=\\"1\\"></div>",
+              "source": "<div tabindex="1"></div>",
             },
           ]
         `);
@@ -297,7 +319,7 @@ generateRuleTests({
               "message": "Do not use an <img> element with the \`usemap\` attribute inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<img usemap=\\"\\">",
+              "source": "<img usemap="">",
             },
           ]
         `);
@@ -391,8 +413,8 @@ generateRuleTests({
               "message": "Do not use multiple interactive elements inside a single \`<label>\`",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<label for=\\"foo\\">
-            <div id=\\"foo\\" tabindex=-1></div>
+              "source": "<label for="foo">
+            <div id="foo" tabindex=-1></div>
             <input>
           </label>",
             },

@@ -40,6 +40,9 @@ describe('pretty formatter', () => {
     expect(result.exitCode).toEqual(1);
     expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
       [
+        "Linting 2 Total Files with TemplateLint",
+        "	.hbs: 2",
+        "",
         "app/templates/application.hbs",
         "  1:4  error  Non-translated string used  no-bare-strings",
         "  1:25  error  Non-translated string used  no-bare-strings",
@@ -71,6 +74,9 @@ describe('pretty formatter', () => {
     expect(result.exitCode).toEqual(1);
     expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
       [
+        "Linting 1 Total Files with TemplateLint",
+        "	.hbs: 1",
+        "",
         "app/templates/application.hbs",
         "  1:4  error  Non-translated string used  no-bare-strings",
         "  1:24  error  Non-translated string used  no-bare-strings",
@@ -104,6 +110,9 @@ describe('pretty formatter', () => {
 
     expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
       [
+        "Linting 1 Total Files with TemplateLint",
+        "	.hbs: 1",
+        "",
         "app/components/click-me-button.hbs",
         "  1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type",
         "",

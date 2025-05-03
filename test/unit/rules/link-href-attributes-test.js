@@ -11,6 +11,7 @@ generateRuleTests({
     '<a href="javascript:;"></a>',
     '<a href="http://localhost"></a>',
     '<a href={{link}}></a>',
+    '<a role="link" aria-disabled="true">valid</a>',
   ],
 
   bad: [

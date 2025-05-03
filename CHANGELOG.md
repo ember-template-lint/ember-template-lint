@@ -1,5 +1,190 @@
 # Changelog
 
+## Release (2025-04-25)
+
+ember-template-lint 7.2.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3183](https://github.com/ember-template-lint/ember-template-lint/pull/3183) Closes [#2969](https://github.com/ember-template-lint/ember-template-lint/issues/2969) allow no-invalid-link-text to be configured for custom link… ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3180](https://github.com/ember-template-lint/ember-template-lint/pull/3180) Closes [#3042](https://github.com/ember-template-lint/ember-template-lint/issues/3042) fix false-positive for no-block-params-for-html-elements ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+## Release (2025-04-25)
+
+ember-template-lint 7.1.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3190](https://github.com/ember-template-lint/ember-template-lint/pull/3190) peformance: batch & file processing ([@lifeart](https://github.com/lifeart))
+  * [#3181](https://github.com/ember-template-lint/ember-template-lint/pull/3181) Closes [#2399](https://github.com/ember-template-lint/ember-template-lint/issues/2399) table-groups should accept configuration for components to … ([@lifeart](https://github.com/lifeart))
+  * [#3178](https://github.com/ember-template-lint/ember-template-lint/pull/3178) fix: #3122 extend no-bare-strings rule config ([@lifeart](https://github.com/lifeart))
+  * [#3175](https://github.com/ember-template-lint/ember-template-lint/pull/3175) fix mode for no-action-modifier with PathExpressions ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3187](https://github.com/ember-template-lint/ember-template-lint/pull/3187) Closes [#2654](https://github.com/ember-template-lint/ember-template-lint/issues/2654) require-presentational-children fails for named blocks ([@lifeart](https://github.com/lifeart))
+  * [#3186](https://github.com/ember-template-lint/ember-template-lint/pull/3186) Closes [#2924](https://github.com/ember-template-lint/ember-template-lint/issues/2924) no-obscure-array-access fix is incorrect with modifier usage ([@lifeart](https://github.com/lifeart))
+  * [#3185](https://github.com/ember-template-lint/ember-template-lint/pull/3185) Closes [#2893](https://github.com/ember-template-lint/ember-template-lint/issues/2893) improve no-partial rule ([@lifeart](https://github.com/lifeart))
+  * [#3184](https://github.com/ember-template-lint/ember-template-lint/pull/3184) Closes [#2968](https://github.com/ember-template-lint/ember-template-lint/issues/2968) ARIA-compliant disabled link communication ([@lifeart](https://github.com/lifeart))
+  * [#3182](https://github.com/ember-template-lint/ember-template-lint/pull/3182) Closes [#3140](https://github.com/ember-template-lint/ember-template-lint/issues/3140) Does not work with multi dot names anymore ([@lifeart](https://github.com/lifeart))
+  * [#3179](https://github.com/ember-template-lint/ember-template-lint/pull/3179) Closes [#3092](https://github.com/ember-template-lint/ember-template-lint/issues/3092) fix missing characters on no-unnecessary-curly-parens fix ([@lifeart](https://github.com/lifeart))
+  * [#3177](https://github.com/ember-template-lint/ember-template-lint/pull/3177) fix: #3159 [no-nested-interactive]  false positive with content within {{#if}}/{{else}} ([@lifeart](https://github.com/lifeart))
+  * [#3176](https://github.com/ember-template-lint/ember-template-lint/pull/3176) #3152 fix no-duplicate-landmark false-positive ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+## Release (2025-04-16)
+
+ember-template-lint 7.0.8 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3174](https://github.com/ember-template-lint/ember-template-lint/pull/3174) Closes [#3171](https://github.com/ember-template-lint/ember-template-lint/issues/3171) False positive in TypeScript files ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+## Release (2025-04-13)
+
+ember-template-lint 7.0.7 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3163](https://github.com/ember-template-lint/ember-template-lint/pull/3163) [js, ts] Fix columnOffset of embedded 'backtick' template from 'return' ([@robinborst95](https://github.com/robinborst95))
+
+#### Committers: 1
+- Robin Borst  ([@robinborst95](https://github.com/robinborst95))
+
+## Release (2025-04-11)
+
+ember-template-lint 7.0.6 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3167](https://github.com/ember-template-lint/ember-template-lint/pull/3167) fix: support compound extensions when globbing ([@simshanith](https://github.com/simshanith))
+
+#### Committers: 1
+- Shane Daniel ([@simshanith](https://github.com/simshanith))
+
+## Release (2025-04-10)
+
+ember-template-lint 7.0.5 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3165](https://github.com/ember-template-lint/ember-template-lint/pull/3165) Support compound extensions ending in .hbs ([@JuiHsuan-Kuo](https://github.com/JuiHsuan-Kuo))
+
+#### Committers: 1
+- [@JuiHsuan-Kuo](https://github.com/JuiHsuan-Kuo)
+
+## Release (2025-04-04)
+
+ember-template-lint 7.0.4 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3151](https://github.com/ember-template-lint/ember-template-lint/pull/3151) Fix block-indentation not working correctly for GJS files ([@robinborst95](https://github.com/robinborst95))
+
+#### Committers: 1
+- Robin Borst  ([@robinborst95](https://github.com/robinborst95))
+
+## Release (2025-04-03)
+
+ember-template-lint 7.0.3 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3155](https://github.com/ember-template-lint/ember-template-lint/pull/3155) Avoid template tag false positives ([@wagenet](https://github.com/wagenet))
+
+#### Committers: 1
+- Peter Wagenet ([@wagenet](https://github.com/wagenet))
+
+## Release (2025-03-31)
+
+ember-template-lint 7.0.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3148](https://github.com/ember-template-lint/ember-template-lint/pull/3148) Support decorator usage in js/ts source files ([@Windvis](https://github.com/Windvis))
+
+#### Committers: 1
+- Sam Van Campenhout ([@Windvis](https://github.com/Windvis))
+
+## Release (2025-03-05)
+
+ember-template-lint 7.0.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3133](https://github.com/ember-template-lint/ember-template-lint/pull/3133) Correctly handled file extensions like .d.ts and .css.d.ts ([@ijlee2](https://github.com/ijlee2))
+
+#### Committers: 1
+- Isaac Lee ([@ijlee2](https://github.com/ijlee2))
+
+## Release (2025-02-28)
+
+ember-template-lint 7.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-template-lint`
+  * [#3021](https://github.com/ember-template-lint/ember-template-lint/pull/3021) Remove template-imports, add content-tag, drop support for the hbs template literals from ember-template-imports (keeping support for ember-cli-htmlbars) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3130](https://github.com/ember-template-lint/ember-template-lint/pull/3130) Report unused disables ([@wagenet](https://github.com/wagenet))
+  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3132](https://github.com/ember-template-lint/ember-template-lint/pull/3132) Fix the no-yield-only rule ([@wagenet](https://github.com/wagenet))
+  * [#3131](https://github.com/ember-template-lint/ember-template-lint/pull/3131) Don't process ignored files ([@wagenet](https://github.com/wagenet))
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3104](https://github.com/ember-template-lint/ember-template-lint/pull/3104) Fix require-strict-mode example ([@simonihmig](https://github.com/simonihmig))
+
+#### Committers: 3
+- Peter Wagenet ([@wagenet](https://github.com/wagenet))
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-01-17)
+
+ember-template-lint 6.1.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3102](https://github.com/ember-template-lint/ember-template-lint/pull/3102) Add new require-strict-mode rule  ([@simonihmig](https://github.com/simonihmig))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3101](https://github.com/ember-template-lint/ember-template-lint/pull/3101) Fix strict mode detection ([@simonihmig](https://github.com/simonihmig))
+  * [#3095](https://github.com/ember-template-lint/ember-template-lint/pull/3095) Fix `--no-error-on-unmatched-pattern` for multiple patterns ([@davidtaylorhq](https://github.com/davidtaylorhq))
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3103](https://github.com/ember-template-lint/ember-template-lint/pull/3103) Fix new rule example in contributing guide ([@simonihmig](https://github.com/simonihmig))
+  * [#3087](https://github.com/ember-template-lint/ember-template-lint/pull/3087) Remove bad advice about ember-composable-helpers ([@ef4](https://github.com/ef4))
+
+#### :house: Internal
+* `ember-template-lint`
+  * [#3100](https://github.com/ember-template-lint/ember-template-lint/pull/3100) Migrate from Jest to Vitest ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3096](https://github.com/ember-template-lint/ember-template-lint/pull/3096) Add Release plan, remove release-it ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3097](https://github.com/ember-template-lint/ember-template-lint/pull/3097) Fix node version (node 22 instead of node 21) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 4
+- David Taylor ([@davidtaylorhq](https://github.com/davidtaylorhq))
+- Edward Faulkner ([@ef4](https://github.com/ef4))
+- Simon Ihmig ([@simonihmig](https://github.com/simonihmig))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 
 
 

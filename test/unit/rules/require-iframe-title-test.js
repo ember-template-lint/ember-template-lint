@@ -29,7 +29,7 @@ generateRuleTests({
               "message": "This title is not unique. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "title=\\"foo\\"",
+              "source": "title="foo"",
             },
             {
               "column": 22,
@@ -37,10 +37,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "<iframe> elements must have a unique title property. Value title=\\"foo\\" already used for different iframe. #1",
+              "message": "<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe title=\\"foo\\" />",
+              "source": "<iframe title="foo" />",
             },
           ]
         `);
@@ -61,7 +61,7 @@ generateRuleTests({
               "message": "This title is not unique. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "title=\\"foo\\"",
+              "source": "title="foo"",
             },
             {
               "column": 44,
@@ -69,10 +69,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "<iframe> elements must have a unique title property. Value title=\\"foo\\" already used for different iframe. #1",
+              "message": "<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe title=\\"foo\\" />",
+              "source": "<iframe title="foo" />",
             },
             {
               "column": 30,
@@ -83,7 +83,7 @@ generateRuleTests({
               "message": "This title is not unique. #2",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "title=\\"boo\\"",
+              "source": "title="boo"",
             },
             {
               "column": 66,
@@ -91,10 +91,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "<iframe> elements must have a unique title property. Value title=\\"boo\\" already used for different iframe. #2",
+              "message": "<iframe> elements must have a unique title property. Value title="boo" already used for different iframe. #2",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe title=\\"boo\\" />",
+              "source": "<iframe title="boo" />",
             },
           ]
         `);
@@ -115,7 +115,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" />",
+              "source": "<iframe src="12" />",
             },
           ]
         `);
@@ -136,7 +136,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" title={{false}} />",
+              "source": "<iframe src="12" title={{false}} />",
             },
           ]
         `);
@@ -157,7 +157,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" title=\\"{{false}}\\" />",
+              "source": "<iframe src="12" title="{{false}}" />",
             },
           ]
         `);
@@ -178,7 +178,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" title=\\"\\" />",
+              "source": "<iframe src="12" title="" />",
             },
           ]
         `);

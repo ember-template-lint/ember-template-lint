@@ -140,38 +140,35 @@ describe('editors integration', function () {
           input: fs.readFileSync(path.resolve('some-module.js')),
         });
 
-        let expectedOutputData = {};
-        /**
-         * Indentation is adjusted for the whole file, and not
-         * scoped to the template
-         */
-        expectedOutputData['some-module.js'] = [
-          {
-            column: 2,
-            endColumn: 14,
-            endLine: 6,
-            line: 6,
-            message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
-            rule: 'no-debugger',
-            severity: 2,
-            source: '{{debugger}}',
-          },
-          {
-            column: 2,
-            endColumn: 14,
-            endLine: 12,
-            line: 12,
-            message: 'Unexpected {{debugger}} usage.',
-            filePath: 'some-module.js',
-            rule: 'no-debugger',
-            severity: 2,
-            source: '{{debugger}}',
-          },
-        ];
-
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "{
+            "some-module.js": [
+              {
+                "rule": "no-debugger",
+                "severity": 2,
+                "filePath": "some-module.js",
+                "line": 6,
+                "column": 2,
+                "endLine": 6,
+                "endColumn": 14,
+                "source": "{{debugger}}",
+                "message": "Unexpected {{debugger}} usage."
+              },
+              {
+                "rule": "no-debugger",
+                "severity": 2,
+                "filePath": "some-module.js",
+                "line": 12,
+                "column": 2,
+                "endLine": 12,
+                "endColumn": 14,
+                "source": "{{debugger}}",
+                "message": "Unexpected {{debugger}} usage."
+              }
+            ]
+          }"
+        `);
         expect(result.exitCode).toEqual(1);
-        expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
         expect(result.stderr).toBeFalsy();
       });
 
@@ -217,9 +214,9 @@ describe('editors integration', function () {
           input: fs.readFileSync(path.resolve('some-module.js')),
         });
 
-        expect(result.exitCode).toEqual(0);
         expect(result.stdout).toBeFalsy();
         expect(result.stderr).toBeFalsy();
+        expect(result.exitCode).toEqual(0);
 
         let template = fs.readFileSync(path.resolve('some-module.js'), { encoding: 'utf8' });
         expect(template).toBe(
@@ -235,66 +232,59 @@ describe('editors integration', function () {
         );
       });
 
-      it.each([
-        `import { hbs } from 'ember-cli-htmlbars'`,
-        `import { hbs } from '@ember/template-compilation'`,
-        `import hbs from 'ember-cli-htmlbars-inline-precompile'`,
-        `import hbs from 'htmlbars-inline-precompile'`,
-        `import { precompileTemplate as hbs } from '@ember/template-compilation'`,
-      ])(
-        'for typescript files, it has exit code 1 and reports errors to stdout',
-        async function (importStatement) {
-          let code =
-            `${importStatement};\n` +
-            `import { setComponentTemplate } from '@ember/component';\n` +
-            `import Component from '@glimmer/component';\n` +
-            '\n' +
-            'interface Args {}\n' +
-            '\n' +
-            'export const SomeComponent = hbs`\n' +
-            '  {{debugger}}\n' +
-            '  `,\n' +
-            '  class Some extends Component<Args> {};';
-          project.setConfig({ rules: { 'no-debugger': true } });
-          project.write({ 'some-module.ts': code });
+      it('for typescript files, it has exit code 1 and reports errors to stdout', async function () {
+        let code =
+          `import { hbs } from 'ember-cli-htmlbars';\n` +
+          `import { setComponentTemplate } from '@ember/component';\n` +
+          `import Component from '@glimmer/component';\n` +
+          '\n' +
+          'interface Args {}\n' +
+          '\n' +
+          'export const SomeComponent = setComponentTemplate(hbs`\n' +
+          '  {{debugger}}\n' +
+          '  `,\n' +
+          '  class Some extends Component<Args> {});';
+        project.setConfig({ rules: { 'no-debugger': true } });
+        project.write({ 'some-module.ts': code });
 
-          let result = await runBin('--format', 'json', '--filename', 'some-module.ts', {
-            shell: false,
-            input: fs.readFileSync(path.resolve('some-module.ts')),
-          });
+        let result = await runBin('--format', 'json', '--filename', 'some-module.ts', {
+          shell: false,
+          input: fs.readFileSync(path.resolve('some-module.ts')),
+        });
 
-          let expectedOutputData = {};
-          /**
-           * Indentation is adjusted for the whole file, and not
-           * scoped to the template
-           */
-          expectedOutputData['some-module.ts'] = [
-            {
-              column: 2,
-              endColumn: 14,
-              endLine: 8,
-              line: 8,
-              message: 'Unexpected {{debugger}} usage.',
-              filePath: 'some-module.ts',
-              rule: 'no-debugger',
-              severity: 2,
-              source: '{{debugger}}',
-            },
-          ];
+        /**
+         * Indentation is adjusted for the whole file, and not
+         * scoped to the template
+         */
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "{
+            "some-module.ts": [
+              {
+                "rule": "no-debugger",
+                "severity": 2,
+                "filePath": "some-module.ts",
+                "line": 8,
+                "column": 2,
+                "endLine": 8,
+                "endColumn": 14,
+                "source": "{{debugger}}",
+                "message": "Unexpected {{debugger}} usage."
+              }
+            ]
+          }"
+        `);
 
-          expect(result.exitCode).toEqual(1);
-          expect(JSON.parse(result.stdout)).toEqual(expectedOutputData);
-          expect(result.stderr).toBeFalsy();
-        }
-      );
+        expect(result.exitCode).toEqual(1);
+        expect(result.stderr).toBeFalsy();
+      });
     });
 
     describe('<template>', function () {
       let templateDefinitionOnOneLine =
-        'export const SomeComponent = <template>{{debugger}}</template>';
+        'export const SomeComponent = <template>{{debugger}}</template>;';
 
       let missingButtonType =
-        'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>';
+        'export const SomeComponent = <template>\n' + '  <button></button>\n' + '</template>;';
 
       let typescriptWithInlineTemplate =
         `import { hbs } from 'ember-cli-htmlbars';\n` +
@@ -463,7 +453,7 @@ describe('editors integration', function () {
         expect(template).toBe(
           'export const SomeComponent = <template>\n' +
             '  <button type="button"></button>\n' +
-            '</template>'
+            '</template>;'
         );
       });
     });

@@ -41,7 +41,7 @@ generateRuleTests({
               "message": "Unnecessary curly braces around string",
               "rule": "no-unnecessary-curly-strings",
               "severity": 2,
-              "source": "{{\\"btn\\"}}",
+              "source": "{{"btn"}}",
             },
             {
               "column": 32,
@@ -76,7 +76,7 @@ generateRuleTests({
               "message": "Unnecessary curly braces around string",
               "rule": "no-unnecessary-curly-strings",
               "severity": 2,
-              "source": "{{\\"Foo\\"}}",
+              "source": "{{"Foo"}}",
             },
           ]
         `);

@@ -1,11 +1,12 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
+
 import { todoStorageFileExists, writeTodos, readTodoData } from '@lint-todo/utils';
 import { differenceInDays, subDays } from 'date-fns';
 
 import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
-jest.setTimeout(10_000);
+vi.setConfig({ testTimeout: 10_000 });
 
 function buildReadOptions() {
   return { engine: 'ember-template-lint' };
@@ -174,7 +175,12 @@ describe('todo usage', () => {
       result = await runBin('.');
 
       expect(result.exitCode).toEqual(0);
-      expect(result.stdout).toEqual('');
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        "
+      `);
     });
 
     it('does not remove todos from another engine', async function () {
@@ -335,7 +341,10 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/require-button-type.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/require-button-type.hbs
             -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
@@ -349,7 +358,12 @@ describe('todo usage', () => {
         result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toEqual('');
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
 
@@ -385,7 +399,10 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/require-button-type.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/require-button-type.hbs
             -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
@@ -399,7 +416,12 @@ describe('todo usage', () => {
         result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toEqual('');
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
     });
@@ -440,7 +462,10 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/require-button-type.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/require-button-type.hbs
             -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
@@ -454,7 +479,12 @@ describe('todo usage', () => {
         result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toEqual('');
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
 
@@ -490,7 +520,10 @@ describe('todo usage', () => {
 
         expect(result.exitCode).toEqual(1);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "app/templates/require-button-type.hbs
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          app/templates/require-button-type.hbs
             -:-  error  Todo violation passes \`require-button-type\` rule. Please run \`npx ember-template-lint app/templates/require-button-type.hbs --clean-todo\` to remove this todo from the todo list.  invalid-todo-violation-rule
 
           ✖ 1 problems (1 errors, 0 warnings)
@@ -504,7 +537,12 @@ describe('todo usage', () => {
         result = await runBin('.');
 
         expect(result.exitCode).toEqual(0);
-        expect(result.stdout).toEqual('');
+        expect(result.stdout).toMatchInlineSnapshot(`
+          "Linting 1 Total Files with TemplateLint
+          	.hbs: 1
+
+          "
+        `);
         expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
       });
     });
@@ -526,7 +564,12 @@ describe('todo usage', () => {
       let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
-        `"✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+        `
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        ✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"
+      `
       );
     });
 
@@ -550,7 +593,12 @@ describe('todo usage', () => {
       // running again should return no results
       let result = await runBin('.');
 
-      expect(result.stdout).toEqual('');
+      expect(result.stdout).toMatchInlineSnapshot(`
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        "
+      `);
     });
 
     it('with --update-todo but no todos, outputs todos created summary', async function () {
@@ -570,7 +618,12 @@ describe('todo usage', () => {
       let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
-        `"✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+        `
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        ✔ 0 todos created, 0 todos removed (warn after 30, error after 60 days)"
+      `
       );
     });
 
@@ -591,7 +644,12 @@ describe('todo usage', () => {
       let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
-        `"✔ 1 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+        `
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        ✔ 1 todos created, 0 todos removed (warn after 30, error after 60 days)"
+      `
       );
     });
 
@@ -613,7 +671,12 @@ describe('todo usage', () => {
       let result = await runBin('.', '--update-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(
-        `"✔ 2 todos created, 0 todos removed (warn after 30, error after 60 days)"`
+        `
+        "Linting 2 Total Files with TemplateLint
+        	.hbs: 2
+
+        ✔ 2 todos created, 0 todos removed (warn after 30, error after 60 days)"
+      `
       );
     });
 
@@ -634,7 +697,12 @@ describe('todo usage', () => {
       let result = await runBin('.', '--update-todo', '--todo-days-to-warn', '10');
 
       expect(result.stdout).toMatchInlineSnapshot(
-        `"✔ 1 todos created, 0 todos removed (warn after 10 days)"`
+        `
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        ✔ 1 todos created, 0 todos removed (warn after 10 days)"
+      `
       );
     });
 
@@ -655,7 +723,12 @@ describe('todo usage', () => {
       let result = await runBin('.', '--update-todo', '--todo-days-to-error', '10');
 
       expect(result.stdout).toMatchInlineSnapshot(
-        `"✔ 1 todos created, 0 todos removed (error after 10 days)"`
+        `
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        ✔ 1 todos created, 0 todos removed (error after 10 days)"
+      `
       );
     });
 
@@ -683,7 +756,12 @@ describe('todo usage', () => {
       );
 
       expect(result.stdout).toMatchInlineSnapshot(
-        `"✔ 1 todos created, 0 todos removed (warn after 5, error after 10 days)"`
+        `
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        ✔ 1 todos created, 0 todos removed (warn after 5, error after 10 days)"
+      `
       );
     });
 
@@ -704,7 +782,10 @@ describe('todo usage', () => {
       let result = await runBin('.', '--update-todo', '--include-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(`
-        "app/templates/application.hbs
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        app/templates/application.hbs
           1:5  todo  Non-translated string used  no-bare-strings
 
         ✖ 1 problems (0 errors, 0 warnings, 1 todos)
@@ -733,7 +814,10 @@ describe('todo usage', () => {
       let result = await runBin('.', '--include-todo');
 
       expect(result.stdout).toMatchInlineSnapshot(`
-        "app/templates/application.hbs
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        app/templates/application.hbs
           1:5  todo  Non-translated string used  no-bare-strings
 
         ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
@@ -765,7 +849,10 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-        "app/templates/application.hbs
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        app/templates/application.hbs
           1:5  error  Non-translated string used  no-bare-strings
 
         ✖ 1 problems (1 errors, 0 warnings)"
@@ -796,7 +883,10 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-        "app/templates/application.hbs
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        app/templates/application.hbs
           1:5  error  Non-translated string used  no-bare-strings
 
         ✖ 1 problems (1 errors, 0 warnings)"
@@ -827,7 +917,10 @@ describe('todo usage', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toMatchInlineSnapshot(`
-        "app/templates/application.hbs
+        "Linting 1 Total Files with TemplateLint
+        	.hbs: 1
+
+        app/templates/application.hbs
           1:5  error  Non-translated string used  no-bare-strings
 
         ✖ 1 problems (1 errors, 0 warnings)"
@@ -891,13 +984,16 @@ describe('todo usage', () => {
           let result = await runBin('.', '--clean-todo');
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/require-button-type.hbs
-              1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type
-
-            ✖ 1 problems (1 errors, 0 warnings)
-              1 errors and 0 warnings potentially fixable with the \`--fix\` option."
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/require-button-type.hbs',
+            '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
+            '',
+            '✖ 1 problems (1 errors, 0 warnings)',
+            '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
+          ]);
           expect(readTodoData(project.baseDir, buildReadOptions()).size).toEqual(0);
         });
 
@@ -1303,12 +1399,15 @@ describe('todo usage', () => {
           result = await runBin('.', '--include-todo');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  todo  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/application.hbs',
+            '  1:5  todo  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 0 warnings, 1 todos)',
+          ]);
         });
 
         it('should set to todo if errorDate is not expired', async function () {
@@ -1334,12 +1433,15 @@ describe('todo usage', () => {
           result = await runBin('.', '--include-todo');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  todo  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 0 warnings, 1 todos)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/application.hbs',
+            '  1:5  todo  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 0 warnings, 1 todos)',
+          ]);
         });
 
         it('should set todo to warn if warnDate has expired via config', async function () {
@@ -1369,12 +1471,15 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  warning  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 1 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/application.hbs',
+            '  1:5  warning  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 1 warnings)',
+          ]);
         });
 
         it('should set todo to warn if warnDate has expired via option', async function () {
@@ -1400,12 +1505,15 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  warning  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 1 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/application.hbs',
+            '  1:5  warning  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 1 warnings)',
+          ]);
         });
 
         it('should set todo to warn if warnDate has expired but errorDate has not', async function () {
@@ -1436,12 +1544,15 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(0);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  warning  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (0 errors, 1 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/application.hbs',
+            '  1:5  warning  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (0 errors, 1 warnings)',
+          ]);
         });
 
         it('should set todo to error if errorDate has expired via config', async function () {
@@ -1471,12 +1582,15 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  error  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (1 errors, 0 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/application.hbs',
+            '  1:5  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (1 errors, 0 warnings)',
+          ]);
         });
 
         it('should set todo to error if both warnDate and errorDate have expired via config', async function () {
@@ -1507,12 +1621,15 @@ describe('todo usage', () => {
           const result = await runBin('.');
 
           expect(result.exitCode).toEqual(1);
-          expect(result.stdout).toMatchInlineSnapshot(`
-            "app/templates/application.hbs
-              1:5  error  Non-translated string used  no-bare-strings
-
-            ✖ 1 problems (1 errors, 0 warnings)"
-          `);
+          expect(result.stdout.split('\n')).deep.toEqual([
+            'Linting 1 Total Files with TemplateLint',
+            '\t.hbs: 1',
+            '',
+            'app/templates/application.hbs',
+            '  1:5  error  Non-translated string used  no-bare-strings',
+            '',
+            '✖ 1 problems (1 errors, 0 warnings)',
+          ]);
         });
 
         if (!isLegacy) {

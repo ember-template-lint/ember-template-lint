@@ -29,6 +29,11 @@ generateRuleTests({
       config: { additionalNonSemanticTags: ['custom-element'] },
       template: `<button><div>item1</div><custom-element>item2</custom-element></button>`,
     },
+    `
+      <MyButton role="tab">
+        <:default>Button text</:default>
+      </MyButton>
+    `,
   ],
 
   bad: [

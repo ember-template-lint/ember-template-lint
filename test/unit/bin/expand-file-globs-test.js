@@ -1,3 +1,5 @@
+import micromatch from 'micromatch';
+
 import { expandFileGlobs } from '../../../lib/helpers/cli.js';
 import { setupProject, teardownProject } from '../../helpers/bin-tester.js';
 
@@ -16,7 +18,7 @@ describe('expandFileGlobs', function () {
     it('resolves a basic pattern (different working directory)', async function () {
       await project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(project.baseDir, ['application.hbs'], []);
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], [], {});
       expect(files).toEqual(new Set(['application.hbs']));
     });
 
@@ -29,7 +31,13 @@ describe('expandFileGlobs', function () {
         throw new Error('Should not use globbing for exact file matches');
       }
 
-      let files = expandFileGlobs(project.baseDir, ['application.foobarbaz'], ignorePatterns, glob);
+      let files = expandFileGlobs(
+        project.baseDir,
+        ['application.foobarbaz'],
+        ignorePatterns,
+        {},
+        glob
+      );
       expect(files).toEqual(new Set(['application.foobarbaz']));
     });
 
@@ -39,7 +47,8 @@ describe('expandFileGlobs', function () {
       let files = expandFileGlobs(
         project.baseDir,
         ['application.hbs', 'other.hbs'],
-        ['application.hbs']
+        ['application.hbs'],
+        {}
       );
       expect(files).toEqual(new Set(['other.hbs']));
     });
@@ -48,7 +57,7 @@ describe('expandFileGlobs', function () {
       project.chdir();
       await project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(project.baseDir, ['application.hbs'], []);
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], [], {});
       expect(files).toEqual(new Set(['application.hbs']));
     });
 
@@ -61,7 +70,13 @@ describe('expandFileGlobs', function () {
         throw new Error('Should not use globbing for exact file matches');
       }
 
-      let files = expandFileGlobs(project.baseDir, ['application.foobarbaz'], ignorePatterns, glob);
+      let files = expandFileGlobs(
+        project.baseDir,
+        ['application.foobarbaz'],
+        ignorePatterns,
+        {},
+        glob
+      );
       expect(files).toEqual(new Set(['application.foobarbaz']));
     });
 
@@ -69,7 +84,17 @@ describe('expandFileGlobs', function () {
       project.chdir();
       await project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(project.baseDir, ['application.hbs'], ['application.hbs']);
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], ['application.hbs'], {});
+      expect(files).toEqual(new Set([]));
+    });
+
+    it('respects a basic ignore option in config', async function () {
+      project.chdir();
+      await project.write({ 'application.hbs': 'almost empty' });
+
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], [], {
+        ignore: [micromatch.matcher('application.hbs')],
+      });
       expect(files).toEqual(new Set([]));
     });
 
@@ -78,9 +103,9 @@ describe('expandFileGlobs', function () {
       await project.write({ 'application.hbs': 'almost empty' });
 
       expect(() =>
-        expandFileGlobs(project.baseDir, ['other.hbs'], [])
+        expandFileGlobs(project.baseDir, ['other.hbs'], [], {})
       ).toThrowErrorMatchingInlineSnapshot(
-        `"No files matching the pattern were found: \\"other.hbs\\""`
+        `[NoMatchingFilesError: No files matching the pattern were found: "other.hbs"]`
       );
     });
   });
@@ -93,7 +118,7 @@ describe('expandFileGlobs', function () {
     it('resolves a glob pattern', async function () {
       await project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(project.baseDir, ['*'], []);
+      let files = expandFileGlobs(project.baseDir, ['*'], [], {});
       expect(files.has('application.hbs')).toBe(true);
     });
 
@@ -105,14 +130,14 @@ describe('expandFileGlobs', function () {
         throw new Error('Should not use globbing for exact file matches');
       }
 
-      let files = expandFileGlobs(project.baseDir, ['application.hbs'], ignorePatterns, glob);
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], ignorePatterns, {}, glob);
       expect(files).toEqual(new Set(['application.hbs']));
     });
 
     it('respects a glob ignore option', async function () {
       await project.write({ 'application.hbs': 'almost empty' });
 
-      let files = expandFileGlobs(project.baseDir, ['application.hbs'], ['*']);
+      let files = expandFileGlobs(project.baseDir, ['application.hbs'], ['*'], {});
       expect(files.has('application.hbs')).toBe(false);
     });
 
@@ -120,12 +145,14 @@ describe('expandFileGlobs', function () {
       await project.write({ 'application.hbs': 'almost empty' });
 
       expect(() => {
-        let files = expandFileGlobs(project.baseDir, ['*'], ['application.hbs', 'index.js']);
+        let files = expandFileGlobs(project.baseDir, ['*'], ['application.hbs', 'index.js'], {});
 
         // Debug info in case the above doesn't throw an exception
         // eslint-disable-next-line no-console
         console.log(files);
-      }).toThrowErrorMatchingInlineSnapshot(`"No files matching the pattern were found: \\"*\\""`);
+      }).toThrowErrorMatchingInlineSnapshot(
+        `[NoMatchingFilesError: No files matching the pattern were found: "*"]`
+      );
     });
   });
 });

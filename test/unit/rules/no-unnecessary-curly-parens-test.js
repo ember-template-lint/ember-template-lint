@@ -16,6 +16,18 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<FooBar @x="{{index}}X{{(someHelper foo)}}" />',
+      fixedTemplate: '<FooBar @x="{{index}}X{{someHelper foo}}" />',
+    },
+    {
+      template: '<FooBar @x="{{index}}XY{{(someHelper foo)}}" />',
+      fixedTemplate: '<FooBar @x="{{index}}XY{{someHelper foo}}" />',
+    },
+    {
+      template: '<FooBar @x="{{index}}--{{(someHelper foo)}}" />',
+      fixedTemplate: '<FooBar @x="{{index}}--{{someHelper foo}}" />',
+    },
+    {
       template: '{{(concat "a" "b")}}',
       fixedTemplate: '{{concat "a" "b"}}',
 
@@ -32,7 +44,7 @@ generateRuleTests({
               "message": "Unnecessary parentheses enclosing statement",
               "rule": "no-unnecessary-curly-parens",
               "severity": 2,
-              "source": "{{(concat \\"a\\" \\"b\\")}}",
+              "source": "{{(concat "a" "b")}}",
             },
           ]
         `);
@@ -56,7 +68,7 @@ generateRuleTests({
               "message": "Unnecessary parentheses enclosing statement",
               "rule": "no-unnecessary-curly-parens",
               "severity": 2,
-              "source": "{{(helper a=\\"b\\")}}",
+              "source": "{{(helper a="b")}}",
             },
           ]
         `);

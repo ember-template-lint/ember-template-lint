@@ -81,10 +81,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"foo\\" is not alphabetized",
+              "message": "Attribute aria-label="foo" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "aria-label=\\"foo\\"",
+              "source": "aria-label="foo"",
             },
           ]
         `);
@@ -103,10 +103,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @name=\\"World\\" must go before attributes and modifiers",
+              "message": "Argument @name="World" must go before attributes and modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@name=\\"World\\"",
+              "source": "@name="World"",
             },
             {
               "column": 13,
@@ -115,10 +115,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute data-test-id=\\"Hello\\" must go after arguments",
+              "message": "Attribute data-test-id="Hello" must go after arguments",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "data-test-id=\\"Hello\\"",
+              "source": "data-test-id="Hello"",
             },
           ]
         `);
@@ -140,10 +140,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"foo\\" must go before arguments and modifiers",
+              "message": "Attribute aria-label="foo" must go before arguments and modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "aria-label=\\"foo\\"",
+              "source": "aria-label="foo"",
             },
             {
               "column": 5,
@@ -152,10 +152,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @foo=\\"1\\" must go after attributes",
+              "message": "Argument @foo="1" must go after attributes",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@foo=\\"1\\"",
+              "source": "@foo="1"",
             },
           ]
         `);
@@ -189,10 +189,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"foo\\" must go after modifiers",
+              "message": "Attribute aria-label="foo" must go after modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "aria-label=\\"foo\\"",
+              "source": "aria-label="foo"",
             },
             {
               "column": 5,
@@ -201,10 +201,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @foo=\\"1\\" must go after attributes",
+              "message": "Argument @foo="1" must go after attributes",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@foo=\\"1\\"",
+              "source": "@foo="1"",
             },
           ]
         `);
@@ -223,10 +223,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute a=\\"2\\" is not alphabetized",
+              "message": "Attribute a="2" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "a=\\"2\\"",
+              "source": "a="2"",
             },
           ]
         `);
@@ -245,10 +245,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @a=\\"2\\" is not alphabetized",
+              "message": "Argument @a="2" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@a=\\"2\\"",
+              "source": "@a="2"",
             },
           ]
         `);
@@ -291,10 +291,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute a=\\"1\\" is not alphabetized",
+              "message": "Attribute a="1" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "a=\\"1\\"",
+              "source": "a="1"",
             },
           ]
         `);
@@ -313,10 +313,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"button\\" must go after arguments",
+              "message": "Attribute aria-label="button" must go after arguments",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "aria-label=\\"button\\"",
+              "source": "aria-label="button"",
             },
             {
               "column": 5,
@@ -440,10 +440,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @foo=\\"1\\" must go before attributes and modifiers",
+              "message": "Argument @foo="1" must go before attributes and modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@foo=\\"1\\"",
+              "source": "@foo="1"",
             },
             {
               "column": 54,
@@ -452,10 +452,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute aria-label=\\"foo\\" must go after arguments",
+              "message": "Attribute aria-label="foo" must go after arguments",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "aria-label=\\"foo\\"",
+              "source": "aria-label="foo"",
             },
             {
               "column": 31,
@@ -501,10 +501,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute a=\\"1\\" is not alphabetized",
+              "message": "Attribute a="1" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "a=\\"1\\"",
+              "source": "a="1"",
             },
           ]
         `);
@@ -550,10 +550,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 3,
-              "message": "Argument @b=\\"3\\" is not alphabetized",
+              "message": "Argument @b="3" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@b=\\"3\\"",
+              "source": "@b="3"",
             },
           ]
         `);
@@ -576,10 +576,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 4,
-              "message": "Argument @c=\\"2\\" must go before attributes and modifiers",
+              "message": "Argument @c="2" must go before attributes and modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@c=\\"2\\"",
+              "source": "@c="2"",
             },
             {
               "column": 8,
@@ -628,10 +628,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 3,
-              "message": "Attribute b=\\"3\\" is not alphabetized",
+              "message": "Attribute b="3" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "b=\\"3\\"",
+              "source": "b="3"",
             },
           ]
         `);
@@ -654,10 +654,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @close={{action \\"closeModal\\"}} must go before attributes and modifiers",
+              "message": "Argument @close={{action "closeModal"}} must go before attributes and modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@close={{action \\"closeModal\\"}}",
+              "source": "@close={{action "closeModal"}}",
             },
             {
               "column": 21,
@@ -666,10 +666,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute a=\\"1\\" is not alphabetized",
+              "message": "Attribute a="1" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "a=\\"1\\"",
+              "source": "a="1"",
             },
             {
               "column": 21,
@@ -678,10 +678,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute a=\\"1\\" must go after arguments",
+              "message": "Attribute a="1" must go after arguments",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "a=\\"1\\"",
+              "source": "a="1"",
             },
           ]
         `);
@@ -725,10 +725,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @a=\\"1\\" must go before attributes and modifiers",
+              "message": "Argument @a="1" must go before attributes and modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@a=\\"1\\"",
+              "source": "@a="1"",
             },
           ]
         `);
@@ -747,10 +747,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @tagName=\\"\\" must go before attributes and modifiers",
+              "message": "Argument @tagName="" must go before attributes and modifiers",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@tagName=\\"\\"",
+              "source": "@tagName=""",
             },
             {
               "column": 5,
@@ -759,10 +759,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Attribute class=\\"asd\\" must go after arguments",
+              "message": "Attribute class="asd" must go after arguments",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "class=\\"asd\\"",
+              "source": "class="asd"",
             },
           ]
         `);
@@ -798,10 +798,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 3,
-              "message": "Attribute id=\\"op\\" must go after arguments",
+              "message": "Attribute id="op" must go after arguments",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "id=\\"op\\"",
+              "source": "id="op"",
             },
           ]
         `);
@@ -841,10 +841,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 3,
-              "message": "Attribute id=\\"op\\" must go after arguments",
+              "message": "Attribute id="op" must go after arguments",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "id=\\"op\\"",
+              "source": "id="op"",
             },
           ]
         `);
@@ -863,10 +863,10 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Argument @a=\\"a\\" is not alphabetized",
+              "message": "Argument @a="a" is not alphabetized",
               "rule": "attribute-order",
               "severity": 2,
-              "source": "@a=\\"a\\"",
+              "source": "@a="a"",
             },
           ]
         `);

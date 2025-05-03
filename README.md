@@ -102,7 +102,7 @@ Each rule has emojis denoting:
 | [no-abstract-roles](./docs/rule/no-abstract-roles.md)                                                     | ✅  |     | ⌨️  |     |
 | [no-accesskey-attribute](./docs/rule/no-accesskey-attribute.md)                                           | ✅  |     | ⌨️  | 🔧  |
 | [no-action](./docs/rule/no-action.md)                                                                     | ✅  |     |     |     |
-| [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |     |     |     |     |
+| [no-action-modifiers](./docs/rule/no-action-modifiers.md)                                                 |     |     |     | 🔧  |
 | [no-action-on-submit-button](./docs/rule/no-action-on-submit-button.md)                                   | ✅  |     |     |     |
 | [no-args-paths](./docs/rule/no-args-paths.md)                                                             | ✅  |     |     |     |
 | [no-arguments-for-html-elements](./docs/rule/no-arguments-for-html-elements.md)                           | ✅  |     |     |     |
@@ -199,6 +199,7 @@ Each rule has emojis denoting:
 | [require-media-caption](./docs/rule/require-media-caption.md)                                             | ✅  |     | ⌨️  |     |
 | [require-presentational-children](./docs/rule/require-presentational-children.md)                         | ✅  |     | ⌨️  |     |
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
+| [require-strict-mode](./docs/rule/require-strict-mode.md)                                                 |     |     |     |     |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |
 | [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     | 🔧  |
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     | 🔧  |

@@ -20,7 +20,6 @@ describe('default configurations', function () {
       }
     });
 
-    // eslint-disable-next-line jest/no-disabled-tests -- TODO: broken since ESM conversion
     it.skip('should contain only valid rule configuration', async function () {
       const { default: config } = await import(path.join(DEFAULT_CONFIG_PATH, file));
 
@@ -29,7 +28,10 @@ describe('default configurations', function () {
           config: config.rules[rule],
         };
 
-        expect(() => new rules[rule](options)).not.toThrow();
+        expect(() => {
+          let klass = rules[rule];
+          new klass(options);
+        }).not.toThrow();
       }
     });
   });

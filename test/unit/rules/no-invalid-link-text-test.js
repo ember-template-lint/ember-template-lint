@@ -20,6 +20,19 @@ generateRuleTests({
       config: { allowEmptyLinks: true },
       template: '<a href="https://myurl.com"></a>',
     },
+    // In strict mode (gjs/gts files), LinkTo is ignored even with invalid text
+    {
+      template: '<template><LinkTo>click here</LinkTo></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
+    {
+      template: '<template><LinkTo></LinkTo></template>',
+      meta: {
+        filePath: 'layout.gts',
+      },
+    },
   ],
 
   bad: [
@@ -37,7 +50,7 @@ generateRuleTests({
               "message": "Links should have descriptive text",
               "rule": "no-invalid-link-text",
               "severity": 2,
-              "source": "<a href=\\"https://myurl.com\\">click here</a>",
+              "source": "<a href="https://myurl.com">click here</a>",
             },
           ]
         `);
@@ -97,7 +110,7 @@ generateRuleTests({
               "message": "Links should have descriptive text",
               "rule": "no-invalid-link-text",
               "severity": 2,
-              "source": "<a href=\\"https://myurl.com\\"></a>",
+              "source": "<a href="https://myurl.com"></a>",
             },
           ]
         `);
@@ -117,7 +130,7 @@ generateRuleTests({
               "message": "Links should have descriptive text",
               "rule": "no-invalid-link-text",
               "severity": 2,
-              "source": "<a href=\\"https://myurl.com\\"> </a>",
+              "source": "<a href="https://myurl.com"> </a>",
             },
           ]
         `);
@@ -137,7 +150,7 @@ generateRuleTests({
               "message": "Links should have descriptive text",
               "rule": "no-invalid-link-text",
               "severity": 2,
-              "source": "<a href=\\"https://myurl.com\\"> &nbsp; 
+              "source": "<a href="https://myurl.com"> &nbsp; 
           </a>",
             },
           ]
@@ -158,7 +171,7 @@ generateRuleTests({
               "message": "Links should have descriptive text",
               "rule": "no-invalid-link-text",
               "severity": 2,
-              "source": "<a aria-labelledby=\\"\\" href=\\"https://myurl.com\\">Click here</a>",
+              "source": "<a aria-labelledby="" href="https://myurl.com">Click here</a>",
             },
           ]
         `);
@@ -178,7 +191,7 @@ generateRuleTests({
               "message": "Links should have descriptive text",
               "rule": "no-invalid-link-text",
               "severity": 2,
-              "source": "<a aria-labelledby=\\" \\" href=\\"https://myurl.com\\">Click here</a>",
+              "source": "<a aria-labelledby=" " href="https://myurl.com">Click here</a>",
             },
           ]
         `);
@@ -198,7 +211,7 @@ generateRuleTests({
               "message": "Links should have descriptive text",
               "rule": "no-invalid-link-text",
               "severity": 2,
-              "source": "<a aria-label=\\"Click here\\" href=\\"https://myurl.com\\">Click here</a>",
+              "source": "<a aria-label="Click here" href="https://myurl.com">Click here</a>",
             },
           ]
         `);
@@ -303,6 +316,27 @@ generateRuleTests({
               "severity": 2,
               "source": "{{#link-to}} &nbsp; 
           {{/link-to}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<MyLink>click here</MyLink>',
+      config: { linkComponents: ['MyLink'] },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Links should have descriptive text",
+              "rule": "no-invalid-link-text",
+              "severity": 2,
+              "source": "<MyLink>click here</MyLink>",
             },
           ]
         `);

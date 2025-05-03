@@ -31,7 +31,7 @@ generateRuleTests({
               "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
               "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "\\"mousedown\\"",
+              "source": ""mousedown"",
             },
           ]
         `);
@@ -51,7 +51,7 @@ generateRuleTests({
               "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
               "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "\\"mousedown\\"",
+              "source": ""mousedown"",
             },
           ]
         `);
@@ -72,7 +72,7 @@ generateRuleTests({
               "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
               "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "\\"mousedown\\"",
+              "source": ""mousedown"",
             },
           ]
         `);
@@ -93,7 +93,7 @@ generateRuleTests({
               "message": "Avoid binding to a pointer \`down\` event; bind to a pointer \`up\` event instead",
               "rule": "no-pointer-down-event-binding",
               "severity": 2,
-              "source": "onmousedown=\\"myFunction()\\"",
+              "source": "onmousedown="myFunction()"",
             },
           ]
         `);

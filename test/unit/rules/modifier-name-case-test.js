@@ -102,7 +102,7 @@ generateRuleTests({
               "message": "Use dasherized names for modifier invocation. Please replace \`fooBar\` with \`foo-bar\`.",
               "rule": "modifier-name-case",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -124,7 +124,7 @@ generateRuleTests({
               "message": "Use dasherized names for modifier invocation. Please replace \`fooBar\` with \`foo-bar\`.",
               "rule": "modifier-name-case",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);

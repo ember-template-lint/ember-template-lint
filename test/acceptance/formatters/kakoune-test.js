@@ -33,7 +33,10 @@ describe('Kakoune formatter', () => {
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout).toMatchInlineSnapshot(`
-      "app/templates/application.hbs:1:5: Error: Non-translated string used (no-bare-strings) 
+      "Linting 2 Total Files with TemplateLint
+      	.hbs: 2
+
+      app/templates/application.hbs:1:5: Error: Non-translated string used (no-bare-strings) 
       app/templates/application.hbs:1:26: Error: Non-translated string used (no-bare-strings) 
 
       2 problems"
@@ -61,7 +64,10 @@ describe('Kakoune formatter', () => {
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout).toMatchInlineSnapshot(`
-      "app/templates/application.hbs:1:5: Error: Non-translated string used (no-bare-strings) 
+      "Linting 1 Total Files with TemplateLint
+      	.hbs: 1
+
+      app/templates/application.hbs:1:5: Error: Non-translated string used (no-bare-strings) 
       app/templates/application.hbs:1:25: Error: Non-translated string used (no-bare-strings) 
       app/templates/application.hbs:1:54: Warning: HTML comment detected (no-html-comments) 
 
