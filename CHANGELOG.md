@@ -2,6 +2,21 @@
 
 ## Release (2025-05-03)
 
+ember-template-lint 7.4.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#2867](https://github.com/ember-template-lint/ember-template-lint/pull/2867) [BUGFIX] Update no-redundant-role: Allow combobox ARIA role ([@samridhivig](https://github.com/samridhivig))
+  * [#2475](https://github.com/ember-template-lint/ember-template-lint/pull/2475) Add test and implementation for plugin using `exports` in `package.json`. ([@rwjblue](https://github.com/rwjblue))
+  * [#3212](https://github.com/ember-template-lint/ember-template-lint/pull/3212) fix: Crash in block indentation auto-fixer ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Samridhi Vig ([@samridhivig](https://github.com/samridhivig))
+
+## Release (2025-05-03)
+
 ember-template-lint 7.4.0 (minor)
 
 #### :rocket: Enhancement
