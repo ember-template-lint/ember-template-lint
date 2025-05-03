@@ -2132,6 +2132,10 @@ generateRuleTests({
       },
     },
     {
+      template: '  <div>\n  </div>\n  <div>\n  </div>\n',
+      fixedTemplate: '<div>\n</div>\n<div>\n</div>\n',
+    },
+    {
       // Messed up indentation with if/else in embedded template can be fixed
       template: [
         '<template>',
