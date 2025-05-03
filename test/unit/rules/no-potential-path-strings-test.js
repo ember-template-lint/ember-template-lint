@@ -11,6 +11,9 @@ generateRuleTests({
     '<img src={{this.picture}}>',
     '<img src={{@img}}>',
     '<SomeComponent @foo={{@bar}} />',
+    '<Ui::Demo @title="@my-org/my-package" />',
+    '<Ui::Demo @title="@my-org\\my-package" />',
+    '<Ui::Demo @title="@my-org|my-package" />',
   ],
 
   bad: [
