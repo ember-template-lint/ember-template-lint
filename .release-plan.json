@@ -1,17 +1,17 @@
 {
   "solution": {
     "ember-template-lint": {
-      "impact": "minor",
-      "oldVersion": "7.3.0",
-      "newVersion": "7.4.0",
+      "impact": "patch",
+      "oldVersion": "7.4.0",
+      "newVersion": "7.4.1",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-05-03)\n\nember-template-lint 7.4.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#2978](https://github.com/ember-template-lint/ember-template-lint/pull/2978) Add new rule `no-jsx-attributes` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#3203](https://github.com/ember-template-lint/ember-template-lint/pull/3203) Closes [#2386](https://github.com/ember-template-lint/ember-template-lint/issues/2386) - list summary in interactive elements ([@lifeart](https://github.com/lifeart))\n  * [#3205](https://github.com/ember-template-lint/ember-template-lint/pull/3205) Closes [#1728](https://github.com/ember-template-lint/ember-template-lint/issues/1728) support absolute paths in no-this-in-template-only-components ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 2\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-05-03)\n\nember-template-lint 7.4.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#2867](https://github.com/ember-template-lint/ember-template-lint/pull/2867) [BUGFIX] Update no-redundant-role: Allow combobox ARIA role ([@samridhivig](https://github.com/samridhivig))\n  * [#2475](https://github.com/ember-template-lint/ember-template-lint/pull/2475) Add test and implementation for plugin using `exports` in `package.json`. ([@rwjblue](https://github.com/rwjblue))\n  * [#3212](https://github.com/ember-template-lint/ember-template-lint/pull/3212) fix: Crash in block indentation auto-fixer ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 3\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n- Robert Jackson ([@rwjblue](https://github.com/rwjblue))\n- Samridhi Vig ([@samridhivig](https://github.com/samridhivig))\n"
 }
