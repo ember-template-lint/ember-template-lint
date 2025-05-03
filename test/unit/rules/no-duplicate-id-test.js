@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-duplicate-id',
@@ -10,10 +8,18 @@ generateRuleTests({
   good: [
     // Unique sibling TextNode IDs
     '<div id="id-00"></div><div id="id-01"></div>',
+    '<div id={{unique-id}}></div><div id={{unique-id}}></div>',
+
+    // Built-in helpers:
+    '<div id="{{unique-id}}"></div><div id="{{unique-id}}"></div>',
+    "<div id='{{unique-id}}'></div><div id='{{unique-id}}'></div>",
+
+    // argument-less helpers have to be invoked with parens
+    '<div id="{{(unique-id)}}"></div><div id="{{(unique-id)}}"></div>',
+    '<div id={{(unique-id)}}></div><div id={{(unique-id)}}></div>',
 
     // Mustache Statements
     '<div id={{"id-00"}}></div>',
-    '<div id={{"id-00"}}></div><div id={{"id-01"}}></div>',
     '<div id={{this.divId00}}></div>',
     '<div id={{this.divId00}}></div><div id={{this.divId01}}></div>',
 
@@ -144,8 +150,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id="id-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 37,
               "endLine": 1,
@@ -154,7 +160,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -164,8 +170,8 @@ generateRuleTests({
       template: '<div><div id="id-01"></div></div><div><div id="id-01"></div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 43,
               "endColumn": 53,
               "endLine": 1,
@@ -174,7 +180,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-01\\"",
+              "source": "id="id-01"",
             },
           ]
         `);
@@ -184,8 +190,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id={{"id-00"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 41,
               "endLine": 1,
@@ -194,7 +200,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id={{\\"id-00\\"}}",
+              "source": "id={{"id-00"}}",
             },
           ]
         `);
@@ -204,8 +210,8 @@ generateRuleTests({
       template: '<div id={{"id-00"}}></div><div id="id-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 31,
               "endColumn": 41,
               "endLine": 1,
@@ -214,7 +220,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -224,8 +230,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id="id-{{"00"}}"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 43,
               "endLine": 1,
@@ -234,7 +240,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-{{\\"00\\"}}\\"",
+              "source": "id="id-{{"00"}}"",
             },
           ]
         `);
@@ -244,8 +250,8 @@ generateRuleTests({
       template: '<div id="id-00"></div><div id="{{"id"}}-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 43,
               "endLine": 1,
@@ -254,7 +260,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"{{\\"id\\"}}-00\\"",
+              "source": "id="{{"id"}}-00"",
             },
           ]
         `);
@@ -264,8 +270,8 @@ generateRuleTests({
       template: '<div id="id-00"></div>{{#foo elementId="id-00"}}{{/foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 56,
               "endLine": 1,
@@ -274,7 +280,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+              "source": "{{#foo elementId="id-00"}}{{/foo}}",
             },
           ]
         `);
@@ -284,8 +290,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-00"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 39,
               "endColumn": 49,
               "endLine": 1,
@@ -294,7 +300,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -304,8 +310,8 @@ generateRuleTests({
       template: '<div id={{"id-00"}}></div>{{#foo elementId="id-00"}}{{/foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 26,
               "endColumn": 60,
               "endLine": 1,
@@ -314,7 +320,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+              "source": "{{#foo elementId="id-00"}}{{/foo}}",
             },
           ]
         `);
@@ -324,8 +330,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id={{"id-00"}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 39,
               "endColumn": 53,
               "endLine": 1,
@@ -334,7 +340,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id={{\\"id-00\\"}}",
+              "source": "id={{"id-00"}}",
             },
           ]
         `);
@@ -344,8 +350,8 @@ generateRuleTests({
       template: '<div id="id-{{"00"}}"></div>{{#foo elementId="id-00"}}{{/foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 28,
               "endColumn": 62,
               "endLine": 1,
@@ -354,7 +360,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+              "source": "{{#foo elementId="id-00"}}{{/foo}}",
             },
           ]
         `);
@@ -364,8 +370,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}<div id="id-{{"00"}}"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 39,
               "endColumn": 55,
               "endLine": 1,
@@ -374,7 +380,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-{{\\"00\\"}}\\"",
+              "source": "id="id-{{"00"}}"",
             },
           ]
         `);
@@ -384,8 +390,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}{{#bar elementId="id-00"}}{{/bar}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 68,
               "endLine": 1,
@@ -394,7 +400,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#bar elementId=\\"id-00\\"}}{{/bar}}",
+              "source": "{{#bar elementId="id-00"}}{{/bar}}",
             },
           ]
         `);
@@ -404,8 +410,8 @@ generateRuleTests({
       template: '{{foo id="id-00"}}{{foo id="id-00"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 36,
               "endLine": 1,
@@ -414,7 +420,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{foo id=\\"id-00\\"}}",
+              "source": "{{foo id="id-00"}}",
             },
           ]
         `);
@@ -424,8 +430,8 @@ generateRuleTests({
       template: '<div id={{1234}}></div><div id={{1234}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 28,
               "endColumn": 39,
               "endLine": 1,
@@ -444,8 +450,8 @@ generateRuleTests({
       template: '<div id={{this.divId00}}></div><div id={{this.divId00}}></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 36,
               "endColumn": 55,
               "endLine": 1,
@@ -465,8 +471,8 @@ generateRuleTests({
         '<div id="partA{{partB}}{{"partC"}}"></div><div id="{{"partA"}}{{partB}}partC"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 47,
               "endColumn": 77,
               "endLine": 1,
@@ -475,7 +481,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"{{\\"partA\\"}}{{partB}}partC\\"",
+              "source": "id="{{"partA"}}{{partB}}partC"",
             },
           ]
         `);
@@ -485,8 +491,8 @@ generateRuleTests({
       template: '{{#foo elementId="id-00"}}{{/foo}}{{bar elementId="id-00"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 59,
               "endLine": 1,
@@ -495,7 +501,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{bar elementId=\\"id-00\\"}}",
+              "source": "{{bar elementId="id-00"}}",
             },
           ]
         `);
@@ -505,8 +511,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}{{bar id="id-00"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 45,
               "endLine": 1,
@@ -515,7 +521,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{bar id=\\"id-00\\"}}",
+              "source": "{{bar id="id-00"}}",
             },
           ]
         `);
@@ -525,8 +531,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}<Bar id="id-00" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 32,
               "endColumn": 42,
               "endLine": 1,
@@ -535,7 +541,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -545,8 +551,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}<Bar @id="id-00" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 32,
               "endColumn": 43,
               "endLine": 1,
@@ -555,7 +561,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "@id=\\"id-00\\"",
+              "source": "@id="id-00"",
             },
           ]
         `);
@@ -565,8 +571,8 @@ generateRuleTests({
       template: '{{#foo id="id-00"}}{{/foo}}<Bar @elementId="id-00" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 32,
               "endColumn": 50,
               "endLine": 1,
@@ -575,7 +581,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "@elementId=\\"id-00\\"",
+              "source": "@elementId="id-00"",
             },
           ]
         `);
@@ -592,8 +598,8 @@ generateRuleTests({
     `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 4,
@@ -617,8 +623,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 25,
               "endLine": 4,
@@ -627,7 +633,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -644,8 +650,8 @@ generateRuleTests({
     `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 4,
@@ -656,7 +662,7 @@ generateRuleTests({
               "severity": 2,
               "source": "id={{this.divId00}}",
             },
-            Object {
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 6,
@@ -682,8 +688,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 26,
               "endLine": 7,
@@ -692,7 +698,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"anidhere\\"",
+              "source": "id="anidhere"",
             },
           ]
         `);
@@ -711,8 +717,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 24,
               "endLine": 9,
@@ -721,7 +727,36 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"nested\\"",
+              "source": "id="nested"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `
+        {{#if this.foo}}
+          {{#if this.other}}
+            <div id={{(hello-world)}}></div>
+          {{/if}}
+        {{else}}
+          <div id={{(hello-world)}}></div>
+        {{/if}}
+        <div id={{(hello-world)}}></div>
+      `,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 33,
+              "endLine": 9,
+              "filePath": "layout.hbs",
+              "line": 9,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{(hello-world)}}",
             },
           ]
         `);
@@ -736,8 +771,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 17,
               "endColumn": 42,
               "endLine": 4,

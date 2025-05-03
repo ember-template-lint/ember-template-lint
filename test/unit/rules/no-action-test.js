@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-action',
@@ -26,8 +24,8 @@ generateRuleTests({
       template: '<button onclick={{action "foo"}}></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 32,
               "endLine": 1,
@@ -36,7 +34,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as {{action ...}}. Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "{{action \\"foo\\"}}",
+              "source": "{{action "foo"}}",
             },
           ]
         `);
@@ -46,8 +44,8 @@ generateRuleTests({
       template: '<button {{action "submit"}}>Submit</button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 27,
               "endLine": 1,
@@ -56,7 +54,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as <button {{action ...}} />. Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "{{action \\"submit\\"}}",
+              "source": "{{action "submit"}}",
             },
           ]
         `);
@@ -66,8 +64,8 @@ generateRuleTests({
       template: '<FooBar @baz={{action "submit"}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 32,
               "endLine": 1,
@@ -76,7 +74,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as {{action ...}}. Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "{{action \\"submit\\"}}",
+              "source": "{{action "submit"}}",
             },
           ]
         `);
@@ -86,8 +84,8 @@ generateRuleTests({
       template: '{{yield (action "foo")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 22,
               "endLine": 1,
@@ -96,7 +94,7 @@ generateRuleTests({
               "message": "Do not use \`action\` as (action ...). Instead, use the \`on\` modifier and \`fn\` helper.",
               "rule": "no-action",
               "severity": 2,
-              "source": "(action \\"foo\\")",
+              "source": "(action "foo")",
             },
           ]
         `);
@@ -106,8 +104,8 @@ generateRuleTests({
       template: '{{yield (action this.foo)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 25,
               "endLine": 1,

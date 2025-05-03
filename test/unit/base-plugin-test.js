@@ -1,28 +1,30 @@
-'use strict';
+import { parse, transform } from 'ember-template-recast';
+import { readdirSync } from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const { readdirSync } = require('fs');
-const path = require('path');
+import exportedPresets from '../../lib/config/index.js';
+import EditorConfigResolver from '../../lib/get-editor-config.js';
+import determineRuleConfig from '../../lib/helpers/determine-rule-config.js';
+import { ConfigDefaults } from '../../lib/helpers/rule-test-harness.js';
+import Rule from '../../lib/rules/_base.js';
+import rules from '../../lib/rules/index.js';
+import { setupProject, teardownProject } from '../helpers/bin-tester.js';
 
-const { parse, transform } = require('ember-template-recast');
-
-const EditorConfigResolver = require('../../lib/get-editor-config');
-const { ConfigDefaults } = require('../../lib/helpers/rule-test-harness');
-const ruleNames = Object.keys(require('../../lib/rules'));
-const Project = require('../helpers/fake-project');
-const { determineRuleConfig } = require('./../../lib/get-config');
-const Rule = require('./../../lib/rules/_base');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ruleNames = Object.keys(rules);
 
 describe('base plugin', function () {
   let project, editorConfigResolver;
-  beforeEach(() => {
-    project = Project.defaultSetup();
+  beforeEach(async () => {
+    project = await setupProject();
 
     editorConfigResolver = new EditorConfigResolver(project.baseDir);
     editorConfigResolver.resolveEditorConfigFiles();
   });
 
   afterEach(() => {
-    project.dispose();
+    teardownProject();
   });
 
   async function runRules(template, rules) {
@@ -68,7 +70,9 @@ describe('base plugin', function () {
   function buildPlugin(visitor) {
     class FakeRule extends Rule {
       log(result) {
-        messages.push(result.source);
+        if (!this.isDisabled() || result.rule === 'global') {
+          messages.push(result.source);
+        }
       }
 
       process(node) {
@@ -102,7 +106,6 @@ describe('base plugin', function () {
       .filter((it) => it.ext === '.js' && it.name !== 'index')
       .map((it) => it.name);
 
-    const exportedPresets = require(path.join(presetsPath, 'index.js'));
     const exportedPresetNames = Object.keys(exportedPresets);
 
     expect(exportedPresetNames).toEqual(presetFiles);
@@ -161,6 +164,34 @@ describe('base plugin', function () {
       }
 
       await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)]);
+    });
+
+    it('throws when not passing all loc properties when logging a violation', async function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          this.log({ line: 1, column: 2, message: 'some message' });
+        }
+      }
+
+      await expect(
+        async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
+      ).rejects.toThrowErrorMatchingInlineSnapshot(
+        `[Error: ember-template-lint: (awesome-rule) Must pass the node or all loc properties (line, column, endLine, endColumn) when calling log.]`
+      );
+    });
+
+    it('throws when logging without violation message', async function () {
+      class AwesomeRule extends Rule {
+        visitor() {
+          this.log({ node: {} });
+        }
+      }
+
+      await expect(
+        async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
+      ).rejects.toThrowErrorMatchingInlineSnapshot(
+        `[Error: ember-template-lint: (awesome-rule): must provide violation \`message\` when calling log.]`
+      );
     });
 
     it('does not error when accessing editorConfig when no filePath is passed', async function () {
@@ -255,7 +286,9 @@ describe('base plugin', function () {
       });
 
       Rule.prototype.log = function (result) {
-        messages.push(result.message);
+        if (!this.isDisabled() || result.rule === 'global') {
+          messages.push(result.message);
+        }
       };
       Rule.prototype.process = function (node) {
         config = this._processInstructionNode(node);
@@ -273,24 +306,30 @@ describe('base plugin', function () {
     }
 
     // Global enable/disable
-    expectConfig('template-lint-disable', { value: false, tree: false });
-    expectConfig('template-lint-disable-tree', { value: false, tree: true });
+    expectConfig('template-lint-disable', { value: 'foo', disabled: true, tree: false });
+    expectConfig('template-lint-disable-tree', { value: 'foo', disabled: true, tree: true });
     expectConfig('template-lint-enable', { value: 'foo', tree: false });
     expectConfig('template-lint-enable-tree', { value: 'foo', tree: true });
     expectConfig('  template-lint-enable-tree ', { value: 'foo', tree: true });
 
     // Specific enable/disable
-    expectConfig('template-lint-disable fake', { value: false, tree: false });
-    expectConfig('template-lint-disable-tree "fake"', { value: false, tree: true });
-    expectConfig("template-lint-disable fake 'no-bare-strings'", { value: false, tree: false });
+    expectConfig('template-lint-disable fake', { value: 'foo', disabled: true, tree: false });
+    expectConfig('template-lint-disable-tree "fake"', { value: 'foo', disabled: true, tree: true });
+    expectConfig("template-lint-disable fake 'no-bare-strings'", {
+      value: 'foo',
+      disabled: true,
+      tree: false,
+    });
     expectConfig('template-lint-disable no-bare-strings fake block-indentation', {
-      value: false,
+      value: 'foo',
+      disabled: true,
       tree: false,
     });
     expectConfig('template-lint-disable no-bare-strings', null);
-    expectConfig(' template-lint-disable   fake ', { value: false, tree: false });
+    expectConfig(' template-lint-disable   fake ', { value: 'foo', disabled: true, tree: false });
     expectConfig('template-lint-disable   no-bare-strings    fake   block-indentation ', {
-      value: false,
+      value: 'foo',
+      disabled: true,
       tree: false,
     });
 
@@ -383,7 +422,9 @@ describe('base plugin', function () {
         });
 
         Rule.prototype.log = function (result) {
-          messages.push(result.message);
+          if (!this.isDisabled() || result.rule === 'global') {
+            messages.push(result.message);
+          }
         };
         Rule.prototype.process = function (node) {
           config = this._processInstructionNode(node);
@@ -435,7 +476,9 @@ describe('base plugin', function () {
     function buildPlugin() {
       class FakeRule extends Rule {
         log(result) {
-          messages.push(result.source);
+          if ((!this.isDisabled() || result.rule === 'global') && result.source) {
+            messages.push(result.source);
+          }
         }
 
         visitor() {
@@ -911,7 +954,7 @@ describe('base plugin', function () {
     });
 
     expectEvents({
-      desc: "it doesn't call a disabled rule's visitor handlers",
+      desc: "it doesn't call a disabled rule's visitor handlers when not reporting unused",
       template: [
         '<div id="id1">',
         '  <span id="id2" {{! template-lint-disable fake }}>',

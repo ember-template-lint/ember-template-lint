@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-heading-inside-button',
@@ -21,8 +19,8 @@ generateRuleTests({
       template: '<button><h1>Page Title</h1></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 27,
               "endLine": 1,
@@ -41,8 +39,8 @@ generateRuleTests({
       template: '<button><h2>Heading Title</h2></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 30,
               "endLine": 1,
@@ -61,8 +59,8 @@ generateRuleTests({
       template: '<button><h3>Heading Title</h3></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 30,
               "endLine": 1,
@@ -81,8 +79,8 @@ generateRuleTests({
       template: '<button><h4>Heading Title</h4></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 30,
               "endLine": 1,
@@ -101,8 +99,8 @@ generateRuleTests({
       template: '<button><h5>Heading Title</h5></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 30,
               "endLine": 1,
@@ -121,8 +119,8 @@ generateRuleTests({
       template: '<button><div><h1>Heading Title</h1></div></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 35,
               "endLine": 1,
@@ -141,8 +139,8 @@ generateRuleTests({
       template: '<button><h6>Heading Title</h6></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 30,
               "endLine": 1,
@@ -161,8 +159,8 @@ generateRuleTests({
       template: '<div role="button"><h6>Heading in a div with a role of button</h6></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 66,
               "endLine": 1,

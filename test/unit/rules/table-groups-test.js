@@ -1,7 +1,5 @@
-'use strict';
-
-const { createTableGroupsErrorMessage } = require('../../../lib/rules/table-groups');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { createTableGroupsErrorMessage } from '../../../lib/rules/table-groups.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'table-groups',
@@ -152,6 +150,21 @@ generateRuleTests({
     '<table><colgroup></colgroup><colgroup></colgroup><tbody></tbody></table>',
     {
       config: {
+        'allowed-table-components': ['sticky-table'],
+      },
+      template: `
+        <StickyTable>
+          <thead></thead>
+          <tbody></tbody>
+        </StickyTable>
+        <MyThing @tagName="table">
+          <thead></thead>
+          <tbody></tbody>
+        </MyThing>
+      `,
+    },
+    {
+      config: {
         'allowed-caption-components': ['nested/my-caption'],
         'allowed-colgroup-components': ['nested/my-colgroup'],
         'allowed-thead-components': ['nested/my-thead'],
@@ -232,8 +245,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 12,
@@ -274,8 +287,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 12,
@@ -311,8 +324,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 7,
@@ -344,8 +357,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 8,
@@ -378,8 +391,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 8,
@@ -410,8 +423,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 6,
@@ -440,8 +453,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 6,
@@ -465,8 +478,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 36,
               "endLine": 1,
@@ -486,8 +499,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 33,
               "endLine": 1,
@@ -507,8 +520,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 53,
               "endLine": 1,
@@ -528,8 +541,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 60,
               "endLine": 1,
@@ -549,8 +562,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 41,
               "endLine": 1,
@@ -569,8 +582,8 @@ generateRuleTests({
       template: '<table>{{some-component tagName="div"}}</table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 47,
               "endLine": 1,
@@ -579,7 +592,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table>{{some-component tagName=\\"div\\"}}</table>",
+              "source": "<table>{{some-component tagName="div"}}</table>",
             },
           ]
         `);
@@ -589,8 +602,8 @@ generateRuleTests({
       template: '<table>{{some-component otherProp="tbody"}}</table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -599,7 +612,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table>{{some-component otherProp=\\"tbody\\"}}</table>",
+              "source": "<table>{{some-component otherProp="tbody"}}</table>",
             },
           ]
         `);
@@ -609,8 +622,8 @@ generateRuleTests({
       template: '<table><SomeComponent @tagName="div" /></table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 47,
               "endLine": 1,
@@ -619,7 +632,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table><SomeComponent @tagName=\\"div\\" /></table>",
+              "source": "<table><SomeComponent @tagName="div" /></table>",
             },
           ]
         `);
@@ -629,8 +642,8 @@ generateRuleTests({
       template: '<table><SomeComponent @otherProp="tbody" /></table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -639,7 +652,7 @@ generateRuleTests({
               "message": "Tables must have a table group (thead, tbody or tfoot).",
               "rule": "table-groups",
               "severity": 2,
-              "source": "<table><SomeComponent @otherProp=\\"tbody\\" /></table>",
+              "source": "<table><SomeComponent @otherProp="tbody" /></table>",
             },
           ]
         `);
@@ -649,8 +662,8 @@ generateRuleTests({
       template: '<table>some text</table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
@@ -669,8 +682,8 @@ generateRuleTests({
       template: '<table><tfoot /><thead /></table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 33,
               "endLine": 1,
@@ -689,8 +702,8 @@ generateRuleTests({
       template: '<table><tbody /><caption /></table>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -714,8 +727,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 16,
               "endLine": 5,
@@ -744,8 +757,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 4,
@@ -775,8 +788,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 5,
@@ -810,8 +823,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 7,
@@ -844,8 +857,8 @@ generateRuleTests({
       `,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 6,
@@ -856,7 +869,7 @@ generateRuleTests({
               "severity": 2,
               "source": "<table>
                   <thead />
-                  <Nested::MyTbody @tagName=\\"caption\\" />
+                  <Nested::MyTbody @tagName="caption" />
                   <tbody />
                 </table>",
             },

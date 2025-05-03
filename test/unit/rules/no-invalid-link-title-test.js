@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-invalid-link-title',
@@ -23,6 +21,12 @@ generateRuleTests({
         {{svg-jar "left-pag"}}
       </LinkTo>
     `,
+    {
+      template: '<template><LinkTo>Quickstart</LinkTo></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
   ],
 
   bad: [
@@ -30,17 +34,17 @@ generateRuleTests({
       template: '<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 75,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<a href=\\"https://myurl.com\\" title=\\"read the tutorial\\">Read the Tutorial</a>",
+              "source": "<a href="https://myurl.com" title="read the tutorial">Read the Tutorial</a>",
             },
           ]
         `);
@@ -50,17 +54,17 @@ generateRuleTests({
       template: '<LinkTo title="quickstart">Quickstart</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 46,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<LinkTo title=\\"quickstart\\">Quickstart</LinkTo>",
+              "source": "<LinkTo title="quickstart">Quickstart</LinkTo>",
             },
           ]
         `);
@@ -70,8 +74,8 @@ generateRuleTests({
       template: '<LinkTo @title="foo" title="blah">derp</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 47,
               "endLine": 1,
@@ -80,7 +84,7 @@ generateRuleTests({
               "message": "Specifying title as both an attribute and an argument to <LinkTo /> is invalid.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<LinkTo @title=\\"foo\\" title=\\"blah\\">derp</LinkTo>",
+              "source": "<LinkTo @title="foo" title="blah">derp</LinkTo>",
             },
           ]
         `);
@@ -90,17 +94,17 @@ generateRuleTests({
       template: '{{#link-to title="Do the things"}}Do the things{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 59,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "{{#link-to title=\\"Do the things\\"}}Do the things{{/link-to}}",
+              "source": "{{#link-to title="Do the things"}}Do the things{{/link-to}}",
             },
           ]
         `);
@@ -110,17 +114,77 @@ generateRuleTests({
       template: '<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 73,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Title attribute values should not be the same as the link text.",
+              "message": "Title attribute values should not be the same as or part of the link text.",
               "rule": "no-invalid-link-title",
               "severity": 2,
-              "source": "<LinkTo @route=\\"some.route\\" @title=\\"Do the things\\">Do the things</LinkTo>",
+              "source": "<LinkTo @route="some.route" @title="Do the things">Do the things</LinkTo>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<a href="https://myurl.com" title="Tutorial">Read the Tutorial</a>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as or part of the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<a href="https://myurl.com" title="Tutorial">Read the Tutorial</a>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<LinkTo title="Tutorial">Read the Tutorial</LinkTo>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 51,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as or part of the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "<LinkTo title="Tutorial">Read the Tutorial</LinkTo>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{#link-to title="Tutorial"}}Read the Tutorial{{/link-to}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 58,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Title attribute values should not be the same as or part of the link text.",
+              "rule": "no-invalid-link-title",
+              "severity": 2,
+              "source": "{{#link-to title="Tutorial"}}Read the Tutorial{{/link-to}}",
             },
           ]
         `);

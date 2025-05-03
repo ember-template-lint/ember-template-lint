@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-quoteless-attributes',
@@ -22,20 +20,22 @@ generateRuleTests({
   bad: [
     {
       template: '<div data-foo=asdf></div>',
+      fixedTemplate: '<div data-foo="asdf"></div>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 14,
+          [
+            {
+              "column": 5,
               "endColumn": 18,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Attribute data-foo should be either quoted or wrapped in mustaches",
               "rule": "no-quoteless-attributes",
               "severity": 2,
-              "source": "<div data-foo=asdf></div>",
+              "source": "data-foo=asdf",
             },
           ]
         `);
@@ -43,20 +43,22 @@ generateRuleTests({
     },
     {
       template: '<SomeThing @blah=asdf />',
+      fixedTemplate: '<SomeThing @blah="asdf" />',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 17,
+          [
+            {
+              "column": 11,
               "endColumn": 21,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Argument @blah should be either quoted or wrapped in mustaches",
               "rule": "no-quoteless-attributes",
               "severity": 2,
-              "source": "<SomeThing @blah=asdf />",
+              "source": "@blah=asdf",
             },
           ]
         `);

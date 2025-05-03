@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-redundant-fn',
@@ -22,8 +20,8 @@ generateRuleTests({
       fixedTemplate: '<button {{on "click" this.handleClick}}>Click Me</button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 42,
               "endLine": 1,
@@ -44,8 +42,8 @@ generateRuleTests({
       fixedTemplate: '<SomeComponent @onClick={{this.handleClick}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 24,
               "endColumn": 47,
               "endLine": 1,
@@ -66,8 +64,8 @@ generateRuleTests({
       fixedTemplate: '{{foo bar=this.handleClick}}>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 31,
               "endLine": 1,

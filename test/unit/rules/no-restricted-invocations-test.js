@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-restricted-invocations',
@@ -51,18 +49,39 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<div {{foo}} />',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 5,
+              "endColumn": 12,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
+              "rule": "no-restricted-invocations",
+              "severity": 2,
+              "source": "{{foo}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '{{foo}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{foo}}",
@@ -76,14 +95,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '<Foo />'",
+              "message": "Cannot use disallowed helper, component or modifier '<Foo />'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "<Foo />",
@@ -97,14 +116,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 15,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{foo foo=bar}}",
@@ -118,14 +137,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 17,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{foo foo=(baz)}}",
@@ -139,14 +158,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 16,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{#foo}}{{/foo}}",
@@ -160,14 +179,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{#foo foo=bar}}{{/foo}}",
@@ -181,14 +200,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 26,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{#foo foo=(baz)}}{{/foo}}",
@@ -202,17 +221,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\"}}",
+              "source": "{{component "foo"}}",
             },
           ]
         `);
@@ -223,17 +242,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 27,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\" foo=bar}}",
+              "source": "{{component "foo" foo=bar}}",
             },
           ]
         `);
@@ -244,17 +263,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 29,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{component \\"foo\\" foo=(baz)}}",
+              "source": "{{component "foo" foo=(baz)}}",
             },
           ]
         `);
@@ -265,17 +284,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 34,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\"}}{{/component}}",
+              "source": "{{#component "foo"}}{{/component}}",
             },
           ]
         `);
@@ -286,17 +305,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 42,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\" foo=bar}}{{/component}}",
+              "source": "{{#component "foo" foo=bar}}{{/component}}",
             },
           ]
         `);
@@ -307,17 +326,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 44,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "{{#component \\"foo\\" foo=(baz)}}{{/component}}",
+              "source": "{{#component "foo" foo=(baz)}}{{/component}}",
             },
           ]
         `);
@@ -328,17 +347,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\")",
+              "source": "(component "foo")",
             },
           ]
         `);
@@ -349,17 +368,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 33,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\" foo=bar)",
+              "source": "(component "foo" foo=bar)",
             },
           ]
         `);
@@ -370,17 +389,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 35,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
-              "source": "(component \\"foo\\" foo=(baz))",
+              "source": "(component "foo" foo=(baz))",
             },
           ]
         `);
@@ -391,14 +410,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo (baz) bar)",
@@ -412,14 +431,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 24,
               "endColumn": 29,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo)",
@@ -433,14 +452,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 28,
               "endColumn": 33,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo)",
@@ -454,14 +473,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{foo}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{foo}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "(foo)",
@@ -475,14 +494,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '{{nested-scope/foo-bar}}'",
+              "message": "Cannot use disallowed helper, component or modifier '{{nested-scope/foo-bar}}'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "{{nested-scope/foo-bar}}",
@@ -496,14 +515,14 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Cannot use disallowed helper or component '<NestedScope::FooBar />'",
+              "message": "Cannot use disallowed helper, component or modifier '<NestedScope::FooBar />'",
               "rule": "no-restricted-invocations",
               "severity": 2,
               "source": "<NestedScope::FooBar/>",
@@ -517,8 +536,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
@@ -594,16 +613,6 @@ generateRuleTests({
     },
     {
       // Disallows incorrect naming format (disallows angle bracket invocation style).
-      config: ['MyComponent'],
-      template: 'test',
-
-      result: {
-        fatal: true,
-        message: 'You specified `["MyComponent"]`',
-      },
-    },
-    {
-      // Disallows incorrect naming format (disallows nested angle bracket invocation style).
       config: ['MyComponent'],
       template: 'test',
 

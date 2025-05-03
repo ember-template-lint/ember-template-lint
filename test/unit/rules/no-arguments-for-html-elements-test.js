@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-arguments-for-html-elements',
@@ -25,8 +23,8 @@ generateRuleTests({
       template: '<div @value="1"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 15,
               "endLine": 1,
@@ -35,7 +33,7 @@ generateRuleTests({
               "message": "Arguments (@value) should not be used on HTML elements (<div>).",
               "rule": "no-arguments-for-html-elements",
               "severity": 2,
-              "source": "@value=\\"1\\"",
+              "source": "@value="1"",
             },
           ]
         `);
@@ -45,8 +43,8 @@ generateRuleTests({
       template: '<div @value></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 11,
               "endLine": 1,
@@ -65,8 +63,8 @@ generateRuleTests({
       template: '<img @src="12">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -75,7 +73,7 @@ generateRuleTests({
               "message": "Arguments (@src) should not be used on HTML elements (<img>).",
               "rule": "no-arguments-for-html-elements",
               "severity": 2,
-              "source": "@src=\\"12\\"",
+              "source": "@src="12"",
             },
           ]
         `);

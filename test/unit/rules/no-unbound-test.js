@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-unbound',
@@ -15,8 +13,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 15,
               "endLine": 1,
@@ -36,8 +34,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 28,
               "endLine": 1,

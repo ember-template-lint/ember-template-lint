@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-unused-block-params',
@@ -92,8 +90,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 23,
               "endColumn": 27,
               "endLine": 1,
@@ -112,8 +110,8 @@ generateRuleTests({
       template: '{{#each cats as |cat index|}}{{cat}}{{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 29,
               "endColumn": 36,
               "endLine": 1,
@@ -137,8 +135,8 @@ generateRuleTests({
         '{{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 29,
               "endColumn": 92,
               "endLine": 1,
@@ -161,8 +159,8 @@ generateRuleTests({
         '{{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 75,
               "endColumn": 79,
               "endLine": 1,

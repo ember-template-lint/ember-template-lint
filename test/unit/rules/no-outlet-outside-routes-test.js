@@ -1,7 +1,4 @@
-'use strict';
-
-const { message } = require('../../../lib/rules/no-outlet-outside-routes');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-outlet-outside-routes',
@@ -16,51 +13,23 @@ generateRuleTests({
       meta: {
         filePath: 'app/templates/foo/route.hbs',
       },
-      result: {
-        message,
-        filePath: 'app/templates/foo/route.hbs',
-        source: '{{outlet}}',
-        line: 1,
-        column: 0,
-      },
     },
     {
       template: '{{outlet}}',
       meta: {
         filePath: 'app/templates/routes/foo.hbs',
       },
-      result: {
-        message,
-        filePath: 'app/templates/routes/foo.hbs',
-        source: '{{outlet}}',
-        line: 1,
-        column: 0,
-      },
     },
     {
       template: '{{#outlet}}Why?!{{/outlet}}',
       meta: {
         filePath: 'app/templates/foo/route.hbs',
       },
-      result: {
-        message,
-        filePath: 'app/templates/foo/route.hbs',
-        source: '{{#outlet}}Why?!{{/outlet}}',
-        line: 1,
-        column: 0,
-      },
     },
     {
       template: '{{#outlet}}Why?!{{/outlet}}',
       meta: {
         filePath: 'app/templates/routes/foo.hbs',
-      },
-      result: {
-        message,
-        filePath: 'app/templates/routes/foo.hbs',
-        source: '{{#outlet}}Why?!{{/outlet}}',
-        line: 1,
-        column: 0,
       },
     },
     {
@@ -68,25 +37,11 @@ generateRuleTests({
       meta: {
         filePath: 'app/templates/something/foo.hbs',
       },
-      result: {
-        message,
-        filePath: 'app/templates/something/foo.hbs',
-        source: '{{#outlet}}Works because ambiguous{{/outlet}}',
-        line: 1,
-        column: 0,
-      },
     },
     {
       template: '{{outlet}}',
       meta: {
         filePath: 'components/templates/application.hbs',
-      },
-      result: {
-        message,
-        filePath: 'components/templates/application.hbs',
-        source: '{{outlet}}',
-        line: 1,
-        column: 0,
       },
     },
   ],
@@ -100,8 +55,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 10,
               "endLine": 1,
@@ -125,8 +80,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 10,
               "endLine": 1,
@@ -150,8 +105,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 10,
               "endLine": 1,

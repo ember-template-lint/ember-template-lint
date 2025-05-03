@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-aria-hidden-body',
@@ -19,8 +17,8 @@ generateRuleTests({
       fixedTemplate: '<body></body>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 32,
               "endLine": 1,
@@ -30,7 +28,7 @@ generateRuleTests({
               "message": "The aria-hidden attribute should never be present on the <body> element, as it hides the entire document from assistive technology",
               "rule": "no-aria-hidden-body",
               "severity": 2,
-              "source": "<body aria-hidden=\\"true\\"></body>",
+              "source": "<body aria-hidden="true"></body>",
             },
           ]
         `);
@@ -41,8 +39,8 @@ generateRuleTests({
       fixedTemplate: '<body></body>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 25,
               "endLine": 1,

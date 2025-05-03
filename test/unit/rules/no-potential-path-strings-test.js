@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-potential-path-strings',
@@ -20,8 +18,8 @@ generateRuleTests({
       template: '<img src="this.picture">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 22,
               "endLine": 1,
@@ -40,8 +38,8 @@ generateRuleTests({
       template: '<img src=this.picture>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 9,
               "endColumn": 21,
               "endLine": 1,
@@ -60,8 +58,8 @@ generateRuleTests({
       template: '<img src="@img">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 14,
               "endLine": 1,
@@ -80,8 +78,8 @@ generateRuleTests({
       template: '<img src=@img>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 9,
               "endColumn": 13,
               "endLine": 1,
@@ -100,8 +98,8 @@ generateRuleTests({
       template: '<SomeComponent @foo=@bar />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 20,
               "endColumn": 24,
               "endLine": 1,
@@ -120,8 +118,8 @@ generateRuleTests({
       template: '<SomeComponent @foo=this.bar />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 20,
               "endColumn": 28,
               "endLine": 1,

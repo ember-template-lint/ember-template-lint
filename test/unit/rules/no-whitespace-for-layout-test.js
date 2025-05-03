@@ -1,8 +1,6 @@
 // no-whitespace-for-layout-test.js
 
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-whitespace-for-layout',
@@ -22,8 +20,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 13,
               "endLine": 1,
@@ -42,8 +40,8 @@ generateRuleTests({
       template: 'START&nbsp;&nbsp;FINISH',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 23,
               "endLine": 1,
@@ -62,8 +60,8 @@ generateRuleTests({
       template: 'START&nbsp; FINISH',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 18,
               "endLine": 1,
@@ -82,8 +80,8 @@ generateRuleTests({
       template: 'START &nbsp;FINISH',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 18,
               "endLine": 1,

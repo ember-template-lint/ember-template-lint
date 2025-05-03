@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-log',
@@ -23,8 +21,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,
@@ -44,8 +42,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 38,
               "endLine": 1,
@@ -54,7 +52,7 @@ generateRuleTests({
               "message": "Unexpected {{log}} usage.",
               "rule": "no-log",
               "severity": 2,
-              "source": "{{log \\"Logs are best for debugging!\\"}}",
+              "source": "{{log "Logs are best for debugging!"}}",
             },
           ]
         `);
@@ -65,8 +63,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -86,8 +84,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -96,7 +94,7 @@ generateRuleTests({
               "message": "Unexpected {{log}} usage.",
               "rule": "no-log",
               "severity": 2,
-              "source": "{{#log \\"Foo\\"}}{{/log}}",
+              "source": "{{#log "Foo"}}{{/log}}",
             },
           ]
         `);
@@ -107,8 +105,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 36,
               "endColumn": 51,
               "endLine": 1,
@@ -128,8 +126,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 49,
               "endLine": 1,
@@ -150,8 +148,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 51,
               "endColumn": 78,
               "endLine": 1,

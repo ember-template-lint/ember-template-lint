@@ -1,8 +1,6 @@
-'use strict';
+import { parse } from 'ember-template-recast';
 
-const { parse } = require('ember-template-recast');
-
-const AstNodeInfo = require('../../../lib/helpers/ast-node-info');
+import AstNodeInfo from '../../../lib/helpers/ast-node-info.js';
 
 describe('hasChildren', function () {
   it('functions for empty input', function () {

@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-yield-only',
@@ -13,6 +11,7 @@ generateRuleTests({
     '{{#yield}}{{/yield}}',
     '<Yield/>',
     '<yield/>',
+    '{{! template-lint-disable no-yield-only }}{{yield}}',
   ],
 
   bad: [
@@ -21,8 +20,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 9,
               "endLine": 1,
@@ -42,8 +41,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -63,10 +62,31 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 11,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "{{yield}}-only templates are not allowed",
+              "rule": "no-yield-only",
+              "severity": 2,
+              "source": "{{yield}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '\n{{! some comment }}  {{yield}}\n     ',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 21,
+              "endColumn": 30,
               "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,

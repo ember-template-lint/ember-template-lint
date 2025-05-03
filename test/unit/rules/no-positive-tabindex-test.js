@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-positive-tabindex',
@@ -28,8 +26,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 43,
               "endLine": 1,
@@ -49,8 +47,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 30,
               "endLine": 1,
@@ -59,7 +57,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"1\\"",
+              "source": "tabindex="1"",
             },
           ]
         `);
@@ -70,8 +68,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 33,
               "endLine": 1,
@@ -80,7 +78,7 @@ generateRuleTests({
               "message": "Tabindex values must be negative numeric.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"text\\"",
+              "source": "tabindex="text"",
             },
           ]
         `);
@@ -91,8 +89,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -112,8 +110,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 38,
               "endLine": 1,
@@ -122,7 +120,7 @@ generateRuleTests({
               "message": "Tabindex values must be negative numeric.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{false}}\\"",
+              "source": "tabindex="{{false}}"",
             },
           ]
         `);
@@ -133,8 +131,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 34,
               "endLine": 1,
@@ -143,7 +141,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{5}}\\"",
+              "source": "tabindex="{{5}}"",
             },
           ]
         `);
@@ -154,8 +152,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 42,
               "endLine": 1,
@@ -164,7 +162,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if a 1 -1}}\\"",
+              "source": "tabindex="{{if a 1 -1}}"",
             },
           ]
         `);
@@ -175,8 +173,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 42,
               "endLine": 1,
@@ -185,7 +183,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if a -1 1}}\\"",
+              "source": "tabindex="{{if a -1 1}}"",
             },
           ]
         `);
@@ -196,8 +194,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 39,
               "endLine": 1,
@@ -206,7 +204,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if a 1}}\\"",
+              "source": "tabindex="{{if a 1}}"",
             },
           ]
         `);
@@ -217,8 +215,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 45,
               "endLine": 1,
@@ -227,7 +225,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{if (not a) 1}}\\"",
+              "source": "tabindex="{{if (not a) 1}}"",
             },
           ]
         `);
@@ -238,8 +236,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 43,
               "endLine": 1,
@@ -248,7 +246,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{unless a 1}}\\"",
+              "source": "tabindex="{{unless a 1}}"",
             },
           ]
         `);
@@ -259,8 +257,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 46,
               "endLine": 1,
@@ -269,7 +267,7 @@ generateRuleTests({
               "message": "Avoid positive integer values for tabindex.",
               "rule": "no-positive-tabindex",
               "severity": 2,
-              "source": "tabindex=\\"{{unless a -1 1}}\\"",
+              "source": "tabindex="{{unless a -1 1}}"",
             },
           ]
         `);

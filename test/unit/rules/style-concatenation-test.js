@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'style-concatenation',
@@ -22,8 +20,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 24,
               "endLine": 1,
@@ -32,7 +30,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style=\\"{{myStyle}}\\"",
+              "source": "style="{{myStyle}}"",
             },
           ]
         `);
@@ -43,8 +41,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 38,
               "endLine": 1,
@@ -53,7 +51,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style=\\"background-image: {{url}}\\"",
+              "source": "style="background-image: {{url}}"",
             },
           ]
         `);
@@ -64,8 +62,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 37,
               "endLine": 1,
@@ -74,7 +72,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style=\\"{{background-image url}}\\"",
+              "source": "style="{{background-image url}}"",
             },
           ]
         `);
@@ -85,8 +83,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 57,
               "endLine": 1,
@@ -95,7 +93,7 @@ generateRuleTests({
               "message": "Concatenated styles must be marked as \`htmlSafe\`.",
               "rule": "style-concatenation",
               "severity": 2,
-              "source": "style={{concat knownSafeStyle1 \\";\\" knownSafeStyle2}}",
+              "source": "style={{concat knownSafeStyle1 ";" knownSafeStyle2}}",
             },
           ]
         `);

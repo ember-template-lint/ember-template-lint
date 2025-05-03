@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-has-block-helper',
@@ -25,8 +23,8 @@ generateRuleTests({
       fixedTemplate: '{{has-block}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 10,
               "endLine": 1,
@@ -47,8 +45,8 @@ generateRuleTests({
       fixedTemplate: '{{has-block-params}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 16,
               "endLine": 1,
@@ -69,8 +67,8 @@ generateRuleTests({
       fixedTemplate: '{{if (has-block) "true" "false"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 13,
               "endLine": 1,
@@ -91,8 +89,8 @@ generateRuleTests({
       fixedTemplate: '{{if (has-block-params) "true" "false"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 19,
               "endLine": 1,
@@ -113,8 +111,8 @@ generateRuleTests({
       fixedTemplate: '{{if (has-block) "true" "false"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 1,
@@ -135,8 +133,8 @@ generateRuleTests({
       fixedTemplate: '{{if (has-block-params) "true" "false"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 20,
               "endLine": 1,
@@ -157,8 +155,8 @@ generateRuleTests({
       fixedTemplate: '{{if (has-block "inverse") "true" "false"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 1,
@@ -179,8 +177,8 @@ generateRuleTests({
       fixedTemplate: '{{if (has-block-params "inverse") "true" "false"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 20,
               "endLine": 1,
@@ -201,8 +199,8 @@ generateRuleTests({
       fixedTemplate: '{{component test=(if (has-block) "true")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 29,
               "endLine": 1,
@@ -223,8 +221,8 @@ generateRuleTests({
       fixedTemplate: '{{component test=(if (has-block-params) "true")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 35,
               "endLine": 1,
@@ -245,8 +243,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (has-block)}}{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 14,
               "endLine": 1,
@@ -267,8 +265,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (has-block-params)}}{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 6,
               "endColumn": 20,
               "endLine": 1,
@@ -289,8 +287,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (has-block)}}{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 15,
               "endLine": 1,
@@ -311,8 +309,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (has-block-params)}}{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 21,
               "endLine": 1,
@@ -333,8 +331,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (has-block "inverse")}}{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 15,
               "endLine": 1,
@@ -355,8 +353,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (has-block-params "inverse")}}{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 21,
               "endLine": 1,
@@ -377,8 +375,8 @@ generateRuleTests({
       fixedTemplate: '<button name={{has-block}}></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 23,
               "endLine": 1,
@@ -399,8 +397,8 @@ generateRuleTests({
       fixedTemplate: '<button name={{has-block-params}}></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 29,
               "endLine": 1,
@@ -421,8 +419,8 @@ generateRuleTests({
       fixedTemplate: '<button name={{has-block "inverse"}}></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 23,
               "endLine": 1,
@@ -443,8 +441,8 @@ generateRuleTests({
       fixedTemplate: '<button name={{has-block-params "inverse"}}></button>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 29,
               "endLine": 1,
@@ -465,8 +463,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (or isLoading hasLoadFailed (has-block))}}...{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 42,
               "endLine": 1,
@@ -487,8 +485,8 @@ generateRuleTests({
       fixedTemplate: '{{#if (or isLoading hasLoadFailed (has-block-params))}}...{{/if}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 34,
               "endColumn": 48,
               "endLine": 1,

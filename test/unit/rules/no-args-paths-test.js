@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-args-paths',
@@ -21,14 +19,14 @@ generateRuleTests({
       template: '{{hello (format value=args.foo)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 30,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"args.foo\\" usage, try \\"@foo\\" instead.",
+              "message": "Component templates should avoid "args.foo" usage, try "@foo" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "args.foo",
@@ -41,14 +39,14 @@ generateRuleTests({
       template: '{{hello value=args.foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 14,
               "endColumn": 22,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"args.foo\\" usage, try \\"@foo\\" instead.",
+              "message": "Component templates should avoid "args.foo" usage, try "@foo" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "args.foo",
@@ -61,14 +59,14 @@ generateRuleTests({
       template: '{{hello (format args.foo.bar)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"args.foo.bar\\" usage, try \\"@foo.bar\\" instead.",
+              "message": "Component templates should avoid "args.foo.bar" usage, try "@foo.bar" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "args.foo.bar",
@@ -81,14 +79,14 @@ generateRuleTests({
       template: '<br {{hello args.foo.bar}}>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"args.foo.bar\\" usage, try \\"@foo.bar\\" instead.",
+              "message": "Component templates should avoid "args.foo.bar" usage, try "@foo.bar" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "args.foo.bar",
@@ -101,14 +99,14 @@ generateRuleTests({
       template: '{{hello args.foo.bar}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"args.foo.bar\\" usage, try \\"@foo.bar\\" instead.",
+              "message": "Component templates should avoid "args.foo.bar" usage, try "@foo.bar" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "args.foo.bar",
@@ -121,14 +119,14 @@ generateRuleTests({
       template: '{{args.foo.bar}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 14,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"args.foo.bar\\" usage, try \\"@foo.bar\\" instead.",
+              "message": "Component templates should avoid "args.foo.bar" usage, try "@foo.bar" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "args.foo.bar",
@@ -141,14 +139,14 @@ generateRuleTests({
       template: '{{args.foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 10,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"args.foo\\" usage, try \\"@foo\\" instead.",
+              "message": "Component templates should avoid "args.foo" usage, try "@foo" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "args.foo",
@@ -161,14 +159,14 @@ generateRuleTests({
       template: '{{this.args.foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 15,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Component templates should avoid \\"this.args.foo\\" usage, try \\"@foo\\" instead.",
+              "message": "Component templates should avoid "this.args.foo" usage, try "@foo" instead.",
               "rule": "no-args-paths",
               "severity": 2,
               "source": "this.args.foo",

@@ -1,5 +1,7 @@
 # require-presentational-children
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 There are roles that require all children to be presentational. This rule checks if descendants of this element with this role type are presentational. By default, browsers are required to add `role="presentation"` to all descendants, but we should not rely on browsers to do this.
 
 The roles that require all children to be presentational are:
@@ -50,6 +52,13 @@ This rule **allows** the following:
 ## Migration
 
 If violations are found, remediation should be planned to either add `role="presentation"` to the descendants as a quickfix. A better fix is to not use semantic descendants.
+
+## Configuration
+
+ The following values are valid configuration:
+
+* object -- An object with the following keys:
+  * `additionalNonSemanticTags` -- An array of additional tags that should be considered presentation
 
 ## References
 

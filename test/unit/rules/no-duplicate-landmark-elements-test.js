@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-duplicate-landmark-elements',
@@ -18,6 +16,8 @@ generateRuleTests({
     '<header></header><main></main><footer></footer>',
     '<nav aria-label="primary navigation"></nav><nav aria-label={{this.something}}></nav>',
     '<img role="none"><img role="none">',
+    "<main><header><h1>Main Page Header</h1></header><button commandfor='my-dialog'>Open Dialog</button></main><dialog id='my-dialog'><header><h1>Dialog Header</h1></header><p>Some content in the dialog.</p></dialog>",
+    "<main><header><h1>Main Page Header</h1></header><button commandfor='my-dialog'>Open Dialog</button></main><div popover id='my-dialog'><header><h1>Dialog Header</h1></header><p>Some content in the dialog.</p></div>",
   ],
 
   bad: [
@@ -25,8 +25,8 @@ generateRuleTests({
       template: '<nav></nav><nav></nav>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 11,
               "endColumn": 22,
               "endLine": 1,
@@ -45,8 +45,8 @@ generateRuleTests({
       template: '<nav></nav><div role="navigation"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 11,
               "endColumn": 40,
               "endLine": 1,
@@ -55,7 +55,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<div role=\\"navigation\\"></div>",
+              "source": "<div role="navigation"></div>",
             },
           ]
         `);
@@ -65,8 +65,8 @@ generateRuleTests({
       template: '<nav></nav><nav aria-label="secondary navigation"></nav>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 11,
               "endLine": 1,
@@ -85,8 +85,8 @@ generateRuleTests({
       template: '<main></main><div role="main"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 36,
               "endLine": 1,
@@ -95,7 +95,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<div role=\\"main\\"></div>",
+              "source": "<div role="main"></div>",
             },
           ]
         `);
@@ -105,8 +105,8 @@ generateRuleTests({
       template: '<nav aria-label="site navigation"></nav><nav aria-label="site navigation"></nav>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 40,
               "endColumn": 80,
               "endLine": 1,
@@ -115,7 +115,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<nav aria-label=\\"site navigation\\"></nav>",
+              "source": "<nav aria-label="site navigation"></nav>",
             },
           ]
         `);
@@ -125,8 +125,8 @@ generateRuleTests({
       template: '<form aria-label="search-form"></form><form aria-label="search-form"></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 38,
               "endColumn": 76,
               "endLine": 1,
@@ -135,7 +135,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<form aria-label=\\"search-form\\"></form>",
+              "source": "<form aria-label="search-form"></form>",
             },
           ]
         `);
@@ -146,8 +146,8 @@ generateRuleTests({
         '<form aria-labelledby="form-title"></form><form aria-labelledby="form-title"></form>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 42,
               "endColumn": 84,
               "endLine": 1,
@@ -156,7 +156,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<form aria-labelledby=\\"form-title\\"></form>",
+              "source": "<form aria-labelledby="form-title"></form>",
             },
           ]
         `);

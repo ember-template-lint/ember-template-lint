@@ -1,5 +1,7 @@
 # no-route-action
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 This rule disallows the usage of `route-action`.
 
 [ember-route-action-helper](https://github.com/DockYard/ember-route-action-helper) was a popular addon used to add actions to a route without creating a separate controller. Given the changes in Ember since ember-route-action-helper was a widely used pattern, controllers are now encouraged and we want to discourage the use of route-action.

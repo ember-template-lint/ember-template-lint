@@ -12,7 +12,7 @@ Having the ability to identify violations as `todo`s allows for this incremental
 
 ## Usage
 
-todos are stored in a `.lint-todo/` directory that should be checked in with other source code. Each error generates a unique file, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
+todos are stored in a `.lint-todo` file that should be checked in with other source code. Each error generates a unique line, allowing for multiple errors within a single file to be resolved individually with minimal conflicts.
 
 To convert errors to todos, you can use the `--update-todo` option. This will convert all active errors to todos, hiding them from the linting output.
 
@@ -29,7 +29,7 @@ ember-template-lint . --include-todo
 If an error is fixed manually, `ember-template-lint` will let you know that there's a stale todo file. You'll see this error:
 
 ```bash
-error  Todo violation passes no-vague-rules rule. Please run `ember-template-lint /path/to/file.hbs --clean-todo` to remove this todo from the todo list.
+error  Todo violation passes no-vague-rules rule. Please run `npx ember-template-lint /path/to/file.hbs --clean-todo` to remove this todo from the todo list.
 ```
 
 You can fix this error/remove the stale todo file by running `--clean-todo`
@@ -37,6 +37,18 @@ You can fix this error/remove the stale todo file by running `--clean-todo`
 ```bash
 ember-template-lint . --clean-todo
 ```
+
+### Compacting the `.lint-todo` file
+
+The `.lint-todo` file is a simple text file that contains a list of all the todo violations. This file can be quite large, especially if you have a lot of todo violations. To reduce the size of this file, you can compact it by running `--compact-todo`.
+
+```bash
+ember-template-lint . --compact-todo
+```
+
+### Resolving `.lint-todo` file conflicts
+
+The `.lint-todo` file can contain merge conflicts if multiple people perform todo operations on separate branches, and ultimately merge the resulting changes. To resolve this, you can run `ember-template-lint .` again, and it will automatically resolve the conflicts.
 
 ### Configuring Due Dates
 

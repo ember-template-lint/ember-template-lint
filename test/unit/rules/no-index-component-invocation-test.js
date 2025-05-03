@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-index-component-invocation',
@@ -26,8 +24,8 @@ generateRuleTests({
       template: '{{foo/index}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 11,
               "endLine": 1,
@@ -46,17 +44,17 @@ generateRuleTests({
       template: '{{component "foo/index"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 23,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`{{component \\"foo/index\\" ...\` to \`{{component \\"foo\\" ...\`",
+              "message": "Replace \`{{component "foo/index" ...\` to \`{{component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);
@@ -66,8 +64,8 @@ generateRuleTests({
       template: '{{#foo/index}}{{/foo/index}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 12,
               "endLine": 1,
@@ -86,17 +84,17 @@ generateRuleTests({
       template: '{{#component "foo/index"}}{{/component}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`{{#component \\"foo/index\\" ...\` to \`{{#component \\"foo\\" ...\`",
+              "message": "Replace \`{{#component "foo/index" ...\` to \`{{#component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);
@@ -106,17 +104,17 @@ generateRuleTests({
       template: '{{foo/bar (component "foo/index")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`(component \\"foo/index\\" ...\` to \`(component \\"foo\\" ...\`",
+              "message": "Replace \`(component "foo/index" ...\` to \`(component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);
@@ -126,17 +124,17 @@ generateRuleTests({
       template: '{{foo/bar name=(component "foo/index")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 26,
               "endColumn": 37,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`(component \\"foo/index\\" ...\` to \`(component \\"foo\\" ...\`",
+              "message": "Replace \`(component "foo/index" ...\` to \`(component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);
@@ -146,8 +144,8 @@ generateRuleTests({
       template: '<Foo::Index />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 14,
               "endLine": 1,
@@ -166,8 +164,8 @@ generateRuleTests({
       template: '<Foo::Bar::Index />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
@@ -186,8 +184,8 @@ generateRuleTests({
       template: '<Foo::Index></Foo::Index>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 25,
               "endLine": 1,

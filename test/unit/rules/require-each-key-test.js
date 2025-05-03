@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-each-key',
@@ -20,8 +18,8 @@ generateRuleTests({
       template: '{{#each this.items as |item|}} {{item.name}} {{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 54,
               "endLine": 1,
@@ -40,8 +38,8 @@ generateRuleTests({
       template: '{{#each this.items key="@invalid" as |item|}} {{item.name}} {{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 69,
               "endLine": 1,
@@ -50,7 +48,7 @@ generateRuleTests({
               "message": "{{#each}} helper requires a valid key value to avoid performance issues",
               "rule": "require-each-key",
               "severity": 2,
-              "source": "{{#each this.items key=\\"@invalid\\" as |item|}} {{item.name}} {{/each}}",
+              "source": "{{#each this.items key="@invalid" as |item|}} {{item.name}} {{/each}}",
             },
           ]
         `);
@@ -60,8 +58,8 @@ generateRuleTests({
       template: '{{#each this.items key="" as |item|}} {{item.name}} {{/each}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 61,
               "endLine": 1,
@@ -70,7 +68,7 @@ generateRuleTests({
               "message": "{{#each}} helper requires a valid key value to avoid performance issues",
               "rule": "require-each-key",
               "severity": 2,
-              "source": "{{#each this.items key=\\"\\" as |item|}} {{item.name}} {{/each}}",
+              "source": "{{#each this.items key="" as |item|}} {{item.name}} {{/each}}",
             },
           ]
         `);

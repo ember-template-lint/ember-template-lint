@@ -10,64 +10,87 @@ on:
   schedule:
     - cron: '0 3 * * *' # daily, at 3am
 
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
-  test:
-    name: Node 16.x - ubuntu
+  lint:
+    name: Linting
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: volta-cli/action@v4
+      - name: install dependencies
+        run: npm ci
+      - run: npm run lint
 
-      - uses: volta-cli/action@v1
+  test:
+    name: Node 18.x - ubuntu
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: volta-cli/action@v4
 
       - name: install dependencies
-        run: yarn install --frozen-lockfile
-
-      - run: yarn lint
-
-      - run: yarn test:jest
-
-      - run: yarn update:readme && git diff --exit-code
+        run: npm ci
+      - run: npm run test:node
+      - run: npm run update && git diff --exit-code
 
   nodeX:
     name: Node ${{ matrix.node-version }} - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [10.x, 12.x, 14.x, 16.x, 17.x]
+        node-version: [18.x, 20.x, 22.x]
 
         # excluded because it is the `test` job above
         exclude:
           - os: ubuntu
-            node-version: 16.x
+            node-version: 18.x
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines
+        run: npm ci
 
-      - run: yarn test:jest
+      - run: npm run test:node
 
   floating-dependencies:
     name: Floating Dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
 
       - name: install dependencies
-        run: yarn install --no-lockfile
+        run: npm install --no-package-lock
 
-      - run: yarn test:jest
+      - run: npm run test:node

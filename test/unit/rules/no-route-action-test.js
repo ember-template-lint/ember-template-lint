@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-route-action',
@@ -35,14 +33,14 @@ generateRuleTests({
       template: `<CustomComponent @onUpdate={{if true (route-action 'updateFoo' 'bar')}} />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 37,
               "endColumn": 69,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as (route-action 'updateFoo'). Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "(route-action 'updateFoo' 'bar')",
@@ -55,14 +53,14 @@ generateRuleTests({
       template: `{{custom-component onUpdate=(route-action 'updateFoo' 'bar')}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 28,
               "endColumn": 60,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as (route-action 'updateFoo'). Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "(route-action 'updateFoo' 'bar')",
@@ -78,14 +76,14 @@ generateRuleTests({
       )}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 44,
               "endLine": 3,
               "filePath": "layout.hbs",
               "line": 3,
-              "message": "Do not use \`route-action\` as (route-action ...). Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as (route-action 'updateFoo'). Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "(route-action 'updateFoo')",
@@ -102,14 +100,14 @@ generateRuleTests({
       />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 46,
               "endLine": 2,
               "filePath": "layout.hbs",
               "line": 2,
-              "message": "Do not use \`route-action\` as {{route-action ...}}. Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as {{route-action 'updateFoo'}}. Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
               "source": "{{route-action 'updateFoo'}}",
@@ -119,20 +117,20 @@ generateRuleTests({
       },
     },
     {
-      template: `<CustomComponent @onUpdate={{route-action 'updateFoo' 'bar'}} />`,
+      template: `<CustomComponent @onUpdate={{route-action 'updateBar' 'bar'}} />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 27,
               "endColumn": 61,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Do not use \`route-action\` as {{route-action ...}}. Instead, use controller actions.",
+              "message": "Do not use \`route-action\` as {{route-action 'updateBar'}}. Instead, use controller actions.",
               "rule": "no-route-action",
               "severity": 2,
-              "source": "{{route-action 'updateFoo' 'bar'}}",
+              "source": "{{route-action 'updateBar' 'bar'}}",
             },
           ]
         `);

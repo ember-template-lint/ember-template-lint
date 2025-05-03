@@ -1,37 +1,55 @@
-'use strict';
-
-const { _getFilesToLint: getFilesToLint } = require('../../../bin/ember-template-lint');
-const Project = require('../../helpers/fake-project');
+import { getFilesToLint } from '../../../lib/helpers/cli.js';
+import { setupProject, teardownProject } from '../../helpers/bin-tester.js';
 
 const STDIN = '/dev/stdin';
 
+const NOOP_CONSOLE = {
+  log: () => {},
+  warn: () => {},
+  error: () => {},
+};
+
 describe('getFilesToLint', function () {
   let project = null;
-
-  beforeEach(function () {
-    project = Project.defaultSetup();
-    project.chdir();
-    project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
+  beforeEach(async function () {
+    project = await setupProject();
+    await project.chdir();
+    await project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
+    await project.write({
+      'application.hbs': 'almost empty',
+      'other.hbs': 'ZOMG',
+      'js-module.js': 'export const two = 2;',
+      'ts-module.ts': 'export const two = 2;',
+      'gjs-module.gjs': 'export const two = 2;',
+      'gts-module.gts': 'export const two = 2;',
+    });
   });
 
   afterEach(function () {
-    project.dispose();
+    teardownProject();
   });
 
-  // yarn ember-template-lint --filename application.hbs < application.hbs
+  // npx ember-template-lint --filename application.hbs < application.hbs
   describe('when given empty array', function () {
     it('returns a set including stdin', async function () {
-      let files = await getFilesToLint(project.baseDir, [], 'other.hbs');
+      let files = await getFilesToLint(project.baseDir, [], 'other.hbs', true, {}, NOOP_CONSOLE);
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain(STDIN);
     });
   });
 
-  // cat applications.hbs | yarn ember-template-lint --filename application.hbs STDIN
+  // cat applications.hbs | npx ember-template-lint --filename application.hbs STDIN
   describe('when given stdin', function () {
     it('returns a set including stdin', async function () {
-      let files = await getFilesToLint(project.baseDir, [STDIN, 'other.hbs']);
+      let files = await getFilesToLint(
+        project.baseDir,
+        [STDIN, 'other.hbs'],
+        [],
+        true,
+        {},
+        NOOP_CONSOLE
+      );
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain(STDIN);
@@ -40,9 +58,16 @@ describe('getFilesToLint', function () {
 
   if (process.platform !== 'win32') {
     describe("when given stdin through unix's dash", function () {
-      // cat applications.hbs | yarn ember-template-lint --filename application.hbs -
+      // cat applications.hbs | npx ember-template-lint --filename application.hbs -
       it('returns a set including stdin', async function () {
-        let files = await getFilesToLint(project.baseDir, ['-', 'other.hbs']);
+        let files = await getFilesToLint(
+          project.baseDir,
+          ['-', 'other.hbs'],
+          [],
+          true,
+          {},
+          NOOP_CONSOLE
+        );
 
         expect(files.size).toBe(1);
         expect(files.values()).toContain(STDIN);
@@ -52,7 +77,7 @@ describe('getFilesToLint', function () {
 
   describe('when given a pattern', function () {
     it('returns a set including some files', async function () {
-      let files = await getFilesToLint(project.baseDir, ['app*']);
+      let files = await getFilesToLint(project.baseDir, ['app*'], [], true, {}, NOOP_CONSOLE);
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain('application.hbs');
@@ -61,16 +86,30 @@ describe('getFilesToLint', function () {
 
   describe('when given a specific path', function () {
     it('returns a set including some files', async function () {
-      let files = await getFilesToLint(project.baseDir, ['application.hbs']);
+      let files = await getFilesToLint(
+        project.baseDir,
+        ['application.hbs'],
+        [],
+        true,
+        {},
+        NOOP_CONSOLE
+      );
 
       expect(files.size).toBe(1);
       expect(files.values()).toContain('application.hbs');
     });
 
     it('supports arbitrary extension when explictly passed', async function () {
-      project.write({ 'foo.frizzle': 'whatever' });
+      await project.write({ 'foo.frizzle': 'whatever' });
 
-      let files = await getFilesToLint(project.baseDir, ['foo.frizzle']);
+      let files = await getFilesToLint(
+        project.baseDir,
+        ['foo.frizzle'],
+        [],
+        true,
+        {},
+        NOOP_CONSOLE
+      );
 
       expect(files).toEqual(new Set(['foo.frizzle']));
     });

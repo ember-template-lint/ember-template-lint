@@ -1,19 +1,4 @@
-'use strict';
-
-const rule = require('../../../lib/rules/no-bare-strings');
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
-describe('imports', () => {
-  it('should expose the default config', () => {
-    expect(rule.DEFAULT_CONFIG).toEqual(
-      expect.objectContaining({
-        allowlist: expect.arrayContaining(['&lpar;']),
-        globalAttributes: expect.arrayContaining(['title']),
-        elementAttributes: expect.any(Object),
-      })
-    );
-  });
-});
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-bare-strings',
@@ -40,10 +25,6 @@ generateRuleTests({
       template: 'tarzan!\t\n  tarzan!',
     },
     {
-      config: ['/', '"'],
-      template: '{{t "foo"}} / "{{name}}"',
-    },
-    {
       config: ['&', '&times;', '4', '3=12'],
       template: '4 &times; 3=12',
     },
@@ -54,6 +35,22 @@ generateRuleTests({
     {
       config: ['&', '&times;'],
       template: '& &times;',
+    },
+    {
+      config: { allowlist: ['howdy'] },
+      template: 'howdy',
+    },
+    {
+      config: { elementAttributes: { img: ['data-alt'] } },
+      template: '<img data-alt={{bar}}>',
+    },
+    {
+      config: { globalAttributes: ['data-foo'] },
+      template: '<div data-foo={{foo}}></div>',
+    },
+    {
+      config: { ignoredElements: ['mj-style'] },
+      template: '<mj-style>some style</mj-style>',
     },
     '{{t "foo"}}',
     '{{t "foo"}}, {{t "bar"}} ({{length}})',
@@ -92,19 +89,12 @@ generateRuleTests({
 
     {
       config: ['₹'],
+      template: '₹',
+    },
+
+    {
+      config: ['&#8377;'],
       template: '&#8377;',
-    },
-
-    {
-      // override the globalAttributes list
-      config: { globalAttributes: [] },
-      template: '<a title="hahaha trolol"></a>',
-    },
-
-    {
-      // override the elementAttributes list
-      config: { elementAttributes: {} },
-      template: '<input placeholder="hahaha">',
     },
 
     {
@@ -119,6 +109,40 @@ generateRuleTests({
 <i class="material-icons">folder_open</i>
 {{!-- template-lint-enable no-bare-strings --}}`,
     '<div data-test-foo-bar></div>',
+
+    // `page-title` helper.
+    '{{page-title}}',
+    '{{page-title (t "foo")}}',
+    '{{page-title @model.foo}}',
+    '{{page-title this.model.foo}}',
+    '{{page-title this.model.foo " - " this.model.bar}}',
+
+    // In strict mode (gjs/gts files), Input and Textarea should be ignored
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><Input placeholder="This is a placeholder" /></template>',
+    },
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><Input @placeholder="This is a named argument" /></template>',
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><Textarea placeholder="This is a placeholder" /></template>',
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><Textarea @placeholder="This is a named argument" /></template>',
+    },
+    // Regular HTML elements should still be checked in strict mode
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><input placeholder={{t "placeholder"}} /></template>',
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><img alt={{t "alt text"}} /></template>',
+    },
   ],
 
   bad: [
@@ -126,8 +150,8 @@ generateRuleTests({
       template: '<p>{{"Hello!"}}</p>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 13,
               "endLine": 1,
@@ -147,8 +171,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 2,
@@ -169,8 +193,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 0,
               "endLine": 3,
@@ -193,8 +217,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 23,
               "endLine": 1,
@@ -215,8 +239,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 26,
               "endLine": 1,
@@ -237,8 +261,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 40,
               "endLine": 1,
@@ -259,8 +283,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 40,
               "endLine": 1,
@@ -281,8 +305,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 43,
               "endLine": 1,
@@ -303,8 +327,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 41,
               "endLine": 1,
@@ -325,8 +349,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 44,
               "endLine": 1,
@@ -347,8 +371,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 24,
               "endColumn": 63,
               "endLine": 1,
@@ -369,8 +393,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 38,
               "endColumn": 73,
               "endLine": 1,
@@ -391,8 +415,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 46,
               "endLine": 1,
@@ -414,8 +438,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 38,
               "endLine": 1,
@@ -437,8 +461,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 20,
               "endLine": 1,
@@ -460,8 +484,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 34,
               "endLine": 1,
@@ -482,8 +506,8 @@ generateRuleTests({
       template: '<div>Bady\n  <input placeholder="trolol">\n</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 2,
               "endLine": 2,
@@ -495,7 +519,7 @@ generateRuleTests({
               "source": "Bady
             ",
             },
-            Object {
+            {
               "column": 9,
               "endColumn": 28,
               "endLine": 2,
@@ -505,6 +529,146 @@ generateRuleTests({
               "rule": "no-bare-strings",
               "severity": 2,
               "source": "trolol",
+            },
+          ]
+        `);
+      },
+    },
+
+    // `page-title` helper.
+    {
+      template: '{{page-title "foo"}}',
+      result: {
+        message: 'Non-translated string used',
+        line: 1,
+        column: 13,
+        source: 'foo',
+      },
+    },
+    {
+      template: '{{page-title "foo" " - " "bar"}}',
+      results: [
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 13,
+          source: 'foo',
+        },
+        {
+          message: 'Non-translated string used',
+          line: 1,
+          column: 25,
+          source: 'bar',
+        },
+      ],
+    },
+
+    {
+      config: { allowlist: ['/', '"'] },
+      template: '{{t "foo"}} / error / &lpar;"{{name}}"&rpar;',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": " / error / &lpar;"",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      // override the globalAttributes list, still flags violation on item from DEFAULT_CONFIG
+      config: { globalAttributes: ['foo'] },
+      template: '<a title="hahaha trolol"></a>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`title\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha trolol",
+            },
+          ]
+        `);
+      },
+    },
+
+    {
+      // override the elementAttributes list, still flags violation on item from DEFAULT_CONFIG
+      config: { elementAttributes: { img: ['data-alt'] } },
+      template: '<input placeholder="hahaha">',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 7,
+              "endColumn": 26,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "hahaha",
+            },
+          ]
+        `);
+      },
+    },
+
+    // Strict mode tests for regular HTML elements
+    {
+      meta: { filePath: 'template.gjs' },
+      template: '<template><input placeholder="This is a placeholder" /></template>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 17,
+              "endColumn": 51,
+              "endLine": 1,
+              "filePath": "template.gjs",
+              "line": 1,
+              "message": "Non-translated string used in \`placeholder\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "This is a placeholder",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      meta: { filePath: 'template.gts' },
+      template: '<template><img alt="This is alt text" /></template>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 15,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "template.gts",
+              "line": 1,
+              "message": "Non-translated string used in \`alt\` attribute",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "This is alt text",
             },
           ]
         `);

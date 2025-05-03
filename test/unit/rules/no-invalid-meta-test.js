@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-invalid-meta',
@@ -31,8 +29,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 67,
               "endLine": 1,
@@ -41,7 +39,7 @@ generateRuleTests({
               "message": "a meta redirect should not have a delay value greater than zero",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta http-equiv=\\"refresh\\" content=\\"1; url=http://www.example.com\\">",
+              "source": "<meta http-equiv="refresh" content="1; url=http://www.example.com">",
             },
           ]
         `);
@@ -52,8 +50,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 43,
               "endLine": 1,
@@ -62,7 +60,7 @@ generateRuleTests({
               "message": "a meta refresh should have a delay greater than 72000 seconds",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta http-equiv=\\"refresh\\" content=\\"71999\\">",
+              "source": "<meta http-equiv="refresh" content="71999">",
             },
           ]
         `);
@@ -73,8 +71,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 49,
               "endLine": 1,
@@ -83,7 +81,7 @@ generateRuleTests({
               "message": "a meta viewport should not restrict user-scalable",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"user-scalable=no\\">",
+              "source": "<meta name="viewport" content="user-scalable=no">",
             },
           ]
         `);
@@ -94,8 +92,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -104,7 +102,7 @@ generateRuleTests({
               "message": "a meta viewport should not restrict user-scalable",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"user-scalable = no\\">",
+              "source": "<meta name="viewport" content="user-scalable = no">",
             },
           ]
         `);
@@ -115,8 +113,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 50,
               "endLine": 1,
@@ -125,7 +123,7 @@ generateRuleTests({
               "message": "a meta viewport should not restrict user-scalable",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"user-scalable= no\\">",
+              "source": "<meta name="viewport" content="user-scalable= no">",
             },
           ]
         `);
@@ -137,8 +135,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 89,
               "endLine": 1,
@@ -147,7 +145,7 @@ generateRuleTests({
               "message": "a meta viewport should not set a maximum scale on content",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0, maximum-scale=1.0\\">",
+              "source": "<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">",
             },
           ]
         `);
@@ -159,8 +157,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -169,7 +167,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta name=\\"viewport\\">",
+              "source": "<meta name="viewport">",
             },
           ]
         `);
@@ -180,8 +178,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 25,
               "endLine": 1,
@@ -190,7 +188,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta property=\\"og:type\\">",
+              "source": "<meta property="og:type">",
             },
           ]
         `);
@@ -201,8 +199,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -211,7 +209,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta itemprop=\\"type\\">",
+              "source": "<meta itemprop="type">",
             },
           ]
         `);
@@ -222,8 +220,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 27,
               "endLine": 1,
@@ -232,7 +230,7 @@ generateRuleTests({
               "message": "a meta content attribute must be defined if the name, property, itemprop or the http-equiv attribute is defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta http-equiv=\\"refresh\\">",
+              "source": "<meta http-equiv="refresh">",
             },
           ]
         `);
@@ -243,8 +241,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -253,7 +251,7 @@ generateRuleTests({
               "message": "a meta content attribute cannot be defined if the name, property, itemprop nor the http-equiv attributes are defined",
               "rule": "no-invalid-meta",
               "severity": 2,
-              "source": "<meta content=\\"72001\\">",
+              "source": "<meta content="72001">",
             },
           ]
         `);

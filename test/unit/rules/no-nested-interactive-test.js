@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-nested-interactive',
@@ -17,6 +15,40 @@ generateRuleTests({
     '<div tabindex=-1><button>Click me!</button></div>',
     '<div tabindex="1"><button></button></div>',
     '<label><input></label>',
+    `
+    <ul role="menubar" aria-label="functions" id="appmenu">
+      <li role="menuitem" aria-haspopup="true">
+        File
+        <ul role="menu">
+          <li role="menuitem">New</li>
+          <li role="menuitem">Open</li>
+          <li role="menuitem">Print</li>
+        </ul>
+      </li>
+    </ul>
+    `,
+    `
+  <label> My input:
+    {{#if @select}}
+      <select></select>
+    {{else}}
+      <input type='text'>
+    {{/if}}
+  </label>
+    `,
+    `
+  <label> My input:
+    {{#if @select}}
+      {{#if @multiple}}
+        <select multiple></select>
+      {{else}}
+        <select></select>
+      {{/if}}
+    {{else}}
+      <input type='text'>
+    {{/if}}
+  </label>
+    `,
     {
       config: {
         ignoredTags: ['button'],
@@ -45,8 +77,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 35,
               "endLine": 1,
@@ -55,7 +87,7 @@ generateRuleTests({
               "message": "Do not use an <a> element with the \`href\` attribute inside an <a> element with the \`href\` attribute",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<a href=\\"/\\">!</a>",
+              "source": "<a href="/">!</a>",
             },
           ]
         `);
@@ -66,8 +98,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 36,
               "endLine": 1,
@@ -87,8 +119,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 14,
               "endColumn": 31,
               "endLine": 1,
@@ -97,7 +129,7 @@ generateRuleTests({
               "message": "Do not use an <a> element with the \`href\` attribute inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<a href=\\"/\\">!</a>",
+              "source": "<a href="/">!</a>",
             },
           ]
         `);
@@ -108,8 +140,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 14,
               "endColumn": 32,
               "endLine": 1,
@@ -129,8 +161,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 27,
               "endLine": 1,
@@ -139,7 +171,7 @@ generateRuleTests({
               "message": "Do not use <input> inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<input type=\\"text\\">",
+              "source": "<input type="text">",
             },
           ]
         `);
@@ -150,8 +182,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 66,
               "endLine": 1,
@@ -172,8 +204,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 79,
               "endLine": 1,
@@ -182,7 +214,7 @@ generateRuleTests({
               "message": "Do not use <embed> inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<embed type=\\"video/quicktime\\" src=\\"movie.mov\\" width=\\"640\\" height=\\"480\\">",
+              "source": "<embed type="video/quicktime" src="movie.mov" width="640" height="480">",
             },
           ]
         `);
@@ -193,8 +225,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 68,
               "endLine": 1,
@@ -203,7 +235,7 @@ generateRuleTests({
               "message": "Do not use <iframe> inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<iframe src=\\"/frame.html\\" width=\\"640\\" height=\\"480\\"></iframe>",
+              "source": "<iframe src="/frame.html" width="640" height="480"></iframe>",
             },
           ]
         `);
@@ -214,8 +246,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 25,
               "endLine": 1,
@@ -235,8 +267,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 29,
               "endLine": 1,
@@ -256,8 +288,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 32,
               "endLine": 1,
@@ -266,7 +298,7 @@ generateRuleTests({
               "message": "Do not use an element with the \`tabindex\` attribute inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<div tabindex=\\"1\\"></div>",
+              "source": "<div tabindex="1"></div>",
             },
           ]
         `);
@@ -277,8 +309,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 23,
               "endLine": 1,
@@ -287,7 +319,7 @@ generateRuleTests({
               "message": "Do not use an <img> element with the \`usemap\` attribute inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<img usemap=\\"\\">",
+              "source": "<img usemap="">",
             },
           ]
         `);
@@ -298,8 +330,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 35,
               "endLine": 1,
@@ -322,8 +354,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 45,
               "endLine": 1,
@@ -344,8 +376,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 14,
               "endColumn": 21,
               "endLine": 1,
@@ -371,8 +403,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 9,
               "endLine": 3,
@@ -381,8 +413,8 @@ generateRuleTests({
               "message": "Do not use multiple interactive elements inside a single \`<label>\`",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<label for=\\"foo\\">
-            <div id=\\"foo\\" tabindex=-1></div>
+              "source": "<label for="foo">
+            <div id="foo" tabindex=-1></div>
             <input>
           </label>",
             },

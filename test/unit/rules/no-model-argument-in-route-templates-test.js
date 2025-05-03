@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-model-argument-in-route-templates',
@@ -37,8 +35,8 @@ generateRuleTests({
       fixedTemplate: '{{this.model}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 8,
               "endLine": 1,
@@ -59,8 +57,8 @@ generateRuleTests({
       fixedTemplate: '{{this.model.foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 12,
               "endLine": 1,
@@ -81,8 +79,8 @@ generateRuleTests({
       fixedTemplate: '{{this.model.foo.bar}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 2,
               "endColumn": 16,
               "endLine": 1,

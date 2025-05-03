@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-abstract-roles',
@@ -18,8 +16,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 20,
               "endLine": 1,
@@ -28,7 +26,7 @@ generateRuleTests({
               "message": "command is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"command\\">",
+              "source": "<img role="command">",
             },
           ]
         `);
@@ -39,8 +37,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -49,7 +47,7 @@ generateRuleTests({
               "message": "composite is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"composite\\">",
+              "source": "<img role="composite">",
             },
           ]
         `);
@@ -60,8 +58,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 20,
               "endLine": 1,
@@ -70,7 +68,7 @@ generateRuleTests({
               "message": "input is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<input role=\\"input\\">",
+              "source": "<input role="input">",
             },
           ]
         `);
@@ -81,8 +79,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,
@@ -91,7 +89,7 @@ generateRuleTests({
               "message": "landmark is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"landmark\\">",
+              "source": "<img role="landmark">",
             },
           ]
         `);
@@ -102,8 +100,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 20,
               "endLine": 1,
@@ -112,7 +110,7 @@ generateRuleTests({
               "message": "range is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<input role=\\"range\\">",
+              "source": "<input role="range">",
             },
           ]
         `);
@@ -123,8 +121,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,
@@ -133,7 +131,7 @@ generateRuleTests({
               "message": "roletype is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"roletype\\">",
+              "source": "<img role="roletype">",
             },
           ]
         `);
@@ -144,8 +142,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 20,
               "endLine": 1,
@@ -154,7 +152,7 @@ generateRuleTests({
               "message": "section is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"section\\">",
+              "source": "<img role="section">",
             },
           ]
         `);
@@ -165,8 +163,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
@@ -175,7 +173,7 @@ generateRuleTests({
               "message": "sectionhead is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"sectionhead\\">",
+              "source": "<img role="sectionhead">",
             },
           ]
         `);
@@ -186,8 +184,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 31,
               "endLine": 1,
@@ -196,7 +194,7 @@ generateRuleTests({
               "message": "select is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<select role=\\"select\\"></select>",
+              "source": "<select role="select"></select>",
             },
           ]
         `);
@@ -207,8 +205,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 28,
               "endLine": 1,
@@ -217,7 +215,7 @@ generateRuleTests({
               "message": "structure is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<div role=\\"structure\\"></div>",
+              "source": "<div role="structure"></div>",
             },
           ]
         `);
@@ -228,8 +226,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
@@ -238,7 +236,7 @@ generateRuleTests({
               "message": "widget is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"widget\\">",
+              "source": "<img role="widget">",
             },
           ]
         `);
@@ -249,8 +247,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
@@ -259,7 +257,7 @@ generateRuleTests({
               "message": "window is an abstract role, and is not a valid value for the role attribute.",
               "rule": "no-abstract-roles",
               "severity": 2,
-              "source": "<img role=\\"window\\">",
+              "source": "<img role="window">",
             },
           ]
         `);

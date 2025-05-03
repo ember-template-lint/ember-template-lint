@@ -1,9 +1,11 @@
-module.exports = {
+import inlineComponent from './rules/inline-component.js';
+
+export default {
   plugins: [
     {
       name: 'plugin1',
       rules: {
-        'inline-component': require('./rules/lint-inline-component')
+        'inline-component': inlineComponent
       }
     }
   ],

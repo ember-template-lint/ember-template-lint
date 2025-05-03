@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-link-to-positional-params',
@@ -31,8 +29,8 @@ generateRuleTests({
       template: '{{link-to "About Us" "about"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 30,
               "endLine": 1,
@@ -41,7 +39,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to \\"About Us\\" \\"about\\"}}",
+              "source": "{{link-to "About Us" "about"}}",
             },
           ]
         `);
@@ -51,8 +49,8 @@ generateRuleTests({
       template: '{{link-to "About Us" (if this.showNewAboutPage "about-us" "about")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 68,
               "endLine": 1,
@@ -61,7 +59,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to \\"About Us\\" (if this.showNewAboutPage \\"about-us\\" \\"about\\")}}",
+              "source": "{{link-to "About Us" (if this.showNewAboutPage "about-us" "about")}}",
             },
           ]
         `);
@@ -71,8 +69,8 @@ generateRuleTests({
       template: '{{link-to (t "about") "about"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 31,
               "endLine": 1,
@@ -81,7 +79,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") \\"about\\"}}",
+              "source": "{{link-to (t "about") "about"}}",
             },
           ]
         `);
@@ -91,8 +89,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 39,
               "endLine": 1,
@@ -101,7 +99,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute}}",
+              "source": "{{link-to (t "about") this.aboutRoute}}",
             },
           ]
         `);
@@ -111,8 +109,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute "foo"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 45,
               "endLine": 1,
@@ -121,7 +119,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute \\"foo\\"}}",
+              "source": "{{link-to (t "about") this.aboutRoute "foo"}}",
             },
           ]
         `);
@@ -131,8 +129,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute "foo" "bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -141,7 +139,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute \\"foo\\" \\"bar\\"}}",
+              "source": "{{link-to (t "about") this.aboutRoute "foo" "bar"}}",
             },
           ]
         `);
@@ -151,8 +149,8 @@ generateRuleTests({
       template: '{{link-to (t "about") this.aboutRoute "foo" "bar" (query-params foo="bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 76,
               "endLine": 1,
@@ -161,7 +159,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`, \`query\` using the \`hash\` helper). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute \\"foo\\" \\"bar\\" (query-params foo=\\"bar\\")}}",
+              "source": "{{link-to (t "about") this.aboutRoute "foo" "bar" (query-params foo="bar")}}",
             },
           ]
         `);
@@ -172,8 +170,8 @@ generateRuleTests({
       template: '{{#link-to (if this.showNewAboutPage "about-us" "about")}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 78,
               "endLine": 1,
@@ -182,7 +180,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to (if this.showNewAboutPage \\"about-us\\" \\"about\\")}}About Us{{/link-to}}",
+              "source": "{{#link-to (if this.showNewAboutPage "about-us" "about")}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -192,8 +190,8 @@ generateRuleTests({
       template: '{{#link-to "about"}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 40,
               "endLine": 1,
@@ -202,7 +200,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"about\\"}}About Us{{/link-to}}",
+              "source": "{{#link-to "about"}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -212,8 +210,8 @@ generateRuleTests({
       template: '{{#link-to this.aboutRoute}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 48,
               "endLine": 1,
@@ -232,8 +230,8 @@ generateRuleTests({
       template: '{{#link-to this.aboutRoute "foo"}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 54,
               "endLine": 1,
@@ -242,7 +240,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to this.aboutRoute \\"foo\\"}}About Us{{/link-to}}",
+              "source": "{{#link-to this.aboutRoute "foo"}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -252,8 +250,8 @@ generateRuleTests({
       template: '{{#link-to this.aboutRoute "foo" "bar"}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 60,
               "endLine": 1,
@@ -262,7 +260,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to this.aboutRoute \\"foo\\" \\"bar\\"}}About Us{{/link-to}}",
+              "source": "{{#link-to this.aboutRoute "foo" "bar"}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -273,8 +271,8 @@ generateRuleTests({
         '{{#link-to this.aboutRoute "foo" "bar" (query-params foo="bar")}}About Us{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 85,
               "endLine": 1,
@@ -283,7 +281,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`, \`query\` using the \`hash\` helper).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to this.aboutRoute \\"foo\\" \\"bar\\" (query-params foo=\\"bar\\")}}About Us{{/link-to}}",
+              "source": "{{#link-to this.aboutRoute "foo" "bar" (query-params foo="bar")}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -293,8 +291,8 @@ generateRuleTests({
       template: '{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 60,
               "endLine": 1,
@@ -303,7 +301,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"post\\" @post}}Read {{@post.title}}...{{/link-to}}",
+              "source": "{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}",
             },
           ]
         `);
@@ -315,8 +313,8 @@ generateRuleTests({
       {{/link-to}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 18,
               "endLine": 3,
@@ -325,7 +323,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"post.comment\\" @comment.post @comment}}
+              "source": "{{#link-to "post.comment" @comment.post @comment}}
                   Comment by {{@comment.author.name}} on {{@comment.date}}
                 {{/link-to}}",
             },
@@ -339,8 +337,8 @@ generateRuleTests({
       {{/link-to}}`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 18,
               "endLine": 3,
@@ -349,7 +347,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`query\` using the \`hash\` helper).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"posts\\" (query-params direction=\\"desc\\" showArchived=false)}}
+              "source": "{{#link-to "posts" (query-params direction="desc" showArchived=false)}}
                   Recent Posts
                 {{/link-to}}",
             },

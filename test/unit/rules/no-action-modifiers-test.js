@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-action-modifiers',
@@ -22,21 +20,30 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<div {{action this.foo}}></div>',
+      fixedTemplate: '<div {{on "click" this.foo}}></div>',
+    },
+    {
+      template: '<div {{action this.foo bar baz}}></div>',
+      fixedTemplate: '<div {{on "click" (fn this.foo bar baz)}}></div>',
+    },
+    {
       template: '<button {{action "foo"}}></button>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<button {{action \\"foo\\"}}></button>",
+              "source": "<button {{action "foo"}}></button>",
             },
           ]
         `);
@@ -47,17 +54,18 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<a href=\\"#\\" {{action \\"foo\\"}}></a>",
+              "source": "<a href="#" {{action "foo"}}></a>",
             },
           ]
         `);
@@ -69,17 +77,18 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": false,
               "line": 1,
               "message": "Do not use the \`action\` modifier. Instead, use the \`on\` modifier.",
               "rule": "no-action-modifiers",
               "severity": 2,
-              "source": "<a href=\\"#\\" {{action \\"foo\\"}}></a>",
+              "source": "<a href="#" {{action "foo"}}></a>",
             },
           ]
         `);

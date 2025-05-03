@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-iframe-title',
@@ -21,8 +19,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 19,
               "endLine": 1,
@@ -31,18 +29,18 @@ generateRuleTests({
               "message": "This title is not unique. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "title=\\"foo\\"",
+              "source": "title="foo"",
             },
-            Object {
+            {
               "column": 22,
               "endColumn": 44,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "<iframe> elements must have a unique title property. Value title=\\"foo\\" already used for different iframe. #1",
+              "message": "<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe title=\\"foo\\" />",
+              "source": "<iframe title="foo" />",
             },
           ]
         `);
@@ -53,8 +51,8 @@ generateRuleTests({
         '<iframe title="foo" /><iframe title="boo" /><iframe title="foo" /><iframe title="boo" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 19,
               "endLine": 1,
@@ -63,20 +61,20 @@ generateRuleTests({
               "message": "This title is not unique. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "title=\\"foo\\"",
+              "source": "title="foo"",
             },
-            Object {
+            {
               "column": 44,
               "endColumn": 66,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "<iframe> elements must have a unique title property. Value title=\\"foo\\" already used for different iframe. #1",
+              "message": "<iframe> elements must have a unique title property. Value title="foo" already used for different iframe. #1",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe title=\\"foo\\" />",
+              "source": "<iframe title="foo" />",
             },
-            Object {
+            {
               "column": 30,
               "endColumn": 41,
               "endLine": 1,
@@ -85,18 +83,18 @@ generateRuleTests({
               "message": "This title is not unique. #2",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "title=\\"boo\\"",
+              "source": "title="boo"",
             },
-            Object {
+            {
               "column": 66,
               "endColumn": 88,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "<iframe> elements must have a unique title property. Value title=\\"boo\\" already used for different iframe. #2",
+              "message": "<iframe> elements must have a unique title property. Value title="boo" already used for different iframe. #2",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe title=\\"boo\\" />",
+              "source": "<iframe title="boo" />",
             },
           ]
         `);
@@ -107,8 +105,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
@@ -117,7 +115,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" />",
+              "source": "<iframe src="12" />",
             },
           ]
         `);
@@ -128,8 +126,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -138,7 +136,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" title={{false}} />",
+              "source": "<iframe src="12" title={{false}} />",
             },
           ]
         `);
@@ -149,8 +147,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 37,
               "endLine": 1,
@@ -159,7 +157,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" title=\\"{{false}}\\" />",
+              "source": "<iframe src="12" title="{{false}}" />",
             },
           ]
         `);
@@ -170,8 +168,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 28,
               "endLine": 1,
@@ -180,7 +178,7 @@ generateRuleTests({
               "message": "<iframe> elements must have a unique title property.",
               "rule": "require-iframe-title",
               "severity": 2,
-              "source": "<iframe src=\\"12\\" title=\\"\\" />",
+              "source": "<iframe src="12" title="" />",
             },
           ]
         `);

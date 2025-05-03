@@ -1,6 +1,6 @@
-const { transformTagName } = require('../../../lib/helpers/curly-component-invocation');
-const { parseConfig } = require('../../../lib/rules/no-curly-component-invocation');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { transformTagName } from '../../../lib/helpers/curly-component-invocation.js';
+import { parseConfig } from '../../../lib/rules/no-curly-component-invocation.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 function generateError(name) {
   let angleBracketName = transformTagName(name);
@@ -36,6 +36,7 @@ const SHARED_GOOD = [
   '{{hasBlock}}',
   '{{hash}}',
   '{{outlet}}',
+  '{{unique-id}}',
   '{{yield}}',
   '{{yield to="inverse"}}',
 
@@ -181,6 +182,7 @@ const SHARED_BAD = [
   // real world examples
   {
     template: '{{#heading size="1"}}Disallowed heading component{{/heading}}',
+    fixedTemplate: '<Heading @size="1">Disallowed heading component</Heading>',
     results: [
       {
         message: generateError('heading'),

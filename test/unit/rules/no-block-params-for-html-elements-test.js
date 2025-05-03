@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-block-params-for-html-elements',
@@ -14,6 +12,7 @@ generateRuleTests({
     '<this.foo as |blah|></this.foo>',
     '{{#let (component \'foo\') as |bar|}} <bar @name="1" as |n|><n/></bar> {{/let}}',
     '<Something><:Item as |foo|></:Item></Something>',
+    '<Layouts.Navigation @tag="div" as |navs|><navs></navs></Layouts.Navigation>',
   ],
 
   bad: [
@@ -21,8 +20,8 @@ generateRuleTests({
       template: '<div as |blockName|></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 26,
               "endLine": 1,
@@ -41,8 +40,8 @@ generateRuleTests({
       template: '<div as |a b c|></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,

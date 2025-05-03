@@ -1,13 +1,11 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-partial',
 
   config: true,
 
-  good: ['{{foo}}', '{{button}}'],
+  good: ['{{foo}}', '{{button}}', '<Component @param={{"partial"}} />'],
 
   bad: [
     {
@@ -15,8 +13,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 17,
               "endLine": 1,
@@ -25,7 +23,7 @@ generateRuleTests({
               "message": "Unexpected {{partial}} usage.",
               "rule": "no-partial",
               "severity": 2,
-              "source": "{{partial \\"foo\\"}}",
+              "source": "{{partial "foo"}}",
             },
           ]
         `);

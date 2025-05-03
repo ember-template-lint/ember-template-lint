@@ -1,9 +1,13 @@
-const { readdirSync, existsSync, readFileSync } = require('fs');
-const path = require('path');
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const configRecommended = require('../../lib/config/recommended');
-const configStylistic = require('../../lib/config/stylistic');
-const isRuleFixable = require('../helpers/is-rule-fixable');
+import configRecommended from '../../lib/config/recommended.js';
+import configStylistic from '../../lib/config/stylistic.js';
+import exportedRules from '../../lib/rules/index.js';
+import isRuleFixable from '../helpers/is-rule-fixable.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const RULE_NAMES_RECOMMENDED = new Set(Object.keys(configRecommended.rules));
 const RULE_NAMES_STYLISTIC = new Set(Object.keys(configStylistic.rules));
@@ -17,14 +21,14 @@ describe('rules setup is correct', function () {
     })
     .map((fileName) => fileName.replace('.js', ''));
 
-  it('has correct rules reexport', function () {
-    const defaultExport = require(rulesEntryPath);
-    const exportedRules = Object.keys(defaultExport);
-    for (const ruleName of exportedRules) {
-      let pathName = path.join(rulesEntryPath, `${ruleName}`);
-      expect(defaultExport[ruleName]).toEqual(require(pathName));
+  it('has correct rules reexport', async function () {
+    const exportedRuleNames = Object.keys(exportedRules);
+    for (const ruleName of exportedRuleNames) {
+      let pathName = path.join(rulesEntryPath, `${ruleName}.js`);
+      const { default: loadedRule } = await import(pathName);
+      expect(exportedRules[ruleName]).toEqual(loadedRule);
     }
-    expect(expectedRules.length).toEqual(exportedRules.length);
+    expect(expectedRules.length).toEqual(exportedRuleNames.length);
   });
 
   it('has docs/rule reference for each item', function () {
@@ -55,62 +59,60 @@ describe('rules setup is correct', function () {
         '🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.',
     };
 
-    for (const ruleName of expectedRules) {
-      describe(ruleName, function () {
-        it('should have the right contents (title, notices, examples, references)', function () {
-          const ruleFilePath = path.join(__dirname, '..', '..', 'lib', 'rules', `${ruleName}.js`);
-          const ruleFileContents = readFileSync(ruleFilePath, 'utf8');
+    describe.each(expectedRules)('%s', (ruleName) => {
+      it('should have the right contents (title, notices, examples, references)', function () {
+        const ruleFilePath = path.join(__dirname, '..', '..', 'lib', 'rules', `${ruleName}.js`);
+        const ruleFileContents = readFileSync(ruleFilePath, 'utf8');
 
-          const docFilePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
-          const docFileContents = readFileSync(docFilePath, 'utf8');
-          const docFileLines = docFileContents.split('\n');
+        const docFilePath = path.join(__dirname, '..', '..', 'docs', 'rule', `${ruleName}.md`);
+        const docFileContents = readFileSync(docFilePath, 'utf8');
+        const docFileLines = docFileContents.split('\n');
 
-          expect(docFileLines[0]).toStrictEqual(`# ${ruleName}`); // Title header.
-          expect(docFileContents).toContain('## Examples'); // Examples section header.
-          expect(docFileContents).toContain('## References');
+        expect(docFileLines[0]).toStrictEqual(`# ${ruleName}`); // Title header.
+        expect(docFileContents).toContain('## Examples'); // Examples section header.
+        expect(docFileContents).toContain('## References');
 
-          const expectedNotices = [];
-          const unexpectedNotices = [];
-          if (RULE_NAMES_RECOMMENDED.has(ruleName)) {
-            expectedNotices.push('configRecommended');
-          } else {
-            unexpectedNotices.push('configRecommended');
-          }
-          if (RULE_NAMES_STYLISTIC.has(ruleName)) {
-            expectedNotices.push('configStylistic');
-          } else {
-            unexpectedNotices.push('configStylistic');
-          }
-          if (isRuleFixable(ruleName)) {
-            expectedNotices.push('fixable');
-          } else {
-            unexpectedNotices.push('fixable');
-          }
+        const expectedNotices = [];
+        const unexpectedNotices = [];
+        if (RULE_NAMES_RECOMMENDED.has(ruleName)) {
+          expectedNotices.push('configRecommended');
+        } else {
+          unexpectedNotices.push('configRecommended');
+        }
+        if (RULE_NAMES_STYLISTIC.has(ruleName)) {
+          expectedNotices.push('configStylistic');
+        } else {
+          unexpectedNotices.push('configStylistic');
+        }
+        if (isRuleFixable(ruleName)) {
+          expectedNotices.push('fixable');
+        } else {
+          unexpectedNotices.push('fixable');
+        }
 
-          // Ensure that expected notices are present in the correct order.
-          let currentLineNumber = 1;
-          for (const expectedNotice of expectedNotices) {
-            expect(docFileLines[currentLineNumber]).toStrictEqual('');
-            expect(docFileLines[currentLineNumber + 1]).toStrictEqual(MESSAGES[expectedNotice]);
-            currentLineNumber += 2;
-          }
+        // Ensure that expected notices are present in the correct order.
+        let currentLineNumber = 1;
+        for (const expectedNotice of expectedNotices) {
+          expect(docFileLines[currentLineNumber]).toStrictEqual('');
+          expect(docFileLines[currentLineNumber + 1]).toStrictEqual(MESSAGES[expectedNotice]);
+          currentLineNumber += 2;
+        }
 
-          // Ensure that unexpected notices are not present.
-          for (const unexpectedNotice of unexpectedNotices) {
-            expect(docFileContents).not.toContain(MESSAGES[unexpectedNotice]);
-          }
+        // Ensure that unexpected notices are not present.
+        for (const unexpectedNotice of unexpectedNotices) {
+          expect(docFileContents).not.toContain(MESSAGES[unexpectedNotice]);
+        }
 
-          // Check if the rule has configuration options.
-          if (['parseConfig', 'this.config'].some((str) => ruleFileContents.includes(str))) {
-            // Should have a configuration section header.
-            expect(docFileContents).toContain('## Configuration');
-          } else {
-            // Should NOT have any options/config section headers.
-            expect(docFileContents).not.toContain('# Config');
-            expect(docFileContents).not.toContain('# Option');
-          }
-        });
+        // Check if the rule has configuration options.
+        if (['parseConfig', 'this.config'].some((str) => ruleFileContents.includes(str))) {
+          // Should have a configuration section header.
+          expect(docFileContents).toContain('## Configuration');
+        } else {
+          // Should NOT have any options/config section headers.
+          expect(docFileContents).not.toContain('# Config');
+          expect(docFileContents).not.toContain('# Option');
+        }
       });
-    }
+    });
   });
 });

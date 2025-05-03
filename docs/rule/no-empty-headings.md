@@ -1,5 +1,7 @@
 # no-empty-headings
 
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
 Headings relay the structure of a webpage and provide a meaningful, hierarchical order of its content. If headings are empty or its text contents are inaccessible, this could confuse users or prevent them accessing sections of interest.
 
 Disallow headings (h1, h2, etc.) with no accessible text content.
@@ -17,7 +19,7 @@ This rule **forbids** the following:
 ```
 
 ```hbs
-<h*><span aria-hidden="true">Inaccessible text<span></h*>
+<h*><span aria-hidden="true">Inaccessible text</span></h*>
 ```
 
 This rule **allows** the following:

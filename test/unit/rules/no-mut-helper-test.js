@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 const setterAlternative = '`{{set}}`';
 
@@ -11,7 +9,6 @@ generateRuleTests({
 
   good: [
     '<MyComponent @toggled={{this.showAggregatedLine}}/>',
-    '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @onFocusOut={{action "onFocusOutKeySkillsInput" value="target.value"}}/>',
     '<MyComponent {{on "click" (set this "isDropdownOpen" false)}}/>',
@@ -36,8 +33,8 @@ generateRuleTests({
       template: '<MyComponent @toggled={{mut this.showAggregatedLine}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 53,
               "endLine": 1,
@@ -56,8 +53,8 @@ generateRuleTests({
       template: '{{my-component value=(mut this.secondaryProfileHeadline)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 56,
               "endLine": 1,
@@ -76,8 +73,8 @@ generateRuleTests({
       template: '<MyComponent {{action (mut this.isDropdownOpen) false}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 22,
               "endColumn": 47,
               "endLine": 1,
@@ -97,8 +94,8 @@ generateRuleTests({
         '<MyComponent @dismissModal={{action (mut this.isRequestExpiredModalOpen) false}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 36,
               "endColumn": 72,
               "endLine": 1,
@@ -118,8 +115,8 @@ generateRuleTests({
         '<MyComponent @click={{action (mut this.isCardCollapsed) (if this.isCardCollapsed false true)}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 29,
               "endColumn": 55,
               "endLine": 1,
@@ -138,8 +135,8 @@ generateRuleTests({
       template: '<MyComponent onclick={{fn (mut this.expandVoluntarySelfIdHelpText) true}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 26,
               "endColumn": 66,
               "endLine": 1,
@@ -158,8 +155,8 @@ generateRuleTests({
       template: '<MyComponent @onVisibilityChange={{fn (mut this.isDropdownOpen)}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 38,
               "endColumn": 63,
               "endLine": 1,
@@ -178,8 +175,8 @@ generateRuleTests({
       template: '{{my-component click=(action (mut this.isOpen) false)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 29,
               "endColumn": 46,
               "endLine": 1,
@@ -199,8 +196,8 @@ generateRuleTests({
         '{{my-component click=(action (mut this.isLegalTextExpanded) (not this.isLegalTextExpanded))}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 29,
               "endColumn": 59,
               "endLine": 1,
@@ -219,8 +216,8 @@ generateRuleTests({
       template: '{{my-component onVisibilityChange=(action (mut this.isDropdownOpen))}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 42,
               "endColumn": 67,
               "endLine": 1,
@@ -239,8 +236,8 @@ generateRuleTests({
       template: '{{my-component click=(fn (mut this.showManageEventsModal) true)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 25,
               "endColumn": 57,
               "endLine": 1,
@@ -263,8 +260,8 @@ generateRuleTests({
         />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 49,
               "endLine": 3,
@@ -288,8 +285,8 @@ generateRuleTests({
         />`,
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 12,
               "endColumn": 59,
               "endLine": 3,
@@ -309,8 +306,8 @@ generateRuleTests({
         '<MyComponent onchange={{action (mut this.contactUsSection.description) value="target.value"}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 31,
               "endColumn": 70,
               "endLine": 1,
@@ -333,8 +330,8 @@ generateRuleTests({
         '<MyComponent onchange={{action (mut this.contactUsSection.description) value="target.value"}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 31,
               "endColumn": 70,
               "endLine": 1,

@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-unbalanced-curlies',
@@ -15,6 +13,7 @@ generateRuleTests({
     '\\{{foo}}',
     '\\{{foo}}\\{{foo}}',
     '\\{{foo}}{{foo}}',
+    '\\{{foo\n}}',
   ],
 
   bad: [
@@ -22,8 +21,8 @@ generateRuleTests({
       template: 'foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 5,
               "endLine": 1,
@@ -42,8 +41,8 @@ generateRuleTests({
       template: '{foo}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 6,
               "endLine": 1,
@@ -62,8 +61,8 @@ generateRuleTests({
       template: 'foo}}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 3,
               "endColumn": 6,
               "endLine": 1,
@@ -82,8 +81,8 @@ generateRuleTests({
       template: '{foo}}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 7,
               "endLine": 1,
@@ -102,8 +101,8 @@ generateRuleTests({
       template: '{foo\n}}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 1,
               "endColumn": 3,
               "endLine": 2,
@@ -123,8 +122,8 @@ generateRuleTests({
       template: '{foo\n}}}\nbar',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 1,
               "endColumn": 3,
               "endLine": 3,
@@ -145,8 +144,8 @@ generateRuleTests({
       template: '{foo\r\nbar\r\n\r\nbaz}}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 6,
               "endLine": 4,
@@ -168,8 +167,8 @@ generateRuleTests({
       template: '{foo\rbar\r\rbaz}}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 4,
               "endColumn": 6,
               "endLine": 4,

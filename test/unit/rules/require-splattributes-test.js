@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-splattributes',
@@ -21,8 +19,8 @@ generateRuleTests({
       template: '<div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 11,
               "endLine": 1,
@@ -41,8 +39,8 @@ generateRuleTests({
       template: '<Foo></Foo>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 11,
               "endLine": 1,
@@ -61,8 +59,8 @@ generateRuleTests({
       template: '<div></div><div></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -81,8 +79,8 @@ generateRuleTests({
       template: '<div/>\n\n',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,

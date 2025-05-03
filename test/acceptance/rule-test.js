@@ -1,10 +1,8 @@
-'use strict';
+import path from 'node:path';
 
-const path = require('path');
-
-const defaultTestHarness = require('../../lib/helpers/rule-test-harness');
-const Rule = require('../../lib/rules/_base');
-const generateRuleTests = require('../helpers/rule-test-harness');
+import defaultTestHarness from '../../lib/helpers/rule-test-harness.js';
+import Rule from '../../lib/rules/_base.js';
+import generateRuleTests from '../helpers/rule-test-harness.js';
 
 function verifyWithExternalSnapshot(results) {
   expect(results).toMatchSnapshot();
@@ -86,21 +84,19 @@ describe('rule public api', function () {
           name: 'can use verifyResults directly (with inline snapshots)',
           template: '<div></div>',
           verifyResults(results) {
-            expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
-                  "column": 0,
-                  "endColumn": 11,
-                  "endLine": 1,
-                  "filePath": "layout.hbs",
-                  "line": 1,
-                  "message": "Do not use any HTML elements!",
-                  "rule": "no-elements",
-                  "severity": 2,
-                  "source": "<div></div>",
-                },
-              ]
-            `);
+            expect(results).deep.toEqual([
+              {
+                column: 0,
+                endColumn: 11,
+                endLine: 1,
+                filePath: 'layout.hbs',
+                line: 1,
+                message: 'Do not use any HTML elements!',
+                rule: 'no-elements',
+                severity: 2,
+                source: '<div></div>',
+              },
+            ]);
           },
         },
         {
@@ -344,8 +340,8 @@ describe('rule public api', function () {
           template: '<div></div>',
           verifyResults(results) {
             expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
+              [
+                {
                   "column": 0,
                   "endColumn": 11,
                   "endLine": 1,
@@ -368,8 +364,8 @@ describe('rule public api', function () {
           template: '<div></div>',
           verifyResults(results) {
             expect(results).toMatchInlineSnapshot(`
-              Array [
-                Object {
+              [
+                {
                   "column": 0,
                   "endColumn": 11,
                   "endLine": 1,
@@ -386,6 +382,88 @@ describe('rule public api', function () {
         },
       ],
     });
+  });
+
+  test('with wrong number of arguments passed to generateRuleTests', function () {
+    expect(() => generateRuleTests({}, {})).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: \`generateRuleTests\` should only be called with one argument.]`
+    );
+  });
+
+  test('with invalid argument type passed to generateRuleTests', function () {
+    expect(() => generateRuleTests(123)).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: \`generateRuleTests\` should only be called with an object argument.]`
+    );
+  });
+
+  test('with invalid property in good test case', function () {
+    expect(() =>
+      generateRuleTests({
+        good: [{ foo: true }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Unexpected property passed to good test case: foo. Expected one of: config, focus, meta, name, template.]`
+    );
+  });
+
+  test('with invalid property in bad test case', function () {
+    expect(() =>
+      generateRuleTests({
+        bad: [{ foo: true }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, focus, meta, name, result, results, skipDisabledTests, template, verifyResults.]`
+    );
+  });
+
+  test('with both `result` and `results` in bad test case', function () {
+    expect(() =>
+      generateRuleTests({
+        bad: [{ result: {}, results: [] }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Bad test case should not have both \`result\` and \`results\`.]`
+    );
+  });
+
+  test('with invalid property in bad test case result', function () {
+    expect(() =>
+      generateRuleTests({
+        bad: [{ results: [{ fatal: true }] }], // `fatal` only allowed in error test cases.
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Unexpected property passed to bad test case results: fatal. Expected one of: column, endColumn, endLine, filePath, isFixable, line, message, rule, severity, source.]`
+    );
+  });
+
+  test('with invalid property in error test case', function () {
+    expect(() =>
+      generateRuleTests({
+        error: [{ fixedTemplate: true }], // `fixedTemplate` only allowed in bad test cases.
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Unexpected property passed to error test case: fixedTemplate. Expected one of: config, meta, name, result, results, template, verifyResults.]`
+    );
+  });
+
+  test('with both `result` and `results` in error test case', function () {
+    expect(() =>
+      generateRuleTests({
+        error: [{ result: {}, results: [] }],
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Error test case should not have both \`result\` and \`results\`.]`
+    );
+  });
+
+  test('with invalid property in error test case result', function () {
+    expect(() =>
+      generateRuleTests({
+        error: [{ results: [{ isFixable: true }] }], // `isFixable` only allowed in bad test cases.
+      })
+    ).toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Unexpected property passed to error test case results: isFixable. Expected one of: column, endColumn, endLine, fatal, filePath, line, message, rule, severity, source.]`
+    );
   });
 });
 
@@ -498,7 +576,7 @@ describe('regression tests', function () {
     await group.run();
 
     expect(group.runLog).toMatchInlineSnapshot(`
-      Array [
+      [
         "<div></div>: logs errors",
         "<div></div>: passes when rule is disabled",
         "<div></div>: passes when disabled via inline comment - single rule",
@@ -585,13 +663,863 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"ember-template-lint: Test harness found invalid setup (\`groupingMethodBefore\` not called once per test). Maybe you meant to pass \`groupingMethodBefore: beforeEach\`?"`
+      `[Error: ember-template-lint: Test harness found invalid setup (\`groupingMethodBefore\` not called once per test). Maybe you meant to pass \`groupingMethodBefore: beforeEach\`?]`
     );
 
     expect(group.runLog).toMatchInlineSnapshot(`
-      Array [
+      [
         "<div></div>: logs errors",
       ]
     `);
+  });
+
+  test('with fixable test missing `fixedTemplate` assertion', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'fix-test',
+          rules: {
+            'can-fix': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    if (node.tag !== 'MySpecialThing') {
+                      return;
+                    }
+
+                    if (this.mode === 'fix') {
+                      node.tag = 'EvenBettererThing';
+                    } else {
+                      this.log({
+                        isFixable: true,
+                        message: 'Do not use MySpecialThing',
+                        node,
+                      });
+                    }
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'can-fix',
+      config: true,
+
+      bad: [
+        {
+          // missing `fixedTemplate`
+          template: '<MySpecialThing/>',
+          result: {
+            column: 0,
+            line: 1,
+            endColumn: 17,
+            endLine: 1,
+            isFixable: true,
+            message: 'Do not use MySpecialThing',
+            source: '<MySpecialThing/>',
+          },
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: fixable test cases must assert the \`fixedTemplate\`]`
+    );
+  });
+
+  test('with non-fixable test including `fixedTemplate` assertion', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          fixedTemplate: '<EvenBettererThing/>',
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: non-fixable test cases should not provide \`fixedTemplate\`]`
+    );
+  });
+
+  test('when only one of two violations provides a fix', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'fix-test',
+          rules: {
+            'can-fix': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    if (this.mode === 'fix') {
+                      node.tag = 'EvenBettererThing';
+                    } else {
+                      this.log({
+                        isFixable: true,
+                        message: 'Do not use MySpecialThing',
+                        node,
+                      });
+                      this.log({
+                        isFixable: false,
+                        message: 'Do not use MySpecialThing',
+                        node,
+                      });
+                    }
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'can-fix',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          fixedTemplate: '<EvenBettererThing/>',
+        },
+      ],
+    });
+
+    await group.run(); // runs successfully since we asserted `fixedTemplate`
+  });
+
+  test('when `template` = `fixedTemplate`', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'fix-test',
+          rules: {
+            'can-fix': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      isFixable: true,
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'can-fix',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          fixedTemplate: '<MySpecialThing/>',
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: Test case \`template\` should not equal the \`fixedTemplate\`]`
+    );
+  });
+
+  test('when duplicate good test case with string test cases', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {},
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      good: ['123', '123'],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: detected duplicate \`good\` test case]`
+    );
+  });
+
+  test('when duplicate good test case with mixed string/object test cases', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {},
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      good: ['123', { template: '123' }],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: detected duplicate \`good\` test case]`
+    );
+  });
+
+  test('when duplicate bad test case with verifyResults', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        { template: '<MySpecialThing/>', verifyResults() {} },
+        { template: '<MySpecialThing/>', verifyResults() {} },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: detected duplicate \`bad\` test case]`
+    );
+  });
+
+  test('when duplicate bad test case with result objects', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: detected duplicate \`bad\` test case]`
+    );
+  });
+
+  test('when duplicate bad test case with serializable config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: 123,
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: 123,
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: detected duplicate \`bad\` test case]`
+    );
+  });
+
+  test('when non-duplicate bad test case with object config containing potentially non-serializable members', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 123;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 456;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
+  test('when non-duplicate bad test case with non-serializable RegExp config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: new RegExp('abc'),
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: new RegExp('def'),
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
+  test('when non-duplicate bad test case with non-serializable function config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: function foo() {
+            return 123;
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: function foo() {
+            return 456;
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
+  test('when non-duplicate bad test case with non-serializable regexp config', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+      config: true,
+
+      bad: [
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 123;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+        {
+          template: '<MySpecialThing/>',
+          config: {
+            someFunction() {
+              return 456;
+            },
+          },
+          results: [
+            {
+              column: 0,
+              line: 1,
+              endColumn: 17,
+              endLine: 1,
+              message: 'Do not use MySpecialThing',
+              source: '<MySpecialThing/>',
+            },
+          ],
+        },
+      ],
+    });
+
+    await group.run(); // should not fail
+  });
+
+  test('when duplicate error test case', async function () {
+    let group;
+    defaultTestHarness({
+      groupingMethod(name, callback) {
+        group = new Group(name, callback);
+      },
+
+      groupMethodBefore(callback) {
+        group.beforeEach.push(callback);
+      },
+
+      testMethod(name, callback) {
+        group.tests.push(new Test(name, callback));
+      },
+
+      plugins: [
+        {
+          name: 'test',
+          rules: {
+            'test-rule': class extends Rule {
+              parseConfig() {
+                throw new Error('bad config');
+              }
+              visitor() {
+                return {
+                  ElementNode(node) {
+                    this.log({
+                      message: 'Do not use MySpecialThing',
+                      node,
+                    });
+                  },
+                };
+              }
+            },
+          },
+        },
+      ],
+
+      name: 'test-rule',
+
+      error: [
+        {
+          template: '<MySpecialThing/>',
+          result: {
+            fatal: true,
+            message: 'bad config',
+          },
+        },
+        {
+          template: '<MySpecialThing/>',
+          result: {
+            fatal: true,
+            message: 'bad config',
+          },
+        },
+      ],
+    });
+
+    await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[AssertionError: detected duplicate \`error\` test case]`
+    );
   });
 });

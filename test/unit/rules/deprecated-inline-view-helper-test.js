@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'deprecated-inline-view-helper',
@@ -30,13 +28,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 27,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{awful-fishsticks}}",
               },
               "line": 1,
@@ -54,13 +52,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 23,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{bad-fishsticks}}",
               },
               "line": 1,
@@ -78,13 +76,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{terrible.fishsticks}}",
               },
               "line": 1,
@@ -102,13 +100,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 35,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{foo-bar baz=qux.qaz}}",
               },
               "line": 1,
@@ -126,13 +124,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 69,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "<div data-foo={{hallo}}></div>",
               },
               "line": 1,
@@ -150,13 +148,13 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 11,
               "endColumn": 27,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "fix": Object {
+              "fix": {
                 "text": "{{#foo-bar derp=whoops}}{{/foo-bar}}",
               },
               "line": 1,

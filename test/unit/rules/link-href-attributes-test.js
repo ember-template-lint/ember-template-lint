@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'link-href-attributes',
@@ -13,6 +11,7 @@ generateRuleTests({
     '<a href="javascript:;"></a>',
     '<a href="http://localhost"></a>',
     '<a href={{link}}></a>',
+    '<a role="link" aria-disabled="true">valid</a>',
   ],
 
   bad: [
@@ -20,8 +19,8 @@ generateRuleTests({
       template: '<a></a>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 7,
               "endLine": 1,

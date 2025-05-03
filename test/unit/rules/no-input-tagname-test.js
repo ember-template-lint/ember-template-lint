@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-input-tagname',
@@ -19,8 +17,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 23,
               "endLine": 1,
@@ -29,7 +27,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "{{input tagName=\\"foo\\"}}",
+              "source": "{{input tagName="foo"}}",
             },
           ]
         `);
@@ -40,8 +38,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,
@@ -61,8 +59,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -71,7 +69,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "{{component \\"input\\" tagName=\\"foo\\"}}",
+              "source": "{{component "input" tagName="foo"}}",
             },
           ]
         `);
@@ -82,8 +80,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 33,
               "endLine": 1,
@@ -92,7 +90,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "{{component \\"input\\" tagName=bar}}",
+              "source": "{{component "input" tagName=bar}}",
             },
           ]
         `);
@@ -103,8 +101,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 41,
               "endLine": 1,
@@ -113,7 +111,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "(component \\"input\\" tagName=\\"foo\\")",
+              "source": "(component "input" tagName="foo")",
             },
           ]
         `);
@@ -124,8 +122,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 8,
               "endColumn": 39,
               "endLine": 1,
@@ -134,7 +132,7 @@ generateRuleTests({
               "message": "Unexpected \`tagName\` usage on {{input}} helper.",
               "rule": "no-input-tagname",
               "severity": 2,
-              "source": "(component \\"input\\" tagName=bar)",
+              "source": "(component "input" tagName=bar)",
             },
           ]
         `);

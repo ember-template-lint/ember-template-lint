@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-valueless-arguments',
@@ -17,8 +15,8 @@ generateRuleTests({
       template: '<SomeComponent @valueless />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 25,
               "endLine": 1,
@@ -37,8 +35,8 @@ generateRuleTests({
       template: '<SomeComponent @valuelessByAccident{{this.canBeAModifier}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 35,
               "endLine": 1,
@@ -57,8 +55,8 @@ generateRuleTests({
       template: '<SomeComponent @valuelessByAccident{{@canBeAModifier}} />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 35,
               "endLine": 1,

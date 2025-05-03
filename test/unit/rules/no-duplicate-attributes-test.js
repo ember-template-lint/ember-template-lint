@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-duplicate-attributes',
@@ -26,15 +24,17 @@ generateRuleTests({
     {
       // MustacheStatement
       template: '{{my-component firstName=firstName lastName=lastName firstName=firstName}}',
+      fixedTemplate: '{{my-component firstName=firstName lastName=lastName}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 53,
               "endColumn": 72,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the MustacheStatement.",
               "rule": "no-duplicate-attributes",
@@ -51,15 +51,20 @@ generateRuleTests({
         '{{#my-component firstName=firstName  lastName=lastName firstName=firstName as |fullName|}}' +
         ' {{fullName}}' +
         '{{/my-component}}',
+      fixedTemplate:
+        '{{#my-component firstName=firstName  lastName=lastName as |fullName|}}' +
+        ' {{fullName}}' +
+        '{{/my-component}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 55,
               "endColumn": 74,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the BlockStatement.",
               "rule": "no-duplicate-attributes",
@@ -73,20 +78,22 @@ generateRuleTests({
     {
       // ElementNode
       template: '<a class="btn" class="btn">{{btnLabel}}</a>',
+      fixedTemplate: '<a class="btn">{{btnLabel}}</a>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 15,
               "endColumn": 26,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Duplicate attribute 'class' found in the Element.",
               "rule": "no-duplicate-attributes",
               "severity": 2,
-              "source": "<a class=\\"btn\\" class=\\"btn\\">{{btnLabel}}</a>",
+              "source": "<a class="btn" class="btn">{{btnLabel}}</a>",
             },
           ]
         `);
@@ -96,15 +103,18 @@ generateRuleTests({
       // SubExpression
       template:
         '{{employee-profile employee=(hash firstName=firstName lastName=lastName age=age firstName=firstName)}}',
+      fixedTemplate:
+        '{{employee-profile employee=(hash firstName=firstName lastName=lastName age=age)}}',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 80,
               "endColumn": 99,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the SubExpression.",
               "rule": "no-duplicate-attributes",
@@ -119,15 +129,17 @@ generateRuleTests({
       // SubExpression within a SubExpression
       template:
         '{{employee-profile employee=(hash fullName=(hash firstName=firstName lastName=lastName firstName=firstName) age=age)}}',
-
+      fixedTemplate:
+        '{{employee-profile employee=(hash fullName=(hash firstName=firstName lastName=lastName) age=age)}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 87,
               "endColumn": 106,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
               "message": "Duplicate attribute 'firstName' found in the SubExpression.",
               "rule": "no-duplicate-attributes",

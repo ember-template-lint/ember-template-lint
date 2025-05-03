@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-dynamic-subexpression-invocations',
@@ -33,17 +31,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 31,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You must use \`fn\` helper to invoke a function with arguments",
+              "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);
@@ -54,8 +52,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 17,
               "endLine": 1,
@@ -75,8 +73,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 13,
               "endLine": 1,
@@ -96,8 +94,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 16,
               "endLine": 1,
@@ -117,17 +115,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 37,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You must use \`fn\` helper to invoke a function with arguments",
+              "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);
@@ -139,17 +137,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 46,
               "endColumn": 66,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You must use \`fn\` helper to invoke a function with arguments",
+              "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{thing \\"some-arg\\"}}",
+              "source": "{{thing "some-arg"}}",
             },
           ]
         `);
@@ -160,17 +158,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 41,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You must use \`fn\` helper to invoke a function with arguments",
+              "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{this.thing \\"some-arg\\"}}",
+              "source": "{{this.thing "some-arg"}}",
             },
           ]
         `);
@@ -181,17 +179,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 16,
               "endColumn": 45,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You must use \`fn\` helper to invoke a function with arguments",
+              "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{lol.other.path \\"some-arg\\"}}",
+              "source": "{{lol.other.path "some-arg"}}",
             },
           ]
         `);
@@ -202,8 +200,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 15,
               "endLine": 1,
@@ -223,17 +221,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 31,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You must use \`fn\` helper to invoke a function with arguments",
+              "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);
@@ -244,17 +242,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 13,
               "endColumn": 34,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "You must use \`fn\` helper to invoke a function with arguments",
+              "message": "You must use the \`fn\` helper to create a function with arguments to invoke",
               "rule": "no-dynamic-subexpression-invocations",
               "severity": 2,
-              "source": "{{@thing \\"some-arg\\"}}",
+              "source": "{{@thing "some-arg"}}",
             },
           ]
         `);

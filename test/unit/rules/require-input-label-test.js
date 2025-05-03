@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-input-label',
@@ -60,6 +58,22 @@ generateRuleTests({
     '<Input type="hidden" />',
     '{{input type="hidden"}}',
 
+    // In strict mode (gjs/gts files), Input and Textarea are ignored
+    // This is because we can't tell if they are actually built-in components
+    // or just have the same name. It's better to risk false negatives than false positives.
+    {
+      template: '<template><Input /></template>',
+      meta: {
+        filePath: 'layout.gjs',
+      },
+    },
+    {
+      template: '<template><Textarea /></template>',
+      meta: {
+        filePath: 'layout.gts',
+      },
+    },
+
     {
       config: { labelTags: ['CustomLabel'] },
       template: '<CustomLabel><input /></CustomLabel>',
@@ -76,8 +90,8 @@ generateRuleTests({
       template: '<my-label><input /></my-label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 10,
               "endColumn": 19,
               "endLine": 1,
@@ -96,8 +110,8 @@ generateRuleTests({
       template: '<div><input /></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -116,8 +130,8 @@ generateRuleTests({
       template: '<input />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 9,
               "endLine": 1,
@@ -136,8 +150,8 @@ generateRuleTests({
       template: '<input title="some title value" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 34,
               "endLine": 1,
@@ -146,7 +160,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input title=\\"some title value\\" />",
+              "source": "<input title="some title value" />",
             },
           ]
         `);
@@ -156,8 +170,8 @@ generateRuleTests({
       template: '<label><input></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 14,
               "endLine": 1,
@@ -176,8 +190,8 @@ generateRuleTests({
       template: '<div>{{input}}</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 14,
               "endLine": 1,
@@ -196,8 +210,8 @@ generateRuleTests({
       template: '<Input/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 8,
               "endLine": 1,
@@ -216,8 +230,8 @@ generateRuleTests({
       template: '<input aria-label="first label" aria-labelledby="second label">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 63,
               "endLine": 1,
@@ -226,7 +240,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input aria-label=\\"first label\\" aria-labelledby=\\"second label\\">",
+              "source": "<input aria-label="first label" aria-labelledby="second label">",
             },
           ]
         `);
@@ -236,8 +250,8 @@ generateRuleTests({
       template: '<input id="label-input" aria-label="second label">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 50,
               "endLine": 1,
@@ -246,7 +260,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input id=\\"label-input\\" aria-label=\\"second label\\">",
+              "source": "<input id="label-input" aria-label="second label">",
             },
           ]
         `);
@@ -256,8 +270,8 @@ generateRuleTests({
       template: '<label>Input label<input aria-label="Custom label"></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 18,
               "endColumn": 51,
               "endLine": 1,
@@ -266,7 +280,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input aria-label=\\"Custom label\\">",
+              "source": "<input aria-label="Custom label">",
             },
           ]
         `);
@@ -276,8 +290,8 @@ generateRuleTests({
       template: '{{input type="button"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 23,
               "endLine": 1,
@@ -286,7 +300,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "{{input type=\\"button\\"}}",
+              "source": "{{input type="button"}}",
             },
           ]
         `);
@@ -296,8 +310,8 @@ generateRuleTests({
       template: '{{input type=myType}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 21,
               "endLine": 1,
@@ -316,8 +330,8 @@ generateRuleTests({
       template: '<input type="button"/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -326,7 +340,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<input type=\\"button\\"/>",
+              "source": "<input type="button"/>",
             },
           ]
         `);
@@ -336,8 +350,8 @@ generateRuleTests({
       template: '<input type={{myType}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
@@ -356,8 +370,8 @@ generateRuleTests({
       template: '<Input type="button"/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 22,
               "endLine": 1,
@@ -366,7 +380,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<Input type=\\"button\\"/>",
+              "source": "<Input type="button"/>",
             },
           ]
         `);
@@ -376,8 +390,8 @@ generateRuleTests({
       template: '<Input type={{myType}}/>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 24,
               "endLine": 1,
@@ -396,8 +410,8 @@ generateRuleTests({
       template: '<div><textarea /></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 17,
               "endLine": 1,
@@ -416,8 +430,8 @@ generateRuleTests({
       template: '<textarea />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 12,
               "endLine": 1,
@@ -436,8 +450,8 @@ generateRuleTests({
       template: '<textarea title="some title value" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 37,
               "endLine": 1,
@@ -446,7 +460,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea title=\\"some title value\\" />",
+              "source": "<textarea title="some title value" />",
             },
           ]
         `);
@@ -456,8 +470,8 @@ generateRuleTests({
       template: '<label><textarea /></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 19,
               "endLine": 1,
@@ -476,8 +490,8 @@ generateRuleTests({
       template: '<div>{{textarea}}</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 17,
               "endLine": 1,
@@ -496,8 +510,8 @@ generateRuleTests({
       template: '<Textarea />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 12,
               "endLine": 1,
@@ -516,8 +530,8 @@ generateRuleTests({
       template: '<textarea aria-label="first label" aria-labelledby="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 68,
               "endLine": 1,
@@ -526,7 +540,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea aria-label=\\"first label\\" aria-labelledby=\\"second label\\" />",
+              "source": "<textarea aria-label="first label" aria-labelledby="second label" />",
             },
           ]
         `);
@@ -536,8 +550,8 @@ generateRuleTests({
       template: '<textarea id="label-input" aria-label="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 55,
               "endLine": 1,
@@ -546,7 +560,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea id=\\"label-input\\" aria-label=\\"second label\\" />",
+              "source": "<textarea id="label-input" aria-label="second label" />",
             },
           ]
         `);
@@ -556,8 +570,8 @@ generateRuleTests({
       template: '<label>Textarea label<textarea aria-label="Custom label" /></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 59,
               "endLine": 1,
@@ -566,7 +580,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<textarea aria-label=\\"Custom label\\" />",
+              "source": "<textarea aria-label="Custom label" />",
             },
           ]
         `);
@@ -576,8 +590,8 @@ generateRuleTests({
       template: '<div><select></select></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 5,
               "endColumn": 22,
               "endLine": 1,
@@ -596,8 +610,8 @@ generateRuleTests({
       template: '<select></select>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 17,
               "endLine": 1,
@@ -616,8 +630,8 @@ generateRuleTests({
       template: '<select title="some title value" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 35,
               "endLine": 1,
@@ -626,7 +640,7 @@ generateRuleTests({
               "message": "form elements require a valid associated label.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select title=\\"some title value\\" />",
+              "source": "<select title="some title value" />",
             },
           ]
         `);
@@ -636,8 +650,8 @@ generateRuleTests({
       template: '<label><select></select></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 7,
               "endColumn": 24,
               "endLine": 1,
@@ -656,8 +670,8 @@ generateRuleTests({
       template: '<select aria-label="first label" aria-labelledby="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 66,
               "endLine": 1,
@@ -666,7 +680,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select aria-label=\\"first label\\" aria-labelledby=\\"second label\\" />",
+              "source": "<select aria-label="first label" aria-labelledby="second label" />",
             },
           ]
         `);
@@ -676,8 +690,8 @@ generateRuleTests({
       template: '<select id="label-input" aria-label="second label" />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 53,
               "endLine": 1,
@@ -686,7 +700,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select id=\\"label-input\\" aria-label=\\"second label\\" />",
+              "source": "<select id="label-input" aria-label="second label" />",
             },
           ]
         `);
@@ -696,8 +710,8 @@ generateRuleTests({
       template: '<label>Select label<select aria-label="Custom label" /></label>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 55,
               "endLine": 1,
@@ -706,7 +720,7 @@ generateRuleTests({
               "message": "form elements should not have multiple labels.",
               "rule": "require-input-label",
               "severity": 2,
-              "source": "<select aria-label=\\"Custom label\\" />",
+              "source": "<select aria-label="Custom label" />",
             },
           ]
         `);

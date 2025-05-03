@@ -32,14 +32,13 @@ This rule **forbids** the following:
 <nobr></nobr>
 <noembed></noembed>
 <noframes></noframes>
+<param>
 <plaintext></plaintext>
 <rb></rb>
 <rtc></rtc>
-<s></s>
 <spacer></spacer>
 <strike></strike>
 <tt></tt>
-<u></u>
 <xmp></xmp>
 ```
 
@@ -52,5 +51,5 @@ This rule **allows** anything that is not an obsolete element.
 ## References
 
 * [HTML non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)
-* [HTML5 obsolete features](https://dev.w3.org/html5/pf-summary/obsolete.html)
+* [HTML5 obsolete features](https://dev.w3.org/html5/spec-LC/obsolete.html)
 * [Failure of Success Criterion 2.2.2 due to using the blink element](https://www.w3.org/TR/WCAG20-TECHS/failures.html#F47)

@@ -1,8 +1,6 @@
-'use strict';
+import { stripIndent } from 'common-tags';
 
-const stripIndent = require('common-tags').stripIndent;
-
-const Linter = require('../../lib');
+import Linter from '../../lib/linter.js';
 
 describe('recommended config', function () {
   function buildFakeConsole() {

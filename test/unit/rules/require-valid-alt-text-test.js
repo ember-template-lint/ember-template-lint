@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-valid-alt-text',
@@ -19,10 +17,16 @@ generateRuleTests({
 
     '<img alt="some-alt-name">',
     '<img alt="name {{picture}}">',
-    '<img aria-hidden="true">',
     '<img alt="{{picture}}">',
+    '<img alt="">',
+    '<img alt="" src="zoey.jpg">',
     '<img alt="" role="none">',
     '<img alt="" role="presentation">',
+
+    '<img alt>',
+    '<img alt role="none">',
+    '<img alt role="presentation">',
+    '<img alt src="zoey.jpg">',
 
     // Valid words containing redundant words.
     '<img alt="logout">',
@@ -62,8 +66,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 5,
               "endLine": 1,
@@ -83,8 +87,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 20,
               "endLine": 1,
@@ -93,49 +97,7 @@ generateRuleTests({
               "message": "All \`<img>\` tags must have an alt attribute",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img src=\\"zoey.jpg\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt="" src="zoey.jpg">',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 27,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt=\\"\\" src=\\"zoey.jpg\\">",
-            },
-          ]
-        `);
-      },
-    },
-    {
-      template: '<img alt src="zoey.jpg">',
-
-      verifyResults(results) {
-        expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "column": 0,
-              "endColumn": 24,
-              "endLine": 1,
-              "filePath": "layout.hbs",
-              "line": 1,
-              "message": "If the \`alt\` attribute is present and the value is an empty string, \`role=\\"presentation\\"\` or \`role=\\"none\\"\` must be present",
-              "rule": "require-valid-alt-text",
-              "severity": 2,
-              "source": "<img alt src=\\"zoey.jpg\\">",
+              "source": "<img src="zoey.jpg">",
             },
           ]
         `);
@@ -145,8 +107,8 @@ generateRuleTests({
       template: '<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -155,7 +117,7 @@ generateRuleTests({
               "message": "The alt text must not be the same as the image source",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"path/to/zoey.jpg\\" src=\\"path/to/zoey.jpg\\">",
+              "source": "<img alt="path/to/zoey.jpg" src="path/to/zoey.jpg">",
             },
           ]
         `);
@@ -166,17 +128,17 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "All <input> elements with type=\\"image\\" must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
+              "message": "All <input> elements with type="image" must have a text alternative through the \`alt\`, \`aria-label\`, or \`aria-labelledby\` attribute.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<input type=\\"image\\">",
+              "source": "<input type="image">",
             },
           ]
         `);
@@ -186,8 +148,8 @@ generateRuleTests({
       template: '<object></object>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 17,
               "endLine": 1,
@@ -206,8 +168,8 @@ generateRuleTests({
       template: '<object />',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 10,
               "endLine": 1,
@@ -226,8 +188,8 @@ generateRuleTests({
       template: '<area>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 6,
               "endLine": 1,
@@ -247,8 +209,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 19,
               "endLine": 1,
@@ -257,7 +219,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"picture\\">",
+              "source": "<img alt="picture">",
             },
           ]
         `);
@@ -268,8 +230,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 17,
               "endLine": 1,
@@ -278,7 +240,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"photo\\">",
+              "source": "<img alt="photo">",
             },
           ]
         `);
@@ -289,8 +251,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 17,
               "endLine": 1,
@@ -299,7 +261,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"image\\">",
+              "source": "<img alt="image">",
             },
           ]
         `);
@@ -310,8 +272,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 20,
               "endLine": 1,
@@ -320,7 +282,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"  IMAGE \\">",
+              "source": "<img alt="  IMAGE ">",
             },
           ]
         `);
@@ -331,8 +293,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 41,
               "endLine": 1,
@@ -341,7 +303,7 @@ generateRuleTests({
               "message": "Invalid alt attribute. Words such as \`image\`, \`photo,\` or \`picture\` are already announced by screen readers.",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"  IMAGE {{picture}} {{word}} \\">",
+              "source": "<img alt="  IMAGE {{picture}} {{word}} ">",
             },
           ]
         `);
@@ -352,8 +314,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 28,
               "endLine": 1,
@@ -362,7 +324,7 @@ generateRuleTests({
               "message": "A number is not valid alt text",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"52\\" src=\\"b52.jpg\\">",
+              "source": "<img alt="52" src="b52.jpg">",
             },
           ]
         `);
@@ -372,8 +334,8 @@ generateRuleTests({
       template: '<img alt="not-null-alt" src="zoey.jpg" role="none">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 51,
               "endLine": 1,
@@ -382,7 +344,7 @@ generateRuleTests({
               "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"none\\">",
+              "source": "<img alt="not-null-alt" src="zoey.jpg" role="none">",
             },
           ]
         `);
@@ -392,8 +354,8 @@ generateRuleTests({
       template: '<img alt="not-null-alt" src="zoey.jpg" role="presentation">',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 0,
               "endColumn": 59,
               "endLine": 1,
@@ -402,7 +364,7 @@ generateRuleTests({
               "message": "The \`alt\` attribute should be empty if \`<img>\` has \`role\` of \`none\` or \`presentation\`",
               "rule": "require-valid-alt-text",
               "severity": 2,
-              "source": "<img alt=\\"not-null-alt\\" src=\\"zoey.jpg\\" role=\\"presentation\\">",
+              "source": "<img alt="not-null-alt" src="zoey.jpg" role="presentation">",
             },
           ]
         `);

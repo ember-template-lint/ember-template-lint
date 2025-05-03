@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-this-in-template-only-components',
@@ -27,8 +25,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 31,
               "endLine": 1,
@@ -50,8 +48,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 30,
               "endColumn": 43,
               "endLine": 1,
@@ -73,8 +71,8 @@ generateRuleTests({
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 32,
               "endColumn": 42,
               "endLine": 1,
@@ -94,8 +92,8 @@ generateRuleTests({
       template: '{{input id=(concat this.elementId "-username")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 19,
               "endColumn": 33,
               "endLine": 1,
@@ -119,8 +117,8 @@ generateRuleTests({
       },
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "column": 21,
               "endColumn": 31,
               "endLine": 1,
