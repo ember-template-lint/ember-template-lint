@@ -2,6 +2,20 @@
 
 ## Release (2025-05-03)
 
+ember-template-lint 7.4.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#2978](https://github.com/ember-template-lint/ember-template-lint/pull/2978) Add new rule `no-jsx-attributes` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3203](https://github.com/ember-template-lint/ember-template-lint/pull/3203) Closes [#2386](https://github.com/ember-template-lint/ember-template-lint/issues/2386) - list summary in interactive elements ([@lifeart](https://github.com/lifeart))
+  * [#3205](https://github.com/ember-template-lint/ember-template-lint/pull/3205) Closes [#1728](https://github.com/ember-template-lint/ember-template-lint/issues/1728) support absolute paths in no-this-in-template-only-components ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-05-03)
+
 ember-template-lint 7.3.0 (minor)
 
 #### :rocket: Enhancement
