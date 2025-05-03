@@ -17,37 +17,37 @@ For example, if a landmark element is used, any role provided will either be red
 This rule **forbids** the following:
 
 ```hbs
-<header role='banner'></header>
+<header role="banner"></header>
 ```
 
 ```hbs
-<main role='main'></main>
+<main role="main"></main>
 ```
 
 ```hbs
-<aside role='complementary'></aside>
+<aside role="complementary"></aside>
 ```
 
 ```hbs
-<footer role='contentinfo'></footer>
+<footer role="contentinfo"></footer>
 ```
 
 ```hbs
-<form role='form'></form>
+<form role="form"></form>
 ```
 
 This rule **allows** the following:
 
 ```hbs
-<form role='search'></form>
+<form role="search"></form>
 ```
 
 ```hbs
-<nav role='navigation'></nav>
+<nav role="navigation"></nav>
 ```
 
 ```hbs
-<input role='combobox' />
+<input role="combobox" />
 ```
 
 ## Configuration
