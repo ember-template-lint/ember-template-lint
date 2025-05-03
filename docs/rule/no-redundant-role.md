@@ -10,6 +10,7 @@ For example, if a landmark element is used, any role provided will either be red
 
 - a `nav` element with the `navigation` role to [make the structure of the page more accessible to user agents](https://www.w3.org/WAI/GL/wiki/Using_HTML5_nav_element#Example:The_.3Cnav.3E_element)
 - a `form` element with the `search` role to [identify the form's search functionality](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role#examples)
+- a `input` element with `combobox` role to [identify the input as a combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-both/)
 
 ## Examples
 
@@ -43,6 +44,10 @@ This rule **allows** the following:
 
 ```hbs
 <nav role="navigation"></nav>
+```
+
+```hbs
+<input role="combobox" />
 ```
 
 ## Configuration

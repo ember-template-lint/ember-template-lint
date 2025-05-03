@@ -57,6 +57,7 @@ generateRuleTests({
       },
       template: '<ul class="list" role="combobox"></ul>',
     },
+    '<input role="combobox">',
   ],
 
   bad: [
