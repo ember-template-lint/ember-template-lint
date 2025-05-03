@@ -29,7 +29,7 @@ generateRuleTests({
               "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
               "rule": "no-link-to-tagname",
               "severity": 2,
-              "source": "@tagName=\\"button\\"",
+              "source": "@tagName="button"",
             },
           ]
         `);
@@ -49,7 +49,7 @@ generateRuleTests({
               "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
               "rule": "no-link-to-tagname",
               "severity": 2,
-              "source": "tagName=\\"button\\"",
+              "source": "tagName="button"",
             },
           ]
         `);
@@ -69,7 +69,7 @@ generateRuleTests({
               "message": "Overriding \`tagName\` on \`LinkTo\` components is not allowed",
               "rule": "no-link-to-tagname",
               "severity": 2,
-              "source": "tagName=\\"button\\"",
+              "source": "tagName="button"",
             },
           ]
         `);

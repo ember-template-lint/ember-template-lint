@@ -5,7 +5,7 @@ generateRuleTests({
 
   config: true,
 
-  good: ['{{foo}}', '{{button}}'],
+  good: ['{{foo}}', '{{button}}', '<Component @param={{"partial"}} />'],
 
   bad: [
     {
@@ -23,7 +23,7 @@ generateRuleTests({
               "message": "Unexpected {{partial}} usage.",
               "rule": "no-partial",
               "severity": 2,
-              "source": "{{partial \\"foo\\"}}",
+              "source": "{{partial "foo"}}",
             },
           ]
         `);

@@ -84,21 +84,19 @@ describe('rule public api', function () {
           name: 'can use verifyResults directly (with inline snapshots)',
           template: '<div></div>',
           verifyResults(results) {
-            expect(results).toMatchInlineSnapshot(`
-              [
-                {
-                  "column": 0,
-                  "endColumn": 11,
-                  "endLine": 1,
-                  "filePath": "layout.hbs",
-                  "line": 1,
-                  "message": "Do not use any HTML elements!",
-                  "rule": "no-elements",
-                  "severity": 2,
-                  "source": "<div></div>",
-                },
-              ]
-            `);
+            expect(results).deep.toEqual([
+              {
+                column: 0,
+                endColumn: 11,
+                endLine: 1,
+                filePath: 'layout.hbs',
+                line: 1,
+                message: 'Do not use any HTML elements!',
+                rule: 'no-elements',
+                severity: 2,
+                source: '<div></div>',
+              },
+            ]);
           },
         },
         {
@@ -386,85 +384,85 @@ describe('rule public api', function () {
     });
   });
 
-  describe('with wrong number of arguments passed to generateRuleTests', function () {
+  test('with wrong number of arguments passed to generateRuleTests', function () {
     expect(() => generateRuleTests({}, {})).toThrowErrorMatchingInlineSnapshot(
-      `"\`generateRuleTests\` should only be called with one argument."`
+      `[AssertionError: \`generateRuleTests\` should only be called with one argument.]`
     );
   });
 
-  describe('with invalid argument type passed to generateRuleTests', function () {
+  test('with invalid argument type passed to generateRuleTests', function () {
     expect(() => generateRuleTests(123)).toThrowErrorMatchingInlineSnapshot(
-      `"\`generateRuleTests\` should only be called with an object argument."`
+      `[AssertionError: \`generateRuleTests\` should only be called with an object argument.]`
     );
   });
 
-  describe('with invalid property in good test case', function () {
+  test('with invalid property in good test case', function () {
     expect(() =>
       generateRuleTests({
         good: [{ foo: true }],
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected property passed to good test case: foo. Expected one of: config, meta, name, template."`
+      `[AssertionError: Unexpected property passed to good test case: foo. Expected one of: config, focus, meta, name, template.]`
     );
   });
 
-  describe('with invalid property in bad test case', function () {
+  test('with invalid property in bad test case', function () {
     expect(() =>
       generateRuleTests({
         bad: [{ foo: true }],
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, meta, name, result, results, template, verifyResults."`
+      `[AssertionError: Unexpected property passed to bad test case: foo. Expected one of: config, fixedTemplate, focus, meta, name, result, results, skipDisabledTests, template, verifyResults.]`
     );
   });
 
-  describe('with both `result` and `results` in bad test case', function () {
+  test('with both `result` and `results` in bad test case', function () {
     expect(() =>
       generateRuleTests({
         bad: [{ result: {}, results: [] }],
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Bad test case should not have both \`result\` and \`results\`."`
+      `[AssertionError: Bad test case should not have both \`result\` and \`results\`.]`
     );
   });
 
-  describe('with invalid property in bad test case result', function () {
+  test('with invalid property in bad test case result', function () {
     expect(() =>
       generateRuleTests({
         bad: [{ results: [{ fatal: true }] }], // `fatal` only allowed in error test cases.
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected property passed to bad test case results: fatal. Expected one of: column, endColumn, endLine, filePath, isFixable, line, message, rule, severity, source."`
+      `[AssertionError: Unexpected property passed to bad test case results: fatal. Expected one of: column, endColumn, endLine, filePath, isFixable, line, message, rule, severity, source.]`
     );
   });
 
-  describe('with invalid property in error test case', function () {
+  test('with invalid property in error test case', function () {
     expect(() =>
       generateRuleTests({
         error: [{ fixedTemplate: true }], // `fixedTemplate` only allowed in bad test cases.
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected property passed to error test case: fixedTemplate. Expected one of: config, meta, name, result, results, template, verifyResults."`
+      `[AssertionError: Unexpected property passed to error test case: fixedTemplate. Expected one of: config, meta, name, result, results, template, verifyResults.]`
     );
   });
 
-  describe('with both `result` and `results` in error test case', function () {
+  test('with both `result` and `results` in error test case', function () {
     expect(() =>
       generateRuleTests({
         error: [{ result: {}, results: [] }],
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Error test case should not have both \`result\` and \`results\`."`
+      `[AssertionError: Error test case should not have both \`result\` and \`results\`.]`
     );
   });
 
-  describe('with invalid property in error test case result', function () {
+  test('with invalid property in error test case result', function () {
     expect(() =>
       generateRuleTests({
         error: [{ results: [{ isFixable: true }] }], // `isFixable` only allowed in bad test cases.
       })
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected property passed to error test case results: isFixable. Expected one of: column, endColumn, endLine, fatal, filePath, line, message, rule, severity, source."`
+      `[AssertionError: Unexpected property passed to error test case results: isFixable. Expected one of: column, endColumn, endLine, fatal, filePath, line, message, rule, severity, source.]`
     );
   });
 });
@@ -665,7 +663,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"ember-template-lint: Test harness found invalid setup (\`groupingMethodBefore\` not called once per test). Maybe you meant to pass \`groupingMethodBefore: beforeEach\`?"`
+      `[Error: ember-template-lint: Test harness found invalid setup (\`groupingMethodBefore\` not called once per test). Maybe you meant to pass \`groupingMethodBefore: beforeEach\`?]`
     );
 
     expect(group.runLog).toMatchInlineSnapshot(`
@@ -740,7 +738,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"fixable test cases must assert the \`fixedTemplate\`"`
+      `[AssertionError: fixable test cases must assert the \`fixedTemplate\`]`
     );
   });
 
@@ -768,7 +766,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      '"non-fixable test cases should not provide `fixedTemplate`"'
+      `[AssertionError: non-fixable test cases should not provide \`fixedTemplate\`]`
     );
   });
 
@@ -879,7 +877,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"Test case \`template\` should not equal the \`fixedTemplate\`"`
+      `[AssertionError: Test case \`template\` should not equal the \`fixedTemplate\`]`
     );
   });
 
@@ -914,7 +912,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"detected duplicate \`good\` test case"`
+      `[AssertionError: detected duplicate \`good\` test case]`
     );
   });
 
@@ -949,7 +947,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"detected duplicate \`good\` test case"`
+      `[AssertionError: detected duplicate \`good\` test case]`
     );
   });
 
@@ -998,7 +996,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"detected duplicate \`bad\` test case"`
+      `[AssertionError: detected duplicate \`bad\` test case]`
     );
   });
 
@@ -1071,7 +1069,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"detected duplicate \`bad\` test case"`
+      `[AssertionError: detected duplicate \`bad\` test case]`
     );
   });
 
@@ -1146,7 +1144,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"detected duplicate \`bad\` test case"`
+      `[AssertionError: detected duplicate \`bad\` test case]`
     );
   });
 
@@ -1521,7 +1519,7 @@ describe('regression tests', function () {
     });
 
     await expect(() => group.run()).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"detected duplicate \`error\` test case"`
+      `[AssertionError: detected duplicate \`error\` test case]`
     );
   });
 });

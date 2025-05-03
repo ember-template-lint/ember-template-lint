@@ -17,7 +17,7 @@ generateRuleTests({
   ],
 
   bad: OBSOLETE_ELEMENTS.map((element) => {
-    const VOID_ELEMENTS = ['keygen'];
+    const VOID_ELEMENTS = ['keygen', 'param'];
     const html = VOID_ELEMENTS.includes(element) ? `<${element}>` : `<${element}></${element}>`;
     return {
       template: html,

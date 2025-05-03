@@ -28,6 +28,12 @@ let good = [
     config: { allow: [/^data-test-.+/] },
     template: '{{foo-bar data-test-foo}}',
   },
+  {
+    template: '<template>{{book}}</template>',
+    meta: {
+      filePath: 'layout.gjs',
+    },
+  },
 ];
 
 for (const statement of statements) {
@@ -225,6 +231,58 @@ generateRuleTests({
               "rule": "no-implicit-this",
               "severity": 2,
               "source": "session.user.name",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `import { hbs } from 'ember-cli-htmlbars';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
+        export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
+      meta: {
+        filePath: 'layout.js',
+      },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 64,
+              "endColumn": 68,
+              "endLine": 4,
+              "filePath": "layout.js",
+              "line": 4,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `import { hbs } from 'ember-cli-htmlbars';
+        import { setComponentTemplate } from '@ember/component';
+        import templateOnly from '@ember/component/template-only';
+        export const SomeComponent = setComponentTemplate(hbs\`{{book}}\`, templateOnly());`,
+      meta: {
+        filePath: 'layout.ts',
+      },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 64,
+              "endColumn": 68,
+              "endLine": 4,
+              "filePath": "layout.ts",
+              "line": 4,
+              "message": "Ambiguous path 'book' is not allowed. Use '@book' if it is a named argument or 'this.book' if it is a property on 'this'. If it is a helper or component that has no arguments, you must either convert it to an angle bracket invocation or manually add it to the 'no-implicit-this' rule configuration, e.g. 'no-implicit-this': { allow: ['book'] }.",
+              "rule": "no-implicit-this",
+              "severity": 2,
+              "source": "book",
             },
           ]
         `);

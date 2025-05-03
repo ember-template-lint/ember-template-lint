@@ -16,6 +16,9 @@ generateRuleTests({
     '<header></header><main></main><footer></footer>',
     '<nav aria-label="primary navigation"></nav><nav aria-label={{this.something}}></nav>',
     '<img role="none"><img role="none">',
+    "<main><header><h1>Main Page Header</h1></header><button commandfor='my-dialog'>Open Dialog</button></main><dialog id='my-dialog'><header><h1>Dialog Header</h1></header><p>Some content in the dialog.</p></dialog>",
+    "<main><header><h1>Main Page Header</h1></header><button commandfor='my-dialog'>Open Dialog</button></main><div popover id='my-dialog'><header><h1>Dialog Header</h1></header><p>Some content in the dialog.</p></div>",
+    `{{#if this.isCreateProjectFromSavedSearchEnabled}}<form></form>{{else}}<form></form>{{/if}}`,
   ],
 
   bad: [
@@ -53,7 +56,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<div role=\\"navigation\\"></div>",
+              "source": "<div role="navigation"></div>",
             },
           ]
         `);
@@ -93,7 +96,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<div role=\\"main\\"></div>",
+              "source": "<div role="main"></div>",
             },
           ]
         `);
@@ -113,7 +116,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<nav aria-label=\\"site navigation\\"></nav>",
+              "source": "<nav aria-label="site navigation"></nav>",
             },
           ]
         `);
@@ -133,7 +136,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<form aria-label=\\"search-form\\"></form>",
+              "source": "<form aria-label="search-form"></form>",
             },
           ]
         `);
@@ -154,7 +157,7 @@ generateRuleTests({
               "message": "If multiple landmark elements (or elements with an equivalent role) of the same type are found on a page, they must each have a unique label.",
               "rule": "no-duplicate-landmark-elements",
               "severity": 2,
-              "source": "<form aria-labelledby=\\"form-title\\"></form>",
+              "source": "<form aria-labelledby="form-title"></form>",
             },
           ]
         `);

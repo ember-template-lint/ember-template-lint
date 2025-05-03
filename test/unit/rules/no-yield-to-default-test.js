@@ -30,10 +30,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "to=\\"default\\"",
+              "source": "to="default"",
             },
           ]
         `);
@@ -50,10 +50,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -70,10 +70,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -90,10 +90,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -110,10 +110,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -130,10 +130,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -150,10 +150,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -170,10 +170,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -190,10 +190,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -210,10 +210,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -230,10 +230,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -250,10 +250,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);
@@ -270,10 +270,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "A block named \\"default\\" is not valid",
+              "message": "A block named "default" is not valid",
               "rule": "no-yield-to-default",
               "severity": 2,
-              "source": "\\"default\\"",
+              "source": ""default"",
             },
           ]
         `);

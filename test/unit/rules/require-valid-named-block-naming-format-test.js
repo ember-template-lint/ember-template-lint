@@ -72,6 +72,7 @@ generateRuleTests({
     // Default config.
     {
       template: '{{yield to="foo-bar"}}',
+      fixedTemplate: '{{yield to="fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -80,11 +81,12 @@ generateRuleTests({
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "to=\\"foo-bar\\"",
+              "source": "to="foo-bar"",
             },
           ]
         `);
@@ -92,6 +94,7 @@ generateRuleTests({
     },
     {
       template: '{{has-block "foo-bar"}}',
+      fixedTemplate: '{{has-block "fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -100,11 +103,12 @@ generateRuleTests({
               "endColumn": 21,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -112,6 +116,7 @@ generateRuleTests({
     },
     {
       template: '{{if (has-block "foo-bar")}}',
+      fixedTemplate: '{{if (has-block "fooBar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -120,11 +125,12 @@ generateRuleTests({
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -132,6 +138,7 @@ generateRuleTests({
     },
     {
       template: '{{has-block-params "foo-bar"}}',
+      fixedTemplate: '{{has-block-params "fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -140,11 +147,12 @@ generateRuleTests({
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -152,6 +160,7 @@ generateRuleTests({
     },
     {
       template: '{{if (has-block-params "foo-bar")}}',
+      fixedTemplate: '{{if (has-block-params "fooBar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -160,11 +169,12 @@ generateRuleTests({
               "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -175,6 +185,7 @@ generateRuleTests({
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{yield to="foo-bar"}}',
+      fixedTemplate: '{{yield to="fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -183,11 +194,12 @@ generateRuleTests({
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "to=\\"foo-bar\\"",
+              "source": "to="foo-bar"",
             },
           ]
         `);
@@ -196,6 +208,7 @@ generateRuleTests({
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{has-block "foo-bar"}}',
+      fixedTemplate: '{{has-block "fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -204,11 +217,12 @@ generateRuleTests({
               "endColumn": 21,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -217,6 +231,7 @@ generateRuleTests({
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{if (has-block "foo-bar")}}',
+      fixedTemplate: '{{if (has-block "fooBar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -225,11 +240,12 @@ generateRuleTests({
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -238,6 +254,7 @@ generateRuleTests({
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{has-block-params "foo-bar"}}',
+      fixedTemplate: '{{has-block-params "fooBar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -246,11 +263,12 @@ generateRuleTests({
               "endColumn": 28,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -259,6 +277,7 @@ generateRuleTests({
     {
       config: FORMAT.CAMEL_CASE,
       template: '{{if (has-block-params "foo-bar")}}',
+      fixedTemplate: '{{if (has-block-params "fooBar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -267,11 +286,12 @@ generateRuleTests({
               "endColumn": 32,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"camelCase\\" naming format. Please change \\"foo-bar\\" to \\"fooBar\\".",
+              "message": "Named blocks are required to use the "camelCase" naming format. Please change "foo-bar" to "fooBar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"foo-bar\\"",
+              "source": ""foo-bar"",
             },
           ]
         `);
@@ -282,6 +302,7 @@ generateRuleTests({
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{yield to="fooBar"}}',
+      fixedTemplate: '{{yield to="foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -290,11 +311,12 @@ generateRuleTests({
               "endColumn": 19,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "to=\\"fooBar\\"",
+              "source": "to="fooBar"",
             },
           ]
         `);
@@ -303,6 +325,7 @@ generateRuleTests({
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{has-block "fooBar"}}',
+      fixedTemplate: '{{has-block "foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -311,11 +334,12 @@ generateRuleTests({
               "endColumn": 20,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -324,6 +348,7 @@ generateRuleTests({
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{if (has-block "fooBar")}}',
+      fixedTemplate: '{{if (has-block "foo-bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -332,11 +357,12 @@ generateRuleTests({
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -345,6 +371,7 @@ generateRuleTests({
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{has-block-params "fooBar"}}',
+      fixedTemplate: '{{has-block-params "foo-bar"}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -353,11 +380,12 @@ generateRuleTests({
               "endColumn": 27,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);
@@ -366,6 +394,7 @@ generateRuleTests({
     {
       config: FORMAT.KEBAB_CASE,
       template: '{{if (has-block-params "fooBar")}}',
+      fixedTemplate: '{{if (has-block-params "foo-bar")}}',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -374,11 +403,12 @@ generateRuleTests({
               "endColumn": 31,
               "endLine": 1,
               "filePath": "layout.hbs",
+              "isFixable": true,
               "line": 1,
-              "message": "Named blocks are required to use the \\"kebab-case\\" naming format. Please change \\"fooBar\\" to \\"foo-bar\\".",
+              "message": "Named blocks are required to use the "kebab-case" naming format. Please change "fooBar" to "foo-bar".",
               "rule": "require-valid-named-block-naming-format",
               "severity": 2,
-              "source": "\\"fooBar\\"",
+              "source": ""fooBar"",
             },
           ]
         `);

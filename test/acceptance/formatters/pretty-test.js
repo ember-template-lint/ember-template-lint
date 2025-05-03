@@ -2,31 +2,29 @@ import chalk from 'chalk';
 
 import PrettyFormatter from '../../../lib/formatters/pretty.js';
 import { TODO_SEVERITY } from '../../../lib/helpers/severity.js';
-import { Project, getOutputFileContents, run, setupEnvVar } from '../../helpers/index.js';
-
-const ROOT = process.cwd();
+import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
+import { getOutputFileContents, setupEnvVar } from '../../helpers/index.js';
 
 describe('pretty formatter', () => {
   setupEnvVar('FORCE_COLOR', '0');
 
   let project;
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = await setupProject();
     await project.chdir();
   });
 
-  afterEach(async function () {
-    await process.chdir(ROOT);
-    project.dispose();
+  afterEach(function () {
+    teardownProject();
   });
 
   it('should format errors', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
@@ -37,27 +35,32 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.']);
+    let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout.split('\n')).toEqual([
-      'app/templates/application.hbs',
-      '  1:4  error  Non-translated string used  no-bare-strings',
-      '  1:25  error  Non-translated string used  no-bare-strings',
-      '',
-      '✖ 2 problems (2 errors, 0 warnings)',
-    ]);
+    expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+      [
+        "Linting 2 Total Files with TemplateLint",
+        "	.hbs: 2",
+        "",
+        "app/templates/application.hbs",
+        "  1:4  error  Non-translated string used  no-bare-strings",
+        "  1:25  error  Non-translated string used  no-bare-strings",
+        "",
+        "✖ 2 problems (2 errors, 0 warnings)",
+      ]
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
   it('should format errors and warnings', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': 'warn',
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -66,28 +69,34 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.']);
+    let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
-    expect(result.stdout.split('\n')).toEqual([
-      'app/templates/application.hbs',
-      '  1:4  error  Non-translated string used  no-bare-strings',
-      '  1:24  error  Non-translated string used  no-bare-strings',
-      '  1:53  warning  HTML comment detected  no-html-comments',
-      '',
-      '✖ 3 problems (2 errors, 1 warnings)',
-    ]);
+    expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+      [
+        "Linting 1 Total Files with TemplateLint",
+        "	.hbs: 1",
+        "",
+        "app/templates/application.hbs",
+        "  1:4  error  Non-translated string used  no-bare-strings",
+        "  1:24  error  Non-translated string used  no-bare-strings",
+        "  1:53  warning  HTML comment detected  no-html-comments",
+        "",
+        "✖ 3 problems (2 errors, 1 warnings)",
+        "  0 errors and 1 warnings potentially fixable with the \`--fix\` option.",
+      ]
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
   it('should include information about available fixes', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'require-button-type': true,
       },
     });
 
-    project.write({
+    await project.write({
       app: {
         components: {
           'click-me-button.hbs': '<button>Click me!</button>',
@@ -95,28 +104,33 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.']);
+    let result = await runBin('.');
 
     expect(result.exitCode).toEqual(1);
 
-    expect(result.stdout.split('\n')).toEqual([
-      'app/components/click-me-button.hbs',
-      '  1:0  error  All `<button>` elements should have a valid `type` attribute  require-button-type',
-      '',
-      '✖ 1 problems (1 errors, 0 warnings)',
-      '  1 errors and 0 warnings potentially fixable with the `--fix` option.',
-    ]);
+    expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+      [
+        "Linting 1 Total Files with TemplateLint",
+        "	.hbs: 1",
+        "",
+        "app/components/click-me-button.hbs",
+        "  1:0  error  All \`<button>\` elements should have a valid \`type\` attribute  require-button-type",
+        "",
+        "✖ 1 problems (1 errors, 0 warnings)",
+        "  1 errors and 0 warnings potentially fixable with the \`--fix\` option.",
+      ]
+    `);
     expect(result.stderr).toBeFalsy();
   });
 
   it('should output to a file using --output-file option using default filename', async () => {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': 'warn',
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -125,7 +139,7 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.', '--output-file']);
+    let result = await runBin('.', '--output-file');
 
     expect(result.exitCode).toEqual(1);
     expect(getOutputFileContents(result.stdout)).toMatchInlineSnapshot(`
@@ -134,19 +148,20 @@ describe('pretty formatter', () => {
         1:24  error  Non-translated string used  no-bare-strings
         1:53  warning  HTML comment detected  no-html-comments
 
-      ✖ 3 problems (2 errors, 1 warnings)"
+      ✖ 3 problems (2 errors, 1 warnings)
+        0 errors and 1 warnings potentially fixable with the \`--fix\` option."
     `);
     expect(result.stderr).toBeFalsy();
   });
 
   it('should output to a file using --output-file option using custom filename', async () => {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': 'warn',
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -155,7 +170,7 @@ describe('pretty formatter', () => {
       },
     });
 
-    let result = await run(['.', '--output-file', 'pretty-output.txt']);
+    let result = await runBin('.', '--output-file', 'pretty-output.txt');
 
     expect(result.exitCode).toEqual(1);
     expect(result.stdout).toMatch(/.*pretty-output\.txt/);
@@ -165,20 +180,21 @@ describe('pretty formatter', () => {
         1:24  error  Non-translated string used  no-bare-strings
         1:53  warning  HTML comment detected  no-html-comments
 
-      ✖ 3 problems (2 errors, 1 warnings)"
+      ✖ 3 problems (2 errors, 1 warnings)
+        0 errors and 1 warnings potentially fixable with the \`--fix\` option."
     `);
     expect(result.stderr).toBeFalsy();
   });
 
   describe('with --quiet option', function () {
     it('should print properly formatted error messages, omitting any warnings', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-bare-strings': true,
           'no-html-comments': 'warn',
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -187,26 +203,29 @@ describe('pretty formatter', () => {
         },
       });
 
-      let result = await run(['.', '--quiet']);
+      let result = await runBin('.', '--quiet');
 
       expect(result.exitCode).toEqual(1);
-      expect(result.stdout.split('\n')).toEqual([
-        'app/templates/application.hbs',
-        '  1:4  error  Non-translated string used  no-bare-strings',
-        '  1:24  error  Non-translated string used  no-bare-strings',
-        '',
-        '✖ 2 problems (2 errors, 0 warnings)',
-      ]);
+      expect(result.stdout.split('\n')).toMatchInlineSnapshot(`
+        [
+          "app/templates/application.hbs",
+          "  1:4  error  Non-translated string used  no-bare-strings",
+          "  1:24  error  Non-translated string used  no-bare-strings",
+          "",
+          "✖ 2 problems (2 errors, 0 warnings)",
+          "  0 errors and 1 warnings potentially fixable with the \`--fix\` option.",
+        ]
+      `);
       expect(result.stderr).toBeFalsy();
     });
 
     it('should exit without error and any console output', async function () {
-      project.setConfig({
+      await project.setConfig({
         rules: {
           'no-html-comments': 'warn',
         },
       });
-      project.write({
+      await project.write({
         app: {
           templates: {
             'application.hbs':
@@ -214,7 +233,7 @@ describe('pretty formatter', () => {
           },
         },
       });
-      let result = await run(['.', '--quiet']);
+      let result = await runBin('.', '--quiet');
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toBeFalsy();

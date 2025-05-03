@@ -39,7 +39,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to \\"About Us\\" \\"about\\"}}",
+              "source": "{{link-to "About Us" "about"}}",
             },
           ]
         `);
@@ -59,7 +59,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to \\"About Us\\" (if this.showNewAboutPage \\"about-us\\" \\"about\\")}}",
+              "source": "{{link-to "About Us" (if this.showNewAboutPage "about-us" "about")}}",
             },
           ]
         `);
@@ -79,7 +79,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") \\"about\\"}}",
+              "source": "{{link-to (t "about") "about"}}",
             },
           ]
         `);
@@ -99,7 +99,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute}}",
+              "source": "{{link-to (t "about") this.aboutRoute}}",
             },
           ]
         `);
@@ -119,7 +119,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute \\"foo\\"}}",
+              "source": "{{link-to (t "about") this.aboutRoute "foo"}}",
             },
           ]
         `);
@@ -139,7 +139,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute \\"foo\\" \\"bar\\"}}",
+              "source": "{{link-to (t "about") this.aboutRoute "foo" "bar"}}",
             },
           ]
         `);
@@ -159,7 +159,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`, \`query\` using the \`hash\` helper). The content should be passed along as a block.",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{link-to (t \\"about\\") this.aboutRoute \\"foo\\" \\"bar\\" (query-params foo=\\"bar\\")}}",
+              "source": "{{link-to (t "about") this.aboutRoute "foo" "bar" (query-params foo="bar")}}",
             },
           ]
         `);
@@ -180,7 +180,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to (if this.showNewAboutPage \\"about-us\\" \\"about\\")}}About Us{{/link-to}}",
+              "source": "{{#link-to (if this.showNewAboutPage "about-us" "about")}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -200,7 +200,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"about\\"}}About Us{{/link-to}}",
+              "source": "{{#link-to "about"}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -240,7 +240,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to this.aboutRoute \\"foo\\"}}About Us{{/link-to}}",
+              "source": "{{#link-to this.aboutRoute "foo"}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -260,7 +260,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to this.aboutRoute \\"foo\\" \\"bar\\"}}About Us{{/link-to}}",
+              "source": "{{#link-to this.aboutRoute "foo" "bar"}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -281,7 +281,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`, \`query\` using the \`hash\` helper).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to this.aboutRoute \\"foo\\" \\"bar\\" (query-params foo=\\"bar\\")}}About Us{{/link-to}}",
+              "source": "{{#link-to this.aboutRoute "foo" "bar" (query-params foo="bar")}}About Us{{/link-to}}",
             },
           ]
         `);
@@ -301,7 +301,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`model\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"post\\" @post}}Read {{@post.title}}...{{/link-to}}",
+              "source": "{{#link-to "post" @post}}Read {{@post.title}}...{{/link-to}}",
             },
           ]
         `);
@@ -323,7 +323,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`models\`).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"post.comment\\" @comment.post @comment}}
+              "source": "{{#link-to "post.comment" @comment.post @comment}}
                   Comment by {{@comment.author.name}} on {{@comment.date}}
                 {{/link-to}}",
             },
@@ -347,7 +347,7 @@ generateRuleTests({
               "message": "Invoking the \`{{link-to}}\` component with positional arguments is deprecated. Instead, please use the equivalent named arguments (\`route\`, \`query\` using the \`hash\` helper).",
               "rule": "no-link-to-positional-params",
               "severity": 2,
-              "source": "{{#link-to \\"posts\\" (query-params direction=\\"desc\\" showArchived=false)}}
+              "source": "{{#link-to "posts" (query-params direction="desc" showArchived=false)}}
                   Recent Posts
                 {{/link-to}}",
             },

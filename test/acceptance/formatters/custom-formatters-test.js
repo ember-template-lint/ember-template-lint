@@ -2,30 +2,29 @@ import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import Project from '../../helpers/fake-project.js';
-import run from '../../helpers/run.js';
+import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('custom formatters', () => {
   let project;
   beforeEach(async function () {
-    project = await Project.defaultSetup();
+    project = await setupProject();
     await project.chdir();
   });
 
   afterEach(function () {
-    project.dispose();
+    teardownProject();
   });
 
   it('should be able to load relative formatter', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': true,
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -55,24 +54,28 @@ describe('custom formatters', () => {
             `,
     });
 
-    let result = await run(['.', '--format', './custom-formatter.js']);
+    let result = await runBin('.', '--format', './custom-formatter.js');
 
     expect(result.stdout).toMatchInlineSnapshot(`
-      "errors: 3
+      "Linting 2 Total Files with TemplateLint
+      	.js: 1
+      	.hbs: 1
+
+      errors: 3
       warnings: 0
-      fixable: 0"
+      fixable: 1"
     `);
     expect(result.stderr).toBeFalsy();
   });
 
   it('should be able to load formatter from node_modules', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': true,
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -100,25 +103,28 @@ describe('custom formatters', () => {
       path.join(formatterDirPath, 'package.json')
     );
 
-    let result = await run(['.', '--format', 'ember-template-lint-formatter-test']);
+    let result = await runBin('.', '--format', 'ember-template-lint-formatter-test');
 
     expect(result.stdout).toMatchInlineSnapshot(`
-      "Custom Formatter Header
+      "Linting 1 Total Files with TemplateLint
+      	.hbs: 1
+
+      Custom Formatter Header
       errors: 3
       warnings: 0
-      fixable: 0"
+      fixable: 1"
     `);
     expect(result.stderr).toBeFalsy();
   });
 
   it('should be able use legacy formatters using .print()', async function () {
-    project.setConfig({
+    await project.setConfig({
       rules: {
         'no-bare-strings': true,
         'no-html-comments': true,
       },
     });
-    project.write({
+    await project.write({
       app: {
         templates: {
           'application.hbs':
@@ -143,12 +149,16 @@ describe('custom formatters', () => {
           `,
     });
 
-    let result = await run(['.', '--format', './legacy-formatter.js']);
+    let result = await runBin('.', '--format', './legacy-formatter.js');
 
     expect(result.stdout).toMatchInlineSnapshot(`
-      "errors: 3
+      "Linting 2 Total Files with TemplateLint
+      	.js: 1
+      	.hbs: 1
+
+      errors: 3
       warnings: 0
-      fixable: 0"
+      fixable: 1"
     `);
     expect(result.stderr).toBeFalsy();
   });

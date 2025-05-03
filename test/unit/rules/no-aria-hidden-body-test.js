@@ -28,7 +28,7 @@ generateRuleTests({
               "message": "The aria-hidden attribute should never be present on the <body> element, as it hides the entire document from assistive technology",
               "rule": "no-aria-hidden-body",
               "severity": 2,
-              "source": "<body aria-hidden=\\"true\\"></body>",
+              "source": "<body aria-hidden="true"></body>",
             },
           ]
         `);

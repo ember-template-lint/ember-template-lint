@@ -51,10 +51,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`{{component \\"foo/index\\" ...\` to \`{{component \\"foo\\" ...\`",
+              "message": "Replace \`{{component "foo/index" ...\` to \`{{component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);
@@ -91,10 +91,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`{{#component \\"foo/index\\" ...\` to \`{{#component \\"foo\\" ...\`",
+              "message": "Replace \`{{#component "foo/index" ...\` to \`{{#component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);
@@ -111,10 +111,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`(component \\"foo/index\\" ...\` to \`(component \\"foo\\" ...\`",
+              "message": "Replace \`(component "foo/index" ...\` to \`(component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);
@@ -131,10 +131,10 @@ generateRuleTests({
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
-              "message": "Replace \`(component \\"foo/index\\" ...\` to \`(component \\"foo\\" ...\`",
+              "message": "Replace \`(component "foo/index" ...\` to \`(component "foo" ...\`",
               "rule": "no-index-component-invocation",
               "severity": 2,
-              "source": "\\"foo/index\\"",
+              "source": ""foo/index"",
             },
           ]
         `);

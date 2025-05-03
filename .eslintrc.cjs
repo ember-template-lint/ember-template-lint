@@ -8,23 +8,15 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: [
-    'eslint-comments',
-    'filenames',
-    'import',
-    'import-helpers',
-    'node',
-    'prettier',
-    'unicorn',
-  ],
+  plugins: ['eslint-comments', 'filenames', 'import', 'n', 'unicorn'],
   extends: [
     'eslint:recommended',
     'plugin:eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:node/recommended',
+    'plugin:n/recommended',
     'plugin:unicorn/recommended',
-    'plugin:prettier/recommended',
+    'prettier',
   ],
   rules: {
     // Optional eslint rules:
@@ -99,32 +91,21 @@ module.exports = {
     'import/no-useless-path-segments': 'error',
     'import/no-webpack-loader-syntax': 'error',
     'import/unambiguous': 'error',
-
-    'import-helpers/order-imports': [
-      'error',
-      {
-        newlinesBetween: 'always',
-        groups: [
-          '/^(assert|async_hooks|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|http2|https|inspector|module|net|os|path|perf_hooks|process|punycode|querystring|readline|repl|stream|string_decoder|timers|tls|trace_events|tty|url|util|v8|vm|zli)/',
-          ['module'],
-          ['parent', 'sibling', 'index'],
-        ],
-        alphabetize: { order: 'asc', ignoreCase: true },
-      },
-    ],
+    // broken -- does not support package.json#exports
+    'import/no-unresolved': 'off',
 
     // Node rules:
-    'node/no-unsupported-features/es-syntax': [
+    'n/no-unsupported-features/es-syntax': [
       'error',
       {
         ignores: ['dynamicImport', 'modules'], // False positives: https://github.com/mysticatea/eslint-plugin-node/issues/250
       },
     ],
 
-    'node/no-extraneous-import': [
+    'n/no-extraneous-import': [
       'error',
       {
-        allowModules: ['@jest/globals'],
+        allowModules: [],
       },
     ],
 
@@ -138,30 +119,43 @@ module.exports = {
     'unicorn/no-null': 'off',
     'unicorn/no-useless-undefined': 'off',
     'unicorn/prefer-ternary': 'off',
+    'unicorn/prefer-top-level-await': 'off',
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/text-encoding-identifier-case': 'off',
   },
 
   overrides: [
     {
+      // CJS
       files: ['**/*.cjs'],
       parserOptions: {
         sourceType: 'script',
       },
     },
     {
+      files: ['vitest.config.ts'],
+      rules: {
+        'filenames/match-regex': 'off',
+        'import/no-unresolved': 'off',
+        'import/extensions': 'off',
+      },
+    },
+    {
+      // CLI
       files: ['bin/**/*.js', 'lib/helpers/cli.js'],
       rules: {
         'no-console': 'off',
       },
     },
     {
+      // Rules
       files: ['lib/rules/**/*.js'],
       rules: {
         'filenames/match-exported': ['error', 'kebab'],
       },
     },
     {
+      // Tests
       files: ['test/**/*.js'],
       env: {
         jest: true,

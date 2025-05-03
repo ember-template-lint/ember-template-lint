@@ -8,6 +8,15 @@ generateRuleTests({
   good: [
     // Unique sibling TextNode IDs
     '<div id="id-00"></div><div id="id-01"></div>',
+    '<div id={{unique-id}}></div><div id={{unique-id}}></div>',
+
+    // Built-in helpers:
+    '<div id="{{unique-id}}"></div><div id="{{unique-id}}"></div>',
+    "<div id='{{unique-id}}'></div><div id='{{unique-id}}'></div>",
+
+    // argument-less helpers have to be invoked with parens
+    '<div id="{{(unique-id)}}"></div><div id="{{(unique-id)}}"></div>',
+    '<div id={{(unique-id)}}></div><div id={{(unique-id)}}></div>',
 
     // Mustache Statements
     '<div id={{"id-00"}}></div>',
@@ -151,7 +160,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -171,7 +180,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-01\\"",
+              "source": "id="id-01"",
             },
           ]
         `);
@@ -191,7 +200,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id={{\\"id-00\\"}}",
+              "source": "id={{"id-00"}}",
             },
           ]
         `);
@@ -211,7 +220,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -231,7 +240,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-{{\\"00\\"}}\\"",
+              "source": "id="id-{{"00"}}"",
             },
           ]
         `);
@@ -251,7 +260,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"{{\\"id\\"}}-00\\"",
+              "source": "id="{{"id"}}-00"",
             },
           ]
         `);
@@ -271,7 +280,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+              "source": "{{#foo elementId="id-00"}}{{/foo}}",
             },
           ]
         `);
@@ -291,7 +300,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -311,7 +320,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+              "source": "{{#foo elementId="id-00"}}{{/foo}}",
             },
           ]
         `);
@@ -331,7 +340,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id={{\\"id-00\\"}}",
+              "source": "id={{"id-00"}}",
             },
           ]
         `);
@@ -351,7 +360,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#foo elementId=\\"id-00\\"}}{{/foo}}",
+              "source": "{{#foo elementId="id-00"}}{{/foo}}",
             },
           ]
         `);
@@ -371,7 +380,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-{{\\"00\\"}}\\"",
+              "source": "id="id-{{"00"}}"",
             },
           ]
         `);
@@ -391,7 +400,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{#bar elementId=\\"id-00\\"}}{{/bar}}",
+              "source": "{{#bar elementId="id-00"}}{{/bar}}",
             },
           ]
         `);
@@ -411,7 +420,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{foo id=\\"id-00\\"}}",
+              "source": "{{foo id="id-00"}}",
             },
           ]
         `);
@@ -472,7 +481,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"{{\\"partA\\"}}{{partB}}partC\\"",
+              "source": "id="{{"partA"}}{{partB}}partC"",
             },
           ]
         `);
@@ -492,7 +501,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{bar elementId=\\"id-00\\"}}",
+              "source": "{{bar elementId="id-00"}}",
             },
           ]
         `);
@@ -512,7 +521,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "{{bar id=\\"id-00\\"}}",
+              "source": "{{bar id="id-00"}}",
             },
           ]
         `);
@@ -532,7 +541,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -552,7 +561,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "@id=\\"id-00\\"",
+              "source": "@id="id-00"",
             },
           ]
         `);
@@ -572,7 +581,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "@elementId=\\"id-00\\"",
+              "source": "@elementId="id-00"",
             },
           ]
         `);
@@ -624,7 +633,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"id-00\\"",
+              "source": "id="id-00"",
             },
           ]
         `);
@@ -689,7 +698,7 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"anidhere\\"",
+              "source": "id="anidhere"",
             },
           ]
         `);
@@ -718,7 +727,36 @@ generateRuleTests({
               "message": "ID attribute values must be unique",
               "rule": "no-duplicate-id",
               "severity": 2,
-              "source": "id=\\"nested\\"",
+              "source": "id="nested"",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `
+        {{#if this.foo}}
+          {{#if this.other}}
+            <div id={{(hello-world)}}></div>
+          {{/if}}
+        {{else}}
+          <div id={{(hello-world)}}></div>
+        {{/if}}
+        <div id={{(hello-world)}}></div>
+      `,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 33,
+              "endLine": 9,
+              "filePath": "layout.hbs",
+              "line": 9,
+              "message": "ID attribute values must be unique",
+              "rule": "no-duplicate-id",
+              "severity": 2,
+              "source": "id={{(hello-world)}}",
             },
           ]
         `);

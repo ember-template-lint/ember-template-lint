@@ -9,7 +9,7 @@ import determineRuleConfig from '../../lib/helpers/determine-rule-config.js';
 import { ConfigDefaults } from '../../lib/helpers/rule-test-harness.js';
 import Rule from '../../lib/rules/_base.js';
 import rules from '../../lib/rules/index.js';
-import Project from '../helpers/fake-project.js';
+import { setupProject, teardownProject } from '../helpers/bin-tester.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ruleNames = Object.keys(rules);
@@ -17,14 +17,14 @@ const ruleNames = Object.keys(rules);
 describe('base plugin', function () {
   let project, editorConfigResolver;
   beforeEach(async () => {
-    project = await Project.defaultSetup();
+    project = await setupProject();
 
     editorConfigResolver = new EditorConfigResolver(project.baseDir);
     editorConfigResolver.resolveEditorConfigFiles();
   });
 
   afterEach(() => {
-    project.dispose();
+    teardownProject();
   });
 
   async function runRules(template, rules) {
@@ -70,7 +70,9 @@ describe('base plugin', function () {
   function buildPlugin(visitor) {
     class FakeRule extends Rule {
       log(result) {
-        messages.push(result.source);
+        if (!this.isDisabled() || result.rule === 'global') {
+          messages.push(result.source);
+        }
       }
 
       process(node) {
@@ -174,7 +176,7 @@ describe('base plugin', function () {
       await expect(
         async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
       ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"ember-template-lint: (awesome-rule) Must pass the node or all loc properties (line, column, endLine, endColumn) when calling log."`
+        `[Error: ember-template-lint: (awesome-rule) Must pass the node or all loc properties (line, column, endLine, endColumn) when calling log.]`
       );
     });
 
@@ -188,7 +190,7 @@ describe('base plugin', function () {
       await expect(
         async () => await runRules('foo', [plugin(AwesomeRule, 'awesome-rule', true)])
       ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"ember-template-lint: (awesome-rule): must provide violation \`message\` when calling log."`
+        `[Error: ember-template-lint: (awesome-rule): must provide violation \`message\` when calling log.]`
       );
     });
 
@@ -284,7 +286,9 @@ describe('base plugin', function () {
       });
 
       Rule.prototype.log = function (result) {
-        messages.push(result.message);
+        if (!this.isDisabled() || result.rule === 'global') {
+          messages.push(result.message);
+        }
       };
       Rule.prototype.process = function (node) {
         config = this._processInstructionNode(node);
@@ -302,24 +306,30 @@ describe('base plugin', function () {
     }
 
     // Global enable/disable
-    expectConfig('template-lint-disable', { value: false, tree: false });
-    expectConfig('template-lint-disable-tree', { value: false, tree: true });
+    expectConfig('template-lint-disable', { value: 'foo', disabled: true, tree: false });
+    expectConfig('template-lint-disable-tree', { value: 'foo', disabled: true, tree: true });
     expectConfig('template-lint-enable', { value: 'foo', tree: false });
     expectConfig('template-lint-enable-tree', { value: 'foo', tree: true });
     expectConfig('  template-lint-enable-tree ', { value: 'foo', tree: true });
 
     // Specific enable/disable
-    expectConfig('template-lint-disable fake', { value: false, tree: false });
-    expectConfig('template-lint-disable-tree "fake"', { value: false, tree: true });
-    expectConfig("template-lint-disable fake 'no-bare-strings'", { value: false, tree: false });
+    expectConfig('template-lint-disable fake', { value: 'foo', disabled: true, tree: false });
+    expectConfig('template-lint-disable-tree "fake"', { value: 'foo', disabled: true, tree: true });
+    expectConfig("template-lint-disable fake 'no-bare-strings'", {
+      value: 'foo',
+      disabled: true,
+      tree: false,
+    });
     expectConfig('template-lint-disable no-bare-strings fake block-indentation', {
-      value: false,
+      value: 'foo',
+      disabled: true,
       tree: false,
     });
     expectConfig('template-lint-disable no-bare-strings', null);
-    expectConfig(' template-lint-disable   fake ', { value: false, tree: false });
+    expectConfig(' template-lint-disable   fake ', { value: 'foo', disabled: true, tree: false });
     expectConfig('template-lint-disable   no-bare-strings    fake   block-indentation ', {
-      value: false,
+      value: 'foo',
+      disabled: true,
       tree: false,
     });
 
@@ -412,7 +422,9 @@ describe('base plugin', function () {
         });
 
         Rule.prototype.log = function (result) {
-          messages.push(result.message);
+          if (!this.isDisabled() || result.rule === 'global') {
+            messages.push(result.message);
+          }
         };
         Rule.prototype.process = function (node) {
           config = this._processInstructionNode(node);
@@ -464,7 +476,9 @@ describe('base plugin', function () {
     function buildPlugin() {
       class FakeRule extends Rule {
         log(result) {
-          messages.push(result.source);
+          if ((!this.isDisabled() || result.rule === 'global') && result.source) {
+            messages.push(result.source);
+          }
         }
 
         visitor() {
@@ -940,7 +954,7 @@ describe('base plugin', function () {
     });
 
     expectEvents({
-      desc: "it doesn't call a disabled rule's visitor handlers",
+      desc: "it doesn't call a disabled rule's visitor handlers when not reporting unused",
       template: [
         '<div id="id1">',
         '  <span id="id2" {{! template-lint-disable fake }}>',
