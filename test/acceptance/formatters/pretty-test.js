@@ -4,6 +4,7 @@ import PrettyFormatter from '../../../lib/formatters/pretty.js';
 import { TODO_SEVERITY } from '../../../lib/helpers/severity.js';
 import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
 import { getOutputFileContents, setupEnvVar } from '../../helpers/index.js';
+import path from 'node:path';
 
 describe('pretty formatter', () => {
   setupEnvVar('FORCE_COLOR', '0');
@@ -211,7 +212,7 @@ describe('pretty formatter', () => {
         `Linting 2 Total Files with TemplateLint`,
         `	.hbs: 2`,
         ``,
-        `${project.baseDir}/app/templates/application.hbs`,
+        `${project.baseDir}${path.sep}${['app', 'templates', 'application.hbs'].join(path.sep)}`,
         '  1:4  error  Non-translated string used  no-bare-strings',
         '  1:25  error  Non-translated string used  no-bare-strings',
         '',
