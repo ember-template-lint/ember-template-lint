@@ -15,6 +15,7 @@ generateRuleTests({
   bad: [
     {
       template: '<div acceptCharset="utf-8"></div>',
+      fixedTemplate: '<div accept-charset="utf-8"></div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
@@ -23,9 +24,9 @@ generateRuleTests({
               "endColumn": 26,
               "endLine": 1,
               "filePath": "layout.hbs",
-              "isFixable": false,
+              "isFixable": true,
               "line": 1,
-              "message": "Incorrect html attribute name detected - "acceptCharset", is probably unintended. Attributes in HTML are kebeb-case.",
+              "message": "Incorrect html attribute name detected - "acceptCharset", is probably unintended. Attributes in HTML are kebeb case.",
               "rule": "no-jsx-attributes",
               "severity": 2,
               "source": "acceptCharset="utf-8"",
@@ -47,7 +48,7 @@ generateRuleTests({
             "filePath": "layout.hbs",
             "isFixable": true,
             "line": 1,
-            "message": "Incorrect html attribute name detected - "contentEditable", is probably unintended. Attributes in HTML are kebeb-case.",
+            "message": "Incorrect html attribute name detected - "contentEditable", is probably unintended. Attributes in HTML are kebeb case.",
             "rule": "no-jsx-attributes",
             "severity": 2,
             "source": "contentEditable="true"",
@@ -114,7 +115,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Incorrect html attribute name detected - "autoPlay", is probably unintended. Attributes in HTML are kebeb-case.",
+              "message": "Incorrect html attribute name detected - "autoPlay", is probably unintended. Attributes in HTML are kebeb case.",
               "rule": "no-jsx-attributes",
               "severity": 2,
               "source": "autoPlay",
@@ -137,7 +138,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 1,
-              "message": "Incorrect html attribute name detected - "contentEditable", is probably unintended. Attributes in HTML are kebeb-case.",
+              "message": "Incorrect html attribute name detected - "contentEditable", is probably unintended. Attributes in HTML are kebeb case.",
               "rule": "no-jsx-attributes",
               "severity": 2,
               "source": "contentEditable",
