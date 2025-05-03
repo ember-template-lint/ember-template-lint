@@ -40,11 +40,7 @@ const NOOP_CONSOLE = {
 async function buildLinterOptions(workingDir, filePath, filename = '', stdin) {
   if (stdin) {
     let filePath = filename;
-<<<<<<< HEAD
-    let source = stdin;
-=======
     let source = await getStdin();
->>>>>>> 0e464741 (don't return moduleId in buildLinterOptions)
 
     return { source, filePath };
   } else {
