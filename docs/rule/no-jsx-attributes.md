@@ -1,5 +1,7 @@
 # no-jsx-attributes
 
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+
 Folks coming from React may have developed habits around how they type attributes on elements.
 JSX isn't HTML (it's JS), so in JS, you can't have kebab-case identifiers, so JSX uses camelCase.
 
