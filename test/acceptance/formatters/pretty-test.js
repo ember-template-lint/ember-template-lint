@@ -208,6 +208,9 @@ describe('pretty formatter', () => {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout.split('\n')).toEqual([
+        `Linting 2 Total Files with TemplateLint`,
+        `	.hbs: 2`,
+        ``,
         `${project.baseDir}/app/templates/application.hbs`,
         '  1:4  error  Non-translated string used  no-bare-strings',
         '  1:25  error  Non-translated string used  no-bare-strings',
