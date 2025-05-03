@@ -147,6 +147,37 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<div>{{if true "Yes" "No"}}</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 15,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "Yes",
+            },
+            {
+              "column": 15,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "No",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<p>{{"Hello!"}}</p>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
