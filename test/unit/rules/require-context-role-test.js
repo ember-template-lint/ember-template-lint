@@ -36,6 +36,15 @@ generateRuleTests({
     '<div role="list">{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}</div>',
     '<div role="list">{{#if this.show}}{{#each someList as |item|}}<ListItem @item={{item}} />{{/each}}{{/if}}</div>',
     '<div role="table"><div role="row"><div role="cell">One</div></div></div>',
+    `<typeahead.list role="list">
+      <:content as |items|>
+        {{#each items as |job idx|}}
+          <result role="listitem">
+            ...
+          </result>
+        {{/each}}
+        </:content>
+    </typeahead.list>`,
   ],
 
   bad: [
