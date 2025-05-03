@@ -248,37 +248,40 @@ describe('monorepo setups', function () {
         `);
       });
 
-      it('supports plugins which require `exports` to be honored', async function() {
+      it('supports plugins which require `exports` to be honored', async function () {
         plugin.pkg.exports = {
-          'import': 'lib/index.js',
+          import: 'lib/index.js',
         };
 
         await plugin.write({
           lib: {
             // copy the file forward into lib
             'index.js': plugin.files['index.js'],
-          }
+          },
         });
 
         // remove the old `index.js`
         fs.unlinkSync(path.join(plugin.baseDir, 'index.js'));
 
-        let result = await run(['.'], {
+        let result = await runBin(['.'], {
           cwd: project.baseDir,
         });
 
         expect(result.exitCode).toEqual(1);
         expect(result.stderr).toMatchInlineSnapshot(`""`);
         expect(result.stdout).toMatchInlineSnapshot(`
-          "packages/bar/src/bar.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+          "Linting 4 Total Files with TemplateLint
+          	.js: 2
+          	.hbs: 2
+
+          packages/bar/src/bar.hbs
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           packages/foo/src/foo.hbs
-            1:0  error  The string \\"evil\\" is forbidden in templates  fail-on-word
+            1:0  error  The string "evil" is forbidden in templates  fail-on-word
 
           ✖ 2 problems (2 errors, 0 warnings)"
         `);
-
       });
     });
   });
