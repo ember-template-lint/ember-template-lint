@@ -73,6 +73,27 @@ generateRuleTests({
 
   bad: [
     {
+      template: '<summary><a href="/">button</a></summary>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 9,
+              "endColumn": 31,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use an <a> element with the \`href\` attribute inside <summary>",
+              "rule": "no-nested-interactive",
+              "severity": 2,
+              "source": "<a href="/">button</a>",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<a href="/">button<a href="/">!</a></a>',
 
       verifyResults(results) {
@@ -178,21 +199,21 @@ generateRuleTests({
       },
     },
     {
-      template: '<button><details><summary>Some details</summary><p>!</p></details></button>',
+      template: '<button><details><p>!</p></details></button>',
 
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
           [
             {
               "column": 8,
-              "endColumn": 66,
+              "endColumn": 35,
               "endLine": 1,
               "filePath": "layout.hbs",
               "line": 1,
               "message": "Do not use <details> inside <button>",
               "rule": "no-nested-interactive",
               "severity": 2,
-              "source": "<details><summary>Some details</summary><p>!</p></details>",
+              "source": "<details><p>!</p></details>",
             },
           ]
         `);
