@@ -1,6 +1,8 @@
 # simple-unless
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
+
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 This rule strongly advises against `{{unless}}` blocks in the following situations:
 
@@ -63,7 +65,7 @@ The following values are valid configuration:
 * object --
   * `allowlist` -- array - `['or']` for specific helpers / `[]` for wildcard
   * `denylist` -- array - `['or']` for specific helpers / `[]` for none
-  * `maxHelpers` -- number - use -1 for no limit
+  * `maxHelpers` -- number - default `1` - use `-1` for no limit
 
 ## Related Rules
 

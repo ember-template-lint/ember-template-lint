@@ -1,10 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
-function errMsg(roleName) {
-  return `${roleName} is an abstract role, and is not a valid value for the role attribute.`;
-}
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-abstract-roles',
@@ -20,121 +14,253 @@ generateRuleTests({
     {
       template: '<img role="command">',
 
-      result: {
-        message: errMsg('command'),
-        source: '<img role="command">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "command is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="command">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img role="composite">',
 
-      result: {
-        message: errMsg('composite'),
-        source: '<img role="composite">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "composite is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="composite">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input role="input">',
 
-      result: {
-        message: errMsg('input'),
-        source: '<input role="input">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "input is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<input role="input">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img role="landmark">',
 
-      result: {
-        message: errMsg('landmark'),
-        source: '<img role="landmark">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "landmark is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="landmark">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<input role="range">',
 
-      result: {
-        message: errMsg('range'),
-        source: '<input role="range">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "range is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<input role="range">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img role="roletype">',
 
-      result: {
-        message: errMsg('roletype'),
-        source: '<img role="roletype">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "roletype is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="roletype">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img role="section">',
 
-      result: {
-        message: errMsg('section'),
-        source: '<img role="section">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 20,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "section is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="section">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img role="sectionhead">',
 
-      result: {
-        message: errMsg('sectionhead'),
-        source: '<img role="sectionhead">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "sectionhead is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="sectionhead">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<select role="select"></select>',
 
-      result: {
-        message: errMsg('select'),
-        source: '<select role="select"></select>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 31,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "select is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<select role="select"></select>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="structure"></div>',
 
-      result: {
-        message: errMsg('structure'),
-        source: '<div role="structure"></div>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 28,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "structure is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<div role="structure"></div>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img role="widget">',
 
-      result: {
-        message: errMsg('widget'),
-        source: '<img role="widget">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "widget is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="widget">",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img role="window">',
 
-      result: {
-        message: errMsg('window'),
-        source: '<img role="window">',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "window is an abstract role, and is not a valid value for the role attribute.",
+              "rule": "no-abstract-roles",
+              "severity": 2,
+              "source": "<img role="window">",
+            },
+          ]
+        `);
       },
     },
   ],

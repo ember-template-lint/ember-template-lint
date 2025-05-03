@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-heading-inside-button');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-heading-inside-button',
@@ -20,74 +17,162 @@ generateRuleTests({
   bad: [
     {
       template: '<button><h1>Page Title</h1></button>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1>Page Title</h1>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h1>Page Title</h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><h2>Heading Title</h2></button>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h2>Heading Title</h2>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h2>Heading Title</h2>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><h3>Heading Title</h3></button>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h3>Heading Title</h3>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h3>Heading Title</h3>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><h4>Heading Title</h4></button>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h4>Heading Title</h4>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h4>Heading Title</h4>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><h5>Heading Title</h5></button>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h5>Heading Title</h5>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h5>Heading Title</h5>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><div><h1>Heading Title</h1></div></button>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h1>Heading Title</h1>',
-        line: 1,
-        column: 13,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h1>Heading Title</h1>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button><h6>Heading Title</h6></button>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h6>Heading Title</h6>',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 30,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h6>Heading Title</h6>",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div role="button"><h6>Heading in a div with a role of button</h6></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        source: '<h6>Heading in a div with a role of button</h6>',
-        line: 1,
-        column: 19,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 19,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Buttons should not contain heading elements",
+              "rule": "no-heading-inside-button",
+              "severity": 2,
+              "source": "<h6>Heading in a div with a role of button</h6>",
+            },
+          ]
+        `);
       },
     },
   ],

@@ -22,4 +22,4 @@ updates:
     interval: monthly
     time: "04:00"
     timezone: EST
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 15

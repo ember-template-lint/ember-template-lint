@@ -1,6 +1,6 @@
 # link-href-attributes
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 It's common to treat anchor tags as buttons. However, this is a bad practice! The resulting anchor tag without an `href` is completely unfocusable (cannot use keyboard navigation to to land on it, cannot be seen from a screen reader). The most discernible difference between a link (`<a>`) and a `<button>` is that a link navigates the user to a new URL (thus taking the user away from the current context). A `button` toggles something in the interface or triggers new content in that same context (i.e., a popup menu using `aria-haspopup`).
 
@@ -34,3 +34,5 @@ This rule **allows** the following:
 * <https://marcysutton.com/links-vs-buttons-in-modern-web-applications>
 * <https://a11y-101.com/design/button-vs-link>
 * <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role>
+* <https://www.scottohara.me/blog/2021/05/28/disabled-links.html>
+* <https://github.com/w3c/html-aria/pull/305>

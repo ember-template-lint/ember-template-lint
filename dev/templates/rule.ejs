@@ -1,10 +1,8 @@
-'use strict';
+import Rule from './_base.js';
 
-const Rule = require('./base');
+export const ERROR_MESSAGE = 'TODO';
 
-const ERROR_MESSAGE = 'TODO';
-
-module.exports = class <%- titleCase %> extends Rule {
+export default class <%- titleCase %> extends Rule {
   visitor() {
     return {
       // Simple template example: disallowed text present in TextNode
@@ -22,6 +20,4 @@ module.exports = class <%- titleCase %> extends Rule {
       },
     };
   }
-};
-
-module.exports.ERROR_MESSAGE = ERROR_MESSAGE;
+}

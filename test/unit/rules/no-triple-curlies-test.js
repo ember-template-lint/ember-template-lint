@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-triple-curlies',
@@ -18,11 +16,22 @@ generateRuleTests({
     {
       template: '\n {{{foo}}}',
 
-      result: {
-        message: 'Usage of triple curly brackets is unsafe',
-        source: '{{{foo}}}',
-        line: 2,
-        column: 1,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 1,
+              "endColumn": 10,
+              "endLine": 2,
+              "filePath": "layout.hbs",
+              "line": 2,
+              "message": "Usage of triple curly brackets is unsafe",
+              "rule": "no-triple-curlies",
+              "severity": 2,
+              "source": "{{{foo}}}",
+            },
+          ]
+        `);
       },
     },
   ],

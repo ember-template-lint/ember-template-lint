@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-unnecessary-concat',
@@ -12,32 +10,61 @@ generateRuleTests({
   bad: [
     {
       template: '<div class="{{clazz}}"></div>',
+      fixedTemplate: '<div class={{clazz}}></div>',
 
-      result: {
-        message: 'Unnecessary string concatenation. Use {{clazz}} instead of "{{clazz}}".',
-        source: '"{{clazz}}"',
-        line: 1,
-        column: 11,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 11,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Unnecessary string concatenation. Use {{clazz}} instead of "{{clazz}}".",
+              "rule": "no-unnecessary-concat",
+              "severity": 2,
+              "source": ""{{clazz}}"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<img src="{{url}}" alt="{{t "alternate-text"}}">',
+      fixedTemplate: '<img src={{url}} alt={{t "alternate-text"}}>',
 
-      results: [
-        {
-          message: 'Unnecessary string concatenation. Use {{url}} instead of "{{url}}".',
-          source: '"{{url}}"',
-          line: 1,
-          column: 9,
-        },
-        {
-          message:
-            'Unnecessary string concatenation. Use {{t "alternate-text"}} instead of "{{t "alternate-text"}}".',
-          source: '"{{t "alternate-text"}}"',
-          line: 1,
-          column: 23,
-        },
-      ],
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 9,
+              "endColumn": 18,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Unnecessary string concatenation. Use {{url}} instead of "{{url}}".",
+              "rule": "no-unnecessary-concat",
+              "severity": 2,
+              "source": ""{{url}}"",
+            },
+            {
+              "column": 23,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "Unnecessary string concatenation. Use {{t "alternate-text"}} instead of "{{t "alternate-text"}}".",
+              "rule": "no-unnecessary-concat",
+              "severity": 2,
+              "source": ""{{t "alternate-text"}}"",
+            },
+          ]
+        `);
+      },
     },
   ],
 });

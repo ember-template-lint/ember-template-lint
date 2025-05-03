@@ -1,7 +1,4 @@
-'use strict';
-
-const { message } = require('../../../lib/rules/deprecated-render-helper');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'deprecated-render-helper',
@@ -24,27 +21,49 @@ generateRuleTests({
     {
       template: "{{render 'ken-griffey'}}",
 
-      result: {
-        message,
-        source: "{{render 'ken-griffey'}}",
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{ken-griffey}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{ken-griffey}}",
+              },
+              "line": 1,
+              "message": "The \`{{render}}\` helper is deprecated in favor of using components. Please see the deprecation guide at https://emberjs.com/deprecations/v2.x/#toc_code-render-code-helper.",
+              "rule": "deprecated-render-helper",
+              "severity": 2,
+              "source": "{{render 'ken-griffey'}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: "{{render 'baseball-player' pitcher}}",
 
-      result: {
-        message,
-        source: "{{render 'baseball-player' pitcher}}",
-        line: 1,
-        column: 0,
-        fix: {
-          text: '{{baseball-player model=pitcher}}',
-        },
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 36,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "fix": {
+                "text": "{{baseball-player model=pitcher}}",
+              },
+              "line": 1,
+              "message": "The \`{{render}}\` helper is deprecated in favor of using components. Please see the deprecation guide at https://emberjs.com/deprecations/v2.x/#toc_code-render-code-helper.",
+              "rule": "deprecated-render-helper",
+              "severity": 2,
+              "source": "{{render 'baseball-player' pitcher}}",
+            },
+          ]
+        `);
       },
     },
   ],

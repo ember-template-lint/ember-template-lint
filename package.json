@@ -1,8 +1,14 @@
 {
   "name": "ember-template-lint",
-  "version": "3.4.0",
+  "version": "7.2.0",
   "description": "Linter for Ember or Handlebars templates.",
-  "keywords": [],
+  "keywords": [
+    "ember",
+    "ember.js",
+    "handlebars",
+    "lint",
+    "linter"
+  ],
   "homepage": "https://github.com/ember-template-lint/ember-template-lint",
   "bugs": {
     "url": "https://github.com/ember-template-lint/ember-template-lint/issues"
@@ -13,97 +19,97 @@
   },
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
-  "main": "lib/index.js",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "main": "./lib/index.js",
   "bin": "./bin/ember-template-lint.js",
+  "files": [
+    "bin",
+    "lib",
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "README.md"
+  ],
   "scripts": {
-    "lint": "npm-run-all lint:* --continue-on-error",
-    "lint:docs": "markdownlint **/*.md",
-    "lint:js": "eslint . --cache",
-    "lint:package-json": "sort-package-json --check",
+    "format": "prettier --write .",
+    "lint": "npm-run-all --continue-on-error --parallel \"lint:!(fix)\"",
+    "lint:docs": "markdownlint \"**/*.md\"",
+    "lint:docs:fix": "npm run lint:docs -- --fix",
+    "lint:fix": "npm-run-all lint:*:fix && npm run format",
+    "lint:format": "prettier --check .",
+    "lint:js": "eslint --cache .",
+    "lint:js:fix": "npm run lint:js -- --fix",
+    "lint:package-json": "npmPkgJsonLint .",
+    "lint:package-json-sorting": "sort-package-json --check",
+    "lint:package-json-sorting:fix": "sort-package-json package.json",
     "new:rule": "node dev/generate.js new-rule",
-    "update:rules-index": "node dev/generate.js rules-index",
-    "release": "release-it",
-    "test": "npm-run-all lint:* test:*",
-    "test:jest": "jest",
-    "update:readme": "node ./scripts/update-rules.js"
-  },
-  "jest": {
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/test/"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/test/jest-setup.js"
-    ],
-    "testMatch": [
-      "<rootDir>/test/**/*-test.js"
-    ]
+    "test": "npm-run-all lint:* test:node",
+    "test:node": "vitest --run",
+    "test:watch": "vitest",
+    "update": "npm-run-all update:*",
+    "update:indices": "node ./scripts/update-indices.js",
+    "update:readme": "node ./scripts/update-readme.js"
   },
   "dependencies": {
-    "@ember-template-lint/todo-utils": "^8.1.0",
-    "chalk": "^4.1.1",
-    "date-fns": "^2.21.1",
-    "ember-template-recast": "^5.0.1",
-    "find-up": "^5.0.0",
-    "fuse.js": "^6.4.6",
-    "get-stdin": "^8.0.0",
-    "globby": "^11.0.3",
-    "is-glob": "^4.0.1",
-    "micromatch": "^4.0.4",
-    "resolve": "^1.20.0",
+    "@babel/generator": "^7.26.9",
+    "@babel/parser": "^7.21.8",
+    "@babel/plugin-syntax-typescript": "^7.25.9",
+    "@babel/plugin-transform-typescript": "^7.26.8",
+    "@babel/traverse": "^7.22.8",
+    "@lint-todo/utils": "^13.1.1",
+    "aria-query": "^5.3.0",
+    "chalk": "^5.3.0",
+    "ci-info": "^4.0.0",
+    "content-tag": "^3.1.1",
+    "content-tag-utils": "^0.3.0",
+    "date-fns": "^3.6.0",
+    "ember-template-recast": "^6.1.5",
+    "eslint-formatter-kakoune": "^1.0.0",
+    "find-up": "^7.0.0",
+    "fuse.js": "^7.0.0",
+    "get-stdin": "^9.0.0",
+    "globby": "^14.0.1",
+    "is-glob": "^4.0.3",
+    "language-tags": "^1.0.8",
+    "micromatch": "^4.0.5",
+    "resolve": "^1.22.3",
     "v8-compile-cache": "^2.3.0",
-    "yargs": "^16.2.0"
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@babel/parser": "^7.13.11",
-    "@babel/traverse": "^7.14.0",
-    "@microsoft/jest-sarif": "^1.0.0-beta.0",
-    "common-tags": "^1.8.0",
-    "eslint": "^7.25.0",
-    "eslint-config-prettier": "^8.3.0",
+    "@babel/eslint-parser": "^7.27.0",
+    "@microsoft/sarif-matcher-utils": "^1.0.0-beta.0",
+    "@scalvert/bin-tester": "^2.1.0",
+    "@vitest/coverage-v8": "^3.1.1",
+    "common-tags": "^1.8.2",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-import-helpers": "^1.1.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-unicorn": "^31.0.0",
-    "execa": "^5.0.0",
-    "fixturify-project": "^2.1.1",
-    "jest": "^26.6.3",
-    "markdownlint-cli": "^0.27.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^17.15.1",
+    "eslint-plugin-unicorn": "^51.0.1",
+    "execa": "^7.1.0",
+    "fixturify-project": "^7.1.3",
+    "markdownlint-cli": "^0.39.0",
+    "npm-package-json-lint": "^7.1.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "release-it": "^14.6.1",
-    "release-it-lerna-changelog": "^3.1.0",
-    "sort-package-json": "^1.49.0",
-    "yeoman-environment": "^3.1.0",
-    "yeoman-generator": "^5.2.0",
-    "yeoman-test": "^5.1.0"
+    "prettier": "^3.2.5",
+    "release-plan": "^0.11.0",
+    "sort-package-json": "^2.14.0",
+    "vitest": "^3.1.1",
+    "yeoman-environment": "^3.19.3",
+    "yeoman-generator": "^5.9.0",
+    "yeoman-test": "^7.4.0"
   },
   "engines": {
-    "node": ">= 10.24 < 11 || 12.* || >= 14.*"
+    "node": "^18.18.0 || >= 20.9.0"
+  },
+  "volta": {
+    "node": "22.11.0",
+    "npm": "10.4.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
-  },
-  "release-it": {
-    "plugins": {
-      "release-it-lerna-changelog": {
-        "infile": "CHANGELOG.md",
-        "launchEditor": true
-      }
-    },
-    "git": {
-      "tagName": "v${version}"
-    },
-    "github": {
-      "release": true,
-      "tokenRef": "GITHUB_AUTH"
-    }
-  },
-  "volta": {
-    "node": "12.18.3",
-    "yarn": "1.22.4"
   }
 }

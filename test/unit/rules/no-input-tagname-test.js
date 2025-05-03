@@ -1,7 +1,4 @@
-'use strict';
-
-const { message } = require('../../../lib/rules/no-input-tagname');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-input-tagname',
@@ -18,61 +15,127 @@ generateRuleTests({
     {
       template: '{{input tagName="foo"}}',
 
-      result: {
-        message,
-        source: '{{input tagName="foo"}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected \`tagName\` usage on {{input}} helper.",
+              "rule": "no-input-tagname",
+              "severity": 2,
+              "source": "{{input tagName="foo"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{input tagName=bar}}',
 
-      result: {
-        message,
-        source: '{{input tagName=bar}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 21,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected \`tagName\` usage on {{input}} helper.",
+              "rule": "no-input-tagname",
+              "severity": 2,
+              "source": "{{input tagName=bar}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component "input" tagName="foo"}}',
 
-      result: {
-        message,
-        source: '{{component "input" tagName="foo"}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 35,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected \`tagName\` usage on {{input}} helper.",
+              "rule": "no-input-tagname",
+              "severity": 2,
+              "source": "{{component "input" tagName="foo"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component "input" tagName=bar}}',
 
-      result: {
-        message,
-        source: '{{component "input" tagName=bar}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 33,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected \`tagName\` usage on {{input}} helper.",
+              "rule": "no-input-tagname",
+              "severity": 2,
+              "source": "{{component "input" tagName=bar}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (component "input" tagName="foo")}}',
 
-      result: {
-        message,
-        source: '(component "input" tagName="foo")',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 41,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected \`tagName\` usage on {{input}} helper.",
+              "rule": "no-input-tagname",
+              "severity": 2,
+              "source": "(component "input" tagName="foo")",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (component "input" tagName=bar)}}',
 
-      result: {
-        message,
-        source: '(component "input" tagName=bar)',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 39,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected \`tagName\` usage on {{input}} helper.",
+              "rule": "no-input-tagname",
+              "severity": 2,
+              "source": "(component "input" tagName=bar)",
+            },
+          ]
+        `);
       },
     },
   ],

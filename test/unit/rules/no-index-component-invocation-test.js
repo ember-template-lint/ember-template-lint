@@ -1,6 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-index-component-invocation',
@@ -24,83 +22,182 @@ generateRuleTests({
   bad: [
     {
       template: '{{foo/index}}',
-      result: {
-        message: 'Replace `{{foo/index ...` to `{{foo ...`',
-        source: 'foo/index',
-        line: 1,
-        column: 2,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 2,
+              "endColumn": 11,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`{{foo/index ...\` to \`{{foo ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": "foo/index",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{component "foo/index"}}',
-      result: {
-        message: 'Replace `{{component "foo/index" ...` to `{{component "foo" ...`',
-        source: '"foo/index"',
-        line: 1,
-        column: 12,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 23,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`{{component "foo/index" ...\` to \`{{component "foo" ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": ""foo/index"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#foo/index}}{{/foo/index}}',
-      result: {
-        message: 'Replace `{{#foo/index ...` to `{{#foo ...`',
-        source: 'foo/index',
-        line: 1,
-        column: 3,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 12,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`{{#foo/index ...\` to \`{{#foo ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": "foo/index",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#component "foo/index"}}{{/component}}',
-      result: {
-        message: 'Replace `{{#component "foo/index" ...` to `{{#component "foo" ...`',
-        source: '"foo/index"',
-        line: 1,
-        column: 13,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`{{#component "foo/index" ...\` to \`{{#component "foo" ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": ""foo/index"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{foo/bar (component "foo/index")}}',
-      result: {
-        message: 'Replace `(component "foo/index" ...` to `(component "foo" ...`',
-        source: '"foo/index"',
-        line: 1,
-        column: 21,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 21,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`(component "foo/index" ...\` to \`(component "foo" ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": ""foo/index"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{foo/bar name=(component "foo/index")}}',
-      result: {
-        message: 'Replace `(component "foo/index" ...` to `(component "foo" ...`',
-        source: '"foo/index"',
-        line: 1,
-        column: 26,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 26,
+              "endColumn": 37,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`(component "foo/index" ...\` to \`(component "foo" ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": ""foo/index"",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo::Index />',
-      result: {
-        message: 'Replace `<Foo::Index ...` to `<Foo ...`',
-        source: '<Foo::Index />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 14,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`<Foo::Index ...\` to \`<Foo ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": "<Foo::Index />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo::Bar::Index />',
-      result: {
-        message: 'Replace `<Foo::Bar::Index ...` to `<Foo::Bar ...`',
-        source: '<Foo::Bar::Index />',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`<Foo::Bar::Index ...\` to \`<Foo::Bar ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": "<Foo::Bar::Index />",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<Foo::Index></Foo::Index>',
-      result: {
-        message: 'Replace `<Foo::Index ...` to `<Foo ...`',
-        source: '<Foo::Index></Foo::Index>',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Replace \`<Foo::Index ...\` to \`<Foo ...\`",
+              "rule": "no-index-component-invocation",
+              "severity": 2,
+              "source": "<Foo::Index></Foo::Index>",
+            },
+          ]
+        `);
       },
     },
   ],

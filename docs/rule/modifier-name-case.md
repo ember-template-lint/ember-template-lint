@@ -1,6 +1,8 @@
 # modifier-name-case
 
-:nail_care: The `extends: 'stylistic'` property in a configuration file enables this rule.
+💅 The `extends: 'stylistic'` property in a configuration file enables this rule.
+
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 It is currently possible to invoke a modifier with multiple words in its name
 using camelCase: `{{didInsert}}` or using dasherized-case: `{{did-insert}}`.
@@ -16,12 +18,14 @@ This rule **forbids** the following:
 
 ```hbs
 <div {{didInsert}}></div>
+<div {{(if @isContentEditable (modifier "contentEditable"))}}></div>
 ```
 
 This rule **allows** the following:
 
 ```hbs
 <div {{did-insert}}></div>
+<div {{(if @isContentEditable (modifier "content-editable"))}}></div>
 ```
 
 ## References

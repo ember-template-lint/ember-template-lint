@@ -1,6 +1,6 @@
 # no-model-argument-in-route-templates
 
-:wrench: The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
+🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 Usage of `{{@model}}` in route templates was introduced to simplify the mental
 model in Ember Octane. Unfortunately, there is a known problem where usage of

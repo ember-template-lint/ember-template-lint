@@ -1,6 +1,6 @@
 # no-arguments-for-html-elements
 
-:white_check_mark: The `extends: 'recommended'` property in a configuration file enables this rule.
+✅ The `extends: 'recommended'` property in a configuration file enables this rule.
 
 Angle bracket components use the `@argument` style and that's why users are more likely to start making this mistake.
 

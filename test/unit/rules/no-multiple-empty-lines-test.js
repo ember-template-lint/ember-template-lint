@@ -1,7 +1,5 @@
-'use strict';
-
-const { parseConfig, CONFIG_ERROR_MESSAGE } = require('../../../lib/rules/no-multiple-empty-lines');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import { parseConfig, CONFIG_ERROR_MESSAGE } from '../../../lib/rules/no-multiple-empty-lines.js';
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-multiple-empty-lines',
@@ -9,7 +7,6 @@ generateRuleTests({
   config: true,
 
   good: [
-    '<div>foo</div><div>bar</div>',
     '<div>foo</div><div>bar</div>',
     '<div>foo</div>\n<div>bar</div>',
     '<div>foo</div>\r\n<div>bar</div>',
@@ -29,34 +26,81 @@ generateRuleTests({
   bad: [
     {
       template: '<div>foo</div>\n\n\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n\n<div>bar</div>',
 
-      result: {
-        message: 'More than 1 blank line not allowed.',
-        line: 2,
-        column: 0,
-        source: '\n\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 14,
+              "endLine": 4,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "More than 1 blank line not allowed.",
+              "rule": "no-multiple-empty-lines",
+              "severity": 2,
+              "source": "
+
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n\n<div>bar</div>',
 
-      result: {
-        message: 'More than 1 blank line not allowed.',
-        line: 2,
-        column: 0,
-        source: '\n\n\n\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 14,
+              "endLine": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "More than 1 blank line not allowed.",
+              "rule": "no-multiple-empty-lines",
+              "severity": 2,
+              "source": "
+
+
+
+          ",
+            },
+          ]
+        `);
       },
     },
     {
       config: { max: 3 },
 
       template: '<div>foo</div>\n\n\n\n\n<div>bar</div>',
+      fixedTemplate: '<div>foo</div>\n\n\n\n<div>bar</div>',
 
-      result: {
-        message: 'More than 3 blank lines not allowed.',
-        line: 4,
-        column: 0,
-        source: '\n\n',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 14,
+              "endLine": 6,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 4,
+              "message": "More than 3 blank lines not allowed.",
+              "rule": "no-multiple-empty-lines",
+              "severity": 2,
+              "source": "
+
+          ",
+            },
+          ]
+        `);
       },
     },
   ],

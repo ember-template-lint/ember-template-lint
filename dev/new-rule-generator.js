@@ -1,9 +1,11 @@
-const path = require('path');
+import chalk from 'chalk';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import Generator from 'yeoman-generator';
 
-const chalk = require('chalk');
-const Generator = require('yeoman-generator');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = class NewRuleGenerator extends Generator {
+export default class NewRuleGenerator extends Generator {
   async prompting() {
     this.log(`Generating ${chalk.bold.white('new ember-template-lint rule')}`);
 
@@ -45,23 +47,8 @@ module.exports = class NewRuleGenerator extends Generator {
       this.destinationPath(`docs/rule/${this.options.ruleId}.md`),
       this.options
     );
-
-    this.updateRulesIndex(this.options);
   }
-
-  updateRulesIndex() {
-    let rulesIndexPath = this.destinationPath('lib/rules/index.js');
-    // eslint-disable-next-line import/no-dynamic-require
-    let rules = Object.keys(require(rulesIndexPath));
-
-    rules.push(this.options.ruleId);
-    rules.sort();
-
-    this.options.rules = rules;
-
-    this.fs.copyTpl(this.templatePath('rules-index.ejs'), rulesIndexPath, this.options);
-  }
-};
+}
 
 function toTitleCase(newRuleName) {
   let newRuleClassArray = newRuleName.split('-');

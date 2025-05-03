@@ -1,7 +1,4 @@
-'use strict';
-
-const { message, generateMessageWithAlternative } = require('../../../lib/rules/no-mut-helper');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 const setterAlternative = '`{{set}}`';
 
@@ -12,7 +9,6 @@ generateRuleTests({
 
   good: [
     '<MyComponent @toggled={{this.showAggregatedLine}}/>',
-    '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @toggle={{set this "isDropdownOpen"}}/>',
     '<MyComponent @onFocusOut={{action "onFocusOutKeySkillsInput" value="target.value"}}/>',
     '<MyComponent {{on "click" (set this "isDropdownOpen" false)}}/>',
@@ -35,104 +31,225 @@ generateRuleTests({
   bad: [
     {
       template: '<MyComponent @toggled={{mut this.showAggregatedLine}}/>',
-      result: {
-        message,
-        line: 1,
-        column: 22,
-        source: '{{mut this.showAggregatedLine}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 22,
+              "endColumn": 53,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "{{mut this.showAggregatedLine}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{my-component value=(mut this.secondaryProfileHeadline)}}',
-      result: {
-        message,
-        line: 1,
-        column: 21,
-        source: '(mut this.secondaryProfileHeadline)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 21,
+              "endColumn": 56,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.secondaryProfileHeadline)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<MyComponent {{action (mut this.isDropdownOpen) false}}/>',
-      result: {
-        message,
-        line: 1,
-        column: 22,
-        source: '(mut this.isDropdownOpen)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 22,
+              "endColumn": 47,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isDropdownOpen)",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<MyComponent @dismissModal={{action (mut this.isRequestExpiredModalOpen) false}}/>',
-      result: {
-        message,
-        line: 1,
-        column: 36,
-        source: '(mut this.isRequestExpiredModalOpen)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 36,
+              "endColumn": 72,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isRequestExpiredModalOpen)",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<MyComponent @click={{action (mut this.isCardCollapsed) (if this.isCardCollapsed false true)}}/>',
-      result: {
-        message,
-        line: 1,
-        column: 29,
-        source: '(mut this.isCardCollapsed)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 29,
+              "endColumn": 55,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isCardCollapsed)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<MyComponent onclick={{fn (mut this.expandVoluntarySelfIdHelpText) true}}/>',
-      result: {
-        message,
-        line: 1,
-        column: 26,
-        source: '(mut this.expandVoluntarySelfIdHelpText)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 26,
+              "endColumn": 66,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.expandVoluntarySelfIdHelpText)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<MyComponent @onVisibilityChange={{fn (mut this.isDropdownOpen)}}/>',
-      result: {
-        message,
-        line: 1,
-        column: 38,
-        source: '(mut this.isDropdownOpen)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 38,
+              "endColumn": 63,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isDropdownOpen)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{my-component click=(action (mut this.isOpen) false)}}',
-      result: {
-        message,
-        line: 1,
-        column: 29,
-        source: '(mut this.isOpen)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 29,
+              "endColumn": 46,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isOpen)",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '{{my-component click=(action (mut this.isLegalTextExpanded) (not this.isLegalTextExpanded))}}',
-      result: {
-        message,
-        line: 1,
-        column: 29,
-        source: '(mut this.isLegalTextExpanded)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 29,
+              "endColumn": 59,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isLegalTextExpanded)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{my-component onVisibilityChange=(action (mut this.isDropdownOpen))}}',
-      result: {
-        message,
-        line: 1,
-        column: 42,
-        source: '(mut this.isDropdownOpen)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 42,
+              "endColumn": 67,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isDropdownOpen)",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{my-component click=(fn (mut this.showManageEventsModal) true)}}',
-      result: {
-        message,
-        line: 1,
-        column: 25,
-        source: '(mut this.showManageEventsModal)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 25,
+              "endColumn": 57,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.showManageEventsModal)",
+            },
+          ]
+        `);
       },
     },
     {
@@ -141,11 +258,22 @@ generateRuleTests({
             (mut this.isDemographicsDropdownOpen)
           }}
         />`,
-      result: {
-        message,
-        line: 3,
-        column: 12,
-        source: '(mut this.isDemographicsDropdownOpen)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 49,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isDemographicsDropdownOpen)",
+            },
+          ]
+        `);
       },
     },
     {
@@ -155,21 +283,43 @@ generateRuleTests({
             false
           }}
         />`,
-      result: {
-        message,
-        line: 3,
-        column: 12,
-        source: '(mut this.isNotificationsPostApprovalModalOpen)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 59,
+              "endLine": 3,
+              "filePath": "layout.hbs",
+              "line": 3,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.isNotificationsPostApprovalModalOpen)",
+            },
+          ]
+        `);
       },
     },
     {
       template:
         '<MyComponent onchange={{action (mut this.contactUsSection.description) value="target.value"}}/>',
-      result: {
-        message,
-        line: 1,
-        column: 31,
-        source: '(mut this.contactUsSection.description)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 31,
+              "endColumn": 70,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.contactUsSection.description)",
+            },
+          ]
+        `);
       },
     },
     {
@@ -178,11 +328,22 @@ generateRuleTests({
       },
       template:
         '<MyComponent onchange={{action (mut this.contactUsSection.description) value="target.value"}}/>',
-      result: {
-        message: generateMessageWithAlternative(setterAlternative),
-        line: 1,
-        column: 31,
-        source: '(mut this.contactUsSection.description)',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 31,
+              "endColumn": 70,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected usage of mut helper. If using mut as a setter, consider using a JS action or \`{{set}}\` instead.",
+              "rule": "no-mut-helper",
+              "severity": 2,
+              "source": "(mut this.contactUsSection.description)",
+            },
+          ]
+        `);
       },
     },
   ],

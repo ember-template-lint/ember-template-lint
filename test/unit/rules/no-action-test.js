@@ -1,7 +1,4 @@
-'use strict';
-
-const { ERROR_MESSAGE } = require('../../../lib/rules/no-action');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-action',
@@ -25,47 +22,102 @@ generateRuleTests({
   bad: [
     {
       template: '<button onclick={{action "foo"}}></button>',
-      result: {
-        message: ERROR_MESSAGE.replace('%', '{{action ...}}'),
-        source: '{{action "foo"}}',
-        line: 1,
-        column: 16,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 16,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use \`action\` as {{action ...}}. Instead, use the \`on\` modifier and \`fn\` helper.",
+              "rule": "no-action",
+              "severity": 2,
+              "source": "{{action "foo"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<button {{action "submit"}}>Submit</button>',
-      result: {
-        message: ERROR_MESSAGE.replace('%', '<button {{action ...}} />'),
-        source: '{{action "submit"}}',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 27,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use \`action\` as <button {{action ...}} />. Instead, use the \`on\` modifier and \`fn\` helper.",
+              "rule": "no-action",
+              "severity": 2,
+              "source": "{{action "submit"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '<FooBar @baz={{action "submit"}} />',
-      result: {
-        message: ERROR_MESSAGE.replace('%', '{{action ...}}'),
-        source: '{{action "submit"}}',
-        line: 1,
-        column: 13,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 13,
+              "endColumn": 32,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use \`action\` as {{action ...}}. Instead, use the \`on\` modifier and \`fn\` helper.",
+              "rule": "no-action",
+              "severity": 2,
+              "source": "{{action "submit"}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (action "foo")}}',
-      result: {
-        message: ERROR_MESSAGE.replace('%', '(action ...)'),
-        source: '(action "foo")',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 22,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use \`action\` as (action ...). Instead, use the \`on\` modifier and \`fn\` helper.",
+              "rule": "no-action",
+              "severity": 2,
+              "source": "(action "foo")",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{yield (action this.foo)}}',
-      result: {
-        message: ERROR_MESSAGE.replace('%', '(action ...)'),
-        source: '(action this.foo)',
-        line: 1,
-        column: 8,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 25,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Do not use \`action\` as (action ...). Instead, use the \`on\` modifier and \`fn\` helper.",
+              "rule": "no-action",
+              "severity": 2,
+              "source": "(action this.foo)",
+            },
+          ]
+        `);
       },
     },
   ],

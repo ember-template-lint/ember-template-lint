@@ -1,27 +1,35 @@
 #!/usr/bin/env node
-
-'use strict';
+/* eslint require-atomic-updates:"off" */
 
 // Use V8's code cache to speed up instantiation time:
-require('v8-compile-cache'); // eslint-disable-line import/no-unassigned-import
+import 'v8-compile-cache'; // eslint-disable-line import/no-unassigned-import
 
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
+import {
+  compactTodoStorageFile,
+  getTodoStorageFilePath,
+  getTodoConfig,
+  validateConfig,
+} from '@lint-todo/utils';
+import getStdin from 'get-stdin';
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
+import { promisify } from 'node:util';
+import { Worker } from 'node:worker_threads';
+import os from 'node:os';
 
-const { getTodoStorageDirPath, getTodoConfig } = require('@ember-template-lint/todo-utils');
-const chalk = require('chalk');
-const getStdin = require('get-stdin');
-const globby = require('globby');
-const isGlob = require('is-glob');
-const micromatch = require('micromatch');
-
-const Linter = require('../lib');
-const processResults = require('../lib/helpers/process-results');
+import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
+import printResults from '../lib/helpers/print-results.js';
+import processResults from '../lib/helpers/process-results.js';
+import Linter from '../lib/linter.js';
+import { getProjectConfig } from '../lib/get-config.js';
+import { processWithPool } from '../lib/-private/process-with-pool.js';
 
 const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
 
 const STDIN = '/dev/stdin';
+const MIN_FILES_TO_USE_WORKERS = 100;
 
 const NOOP_CONSOLE = {
   log: () => {},
@@ -33,11 +41,11 @@ function removeExt(filePath) {
   return filePath.slice(0, -path.extname(filePath).length);
 }
 
-async function buildLinterOptions(workingDir, filePath, filename = '', isReadingStdin) {
-  if (isReadingStdin) {
+async function buildLinterOptions(workingDir, filePath, filename = '', stdin) {
+  if (stdin) {
     let filePath = filename;
     let moduleId = removeExt(filePath);
-    let source = await getStdin();
+    let source = stdin;
 
     return { source, filePath, moduleId };
   } else {
@@ -46,225 +54,6 @@ async function buildLinterOptions(workingDir, filePath, filename = '', isReading
     let source = await readFile(resolvedFilePath, { encoding: 'utf8' });
 
     return { source, filePath, moduleId };
-  }
-}
-
-function executeGlobby(workingDir, pattern, ignore) {
-  let supportedExtensions = new Set(['.hbs', '.handlebars']);
-
-  // `--no-ignore-pattern` results in `ignorePattern === [false]`
-  let options =
-    ignore[0] === false ? { cwd: workingDir } : { cwd: workingDir, gitignore: true, ignore };
-
-  return globby
-    .sync(pattern, options)
-    .filter((filePath) => supportedExtensions.has(path.extname(filePath)));
-}
-
-function isFile(possibleFile) {
-  try {
-    let stat = fs.statSync(possibleFile);
-    return stat.isFile();
-  } catch {
-    return false;
-  }
-}
-
-function expandFileGlobs(workingDir, filePatterns, ignorePattern, glob = executeGlobby) {
-  let result = new Set();
-
-  for (const pattern of filePatterns) {
-    let isLiteralPath = !isGlob(pattern) && isFile(path.resolve(workingDir, pattern));
-
-    if (isLiteralPath) {
-      let isIgnored = micromatch.isMatch(pattern, ignorePattern);
-
-      if (!isIgnored) {
-        result.add(pattern);
-      }
-
-      continue;
-    }
-
-    for (const filePath of glob(workingDir, pattern, ignorePattern)) {
-      result.add(filePath);
-    }
-  }
-
-  return result;
-}
-
-function getFilesToLint(workingDir, filePatterns, ignorePattern = []) {
-  let files;
-
-  if (filePatterns.length === 0 || filePatterns.includes('-') || filePatterns.includes(STDIN)) {
-    files = new Set([STDIN]);
-  } else {
-    files = expandFileGlobs(workingDir, filePatterns, ignorePattern);
-  }
-
-  return files;
-}
-
-function parseArgv(_argv) {
-  let parser = require('yargs')
-    .scriptName('ember-template-lint')
-    .usage('$0 [options] [files..]')
-    .options({
-      'config-path': {
-        describe: 'Define a custom config path',
-        default: '.template-lintrc.js',
-        type: 'string',
-      },
-      config: {
-        describe:
-          'Define a custom configuration to be used - (e.g. \'{ "rules": { "no-implicit-this": "error" } }\') ',
-        type: 'string',
-      },
-      quiet: {
-        describe: 'Ignore warnings and only show errors',
-        boolean: true,
-      },
-      rule: {
-        describe:
-          'Specify a rule and its severity to add that rule to loaded rules - (e.g. `no-implicit-this:error` or `rule:["error", { "allow": ["some-helper"] }]`)',
-        type: 'string',
-      },
-      filename: {
-        describe: 'Used to indicate the filename to be assumed for contents from STDIN',
-        type: 'string',
-      },
-      fix: {
-        describe: 'Fix any errors that are reported as fixable',
-        boolean: true,
-        default: false,
-      },
-      format: {
-        describe: 'Specify format to be used in printing output',
-        type: 'string',
-        default: 'pretty',
-      },
-      json: {
-        describe: 'Format output as json',
-        deprecated: 'Use --format=json instead',
-        boolean: true,
-      },
-      'output-file': {
-        describe: 'Specify file to write report to',
-        type: 'string',
-        implies: 'format',
-      },
-      verbose: {
-        describe: 'Output errors with source description',
-        boolean: true,
-      },
-      'working-directory': {
-        alias: 'cwd',
-        describe: 'Path to a directory that should be considered as the current working directory.',
-        type: 'string',
-        // defaulting to `.` here to refer to `process.cwd()`, setting the default to `process.cwd()` itself
-        // would make our snapshots unstable (and make the help output unaligned since most directory paths
-        // are fairly deep)
-        default: '.',
-      },
-      'no-config-path': {
-        describe:
-          'Does not use the local template-lintrc, will use a blank template-lintrc instead',
-        boolean: true,
-      },
-      'print-pending': {
-        describe:
-          'Print list of formatted rules for use with `pending` in config file (deprecated)',
-        boolean: true,
-        hidden: true,
-      },
-      'update-todo': {
-        describe: 'Update list of linting todos by transforming lint errors to todos',
-        default: false,
-        boolean: true,
-      },
-      'include-todo': {
-        describe: 'Include todos in the results',
-        default: false,
-        boolean: true,
-      },
-      'clean-todo': {
-        describe: 'Remove expired and invalid todo files',
-        default: false,
-        boolean: true,
-      },
-      'todo-days-to-warn': {
-        describe: 'Number of days after its creation date that a todo transitions into a warning',
-        type: 'number',
-      },
-      'todo-days-to-error': {
-        describe: 'Number of days after its creation date that a todo transitions into an error',
-        type: 'number',
-      },
-      'ignore-pattern': {
-        describe: 'Specify custom ignore pattern (can be disabled with --no-ignore-pattern)',
-        type: 'array',
-        default: ['**/dist/**', '**/tmp/**', '**/node_modules/**'],
-      },
-      'no-inline-config': {
-        describe: 'Prevent inline configuration comments from changing config or rules',
-        boolean: true,
-      },
-      'max-warnings': {
-        describe: 'Number of warnings to trigger nonzero exit code',
-        type: 'number',
-      },
-    })
-    .help()
-    .version();
-
-  parser.parserConfiguration({
-    'greedy-arrays': false,
-  });
-
-  if (_argv.length === 0) {
-    parser.showHelp();
-    parser.exit(1);
-  } else {
-    let options = parser.parse(_argv);
-
-    if (options.workingDirectory === '.') {
-      options.workingDirectory = process.cwd();
-    }
-
-    return options;
-  }
-}
-
-const PENDING_RULES = new Set(['invalid-pending-module', 'invalid-pending-module-rule']);
-function printPending(results, options) {
-  let pendingList = [];
-  for (let filePath in results.files) {
-    let fileResults = results.files[filePath];
-    let failingRules = fileResults.messages.reduce((memo, error) => {
-      if (!PENDING_RULES.has(error.rule)) {
-        memo.add(error.rule);
-      }
-
-      return memo;
-    }, new Set());
-
-    if (failingRules.size > 0) {
-      pendingList.push({ moduleId: removeExt(filePath), only: [...failingRules] });
-    }
-  }
-  let pendingListString = JSON.stringify(pendingList, null, 2);
-
-  if (options.json) {
-    console.log(pendingListString);
-  } else {
-    console.log(chalk.yellow('WARNING: Print pending is deprecated. Use --update-todo instead.\n'));
-
-    console.log(
-      'Add the following to your `.template-lintrc.js` file to mark these files as pending.\n\n'
-    );
-
-    console.log(`pending: ${pendingListString}`);
   }
 }
 
@@ -283,12 +72,26 @@ function getTodoConfigFromCommandLineOptions(options) {
 }
 
 function _isOverridingConfig(options) {
+  let defaultArgs = parseArgv(['fake-file-to-get-default-options.hbs']);
+
   return Boolean(
-    options.config ||
-      options.rule ||
-      options.inlineConfig === false ||
-      options.configPath !== '.template-lintrc.js'
+    options.config !== defaultArgs.config ||
+      options.rule !== defaultArgs.rule ||
+      options.inlineConfig !== defaultArgs.inlineConfig ||
+      options.configPath !== defaultArgs.configPath
   );
+}
+
+function _todoStorageDirExists(baseDir) {
+  try {
+    return fs.lstatSync(getTodoStorageFilePath(baseDir)).isDirectory();
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return false;
+    }
+
+    throw error;
+  }
 }
 
 async function run() {
@@ -296,14 +99,8 @@ async function run() {
   let positional = options._;
   let config;
   let isOverridingConfig = _isOverridingConfig(options);
-  let todoInfo = {
-    added: 0,
-    removed: 0,
-    todoConfig: getTodoConfig(
-      options.workingDirectory,
-      getTodoConfigFromCommandLineOptions(options)
-    ),
-  };
+  let shouldWriteToStdout = !(options.quiet || ['sarif', 'json'].includes(options.format));
+  let _console = shouldWriteToStdout ? console : NOOP_CONSOLE;
 
   if (options.config) {
     try {
@@ -319,7 +116,40 @@ async function run() {
     options.configPath = false;
   }
 
+  let todoConfigResult = validateConfig(options.workingDirectory);
+
+  if (!todoConfigResult.isValid) {
+    console.error(todoConfigResult.message);
+    process.exitCode = 1;
+    return;
+  }
+
+  if (_todoStorageDirExists(options.workingDirectory)) {
+    console.error(
+      'Found `.lint-todo` directory. Please run `npx @lint-todo/migrator .` to convert to the new todo file format'
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (options.compactTodo) {
+    let { compacted } = compactTodoStorageFile(options.workingDirectory);
+    _console.log(`Removed ${compacted} todos in .lint-todo storage file`);
+    process.exitCode = 0;
+    return;
+  }
+
   let linter;
+  let todoInfo = {
+    added: 0,
+    removed: 0,
+    todoConfig: getTodoConfig(
+      options.workingDirectory,
+      'ember-template-lint',
+      getTodoConfigFromCommandLineOptions(options)
+    ),
+  };
+
   try {
     linter = new Linter({
       workingDir: options.workingDirectory,
@@ -327,29 +157,11 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
-      console: options.quiet || options.json ? NOOP_CONSOLE : console,
+      reportUnusedDisableDirectives: options.reportUnusedDisableDirectives,
+      console: _console,
     });
   } catch (error) {
     console.error(error.message);
-    process.exitCode = 1;
-    return;
-  }
-
-  if (
-    linter.config.pending.length > 0 &&
-    fs.existsSync(getTodoStorageDirPath(options.workingDirectory))
-  ) {
-    console.error(
-      'Cannot use the `pending` config option in conjunction with lint todos. Please run with `--update-pending` to migrate to the new todos functionality.'
-    );
-    process.exitCode = 1;
-    return;
-  }
-
-  if (linter.config.pending.length > 0 && options.updateTodo) {
-    console.error(
-      'Cannot use the `pending` config option in conjunction with `--update-todo`. Please remove the `pending` option from your config and re-run the command.'
-    );
     process.exitCode = 1;
     return;
   }
@@ -362,15 +174,63 @@ async function run() {
     return;
   }
 
-  let filePaths = getFilesToLint(options.workingDirectory, positional, options.ignorePattern);
+  let filePaths;
+  try {
+    let config = await getProjectConfig(options.workingDirectory, options);
+    filePaths = getFilesToLint(
+      options.workingDirectory,
+      positional,
+      options.ignorePattern,
+      options.errorOnUnmatchedPattern !== false,
+      config,
+      _console
+    );
+  } catch (error) {
+    console.error(error.message);
+    process.exitCode = 1;
+    return;
+  }
 
   let resultsAccumulator = [];
-  for (let relativeFilePath of filePaths) {
+  let debug = false;
+
+  if (debug) {
+    console.time('Linting');
+  }
+  const filePathsArray = [...filePaths];
+
+  const isReadingStdin = filePaths.has(STDIN);
+  const maybeStdin = isReadingStdin ? await getStdin() : undefined;
+
+  // Handle --print-config option early, as it should exit immediately
+  if (options.printConfig) {
+    if (filePathsArray.length > 1) {
+      console.error('The --print-config option must be used with exactly one file name.');
+      process.exitCode = 1;
+      return;
+    }
+
+    const relativeFilePath = filePathsArray[0];
     let linterOptions = await buildLinterOptions(
       options.workingDirectory,
       relativeFilePath,
       options.filename,
-      filePaths.has(STDIN)
+      maybeStdin
+    );
+
+    let fileConfig = await linter.getConfigForFile(linterOptions);
+    _console.log(JSON.stringify(fileConfig, null, 2));
+    process.exitCode = 0;
+    return;
+  }
+
+  // Process a single file and return its results
+  async function processFile(relativeFilePath) {
+    let linterOptions = await buildLinterOptions(
+      options.workingDirectory,
+      relativeFilePath,
+      options.filename,
+      maybeStdin
     );
 
     let fileResults;
@@ -378,7 +238,7 @@ async function run() {
     if (options.fix) {
       let { isFixed, output, messages } = await linter.verifyAndFix(linterOptions);
       if (isFixed) {
-        fs.writeFileSync(linterOptions.filePath, output, { encoding: 'utf-8' });
+        await writeFile(linterOptions.filePath, output, { encoding: 'utf-8' });
       }
       fileResults = messages;
     } else {
@@ -386,28 +246,83 @@ async function run() {
     }
 
     if (options.updateTodo) {
-      let [added, removed] = await linter.updateTodo(
+      let { addedCount, removedCount } = linter.updateTodo(
         linterOptions,
         fileResults,
         todoInfo.todoConfig,
         isOverridingConfig
       );
 
-      todoInfo.added += added;
-      todoInfo.removed += removed;
+      todoInfo.added += addedCount;
+      todoInfo.removed += removedCount;
     }
 
-    if (!filePaths.has(STDIN)) {
-      fileResults = await linter.processTodos(
+    if (!isReadingStdin) {
+      fileResults = linter.processTodos(
         linterOptions,
         fileResults,
-        options.fix,
+        todoInfo.todoConfig,
+        options.fix || options.cleanTodo,
         isOverridingConfig
       );
     }
 
-    resultsAccumulator.push(...fileResults);
+    // Return both the file path and its results to maintain ordering information
+    return {
+      filePath: relativeFilePath,
+      results: fileResults,
+    };
   }
+  // Process files with worker threads or existing pool
+  let allResults;
+  if (!isReadingStdin && !options.updateTodo && filePathsArray.length >= MIN_FILES_TO_USE_WORKERS) {
+    // Use worker threads for parallel processing
+    const cpuCount = os.cpus().length;
+    const workerCount = Math.max(1, cpuCount - 1);
+    const amountOfFilesPerWorker = Math.ceil(filePathsArray.length / workerCount);
+    if (debug) {
+      console.log(`Using ${workerCount} workers to lint files`);
+      console.log(
+        `Processing ${filePathsArray.length} files in batches of ${amountOfFilesPerWorker}`
+      );
+    }
+    // Split files into batches
+    const batches = [];
+    for (let i = 0; i < filePathsArray.length; i += amountOfFilesPerWorker) {
+      batches.push(filePathsArray.slice(i, i + amountOfFilesPerWorker));
+    }
+
+    const results = batches.map((batch) => {
+      return runWorker({
+        filePaths: batch,
+        options: {
+          ...structuredClone(options),
+          todoConfig: todoInfo.todoConfig,
+          isOverridingConfig,
+        },
+      });
+    });
+    const awaitedResult = await Promise.all(results);
+    allResults = awaitedResult.flat();
+  } else {
+    // Use existing pool for stdin or smaller file sets
+    allResults = await processWithPool(filePathsArray, 10, processFile);
+  }
+
+  // Flatten all results into the accumulator
+  for (const { results } of allResults) {
+    resultsAccumulator.push(...results);
+  }
+
+  // Sort the resultsAccumulator to match the original file order in filePathsArray
+  resultsAccumulator.sort((a, b) => {
+    // Find the original index in filePathsArray for each result
+    const indexA = filePathsArray.indexOf(a.filePath);
+    const indexB = filePathsArray.indexOf(b.filePath);
+
+    // Sort based on original position
+    return indexA - indexB;
+  });
 
   let results = processResults(resultsAccumulator);
 
@@ -418,30 +333,30 @@ async function run() {
     process.exitCode = 1;
   }
 
-  if (options.printPending) {
-    return printPending(results, options);
-  } else {
-    let hasErrors = results.errorCount > 0;
-    let hasWarnings = results.warningCount > 0;
-    let hasTodos = options.includeTodo && results.todoCount;
-    let hasUpdatedTodos = options.updateTodo;
-
-    let Printer = require('../lib/formatters/default');
-    let printer = new Printer({
-      ...options,
-      hasResultData: hasErrors || hasWarnings || hasTodos || hasUpdatedTodos,
-    });
-    printer.print(results, todoInfo);
+  const linterConfig = await linter.getConfig();
+  await printResults(results, { options, todoInfo, config: linterConfig });
+  if (debug) {
+    console.timeEnd('Linting');
   }
 }
 
-// exports are for easier unit testing
-module.exports = {
-  _parseArgv: parseArgv,
-  _expandFileGlobs: expandFileGlobs,
-  _getFilesToLint: getFilesToLint,
-};
+run();
 
-if (require.main === module) {
-  run();
+function runWorker(workerData) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL('../lib/-private/lint-worker.js', import.meta.url), {
+      workerData: {
+        filePaths: workerData.filePaths,
+        options: workerData.options,
+      },
+    });
+
+    worker.on('message', resolve);
+    worker.on('error', reject);
+    worker.on('exit', (code) => {
+      if (code !== 0) {
+        reject(new Error(`Worker stopped with exit code ${code}`));
+      }
+    });
+  });
 }

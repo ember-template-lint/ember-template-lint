@@ -1,8 +1,6 @@
-'use strict';
+import { parse } from 'ember-template-recast';
 
-const { parse } = require('ember-template-recast');
-
-const isInteractiveElement = require('../../../lib/helpers/is-interactive-element');
+import isInteractiveElement, { reason } from '../../../lib/helpers/is-interactive-element.js';
 
 describe('isInteractiveElement', function () {
   function testTemplate(template, expectedValue) {
@@ -19,9 +17,9 @@ describe('isInteractiveElement', function () {
     it(`isInteractiveElement.reason(\`${template}\` should be \`${expectedReason}\``, function () {
       let ast = parse(template);
 
-      let reason = isInteractiveElement.reason(ast.body[0]);
+      let actual = reason(ast.body[0]);
 
-      expect(reason).toEqual(expectedReason);
+      expect(actual).toEqual(expectedReason);
     });
   }
 
@@ -61,7 +59,7 @@ describe('isInteractiveElement', function () {
     function test(template) {
       let ast = parse(template);
 
-      return isInteractiveElement.reason(ast.body[0]);
+      return reason(ast.body[0]);
     }
 
     for (const template of nonInteractive) {

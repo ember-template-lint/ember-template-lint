@@ -1,7 +1,4 @@
-'use strict';
-
-const { message } = require('../../../lib/rules/no-debugger');
-const generateRuleTests = require('../../helpers/rule-test-harness');
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-debugger',
@@ -14,31 +11,43 @@ generateRuleTests({
     {
       template: '{{debugger}}',
 
-      result: {
-        message,
-        source: '{{debugger}}',
-        line: 1,
-        column: 0,
-      },
-    },
-    {
-      template: '{{debugger}}',
-
-      result: {
-        message,
-        source: '{{debugger}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 12,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{debugger}} usage.",
+              "rule": "no-debugger",
+              "severity": 2,
+              "source": "{{debugger}}",
+            },
+          ]
+        `);
       },
     },
     {
       template: '{{#debugger}}Invalid!{{/debugger}}',
 
-      result: {
-        message,
-        source: '{{#debugger}}Invalid!{{/debugger}}',
-        line: 1,
-        column: 0,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 0,
+              "endColumn": 34,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Unexpected {{debugger}} usage.",
+              "rule": "no-debugger",
+              "severity": 2,
+              "source": "{{#debugger}}Invalid!{{/debugger}}",
+            },
+          ]
+        `);
       },
     },
   ],
