@@ -4,6 +4,7 @@ import PrettyFormatter from '../../../lib/formatters/pretty.js';
 import { TODO_SEVERITY } from '../../../lib/helpers/severity.js';
 import { setupProject, teardownProject, runBin } from '../../helpers/bin-tester.js';
 import { getOutputFileContents, setupEnvVar } from '../../helpers/index.js';
+import path from 'node:path';
 
 describe('pretty formatter', () => {
   setupEnvVar('FORCE_COLOR', '0');
@@ -184,6 +185,41 @@ describe('pretty formatter', () => {
         0 errors and 1 warnings potentially fixable with the \`--fix\` option."
     `);
     expect(result.stderr).toBeFalsy();
+  });
+
+  describe('with --print-full-path option', function () {
+    it('should print properly formatted error messages, with full path printed', async function () {
+      await project.setConfig({
+        rules: {
+          'no-bare-strings': true,
+        },
+      });
+      await project.write({
+        app: {
+          templates: {
+            'application.hbs': '<h2>Here too!!</h2> <div>Bare strings are bad...</div>',
+            components: {
+              'foo.hbs': '{{fooData}}',
+            },
+          },
+        },
+      });
+
+      let result = await runBin('.', '--print-full-path');
+
+      expect(result.exitCode).toEqual(1);
+      expect(result.stdout.split('\n')).toEqual([
+        `Linting 2 Total Files with TemplateLint`,
+        `	.hbs: 2`,
+        ``,
+        `${project.baseDir}${path.sep}${['app', 'templates', 'application.hbs'].join(path.sep)}`,
+        '  1:4  error  Non-translated string used  no-bare-strings',
+        '  1:25  error  Non-translated string used  no-bare-strings',
+        '',
+        '✖ 2 problems (2 errors, 0 warnings)',
+      ]);
+      expect(result.stderr).toBeFalsy();
+    });
   });
 
   describe('with --quiet option', function () {
