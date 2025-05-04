@@ -6,6 +6,9 @@ generateRuleTests({
   config: true,
 
   good: [
+    '<div class={{if true "disabled"}}></div>',
+    '<div class={{unless false "disabled"}}></div>',
+    '<div class={{concat "disabled"}}></div>',
     '{{t "howdy"}}',
     '<CustomInput @type={{"range"}} />',
     {
@@ -146,6 +149,57 @@ generateRuleTests({
   ],
 
   bad: [
+    {
+      template: '<div>{{concat "foo" "bar"}}</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "foo",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '<div>{{unless true "Yes" "No"}}</div>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 25,
+              "endColumn": 29,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "No",
+            },
+            {
+              "column": 25,
+              "endColumn": 24,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "Yes",
+            },
+          ]
+        `);
+      },
+    },
     {
       template: '<div>{{if true "Yes" "No"}}</div>',
       verifyResults(results) {
