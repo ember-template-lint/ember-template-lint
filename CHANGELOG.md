@@ -1,5 +1,61 @@
 # Changelog
 
+## Release (2025-05-03)
+
+ember-template-lint 7.4.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#2867](https://github.com/ember-template-lint/ember-template-lint/pull/2867) [BUGFIX] Update no-redundant-role: Allow combobox ARIA role ([@samridhivig](https://github.com/samridhivig))
+  * [#2475](https://github.com/ember-template-lint/ember-template-lint/pull/2475) Add test and implementation for plugin using `exports` in `package.json`. ([@rwjblue](https://github.com/rwjblue))
+  * [#3212](https://github.com/ember-template-lint/ember-template-lint/pull/3212) fix: Crash in block indentation auto-fixer ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Samridhi Vig ([@samridhivig](https://github.com/samridhivig))
+
+## Release (2025-05-03)
+
+ember-template-lint 7.4.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#2978](https://github.com/ember-template-lint/ember-template-lint/pull/2978) Add new rule `no-jsx-attributes` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3203](https://github.com/ember-template-lint/ember-template-lint/pull/3203) Closes [#2386](https://github.com/ember-template-lint/ember-template-lint/issues/2386) - list summary in interactive elements ([@lifeart](https://github.com/lifeart))
+  * [#3205](https://github.com/ember-template-lint/ember-template-lint/pull/3205) Closes [#1728](https://github.com/ember-template-lint/ember-template-lint/issues/1728) support absolute paths in no-this-in-template-only-components ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-05-03)
+
+ember-template-lint 7.3.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3204](https://github.com/ember-template-lint/ember-template-lint/pull/3204) Closes [#2305](https://github.com/ember-template-lint/ember-template-lint/issues/2305) support "if" helper in no-bare-strings ([@lifeart](https://github.com/lifeart))
+  * [#2270](https://github.com/ember-template-lint/ember-template-lint/pull/2270) Add helpful assertion message when fatal test case error message doesn't match ([@jamescdavis](https://github.com/jamescdavis))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3200](https://github.com/ember-template-lint/ember-template-lint/pull/3200) Closes [#3057](https://github.com/ember-template-lint/ember-template-lint/issues/3057) improve false-positive error in no-potential-path rule ([@lifeart](https://github.com/lifeart))
+  * [#3201](https://github.com/ember-template-lint/ember-template-lint/pull/3201) fix: #2534 & #1799 - improve no-duplicate-landmark-elements ([@lifeart](https://github.com/lifeart))
+  * [#3202](https://github.com/ember-template-lint/ember-template-lint/pull/3202) Closes [#2462](https://github.com/ember-template-lint/ember-template-lint/issues/2462) better named blocks support in require-context-role ([@lifeart](https://github.com/lifeart))
+  * [#3204](https://github.com/ember-template-lint/ember-template-lint/pull/3204) Closes [#2305](https://github.com/ember-template-lint/ember-template-lint/issues/2305) support "if" helper in no-bare-strings ([@lifeart](https://github.com/lifeart))
+  * [#3206](https://github.com/ember-template-lint/ember-template-lint/pull/3206) Closes [#1403](https://github.com/ember-template-lint/ember-template-lint/issues/1403) table-groups rule - handle enforcing order correctly when control flow helpers are used ([@lifeart](https://github.com/lifeart))
+  * [#2422](https://github.com/ember-template-lint/ember-template-lint/pull/2422) Add `&times` to `no-bare-strings` default allow list ([@jbottigliero](https://github.com/jbottigliero))
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3199](https://github.com/ember-template-lint/ember-template-lint/pull/3199) Fix broken link in docs: #3091 ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 3
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- James C. Davis ([@jamescdavis](https://github.com/jamescdavis))
+- Joe Bottigliero ([@jbottigliero](https://github.com/jbottigliero))
+
 ## Release (2025-04-25)
 
 ember-template-lint 7.2.0 (minor)

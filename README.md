@@ -140,6 +140,7 @@ Each rule has emojis denoting:
 | [no-invalid-link-title](./docs/rule/no-invalid-link-title.md)                                             | ✅  |     | ⌨️  |     |
 | [no-invalid-meta](./docs/rule/no-invalid-meta.md)                                                         | ✅  |     | ⌨️  |     |
 | [no-invalid-role](./docs/rule/no-invalid-role.md)                                                         | ✅  |     | ⌨️  |     |
+| [no-jsx-attributes](./docs/rule/no-jsx-attributes.md)                                                     |     |     |     | 🔧  |
 | [no-link-to-positional-params](./docs/rule/no-link-to-positional-params.md)                               | ✅  |     |     |     |
 | [no-link-to-tagname](./docs/rule/no-link-to-tagname.md)                                                   | ✅  |     |     |     |
 | [no-log](./docs/rule/no-log.md)                                                                           | ✅  |     |     |     |
@@ -166,6 +167,7 @@ Each rule has emojis denoting:
 | [no-route-action](./docs/rule/no-route-action.md)                                                         | ✅  |     |     |     |
 | [no-scope-outside-table-headings](./docs/rule/no-scope-outside-table-headings.md)                         | ✅  |     | ⌨️  |     |
 | [no-shadowed-elements](./docs/rule/no-shadowed-elements.md)                                               | ✅  |     |     |     |
+| [no-splattributes-with-class](./docs/rule/no-splattributes-with-class.md)                                 |     |     |     |     |
 | [no-this-in-template-only-components](./docs/rule/no-this-in-template-only-components.md)                 |     |     |     | 🔧  |
 | [no-trailing-spaces](./docs/rule/no-trailing-spaces.md)                                                   |     | 💅  |     | 🔧  |
 | [no-triple-curlies](./docs/rule/no-triple-curlies.md)                                                     | ✅  |     |     |     |
