@@ -1,5 +1,21 @@
 # Changelog
 
+## Release (2025-05-04)
+
+ember-template-lint 7.5.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#2491](https://github.com/ember-template-lint/ember-template-lint/pull/2491) Add Option to Print Full File Paths ([@rtablada](https://github.com/rtablada))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3215](https://github.com/ember-template-lint/ember-template-lint/pull/3215) fix no-bare-strings attributes regression ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Ryan Tablada ([@rtablada](https://github.com/rtablada))
+
 ## Release (2025-05-03)
 
 ember-template-lint 7.4.1 (patch)
