@@ -15,6 +15,16 @@ generateRuleTests({
     '{{t "howdy"}}',
     '<CustomInput @type={{"range"}} />',
     {
+      config: {
+        allowlist: [';'],
+      },
+      template: '&nbsp;',
+    },
+    {
+      config: [';'],
+      template: '&nbsp;',
+    },
+    {
       config: [''],
       template: '\n {{translate "greeting"}}',
     },
