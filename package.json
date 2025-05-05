@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@babel/generator": "^7.26.9",
-    "@babel/parser": "^7.21.8",
+    "@babel/parser": "^7.27.1",
     "@babel/plugin-syntax-typescript": "^7.25.9",
     "@babel/plugin-transform-typescript": "^7.26.8",
     "@babel/traverse": "^7.22.8",
