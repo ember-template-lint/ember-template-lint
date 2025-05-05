@@ -54,7 +54,7 @@
     "@babel/generator": "^7.26.9",
     "@babel/parser": "^7.21.8",
     "@babel/plugin-syntax-typescript": "^7.25.9",
-    "@babel/plugin-transform-typescript": "^7.26.8",
+    "@babel/plugin-transform-typescript": "^7.27.1",
     "@babel/traverse": "^7.22.8",
     "@lint-todo/utils": "^13.1.1",
     "aria-query": "^5.3.0",
