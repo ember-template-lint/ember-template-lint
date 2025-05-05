@@ -17,19 +17,19 @@ generateRuleTests({
       },
     },
     {
-      template: '{{this.name}}',
+      template: '<template>{{this.name}}</template>',
       meta: {
         filePath: 'app/templates/route-template.gts',
       },
     },
     {
-      template: '{{this.data}}',
+      template: '<template>{{this.data}}</template>',
       meta: {
         filePath: 'addon/templates/components/foo-bar.gjs',
       },
     },
     {
-      template: '{{this.bar}}',
+      template: '<template>{{this.bar}}</template>',
       meta: {
         filePath: 'addon/templates/components/foo-bar.gts',
       },
