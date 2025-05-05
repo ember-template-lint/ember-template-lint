@@ -9,6 +9,9 @@ generateRuleTests({
     '<div class={{if true "disabled"}}></div>',
     '<div class={{unless false "disabled"}}></div>',
     '<div class={{concat "disabled"}}></div>',
+    '<div class={{unless true "asd"}}></div>',
+    '<div class={{unless @a @b}}></div>',
+    '{{unless @a @b}}',
     '{{t "howdy"}}',
     '<CustomInput @type={{"range"}} />',
     {
@@ -150,6 +153,46 @@ generateRuleTests({
 
   bad: [
     {
+      template: '{{unless true "asd"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 14,
+              "endColumn": 19,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "asd",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: '{{unless @b "b"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 12,
+              "endColumn": 15,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "line": 1,
+              "message": "Non-translated string used",
+              "rule": "no-bare-strings",
+              "severity": 2,
+              "source": "b",
+            },
+          ]
+        `);
+      },
+    },
+    {
       template: '<div>{{concat "foo" "bar"}}</div>',
       verifyResults(results) {
         expect(results).toMatchInlineSnapshot(`
@@ -186,7 +229,7 @@ generateRuleTests({
               "source": "No",
             },
             {
-              "column": 25,
+              "column": 19,
               "endColumn": 24,
               "endLine": 1,
               "filePath": "layout.hbs",
@@ -217,7 +260,7 @@ generateRuleTests({
               "source": "Yes",
             },
             {
-              "column": 15,
+              "column": 21,
               "endColumn": 25,
               "endLine": 1,
               "filePath": "layout.hbs",
