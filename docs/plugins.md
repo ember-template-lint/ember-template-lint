@@ -191,7 +191,7 @@ generateRuleTests({
   // Failing test cases:
   bad: [
     {
-      // Jest snapshot test case (recommended):
+      // Vitest snapshot test case (recommended):
       template: '{{#if (not condition)}}<img>{{/if}}',
       fixedTemplate: '{{#unless condition}}<img>{{/unless}}',
 
@@ -246,7 +246,7 @@ generateRuleTests({
 
 #### Snapshot tests
 
-The [Jest Snapshot](https://jestjs.io/docs/snapshot-testing) version of `bad` test cases is recommended as it can be easily updated with `jest --updateSnapshot`.
+Adding a [Vitest snapshot](https://vitest.dev/guide/snapshot.html) to `bad` test cases is recommended. You can update the snapshots by running `pnpm vitest -u`.
 
 ### Helper: `ASTHelpers`
 
