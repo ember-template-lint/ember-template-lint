@@ -97,7 +97,7 @@
     "prettier": "^3.2.5",
     "release-plan": "^0.11.0",
     "sort-package-json": "^2.14.0",
-    "vitest": "^3.1.1",
+    "vitest": "^3.1.2",
     "yeoman-environment": "^3.19.3",
     "yeoman-generator": "^5.9.0",
     "yeoman-test": "^7.4.0"
