@@ -246,7 +246,7 @@ generateRuleTests({
 
 #### Snapshot tests
 
-Adding a [Vitest snapshot](https://vitest.dev/guide/snapshot.html) to `bad` test cases is recommended. You can update the snapshots by running `pnpm vitest -u`.
+Adding a [Vitest snapshot](https://vitest.dev/guide/snapshot.html) to `bad` test cases is recommended. You can update the snapshots by running `npm vitest -u`.
 
 ### Helper: `ASTHelpers`
 
