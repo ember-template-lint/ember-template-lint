@@ -22,6 +22,7 @@ module.exports = {
     // Optional eslint rules:
     'array-callback-return': 'error',
     'block-scoped-var': 'error',
+    'n/hashbang': 'off',
     curly: 'error',
     eqeqeq: 'error',
     'func-style': ['error', 'declaration'],

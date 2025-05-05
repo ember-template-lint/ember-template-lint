@@ -31,6 +31,7 @@
     "README.md"
   ],
   "scripts": {
+    "build:node": "node ./build.js",
     "format": "prettier --write .",
     "lint": "npm-run-all --continue-on-error --parallel \"lint:!(fix)\"",
     "lint:docs": "markdownlint \"**/*.md\"",
@@ -43,8 +44,10 @@
     "lint:package-json-sorting": "sort-package-json --check",
     "lint:package-json-sorting:fix": "sort-package-json package.json",
     "new:rule": "node dev/generate.js new-rule",
-    "test": "npm-run-all lint:* test:node",
-    "test:node": "vitest --run",
+    "postinstall": "npm run build:node",
+    "prepare": "npm run build:node",
+    "test": "npm-run-all lint:* build:node test:node",
+    "test:node": "npm run build:node && vitest --run",
     "test:watch": "vitest",
     "update": "npm-run-all update:*",
     "update:indices": "node ./scripts/update-indices.js",
@@ -64,6 +67,7 @@
     "content-tag-utils": "^0.3.0",
     "date-fns": "^3.6.0",
     "ember-template-recast": "^6.1.5",
+    "esbuild": "^0.25.3",
     "eslint-formatter-kakoune": "^1.0.0",
     "find-up": "^7.0.0",
     "fuse.js": "^7.0.0",
