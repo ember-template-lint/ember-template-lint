@@ -116,6 +116,7 @@ Each rule has emojis denoting:
 | [no-block-params-for-html-elements](./docs/rule/no-block-params-for-html-elements.md)                     | ✅  |     |     |     |
 | [no-builtin-form-components](./docs/rule/no-builtin-form-components.md)                                   | ✅  |     |     |     |
 | [no-capital-arguments](./docs/rule/no-capital-arguments.md)                                               | ✅  |     |     |     |
+| [no-chained-this](./docs/rule/no-chained-this.md)                                                         |     |     |     | 🔧  |
 | [no-class-bindings](./docs/rule/no-class-bindings.md)                                                     | ✅  |     |     |     |
 | [no-curly-component-invocation](./docs/rule/no-curly-component-invocation.md)                             | ✅  |     |     | 🔧  |
 | [no-debugger](./docs/rule/no-debugger.md)                                                                 | ✅  |     |     |     |
