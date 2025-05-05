@@ -17,6 +17,24 @@ generateRuleTests({
       },
     },
     {
+      template: '<template>{{this.name}}</template>',
+      meta: {
+        filePath: 'app/templates/route-template.gts',
+      },
+    },
+    {
+      template: '<template>{{this.data}}</template>',
+      meta: {
+        filePath: 'addon/templates/components/foo-bar.gjs',
+      },
+    },
+    {
+      template: '<template>{{this.bar}}</template>',
+      meta: {
+        filePath: 'addon/templates/components/foo-bar.gts',
+      },
+    },
+    {
       template: '{{my-component model=this.model}}',
       meta: {
         filePath: '/some-absolute/path/like/app/templates/route-template.hbs',
