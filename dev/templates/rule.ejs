@@ -3,6 +3,9 @@ import Rule from './_base.js';
 export const ERROR_MESSAGE = 'TODO';
 
 export default class <%- titleCase %> extends Rule {
+  /**
+  * @returns {import('./types.js').VisitorReturnType<<%- titleCase %>>}
+  */
   visitor() {
     return {
       // Simple template example: disallowed text present in TextNode

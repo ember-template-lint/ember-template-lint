@@ -193,6 +193,7 @@ Each rule has emojis denoting:
 | [require-each-key](./docs/rule/require-each-key.md)                                                       |     |     |     |     |
 | [require-form-method](./docs/rule/require-form-method.md)                                                 |     |     |     |     |
 | [require-has-block-helper](./docs/rule/require-has-block-helper.md)                                       | ✅  |     |     | 🔧  |
+| [require-iframe-src-attribute](./docs/rule/require-iframe-src-attribute.md)                               |     |     |     | 🔧  |
 | [require-iframe-title](./docs/rule/require-iframe-title.md)                                               | ✅  |     | ⌨️  |     |
 | [require-input-label](./docs/rule/require-input-label.md)                                                 | ✅  |     | ⌨️  |     |
 | [require-lang-attribute](./docs/rule/require-lang-attribute.md)                                           | ✅  |     | ⌨️  |     |
