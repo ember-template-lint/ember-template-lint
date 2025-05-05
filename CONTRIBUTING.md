@@ -41,7 +41,7 @@ If you are opening an issue to request a new feature, please provide:
 - npm run new:rule
 
 # test rule
-- npm run test:jest rule-name
+- npm run test:node rule-name
 
 ```
 
@@ -63,8 +63,8 @@ For the linter, there are a few options:
 To test:
 
 1. To run tests and the linter at once, run `npm test` (or `npm run test`)
-2. To just run the tests, run `npm run test:jest`
-3. To just run a specific test (i.e., `require-valid-alt-text`), run `npm run test:jest require-valid-alt-text`
+2. To just run the tests, run `npm run test:node`
+3. To just run a specific test (i.e., `require-valid-alt-text`), run `npm run test:node require-valid-alt-text`
 
 ### Submitting a Pull Request(PR)
 
