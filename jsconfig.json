@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "Node18",
+    "target": "ES2018",
+    "checkJs": true
+  },
+  "include": ["lib/rules/**/*"],
+  "exclude": ["node_modules", "**/node_modules/*"]
+}
