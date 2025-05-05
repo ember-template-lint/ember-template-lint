@@ -1,5 +1,33 @@
 # Changelog
 
+## Release (2025-05-05)
+
+ember-template-lint 7.6.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3244](https://github.com/ember-template-lint/ember-template-lint/pull/3244) new rule: no-only-default-slot ([@lifeart](https://github.com/lifeart))
+  * [#3245](https://github.com/ember-template-lint/ember-template-lint/pull/3245) new rule: no-chained-this ([@lifeart](https://github.com/lifeart))
+  * [#3243](https://github.com/ember-template-lint/ember-template-lint/pull/3243) new rule: require iframe src ([@lifeart](https://github.com/lifeart))
+  * [#3242](https://github.com/ember-template-lint/ember-template-lint/pull/3242) feature: add basic types for visitor class ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3239](https://github.com/ember-template-lint/ember-template-lint/pull/3239) fix [no-bare-strings] regression ([@lifeart](https://github.com/lifeart))
+  * [#3240](https://github.com/ember-template-lint/ember-template-lint/pull/3240) fix: no-this-in-template-only-components should early exit in gjs/gts (skipping this lint) ([@lifeart](https://github.com/lifeart))
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3238](https://github.com/ember-template-lint/ember-template-lint/pull/3238) Removed remaining references to jest ([@ijlee2](https://github.com/ijlee2))
+
+#### :house: Internal
+* `ember-template-lint`
+  * [#3242](https://github.com/ember-template-lint/ember-template-lint/pull/3242) feature: add basic types for visitor class ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Isaac Lee ([@ijlee2](https://github.com/ijlee2))
+
 ## Release (2025-05-04)
 
 ember-template-lint 7.5.0 (minor)
