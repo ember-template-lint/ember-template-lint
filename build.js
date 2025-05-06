@@ -1,4 +1,4 @@
-import esbuild from 'esbuild';
+import * as rolldown from 'rolldown';
 
 const externalDeps = [
   '@lint-todo/utils', // Dynamic require of "node:path" is not supported
@@ -19,11 +19,11 @@ const externalDeps = [
   // '@babel/plugin-syntax-typescript',  -> safe to bundle
   // '@babel/plugin-transform-typescript',  -> safe to bundle
   // 'yargs', -> safe to bundle
-  'v8-compile-cache', // Dynamic require of "node:module" is not supported
-  'micromatch', // Dynamic require of "node:util" is not supported
-  'globby', // Dynamic require of "node:os" is not supported
-  '@babel/traverse', // Dynamic require of "tty" is not supported
-  'resolve', // Dynamic require of "node:fs" is not supported
+  // 'v8-compile-cache', // Dynamic require of "node:module" is not supported
+  // 'micromatch', // Dynamic require of "node:util" is not supported
+  // 'globby', // Dynamic require of "node:os" is not supported
+  // '@babel/traverse', // Dynamic require of "tty" is not supported
+  // 'resolve', // Dynamic require of "node:fs" is not supported
   // node built-ins
   'node:vm',
   'node:path',
@@ -55,32 +55,48 @@ const aliases = {
   url: 'node:url',
 };
 
-await esbuild.build({
-  entryPoints: ['bin/source-ember-template-lint.js'],
-  outfile: 'bin/ember-template-lint.js',
-  bundle: true,
-  sourcemap: false,
+await rolldown.build({
+  input: 'bin/source-ember-template-lint.js',
+  output: {
+    file: 'bin/ember-template-lint.js',
+    format: 'esm',
+    esModule: true,
+    minify: true,
+    inlineDynamicImports: true,
+    comments: 'none',
+    target: 'es2018',
+  },
   platform: 'node',
-  minify: true,
-  treeShaking: true,
-  splitting: false,
-  format: 'esm',
-  target: ['node18'],
-  alias: aliases,
+  shimMissingExports: false,
+  treeshake: true,
+  experimental: {
+    resolveNewUrlToAsset: false,
+  },
+  resolve: {
+    alias: aliases,
+  },
   external: externalDeps,
 });
 
-await esbuild.build({
-  entryPoints: ['lib/index.js'],
-  outfile: 'dist/index.js',
-  bundle: true,
-  sourcemap: false,
+await rolldown.build({
+  input: 'lib/index.js',
+  output: {
+    file: 'dist/index.js',
+    format: 'esm',
+    esModule: true,
+    minify: true,
+    inlineDynamicImports: true,
+    comments: 'none',
+    target: 'es2018',
+  },
   platform: 'node',
-  minify: true,
-  treeShaking: true,
-  splitting: false,
-  format: 'esm',
-  target: ['node18'],
-  alias: aliases,
+  shimMissingExports: false,
+  treeshake: true,
+  experimental: {
+    resolveNewUrlToAsset: false,
+  },
+  resolve: {
+    alias: aliases,
+  },
   external: externalDeps,
 });
