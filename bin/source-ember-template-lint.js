@@ -17,6 +17,7 @@ import process from 'node:process';
 import { promisify } from 'node:util';
 import { Worker } from 'node:worker_threads';
 import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 
 import { parseArgv, getFilesToLint } from '../lib/helpers/cli.js';
 import printResults from '../lib/helpers/print-results.js';
@@ -27,6 +28,12 @@ import { processWithPool } from '../lib/-private/process-with-pool.js';
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
+
+// Resolve the current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+let hasWorkerInDistFolder = fs.existsSync(path.resolve(__dirname, '../dist/lint-worker.js'));
 
 const STDIN = '/dev/stdin';
 const MIN_FILES_TO_USE_WORKERS = 100;
@@ -350,12 +357,18 @@ run();
 
 function runWorker(workerData) {
   return new Promise((resolve, reject) => {
-    const worker = new Worker(new URL('../lib/-private/lint-worker.js', import.meta.url), {
-      workerData: {
-        filePaths: workerData.filePaths,
-        options: workerData.options,
-      },
-    });
+    const worker = new Worker(
+      new URL(
+        hasWorkerInDistFolder ? '../dist/lint-worker.js' : '../lib/-private/lint-worker.js',
+        import.meta.url
+      ),
+      {
+        workerData: {
+          filePaths: workerData.filePaths,
+          options: workerData.options,
+        },
+      }
+    );
 
     worker.on('message', resolve);
     worker.on('error', reject);

@@ -79,6 +79,29 @@ await rolldown.build({
 });
 
 await rolldown.build({
+  input: 'lib/-private/lint-worker.js',
+  output: {
+    file: 'dist/lint-worker.js',
+    format: 'esm',
+    esModule: true,
+    minify: true,
+    inlineDynamicImports: true,
+    comments: 'none',
+    target: 'es2018',
+  },
+  platform: 'node',
+  shimMissingExports: false,
+  treeshake: true,
+  experimental: {
+    resolveNewUrlToAsset: false,
+  },
+  resolve: {
+    alias: aliases,
+  },
+  external: externalDeps,
+});
+
+await rolldown.build({
   input: 'lib/index.js',
   output: {
     file: 'dist/index.js',
