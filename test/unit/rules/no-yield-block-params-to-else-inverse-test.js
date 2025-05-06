@@ -1,9 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const ERROR_MESSAGE = require('../../../lib/rules/no-yield-block-params-to-else-inverse')
-  .ERROR_MESSAGE;
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'no-yield-block-params-to-else-inverse',
@@ -21,22 +16,42 @@ generateRuleTests({
   bad: [
     {
       template: '{{yield "some" "param" to="else"}}',
-      result: {
-        moduleId: 'layout',
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{yield "some" "param" to="else"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+ [
+   {
+     "column": 0,
+     "endColumn": 34,
+     "endLine": 1,
+     "filePath": "layout.hbs",
+     "line": 1,
+     "message": "Yielding block params to else/inverse block is not allowed",
+     "rule": "no-yield-block-params-to-else-inverse",
+     "severity": 2,
+     "source": "{{yield "some" "param" to="else"}}",
+   },
+ ]
+        `);
       },
     },
     {
       template: '{{yield "some" "param" to="inverse"}}',
-      result: {
-        moduleId: 'layout',
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 0,
-        source: '{{yield "some" "param" to="inverse"}}',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+ [
+   {
+     "column": 0,
+     "endColumn": 37,
+     "endLine": 1,
+     "filePath": "layout.hbs",
+     "line": 1,
+     "message": "Yielding block params to else/inverse block is not allowed",
+     "rule": "no-yield-block-params-to-else-inverse",
+     "severity": 2,
+     "source": "{{yield "some" "param" to="inverse"}}",
+   },
+ ]
+        `);
       },
     },
   ],
