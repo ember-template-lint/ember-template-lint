@@ -36,3 +36,6 @@ The following values are valid configuration:
 ## References
 
 * [MDN docs/ARIA roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
+* [Interactive elements](https://html.spec.whatwg.org/multipage/interactive-elements.html#interactive-elements)
+* [details: The Details disclosure element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details)
+* [summary: The Disclosure Summary element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/summary)

@@ -15,6 +15,8 @@ generateRuleTests({
     '<div tabindex=-1><button>Click me!</button></div>',
     '<div tabindex="1"><button></button></div>',
     '<label><input></label>',
+    '<details><summary>Details</summary>Something small enough to escape casual notice.</details>',
+    '<details> <summary>Details</summary>Something small enough to escape casual notice.</details>',
     `
     <ul role="menubar" aria-label="functions" id="appmenu">
       <li role="menuitem" aria-haspopup="true">
@@ -72,6 +74,27 @@ generateRuleTests({
   ],
 
   bad: [
+    {
+      template:
+        '<details>Something small enough to escape casual notice.<summary>Details</summary></details>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+ [
+   {
+     "column": 56,
+     "endColumn": 82,
+     "endLine": 1,
+     "filePath": "layout.hbs",
+     "line": 1,
+     "message": "Do not use <summary> inside <details> if it is not first child of <details>",
+     "rule": "no-nested-interactive",
+     "severity": 2,
+     "source": "<summary>Details</summary>",
+   },
+ ]
+        `);
+      },
+    },
     {
       template: '<summary><a href="/">button</a></summary>',
 
