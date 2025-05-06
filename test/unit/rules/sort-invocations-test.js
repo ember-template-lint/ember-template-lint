@@ -259,7 +259,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`...attributes\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -277,7 +277,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 10,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`...attributes\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -296,7 +296,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 19,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{ui/button
@@ -313,7 +313,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 26,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{#ui/button
@@ -416,7 +416,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`data-cucumber-button\` must appear after \`@type\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -437,7 +437,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 13,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`data-cucumber-button\` must appear after \`@type\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -459,7 +459,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 25,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`isDisabled\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{ui/button
@@ -479,7 +479,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 35,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`isDisabled\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{#ui/button
@@ -619,7 +619,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`data-cucumber-button\` must appear after \`@type\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -645,7 +645,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Modifiers must be sorted",
+              "message": "\`{{on}}\` must appear after \`{{autofocus}}\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -671,7 +671,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 18,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`data-cucumber-button\` must appear after \`@type\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -698,7 +698,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 18,
-              "message": "Modifiers must be sorted",
+              "message": "\`{{on}}\` must appear after \`{{autofocus}}\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -725,7 +725,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 35,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`isDisabled\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{ui/button
@@ -749,7 +749,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 49,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`isDisabled\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{#ui/button
@@ -867,7 +867,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@title\` must appear after \`@description\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<MyComponent
@@ -898,7 +898,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 6,
-              "message": "Hash keys must be sorted",
+              "message": "\`packageVersion\` must appear after \`packageName\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "(t
@@ -915,7 +915,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 14,
-              "message": "Hash keys must be sorted",
+              "message": "\`packageVersion\` must appear after \`packageName\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "(hash
@@ -931,7 +931,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 23,
-              "message": "Hash keys must be sorted",
+              "message": "\`title\` must appear after \`description\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{my-component
@@ -962,7 +962,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 27,
-              "message": "Hash keys must be sorted",
+              "message": "\`packageVersion\` must appear after \`packageName\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "(t
@@ -979,7 +979,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 35,
-              "message": "Hash keys must be sorted",
+              "message": "\`packageVersion\` must appear after \`packageName\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "(hash
@@ -1031,7 +1031,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`data-cucumber-button\` must appear after \`@type\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -1059,7 +1059,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Modifiers must be sorted",
+              "message": "\`{{on}}\` must appear after \`{{autofocus}}\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Button
@@ -1124,7 +1124,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`...attributes\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<this.MyButton
@@ -1142,7 +1142,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 10,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`...attributes\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<this.MyButton
@@ -1237,7 +1237,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 4,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{component "ui/button"
@@ -1254,7 +1254,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 11,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`isDisabled\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{component "ui/button"
@@ -1274,7 +1274,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 21,
-              "message": "Hash keys must be sorted",
+              "message": "\`type\` must appear after \`isDisabled\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "{{component "ui/button"
@@ -1352,7 +1352,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`type\` must appear after \`disabled\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<button
@@ -1375,7 +1375,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Modifiers must be sorted",
+              "message": "\`{{on}}\` must appear after \`{{autofocus}}\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<button
@@ -1398,7 +1398,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 15,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`role\` must appear after \`class\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<div
@@ -1423,7 +1423,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 15,
-              "message": "Modifiers must be sorted",
+              "message": "\`{{on}}\` must appear after \`{{on}}\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<div
@@ -1592,7 +1592,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 3,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`data-test-form\` must appear after \`aria-labelledby\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<form
@@ -1671,7 +1671,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 14,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@title\` must appear after \`@instructions\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Form::Information
@@ -1687,7 +1687,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 25,
-              "message": "Hash keys must be sorted",
+              "message": "\`Textarea\` must appear after \`Number\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "(hash
@@ -1731,7 +1731,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 62,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`type\` must appear after \`data-test-button\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<button
@@ -1799,7 +1799,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@title\` must appear after \`@routeName\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Ui::Page
@@ -1831,7 +1831,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 11,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@id\` must appear after \`@icon\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Page.Button @id="products.overview" @icon="rightarrow" @label="" />",
@@ -1843,7 +1843,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 13,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@id\` must appear after \`@icon\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Page.Button @id="products.product" @icon="" @label="" />",
@@ -1855,7 +1855,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 15,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@id\` must appear after \`@icon\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<Page.Button
@@ -1955,7 +1955,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 2,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@parentContainerId\` must appear after \`@isOpen\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<MyComponent
@@ -1970,7 +1970,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 7,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@style\` must appear after \`@isOpen\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<MyComponent
@@ -1985,7 +1985,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 17,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`type\` must appear after \`local-class\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<input
@@ -2000,7 +2000,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 22,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@parentContainerId\` must appear after \`@isOpen\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<MyComponent
@@ -2015,7 +2015,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 27,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`@style\` must appear after \`@isOpen\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<MyComponent
@@ -2030,7 +2030,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 32,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`aria-describedby\` must appear after \`@className\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<MyComponent
@@ -2045,7 +2045,7 @@ generateRuleTests({
               "filePath": "layout.hbs",
               "isFixable": true,
               "line": 37,
-              "message": "Arguments and attributes must be sorted",
+              "message": "\`type\` must appear after \`local-class\`",
               "rule": "sort-invocations",
               "severity": 2,
               "source": "<input
