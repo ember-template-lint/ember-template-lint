@@ -20,8 +20,8 @@
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
   "type": "module",
-  "exports": "./lib/index.js",
-  "main": "./lib/index.js",
+  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
   "bin": "./bin/ember-template-lint.js",
   "files": [
     "bin",
