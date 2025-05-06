@@ -186,6 +186,7 @@ Each rule has emojis denoting:
 | [no-whitespace-for-layout](./docs/rule/no-whitespace-for-layout.md)                                       | ✅  |     | ⌨️  |     |
 | [no-whitespace-within-word](./docs/rule/no-whitespace-within-word.md)                                     | ✅  |     | ⌨️  |     |
 | [no-with](./docs/rule/no-with.md)                                                                         | ✅  |     |     |     |
+| [no-yield-block-params-to-else-inverse](./docs/rule/no-yield-block-params-to-else-inverse.md)             |     |     |     |     |
 | [no-yield-only](./docs/rule/no-yield-only.md)                                                             | ✅  |     |     |     |
 | [no-yield-to-default](./docs/rule/no-yield-to-default.md)                                                 | ✅  |     |     |     |
 | [quotes](./docs/rule/quotes.md)                                                                           |     | 💅  |     | 🔧  |
