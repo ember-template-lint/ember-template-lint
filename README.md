@@ -205,6 +205,7 @@ Each rule has emojis denoting:
 | [require-splattributes](./docs/rule/require-splattributes.md)                                             |     |     |     |     |
 | [require-strict-mode](./docs/rule/require-strict-mode.md)                                                 |     |     |     |     |
 | [require-valid-alt-text](./docs/rule/require-valid-alt-text.md)                                           | ✅  |     | ⌨️  |     |
+| [require-valid-form-groups](./docs/rule/require-valid-form-groups.md)                                     |     |     |     |     |
 | [require-valid-named-block-naming-format](./docs/rule/require-valid-named-block-naming-format.md)         | ✅  |     |     | 🔧  |
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     | 🔧  |
 | [simple-modifiers](./docs/rule/simple-modifiers.md)                                                       | ✅  |     |     |     |
