@@ -250,7 +250,82 @@ generateRuleTests({
         {{/ui/button}}
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 8,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    {{on "click" this.doSomething}}
+                    @type="submit"
+                    ...attributes
+                    data-test-button
+                    @label="Submit form"
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 21,
+              "endLine": 17,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 10,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    {{on "click" this.doSomething}}
+                    @type="submit"
+                    ...attributes
+                    data-test-button=""
+                  >
+                    Submit form
+                  </Ui::Button>",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 24,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 19,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{ui/button
+                    onclick=this.doSomething
+                    type="submit"
+                    data-test-button=""
+                    label="Submit form"
+                  }}",
+            },
+            {
+              "column": 8,
+              "endColumn": 22,
+              "endLine": 32,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 26,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{#ui/button
+                    onclick=this.doSomething
+                    type="submit"
+                    data-test-button=""
+                  }}
+                    Submit form
+                  {{/ui/button}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -332,7 +407,94 @@ generateRuleTests({
         {{/ui/button}}
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 11,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{on "click" this.doSomething}}
+                    @type="submit"
+                    @isDisabled={{true}}
+                    class="ui-button disabled"
+                    ...attributes
+                    data-test-button
+                    @label="Submit form"
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 21,
+              "endLine": 23,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 13,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{on "click" this.doSomething}}
+                    @type="submit"
+                    @isDisabled={{true}}
+                    class="ui-button disabled"
+                    ...attributes
+                    data-test-button=""
+                  >
+                    Submit form
+                  </Ui::Button>",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 33,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 25,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{ui/button
+                    data-cucumber-button="Submit form"
+                    onclick=this.doSomething
+                    type="submit"
+                    isDisabled=true
+                    class="ui-button disabled"
+                    data-test-button=""
+                    label="Submit form"
+                  }}",
+            },
+            {
+              "column": 8,
+              "endColumn": 22,
+              "endLine": 44,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 35,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{#ui/button
+                    data-cucumber-button="Submit form"
+                    onclick=this.doSomething
+                    type="submit"
+                    isDisabled=true
+                    class="ui-button disabled"
+                    data-test-button=""
+                  }}
+                    Submit form
+                  {{/ui/button}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -448,7 +610,165 @@ generateRuleTests({
         {{/ui/button}}
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 16,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{on "click" @onSubmit}}
+                    @type="submit"
+                    @isDisabled={{not this.enableSubmit}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    }}
+                    ...attributes
+                    data-test-button
+                    @label="Submit form"
+                    {{autofocus}}
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 16,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Modifiers must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{on "click" @onSubmit}}
+                    @type="submit"
+                    @isDisabled={{not this.enableSubmit}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    }}
+                    ...attributes
+                    data-test-button
+                    @label="Submit form"
+                    {{autofocus}}
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 21,
+              "endLine": 33,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 18,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{on "click" @onSubmit}}
+                    @type="submit"
+                    @isDisabled={{not this.enableSubmit}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    }}
+                    ...attributes
+                    data-test-button=""
+                    {{autofocus}}
+                  >
+                    Submit form
+                  </Ui::Button>",
+            },
+            {
+              "column": 8,
+              "endColumn": 21,
+              "endLine": 33,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 18,
+              "message": "Modifiers must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{on "click" @onSubmit}}
+                    @type="submit"
+                    @isDisabled={{not this.enableSubmit}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    }}
+                    ...attributes
+                    data-test-button=""
+                    {{autofocus}}
+                  >
+                    Submit form
+                  </Ui::Button>",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 47,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 35,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{ui/button
+                    data-cucumber-button="Submit form"
+                    onclick=onSubmit
+                    type="submit"
+                    isDisabled=(not this.enableSubmit)
+                    class=(local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    )
+                    data-test-button=""
+                    label="Submit form"
+                  }}",
+            },
+            {
+              "column": 8,
+              "endColumn": 22,
+              "endLine": 62,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 49,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{#ui/button
+                    data-cucumber-button="Submit form"
+                    onclick=onSubmit
+                    type="submit"
+                    isDisabled=(not this.enableSubmit)
+                    class=(local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    )
+                    data-test-button=""
+                  }}
+                    Submit form
+                  {{/ui/button}}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -538,7 +858,138 @@ generateRuleTests({
         }}
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 21,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<MyComponent
+                    @title="Update history"
+                    @description={{if
+                      this.someCondition
+                      (t
+                        "my-component.description.version-1"
+                        packageVersion="6.0.0"
+                        packageName="@ember/source"
+                        installedOn=this.installationDate
+                      )
+                      (t
+                        "my-component.description.version-2"
+                        (hash
+                          installedOn=this.installationDate
+                          packageVersion="6.0.0"
+                          packageName="@ember/source"
+                        )
+                      )
+                    }}
+                  />",
+            },
+            {
+              "column": 12,
+              "endColumn": 13,
+              "endLine": 11,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 6,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "(t
+                        "my-component.description.version-1"
+                        packageVersion="6.0.0"
+                        packageName="@ember/source"
+                        installedOn=this.installationDate
+                      )",
+            },
+            {
+              "column": 14,
+              "endColumn": 15,
+              "endLine": 18,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 14,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "(hash
+                          installedOn=this.installationDate
+                          packageVersion="6.0.0"
+                          packageName="@ember/source"
+                        )",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 42,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 23,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{my-component
+                    title="Update history"
+                    description=(if
+                      this.someCondition
+                      (t
+                        "my-component.description.version-1"
+                        packageVersion="6.0.0"
+                        packageName="@ember/source"
+                        installedOn=this.installationDate
+                      )
+                      (t
+                        "my-component.description.version-2"
+                        (hash
+                          installedOn=this.installationDate
+                          packageVersion="6.0.0"
+                          packageName="@ember/source"
+                        )
+                      )
+                    )
+                  }}",
+            },
+            {
+              "column": 12,
+              "endColumn": 13,
+              "endLine": 32,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 27,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "(t
+                        "my-component.description.version-1"
+                        packageVersion="6.0.0"
+                        packageName="@ember/source"
+                        installedOn=this.installationDate
+                      )",
+            },
+            {
+              "column": 14,
+              "endColumn": 15,
+              "endLine": 39,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 35,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "(hash
+                          installedOn=this.installationDate
+                          packageVersion="6.0.0"
+                          packageName="@ember/source"
+                        )",
+            },
+          ]
+        `);
       },
     },
     {
@@ -571,7 +1022,66 @@ generateRuleTests({
         />
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 18,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{! @glint-expect-error: @onSubmit has incorrect type }}
+                    {{on "click" @onSubmit}}
+                    @type="submit"
+                    {{!-- @glint-expect-error: this.enableSubmit has incorrect type --}}
+                    @isDisabled={{not this.enableSubmit}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    }}
+                    ...attributes
+                    data-test-button
+                    @label="Submit form"
+                    {{autofocus}}
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 18,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Modifiers must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Button
+                    data-cucumber-button="Submit form"
+                    {{! @glint-expect-error: @onSubmit has incorrect type }}
+                    {{on "click" @onSubmit}}
+                    @type="submit"
+                    {{!-- @glint-expect-error: this.enableSubmit has incorrect type --}}
+                    @isDisabled={{not this.enableSubmit}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    }}
+                    ...attributes
+                    data-test-button
+                    @label="Submit form"
+                    {{autofocus}}
+                  />",
+            },
+          ]
+        `);
       },
     },
     {
@@ -605,7 +1115,47 @@ generateRuleTests({
         </this.MyButton>
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 8,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<this.MyButton
+                    {{on "click" this.doSomething}}
+                    @type="submit"
+                    ...attributes
+                    data-test-button
+                    @label="Submit form"
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 24,
+              "endLine": 17,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 10,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<this.MyButton
+                    {{on "click" this.doSomething}}
+                    @type="submit"
+                    ...attributes
+                    data-test-button
+                  >
+                    Submit form
+                  </this.MyButton>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -678,7 +1228,71 @@ generateRuleTests({
         }}
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 9,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 4,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{component "ui/button"
+                    onClick=this.doSomething
+                    type="submit"
+                    data-test-button=""
+                    label="Submit form"
+                  }}",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 19,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 11,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{component "ui/button"
+                    data-cucumber-button="Submit form"
+                    onClick=this.doSomething
+                    type="submit"
+                    isDisabled=true
+                    class="ui-button disabled"
+                    data-test-button=""
+                    label="Submit form"
+                  }}",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 33,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 21,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "{{component "ui/button"
+                    data-cucumber-button="Submit form"
+                    onClick=@onSubmit
+                    type="submit"
+                    isDisabled=(not this.enableSubmit)
+                    class=(local
+                      this.styles
+                      "button"
+                      (unless this.enableSubmit "disabled")
+                    )
+                    data-test-button=""
+                    label="Submit form"
+                  }}",
+            },
+          ]
+        `);
       },
     },
     {
@@ -729,7 +1343,106 @@ generateRuleTests({
         </div>
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 17,
+              "endLine": 13,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<button
+                    data-cucumber-button="Submit form"
+                    {{on "click" @onSubmit}}
+                    type="submit"
+                    disabled
+                    class={{local this.styles "button" "disabled"}}
+                    ...attributes
+                    data-test-button
+                    {{autofocus}}
+                  >
+                    Submit form
+                  </button>",
+            },
+            {
+              "column": 8,
+              "endColumn": 17,
+              "endLine": 13,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Modifiers must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<button
+                    data-cucumber-button="Submit form"
+                    {{on "click" @onSubmit}}
+                    type="submit"
+                    disabled
+                    class={{local this.styles "button" "disabled"}}
+                    ...attributes
+                    data-test-button
+                    {{autofocus}}
+                  >
+                    Submit form
+                  </button>",
+            },
+            {
+              "column": 8,
+              "endColumn": 14,
+              "endLine": 28,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 15,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<div
+                    role="button"
+                    {{on "mouseleave" (fn this.setFocus false)}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (if this.isFocused "focused")
+                    }}
+                    {{on "click" this.trackEvent}}
+                    {{on "mouseenter" (fn this.setFocus true)}}
+                    {{on "click" this.submitForm}}
+                  >
+                    Submit form
+                  </div>",
+            },
+            {
+              "column": 8,
+              "endColumn": 14,
+              "endLine": 28,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 15,
+              "message": "Modifiers must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<div
+                    role="button"
+                    {{on "mouseleave" (fn this.setFocus false)}}
+                    class={{local
+                      this.styles
+                      "button"
+                      (if this.isFocused "focused")
+                    }}
+                    {{on "click" this.trackEvent}}
+                    {{on "mouseenter" (fn this.setFocus true)}}
+                    {{on "click" this.submitForm}}
+                  >
+                    Submit form
+                  </div>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -870,7 +1583,167 @@ generateRuleTests({
         {{/let}}
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 10,
+              "endColumn": 17,
+              "endLine": 70,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 3,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<form
+                      class={{this.styles.form}}
+                      data-test-form={{if @title @title ""}}
+                      aria-labelledby={{if @title (concat formId "-title")}}
+                      aria-describedby={{if
+                        @instructions
+                        (concat formId "-instructions")
+                      }}
+                      {{autofocus}}
+                      {{on "submit" this.submitForm}}
+                    >
+                      <Ui::Form::Information
+                        @formId={{formId}}
+                        @title={{@title}}
+                        @instructions={{@instructions}}
+                      />
+
+                      <ContainerQuery
+                        @features={{hash wide=(width min=480)}}
+                        as |CQ|
+                      >
+                        {{yield
+                          (hash
+                            Input=(component
+                              "ui/form/input"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Textarea=(component
+                              "ui/form/textarea"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Number=(component
+                              "ui/form/number"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Checkbox=(component
+                              "ui/form/checkbox"
+                              changeset=this.changeset
+                              isInline=true
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Select=(component
+                              "ui/form/select"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                          )
+                        }}
+                      </ContainerQuery>
+
+                      <div class={{this.styles.actions}}>
+                        <button
+                          type="submit"
+                          data-test-button="Submit"
+                          class={{this.styles.submit-button}}
+                        >
+                          {{t "components.ui.form.submit"}}
+                        </button>
+                      </div>
+                    </form>",
+            },
+            {
+              "column": 12,
+              "endColumn": 14,
+              "endLine": 18,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 14,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Form::Information
+                        @formId={{formId}}
+                        @title={{@title}}
+                        @instructions={{@instructions}}
+                      />",
+            },
+            {
+              "column": 16,
+              "endColumn": 17,
+              "endLine": 57,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 25,
+              "message": "Hash keys must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "(hash
+                            Input=(component
+                              "ui/form/input"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Textarea=(component
+                              "ui/form/textarea"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Number=(component
+                              "ui/form/number"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Checkbox=(component
+                              "ui/form/checkbox"
+                              changeset=this.changeset
+                              isInline=true
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                            Select=(component
+                              "ui/form/select"
+                              changeset=this.changeset
+                              isWide=CQ.features.wide
+                              onUpdate=this.updateChangeset
+                            )
+                          )",
+            },
+            {
+              "column": 14,
+              "endColumn": 23,
+              "endLine": 68,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 62,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<button
+                          type="submit"
+                          data-test-button="Submit"
+                          class={{this.styles.submit-button}}
+                        >
+                          {{t "components.ui.form.submit"}}
+                        </button>",
+            },
+          ]
+        `);
       },
     },
     {
@@ -917,7 +1790,83 @@ generateRuleTests({
         </Ui::Page>
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 19,
+              "endLine": 22,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Ui::Page
+                    @title={{"Your product"}}
+                    {{! @glint-expect-error: Type 'string | null' is not assignable to type 'string'. }}
+                    @routeName={{this.router.currentRouteName}}
+                    as |Page|
+                  >
+                    {{outlet}}
+
+                    {{#if this.someCondition1}}
+                      <Page.Button @id="products.overview" @icon="rightarrow" @label="" />
+                    {{else if this.someCondition2}}
+                      <Page.Button @id="products.product" @icon="" @label="" />
+                    {{else}}
+                      <Page.Button
+                        @id="products.product"
+                        @icon=""
+                        @label="
+                        "
+                      />
+                    {{/if}}
+                  </Ui::Page>",
+            },
+            {
+              "column": 12,
+              "endColumn": 80,
+              "endLine": 11,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 11,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Page.Button @id="products.overview" @icon="rightarrow" @label="" />",
+            },
+            {
+              "column": 12,
+              "endColumn": 69,
+              "endLine": 13,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 13,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Page.Button @id="products.product" @icon="" @label="" />",
+            },
+            {
+              "column": 12,
+              "endColumn": 14,
+              "endLine": 20,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 15,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<Page.Button
+                        @id="products.product"
+                        @icon=""
+                        @label="
+                        "
+                      />",
+            },
+          ]
+        `);
       },
     },
     {
@@ -997,7 +1946,115 @@ generateRuleTests({
         />
       `,
       verifyResults(results) {
-        expect(results).toMatchInlineSnapshot('');
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 5,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 2,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<MyComponent
+                    @parentContainerId={{concat "#" @parentId}}
+                    @isOpen={{this.isOpen}}
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 10,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 7,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<MyComponent
+                    @style={{concat "." @type "1"}}
+                    @isOpen={{this.isOpen}}
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 20,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 17,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<input
+                    type="tel"
+                    local-class="input {{concat 'flag-' @country}}"
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 25,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 22,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<MyComponent
+                    @parentContainerId="#{{@parentId}}"
+                    @isOpen={{this.isOpen}}
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 30,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 27,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<MyComponent
+                    @style=".{{@type}}1"
+                    @isOpen={{this.isOpen}}
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 35,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 32,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<MyComponent
+                    aria-describedby="1"
+                    @className="a{{@typeA}}b{{@typeB}}c{{@typeC}}d"
+                  />",
+            },
+            {
+              "column": 8,
+              "endColumn": 10,
+              "endLine": 40,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 37,
+              "message": "Arguments and attributes must be sorted",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<input
+                    type="tel"
+                    local-class="input flag-{{@country}}"
+                  />",
+            },
+          ]
+        `);
       },
     },
   ],
