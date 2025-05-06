@@ -1,5 +1,24 @@
 # Changelog
 
+## Release (2025-05-06)
+
+ember-template-lint 7.7.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#1357](https://github.com/ember-template-lint/ember-template-lint/pull/1357) Add new rule: `no-yield-block-params-to-else-inverse` ([@rajasegar](https://github.com/rajasegar))
+  * [#1367](https://github.com/ember-template-lint/ember-template-lint/pull/1367) Add new rule: `require-valid-form-groups` ([@rajasegar](https://github.com/rajasegar))
+  * [#3198](https://github.com/ember-template-lint/ember-template-lint/pull/3198) reduce IO locks on todos ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3249](https://github.com/ember-template-lint/ember-template-lint/pull/3249) bugfix: no-nested-interactive - improve summary handing inside details ([@lifeart](https://github.com/lifeart))
+  * [#3246](https://github.com/ember-template-lint/ember-template-lint/pull/3246) improve no-bare-strings rule config ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))
+
 ## Release (2025-05-05)
 
 ember-template-lint 7.6.0 (minor)
