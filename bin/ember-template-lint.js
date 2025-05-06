@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* eslint require-atomic-updates:"off" */
-
+// @ts-check
 // Use V8's code cache to speed up instantiation time:
 import 'v8-compile-cache'; // eslint-disable-line import/no-unassigned-import
 
@@ -160,6 +160,7 @@ async function run() {
       reportUnusedDisableDirectives: options.reportUnusedDisableDirectives,
       console: _console,
     });
+    await linter.getConfig();
   } catch (error) {
     console.error(error.message);
     process.exitCode = 1;
@@ -245,41 +246,25 @@ async function run() {
       fileResults = await linter.verify(linterOptions);
     }
 
-    if (options.updateTodo) {
-      let { addedCount, removedCount } = linter.updateTodo(
-        linterOptions,
-        fileResults,
-        todoInfo.todoConfig,
-        isOverridingConfig
-      );
-
-      todoInfo.added += addedCount;
-      todoInfo.removed += removedCount;
-    }
-
-    if (!isReadingStdin) {
-      fileResults = linter.processTodos(
-        linterOptions,
-        fileResults,
-        todoInfo.todoConfig,
-        options.fix || options.cleanTodo,
-        isOverridingConfig
-      );
-    }
-
     // Return both the file path and its results to maintain ordering information
     return {
       filePath: relativeFilePath,
+      linterOptions,
       results: fileResults,
     };
   }
   // Process files with worker threads or existing pool
   let allResults;
-  if (!isReadingStdin && !options.updateTodo && filePathsArray.length >= MIN_FILES_TO_USE_WORKERS) {
+  if (!isReadingStdin && filePathsArray.length >= MIN_FILES_TO_USE_WORKERS) {
     // Use worker threads for parallel processing
     const cpuCount = os.cpus().length;
     const workerCount = Math.max(1, cpuCount - 1);
-    const amountOfFilesPerWorker = Math.ceil(filePathsArray.length / workerCount);
+    let amountOfFilesPerWorker = Math.ceil(filePathsArray.length / workerCount);
+    if (amountOfFilesPerWorker < MIN_FILES_TO_USE_WORKERS) {
+      // creating a worker is quite expensive, so, we need an minimal amount of files per worker
+      // to get real performance benefits
+      amountOfFilesPerWorker = MIN_FILES_TO_USE_WORKERS;
+    }
     if (debug) {
       console.log(`Using ${workerCount} workers to lint files`);
       console.log(
@@ -295,11 +280,7 @@ async function run() {
     const results = batches.map((batch) => {
       return runWorker({
         filePaths: batch,
-        options: {
-          ...structuredClone(options),
-          todoConfig: todoInfo.todoConfig,
-          isOverridingConfig,
-        },
+        options: structuredClone(options),
       });
     });
     const awaitedResult = await Promise.all(results);
@@ -307,6 +288,32 @@ async function run() {
   } else {
     // Use existing pool for stdin or smaller file sets
     allResults = await processWithPool(filePathsArray, 10, processFile);
+  }
+
+  if (options.updateTodo) {
+    for (const result of allResults) {
+      let { addedCount, removedCount } = linter.updateTodo(
+        result.linterOptions,
+        result.results,
+        todoInfo.todoConfig,
+        isOverridingConfig
+      );
+
+      todoInfo.added += addedCount;
+      todoInfo.removed += removedCount;
+    }
+  }
+
+  if (!isReadingStdin && linter.configureTodos()) {
+    for (const result of allResults) {
+      result.results = linter.processTodos(
+        result.linterOptions,
+        result.results,
+        todoInfo.todoConfig,
+        options.fix || options.cleanTodo,
+        isOverridingConfig
+      );
+    }
   }
 
   // Flatten all results into the accumulator
@@ -333,8 +340,7 @@ async function run() {
     process.exitCode = 1;
   }
 
-  const linterConfig = await linter.getConfig();
-  await printResults(results, { options, todoInfo, config: linterConfig });
+  await printResults(results, { options, todoInfo, config: linter.config });
   if (debug) {
     console.timeEnd('Linting');
   }
