@@ -1,8 +1,4 @@
-'use strict';
-
-const generateRuleTests = require('../../helpers/rule-test-harness');
-
-const ERROR_MESSAGE = require('../../../lib/rules/require-valid-form-groups').ERROR_MESSAGE;
+import generateRuleTests from '../../helpers/rule-test-harness.js';
 
 generateRuleTests({
   name: 'require-valid-form-groups',
@@ -27,22 +23,43 @@ generateRuleTests({
   bad: [
     {
       template: '<div><label for="radio-001">Chicago Zoey</label></div>',
-      result: {
-        moduleId: 'layout',
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: '<label for="radio-001">Chicago Zoey</label>',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+ [
+   {
+     "column": 5,
+     "endColumn": 48,
+     "endLine": 1,
+     "filePath": "layout.hbs",
+     "line": 1,
+     "message": "Grouped form controls should have appropriate semantics such as fieldset and legend or WAI-ARIA labels",
+     "rule": "require-valid-form-groups",
+     "severity": 2,
+     "source": "<label for="radio-001">Chicago Zoey</label>",
+   },
+ ]
+        `);
       },
     },
     {
       template:
         '<div><input id="radio-001" type="radio" name="prefMascot-Zoey" value="chicago zoey" /></div>',
-      result: {
-        message: ERROR_MESSAGE,
-        line: 1,
-        column: 5,
-        source: '<input id="radio-001" type="radio" name="prefMascot-Zoey" value="chicago zoey" />',
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+ [
+   {
+     "column": 5,
+     "endColumn": 86,
+     "endLine": 1,
+     "filePath": "layout.hbs",
+     "line": 1,
+     "message": "Grouped form controls should have appropriate semantics such as fieldset and legend or WAI-ARIA labels",
+     "rule": "require-valid-form-groups",
+     "severity": 2,
+     "source": "<input id="radio-001" type="radio" name="prefMascot-Zoey" value="chicago zoey" />",
+   },
+ ]
+          `);
       },
     },
   ],
