@@ -46,7 +46,7 @@
     "new:rule": "node dev/generate.js new-rule",
     "postinstall": "npm run build:node",
     "prepare": "npm run build:node",
-    "test": "npm-run-all lint:* build:node test:node",
+    "test": "npm-run-all lint:* test:node",
     "test:node": "npm run build:node && vitest --run",
     "test:watch": "vitest",
     "update": "npm-run-all update:*",
