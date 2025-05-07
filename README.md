@@ -211,6 +211,7 @@ Each rule has emojis denoting:
 | [self-closing-void-elements](./docs/rule/self-closing-void-elements.md)                                   |     | 💅  |     | 🔧  |
 | [simple-modifiers](./docs/rule/simple-modifiers.md)                                                       | ✅  |     |     |     |
 | [simple-unless](./docs/rule/simple-unless.md)                                                             | ✅  |     |     | 🔧  |
+| [sort-invocations](./docs/rule/sort-invocations.md)                                                       |     |     |     | 🔧  |
 | [splat-attributes-only](./docs/rule/splat-attributes-only.md)                                             | ✅  |     |     |     |
 | [style-concatenation](./docs/rule/style-concatenation.md)                                                 | ✅  |     |     |     |
 | [table-groups](./docs/rule/table-groups.md)                                                               | ✅  |     | ⌨️  |     |
