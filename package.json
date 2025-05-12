@@ -57,7 +57,7 @@
     "@babel/plugin-transform-typescript": "^7.26.8",
     "@babel/traverse": "^7.22.8",
     "@lint-todo/utils": "^13.1.1",
-    "aria-query": "^5.3.0",
+    "aria-query": "^5.3.2",
     "chalk": "^5.3.0",
     "ci-info": "^4.0.0",
     "content-tag": "^3.1.1",
