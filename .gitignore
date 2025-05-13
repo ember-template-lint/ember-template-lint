@@ -18,3 +18,5 @@ npm-debug.log
 testem.log
 .vscode
 .DS_Store
+bin/ember-template-lint.js
+
