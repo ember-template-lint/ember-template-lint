@@ -2,8 +2,8 @@
   "solution": {
     "ember-template-lint": {
       "impact": "minor",
-      "oldVersion": "7.5.0",
-      "newVersion": "7.6.0",
+      "oldVersion": "7.6.0",
+      "newVersion": "7.7.0",
       "constraints": [
         {
           "impact": "minor",
@@ -12,18 +12,10 @@
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-05-05)\n\nember-template-lint 7.6.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#3244](https://github.com/ember-template-lint/ember-template-lint/pull/3244) new rule: no-only-default-slot ([@lifeart](https://github.com/lifeart))\n  * [#3245](https://github.com/ember-template-lint/ember-template-lint/pull/3245) new rule: no-chained-this ([@lifeart](https://github.com/lifeart))\n  * [#3243](https://github.com/ember-template-lint/ember-template-lint/pull/3243) new rule: require iframe src ([@lifeart](https://github.com/lifeart))\n  * [#3242](https://github.com/ember-template-lint/ember-template-lint/pull/3242) feature: add basic types for visitor class ([@lifeart](https://github.com/lifeart))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3239](https://github.com/ember-template-lint/ember-template-lint/pull/3239) fix [no-bare-strings] regression ([@lifeart](https://github.com/lifeart))\n  * [#3240](https://github.com/ember-template-lint/ember-template-lint/pull/3240) fix: no-this-in-template-only-components should early exit in gjs/gts (skipping this lint) ([@lifeart](https://github.com/lifeart))\n\n#### :memo: Documentation\n* `ember-template-lint`\n  * [#3238](https://github.com/ember-template-lint/ember-template-lint/pull/3238) Removed remaining references to jest ([@ijlee2](https://github.com/ijlee2))\n\n#### :house: Internal\n* `ember-template-lint`\n  * [#3242](https://github.com/ember-template-lint/ember-template-lint/pull/3242) feature: add basic types for visitor class ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 2\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n- Isaac Lee ([@ijlee2](https://github.com/ijlee2))\n"
+  "description": "## Release (2025-05-06)\n\nember-template-lint 7.7.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#1357](https://github.com/ember-template-lint/ember-template-lint/pull/1357) Add new rule: `no-yield-block-params-to-else-inverse` ([@rajasegar](https://github.com/rajasegar))\n  * [#1367](https://github.com/ember-template-lint/ember-template-lint/pull/1367) Add new rule: `require-valid-form-groups` ([@rajasegar](https://github.com/rajasegar))\n  * [#3198](https://github.com/ember-template-lint/ember-template-lint/pull/3198) reduce IO locks on todos ([@lifeart](https://github.com/lifeart))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3249](https://github.com/ember-template-lint/ember-template-lint/pull/3249) bugfix: no-nested-interactive - improve summary handing inside details ([@lifeart](https://github.com/lifeart))\n  * [#3246](https://github.com/ember-template-lint/ember-template-lint/pull/3246) improve no-bare-strings rule config ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 2\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n- Rajasegar Chandran ([@rajasegar](https://github.com/rajasegar))\n"
 }
