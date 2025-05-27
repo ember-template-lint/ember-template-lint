@@ -284,14 +284,24 @@ async function run() {
       batches.push(filePathsArray.slice(i, i + amountOfFilesPerWorker));
     }
 
-    const results = batches.map((batch) => {
+    // Process one batch in the main thread while workers handle the rest
+    // this make sence because we already loaded bundle in the main thread
+    const mainThreadBatch = batches.shift() ?? [];
+
+    const workerPromises = batches.map((batch) => {
       return runWorker({
         filePaths: batch,
         options: structuredClone(options),
       });
     });
-    const awaitedResult = await Promise.all(results);
-    allResults = awaitedResult.flat();
+    const mainThreadPromise = processWithPool(mainThreadBatch, 10, processFile);
+
+    const [mainThreadResults, ...workerResults] = await Promise.all([
+      mainThreadPromise,
+      ...workerPromises,
+    ]);
+
+    allResults = [...mainThreadResults, ...workerResults.flat()];
   } else {
     // Use existing pool for stdin or smaller file sets
     allResults = await processWithPool(filePathsArray, 10, processFile);
