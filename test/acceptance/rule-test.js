@@ -114,9 +114,11 @@ describe('rule public api', function () {
         {
           name: 'test',
           rules: {
-            'rule-with-async-visitor-hook': class extends Rule {
-              async visitor() {
+            'rule-with-async-setup-hook': class extends Rule {
+              static async setup(resolvedRuleConfig) {
                 await new Promise((resolve) => setTimeout(resolve, 10));
+              }
+              visitor() {
                 return {
                   ElementNode(node) {
                     this.log({
@@ -131,14 +133,14 @@ describe('rule public api', function () {
         },
       ],
 
-      name: 'rule-with-async-visitor-hook',
+      name: 'rule-with-async-setup-hook',
       config: true,
 
       good: ['{{haha-wtf}}'],
 
       bad: [
         {
-          name: 'uses async visitor',
+          name: 'uses async setup',
           template: '<promise></promise>',
           results: [
             {
@@ -521,17 +523,18 @@ describe('regression tests', function () {
         group.tests.push(new Test(name, callback));
       },
 
-      name: 'rule-with-async-visitor-hook',
+      name: 'rule-with-async-setup-hook',
       config: 'lol',
 
       plugins: [
         {
-          name: 'rule-with-async-visitor-hook',
+          name: 'rule-with-async-setup-hook',
           rules: {
-            'rule-with-async-visitor-hook': class extends Rule {
-              async visitor() {
+            'rule-with-async-setup-hook': class extends Rule {
+              static async setup() {
                 await new Promise((resolve) => setTimeout(resolve, 10));
-
+              }
+              visitor() {
                 return {
                   ElementNode(node) {
                     this.log({
@@ -609,17 +612,18 @@ describe('regression tests', function () {
         group.tests.push(new Test(name, callback));
       },
 
-      name: 'rule-with-async-visitor-hook',
+      name: 'rule-with-async-setup-hook',
       config: 'lol',
 
       plugins: [
         {
-          name: 'rule-with-async-visitor-hook',
+          name: 'rule-with-async-setup-hook',
           rules: {
-            'rule-with-async-visitor-hook': class extends Rule {
-              async visitor() {
+            'rule-with-async-setup-hook': class extends Rule {
+              static async setup() {
                 await new Promise((resolve) => setTimeout(resolve, 10));
-
+              }
+              visitor() {
                 return {
                   ElementNode(node) {
                     this.log({
