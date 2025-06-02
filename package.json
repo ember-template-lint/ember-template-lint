@@ -22,8 +22,11 @@
   "type": "module",
   "exports": "./dist/index.js",
   "main": "./dist/index.js",
-  "bin": "./bin/ember-template-lint.js",
+  "bin": {
+    "ember-template-lint": "bin/ember-template-lint.js"
+  },
   "files": [
+    "dist",
     "bin",
     "lib",
     "CHANGELOG.md",
@@ -44,7 +47,6 @@
     "lint:package-json-sorting": "sort-package-json --check",
     "lint:package-json-sorting:fix": "sort-package-json package.json",
     "new:rule": "node dev/generate.js new-rule",
-    "postinstall": "npm run build:node",
     "prepare": "npm run build:node",
     "test": "npm-run-all lint:* test:node",
     "test:node": "npm run build:node && vitest --run",
