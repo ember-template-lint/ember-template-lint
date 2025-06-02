@@ -1,5 +1,26 @@
 # Changelog
 
+## Release (2025-06-02)
+
+ember-template-lint 7.8.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3252](https://github.com/ember-template-lint/ember-template-lint/pull/3252) chore: improve typings ([@lifeart](https://github.com/lifeart))
+  * [#3232](https://github.com/ember-template-lint/ember-template-lint/pull/3232) [performance] bundle bin, worker and index files ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3272](https://github.com/ember-template-lint/ember-template-lint/pull/3272) Patched #3237 ([@ijlee2](https://github.com/ijlee2))
+
+#### :house: Internal
+* `ember-template-lint`
+  * [#3232](https://github.com/ember-template-lint/ember-template-lint/pull/3232) [performance] bundle bin, worker and index files ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- Isaac Lee ([@ijlee2](https://github.com/ijlee2))
+
 ## Release (2025-05-06)
 
 ember-template-lint 7.7.0 (minor)
