@@ -1,2 +1,4 @@
 /dev/new-rule/templates/*
 /coverage
+/dist/*
+/bin/ember-template-lint.js
