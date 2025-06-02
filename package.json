@@ -102,7 +102,7 @@
     "sort-package-json": "^2.14.0",
     "v8-compile-cache": "^2.3.0",
     "vitest": "^3.1.1",
-    "yargs": "^17.7.2",
+    "yargs": "^18.0.0",
     "yeoman-environment": "^3.19.3",
     "yeoman-generator": "^5.9.0",
     "yeoman-test": "^7.4.0"
