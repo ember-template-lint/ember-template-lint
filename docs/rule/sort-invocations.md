@@ -14,7 +14,7 @@ By sorting things that are order-independent, you can more easily refactor code.
 
 > [!TIP]
 >
-> The `--fix` option for this rule doesn't preserve formatting. To preserve formatting, you can use [`ember-template-lint-plugin-prettier`](https://github.com/ember-template-lint/ember-template-lint-plugin-prettier) and [`prettier-plugin-ember-template-tag`](https://github.com/ember-tooling/prettier-plugin-ember-template-tag) to format `*.hbs` and `*.{gjs,gts}`, respectively.
+> The `--fix` option for this rule doesn't preserve formatting. You can use [`prettier-plugin-ember-hbs-tag`](https://github.com/ijlee2/prettier-plugin-ember-hbs-tag) and [`prettier-plugin-ember-template-tag`](https://github.com/ember-tooling/prettier-plugin-ember-template-tag) to format `*.hbs` and `*.{gjs,gts}`, respectively.
 
 ## Examples
 

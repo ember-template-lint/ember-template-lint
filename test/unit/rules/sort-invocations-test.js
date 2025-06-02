@@ -76,14 +76,14 @@ generateRuleTests({
             (t
               "my-component.description.version-1"
               installedOn=this.installationDate
-              packageName="@ember/source"
+              packageName="ember-source"
               packageVersion="6.0.0"
             )
             (t
               "my-component.description.version-2"
               (hash
                 installedOn=this.installationDate
-                packageName="@ember/source"
+                packageName="ember-source"
                 packageVersion="6.0.0"
               )
             )
@@ -780,7 +780,7 @@ generateRuleTests({
             (t
               "my-component.description.version-1"
               packageVersion="6.0.0"
-              packageName="@ember/source"
+              packageName="ember-source"
               installedOn=this.installationDate
             )
             (t
@@ -788,7 +788,7 @@ generateRuleTests({
               (hash
                 installedOn=this.installationDate
                 packageVersion="6.0.0"
-                packageName="@ember/source"
+                packageName="ember-source"
               )
             )
           }}
@@ -801,7 +801,7 @@ generateRuleTests({
             (t
               "my-component.description.version-1"
               packageVersion="6.0.0"
-              packageName="@ember/source"
+              packageName="ember-source"
               installedOn=this.installationDate
             )
             (t
@@ -809,7 +809,7 @@ generateRuleTests({
               (hash
                 installedOn=this.installationDate
                 packageVersion="6.0.0"
-                packageName="@ember/source"
+                packageName="ember-source"
               )
             )
           )
@@ -822,14 +822,14 @@ generateRuleTests({
             (t
               "my-component.description.version-1"
               installedOn=this.installationDate
-              packageName="@ember/source"
+              packageName="ember-source"
               packageVersion="6.0.0"
             )
             (t
               "my-component.description.version-2"
               (hash
                 installedOn=this.installationDate
-                packageName="@ember/source"
+                packageName="ember-source"
                 packageVersion="6.0.0"
               )
             )
@@ -842,14 +842,14 @@ generateRuleTests({
             (t
               "my-component.description.version-1"
               installedOn=this.installationDate
-              packageName="@ember/source"
+              packageName="ember-source"
               packageVersion="6.0.0"
             )
             (t
               "my-component.description.version-2"
               (hash
                 installedOn=this.installationDate
-                packageName="@ember/source"
+                packageName="ember-source"
                 packageVersion="6.0.0"
               )
             )
@@ -877,7 +877,7 @@ generateRuleTests({
                       (t
                         "my-component.description.version-1"
                         packageVersion="6.0.0"
-                        packageName="@ember/source"
+                        packageName="ember-source"
                         installedOn=this.installationDate
                       )
                       (t
@@ -885,7 +885,7 @@ generateRuleTests({
                         (hash
                           installedOn=this.installationDate
                           packageVersion="6.0.0"
-                          packageName="@ember/source"
+                          packageName="ember-source"
                         )
                       )
                     }}
@@ -904,7 +904,7 @@ generateRuleTests({
               "source": "(t
                         "my-component.description.version-1"
                         packageVersion="6.0.0"
-                        packageName="@ember/source"
+                        packageName="ember-source"
                         installedOn=this.installationDate
                       )",
             },
@@ -921,7 +921,7 @@ generateRuleTests({
               "source": "(hash
                           installedOn=this.installationDate
                           packageVersion="6.0.0"
-                          packageName="@ember/source"
+                          packageName="ember-source"
                         )",
             },
             {
@@ -941,7 +941,7 @@ generateRuleTests({
                       (t
                         "my-component.description.version-1"
                         packageVersion="6.0.0"
-                        packageName="@ember/source"
+                        packageName="ember-source"
                         installedOn=this.installationDate
                       )
                       (t
@@ -949,7 +949,7 @@ generateRuleTests({
                         (hash
                           installedOn=this.installationDate
                           packageVersion="6.0.0"
-                          packageName="@ember/source"
+                          packageName="ember-source"
                         )
                       )
                     )
@@ -968,7 +968,7 @@ generateRuleTests({
               "source": "(t
                         "my-component.description.version-1"
                         packageVersion="6.0.0"
-                        packageName="@ember/source"
+                        packageName="ember-source"
                         installedOn=this.installationDate
                       )",
             },
@@ -985,7 +985,7 @@ generateRuleTests({
               "source": "(hash
                           installedOn=this.installationDate
                           packageVersion="6.0.0"
-                          packageName="@ember/source"
+                          packageName="ember-source"
                         )",
             },
           ]
