@@ -2,9 +2,25 @@ import { vi } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { setupProject, teardownProject, runBin } from '../helpers/bin-tester.js';
+import { setupProject, teardownProject, runBin as rawRunBin } from '../helpers/bin-tester.js';
 import setupEnvVar from '../helpers/setup-env-var.js';
 
+async function runBin(projectPath, ...params) {
+  const envValues = {
+    env: {
+      DEBUG: 'ember-template-lint',
+    },
+  };
+  if (params.length > 0 && typeof params.at(-1) === 'object') {
+    params[params.length - 1] = {
+      ...params.at(-1),
+      ...envValues,
+    };
+  } else {
+    params.push(envValues);
+  }
+  return await rawRunBin(projectPath, ...params);
+}
 vi.setConfig({ testTimeout: 10_000 });
 
 describe('ember-template-lint worker threads', function () {
@@ -48,6 +64,7 @@ describe('ember-template-lint worker threads', function () {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 101 Total Files with TemplateLint');
       expect(result.stdout).toContain('✖ 101 problems (101 errors, 0 warnings)');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       expect(result.stderr).toBeFalsy();
     });
 
@@ -75,6 +92,7 @@ describe('ember-template-lint worker threads', function () {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 5 Total Files with TemplateLint');
       expect(result.stdout).toContain('✖ 5 problems (5 errors, 0 warnings)');
+      expect(result.stdout).not.toContain('Processed');
       expect(result.stderr).toBeFalsy();
     });
 
@@ -103,6 +121,7 @@ describe('ember-template-lint worker threads', function () {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('error  Non-translated string used  no-bare-strings');
+      expect(result.stdout).not.toContain('Processed');
       expect(result.stderr).toBeFalsy();
     });
   });
@@ -132,6 +151,7 @@ describe('ember-template-lint worker threads', function () {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 150 Total Files with TemplateLint');
       expect(result.stdout).toContain('✖ 150 problems (150 errors, 0 warnings)');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       expect(result.stderr).toBeFalsy();
     });
 
@@ -168,6 +188,7 @@ describe('ember-template-lint worker threads', function () {
       expect(fileLines[1]).toContain('app/templates/file-001.hbs');
       expect(fileLines[2]).toContain('app/templates/file-002.hbs');
 
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       expect(result.stderr).toBeFalsy();
     });
   });
@@ -200,6 +221,7 @@ describe('ember-template-lint worker threads', function () {
       expect(result.exitCode).toEqual(1);
       // Should still process other files even if one has issues
       expect(result.stdout).toContain('Linting 101 Total Files with TemplateLint');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
     });
 
     it('should handle mixed error types across workers', async function () {
@@ -233,6 +255,7 @@ describe('ember-template-lint worker threads', function () {
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
       // Should have both errors and warnings
       expect(result.stdout).toMatch(/\d+ errors?, \d+ warnings?/);
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       expect(result.stderr).toBeFalsy();
     });
   });
@@ -261,13 +284,13 @@ describe('ember-template-lint worker threads', function () {
 
       expect(result.exitCode).toEqual(0);
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
 
       // Verify that files were actually fixed
       const fixedContent = fs.readFileSync(path.resolve('app/templates/template-0.hbs'), {
         encoding: 'utf8',
       });
       expect(fixedContent).toContain('type="button"');
-
       expect(result.stderr).toBeFalsy();
     });
 
@@ -299,6 +322,7 @@ describe('ember-template-lint worker threads', function () {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       // Should have errors from both rules
       expect(result.stdout).toContain('no-bare-strings');
       expect(result.stderr).toBeFalsy();
@@ -331,6 +355,7 @@ describe('ember-template-lint worker threads', function () {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       // Should not mention ignored files
       expect(result.stdout).not.toContain('ignored-1.hbs');
       expect(result.stdout).not.toContain('ignored-2.hbs');
@@ -368,6 +393,7 @@ describe('ember-template-lint worker threads', function () {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       // Should have fewer errors due to disabled rules
       expect(result.stdout).toContain('✖ 55 problems (55 errors, 0 warnings)');
       expect(result.stderr).toBeFalsy();
@@ -409,6 +435,7 @@ export default class TestComponent extends Component {
       let result = await runBin('.');
 
       expect(result.exitCode).toEqual(1);
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
       expect(result.stdout).toContain('.hbs: 60');
       expect(result.stdout).toContain('.gts: 45');
@@ -443,6 +470,7 @@ export default class TestComponent extends Component {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
+      expect(result.stdout).toContain('Processed 100 files per batch in 2 workers');
 
       // Verify correct file paths are shown
       expect(result.stdout).toContain('app/templates/components/component-0.hbs');
@@ -474,6 +502,10 @@ export default class TestComponent extends Component {
       let result = await runBin('.');
 
       expect(result.exitCode).toEqual(1);
+
+      expect(result.stdout.split('\n').slice(0, 20).join('\n')).toMatch(
+        /Processed \d+ files per batch in \d+ workers/
+      );
       expect(result.stdout).toContain('Linting 500 Total Files with TemplateLint');
       expect(result.stdout).toContain('✖ 500 problems (500 errors, 0 warnings)');
       expect(result.stderr).toBeFalsy();
@@ -501,6 +533,7 @@ export default class TestComponent extends Component {
       let result = await runBin('.');
 
       expect(result.exitCode).toEqual(1);
+      expect(result.stdout).toContain(`Processed 100 files per batch in 2 workers`);
       expect(result.stdout).toContain('Linting 200 Total Files with TemplateLint');
       expect(result.stdout).toContain('✖ 200 problems (200 errors, 0 warnings)');
       expect(result.stderr).toBeFalsy();
@@ -531,6 +564,7 @@ export default class TestComponent extends Component {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 100 Total Files with TemplateLint');
+      expect(result.stdout).not.toContain(`Processed`);
       expect(result.stdout).toContain('✖ 100 problems (100 errors, 0 warnings)');
       expect(result.stderr).toBeFalsy();
     });
@@ -559,6 +593,7 @@ export default class TestComponent extends Component {
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 101 Total Files with TemplateLint');
       expect(result.stdout).toContain('✖ 101 problems (101 errors, 0 warnings)');
+      expect(result.stdout).toContain(`Processed 100 files per batch in 2 workers`);
       expect(result.stderr).toBeFalsy();
     });
 
@@ -589,6 +624,7 @@ export default class TestComponent extends Component {
 
       expect(result.exitCode).toEqual(1);
       expect(result.stdout).toContain('Linting 105 Total Files with TemplateLint');
+      expect(result.stdout).toContain(`Processed 100 files per batch in 2 workers`);
       // Should have fewer errors due to empty files
       expect(result.stdout).toMatch(/✖ \d+ problems \(\d+ errors, 0 warnings\)/);
       expect(result.stderr).toBeFalsy();
