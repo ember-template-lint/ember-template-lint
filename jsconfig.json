@@ -2,8 +2,9 @@
   "compilerOptions": {
     "module": "Node18",
     "target": "ES2018",
-    "checkJs": true
+    "checkJs": true,
+    "types": ["vitest/globals"]
   },
-  "include": ["lib/rules/**/*"],
+  "include": ["lib/rules/**/*", "test/**/*"],
   "exclude": ["node_modules", "**/node_modules/*"]
 }

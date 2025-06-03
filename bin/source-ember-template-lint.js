@@ -15,7 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
-import { Worker } from 'node:worker_threads';
+import { Worker, SHARE_ENV } from 'node:worker_threads';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
@@ -37,6 +37,7 @@ let hasWorkerInDistFolder = fs.existsSync(path.resolve(__dirname, '../dist/lint-
 
 const STDIN = '/dev/stdin';
 const MIN_FILES_TO_USE_WORKERS = 100;
+let amountOfFilesPerWorker = MIN_FILES_TO_USE_WORKERS;
 
 const NOOP_CONSOLE = {
   log: () => {},
@@ -200,11 +201,8 @@ async function run() {
   }
 
   let resultsAccumulator = [];
-  let debug = false;
+  let debug = process.env.DEBUG === 'ember-template-lint';
 
-  if (debug) {
-    console.time('Linting');
-  }
   const filePathsArray = [...filePaths];
 
   const isReadingStdin = filePaths.has(STDIN);
@@ -266,17 +264,11 @@ async function run() {
     // Use worker threads for parallel processing
     const cpuCount = os.cpus().length;
     const workerCount = Math.max(1, cpuCount - 1);
-    let amountOfFilesPerWorker = Math.ceil(filePathsArray.length / workerCount);
+    amountOfFilesPerWorker = Math.ceil(filePathsArray.length / workerCount);
     if (amountOfFilesPerWorker < MIN_FILES_TO_USE_WORKERS) {
       // creating a worker is quite expensive, so, we need an minimal amount of files per worker
       // to get real performance benefits
       amountOfFilesPerWorker = MIN_FILES_TO_USE_WORKERS;
-    }
-    if (debug) {
-      console.log(`Using ${workerCount} workers to lint files`);
-      console.log(
-        `Processing ${filePathsArray.length} files in batches of ${amountOfFilesPerWorker}`
-      );
     }
     // Split files into batches
     const batches = [];
@@ -284,14 +276,24 @@ async function run() {
       batches.push(filePathsArray.slice(i, i + amountOfFilesPerWorker));
     }
 
-    const results = batches.map((batch) => {
+    // Process one batch in the main thread while workers handle the rest
+    // this make sence because we already loaded bundle in the main thread
+    const mainThreadBatch = batches.shift() ?? [];
+
+    const workerPromises = batches.map((batch) => {
       return runWorker({
         filePaths: batch,
         options: structuredClone(options),
       });
     });
-    const awaitedResult = await Promise.all(results);
-    allResults = awaitedResult.flat();
+    const mainThreadPromise = processWithPool(mainThreadBatch, 10, processFile);
+
+    const [mainThreadResults, ...workerResults] = await Promise.all([
+      mainThreadPromise,
+      ...workerPromises,
+    ]);
+
+    allResults = [...mainThreadResults, ...workerResults.flat()];
   } else {
     // Use existing pool for stdin or smaller file sets
     allResults = await processWithPool(filePathsArray, 10, processFile);
@@ -346,11 +348,28 @@ async function run() {
   ) {
     process.exitCode = 1;
   }
-
-  await printResults(results, { options, todoInfo, config: linter.config });
   if (debug) {
-    console.timeEnd('Linting');
+    const workerEnvInfo = Object.entries(process.env).filter(([key]) =>
+      key.startsWith('lint_worker_')
+    );
+    const workerInfo = workerEnvInfo.reduce(
+      (acc, [, value]) => {
+        acc.count++;
+        acc.time += Number(value);
+        return acc;
+      },
+      { count: 1, time: performance.now() }
+    );
+    if (workerInfo.count > 1) {
+      console.log(
+        `Processed ${amountOfFilesPerWorker} files per batch in ${workerInfo.count} workers in ${workerInfo.time.toFixed(
+          2
+        )}ms`
+      );
+      console.log(`Average time per worker: ${(workerInfo.time / workerInfo.count).toFixed(2)}ms`);
+    }
   }
+  await printResults(results, { options, todoInfo, config: linter.config });
 }
 
 run();
@@ -363,6 +382,7 @@ function runWorker(workerData) {
         import.meta.url
       ),
       {
+        env: SHARE_ENV,
         workerData: {
           filePaths: workerData.filePaths,
           options: workerData.options,
