@@ -2,6 +2,17 @@
 
 ## Release (2025-06-02)
 
+ember-template-lint 7.8.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3285](https://github.com/ember-template-lint/ember-template-lint/pull/3285) fix: dist folder bundling in published package ([@lifeart](https://github.com/lifeart))
+
+#### Committers: 1
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+
+## Release (2025-06-02)
+
 ember-template-lint 7.8.0 (minor)
 
 #### :rocket: Enhancement

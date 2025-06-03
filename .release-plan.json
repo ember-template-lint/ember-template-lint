@@ -1,25 +1,17 @@
 {
   "solution": {
     "ember-template-lint": {
-      "impact": "minor",
-      "oldVersion": "7.7.0",
-      "newVersion": "7.8.0",
+      "impact": "patch",
+      "oldVersion": "7.8.0",
+      "newVersion": "7.8.1",
       "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-06-02)\n\nember-template-lint 7.8.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#3252](https://github.com/ember-template-lint/ember-template-lint/pull/3252) chore: improve typings ([@lifeart](https://github.com/lifeart))\n  * [#3232](https://github.com/ember-template-lint/ember-template-lint/pull/3232) [performance] bundle bin, worker and index files ([@lifeart](https://github.com/lifeart))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3272](https://github.com/ember-template-lint/ember-template-lint/pull/3272) Patched #3237 ([@ijlee2](https://github.com/ijlee2))\n\n#### :house: Internal\n* `ember-template-lint`\n  * [#3232](https://github.com/ember-template-lint/ember-template-lint/pull/3232) [performance] bundle bin, worker and index files ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 2\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n- Isaac Lee ([@ijlee2](https://github.com/ijlee2))\n"
+  "description": "## Release (2025-06-02)\n\nember-template-lint 7.8.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3285](https://github.com/ember-template-lint/ember-template-lint/pull/3285) fix: dist folder bundling in published package ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 1\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n"
 }
