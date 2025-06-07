@@ -1,5 +1,21 @@
 # Changelog
 
+## Release (2025-06-07)
+
+ember-template-lint 7.9.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-template-lint`
+  * [#3276](https://github.com/ember-template-lint/ember-template-lint/pull/3276) performance: process files in main thread too (for workers case) ([@lifeart](https://github.com/lifeart))
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3290](https://github.com/ember-template-lint/ember-template-lint/pull/3290) Fix the ability to specify checkHbsTemplateLiterals: false in the template-lintrc to opt in to disable parsing js and ts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-06-02)
 
 ember-template-lint 7.8.1 (patch)
