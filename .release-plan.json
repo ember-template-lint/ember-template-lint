@@ -1,10 +1,14 @@
 {
   "solution": {
     "ember-template-lint": {
-      "impact": "patch",
-      "oldVersion": "7.8.0",
-      "newVersion": "7.8.1",
+      "impact": "minor",
+      "oldVersion": "7.8.1",
+      "newVersion": "7.9.0",
       "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
@@ -13,5 +17,5 @@
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-06-02)\n\nember-template-lint 7.8.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3285](https://github.com/ember-template-lint/ember-template-lint/pull/3285) fix: dist folder bundling in published package ([@lifeart](https://github.com/lifeart))\n\n#### Committers: 1\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n"
+  "description": "## Release (2025-06-07)\n\nember-template-lint 7.9.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#3276](https://github.com/ember-template-lint/ember-template-lint/pull/3276) performance: process files in main thread too (for workers case) ([@lifeart](https://github.com/lifeart))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3290](https://github.com/ember-template-lint/ember-template-lint/pull/3290) Fix the ability to specify checkHbsTemplateLiterals: false in the template-lintrc to opt in to disable parsing js and ts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }
