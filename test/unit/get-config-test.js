@@ -191,6 +191,16 @@ describe('get-config', function () {
     expect(actual.rules['block-indentation']).not.toEqual(expected.rules['block-indentation']);
   });
 
+  it('non default config options can be specified', async function () {
+    let actual = await getProjectConfig(project.baseDir, {
+      config: {
+        checkHbsTemplateLiterals: false,
+        reportUnusedDisableDirectives: true,
+      },
+    });
+    expect(actual.rules, 'no errors').toEqual({});
+  });
+
   it('throws when specifying unknown properties in the config root', async function () {
     await expect(
       async () =>
