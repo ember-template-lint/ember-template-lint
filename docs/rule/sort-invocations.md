@@ -14,7 +14,7 @@ By sorting things that are order-independent, you can more easily refactor code.
 
 > [!TIP]
 >
-> The `--fix` option for this rule doesn't preserve formatting. You can use [`prettier-plugin-ember-hbs-tag`](https://github.com/ijlee2/prettier-plugin-ember-hbs-tag) and [`prettier-plugin-ember-template-tag`](https://github.com/ember-tooling/prettier-plugin-ember-template-tag) to format `*.hbs` and `*.{gjs,gts}`, respectively.
+> The `--fix` option for this rule doesn't preserve formatting. You can use `prettier`, [`prettier-plugin-ember-hbs-tag`](https://github.com/ijlee2/prettier-plugin-ember-hbs-tag), and [`prettier-plugin-ember-template-tag`](https://github.com/ember-tooling/prettier-plugin-ember-template-tag) to format templates in `*.hbs`, `hbs` tags, and `<template>` tags, respectively.
 
 ## Examples
 
@@ -53,7 +53,7 @@ When invoking a helper, list the named arguments in alphabetical order.
 {{t
   "my-component.description"
   installedOn=this.installationDate
-  packageName="@ember/source"
+  packageName="ember-source"
   packageVersion="6.0.0"
 }}
 ```
