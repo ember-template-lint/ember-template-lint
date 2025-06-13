@@ -1,14 +1,10 @@
 {
   "solution": {
     "ember-template-lint": {
-      "impact": "minor",
-      "oldVersion": "7.8.1",
-      "newVersion": "7.9.0",
+      "impact": "patch",
+      "oldVersion": "7.9.0",
+      "newVersion": "7.9.1",
       "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
@@ -17,5 +13,5 @@
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-06-07)\n\nember-template-lint 7.9.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-template-lint`\n  * [#3276](https://github.com/ember-template-lint/ember-template-lint/pull/3276) performance: process files in main thread too (for workers case) ([@lifeart](https://github.com/lifeart))\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3290](https://github.com/ember-template-lint/ember-template-lint/pull/3290) Fix the ability to specify checkHbsTemplateLiterals: false in the template-lintrc to opt in to disable parsing js and ts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Alex Kanunnikov ([@lifeart](https://github.com/lifeart))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-06-13)\n\nember-template-lint 7.9.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3291](https://github.com/ember-template-lint/ember-template-lint/pull/3291) Ensured that ...attributes is listed last ([@ijlee2](https://github.com/ijlee2))\n\n#### Committers: 1\n- Isaac Lee ([@ijlee2](https://github.com/ijlee2))\n"
 }
