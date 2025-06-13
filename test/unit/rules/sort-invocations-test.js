@@ -567,7 +567,7 @@ generateRuleTests({
             this.styles
             "button"
             (unless this.enableSubmit "disabled")
-          }} data-cucumber-button="Submit form" data-test-button ...attributes {{autofocus}} {{on "click" @onSubmit}}
+          }} data-cucumber-button="Submit form" data-test-button {{autofocus}} {{on "click" @onSubmit}} ...attributes
         />
 
         <Ui::Button
@@ -575,7 +575,7 @@ generateRuleTests({
             this.styles
             "button"
             (unless this.enableSubmit "disabled")
-          }} data-cucumber-button="Submit form" data-test-button={{""}} ...attributes {{autofocus}} {{on "click" @onSubmit}}
+          }} data-cucumber-button="Submit form" data-test-button={{""}} {{autofocus}} {{on "click" @onSubmit}} ...attributes
         >
           Submit form
         </Ui::Button>
@@ -1018,7 +1018,7 @@ generateRuleTests({
             this.styles
             "button"
             (unless this.enableSubmit "disabled")
-          }} data-cucumber-button="Submit form" data-test-button ...attributes {{autofocus}} {{on "click" @onSubmit}} {{! @glint-expect-error: @onSubmit has incorrect type }} {{!-- @glint-expect-error: this.enableSubmit has incorrect type --}}
+          }} data-cucumber-button="Submit form" data-test-button {{autofocus}} {{on "click" @onSubmit}} ...attributes {{! @glint-expect-error: @onSubmit has incorrect type }} {{!-- @glint-expect-error: this.enableSubmit has incorrect type --}}
         />
       `,
       verifyResults(results) {
@@ -1327,7 +1327,7 @@ generateRuleTests({
       `,
       fixedTemplate: `
         <button
-          class={{local this.styles "button" "disabled"}} data-cucumber-button="Submit form" data-test-button disabled type="submit" ...attributes {{autofocus}} {{on "click" @onSubmit}}
+          class={{local this.styles "button" "disabled"}} data-cucumber-button="Submit form" data-test-button disabled type="submit" {{autofocus}} {{on "click" @onSubmit}} ...attributes
         >
           Submit form
         </button>
@@ -1741,6 +1741,152 @@ generateRuleTests({
                         >
                           {{t "components.ui.form.submit"}}
                         </button>",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      template: `
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+          ...attributes
+        ></iframe>
+
+        <iframe
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+        ></iframe>
+
+        <iframe
+          ...attributes
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+        ></iframe>
+
+        <iframe
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+          ...attributes
+        ></iframe>
+
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+        ></iframe>
+
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+          ...attributes
+        ></iframe>
+
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+          ...attributes
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+        ></iframe>
+      `,
+      fixedTemplate: `
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+          ...attributes
+        ></iframe>
+
+        <iframe
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+        ></iframe>
+
+        <iframe
+          {{did-insert this.doSomething1}} {{on "load" this.doSomething2}} ...attributes
+        ></iframe>
+
+        <iframe
+          {{did-insert this.doSomething1}}
+          {{on "load" this.doSomething2}}
+          ...attributes
+        ></iframe>
+
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+        ></iframe>
+
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+          ...attributes
+        ></iframe>
+
+        <iframe
+          class="full-screen"
+          data-test-id="my-iframe"
+          id={{@id}}
+          src={{this.url}}
+          {{did-insert this.doSomething1}} {{on "load" this.doSomething2}} ...attributes
+        ></iframe>
+      `,
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 8,
+              "endColumn": 18,
+              "endLine": 21,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 17,
+              "message": "\`...attributes\` must appear after modifiers",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<iframe
+                    ...attributes
+                    {{did-insert this.doSomething1}}
+                    {{on "load" this.doSomething2}}
+                  ></iframe>",
+            },
+            {
+              "column": 8,
+              "endColumn": 18,
+              "endLine": 52,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 44,
+              "message": "\`...attributes\` must appear after modifiers",
+              "rule": "sort-invocations",
+              "severity": 2,
+              "source": "<iframe
+                    class="full-screen"
+                    data-test-id="my-iframe"
+                    id={{@id}}
+                    src={{this.url}}
+                    ...attributes
+                    {{did-insert this.doSomething1}}
+                    {{on "load" this.doSomething2}}
+                  ></iframe>",
             },
           ]
         `);
