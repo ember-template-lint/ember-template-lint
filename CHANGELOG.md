@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-06-13)
+
+ember-template-lint 7.9.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3291](https://github.com/ember-template-lint/ember-template-lint/pull/3291) Ensured that ...attributes is listed last ([@ijlee2](https://github.com/ijlee2))
+
+#### Committers: 1
+- Isaac Lee ([@ijlee2](https://github.com/ijlee2))
+
 ## Release (2025-06-07)
 
 ember-template-lint 7.9.0 (minor)
