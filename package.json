@@ -98,7 +98,7 @@
     "npm-package-json-lint": "^7.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
-    "release-plan": "^0.11.0",
+    "release-plan": "^0.17.0",
     "resolve": "^1.22.3",
     "rolldown": "^1.0.0-beta.13",
     "sort-package-json": "^2.14.0",
