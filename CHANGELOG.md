@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-06-17)
+
+ember-template-lint 7.9.2 (patch)
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3310](https://github.com/ember-template-lint/ember-template-lint/pull/3310) Fix broken links in docs: #3309 ([@lem0n4id](https://github.com/lem0n4id))
+
+#### Committers: 1
+- Lenin Kennedy ([@lem0n4id](https://github.com/lem0n4id))
+
 ## Release (2025-06-13)
 
 ember-template-lint 7.9.1 (patch)
