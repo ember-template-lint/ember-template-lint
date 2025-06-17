@@ -2,16 +2,16 @@
   "solution": {
     "ember-template-lint": {
       "impact": "patch",
-      "oldVersion": "7.9.0",
-      "newVersion": "7.9.1",
+      "oldVersion": "7.9.1",
+      "newVersion": "7.9.2",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-06-13)\n\nember-template-lint 7.9.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3291](https://github.com/ember-template-lint/ember-template-lint/pull/3291) Ensured that ...attributes is listed last ([@ijlee2](https://github.com/ijlee2))\n\n#### Committers: 1\n- Isaac Lee ([@ijlee2](https://github.com/ijlee2))\n"
+  "description": "## Release (2025-06-17)\n\nember-template-lint 7.9.2 (patch)\n\n#### :memo: Documentation\n* `ember-template-lint`\n  * [#3310](https://github.com/ember-template-lint/ember-template-lint/pull/3310) Fix broken links in docs: #3309 ([@lem0n4id](https://github.com/lem0n4id))\n\n#### Committers: 1\n- Lenin Kennedy ([@lem0n4id](https://github.com/lem0n4id))\n"
 }
