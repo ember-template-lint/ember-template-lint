@@ -119,7 +119,7 @@ to
 
 ## References
 
-* [Ember Octane Update: What's up with `@action`?](https://www.pzuraq.com/ember-octane-update-action/)
+* [Ember Octane Update: What's up with `@action`?](https://www.pzuraq.com/blog/ember-octane-update-action/)
 * [RFC-471 `on` modifier](https://github.com/emberjs/rfcs/blob/master/text/0471-on-modifier.md)
 * [RFC-470 `fn` helper](https://github.com/emberjs/rfcs/blob/master/text/0470-fn-helper.md)
 * [Intent to RFC: Deprecate `{{action}}`](https://github.com/emberjs/rfcs/issues/537)
