@@ -61,6 +61,6 @@ This rule **allows** the following:
 ## References
 
 * [RFC #276](https://github.com/emberjs/rfcs/blob/master/text/0276-named-args.md)
-* [Coming Soon in Ember Octane - Part 2: Named Argument Syntax](https://www.pzuraq.com/coming-soon-in-ember-octane-part-2-angle-brackets-and-named-arguments/#namedargumentsyntax)
+* [Coming Soon in Ember Octane - Part 2: Named Argument Syntax](https://www.pzuraq.com/blog/coming-soon-in-ember-octane-part-2-angle-brackets-and-named-arguments/#namedargumentsyntax)
 * [Named arguments in Ember.js](https://www.balinterdi.com/blog/named-arguments-in-ember-js/)
 * [ember-named-arguments-polyfill](https://github.com/rwjblue/ember-named-arguments-polyfill)

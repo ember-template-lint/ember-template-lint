@@ -21,7 +21,7 @@
    * The mut helper is usually only used as a pure setter, in which case there are other template helpers that are pure setters that could be used instead of mut (e.g. [ember-set-helper](https://github.com/pzuraq/ember-set-helper)).
 2. Incompatibility with Glimmer Component intentions:
 
-   * The mut helper can re-introduce 2 way data binding into Glimmer Components on named arguments where a child can change a parent’s data, which goes against the Data Down Actions Up principle, goes against Glimmer Components’ intention to have immutable arguments, and is [discouraged by the Ember Core team](https://www.pzuraq.com/on-mut-and-2-way-binding/).
+   * The mut helper can re-introduce 2 way data binding into Glimmer Components on named arguments where a child can change a parent’s data, which goes against the Data Down Actions Up principle, goes against Glimmer Components’ intention to have immutable arguments, and is [discouraged by the Ember Core team](https://www.pzuraq.com/blog/on-mut-and-2-way-binding/).
 
 Example:
 
@@ -256,6 +256,6 @@ module.exports = {
 ## References
 
 * [Intent to RFC: Deprecate `{{mut}}`](https://github.com/emberjs/rfcs/issues/538)
-* [Blogpost by @pzuraq explaining concerns with `mut` helper](https://www.pzuraq.com/on-mut-and-2-way-binding/)
+* [Blogpost by @pzuraq explaining concerns with `mut` helper](https://www.pzuraq.com/blog/on-mut-and-2-way-binding/)
 * [ember-set-helper as an alternative to `mut` helper](https://github.com/pzuraq/ember-set-helper)
 * [Ember api/mut helper](https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/each?anchor=mut)
