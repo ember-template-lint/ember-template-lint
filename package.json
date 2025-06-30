@@ -101,7 +101,7 @@
     "release-plan": "^0.11.0",
     "resolve": "^1.22.3",
     "rolldown": "^1.0.0-beta.13",
-    "sort-package-json": "^2.14.0",
+    "sort-package-json": "^3.3.1",
     "v8-compile-cache": "^2.3.0",
     "vitest": "^3.1.1",
     "yargs": "^17.7.2",
