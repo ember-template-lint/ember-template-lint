@@ -8,10 +8,10 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: ['eslint-comments', 'filenames', 'import', 'n', 'unicorn'],
+  plugins: ['@eslint-community/eslint-comments', 'filenames', 'import', 'n', 'unicorn'],
   extends: [
     'eslint:recommended',
-    'plugin:eslint-comments/recommended',
+    'plugin:@eslint-community/eslint-comments/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:n/recommended',
@@ -100,7 +100,7 @@ module.exports = {
     'wrap-iife': 'error',
     yoda: 'error',
 
-    'eslint-comments/no-unused-disable': 'error',
+    '@eslint-community/eslint-comments/no-unused-disable': 'error',
 
     'filenames/match-regex': ['error', '^.?[a-z0-9-]+$'], // Kebab-case.
 
