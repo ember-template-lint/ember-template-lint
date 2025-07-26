@@ -1,4 +1,4 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @eslint-community/eslint-comments/disable-enable-pair */
 /* eslint-disable n/no-unsupported-features/node-builtins */
 import fs from 'node:fs';
 
