@@ -17,7 +17,10 @@ describe('rules setup is correct', function () {
   const files = readdirSync(rulesEntryPath);
   const expectedRules = files
     .filter((fileName) => {
-      return fileName.endsWith('.js') && !['_base.js', '_report-unused-disable-directives.js', 'index.js'].includes(fileName);
+      return (
+        fileName.endsWith('.js') &&
+        !['_base.js', '_report-unused-disable-directives.js', 'index.js'].includes(fileName)
+      );
     })
     .map((fileName) => fileName.replace('.js', ''));
 
