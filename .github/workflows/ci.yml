@@ -33,7 +33,7 @@ jobs:
       - run: npm run lint
 
   test:
-    name: Node 18.x - ubuntu
+    name: Node 20.x - ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -59,12 +59,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, windows]
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
 
         # excluded because it is the `test` job above
         exclude:
           - os: ubuntu
-            node-version: 18.x
+            node-version: 20.x
 
     steps:
       - uses: actions/checkout@v4
