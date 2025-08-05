@@ -8,7 +8,12 @@
     "prefer-alphabetical-optionalDependencies": "error",
     "prefer-alphabetical-scripts": "error",
     "prefer-caret-version-dependencies": "error",
-    "prefer-caret-version-devDependencies": "error",
+    "prefer-caret-version-devDependencies": [
+      "error",
+      {
+        "exceptions": ["vitest", "@vitest/coverage-v8"]
+      }
+    ],
     "prefer-scripts": ["error", ["lint", "test"]]
   }
 }
