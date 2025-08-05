@@ -1038,14 +1038,65 @@ describe('public api', function () {
         {
           column: 2,
           endColumn: 63,
-          endLine: 7,
+          endLine: 8,
           filePath: templatePath,
           isFixable: true,
-          line: 7,
+          line: 8,
           message: 'Unnecessary disable declaration',
           rule: 'no-html-comments',
           severity: 2,
           source: '{{! template-lint-disable no-html-comments no-bare-strings }}',
+        },
+        {
+          column: 0,
+          endColumn: 55,
+          endLine: 1,
+          filePath: templatePath,
+          isFixable: true,
+          line: 1,
+          message: 'Unnecessary disable declaration',
+          rule: 'no-builtin-form-components',
+          severity: 2,
+          source: '{{! template-lint-disable no-builtin-form-components }}',
+        },
+      ];
+
+      let result = await linter.verify({
+        source: templateContents,
+        filePath: templatePath,
+        moduleId: templatePath.slice(0, -4),
+      });
+
+      expect(result).toEqual(expected);
+    });
+
+    it('reports unnecessary disables in template tags', async function () {
+      let templatePath = path.join(basePath, 'app', 'templates', 'unnecessary-disabled-rule.gjs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          column: 4,
+          endColumn: 65,
+          endLine: 9,
+          filePath: templatePath,
+          isFixable: true,
+          line: 9,
+          message: 'Unnecessary disable declaration',
+          rule: 'no-html-comments',
+          severity: 2,
+          source: '{{! template-lint-disable no-html-comments no-bare-strings }}',
+        },
+        {
+          column: 2,
+          endColumn: 57,
+          endLine: 2,
+          filePath: templatePath,
+          isFixable: true,
+          line: 2,
+          message: 'Unnecessary disable declaration',
+          rule: 'no-builtin-form-components',
+          severity: 2,
+          source: '{{! template-lint-disable no-builtin-form-components }}',
         },
       ];
 
