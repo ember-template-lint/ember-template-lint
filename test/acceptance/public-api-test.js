@@ -1051,8 +1051,7 @@ describe('public api', function () {
           column: 0,
           endColumn: 55,
           endLine: 1,
-          filePath:
-            '/Users/pwagenet/Development/OSS/Ember/ember-template-lint/test/fixtures/report-unused-disable-directives/app/templates/unnecessary-disabled-rule.hbs',
+          filePath: templatePath,
           isFixable: true,
           line: 1,
           message: 'Unnecessary disable declaration',
