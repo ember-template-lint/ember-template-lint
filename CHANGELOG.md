@@ -1,5 +1,27 @@
 # Changelog
 
+## Release (2025-08-06)
+
+* ember-template-lint 7.9.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3344](https://github.com/ember-template-lint/ember-template-lint/pull/3344) Fix unusedDisables for globally disabled rules ([@wagenet](https://github.com/wagenet))
+
+#### :memo: Documentation
+* `ember-template-lint`
+  * [#3310](https://github.com/ember-template-lint/ember-template-lint/pull/3310) Fix broken links in docs: #3309 ([@lem0n4id](https://github.com/lem0n4id))
+
+#### :house: Internal
+* `ember-template-lint`
+  * [#3347](https://github.com/ember-template-lint/ember-template-lint/pull/3347) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3346](https://github.com/ember-template-lint/ember-template-lint/pull/3346) Downgrade vitest to avoid getting vite 7 ([@wagenet](https://github.com/wagenet))
+
+#### Committers: 3
+- Lenin Kennedy ([@lem0n4id](https://github.com/lem0n4id))
+- Peter Wagenet ([@wagenet](https://github.com/wagenet))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-06-13)
 
 ember-template-lint 7.9.1 (patch)
