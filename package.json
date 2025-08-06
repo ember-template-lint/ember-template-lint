@@ -100,7 +100,7 @@
     "prettier": "^3.2.5",
     "release-plan": "^0.16.0",
     "resolve": "^1.22.3",
-    "rolldown": "^1.0.0-beta.13",
+    "rolldown": "^1.0.0-beta.31",
     "sort-package-json": "^2.14.0",
     "v8-compile-cache": "^2.3.0",
     "vitest": "~3.1.1",
