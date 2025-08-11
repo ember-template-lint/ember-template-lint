@@ -151,6 +151,90 @@ generateRuleTests({
       },
     },
     {
+      config: 'double',
+      template: "<div class=\"static-class {{if this.a 'some-other-class'}}\"></div>",
+      fixedTemplate: '<div class="static-class {{if this.a "some-other-class"}}"></div>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 37,
+              "endColumn": 55,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{if this.a 'some-other-class'}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: 'double',
+      template: "<div class=\"{{this.someDynamicClass}} {{if this.a 'some-other-class'}}\"></div>",
+      fixedTemplate: '<div class="{{this.someDynamicClass}} {{if this.a "some-other-class"}}"></div>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 50,
+              "endColumn": 68,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{if this.a 'some-other-class'}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
+      config: 'double',
+      template: "<div class=\"{{this.prefix}}-{{if this.a 'suffix-a' 'suffix-b'}}\"></div>",
+      fixedTemplate: '<div class="{{this.prefix}}-{{if this.a "suffix-a" "suffix-b"}}"></div>',
+
+      verifyResults(results) {
+        expect(results).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 40,
+              "endColumn": 50,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{if this.a 'suffix-a' 'suffix-b'}}",
+            },
+            {
+              "column": 51,
+              "endColumn": 61,
+              "endLine": 1,
+              "filePath": "layout.hbs",
+              "isFixable": true,
+              "line": 1,
+              "message": "you must use double quotes in templates",
+              "rule": "quotes",
+              "severity": 2,
+              "source": "{{if this.a 'suffix-a' 'suffix-b'}}",
+            },
+          ]
+        `);
+      },
+    },
+    {
       config: 'single',
       template: '{{component "test"}}',
       fixedTemplate: "{{component 'test'}}",
