@@ -31,11 +31,11 @@ This rule **allows** the following:
 ## Migration
 
 Use regexp find-and-replace to fix existing violations of this rule:
-
+{% raw %}
 | Before | After |
 | --- | --- |
 | `="{{([^}]+)}}"` | `={{$1}}` |
-
+{% endraw %}
 ## References
 
 * [Handlebars docs/expressions](https://handlebarsjs.com/guide/expressions.html)
