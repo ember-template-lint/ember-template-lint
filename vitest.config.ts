@@ -14,6 +14,7 @@ export default defineConfig({
         branches: 82,
         statements: 86,
       },
+      excludeAfterRemap: true,
     },
   },
 });
