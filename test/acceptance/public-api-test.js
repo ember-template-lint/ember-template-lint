@@ -1049,7 +1049,7 @@ describe('public api', function () {
         },
         {
           column: 0,
-          endColumn: 55,
+          endColumn: 75,
           endLine: 1,
           filePath: templatePath,
           isFixable: true,
@@ -1057,7 +1057,7 @@ describe('public api', function () {
           message: 'Unnecessary disable declaration',
           rule: 'no-builtin-form-components',
           severity: 2,
-          source: '{{! template-lint-disable no-builtin-form-components }}',
+          source: '{{! template-lint-disable no-builtin-form-components require-strict-mode }}',
         },
       ];
 
@@ -1088,7 +1088,19 @@ describe('public api', function () {
         },
         {
           column: 2,
-          endColumn: 57,
+          endColumn: 77,
+          endLine: 2,
+          filePath: templatePath,
+          isFixable: true,
+          line: 2,
+          message: 'Unnecessary disable declaration',
+          rule: 'require-strict-mode',
+          severity: 2,
+          source: '{{! template-lint-disable no-builtin-form-components require-strict-mode }}',
+        },
+        {
+          column: 2,
+          endColumn: 77,
           endLine: 2,
           filePath: templatePath,
           isFixable: true,
@@ -1096,7 +1108,7 @@ describe('public api', function () {
           message: 'Unnecessary disable declaration',
           rule: 'no-builtin-form-components',
           severity: 2,
-          source: '{{! template-lint-disable no-builtin-form-components }}',
+          source: '{{! template-lint-disable no-builtin-form-components require-strict-mode }}',
         },
       ];
 
