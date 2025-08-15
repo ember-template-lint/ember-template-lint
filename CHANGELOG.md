@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-08-15)
+
+* ember-template-lint 7.9.3 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3351](https://github.com/ember-template-lint/ember-template-lint/pull/3351) Fix bug where some unnecessary disables were not reported ([@wagenet](https://github.com/wagenet))
+
+#### Committers: 1
+- Peter Wagenet ([@wagenet](https://github.com/wagenet))
+
 ## Release (2025-08-06)
 
 * ember-template-lint 7.9.2 (patch)
