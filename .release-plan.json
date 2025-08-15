@@ -2,25 +2,17 @@
   "solution": {
     "ember-template-lint": {
       "impact": "patch",
-      "oldVersion": "7.9.1",
-      "newVersion": "7.9.2",
+      "oldVersion": "7.9.2",
+      "newVersion": "7.9.3",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-08-06)\n\n* ember-template-lint 7.9.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3344](https://github.com/ember-template-lint/ember-template-lint/pull/3344) Fix unusedDisables for globally disabled rules ([@wagenet](https://github.com/wagenet))\n\n#### :memo: Documentation\n* `ember-template-lint`\n  * [#3310](https://github.com/ember-template-lint/ember-template-lint/pull/3310) Fix broken links in docs: #3309 ([@lem0n4id](https://github.com/lem0n4id))\n\n#### :house: Internal\n* `ember-template-lint`\n  * [#3347](https://github.com/ember-template-lint/ember-template-lint/pull/3347) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#3346](https://github.com/ember-template-lint/ember-template-lint/pull/3346) Downgrade vitest to avoid getting vite 7 ([@wagenet](https://github.com/wagenet))\n\n#### Committers: 3\n- Lenin Kennedy ([@lem0n4id](https://github.com/lem0n4id))\n- Peter Wagenet ([@wagenet](https://github.com/wagenet))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-08-15)\n\n* ember-template-lint 7.9.3 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3351](https://github.com/ember-template-lint/ember-template-lint/pull/3351) Fix bug where some unnecessary disables were not reported ([@wagenet](https://github.com/wagenet))\n\n#### Committers: 1\n- Peter Wagenet ([@wagenet](https://github.com/wagenet))\n"
 }
