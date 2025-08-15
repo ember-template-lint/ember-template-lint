@@ -1,5 +1,5 @@
 <template>
-  {{! template-lint-disable no-builtin-form-components }}
+  {{! template-lint-disable no-builtin-form-components require-strict-mode }}
   <div>
     {{! template-lint-disable no-html-comments }}
     <!-- This is a comment -->

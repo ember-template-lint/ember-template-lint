@@ -4,6 +4,7 @@ module.exports = {
     'no-html-comments': 'error',
     'no-bare-strings': 'error',
     'no-builtin-form-components': 'error',
+    'require-strict-mode': 'error'
   },
   // Intentionally set up to make sure that we handle overrides correctly
   overrides: [
