@@ -58,6 +58,7 @@ generateRuleTests({
     '<area aria-labelledby="some-alt">',
     '<area aria-label="some-alt">',
     '<img role={{unless this.altText "presentation"}} alt={{this.altText}}>',
+    '<img src={{image}} alt={{imageAlt}}>',
   ],
 
   bad: [
@@ -368,6 +369,15 @@ generateRuleTests({
             },
           ]
         `);
+      },
+    },
+    {
+      template: '<img src={{image}} alt="hello world">',
+      result: {
+        message: 'The `alt` attribute value must be of the same type as `src` attribute',
+        source: '<img src={{image}} alt="hello world">',
+        line: 1,
+        column: 0,
       },
     },
   ],
