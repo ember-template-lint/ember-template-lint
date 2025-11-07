@@ -165,7 +165,6 @@ async function run() {
       config,
       rule: options.rule,
       allowInlineConfig: !options.noInlineConfig,
-      checkHbsTemplateLiterals: options.checkHbsTemplateLiterals,
       reportUnusedDisableDirectives: options.reportUnusedDisableDirectives,
       console: _console,
     });

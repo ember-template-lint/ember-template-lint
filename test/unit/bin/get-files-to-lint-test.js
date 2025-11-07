@@ -14,7 +14,6 @@ describe('getFilesToLint', function () {
   beforeEach(async function () {
     project = await setupProject();
     await project.chdir();
-    await project.write({ 'application.hbs': 'almost empty', 'other.hbs': 'ZOMG' });
     await project.write({
       'application.hbs': 'almost empty',
       'other.hbs': 'ZOMG',
@@ -112,6 +111,38 @@ describe('getFilesToLint', function () {
       );
 
       expect(files).toEqual(new Set(['foo.frizzle']));
+    });
+  });
+
+  describe('checkHbsTemplateLiterals', function () {
+    it('it includes script files (default)', async function () {
+      let files = await getFilesToLint(project.baseDir, ['.'], [], true, {}, NOOP_CONSOLE);
+
+      expect(files).toEqual(
+        new Set([
+          'application.hbs',
+          'other.hbs',
+          'js-module.js',
+          'ts-module.ts',
+          'gjs-module.gjs',
+          'gts-module.gts',
+        ])
+      );
+    });
+
+    it('it excludes script files', async function () {
+      let files = await getFilesToLint(
+        project.baseDir,
+        ['.'],
+        [],
+        true,
+        { checkHbsTemplateLiterals: false },
+        NOOP_CONSOLE
+      );
+
+      expect(files).toEqual(
+        new Set(['application.hbs', 'other.hbs', 'gjs-module.gjs', 'gts-module.gts'])
+      );
     });
   });
 });

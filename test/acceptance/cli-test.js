@@ -1424,6 +1424,7 @@ describe('ember-template-lint executable', function () {
             "ignore": [],
             "format": {},
             "reportUnusedDisableDirectives": false,
+            "checkHbsTemplateLiterals": true,
             "plugins": {},
             "loadedRules": {}
           }"
