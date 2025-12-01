@@ -26,7 +26,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: volta-cli/action@v4
       - name: install dependencies
         run: npm ci
@@ -40,7 +40,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: volta-cli/action@v4
 
@@ -67,7 +67,7 @@ jobs:
             node-version: 18.x
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: volta-cli/action@v4
         with:
@@ -86,7 +86,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=4096
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: volta-cli/action@v4
 
