@@ -1,5 +1,10 @@
 import * as rolldown from 'rolldown';
 
+// rolldown 1.0 betas only accept 'none' | 'inline'; later versions take a boolean.
+// The lockfile keeps the beta (newer rolldown drops Node 18), while the floating
+// dependencies job installs the latest version.
+const comments = rolldown.VERSION.startsWith('1.0.0-beta') ? 'none' : false;
+
 const externalDeps = [
   '@lint-todo/utils', // Dynamic require of "node:path" is not supported
   'content-tag', //  Dynamic require of "node:util" is not supported
@@ -63,7 +68,7 @@ await rolldown.build({
     esModule: true,
     minify: true,
     inlineDynamicImports: true,
-    comments: 'none',
+    comments,
     target: 'es2018',
   },
   platform: 'node',
@@ -86,7 +91,7 @@ await rolldown.build({
     esModule: true,
     minify: true,
     inlineDynamicImports: true,
-    comments: 'none',
+    comments,
     target: 'es2018',
   },
   platform: 'node',
@@ -109,7 +114,7 @@ await rolldown.build({
     esModule: true,
     minify: true,
     inlineDynamicImports: true,
-    comments: 'none',
+    comments,
     target: 'es2018',
   },
   platform: 'node',
