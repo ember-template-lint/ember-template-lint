@@ -1,7 +1,7 @@
 import { AST, Syntax } from 'ember-template-recast';
 import type Base from './_base.js';
 export type Nodes = AST;
-type PathParam<T extends AST.Node> = {
+type PathParam<T extends AST.Node = AST.Node> = {
   parents(): Array<PathParam>;
   parent: PathParam;
   node: T;

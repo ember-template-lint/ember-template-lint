@@ -20,7 +20,13 @@
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
   "type": "module",
-  "exports": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./lib/rules/types.js": {
+      "types": "./lib/rules/types.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "main": "./dist/index.js",
   "bin": {
     "ember-template-lint": "bin/ember-template-lint.js"
