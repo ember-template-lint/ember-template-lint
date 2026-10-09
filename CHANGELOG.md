@@ -1,5 +1,22 @@
 # Changelog
 
+## Release (2026-10-09)
+
+* ember-template-lint 7.9.4 (patch)
+
+#### :bug: Bug Fix
+* `ember-template-lint`
+  * [#3403](https://github.com/ember-template-lint/ember-template-lint/pull/3403) fix: make the published rule-author types importable ([@gbudjeakp](https://github.com/gbudjeakp))
+
+#### :house: Internal
+* `ember-template-lint`
+  * [#3404](https://github.com/ember-template-lint/ember-template-lint/pull/3404) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#3405](https://github.com/ember-template-lint/ember-template-lint/pull/3405) Fix floating dependencies CI job ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Xzebaztian ([@gbudjeakp](https://github.com/gbudjeakp))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-08-15)
 
 * ember-template-lint 7.9.3 (patch)

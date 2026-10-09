@@ -2,17 +2,21 @@
   "solution": {
     "ember-template-lint": {
       "impact": "patch",
-      "oldVersion": "7.9.2",
-      "newVersion": "7.9.3",
+      "oldVersion": "7.9.3",
+      "newVersion": "7.9.4",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-08-15)\n\n* ember-template-lint 7.9.3 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3351](https://github.com/ember-template-lint/ember-template-lint/pull/3351) Fix bug where some unnecessary disables were not reported ([@wagenet](https://github.com/wagenet))\n\n#### Committers: 1\n- Peter Wagenet ([@wagenet](https://github.com/wagenet))\n"
+  "description": "## Release (2026-10-09)\n\n* ember-template-lint 7.9.4 (patch)\n\n#### :bug: Bug Fix\n* `ember-template-lint`\n  * [#3403](https://github.com/ember-template-lint/ember-template-lint/pull/3403) fix: make the published rule-author types importable ([@gbudjeakp](https://github.com/gbudjeakp))\n\n#### :house: Internal\n* `ember-template-lint`\n  * [#3404](https://github.com/ember-template-lint/ember-template-lint/pull/3404) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#3405](https://github.com/ember-template-lint/ember-template-lint/pull/3405) Fix floating dependencies CI job ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Xzebaztian ([@gbudjeakp](https://github.com/gbudjeakp))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }
